@@ -1,3 +1,6 @@
+xref: get-started
+---
+
 ## Requirements
 
 StellarAdmin requires ASP.NET Core 3.1.

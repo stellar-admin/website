@@ -123,19 +123,19 @@
           for ASP.NET Core
         </h2>
         <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-xl md:mt-5 md:text-2xl md:max-w-3xl">
-          StellarAdmin is a framework for ASP.NET Core that allows you to rapidly create admin backends for your application
+          StellarAdmin is a framework for ASP.NET Core that allows you to rapidly create admin screens for your application
         </p>
         <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
           <div class="rounded-md shadow">
-            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+            <a href="xref:get-started" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
               Get started
             </a>
           </div>
-          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+          @*<div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
             <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
               Live demo
             </a>
-          </div>
+          </div>*@
         </div>
       </div>
     </div>
@@ -148,10 +148,10 @@
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-        Powerful features to save you time
+        Time-saving features
       </h3>
       <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
-        StellarAdmin comes packed with powerful features to speed up your development and enhance the experience for your end-users
+        StellarAdmin comes packed with powerful features to speed up your development time and boost the productivity of your users
       </p>
     </div>
 
@@ -169,7 +169,24 @@
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">CRUD</h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                CRUD comes out in the box with StellarAdmin allowing you to perform CRUD actions on all resources.
+                CRUD comes in the box with StellarAdmin allowing you to perform CRUD actions on all resources.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M384 215.1V102.5c0-15-9.3-28.4-23.4-33.7l-92-34.5c-8.1-3.1-17.1-3.1-25.3 0l-92 34.5c-14.1 5.3-23.4 18.7-23.4 33.7v112.6L23.4 254.4C9.3 259.6 0 273.1 0 288.1v106.6c0 13.6 7.7 26.1 19.9 32.2l98.6 49.3c10.1 5.1 22.1 5.1 32.2 0L256 423.6l105.3 52.6c10.1 5.1 22.1 5.1 32.2 0l98.6-49.3c12.2-6.1 19.9-18.6 19.9-32.2V288.1c0-15-9.3-28.4-23.4-33.7L384 215.1zm-116 34.8V152l92-31.7v97.6l-92 32zM152 94.2l104-39 104 39v.2L256 131 152 94.3v-.1zm0 26.1l92 31.7v97.9l-92-32v-97.6zm-30 329.4l-96.8-48.4V308l96.8 39.3v102.4zM25.2 280.8v-.2l109.4-41 108.1 40.5v1.2l-108.1 43.9-109.4-44.4zm122 66.5l95.5-38.8V402l-95.5 47.8V347.3zm217.6 102.4L269.3 402v-93.4l95.5 38.8v102.3zm122-48.4L390 449.7V347.3l96.8-39.3v93.3zm0-120.5l-109.4 44.4-108.1-43.9v-1.2l108.1-40.5 109.4 41v.2z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Powerful editors</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                StellarAdmin’s collection of powerful built-in editors allow your users to easily edit date fields, enumerated types, lookup fields, etc.
               </p>
             </div>
           </div>
@@ -186,7 +203,7 @@
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">Any data access technology</h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                You are not tied to any specific access technology. EF Core support is built-in, but StellarAdmin allows you to easily support other data access technology.
+                You are not tied to any specific data access technology. EF Core support is built-in, but StellarAdmin allows you to easily support other data access technologies.
               </p>
             </div>
           </div>
@@ -204,23 +221,6 @@
               <h5 class="text-lg leading-6 font-medium text-gray-900">Validation</h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
                 Integration with ASP.NET Core’s model validation means you can write powerful validation rules using Data Annotations, Fluent Validation, or whatever other mechanisms your ASP.NET Core app supports.
-              </p>
-            </div>
-          </div>
-        </li>
-        <li class="mt-10 md:mt-0">
-          <div class="flex">
-            <div class="flex-shrink-0">
-              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                  <path d="M384 215.1V102.5c0-15-9.3-28.4-23.4-33.7l-92-34.5c-8.1-3.1-17.1-3.1-25.3 0l-92 34.5c-14.1 5.3-23.4 18.7-23.4 33.7v112.6L23.4 254.4C9.3 259.6 0 273.1 0 288.1v106.6c0 13.6 7.7 26.1 19.9 32.2l98.6 49.3c10.1 5.1 22.1 5.1 32.2 0L256 423.6l105.3 52.6c10.1 5.1 22.1 5.1 32.2 0l98.6-49.3c12.2-6.1 19.9-18.6 19.9-32.2V288.1c0-15-9.3-28.4-23.4-33.7L384 215.1zm-116 34.8V152l92-31.7v97.6l-92 32zM152 94.2l104-39 104 39v.2L256 131 152 94.3v-.1zm0 26.1l92 31.7v97.9l-92-32v-97.6zm-30 329.4l-96.8-48.4V308l96.8 39.3v102.4zM25.2 280.8v-.2l109.4-41 108.1 40.5v1.2l-108.1 43.9-109.4-44.4zm122 66.5l95.5-38.8V402l-95.5 47.8V347.3zm217.6 102.4L269.3 402v-93.4l95.5 38.8v102.3zm122-48.4L390 449.7V347.3l96.8-39.3v93.3zm0-120.5l-109.4 44.4-108.1-43.9v-1.2l108.1-40.5 109.4 41v.2z"/>
-                </svg>
-              </div>
-            </div>
-            <div class="ml-4">
-              <h5 class="text-lg leading-6 font-medium text-gray-900">Powerful editors</h5>
-              <p class="mt-2 text-base leading-6 text-gray-500">
-                A collection of powerful editors comes built-in, allowing your users to easily edit date fields, enumerated types, lookup fields, etc.
               </p>
             </div>
           </div>
@@ -293,8 +293,8 @@
         <p class="mt-2 text-3xl leading-9 font-extrabold text-white sm:text-4xl sm:leading-10 lg:text-5xl lg:leading-none">
           The right price for your situation
         </p>
-        <p class="mt-2 text-xl leading-7 text-gray-300">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum sequi unde repudiandae natus.
+        <p class="mt-6 text-xl leading-7 text-gray-300">
+          Whether you're a single developer that need to create a handful of admin screens or a large company that need hundreds of admin screens across multiple projects, we have a pricing plan for you
         </p>
       </div>
     </div>
@@ -318,7 +318,7 @@
                 </span>
               </div>
               <p class="mt-5 text-lg leading-7 text-gray-500">
-                For use by a single company on a single project. Multiple developers allowed.
+                For use in a single company on a single project. Multiple developers allowed.
               </p>
             </div>
             <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
@@ -375,7 +375,7 @@
                 </span>
               </div>
               <p class="mt-5 text-lg leading-7 text-gray-500">
-                For use by a single company on an unlimited number of projects. Multiple developers allowed.
+                For use in a single company on an unlimited number of projects. Multiple developers allowed.
               </p>
             </div>
             <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
@@ -431,16 +431,15 @@
               </span>
             </div>
             <div class="mt-4 text-lg leading-7 text-gray-500">
-              A free
+              If you have a small project with less than five resources or you simply want to try StellarAdmin out before you buy, we have a free Community Edition with
               <strong class="font-semibold text-gray-900">
-                limited
+                limited features 
               </strong>
-              Community Edition is available for small projects or to try StellarAdmin out.
-              .
+              available.
             </div>
           </div>
           <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
-            <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white hover:text-gray-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+            <a href="xref:get-started" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white hover:text-gray-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
               Get Started
             </a>
           </div>
