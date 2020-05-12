@@ -7,8 +7,7 @@ namespace StellarAdminWebsite
     class Program
     {
         public static async Task<int> Main(string[] args) =>
-            await Bootstrapper
-                .Factory
+            await Bootstrapper.Factory
                 .CreateWeb(args)
                 .RunAsync();
     }
