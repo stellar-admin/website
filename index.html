@@ -1,1 +1,437 @@
-﻿<h2 id="hello-world">Hello world</h2>
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>StellarAdmin - An elegant Admin Panel for ASP.NET Core</title>
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</head>
+<body>
+<!-- Start hero -->
+<div class="relative bg-gray-50 overflow-hidden" x-data="{ isOpen: false }">
+  <div class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full">
+    <div class="relative h-full max-w-screen-xl mx-auto">
+      <svg class="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
+        <defs>
+          <pattern id="f210dbf6-a58d-4871-961e-36d5016a0f49" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor"/>
+          </pattern>
+        </defs>
+        <rect width="404" height="784" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)"/>
+      </svg>
+      <svg class="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
+        <defs>
+          <pattern id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor"/>
+          </pattern>
+        </defs>
+        <rect width="404" height="784" fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="relative pt-6 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <nav class="relative flex items-center justify-between sm:h-10 md:justify-center">
+        <div class="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
+          <div class="flex items-center justify-between w-full md:w-auto">
+            <a href="/">
+              <svg class="h-6 text-gray-600" stroke="currentColor" fill="currentColor" viewBox="0 0 4000 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="m505.16 19.297c-1.176-5.4629-6.9874-11.266-12.451-12.434-32.097-6.8633-57.249-6.8633-82.293-6.8633-103.22 0-165.12 55.203-211.33 128h-104.2c-16.297 0-35.599 11.924-42.889 26.498l-49.421 98.799a28.396 28.396 0 0 0-2.516 10.703 24.008 24.008 0 0 0 24.004 24h103.95a96.007 96.007 0 0 1 96.014 96v104a24.008 24.008 0 0 0 24.004 24 28.548 28.548 0 0 0 10.705-2.5156l98.747-49.406c14.561-7.2852 26.475-26.564 26.475-42.844v-104.44c72.589-46.312 128.02-108.41 128.02-211.09 0.0937-25.15 0.0937-50.301-6.8174-82.406zm-121.11 148.7a40 40 0 1 1 40.006-40 40.02 40.02 0 0 1-40.006 40zm-348.37 184.07c-25.857 25.854-38.635 90.527-35.109 159.34 69.116 3.5586 133.61-9.3516 159.37-35.105 40.289-40.279 42.877-93.986 6.3115-130.55-36.566-36.559-90.283-33.971-130.57 6.3106zm81.633 84.031c-8.5852 8.584-30.083 12.887-53.119 11.699-1.174-22.936 3.0844-44.492 11.703-53.109 13.428-13.426 31.331-14.289 43.518-2.1035 12.187 12.188 11.326 30.088-2.1019 43.514z"/>
+                <g aria-label="StellarAdmin">
+                  <path d="m869.93 336.78q0 29.883-11.133 52.441-11.133 22.559-30.176 37.793-19.043 14.941-44.531 22.559-25.488 7.6172-54.492 7.6172-19.629 0-36.621-3.2227-16.699-3.2226-29.59-7.6172-12.891-4.6875-21.68-9.668-8.4961-4.9805-12.305-8.7891-3.8086-3.8086-5.5664-10.84-1.4648-7.3242-1.4648-20.801 0-9.082 0.58593-15.234 0.58594-6.1523 1.7578-9.9609 1.4648-3.8086 3.5156-5.2734 2.3438-1.7578 5.2734-1.7578 4.1016 0 11.426 4.9805 7.6172 4.6875 19.336 10.547 11.719 5.8594 27.832 10.84 16.406 4.6875 37.793 4.6875 14.062 0 25.195-3.2226 11.133-3.5156 18.75-9.668 7.9102-6.1524 12.012-15.234t4.1016-20.215q0-12.891-7.0312-21.973-7.0312-9.375-18.457-16.406-11.133-7.3242-25.488-13.477-14.355-6.4453-29.59-13.477-15.234-7.0312-29.59-15.82-14.355-9.082-25.781-21.387-11.133-12.598-18.164-29.59-7.0312-16.992-7.0312-40.723 0-27.246 9.9609-47.754 10.254-20.801 27.246-34.277 17.285-13.77 40.43-20.508 23.438-6.7383 49.512-6.7383 13.477 0 26.953 2.0508t25.195 5.5664 20.801 7.9102q9.082 4.3945 12.012 7.3242 2.9297 2.9297 3.8086 4.9805 1.1719 2.0508 1.7578 5.5664 0.87891 3.2227 1.1719 8.4961 0.29297 4.9805 0.29297 12.598 0 8.4961-0.58593 14.355-0.29297 5.8594-1.4648 9.668-0.8789 3.8086-2.9297 5.5664-1.7578 1.7578-4.9805 1.7578-3.2227 0-10.254-4.1016-7.0312-4.1016-17.285-8.7891-10.254-4.9805-23.73-8.7891-13.477-4.1016-29.59-4.1016-12.598 0-21.973 3.2226-9.375 2.9297-15.82 8.4961-6.1523 5.2734-9.375 12.891-2.9297 7.6172-2.9297 16.113 0 12.598 6.7383 21.973 7.0312 9.082 18.457 16.406 11.719 7.0312 26.367 13.477 14.648 6.1524 29.883 13.184 15.234 7.0312 29.883 16.113 14.648 8.7891 26.074 21.387 11.426 12.305 18.457 29.297 7.0312 16.699 7.0312 39.551z"/>
+                  <path d="m1079.1 414.71q0 12.891-1.7578 19.922-1.4648 6.7383-4.1015 9.668-2.6368 2.6367-7.9102 4.9805-4.9805 2.0508-12.012 3.5156-6.7383 1.7578-14.941 2.6367-7.9102 0.8789-16.113 0.8789-21.973 0-38.086-5.5664-16.113-5.5664-26.66-16.992-10.547-11.719-15.527-29.297-4.9805-17.578-4.9805-41.602v-133.89h-31.348q-5.5664 0-8.4961-6.7383-2.9297-7.0312-2.9297-23.145 0-8.4961 0.58593-14.355 0.87891-5.8594 2.3438-9.082 1.4648-3.5156 3.5156-4.9805 2.3438-1.4648 5.2734-1.4648h31.055v-58.301q0-2.9297 1.4648-5.2734 1.7578-2.3438 5.8594-3.8086 4.3945-1.7578 11.426-2.3437 7.3242-0.87891 17.871-0.87891 10.84 0 17.871 0.87891 7.3242 0.58594 11.426 2.3437 4.1015 1.4648 5.8593 3.8086t1.7578 5.2734v58.301h56.836q2.9297 0 4.9804 1.4648 2.3438 1.4648 3.8086 4.9805 1.4649 3.2227 2.0508 9.082 0.8789 5.8594 0.8789 14.355 0 16.113-2.9297 23.145-2.9296 6.7383-8.4961 6.7383h-57.129v122.75q0 21.387 6.7383 32.227 6.7383 10.547 24.024 10.547 5.8593 0 10.547-0.87891 4.6875-1.1719 8.2032-2.3438 3.8086-1.4648 6.1523-2.3438 2.6367-1.1719 4.6875-1.1719 1.7578 0 3.2227 1.1719 1.7578 0.87891 2.6367 4.1016 0.8789 2.9297 1.4648 8.2031 0.8789 5.2734 0.8789 13.477z"/>
+                  <path d="m1367.4 302.21q0 13.477-6.1524 19.922-5.8593 6.4453-16.406 6.4453h-159.08q0 16.699 3.8085 30.469 4.1016 13.477 12.598 23.145 8.7891 9.375 22.266 14.355 13.77 4.9805 32.812 4.9805 19.336 0 33.984-2.6367 14.648-2.9297 25.195-6.1524 10.84-3.5156 17.871-6.1523 7.0313-2.9297 11.426-2.9297 2.6367 0 4.3945 1.1719 1.7578 0.8789 2.9297 3.5156t1.4649 7.6172q0.5859 4.6875 0.5859 12.012 0 6.4453-0.293 11.133-0.2929 4.3945-0.8789 7.6172-0.5859 3.2226-1.7578 5.5664-1.1719 2.0508-3.2227 4.1016-1.7578 2.0508-10.254 5.5664-8.4961 3.5156-21.68 7.0312-13.184 3.2227-30.176 5.5664-16.992 2.6367-36.328 2.6367-34.863 0-61.23-8.7891-26.074-8.7891-43.652-26.66-17.578-17.871-26.367-45.117-8.496-27.246-8.496-63.867 0-34.863 9.082-62.695 9.082-28.125 26.367-47.461 17.285-19.629 41.894-29.883 24.902-10.254 55.957-10.254 32.812 0 55.957 9.668 23.438 9.668 38.379 26.953 14.941 16.992 21.973 40.43 7.0313 23.438 7.0313 50.977zm-71.484-21.094q0.8789-31.055-12.598-48.633-13.184-17.871-41.016-17.871-14.062 0-24.609 5.2734-10.254 5.2734-17.285 14.355-6.7383 8.7891-10.547 21.094-3.5156 12.012-4.1015 25.781z"/>
+                  <path d="m1502.2 440.5q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1524 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0312-0.58593-11.426-2.0508-4.1016-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-385.25q0-2.9297 1.7578-5.2734t5.8594-3.8086q4.3945-1.7578 11.426-2.6367 7.0313-0.87891 17.871-0.87891 10.84 0 17.871 0.87891 7.0313 0.87891 11.133 2.6367 4.3946 1.4648 6.1524 3.8086t1.7578 5.2734z"/>
+                  <path d="m1649.8 440.5q0 2.9297-1.7579 5.2734-1.7578 2.0508-6.1523 3.5156-4.1016 1.4648-11.133 2.0508-7.0313 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0313-0.58593-11.426-2.0508-4.1015-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-385.25q0-2.9297 1.7578-5.2734 1.7579-2.3438 5.8594-3.8086 4.3945-1.7578 11.426-2.6367 7.0312-0.87891 17.871-0.87891 10.84 0 17.871 0.87891 7.0312 0.87891 11.133 2.6367 4.3945 1.4648 6.1523 3.8086 1.7579 2.3438 1.7579 5.2734z"/>
+                  <path d="m1946.3 441.37q0 4.1016-2.9297 6.4453-2.9296 2.3438-9.375 3.2226-6.1523 1.1719-18.457 1.1719-13.184 0-19.336-1.1719-5.8594-0.8789-8.4961-3.2226-2.3438-2.3438-2.3438-6.4453v-20.801q-16.113 17.285-36.914 26.953-20.508 9.668-45.703 9.668-20.801 0-38.379-5.5664-17.285-5.2734-30.176-15.82-12.598-10.84-19.629-26.66-7.0312-15.82-7.0312-36.914 0-22.852 8.7891-39.551 9.082-16.992 26.66-27.832 17.871-11.133 44.238-16.406t61.23-5.2734h25.488v-15.82q0-12.305-2.6367-21.387-2.3437-9.375-8.2031-15.527-5.5664-6.1524-15.234-9.082-9.375-2.9297-23.438-2.9297-18.457 0-33.105 4.1016-14.356 4.1016-25.488 9.082t-18.75 9.082q-7.3242 4.1016-12.012 4.1016-3.2227 0-5.8594-2.0508-2.3438-2.0508-4.1016-5.8594-1.4648-3.8086-2.3437-9.375-0.8789-5.5664-0.8789-12.305 0-9.082 1.4648-14.355 1.4649-5.2734 5.5664-9.375 4.1016-4.3945 14.356-9.375 10.254-5.2734 24.023-9.668 13.77-4.3945 29.883-7.0312 16.406-2.9297 33.691-2.9297 30.762 0 52.441 6.1523 21.973 5.8594 36.035 18.457 14.062 12.305 20.508 31.934 6.4453 19.629 6.4453 46.582zm-72.363-111.91h-28.125q-17.871 0-30.469 2.6367t-20.508 7.9102q-7.9102 5.2734-11.719 12.891-3.5156 7.3242-3.5156 16.992 0 16.406 10.254 25.781 10.547 9.375 29.004 9.375 15.527 0 28.418-7.9102 13.184-7.9102 26.66-23.145z"/>
+                  <path d="m2188 203.48q0 10.547-0.5859 17.285t-1.7578 10.547q-1.1719 3.8086-3.2227 5.2734-1.7578 1.4648-4.6875 1.4648-2.3437 0-5.2734-0.8789-2.9297-1.1719-6.7383-2.3438-3.5156-1.1719-7.9101-2.0508-4.3946-1.1719-9.668-1.1719-6.1523 0-12.305 2.6367-6.1523 2.3438-12.891 7.6172-6.4453 5.2734-13.77 14.062-7.0313 8.7891-15.234 21.68v162.89q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1524 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0312-0.58593-11.426-2.0508-4.1015-1.4648-5.8593-3.5156-1.7578-2.3438-1.7578-5.2734v-261.33q0-2.9297 1.4648-4.9805 1.4648-2.3438 5.2734-3.8086 3.8086-1.4648 9.668-2.0508 6.1523-0.87891 15.234-0.87891 9.375 0 15.527 0.87891 6.1524 0.58594 9.375 2.0508 3.5156 1.4648 4.9805 3.8086 1.4648 2.0508 1.4648 4.9805v32.52q10.254-14.648 19.336-24.023 9.082-9.668 17.285-15.234 8.2032-5.5664 16.406-7.6172 8.2031-2.3438 16.406-2.3438 3.8086 0 8.2032 0.58593 4.3945 0.29297 9.082 1.4648 4.6875 0.8789 8.2031 2.3438 3.5156 1.1719 4.9805 2.6367 1.7578 1.4648 2.3437 3.2226 0.8789 1.7578 1.4649 4.9805 0.5859 2.9297 0.8789 9.082 0.2929 6.1524 0.2929 16.699z"/>
+                  <path d="m2548.3 421.75q3.5156 10.547 4.3945 16.699 0.8789 6.1523-2.3437 9.375-3.2227 2.9297-11.426 3.5156-8.2031 0.87891-22.559 0.87891-14.941 0-23.438-0.58594-8.2031-0.29297-12.598-1.4648-4.3946-1.4648-6.1524-3.8086t-2.9297-6.1523l-25.488-76.172h-142.38l-24.023 74.121q-1.1719 4.1016-3.2227 7.0312-1.7578 2.6367-6.1523 4.3945-4.1016 1.4648-12.012 2.0508-7.6172 0.58594-20.215 0.58594-13.476 0-21.094-0.87891-7.6172-0.8789-10.547-4.1016-2.9297-3.5156-2.0508-9.668 0.8789-6.1523 4.3946-16.406l116.89-336.33q1.7578-4.9805 4.1016-7.9102 2.3437-3.2227 7.3242-4.6875 5.2734-1.7578 14.355-2.0508 9.0821-0.58594 24.024-0.58594 17.285 0 27.539 0.58594 10.254 0.29297 15.82 2.0508 5.8593 1.4648 8.2031 4.6875 2.6367 3.2227 4.3945 8.7891zm-174.02-278.03h-0.293l-53.613 161.13h107.52z"/>
+                  <path d="m2844.5 440.5q0 3.2227-1.4648 5.5664-1.4649 2.0508-4.9805 3.5156t-9.668 2.0508q-5.8593 0.58594-14.648 0.58594-9.375 0-15.234-0.58594t-9.6679-2.0508q-3.5157-1.4648-5.2735-3.5156-1.4648-2.3438-1.4648-5.5664v-29.004q-20.215 21.68-42.48 33.691-21.973 12.012-48.926 12.012-29.883 0-50.684-11.426-20.508-11.719-33.691-31.348-12.891-19.629-18.75-45.703-5.8594-26.367-5.8594-55.371 0-34.863 7.3243-62.695 7.6172-27.832 21.973-47.461 14.356-19.629 35.742-30.176 21.387-10.547 49.219-10.547 21.973 0 39.844 9.082 17.871 8.7891 35.449 26.074v-141.5q0-2.9297 1.4649-5.2734 1.7578-2.3438 5.8593-3.8086 4.3946-1.7578 11.426-2.6367 7.0313-0.87891 17.871-0.87891 10.84 0 17.871 0.87891 7.0313 0.87891 11.133 2.6367 4.1016 1.4648 5.8594 3.8086t1.7578 5.2734zm-73.242-174.61q-15.82-19.922-30.469-30.469-14.356-10.547-30.176-10.547-14.356 0-24.902 7.3242-10.254 7.0312-16.699 19.043-6.1523 12.012-9.375 26.953-2.9297 14.648-2.9297 30.176 0 16.406 2.6368 31.934 2.6367 15.527 8.4961 27.832 6.1523 12.012 16.113 19.336 9.961 7.3242 25.195 7.3242 7.6171 0 14.648-2.0508 7.3242-2.3438 14.648-7.3242 7.6172-4.9805 15.527-12.891 7.9101-8.2031 17.285-19.922z"/>
+                  <path d="m3334.7 440.5q0 2.9297-1.7578 5.2734-1.7578 2.0508-5.8594 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.871 0.87891-11.133 0-18.164-0.87891-7.0313-0.58593-11.426-2.0508-4.1016-1.4648-5.8594-3.5156-1.4648-2.3438-1.4648-5.2734v-154.98q0-13.184-2.6367-24.023-2.3438-10.84-7.6172-18.457-4.9805-7.9102-12.891-12.012-7.6171-4.3945-18.457-4.3945-13.184 0-26.66 10.254-13.477 10.254-29.297 29.883v173.73q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1524 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.578 0.87891-10.84 0-17.871-0.87891-7.0313-0.58593-11.426-2.0508-4.1015-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-154.98q0-13.184-2.6367-24.023-2.3437-10.84-7.3242-18.457-4.9805-7.9102-12.891-12.012-7.9102-4.3945-18.457-4.3945-13.476 0-26.953 10.254-13.477 10.254-29.004 29.883v173.73q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1524 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0312-0.58593-11.426-2.0508-4.1016-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-261.33q0-2.9297 1.4648-4.9805 1.4649-2.3438 5.2735-3.8086 3.8086-1.4648 9.6679-2.0508 6.1524-0.87891 15.234-0.87891 9.375 0 15.527 0.87891 6.1524 0.58594 9.375 2.0508 3.5157 1.4648 4.9805 3.8086 1.4649 2.0508 1.4649 4.9805v30.176q21.68-23.438 43.066-35.156 21.68-11.719 45.117-11.719 16.113 0 29.004 3.5156 12.891 3.2227 22.852 9.668 10.254 6.1523 17.578 14.941 7.3243 8.7891 12.305 19.629 11.719-12.598 22.852-21.68 11.426-9.082 22.266-14.648 11.133-5.8594 21.973-8.4961 11.133-2.9297 22.559-2.9297 26.074 0 43.945 8.7891t28.711 24.023q11.133 14.941 15.82 35.156 4.6875 20.215 4.6875 42.773z"/>
+                  <path d="m3481.5 440.5q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1524 3.5156-4.1015 1.4648-11.133 2.0508-7.0312 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0312-0.58593-11.426-2.0508-4.1015-1.4648-5.8593-3.5156-1.7578-2.3438-1.7578-5.2734v-260.74q0-2.9297 1.7578-4.9805 1.7578-2.3438 5.8593-3.8086 4.3946-1.7578 11.426-2.6367 7.0313-0.87891 17.871-0.87891 10.84 0 17.871 0.87891 7.0313 0.87891 11.133 2.6367 4.3946 1.4648 6.1524 3.8086 1.7578 2.0508 1.7578 4.9805zm5.5664-349.8q0 22.266-9.082 30.762-9.0821 8.4961-33.692 8.4961-24.902 0-33.691-8.2031-8.4961-8.2031-8.4961-29.59 0-22.266 8.7891-30.762 9.082-8.7891 33.984-8.7891 24.609 0 33.398 8.4961 8.7891 8.2031 8.7891 29.59z"/>
+                  <path d="m3804.9 440.5q0 2.9297-1.7578 5.2734-1.7578 2.0508-5.8594 3.5156-4.1016 1.4648-11.426 2.0508-7.0312 0.87891-17.578 0.87891-10.84 0-18.164-0.87891-7.0312-0.58593-11.133-2.0508-4.1016-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-149.12q0-19.043-2.9297-29.883-2.6367-10.84-7.9101-18.457-5.2735-7.9102-13.77-12.012-8.2031-4.3945-19.336-4.3945-14.062 0-28.418 10.254-14.355 10.254-29.883 29.883v173.73q0 2.9297-1.7578 5.2734-1.7578 2.0508-6.1523 3.5156-4.1016 1.4648-11.133 2.0508-7.0313 0.87891-17.871 0.87891-10.84 0-17.871-0.87891-7.0313-0.58593-11.426-2.0508-4.1016-1.4648-5.8594-3.5156-1.7578-2.3438-1.7578-5.2734v-261.33q0-2.9297 1.4648-4.9805 1.4649-2.3438 5.2735-3.8086 3.8086-1.4648 9.668-2.0508 6.1523-0.87891 15.234-0.87891 9.375 0 15.527 0.87891 6.1523 0.58594 9.375 2.0508 3.5156 1.4648 4.9804 3.8086 1.4649 2.0508 1.4649 4.9805v30.176q21.68-23.438 43.945-35.156 22.559-11.719 46.875-11.719 26.66 0 44.824 8.7891 18.457 8.7891 29.59 24.023 11.426 14.941 16.406 35.156 4.9805 20.215 4.9805 48.633z"/>
+                </g>
+              </svg>
+
+            </a>
+            <div class="-mr-2 flex items-center md:hidden">
+              <button @click="isOpen = !isOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hidden md:block">
+          <a href="#" class="font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Product</a>
+          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Features</a>
+          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Marketplace</a>
+          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Company</a>
+        </div>
+        <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+          <span class="inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-blue active:bg-gray-50 active:text-indigo-700 transition duration-150 ease-in-out">
+              Log in
+            </a>
+          </span>
+        </div>
+      </nav>
+    </div>
+    <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden" x-show="isOpen">
+      <div class="rounded-lg shadow-md">
+        <div class="rounded-lg bg-white shadow-xs overflow-hidden">
+          <div class="px-5 pt-4 flex items-center justify-between">
+            <div>
+              <img class="h-8 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt=""/>
+            </div>
+            <div class="-mr-2">
+              <button type="button" @click="isOpen = !isOpen" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="px-2 pt-2 pb-3">
+            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Product</a>
+            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Features</a>
+            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Marketplace</a>
+            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Company</a>
+          </div>
+          <div>
+            <a href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 xl:mt-28">
+      <div class="text-center">
+        <h2 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
+          An elegant
+          <br class="xl:hidden mb-3"/>
+          <span class="text-indigo-600">Admin Panel</span>
+          <br class="mb-3"/>
+          for ASP.NET Core
+        </h2>
+        <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-xl md:mt-5 md:text-2xl md:max-w-3xl">
+          StellarAdmin is a framework for ASP.NET Core that allows you to rapidly create admin backends for your application
+        </p>
+        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+          <div class="rounded-md shadow">
+            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+              Get started
+            </a>
+          </div>
+          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+              Live demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End hero -->
+
+<!-- Start features -->
+<div class="py-12 bg-white">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="lg:text-center">
+      <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+        Powerful features to save you time
+      </h3>
+      <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
+        StellarAdmin comes packed with powerful features to speed up your development and enhance the experience for your end-users
+      </p>
+    </div>
+
+    <div class="mt-14">
+      <ul class="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
+        <li>
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M491.609 73.625l-53.861-53.839c-26.378-26.379-69.076-26.383-95.46-.001L24.91 335.089.329 484.085c-2.675 16.215 11.368 30.261 27.587 27.587l148.995-24.582 315.326-317.378c26.33-26.331 26.581-68.879-.628-96.087zM120.644 302l170.259-169.155 88.251 88.251L210 391.355V350h-48v-48h-41.356zM82.132 458.132l-28.263-28.263 12.14-73.587L84.409 338H126v48h48v41.59l-18.282 18.401-73.586 12.141zm378.985-319.533l-.051.051-.051.051-48.03 48.344-88.03-88.03 48.344-48.03.05-.05.05-.05c9.147-9.146 23.978-9.259 33.236-.001l53.854 53.854c9.878 9.877 9.939 24.549.628 33.861z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">CRUD</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                CRUD comes out in the box with StellarAdmin allowing you to perform CRUD actions on all resources.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                  <path d="M224 48c97.167 0 176 27.723 176 61.714v4.571C400 148.277 321.167 176 224 176S48 148.277 48 114.286v-4.571C48 75.723 126.833 48 224 48m176 135.018v26.399c0 33.991-78.833 61.714-176 61.714S48 243.408 48 209.417v-26.399C85.813 210.982 155.021 224 224 224s138.187-13.018 176-40.982m0 96v26.834c0 33.991-78.833 61.714-176 61.714S48 339.842 48 305.851v-26.834C85.813 306.982 155.021 320 224 320s138.187-13.018 176-40.982m0 96v27.268C400 436.277 321.167 464 224 464S48 436.277 48 402.286v-27.268C85.813 402.982 155.021 416 224 416s138.187-13.018 176-40.982M224 0C137.052 0 0 23.26 0 109.714v292.571C0 488.758 137.03 512 224 512c86.948 0 224-23.26 224-109.714V109.714C448 23.242 310.97 0 224 0z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Any data access technology</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                You are not tied to any specific access technology. EF Core support is built-in, but StellarAdmin allows you to easily support other data access technology.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm42-104c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42zm-81.37-211.401l6.8 136c.319 6.387 5.591 11.401 11.985 11.401h41.17c6.394 0 11.666-5.014 11.985-11.401l6.8-136c.343-6.854-5.122-12.599-11.985-12.599h-54.77c-6.863 0-12.328 5.745-11.985 12.599z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Validation</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                Integration with ASP.NET Core’s model validation means you can write powerful validation rules using Data Annotations, Fluent Validation, or whatever other mechanisms your ASP.NET Core app supports.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M384 215.1V102.5c0-15-9.3-28.4-23.4-33.7l-92-34.5c-8.1-3.1-17.1-3.1-25.3 0l-92 34.5c-14.1 5.3-23.4 18.7-23.4 33.7v112.6L23.4 254.4C9.3 259.6 0 273.1 0 288.1v106.6c0 13.6 7.7 26.1 19.9 32.2l98.6 49.3c10.1 5.1 22.1 5.1 32.2 0L256 423.6l105.3 52.6c10.1 5.1 22.1 5.1 32.2 0l98.6-49.3c12.2-6.1 19.9-18.6 19.9-32.2V288.1c0-15-9.3-28.4-23.4-33.7L384 215.1zm-116 34.8V152l92-31.7v97.6l-92 32zM152 94.2l104-39 104 39v.2L256 131 152 94.3v-.1zm0 26.1l92 31.7v97.9l-92-32v-97.6zm-30 329.4l-96.8-48.4V308l96.8 39.3v102.4zM25.2 280.8v-.2l109.4-41 108.1 40.5v1.2l-108.1 43.9-109.4-44.4zm122 66.5l95.5-38.8V402l-95.5 47.8V347.3zm217.6 102.4L269.3 402v-93.4l95.5 38.8v102.3zm122-48.4L390 449.7V347.3l96.8-39.3v93.3zm0-120.5l-109.4 44.4-108.1-43.9v-1.2l108.1-40.5 109.4 41v.2z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Powerful editors</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                A collection of powerful editors comes built-in, allowing your users to easily edit date fields, enumerated types, lookup fields, etc.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                  <path d="M104 272h192v48h48v-48h192v48h48v-57.59c0-21.17-17.22-38.41-38.41-38.41H344v-64h40c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32H256c-17.67 0-32 14.33-32 32v96c0 8.84 3.58 16.84 9.37 22.63S247.16 160 256 160h40v64H94.41C73.22 224 56 241.23 56 262.41V320h48v-48zm168-160V48h96v64h-96zm336 240h-96c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32zm-16 112h-64v-64h64v64zM368 352h-96c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32zm-16 112h-64v-64h64v64zM128 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32zm-16 112H48v-64h64v64z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Data relationships</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                Define the relationships between your resources and allow your end-users to easily navigate between related data.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                <svg class="h-6 w-6" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M452.515 237l31.843-18.382c9.426-5.441 13.996-16.542 11.177-27.054-11.404-42.531-33.842-80.547-64.058-110.797-7.68-7.688-19.575-9.246-28.985-3.811l-31.785 18.358a196.276 196.276 0 0 0-32.899-19.02V39.541a24.016 24.016 0 0 0-17.842-23.206c-41.761-11.107-86.117-11.121-127.93-.001-10.519 2.798-17.844 12.321-17.844 23.206v36.753a196.276 196.276 0 0 0-32.899 19.02l-31.785-18.358c-9.41-5.435-21.305-3.877-28.985 3.811-30.216 30.25-52.654 68.265-64.058 110.797-2.819 10.512 1.751 21.613 11.177 27.054L59.485 237a197.715 197.715 0 0 0 0 37.999l-31.843 18.382c-9.426 5.441-13.996 16.542-11.177 27.054 11.404 42.531 33.842 80.547 64.058 110.797 7.68 7.688 19.575 9.246 28.985 3.811l31.785-18.358a196.202 196.202 0 0 0 32.899 19.019v36.753a24.016 24.016 0 0 0 17.842 23.206c41.761 11.107 86.117 11.122 127.93.001 10.519-2.798 17.844-12.321 17.844-23.206v-36.753a196.34 196.34 0 0 0 32.899-19.019l31.785 18.358c9.41 5.435 21.305 3.877 28.985-3.811 30.216-30.25 52.654-68.266 64.058-110.797 2.819-10.512-1.751-21.613-11.177-27.054L452.515 275c1.22-12.65 1.22-25.35 0-38zm-52.679 63.019l43.819 25.289a200.138 200.138 0 0 1-33.849 58.528l-43.829-25.309c-31.984 27.397-36.659 30.077-76.168 44.029v50.599a200.917 200.917 0 0 1-67.618 0v-50.599c-39.504-13.95-44.196-16.642-76.168-44.029l-43.829 25.309a200.15 200.15 0 0 1-33.849-58.528l43.819-25.289c-7.63-41.299-7.634-46.719 0-88.038l-43.819-25.289c7.85-21.229 19.31-41.049 33.849-58.529l43.829 25.309c31.984-27.397 36.66-30.078 76.168-44.029V58.845a200.917 200.917 0 0 1 67.618 0v50.599c39.504 13.95 44.196 16.642 76.168 44.029l43.829-25.309a200.143 200.143 0 0 1 33.849 58.529l-43.819 25.289c7.631 41.3 7.634 46.718 0 88.037zM256 160c-52.935 0-96 43.065-96 96s43.065 96 96 96 96-43.065 96-96-43.065-96-96-96zm0 144c-26.468 0-48-21.532-48-48 0-26.467 21.532-48 48-48s48 21.533 48 48c0 26.468-21.532 48-48 48z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Custom Actions</h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                Custom actions allow you to extend the built-in CRUD functionality to perform any sort of custom action on your resources.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- End features -->
+
+<!-- Start pricing -->
+<div class="bg-gray-900 mt-14">
+  <div class="pt-12 sm:pt-16 lg:pt-24">
+    <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto lg:max-w-none">
+        <h2 class="text-lg leading-6 font-semibold text-gray-300 uppercase tracking-wider">
+          Pricing
+        </h2>
+        <p class="mt-2 text-3xl leading-9 font-extrabold text-white sm:text-4xl sm:leading-10 lg:text-5xl lg:leading-none">
+          The right price for your situation
+        </p>
+        <p class="mt-2 text-xl leading-7 text-gray-300">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum sequi unde repudiandae natus.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-8 pb-12 bg-gray-50 sm:mt-12 sm:pb-16 lg:mt-16 lg:pb-24">
+    <div class="relative">
+      <div class="absolute inset-0 h-3/4 bg-gray-900"></div>
+      <div class="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md mx-auto lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5">
+          <div class="rounded-lg shadow-lg overflow-hidden">
+            <div class="px-6 py-8 bg-white sm:p-10 sm:pb-6">
+              <div>
+                <span class="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-indigo-100 text-indigo-600">
+                  Single Project
+                </span>
+              </div>
+              <div class="mt-4 flex items-baseline text-6xl leading-none font-extrabold">
+                $199
+                <span class="ml-1 text-2xl leading-8 font-medium text-gray-500">
+                  /year
+                </span>
+              </div>
+              <p class="mt-5 text-lg leading-7 text-gray-500">
+                For use by a single company on a single project. Multiple developers allowed.
+              </p>
+            </div>
+            <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
+              <ul>
+                <li class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    All features
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Email support
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Single project with multiple developers
+                  </p>
+                </li>
+              </ul>
+              <div class="mt-6 rounded-md shadow">
+                <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                  Buy a License
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg shadow-lg overflow-hidden lg:mt-0">
+            <div class="px-6 py-8 bg-white sm:p-10 sm:pb-6">
+              <div>
+                <span class="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-indigo-100 text-indigo-600">
+                  Unlimited Projects
+                </span>
+              </div>
+              <div class="mt-4 flex items-baseline text-6xl leading-none font-extrabold">
+                $349
+                <span class="ml-1 text-2xl leading-8 font-medium text-gray-500">
+                  /year
+                </span>
+              </div>
+              <p class="mt-5 text-lg leading-7 text-gray-500">
+                For use by a single company on an unlimited number of projects. Multiple developers allowed.
+              </p>
+            </div>
+            <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
+              <ul>
+                <li class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    All features
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Email support
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Multiple projects and developers
+                  </p>
+                </li>
+              </ul>
+              <div class="mt-6 rounded-md shadow">
+                <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                  Buy a License
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-5">
+      <div class="max-w-md mx-auto lg:max-w-5xl">
+        <div class="rounded-lg bg-gray-100 px-6 py-8 sm:p-10 lg:flex lg:items-center">
+          <div class="flex-1">
+            <div>
+              <span class="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-indigo-100 text-indigo-600">
+                Free Community Edition
+              </span>
+            </div>
+            <div class="mt-4 text-lg leading-7 text-gray-500">
+              A free
+              <strong class="font-semibold text-gray-900">
+                limited
+              </strong>
+              Community Edition is available for small projects or to try StellarAdmin out.
+              .
+            </div>
+          </div>
+          <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
+            <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white hover:text-gray-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+              Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End pricing -->
+
+</body>
+</html>
