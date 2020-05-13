@@ -1,50 +1,52 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
-
 @import "tailwindcss/utilities";
 
+@import "atom-dark";
+
 article {
-    @apply text-gray-700 text-lg;
+    @apply text-gray-700;
 
-}
+    h1 {
+        @apply text-3xl mb-5 text-gray-800 font-thin;
+    }
+    h2 {
+        @apply text-2xl mb-4 mt-4 font-semibold;
+    }
+    h3 {
+        @apply text-xl mb-3 mt-4 font-semibold;
+    }
+    p {
+        @apply mb-4;
+    }
+    a {
+        @apply text-blue-500 font-normal;
 
-article h1 {
-    @apply text-3xl mb-5 text-gray-800 font-thin;
-}
+        &:hover {
+            @apply underline;
+        }
+    }
+    ul {
+        @apply list-disc ml-4 mb-4;
+    }
+    ol {
+        @apply list-decimal ml-4 mb-4;
+    }
+    hr {
+        @apply border-solid border-t border-gray-300;
+    }
+    blockquote {
+        @apply italic border-l-4 border-gray-600 bg-gray-200 px-3 pt-3 pb-1 mb-2 text-base;
+    }
 
-article h2 {
-    @apply text-2xl mb-4 mt-4 font-semibold;
-}
+    :not(pre) > code {
+        padding: .25rem .5rem;
+    }
+    :not(pre) > code {
+        background-color: #e9ecef;
+    }
 
-article h3 {
-    @apply text-xl mb-3 mt-4 font-semibold;
-}
-
-article p {
-    @apply mb-4;
-}
-
-article a {
-    @apply text-blue-500 font-normal;
-}
-
-article a:hover {
-    @apply underline;
-}
-
-article ul {
-    @apply list-disc ml-4 mb-4;
-}
-
-article ol {
-    @apply list-decimal ml-4 mb-4;
-}
-
-article hr {
-    @apply border-solid border-t border-gray-300;
-}
-
-article blockquote {
-    @apply italic border-l-4 border-gray-600 bg-gray-200 px-3 pt-3 pb-1 mb-2 text-base;
+    pre[class*="language-"] {
+        padding: .5em 1em;
+    }  
 }
