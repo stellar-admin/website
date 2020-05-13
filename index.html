@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>StellarAdmin - An elegant Admin Panel for ASP.NET Core</title>
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css">
+<link href="/assets/css/styles.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer=""></script>
 </head>
 <body>
@@ -64,19 +64,11 @@
               </button>
             </div>
           </div>
-        </div>
-        <div class="hidden md:block">
-          <a href="/docs" class="font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Documentation</a>
-          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Features</a>
-          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Marketplace</a>
-          <a href="#" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Company</a>
-        </div>
-        <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-          <span class="inline-flex rounded-md shadow">
-            <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline-blue active:bg-gray-50 active:text-indigo-700 transition duration-150 ease-in-out">
-              Log in
-            </a>
-          </span>
+          <div class="hidden md:block md:ml-10">
+            <a href="/#features" class="font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Features</a>
+            <a href="/#pricing" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Pricing</a>
+            <a href="/docs" class="ml-10 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Documentation</a>
+          </div>
         </div>
       </nav>
     </div>
@@ -97,15 +89,9 @@
             </div>
           </div>
           <div class="px-2 pt-2 pb-3">
-            <a href="/docs" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Documentation</a>
-            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Features</a>
-            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Marketplace</a>
-            <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Company</a>
-          </div>
-          <div>
-            <a href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out">
-              Log in
-            </a>
+            <a href="/#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Features</a>
+            <a href="/#pricing" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Pricing</a>
+            <a href="/docs" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out">Documentation</a>
           </div>
         </div>
       </div>
@@ -137,7 +123,7 @@
 <!-- End hero -->
 
 <!-- Start features -->
-<div class="py-12 bg-white">
+<div class="py-12 bg-white" id="features">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
@@ -259,7 +245,7 @@
 <!-- End features -->
 
 <!-- Start pricing -->
-<div class="bg-gray-900 mt-14">
+<div class="bg-gray-900 mt-14" id="pricing">
   <div class="pt-12 sm:pt-16 lg:pt-24">
     <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto lg:max-w-none">
