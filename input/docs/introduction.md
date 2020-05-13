@@ -1,3 +1,7 @@
+xref: docs-home
+order: 1
+---
+
 ## Introduction
 
 StellarAdmin is a framework for ASP.NET Core that allows you to rapidly create admin screens for your application.

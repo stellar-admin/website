@@ -1,3 +1,0 @@
-xref: docs
----
-## Stellar documentation
