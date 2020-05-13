@@ -1,0 +1,50 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+article {
+    @apply text-gray-700 text-lg;
+
+}
+
+article h1 {
+    @apply text-3xl mb-5 text-gray-800 font-thin;
+}
+
+article h2 {
+    @apply text-2xl mb-4 mt-4 font-semibold;
+}
+
+article h3 {
+    @apply text-xl mb-3 mt-4 font-semibold;
+}
+
+article p {
+    @apply mb-4;
+}
+
+article a {
+    @apply text-blue-500 font-normal;
+}
+
+article a:hover {
+    @apply underline;
+}
+
+article ul {
+    @apply list-disc ml-4 mb-4;
+}
+
+article ol {
+    @apply list-decimal ml-4 mb-4;
+}
+
+article hr {
+    @apply border-solid border-t border-gray-300;
+}
+
+article blockquote {
+    @apply italic border-l-4 border-gray-600 bg-gray-200 px-3 pt-3 pb-1 mb-2 text-base;
+}
