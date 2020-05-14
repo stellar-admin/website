@@ -93,7 +93,7 @@
 </div>
 <!-- End header -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <div class="grid grid-cols-6 gap-4 mt-4">
+    <div class="grid grid-cols-5 gap-4 mt-4">
         <div class="col-span-1">
             <nav>
                     <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
@@ -111,6 +111,11 @@
                             Resources
                         </span>
                     </a>
+                    <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Fields
+                        </span>
+                    </a>
                     <a href="/docs/editors" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Editors
@@ -126,10 +131,11 @@
         <div class="col-span-4">
             <article>
                 <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin allows you to define <em>resources</em> that represents the data your application works with. For example, an e-commerce application may have resources such as <code>Product</code>, <code>Order</code> and <code>Customer</code>. A resource can define <em>fields</em>, <em>actions</em>, as well as other behaviour such as whether a resource allow editing and deleting.</p>
+<p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
+<p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour such as whether a resource allows editing and deleting.</p>
 <h3 id="defining-a-resource">Defining a resource</h3>
-<p>A resource is defined by creating a class that inherits from <code>ResourceDefinition&lt;&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;,&gt;</code>.</p>
-<p>When using <code>EfCoreResourceDefinition&lt;,&gt;</code>, a lot of functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;&gt;</code> requires you to take care of these things yourself, but if gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from as external API, such as Stripe.</p>
+<p>A resource definition is defined by creating a class that inherits from <code>ResourceDefinition&lt;&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;,&gt;</code>.</p>
+<p>When using <code>EfCoreResourceDefinition&lt;,&gt;</code>, a lot of functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;&gt;</code> requires you to take care of these things yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from as external API, such as Stripe.</p>
 <ul>
 <li><a href="define-resource">Define a resource</a></li>
 <li><a href="define-ef-core-resource">Define an EF Core resource</a></li>

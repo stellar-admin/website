@@ -101,7 +101,7 @@
                             Introduction
                         </span>
                     </a>
-                    <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
                         </span>
@@ -111,7 +111,7 @@
                             Resources
                         </span>
                     </a>
-                    <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Fields
                         </span>
@@ -130,51 +130,7 @@
         </div>
         <div class="col-span-4">
             <article>
-                <h2 id="requirements">Requirements</h2>
-<p>StellarAdmin requires ASP.NET Core 3.1.</p>
-<h2 id="install-packages">Install packages</h2>
-<p>To add StellarAdmin to your ASP.NET Core application, install the <code>StellarAdmin</code> NuGet package. If you intend to use StellarAdmin with Entity Framework 3, you can also install the <code>StellarAdmin.EntityFrameworkCore</code> package.</p>
-<pre><code class="language-bash">dotnet add package StellarAdmin
-dotnet add package StellarAdmin.EntityFrameworkCore
-</code></pre>
-<h2 id="register-services">Register services</h2>
-<p>Once installed, you will need to configure StellarAdmin in your application's <code>Startup</code> class by calling the <code>AddStellarAdmin</code> extension method inside the <code>ConfigureServices</code> method. StellarAdmin also depends on the <strong>Razor Pages</strong> services, so be sure to register those by calling the <code>AddRazorPages</code> extension method.</p>
-<pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
-{
-    // some code omitted for brevity
-
-    // Razor Pages is required by StellarAdmin
-    services.AddRazorPages();
-
-    // Register the StellarAdmin services, resources and actions
-    services.AddStellarAdmin();
-}
-</code></pre>
-<h2 id="register-endpoints">Register endpoints</h2>
-<p>The final part of the configuration is to add the endpoints for StellarAdmin in the <code>Configure</code> method of your <code>Startup</code> class. Once again, StellarAdmin depends on some <strong>Controller</strong> and <strong>Razor Page</strong>s endpoints, so you will need ensure those are registered by calling the <code>MapControllers</code> and <code>MapRazorPages</code> extension methods. After those are added, you can add the StellarAdmin endpoints by calling the <code>MapStellarAdmin</code> extension method.</p>
-<pre><code class="language-cs">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    // some code omitted for brevity
-
-    app.UseEndpoints(endpoints =&gt;
-    {
-        // Controllers and Razor Pages are required by StellarAdmin
-        endpoints.MapControllers();
-        endpoints.MapRazorPages();
-
-        // Register the routes for the StellarAdmin UI
-        endpoints.MapStellarAdmin();
-    });
-}
-</code></pre>
-<h2 id="verify-configuration">Verify configuration</h2>
-<p>You can verify the configuration running your application and going to the <code>/StellarAdmin</code> route. This should display the StellerAdmin UI as in the screenshot below.</p>
-<p>... screenshot</p>
-<h2 id="next">Next</h2>
-<p>Next, you can define your resources.</p>
-<ul>
-<li><a href="resources">Define resources</a></li>
-</ul>
+                <p>Coming soon...</p>
 
             </article>
         </div>
