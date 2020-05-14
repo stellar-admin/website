@@ -8,15 +8,10 @@ StellarAdmin requires ASP.NET Core 3.1.
 
 ## Install packages
 
-To add StellarAdmin to your ASP.NET Core application, install the `StellarAdmin` NuGet package.
+To add StellarAdmin to your ASP.NET Core application, install the `StellarAdmin` NuGet package. If you intend to use StellarAdmin with Entity Framework 3, you can also install the `StellarAdmin.EntityFrameworkCore` package.
 
 ```bash
 dotnet add package StellarAdmin
-```
-
-If you intend to use StellarAdmin with Entity Framework 3, you can also install the `StellarAdmin.EntityFrameworkCore` package.
-
-```bash
 dotnet add package StellarAdmin.EntityFrameworkCore
 ```
 
@@ -29,7 +24,10 @@ public void ConfigureServices(IServiceCollection services)
 {
     // some code omitted for brevity
 
+    // Razor Pages is required by StellarAdmin
     services.AddRazorPages();
+
+    // Register the StellarAdmin services, resources and actions
     services.AddStellarAdmin();
 }
 ```
@@ -45,9 +43,11 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
     app.UseEndpoints(endpoints =>
     {
+        // Controllers and Razor Pages are required by StellarAdmin
         endpoints.MapControllers();
         endpoints.MapRazorPages();
 
+        // Register the routes for the StellarAdmin UI
         endpoints.MapStellarAdmin();
     });
 }
@@ -55,6 +55,12 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 ## Verify configuration
 
-You can now confirm that the configuration is correct by running your application. Once your application has started, you can view the StellarAdmin dashboard by visiting the `/StellarAdmin` route of you application.
+You can verify the configuration running your application and going to the `/StellarAdmin` route. This should display the StellerAdmin UI as in the screenshot below.
 
 ... screenshot
+
+## Next
+
+Next, you can define your resources.
+
+* [Define resources](resources)

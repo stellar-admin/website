@@ -44,7 +44,7 @@ article {
     }
 
     :not(pre) > code {
-        @apply bg-gray-100;
+        @apply bg-gray-200;
     }
 
     pre[class*="language-"] {
