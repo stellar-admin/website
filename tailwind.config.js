@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: ["./input/**/*.cshtml"],
   },
   theme: {

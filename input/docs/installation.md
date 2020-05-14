@@ -8,7 +8,7 @@ StellarAdmin requires ASP.NET Core 3.1.
 
 ## Install packages
 
-To add StellarAdmin to your ASP.NET Core application, you will need to install the `StellarAdmin` NuGet package.
+To add StellarAdmin to your ASP.NET Core application, install the `StellarAdmin` NuGet package.
 
 ```bash
 dotnet add package StellarAdmin
