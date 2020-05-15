@@ -3,7 +3,7 @@ order: 4
 
 ## Specifying fields
 
-You will need to define the fields of your resource definition. You can do this by calling the `HasField()` method of resource definition, passing a lamba expression representing the field as the `expression` parameter.
+You need to define fields for your resource definition. You can do this by calling the `HasField()` method of resource definition, passing a lambda expression representing the field as the `expression` parameter.
 
 Let's assume you have the following resource.
 
@@ -37,11 +37,11 @@ public class ContactDefinition : Definition<ApplicationDbContext, Contact>
 
 ## Specifying field attributes
 
-Note in the example above that the field definition for the `Id` propery has extra parameters defined. The optional `configureField` parameter of the `HasField` method is a callback that allows you to specify extra attributes for the field.
+Note in the example above that the field definition for the `Id` property has extra parameters defined. The optional `configureField` parameter of the `HasField` method is a callback that allows you to specify extra attributes for the field.
 
 ### Specifying a key field
 
-If the example above we define the `Id` property as the **key field** for the resource. It is important to specify a key field for a resource. If no key field is specified, you will not be able to view, edit, create or delete resource for that particular resource definition - you will only be able to see a list view.
+If the example above, we define the `Id` property as the **key field** for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.
 
 ### Specifying display attributes
 
@@ -49,11 +49,11 @@ The `configureField` callback allows you to control various aspects of the field
 
 ### Specifying field visibility
 
-You can also control visibility of a field by calling the various `Hide*` methods. `Hide()` will hide a field in all views. This is useful, for example for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the `HideOnForms()` method that will hide the field in the edit and create views.
+You can also control the visibility of a field by calling the various `Hide*` methods. `Hide()` hides a field in all views. This is useful, for example, for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the `HideOnForms()` method that hides the field in the edit and create views.
 
 ## Specifying the name of the field
 
-The second optional parameter for the `HasField` method is the `name` parameter. By default, the `Name` of the field will be determined by the underlying property name, but there may be case we specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:
+The second optional parameter for the `HasField` method is the `name` parameter. By default, the `Name` of the field is determined by the underlying property name, but there may be cases where specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:
 
 ```cs
 HasField(c => $"{c.FirstName} {c.LastName}");

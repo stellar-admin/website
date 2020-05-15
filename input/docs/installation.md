@@ -17,7 +17,7 @@ dotnet add package StellarAdmin.EntityFrameworkCore
 
 ## Register services
 
-Once installed, you will need to configure StellarAdmin in your application's `Startup` class by calling the `AddStellarAdmin` extension method inside the `ConfigureServices` method. StellarAdmin also depends on the **Razor Pages** services, so be sure to register those by calling the `AddRazorPages` extension method.
+Once installed, you must configure StellarAdmin in your application's `Startup` class by calling the `AddStellarAdmin` extension method inside the `ConfigureServices` method. StellarAdmin also depends on the **Razor Pages** services, so be sure to register those by calling the `AddRazorPages` extension method.
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
@@ -34,7 +34,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## Register endpoints
 
-The final part of the configuration is to add the endpoints for StellarAdmin in the `Configure` method of your `Startup` class. Once again, StellarAdmin depends on some **Controller** and **Razor Page**s endpoints, so you will need ensure those are registered by calling the `MapControllers` and `MapRazorPages` extension methods. After those are added, you can add the StellarAdmin endpoints by calling the `MapStellarAdmin` extension method.
+The final part of the configuration is to add the endpoints for StellarAdmin in the `Configure` method of your `Startup` class. Once again, StellarAdmin depends on some **Controller** and **Razor Pages** endpoints, so you must register them by calling the `MapControllers` and `MapRazorPages` extension methods. After those are added, you can add the StellarAdmin endpoints by calling the `MapStellarAdmin` extension method.
 
 ```cs
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
