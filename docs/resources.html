@@ -141,12 +141,40 @@
 <p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
 <p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour such as whether a resource allows editing and deleting.</p>
 <h2 id="defining-a-resource">Defining a resource</h2>
-<p>A resource definition is defined by creating a class that inherits from <code>ResourceDefinition&lt;&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;,&gt;</code>.</p>
-<p>When using <code>EfCoreResourceDefinition&lt;,&gt;</code>, a lot of functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;&gt;</code> requires you to take care of these things yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from as external API, such as Stripe.</p>
+<p>A resource definition is defined by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
+<p>When using <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>, a lot of functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;TResource&gt;</code> requires you to take care of these things yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from as external API, such as Stripe.</p>
 <h3 id="using-ef-core">Using EF Core</h3>
 <p>The EF Core use case is the simplest, so let's look at that first. In this scenario, let's assume the following database context and model:</p>
-<pre><code class="language-cs">
+<pre><code class="language-cs">public class Contact
+{
+    public int Id { get; set; }
+
+    public string Email { get; set; }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+}
+
+public class ApplicationDbContext : DbContext
+{
+    public DbSet&lt;Contact&gt; Contacts { get; set; }
+}
 </code></pre>
+<p>In order to create a resource definition that will allows you to maintain Contacts, you can create the following resource definition:</p>
+<pre><code class="language-cs">public class ContactDefinition : EfCoreResourceDefinition&lt;ApplicationDbContext, Contact&gt;
+{
+    public ContactDefinition(StoreContext dbContext) : base(dbContext)
+    {
+        HasField(c =&gt; c.Id, f =&gt; f.IsKey = true);
+        HasField(c =&gt; c.FirstName);
+        HasField(c =&gt; c.LastName);
+        HasField(c =&gt; c.Email);
+    }
+}
+</code></pre>
+<p>Note that in the resource definition above we have also defined fields. You can read more about defining fields in your <a href="/docs/fields">Fields documentation</a>.</p>
+<p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example on how to create resource definitions for EF Core.</p>
 <h3 id="using-another-data-source">Using another data source</h3>
 <p>If you want to create a resource definition that represents data coming from another source, you can inherit from <code>ResourceDefinition&lt;TResource&gt;</code> and implement the following abstract methods:</p>
 <h4 id="getlistasync">GetListAsync</h4>
@@ -163,7 +191,7 @@
 <p>Called when a resource must be deleted. The <code>key</code> parameter will contain the primary key of the resource that must be deleted.</p>
 <h4 id="getlookuplistasync">GetLookupListAsync</h4>
 <p>Called when the resource is displayed in a lookup list - such as when it is referenced by another resource.</p>
-<p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample application</a> for an example of how to implement a resource definition that gets data from a custom data source.</p>
+<p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample</a> for an example of how to implement a resource definition that gets data from a custom data source.</p>
 
             </article>
         </div>

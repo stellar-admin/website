@@ -137,7 +137,47 @@
         </div>
         <div class="col-span-4">
             <article>
-                <p>Coming soon...</p>
+                <h2 id="specifying-fields">Specifying fields</h2>
+<p>You will need to define the fields of your resource definition. You can do this by calling the <code>HasField()</code> method of resource definition, passing a lamba expression representing the field as the <code>expression</code> parameter.</p>
+<p>Let's assume you have the following resource.</p>
+<pre><code class="language-cs">public class Contact
+{
+    public int Id { get; set; }
+
+    public string Email { get; set; }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+}
+</code></pre>
+<p>You can define a resource definition called <code>ContactDefinition</code> and define each of the fields in the constructor as follows:</p>
+<pre><code class="language-cs">public class ContactDefinition : Definition&lt;ApplicationDbContext, Contact&gt;
+{
+    public ContactDefinition()
+    {
+        HasField(c =&gt; c.Id, f =&gt; f.IsKey = true);
+        HasField(c =&gt; c.FirstName);
+        HasField(c =&gt; c.LastName);
+        HasField(c =&gt; c.Email);
+    }
+}
+</code></pre>
+<h2 id="specifying-field-attributes">Specifying field attributes</h2>
+<p>Note in the example above that the field definition for the <code>Id</code> propery has extra parameters defined. The optional <code>configureField</code> parameter of the <code>HasField</code> method is a callback that allows you to specify extra attributes for the field.</p>
+<h3 id="specifying-a-key-field">Specifying a key field</h3>
+<p>If the example above we define the <code>Id</code> property as the <strong>key field</strong> for the resource. It is important to specify a key field for a resource. If no key field is specified, you will not be able to view, edit, create or delete resource for that particular resource definition - you will only be able to see a list view.</p>
+<h3 id="specifying-display-attributes">Specifying display attributes</h3>
+<p>The <code>configureField</code> callback allows you to control various aspects of the field. You can, for example, specify the <code>Label</code> and <code>HelpText</code>.</p>
+<h3 id="specifying-field-visibility">Specifying field visibility</h3>
+<p>You can also control visibility of a field by calling the various <code>Hide*</code> methods. <code>Hide()</code> will hide a field in all views. This is useful, for example for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the <code>HideOnForms()</code> method that will hide the field in the edit and create views.</p>
+<h2 id="specifying-the-name-of-the-field">Specifying the name of the field</h2>
+<p>The second optional parameter for the <code>HasField</code> method is the <code>name</code> parameter. By default, the <code>Name</code> of the field will be determined by the underlying property name, but there may be case we specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:</p>
+<pre><code class="language-cs">HasField(c =&gt; $"{c.FirstName} {c.LastName}");
+</code></pre>
+<p>In this case StellarAdmin will be unable to determine the name and you will have to explicitly define a name:</p>
+<pre><code class="language-cs">HasField(c =&gt; $"{c.FirstName} {c.LastName}", name: "Fullname");
+</code></pre>
 
             </article>
         </div>
