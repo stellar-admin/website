@@ -139,10 +139,10 @@
             <article>
                 <h2 id="introduction">Introduction</h2>
 <p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
-<p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour such as whether a resource allows editing and deleting.</p>
+<p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour, such as whether a resource allows editing and deleting.</p>
 <h2 id="defining-a-resource">Defining a resource</h2>
-<p>A resource definition is defined by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
-<p>When using <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>, a lot of functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;TResource&gt;</code> requires you to take care of these things yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from as external API, such as Stripe.</p>
+<p>You define a resource definition by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
+<p>When using <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>, most functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;TResource&gt;</code> requires you to take care of this functionality yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from an external API, such as Stripe.</p>
 <h3 id="using-ef-core">Using EF Core</h3>
 <p>The EF Core use case is the simplest, so let's look at that first. In this scenario, let's assume the following database context and model:</p>
 <pre><code class="language-cs">public class Contact
@@ -173,24 +173,24 @@ public class ApplicationDbContext : DbContext
     }
 }
 </code></pre>
-<p>Note that in the resource definition above we have also defined fields. You can read more about defining fields in your <a href="/docs/fields">Fields documentation</a>.</p>
-<p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example on how to create resource definitions for EF Core.</p>
+<p>Note that in the resource definition above, we have also defined fields. You can read more about defining fields in your <a href="/docs/fields">Fields documentation</a>.</p>
+<p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example of how to create resource definitions for EF Core.</p>
 <h3 id="using-another-data-source">Using another data source</h3>
 <p>If you want to create a resource definition that represents data coming from another source, you can inherit from <code>ResourceDefinition&lt;TResource&gt;</code> and implement the following abstract methods:</p>
 <h4 id="getlistasync">GetListAsync</h4>
-<p>Called when a list of resources is retrieved. The <code>query</code> parameter will contain paging information such as the <code>PageNo</code> and <code>PageSize</code>. You will need to return a <code>PagedResourceList</code> that will contain the list of resources as well as paging information.</p>
+<p>This method executes when retrieving a list of resources. The <code>query</code> parameter contains paging information such as the <code>PageNo</code> and <code>PageSize</code>. You need to return a <code>PagedResourceList</code> that contains the list of resources as well as paging information.</p>
 <h4 id="getbykeyasync">GetByKeyAsync</h4>
-<p>Called when a single instance of a resource is retreived. The <code>key</code> parameter will contain the primary key value of the resource. You will need to return the resource or null if it is not found.</p>
+<p>The method executes when retrieving a single instance of a resource. The <code>key</code> parameter contains the primary key value of the resource. You must return the resource or null if not found.</p>
 <h4 id="createasync">CreateAsync</h4>
-<p>Called when a new resource must be created. The <code>values</code> dictionary will contain key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>CreateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance and you can return the result.</p>
+<p>This method executes when creating a new resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
+<p>The <code>CreateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
 <h4 id="updateasync">UpdateAsync</h4>
-<p>Called when a resource is updated. The <code>key</code> parameter will contain the primary key value of the resource. The <code>values</code> dictionary will contain key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>UpdateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance and you can return the result.</p>
+<p>The method executes when updating a resource. The <code>key</code> parameter contains the primary key value of the resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
+<p>The <code>UpdateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
 <h4 id="deleteasync">DeleteAsync</h4>
-<p>Called when a resource must be deleted. The <code>key</code> parameter will contain the primary key of the resource that must be deleted.</p>
+<p>This method executes when deleting a resource. The <code>key</code> parameter contains the primary key of the resource to be deleted.</p>
 <h4 id="getlookuplistasync">GetLookupListAsync</h4>
-<p>Called when the resource is displayed in a lookup list - such as when it is referenced by another resource.</p>
+<p>This method executes when displaying the resource in a lookup list - such as when another resource references it.</p>
 <p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample</a> for an example of how to implement a resource definition that gets data from a custom data source.</p>
 
             </article>
