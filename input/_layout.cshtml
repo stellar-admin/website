@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>StellarAdmin - An elegant Admin Panel for ASP.NET Core</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link href="/assets/css/styles.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@@v2.x.x/dist/alpine.min.js" defer></script>
+@RenderSection("Head", false)
+</head>
+<body>
+    @RenderBody()
+
+    <script async defer src="https://sa.stellaradmin.com/latest.js"></script>
+    <noscript><img src="https://sa.stellaradmin.com/noscript.gif" alt=""></noscript>
+</body>
+</html>

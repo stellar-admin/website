@@ -1,17 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>StellarAdmin - An elegant Admin Panel for ASP.NET Core</title>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="/assets/css/styles.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@@v2.x.x/dist/alpine.min.js" defer></script>
+@{
+    Layout = "/_layout.cshtml";
+}
+@section Head {
     <script src="https://cdn.jsdelivr.net/npm/prismjs@@1.19.0/components/prism-core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@@1.19.0/plugins/autoloader/prism-autoloader.min.js" data-no-mirror></script>
-</head>
-<body>
+}
 <!-- Start header -->
 <div class="relative bg-white" x-data="{ isOpen: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -137,5 +130,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
