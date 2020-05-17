@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>StellarAdmin - An elegant Admin Panel for ASP.NET Core</title>
+<title>StellarAdmin - Elegant Admin Pages for ASP.NET Core</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
@@ -128,6 +128,11 @@
                             Editors
                         </span>
                     </a>
+                    <a href="/docs/validation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Validation
+                        </span>
+                    </a>
                     <a href="/docs/actions" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Actions
@@ -136,6 +141,20 @@
             </nav>
         </div>
         <div class="col-span-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    </div>
+                    <div class="ml-3">
+                    <p class="text-sm leading-5 text-yellow-700">
+                        StellarAdmin is currently in beta. Use with caution are we are still finalising the underlying API, so changes may occur.
+                    </p>
+                    </div>
+                </div>
+            </div>
             <article>
                 <h2 id="specifying-fields">Specifying fields</h2>
 <p>You need to define fields for your resource definition. You can do this by calling the <code>HasField()</code> method of resource definition, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
