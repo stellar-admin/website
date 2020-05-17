@@ -57,7 +57,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 You can verify the configuration running your application and going to the `/StellarAdmin` route. This should display the StellerAdmin UI as in the screenshot below.
 
-... screenshot
+![](no-resources.png)
 
 ## Next
 
