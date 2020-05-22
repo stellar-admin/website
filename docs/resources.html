@@ -155,14 +155,14 @@
                     </div>
                     <div class="ml-3">
                     <p class="text-sm leading-5 text-yellow-700">
-                        StellarAdmin is currently in beta. Use with caution are we are still finalising the underlying API, so changes may occur.
+                        StellarAdmin is currently in beta. Changes to public APIs may occur.
                     </p>
                     </div>
                 </div>
             </div>
             <article>
                 <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
+<p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data models of your application. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
 <p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour, such as whether a resource allows editing and deleting.</p>
 <h2 id="defining-a-resource">Defining a resource</h2>
 <p>You define a resource definition by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
@@ -185,17 +185,17 @@ public class ApplicationDbContext : DbContext
     public DbSet&lt;Contact&gt; Contacts { get; set; }
 }
 </code></pre>
-<p>In order to create a resource definition that will allows you to maintain Contacts, you can create the following resource definition:</p>
+<p>You can create a resource definition that allows you to maintain Contacts:</p>
 <pre><code class="language-cs">public class ContactDefinition : EfCoreResourceDefinition&lt;ApplicationDbContext, Contact&gt;
 {
-    public ContactDefinition(StoreContext dbContext)
+    public ContactDefinition(ApplicationDbContext dbContext)
         : base(dbContext)
     {
     }
 }
 </code></pre>
-<p>The constructor of a EF Core resource definition has to specify a <code>dbContext</code> that is the type of your database context. You database context will be injected into the constructor, so ensure that it is registered with the ASP.NET Core dependency injection as per the <a href="https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&amp;tabs=visual-studio#startupcs">ASP.NET Core docs</a>)</p>
-<p>All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service in your resource definition using contructor injection.</p>
+<p>You need to define the <code>TDbContext</code> and <code>TResource</code> generic parameters which are the database context and entity types respectively. The base constructor of the EF Core resource definition takes a <code>dbContext</code> parameter which is an instance of your database context type.</p>
+<p>All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service you require in the constructor of your resource definition. Also ensure that your database context it is registered with the ASP.NET Core dependency injection as per the <a href="https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&amp;tabs=visual-studio#startupcs">ASP.NET Core docs</a>)</p>
 <p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example of how to create resource definitions for EF Core.</p>
 <h3 id="using-another-data-source">Using another data source</h3>
 <p>If you want to create a resource definition that represents data coming from another source, you can inherit from <code>ResourceDefinition&lt;TResource&gt;</code>. You resource definition class will need to override the following <code>abstract</code> methods defined in <code>ResourceDefinition&lt;TResource&gt;</code>:</p>

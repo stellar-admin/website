@@ -155,16 +155,16 @@
                     </div>
                     <div class="ml-3">
                     <p class="text-sm leading-5 text-yellow-700">
-                        StellarAdmin is currently in beta. Use with caution are we are still finalising the underlying API, so changes may occur.
+                        StellarAdmin is currently in beta. Changes to public APIs may occur.
                     </p>
                     </div>
                 </div>
             </div>
             <article>
-                <h2 id="automatic-fields">Automatic fields</h2>
-<p>By default, StellarAdmin will automatically add all simple properties of the underlying resource model as fields. StellarAdmin uses data annotations to determine fields attributes such as the field <code>Label</code>, <code>Description</code> etc.</p>
+                <h2 id="automatically-generated-fields">Automatically generated fields</h2>
+<p>StellarAdmin will automatically define fields representing all the simple properties of the underlying resource model. StellarAdmin uses data annotations to determine fields attributes such as the field <code>Label</code>, <code>Description</code> etc.</p>
 <h2 id="manually-define-fields">Manually define fields</h2>
-<p>To manually define fields for your resource definition, override the <code>CreateFields()</code> method in your resource definition and return an <code>IEnumerable&lt;IField&gt;</code> that contains the list of fields. You can define a field by calling the <code>CreateField()</code> method of the base class, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
+<p>If you would like more control over the field definitions, you can manually define fields for your resource definition. To do this, override the <code>CreateFields()</code> method in your resource definition and return an <code>IEnumerable&lt;IField&gt;</code> that contains the list of fields. You can define each of the individual fields by calling the <code>CreateField()</code> method, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
 <p>Let's assume you have the following resource.</p>
 <pre><code class="language-cs">public class Contact
 {
@@ -180,7 +180,7 @@
 }
 </code></pre>
 <p>Create a resource definition called <code>ContactDefinition</code> and define each of the fields in the <code>CreateFields()</code> method as follows:</p>
-<pre><code class="language-cs">public class ContactDefinition : Definition&lt;ApplicationDbContext, Contact&gt;
+<pre><code class="language-cs">public class ContactDefinition : ResourceDefinition&lt;Contact&gt;
 {
     protected override IEnumerable&lt;IField&gt; CreateFields()
     {
@@ -199,6 +199,16 @@
 <p>Note in the example above that the field definition for the <code>Id</code> property has extra parameters defined. The optional <code>configureField</code> parameter of the <code>CreateField</code> method is a callback that allows you to specify extra attributes for the field.</p>
 <h3 id="specifying-a-key-field">Specifying a key field</h3>
 <p>If the example above, we define the <code>Id</code> property as the <strong>key field</strong> for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.</p>
+<p>You can also specify the key field with data annotations by adding a <code>[Key]</code> attribute to property of your model that represents the key field:</p>
+<pre><code class="language-cs">public class Contact
+{
+    [Key]
+    public int Id { get; set; }
+
+    // ...
+}
+</code></pre>
+<p>When defining an <strong>EF Core resource definition</strong>, StellarAdmin will rely on EF Core to infer the key field. So in other words, for our <code>Contact</code> entity, that will be the property named <code>Id</code> or <code>ContactId</code>, or the property defined as a key using the <code>HasKey</code> method of the EF Core Fluent API.</p>
 <h3 id="specifying-display-attributes">Specifying display attributes</h3>
 <p>The <code>configureField</code> callback allows you to control various aspects of the field. You can, for example, specify the <code>Label</code> and <code>HelpText</code>.</p>
 <h3 id="specifying-field-visibility">Specifying field visibility</h3>
