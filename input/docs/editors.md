@@ -31,7 +31,7 @@ If you are not happy with the defaults, or you want to specify extra parameters 
 
 ```cs
 // Specify a date-only field editor
-HasField(l => l.StartDate, field => field.UseEditor<DateEditor>());
+CreateField(l => l.StartDate, field => field.UseEditor<DateEditor>());
 ```
 
 ## Editor types

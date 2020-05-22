@@ -40,23 +40,22 @@ In order to create a resource definition that will allows you to maintain Contac
 ```cs
 public class ContactDefinition : EfCoreResourceDefinition<ApplicationDbContext, Contact>
 {
-    public ContactDefinition(StoreContext dbContext) : base(dbContext)
+    public ContactDefinition(StoreContext dbContext)
+        : base(dbContext)
     {
-        HasField(c => c.Id, f => f.IsKey = true);
-        HasField(c => c.FirstName);
-        HasField(c => c.LastName);
-        HasField(c => c.Email);
     }
 }
 ```
 
-Note that in the resource definition above, we have also defined fields. You can read more about defining fields in your [Fields documentation](/docs/fields).
+The constructor of a EF Core resource definition has to specify a `dbContext` that is the type of your database context. You database context will be injected into the constructor, so ensure that it is registered with the ASP.NET Core dependency injection as per the [ASP.NET Core docs](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio#startupcs))
+
+All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service in your resource definition using contructor injection.
 
 You can refer to the [Store Sample](https://github.com/stellar-admin/samples/tree/master/Store) for a more detailed example of how to create resource definitions for EF Core.
 
 ### Using another data source
 
-If you want to create a resource definition that represents data coming from another source, you can inherit from `ResourceDefinition<TResource>` and implement the following abstract methods:
+If you want to create a resource definition that represents data coming from another source, you can inherit from `ResourceDefinition<TResource>`. You resource definition class will need to override the following `abstract` methods defined in `ResourceDefinition<TResource>`:
 
 #### GetListAsync
 
