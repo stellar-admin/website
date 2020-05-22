@@ -3,7 +3,7 @@ order: 3
 
 ## Introduction
 
-StellarAdmin allows you to create _resource definitions_ that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as **Product**, **Order** and **Customer**.
+StellarAdmin allows you to create _resource definitions_ that describe the data models of your application. For example, an e-commerce application may have resource definitions for entities such as **Product**, **Order** and **Customer**.
 
 A resource definition has [fields](fields) and [actions](actions) and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour, such as whether a resource allows editing and deleting.
 
@@ -35,21 +35,21 @@ public class ApplicationDbContext : DbContext
 }
 ```
 
-In order to create a resource definition that will allows you to maintain Contacts, you can create the following resource definition:
+You can create a resource definition that allows you to maintain Contacts:
 
 ```cs
 public class ContactDefinition : EfCoreResourceDefinition<ApplicationDbContext, Contact>
 {
-    public ContactDefinition(StoreContext dbContext)
+    public ContactDefinition(ApplicationDbContext dbContext)
         : base(dbContext)
     {
     }
 }
 ```
 
-The constructor of a EF Core resource definition has to specify a `dbContext` that is the type of your database context. You database context will be injected into the constructor, so ensure that it is registered with the ASP.NET Core dependency injection as per the [ASP.NET Core docs](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio#startupcs))
+You need to define the `TDbContext` and `TResource` generic parameters which are the database context and entity types respectively. The base constructor of the EF Core resource definition takes a `dbContext` parameter which is an instance of your database context type.
 
-All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service in your resource definition using contructor injection.
+All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service you require in the constructor of your resource definition. Also ensure that your database context it is registered with the ASP.NET Core dependency injection as per the [ASP.NET Core docs](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio#startupcs))
 
 You can refer to the [Store Sample](https://github.com/stellar-admin/samples/tree/master/Store) for a more detailed example of how to create resource definitions for EF Core.
 

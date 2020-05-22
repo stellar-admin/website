@@ -1,13 +1,13 @@
 order: 4
 ---
 
-## Automatic fields
+## Automatically generated fields
 
-By default, StellarAdmin will automatically add all simple properties of the underlying resource model as fields. StellarAdmin uses data annotations to determine fields attributes such as the field `Label`, `Description` etc.
+StellarAdmin will automatically define fields representing all the simple properties of the underlying resource model. StellarAdmin uses data annotations to determine fields attributes such as the field `Label`, `Description` etc.
 
 ## Manually define fields
 
-To manually define fields for your resource definition, override the `CreateFields()` method in your resource definition and return an `IEnumerable<IField>` that contains the list of fields. You can define a field by calling the `CreateField()` method of the base class, passing a lambda expression representing the field as the `expression` parameter.
+If you would like more control over the field definitions, you can manually define fields for your resource definition. To do this, override the `CreateFields()` method in your resource definition and return an `IEnumerable<IField>` that contains the list of fields. You can define each of the individual fields by calling the `CreateField()` method, passing a lambda expression representing the field as the `expression` parameter.
 
 Let's assume you have the following resource.
 
@@ -29,7 +29,7 @@ public class Contact
 Create a resource definition called `ContactDefinition` and define each of the fields in the `CreateFields()` method as follows:
 
 ```cs
-public class ContactDefinition : Definition<ApplicationDbContext, Contact>
+public class ContactDefinition : ResourceDefinition<Contact>
 {
     protected override IEnumerable<IField> CreateFields()
     {
@@ -52,6 +52,20 @@ Note in the example above that the field definition for the `Id` property has ex
 ### Specifying a key field
 
 If the example above, we define the `Id` property as the **key field** for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.
+
+You can also specify the key field with data annotations by adding a `[Key]` attribute to property of your model that represents the key field:
+
+```cs
+public class Contact
+{
+    [Key]
+    public int Id { get; set; }
+
+    // ...
+}
+```
+
+When defining an **EF Core resource definition**, StellarAdmin will rely on EF Core to infer the key field. So in other words, for our `Contact` entity, that will be the property named `Id` or `ContactId`, or the property defined as a key using the `HasKey` method of the EF Core Fluent API.
 
 ### Specifying display attributes
 

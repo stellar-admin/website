@@ -1,4 +1,9 @@
-﻿<!-- Start hero -->
+﻿@section Head {
+  <link rel="stylesheet" href="/assets/css/glide.core.min.css">
+  <link rel="stylesheet" href="/assets/css/glide.theme.min.css">
+}
+
+<!-- Start hero -->
 <div class="relative bg-gray-50 overflow-hidden" x-data="{ isOpen: false }">
   <div class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full">
     <div class="relative h-full max-w-screen-xl mx-auto">
@@ -148,6 +153,74 @@
   </div>
 </div>
 <!-- End hero -->
+
+<!-- Start what it does -->
+<div class="bg-gray-900">
+  <div class="p-12 sm:p-16">
+    <div class="text-center">
+      <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl sm:leading-10">
+        StellarAdmin turns your code...
+      </h3>
+    </div>
+    <div class="py-12 px-0 lg:px-8 mx-auto max-w-3xl">
+      <div class="bg-white rounded py-1 px-2">
+
+<pre style="margin: 0; line-height: 125%"><span style="color: #228899; font-weight: bold">public</span> <span style="color: #228899; font-weight: bold">class</span> <span style="color: #ee99ee; font-weight: bold">Order</span>
+{
+    <span style="color: #228899; font-weight: bold">public</span> Customer Customer { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> DateTime? DeliveryDate { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> <span style="color: #6666ff; font-weight: bold">int</span> Id { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> DateTime OrderDate { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> <span style="color: #6666ff; font-weight: bold">string</span> ShipCity { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> <span style="color: #6666ff; font-weight: bold">string</span> ShipCountry { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> <span style="color: #6666ff; font-weight: bold">string</span> ShipPostalCode { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+
+    <span style="color: #228899; font-weight: bold">public</span> <span style="color: #6666ff; font-weight: bold">string</span> ShipStreetAddress { <span style="color: #228899; font-weight: bold">get</span>; <span style="color: #228899; font-weight: bold">set</span>; }
+}
+</pre>
+
+      </div>
+    </div>
+    <div class="lg:text-center">
+      <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:leading-10">
+        ...into a complete set of admin screens
+      </h3>
+    </div>
+    <div class="py-12 px-0 lg:px-8 mx-auto md:max-w-6xl">
+
+      <div class="glide">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <li class="glide__slide">
+              <img src="/assets/img/list-view.png" alt="List of resources">
+            </li>
+            <li class="glide__slide">
+              <img src="/assets/img/detail-view.png" alt="List of resources">
+            </li>
+            <li class="glide__slide">
+              <img src="/assets/img/form-view.png" alt="List of resources">
+            </li>
+          </ul>
+        </div>
+        <div class="glide__arrows" data-glide-el="controls">
+          <svg class="w-16 h-16 absolute cursor-pointer text-gray-600" style="top: 50%; left: 0.5em;" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-glide-dir="<">
+              <path d="M192 127.338v257.324c0 17.818-21.543 26.741-34.142 14.142L29.196 270.142c-7.81-7.81-7.81-20.474 0-28.284l128.662-128.662c12.599-12.6 34.142-3.676 34.142 14.142z"/>
+          </svg>
+          <svg class="w-16 h-16 absolute cursor-pointer text-gray-600" style="top: 50%; right: 0.5em;" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-glide-dir=">">
+              <path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- Start features -->
 <div class="py-12 bg-white" id="features">
@@ -461,3 +534,11 @@
   </div>
 </div>
 <!-- End pricing -->
+
+<script src="/assets/js/glide.min.js"></script>
+<script>
+  new Glide('.glide', {
+    autoplay: 2000,
+    hoverpause: true
+  }).mount()
+</script>
