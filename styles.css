@@ -52,5 +52,21 @@ article {
 
     pre[class*="language-"] {
         padding: .5em 1em;
-    }  
+    } 
+
+    table {
+        @apply w-full text-left rounded border border-gray-200 rounded-lg;
+
+        th {
+            @apply bg-gray-200 text-gray-500 font-bold tracking-wider uppercase text-xs;
+        }
+
+        th, td {
+            @apply p-2
+        }
+
+        tr:not(:first-child) {
+            @apply border-gray-200 border-t
+        }
+    }
 }
