@@ -138,6 +138,11 @@
                             Actions
                         </span>
                     </a>
+                    <a href="/docs/authorization" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Authorization
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
@@ -197,7 +202,7 @@
 <h2 id="specifying-an-editor">Specifying an editor</h2>
 <p>If you are not happy with the defaults, or you want to specify extra parameters for the editor, you can specify an editor in the <code>configureField</code> callback when defining a field:</p>
 <pre><code class="language-cs">// Specify a date-only field editor
-HasField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;());
+CreateField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;());
 </code></pre>
 <h2 id="editor-types">Editor types</h2>
 <h3 id="boolean-editor">Boolean Editor</h3>

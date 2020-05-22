@@ -113,7 +113,7 @@
                             Installation
                         </span>
                     </a>
-                    <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Resources
                         </span>
@@ -138,7 +138,7 @@
                             Actions
                         </span>
                     </a>
-                    <a href="/docs/authorization" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/authorization" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Authorization
                         </span>
@@ -161,59 +161,7 @@
                 </div>
             </div>
             <article>
-                <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data your application works with. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
-<p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour, such as whether a resource allows editing and deleting.</p>
-<h2 id="defining-a-resource">Defining a resource</h2>
-<p>You define a resource definition by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
-<p>When using <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>, most functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;TResource&gt;</code> requires you to take care of this functionality yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from an external API, such as Stripe.</p>
-<h3 id="using-ef-core">Using EF Core</h3>
-<p>The EF Core use case is the simplest, so let's look at that first. In this scenario, let's assume the following database context and model:</p>
-<pre><code class="language-cs">public class Contact
-{
-    public int Id { get; set; }
-
-    public string Email { get; set; }
-
-    public string FirstName { get; set; }
-
-    public string LastName { get; set; }
-}
-
-public class ApplicationDbContext : DbContext
-{
-    public DbSet&lt;Contact&gt; Contacts { get; set; }
-}
-</code></pre>
-<p>In order to create a resource definition that will allows you to maintain Contacts, you can create the following resource definition:</p>
-<pre><code class="language-cs">public class ContactDefinition : EfCoreResourceDefinition&lt;ApplicationDbContext, Contact&gt;
-{
-    public ContactDefinition(StoreContext dbContext)
-        : base(dbContext)
-    {
-    }
-}
-</code></pre>
-<p>The constructor of a EF Core resource definition has to specify a <code>dbContext</code> that is the type of your database context. You database context will be injected into the constructor, so ensure that it is registered with the ASP.NET Core dependency injection as per the <a href="https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&amp;tabs=visual-studio#startupcs">ASP.NET Core docs</a>)</p>
-<p>All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service in your resource definition using contructor injection.</p>
-<p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example of how to create resource definitions for EF Core.</p>
-<h3 id="using-another-data-source">Using another data source</h3>
-<p>If you want to create a resource definition that represents data coming from another source, you can inherit from <code>ResourceDefinition&lt;TResource&gt;</code>. You resource definition class will need to override the following <code>abstract</code> methods defined in <code>ResourceDefinition&lt;TResource&gt;</code>:</p>
-<h4 id="getlistasync">GetListAsync</h4>
-<p>This method executes when retrieving a list of resources. The <code>query</code> parameter contains paging information such as the <code>PageNo</code> and <code>PageSize</code>. You need to return a <code>PagedResourceList</code> that contains the list of resources as well as paging information.</p>
-<h4 id="getbykeyasync">GetByKeyAsync</h4>
-<p>The method executes when retrieving a single instance of a resource. The <code>key</code> parameter contains the primary key value of the resource. You must return the resource or null if not found.</p>
-<h4 id="createasync">CreateAsync</h4>
-<p>This method executes when creating a new resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>CreateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
-<h4 id="updateasync">UpdateAsync</h4>
-<p>The method executes when updating a resource. The <code>key</code> parameter contains the primary key value of the resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>UpdateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
-<h4 id="deleteasync">DeleteAsync</h4>
-<p>This method executes when deleting a resource. The <code>key</code> parameter contains the primary key of the resource to be deleted.</p>
-<h4 id="getlookuplistasync">GetLookupListAsync</h4>
-<p>This method executes when displaying the resource in a lookup list - such as when another resource references it.</p>
-<p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample</a> for an example of how to implement a resource definition that gets data from a custom data source.</p>
+                <p>Docs coming soon...</p>
 
             </article>
         </div>

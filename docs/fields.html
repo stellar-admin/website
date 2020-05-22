@@ -138,6 +138,11 @@
                             Actions
                         </span>
                     </a>
+                    <a href="/docs/authorization" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Authorization
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
@@ -156,34 +161,42 @@
                 </div>
             </div>
             <article>
-                <h2 id="specifying-fields">Specifying fields</h2>
-<p>You need to define fields for your resource definition. You can do this by calling the <code>HasField()</code> method of resource definition, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
+                <h2 id="automatic-fields">Automatic fields</h2>
+<p>By default, StellarAdmin will automatically add all simple properties of the underlying resource model as fields. StellarAdmin uses data annotations to determine fields attributes such as the field <code>Label</code>, <code>Description</code> etc.</p>
+<h2 id="manually-define-fields">Manually define fields</h2>
+<p>To manually define fields for your resource definition, override the <code>CreateFields()</code> method in your resource definition and return an <code>IEnumerable&lt;IField&gt;</code> that contains the list of fields. You can define a field by calling the <code>CreateField()</code> method of the base class, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
 <p>Let's assume you have the following resource.</p>
 <pre><code class="language-cs">public class Contact
 {
     public int Id { get; set; }
 
-    public string Email { get; set; }
-
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
+
+    public string Email { get; set; }
+
+    public string PhoneNumber { get; set; }
 }
 </code></pre>
-<p>You can define a resource definition called <code>ContactDefinition</code> and define each of the fields in the constructor as follows:</p>
+<p>Create a resource definition called <code>ContactDefinition</code> and define each of the fields in the <code>CreateFields()</code> method as follows:</p>
 <pre><code class="language-cs">public class ContactDefinition : Definition&lt;ApplicationDbContext, Contact&gt;
 {
-    public ContactDefinition()
+    protected override IEnumerable&lt;IField&gt; CreateFields()
     {
-        HasField(c =&gt; c.Id, f =&gt; f.IsKey = true);
-        HasField(c =&gt; c.FirstName);
-        HasField(c =&gt; c.LastName);
-        HasField(c =&gt; c.Email);
+        return new IField[]
+        {
+            CreateField(c =&gt; c.Id, f =&gt; f.IsKey = true),
+            CreateField(c =&gt; c.FirstName),
+            CreateField(c =&gt; c.LastName),
+            CreateField(c =&gt; c.EmailAddress),
+            CreateField(c =&gt; c.PhoneNumber, f =&gt; f.HideOnList())
+        };
     }
 }
 </code></pre>
 <h2 id="specifying-field-attributes">Specifying field attributes</h2>
-<p>Note in the example above that the field definition for the <code>Id</code> property has extra parameters defined. The optional <code>configureField</code> parameter of the <code>HasField</code> method is a callback that allows you to specify extra attributes for the field.</p>
+<p>Note in the example above that the field definition for the <code>Id</code> property has extra parameters defined. The optional <code>configureField</code> parameter of the <code>CreateField</code> method is a callback that allows you to specify extra attributes for the field.</p>
 <h3 id="specifying-a-key-field">Specifying a key field</h3>
 <p>If the example above, we define the <code>Id</code> property as the <strong>key field</strong> for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.</p>
 <h3 id="specifying-display-attributes">Specifying display attributes</h3>
@@ -191,11 +204,11 @@
 <h3 id="specifying-field-visibility">Specifying field visibility</h3>
 <p>You can also control the visibility of a field by calling the various <code>Hide*</code> methods. <code>Hide()</code> hides a field in all views. This is useful, for example, for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the <code>HideOnForms()</code> method that hides the field in the edit and create views.</p>
 <h2 id="specifying-the-name-of-the-field">Specifying the name of the field</h2>
-<p>The second optional parameter for the <code>HasField</code> method is the <code>name</code> parameter. By default, the <code>Name</code> of the field is determined by the underlying property name, but there may be cases where specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:</p>
-<pre><code class="language-cs">HasField(c =&gt; $"{c.FirstName} {c.LastName}");
+<p>The second optional parameter for the <code>CreateField</code> method is the <code>name</code> parameter. By default, the <code>Name</code> of the field is determined by the underlying property name, but there may be cases where specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:</p>
+<pre><code class="language-cs">CreateField(c =&gt; $"{c.FirstName} {c.LastName}");
 </code></pre>
 <p>In this case StellarAdmin will be unable to determine the name and you will have to explicitly define a name:</p>
-<pre><code class="language-cs">HasField(c =&gt; $"{c.FirstName} {c.LastName}", name: "Fullname");
+<pre><code class="language-cs">CreateField(c =&gt; $"{c.FirstName} {c.LastName}", name: "Fullname");
 </code></pre>
 
             </article>
