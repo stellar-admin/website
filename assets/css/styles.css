@@ -2095,13 +2095,15 @@ article blockquote {
   }
 
 article :not(pre) > code {
-    padding: .1rem .2rem;
-  }
-
-article :not(pre) > code {
     --bg-opacity: 1;
-    background-color: #e5e7eb;
-    background-color: rgba(229, 231, 235, var(--bg-opacity));
+    background-color: #e5edff;
+    background-color: rgba(229, 237, 255, var(--bg-opacity));
+    border-width: 1px;
+    --border-opacity: 1;
+    border-color: #b4c6fc;
+    border-color: rgba(180, 198, 252, var(--border-opacity));
+    border-radius: 0.25rem;
+    padding: .1rem .2rem;
   }
 
 article pre[class*="language-"] {
