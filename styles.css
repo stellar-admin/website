@@ -43,11 +43,8 @@ article {
     }
 
     :not(pre) > code {
+        @apply bg-indigo-100 border border-indigo-300 rounded;
         padding: .1rem .2rem;
-    }
-
-    :not(pre) > code {
-        @apply bg-gray-200;
     }
 
     pre[class*="language-"] {
