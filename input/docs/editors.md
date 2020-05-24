@@ -15,8 +15,7 @@ StellarAdmin currently has support for the following field editors:
 
 ## Default editors
 
-StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. For example, if the data type is a `DateTime` or `DateTimeOffset`, StellarAdmin will use 
-
+StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. The table below lists the circumstances under which each editor will be configured by default.
 
 Editor | Default for
 ---------|----------
