@@ -1609,6 +1609,10 @@ video {
   text-transform: uppercase;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .tracking-tight {
   letter-spacing: -0.025em;
 }

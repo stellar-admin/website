@@ -171,18 +171,19 @@
                     </div>
                     <div class="ml-3">
                     <p class="text-sm leading-5 text-yellow-700">
-                        StellarAdmin is currently in beta. Changes to public APIs may occur.
+                        StellarAdmin is still in development. We'd love for you to try it out and get your 
+                        <a href="/docs/support" class="underline">feedback</a>, 
+                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
             <article>
                 <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin does not support any specific authorization extension points, but, since it is just a regular ASP.NET Core Razor Page and API Controllers, you can prevent access by making use of ASP.NET Core's built-in authorization features.</p>
+<p>StellarAdmin does not have any specific authorization extension points, but, since it is built with ASP.NET Core Razor Pages and Controllers, you can make use of ASP.NET Core's built-in authorization features to prevent unauthorized access to StellarAdmin.</p>
 <h2 id="preventing-access-to-stellaradmin">Preventing access to StellarAdmin</h2>
-<p>Preventing access to StellarAdmin consists of two parts. First, you need to prevent access to the <em>Admin User Interface (UI)</em> and secondly, you need to prevent access to the <em>API controllers</em>.</p>
-<p>The Admin UI is a <a href="https://vuejs.org/">Vue</a> application that is served by a single Razor Page to which access can be restricted by making use or Razor Pages <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-3.1">authorization conventions</a>.</p>
-<p>The Admin UI communicates with the StellarAdmin backend via a set of API controllers. Access to these controllers can be restricted by creating a custom <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-3.1#authorization-filters">Authorization Filter</a>.</p>
+<p>Preventing unauthorized access to StellarAdmin consists of two parts. First, you need to prevent access to the <em>Admin User Interface (UI)</em>. The Admin UI is a <a href="https://vuejs.org/">Vue</a> application that is served by a single Razor Page to which access can be restricted by making use or Razor Pages <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-3.1">authorization conventions</a>.</p>
+<p>Secondly, you need to prevent access to the <em>API controllers</em>. The Admin UI communicates with the StellarAdmin backend via a set of API controllers. Access to these controllers can be restricted by creating a custom <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-3.1#authorization-filters">Authorization Filter</a>.</p>
 <h3 id="preventing-access-to-the-admin-ui">Preventing access to the Admin UI</h3>
 <p>The name of the Razor Page that is serving the Admin UI is <code>/StellarAdmin</code>. You can require authorization to view this page by adding the <code>AuthorizePage()</code> convention.</p>
 <pre><code class="language-cs">public void ConfigureServices(IServiceCollection services)
