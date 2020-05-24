@@ -134,7 +134,7 @@
                             Fields
                         </span>
                     </a>
-                    <a href="/docs/editors" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/editors" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Editors
                         </span>
@@ -154,7 +154,7 @@
                             Authorization
                         </span>
                     </a>
-                    <a href="/docs/support" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/support" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Support
                         </span>
@@ -177,69 +177,8 @@
                 </div>
             </div>
             <article>
-                <h2 id="introduction">Introduction</h2>
-<p>Editors determine how a field's value is display in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).</p>
-<p>StellarAdmin currently has support for the following field editors:</p>
-<ul>
-<li><a href="#boolean-editor">Boolean Editor</a></li>
-<li><a href="#date-editor">Date Editor</a></li>
-<li><a href="#datetime-editor">Date/Time Editor</a></li>
-<li><a href="#select-editor">Select Editor</a></li>
-<li><a href="#text-editor">Text Editor</a></li>
-</ul>
-<h2 id="default-editors">Default editors</h2>
-<p>StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. The table below lists the circumstances under which each editor will be configured by default.</p>
-<table>
-<thead>
-<tr>
-<th>Editor</th>
-<th>Default for</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Boolean Editor</td>
-<td>All fields with a data type of <code>bool</code></td>
-</tr>
-<tr>
-<td>Date/Time Editor</td>
-<td>All fields with a data type of <code>DateTime</code> or <code>DateTimeOffset</code></td>
-</tr>
-<tr>
-<td>Select Editor</td>
-<td>All fields with an <code>enum</code> data type.</td>
-</tr>
-<tr>
-<td>Text Editor</td>
-<td>All fields that do not match any of the other criteria</td>
-</tr>
-</tbody>
-</table>
-<h2 id="specifying-an-editor">Specifying an editor</h2>
-<p>If you are not happy with the defaults, or you want to specify extra parameters for the editor, you can specify an editor in the <code>configureField</code> callback when defining a field:</p>
-<pre><code class="language-cs">// Specify a date-only field editor
-CreateField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;());
-</code></pre>
-<h2 id="editor-types">Editor types</h2>
-<h3 id="boolean-editor">Boolean Editor</h3>
-<p>The <code>BooleanEditor</code> allows you to edit boolean values.</p>
-<h3 id="date-editor">Date Editor</h3>
-<p>The <code>DateEditor</code> allows you to edit date values.</p>
-<h3 id="datetime-editor">Date/Time Editor</h3>
-<p>The <code>DateTimeEditor</code> allows you to edit date/time values.</p>
-<h3 id="select-editor">Select Editor</h3>
-<p>The <code>SelectEditor</code> allows you to select an item from a list of values. When used with an <code>enum</code> data type, the editor automatically displays the members of the type. You can use this in combination with the <code>DisplayAttribute</code> the specify the display text of the select editor.</p>
-<pre><code class="language-cs">public enum InterventionLinkType
-{
-    [Display(Name = "More Information")]
-    MoreInfo = 0,
-
-    [Display(Name = "Buy Item")]
-    Buy = 1
-}
-</code></pre>
-<h3 id="text-editor">Text Editor</h3>
-<p>The <code>TextEditor</code> allows you to edit a value using a simple text input field.</p>
+                <h2 id="support">Support</h2>
+<p>If you are running into problems with StellarAdmin, please create an issue in the <a href="https://github.com/stellar-admin/issues">StellarAdmin issues repository</a> on GitHub.</p>
 
             </article>
         </div>
