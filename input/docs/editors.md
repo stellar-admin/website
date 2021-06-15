@@ -5,12 +5,15 @@ order: 5
 
 Editors determine how a field's value is display in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).
 
-StellarAdmin currently has support for the following field editors:
+StellarAdmin has the following field editors:
 
 * [Boolean Editor](#boolean-editor)
 * [Date Editor](#date-editor)
 * [Date/Time Editor](#datetime-editor)
+* [Image Editor](#image-editor)
+* [Markdown Editor](#markdown-editor)
 * [Select Editor](#select-editor)
+* [Text Area Editor](#text-area-editor)
 * [Text Editor](#text-editor)
 
 ## Default editors
@@ -26,11 +29,19 @@ Editor | Default for
 
 ## Specifying an editor
 
-If you are not happy with the defaults, or you want to specify extra parameters for the editor, you can specify an editor in the `configureField` callback when defining a field:
+If you are not happy with the default editor, you can specify an editor when adding a field by calling the `HasEditor<TEditor>()` method. The `HasEditor<TEditor>()` method has an optional `configureEditor` parameter that allows you to specify parameters to customize the editor, such as the display format for the `DateEditor`.
 
 ```cs
-// Specify a date-only field editor
-CreateField(l => l.StartDate, field => field.UseEditor<DateEditor>());
+builder.AddResource<BlogPost>(rb =>
+{
+    rb.AddField(post => post.Title);
+    rb.AddField(post => post.PublishDate, f => 
+        {
+            f.HasEditor<DateEditor>((editor, _) => editor.DisplayFormat = "FFF");
+        });
+    rb.AddField(post => post.AuthorId);
+    rb.AddField(post => post.Content, f => f.HasEditor<MarkdownEditor>());
+});
 ```
 
 ## Editor types
@@ -47,6 +58,14 @@ The `DateEditor` allows you to edit date values.
 
 The `DateTimeEditor` allows you to edit date/time values.
 
+### Image Editor
+
+...
+
+### Markdown Editor
+
+...
+
 ### Select Editor
 
 The `SelectEditor` allows you to select an item from a list of values. When used with an `enum` data type, the editor automatically displays the members of the type. You can use this in combination with the `DisplayAttribute` the specify the display text of the select editor.
@@ -61,6 +80,10 @@ public enum InterventionLinkType
     Buy = 1
 }
 ```
+
+### Text Area Editor
+
+...
 
 ### Text Editor
 

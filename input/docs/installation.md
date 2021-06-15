@@ -4,28 +4,28 @@ order: 2
 
 ## Requirements
 
-StellarAdmin requires ASP.NET Core 3.1.
+StellarAdmin requires ASP.NET Core 3.1 or 5.0
 
 ## Install packages
 
-To add StellarAdmin to your ASP.NET Core application, install the `StellarAdmin` NuGet package. If you intend to use StellarAdmin with Entity Framework 3, you can also install the `StellarAdmin.EntityFrameworkCore` package.
+To add StellarAdmin to your ASP.NET Core application, install the `StellarAdmin` NuGet package. If you intend to use StellarAdmin with Entity Framework, you can also install the `StellarAdmin.EntityFrameworkCore` package.
 
 ```bash
 dotnet add package StellarAdmin
 dotnet add package StellarAdmin.EntityFrameworkCore
 ```
 
-## Register services
+## Register StellarAdmin services
 
-Once installed, you must configure StellarAdmin in your application's `Startup` class by calling the `AddStellarAdmin` extension method inside the `ConfigureServices` method. StellarAdmin also depends on the **Razor Pages** services, so be sure to register those by calling the `AddRazorPages` extension method.
+Once installed, you must configure StellarAdmin in the `ConfigureServices` method of your `Startup` class by calling the `AddStellarAdmin` extension method. StellarAdmin depends on some **MVC** services, so be sure to register those by calling the `AddMvc` extension method.
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
 {
     // some code omitted for brevity
 
-    // Razor Pages is required by StellarAdmin
-    services.AddRazorPages();
+    // StellarAdmin requires various MVC services
+    services.AddMvc();
 
     // Register the StellarAdmin services, resources and actions
     services.AddStellarAdmin();
@@ -34,20 +34,21 @@ public void ConfigureServices(IServiceCollection services)
 
 ## Register endpoints
 
-The final part of the configuration is to add the endpoints for StellarAdmin in the `Configure` method of your `Startup` class. Once again, StellarAdmin depends on some **Controller** and **Razor Pages** endpoints, so you must register them by calling the `MapControllers` and `MapRazorPages` extension methods. After those are added, you can add the StellarAdmin endpoints by calling the `MapStellarAdmin` extension method.
+To register the StellarAdmin endpoints, add a call to `MapStellarAdmin()` in the `Configure` method of your `Startup` class. Also ensure that you have registered the Static File Middleware by calling the `UseStaticFiles()` method.
 
 ```cs
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
-    // some code omitted for brevity
+    // ...
+
+    // The Static File Middleware is required by StellarAdmin
+    app.UseStaticFiles();
 
     app.UseEndpoints(endpoints =>
     {
-        // Controllers and Razor Pages are required by StellarAdmin
-        endpoints.MapControllers();
-        endpoints.MapRazorPages();
+        // other endpoint registrations
 
-        // Register the routes for the StellarAdmin UI
+        // Register the routes for the StellarAdmin UI and API
         endpoints.MapStellarAdmin();
     });
 }
