@@ -6,13 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Statiq.Web" Version="1.0.0-alpha.12" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="input\docs\actions" />
-    <Folder Include="input\docs\fields" />
-    <Folder Include="input\docs\resources" />
+    <PackageReference Include="Statiq.Web" Version="1.0.0-beta.31" />
   </ItemGroup>
 
 </Project>

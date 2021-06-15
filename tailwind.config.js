@@ -1,19 +1,29 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: {
-    enabled: false,
-    content: ["./input/**/*.cshtml"],
-  },
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+    purge: {
+        content: ["./input/**/*.cshtml"],
     },
-  },
-  variants: {},
-  plugins: [
-    require('@tailwindcss/ui'),
-  ],
-};
+    darkMode: false, // or 'media' or 'class'
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        "code::before": {content: "none"},
+                        "code::after": {content: "none"},
+                    },
+                },
+            },
+        },
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
+}
