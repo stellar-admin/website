@@ -3,7 +3,7 @@ order: 6
 
 ## Introduction
 
-StellarAdmin integrates with the standard ASP.NET Core [model validation mechanisms](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation). You can define validation on your resource using the following methods:
+StellarAdmin integrates with ASP.NET Core [model validation](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation). You can define validation for your resources using the following methods:
 
 * Using [data annotations](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation#validation-attributes)
 * Implementing [IValidatableObject](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation#ivalidatableobject) for class level validation
@@ -11,7 +11,7 @@ StellarAdmin integrates with the standard ASP.NET Core [model validation mechani
 
 ## Validating resources
 
-When using the `DbContextDataSource`, StellarAdmin will automatically perform validation on your resources before updating the entity on your `DbContext`. However, when you are making use of the `DelegateDataSource`, you will need to perform the validation yourself. StellarAdmin provides a `FormHelpers` class with a `ValidateResource` method that you can call.
+When using the `DbContextDataSource`, StellarAdmin will automatically perform validation on your resources before updating the entity on your database context. However, when you are making use of the `DelegateDataSource`, you will need to perform the validation yourself. StellarAdmin provides a `FormHelpers` class with a `ValidateResource` method that you can call.
 
 ## Validating actions
 

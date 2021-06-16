@@ -18,18 +18,18 @@ StellarAdmin has the following field editors:
 
 ## Default editors
 
-StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. The table below lists the circumstances under which each editor will be configured by default.
+StellarAdmin determines the default editor for a field based on the data type of the field. The table below lists the circumstances under which each editor will be configured as the default.
 
 Editor | Default for
 ---------|----------
- Boolean Editor | All fields with a data type of `bool`
- Date/Time Editor | All fields with a data type of `DateTime` or `DateTimeOffset`
- Select Editor | All fields with an `enum` data type.
- Text Editor | All fields that do not match any of the other criteria
+ Boolean Editor | All `bool` fields.
+ Date/Time Editor | All `DateTime` and `DateTimeOffset` fields.
+ Select Editor | All `enum` fields.
+ Text Editor | All fields that do not match any of the criteria above.
 
 ## Specifying an editor
 
-If you are not happy with the default editor, you can specify an editor when adding a field by calling the `HasEditor<TEditor>()` method. The `HasEditor<TEditor>()` method has an optional `configureEditor` parameter that allows you to specify parameters to customize the editor, such as the display format for the `DateEditor`.
+You can specify a specific editor by calling the `HasEditor<TEditor>()` method when adding a field. The `HasEditor<TEditor>()` method has an optional `configureEditor` parameter that allows you to specify properties to customize the editor, such as the display format for the `DateEditor` in the example below.
 
 ```cs
 builder.AddResource<BlogPost>(rb =>
