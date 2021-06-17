@@ -1,5 +1,5 @@
 xref: get-started
-order: 2
+order: 3
 ---
 
 ## Requirements
