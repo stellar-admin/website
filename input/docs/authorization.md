@@ -5,7 +5,7 @@ order: 10
 
 StellarAdmin integrates with the standard ASP.NET Core [authentication and authorization mechanisms](https://docs.microsoft.com/en-us/aspnet/core/security/). If you wish to limit access to StellarAdmin to authenticated users, you will need to authenticate your users using one of the methods as desribed in the [ASP.NET Core Authentication documentation](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/).
 
-### Authorizing access to StellarAdmin
+## Authorizing access to StellarAdmin
 
 Once you have authenticated your users, you can allow only authenticated users access to StellarAdmin by adding a call to `RequireAuthorization()` to the StellarAdmin endpoint registration.
 
@@ -57,4 +57,6 @@ public class Startup
 
 You can refer to the [Authorization sample](https://github.com/stellar-admin/samples/tree/master/Authorization) for a demonstration on how to implement this. For more information on creating authorization policies, refer to [Policy-based authorization in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies).
 
-**Please note:** It is not currently possible to authorize access to specific resources and actions. This is on the roadmap and we plan to add this ability in the future.
+## Authorizing access to specific resources and actions
+
+It is not currently possible to authorize access to specific resources and actions. This is on the roadmap and we plan to add this ability in the future.

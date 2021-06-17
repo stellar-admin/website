@@ -192,7 +192,7 @@ The code sample above will result in the following dialog:
 
 Some actions are destructive as they can irreversibly alter resources. For such actions, you can indicate to the user that they are about to perform a dangerous action by calling the `IsDestructive()` method during registration.
 
-```
+```cs
 builder.AddResource<BlogPost>(rb =>
 {
     // ...

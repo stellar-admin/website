@@ -19,7 +19,7 @@ For more information on defining a data source, refer to the [Data sources docum
 
 ### Defining the resource structure
 
-StellarAdmin needs to understand the structure of your resources. Specifically, it needs to know the fields (i.e. properties) of a resource and how those fields map to the properties of your data model. It also needs to know the primary key of a resource and the display field of a resource which is used when a resource is referenced by other resources.
+StellarAdmin needs to understand the structure of your resources. Specifically, it needs to know the fields of a resource and how those fields map to the properties of your data model. StellarAdmin also needs to know the primary key of a resource and the display field of a resource which is used when a resource is referenced by other resources.
 
 As hinted in the previous sentence, StellarAdmin also allows you to define relationships between resources. In a blogging application, there will be a relationship between **blog post** and **author** ( a blog post is written by an author), as well as **blog post** and **category** (a blog post belongs to a category).
 

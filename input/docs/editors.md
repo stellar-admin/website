@@ -3,7 +3,7 @@ order: 7
 
 ## Introduction
 
-Editors determine how a field's value is display in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).
+Editors determine how a field's value is displayed in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).
 
 StellarAdmin has the following field editors:
 
