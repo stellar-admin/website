@@ -1,36 +1,49 @@
-order: 5
+title: Customizing the editors for your fields
+nav-title: Editors
+order: 7
 ---
 
 ## Introduction
 
-Editors determine how a field's value is display in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).
+Editors determine how a field's value is displayed in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).
 
-StellarAdmin currently has support for the following field editors:
+StellarAdmin has the following field editors:
 
 * [Boolean Editor](#boolean-editor)
 * [Date Editor](#date-editor)
 * [Date/Time Editor](#datetime-editor)
+* [Image Editor](#image-editor)
+* [Markdown Editor](#markdown-editor)
 * [Select Editor](#select-editor)
+* [Text Area Editor](#text-area-editor)
 * [Text Editor](#text-editor)
 
 ## Default editors
 
-StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. The table below lists the circumstances under which each editor will be configured by default.
+StellarAdmin determines the default editor for a field based on the data type of the field. The table below lists the circumstances under which each editor will be configured as the default.
 
 Editor | Default for
 ---------|----------
- Boolean Editor | All fields with a data type of `bool`
- Date/Time Editor | All fields with a data type of `DateTime` or `DateTimeOffset`
- Select Editor | All fields with an `enum` data type.
- Text Editor | All fields that do not match any of the other criteria
+ Boolean Editor | All `bool` fields.
+ Date/Time Editor | All `DateTime` and `DateTimeOffset` fields.
+ Select Editor | All `enum` fields.
+ Text Editor | All fields that do not match any of the criteria above.
 
 ## Specifying an editor
 
-If you are not happy with the defaults, or you want to specify extra parameters for the editor, you can specify an editor in the `configureField` callback when defining a field:
+You can specify a specific editor by calling the `HasEditor<TEditor>()` method when adding a field. The `HasEditor<TEditor>()` method has an optional `configureEditor` parameter that allows you to specify properties to customize the editor, such as the display format for the `DateEditor` in the example below.
 
 ```cs
-// Specify a date-only field editor
-CreateField(l => l.StartDate, field => field.UseEditor<DateEditor>());
+builder.AddResource<BlogPost>(rb =>
+{
+    rb.AddField(post => post.Title);
+    rb.AddField(post => post.PublishDate, f => 
+        {
+            f.HasEditor<DateEditor>((editor, _) => editor.DisplayFormat = "FFF");
+        });
+    rb.AddField(post => post.AuthorId);
+    rb.AddField(post => post.Content, f => f.HasEditor<MarkdownEditor>());
+});
 ```
 
 ## Editor types
@@ -47,6 +60,14 @@ The `DateEditor` allows you to edit date values.
 
 The `DateTimeEditor` allows you to edit date/time values.
 
+### Image Editor
+
+...
+
+### Markdown Editor
+
+...
+
 ### Select Editor
 
 The `SelectEditor` allows you to select an item from a list of values. When used with an `enum` data type, the editor automatically displays the members of the type. You can use this in combination with the `DisplayAttribute` the specify the display text of the select editor.
@@ -61,6 +82,10 @@ public enum InterventionLinkType
     Buy = 1
 }
 ```
+
+### Text Area Editor
+
+...
 
 ### Text Editor
 

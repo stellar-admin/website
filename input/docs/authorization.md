@@ -1,132 +1,64 @@
-order: 8
+title: Authorizing access to StellarAdmin
+nav-title: Authorization
+order: 10
 ---
 
 ## Introduction
 
-StellarAdmin does not have any specific authorization extension points, but, since it is built with ASP.NET Core Razor Pages and Controllers, you can make use of ASP.NET Core's built-in authorization features to prevent unauthorized access to StellarAdmin.
+StellarAdmin integrates with the standard ASP.NET Core [authentication and authorization mechanisms](https://docs.microsoft.com/en-us/aspnet/core/security/). If you wish to limit access to StellarAdmin to authenticated users, you will need to authenticate your users using one of the methods as desribed in the [ASP.NET Core Authentication documentation](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/).
 
-## Preventing access to StellarAdmin
+## Authorizing access to StellarAdmin
 
-Preventing unauthorized access to StellarAdmin consists of two parts. First, you need to prevent access to the _Admin User Interface (UI)_. The Admin UI is a [Vue](https://vuejs.org/) application that is served by a single Razor Page to which access can be restricted by making use or Razor Pages [authorization conventions](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-3.1).
-
-Secondly, you need to prevent access to the _API controllers_. The Admin UI communicates with the StellarAdmin backend via a set of API controllers. Access to these controllers can be restricted by creating a custom [Authorization Filter](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-3.1#authorization-filters).
-
-### Preventing access to the Admin UI
-
-The name of the Razor Page that is serving the Admin UI is `/StellarAdmin`. You can require authorization to view this page by adding the `AuthorizePage()` convention.
+Once you have authenticated your users, you can allow only authenticated users access to StellarAdmin by adding a call to `RequireAuthorization()` to the StellarAdmin endpoint registration.
 
 ```cs
-public void ConfigureServices(IServiceCollection services)
+app.UseEndpoints(endpoints =>
 {
     // ...
 
-    services.AddRazorPages(o =>
-    {
-        o.Conventions.AuthorizePage("/StellarAdmin");
-    });
-    services.AddStellarAdmin();
-}
+    // Register StellarAdmin endpoints
+    endpoints.MapStellarAdmin().RequireAuthorization();
+});
 ```
 
-The example above only requires that a user is authenticated, but you may have more specific requirements. You may, for example, require that a user is an administrator. The `AuthorizePage()` convention takes an optional `policy` parameter, allowing you to specify an [authorization policy](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-3.1) that determines whether the user has permission to view the page.
+If you have more fine-grained requirements regarding which set of users can access StellarAdmin, you can configure authorization policies and pass the names of those authorization policies as a parameter to `RequireAuthorization()`. 
 
-Let's assume that you determine whether a user is an administrator based on whether they are assigned to the **Administrator** role. In this case, you can create an **IsAdministrator** policy and pass that as the `policy` parameter when calling `AuthorizePage()`.
-
-```cs
-public void ConfigureServices(IServiceCollection services)
-{
-    // ...
-
-    services.AddAuthorization(o =>
-    {
-        o.AddPolicy("IsAdministrator", builder => builder.RequireRole("Administrator"));
-    });
-    services.AddRazorPages(o =>
-    {
-        o.Conventions.AuthorizePage("/StellarAdmin", "IsAdministrator");
-    });
-    services.AddStellarAdmin();
-}
-```
-
-### Preventing access to the API
-
-The StellarAdmin API consists of several ASP.NET Core API Controllers served from the `/StellarApi` base route. To prevent access to these controllers, you can implement a custom [Authorization Filter](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-3.1#authorization-filters) that ensures only administrators can access these API endpoints.
-
-Add the following `StellarApiAuthorizationFilter` class to your application:
+The code example below demonstrates how you can declare an **IsAdministrator** policy that requires a user to have an **Administrator** role. The **IsAdministrator** policy name is then passed as a parameter in the call to `RequireAuthorization()` when the StellarAdmin endpoints are mapped. This will ensure that only users that are administrators will be able to access StellarAdmin.
 
 ```cs
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Policy;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace MyApplication
+public class Startup
 {
-    public class StellarApiAuthorizationFilter : IAsyncAuthorizationFilter
+    public void ConfigureServices(IServiceCollection services)
     {
-        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        // ...
+
+        services.AddAuthorization(o =>
         {
-            if (context.HttpContext.Request.Path.StartsWithSegments(new PathString("/stellarapi")))
-            {
-                var policyProvider = context.HttpContext.RequestServices.GetRequiredService<IAuthorizationPolicyProvider >();
-                var policy = await policyProvider.GetPolicyAsync("IsAdministrator");
-                if (policy != null)
-                {
-                    var policyEvaluator = context.HttpContext.RequestServices.GetRequiredService<IPolicyEvaluator>();
-                    var authenticateResult = await policyEvaluator.AuthenticateAsync(policy, context.HttpContext);
+            o.AddPolicy("IsAdministrator", builder => builder.RequireRole("Administrator"));
+        });
+        
+        services.AddStellarAdmin(builder =>
+        {
+            // ...
+        });
+    }
 
-                    var authorizeResult = await policyEvaluator.AuthorizeAsync(
-                        policy, authenticateResult, context.HttpContext, context);
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        //...
 
-                    if (authorizeResult.Challenged)
-                    {
-                        context.Result = new ChallengeResult(policy.AuthenticationSchemes.ToArray());
-                    }
-                    else if (authorizeResult.Forbidden)
-                    {
-                        context.Result = new ForbidResult(policy.AuthenticationSchemes.ToArray());
-                    }
-                }
-            }
-        }
+        app.UseEndpoints(endpoints =>
+        {
+            // ...
+            
+            endpoints.MapStellarAdmin().RequireAuthorization("IsAdministrator");
+        });
     }
 }
 ```
 
-Then add this filter when calling `AddControllers` in your startup class. The `ConfigureServices` method of your application should look similar to the following:
+You can refer to the [Authorization sample](https://github.com/stellar-admin/samples/tree/master/Authorization) for a demonstration on how to implement this. For more information on creating authorization policies, refer to [Policy-based authorization in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies).
 
-```cs
-public void ConfigureServices(IServiceCollection services)
-{
-    // ...
+## Authorizing access to specific resources and actions
 
-    // Define IsAdministrator policy that checks whether the user is in the Administrator role
-    services.AddAuthorization(o =>
-    {
-        o.AddPolicy("IsAdministrator", builder => builder.RequireRole("Administrator"));
-    });
-
-    // Add the StellarApiAuthorizationFilter which ensures only Administrators can access
-    // the StellarAdmin API endpoints
-    services.AddControllers(o =>
-    {
-        o.Filters.Add(new StellarApiAuthorizationFilter());
-    });
-
-    // Ensure only Administrators can access the Razor Page serving the StellarAdmin UI
-    services.AddRazorPages(o =>
-    {
-        o.Conventions.AuthorizePage("/StellarAdmin", "IsAdministrator");
-    });
-
-    // Add all the StellarAdmin services
-    services.AddStellarAdmin();
-}
-```
-
-You can find a complete example at [https://github.com/stellar-admin/samples/tree/master/Authorization](https://github.com/stellar-admin/samples/tree/master/Authorization).
+It is not currently possible to authorize access to specific resources and actions. This is on the roadmap and we plan to add this ability in the future.

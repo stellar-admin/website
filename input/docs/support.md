@@ -1,4 +1,6 @@
-order: 9
+title: Getting Support
+nav-title: Support
+order: 11
 ---
 
 ## Support

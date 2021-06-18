@@ -1,90 +1,85 @@
-order: 4
+title: Defining fields for your resource
+nav-title: Fields
+order: 6
 ---
 
-## Automatically generated fields
+## Specifying display fields
 
-StellarAdmin will automatically define fields representing all the simple properties of the underlying resource model. StellarAdmin uses data annotations to determine fields attributes such as the field `Label`, `Description` etc.
+Display fields are fields that will be displayed to the user in the various views, such as the resource index view, resource detail view, and the edit and create views. You can specify the display fields of your resource by calling the `AddField()` method when registering your resource. The `AddField` method takes an `expression` parameter which specifies a lambda expression that must be evaluated to return the value of the field.
 
-## Manually define fields
-
-If you would like more control over the field definitions, you can manually define fields for your resource definition. To do this, override the `CreateFields()` method in your resource definition and return an `IEnumerable<IField>` that contains the list of fields. You can define each of the individual fields by calling the `CreateField()` method, passing a lambda expression representing the field as the `expression` parameter.
-
-Let's assume you have the following resource.
+Let's assume you have the following `Author` class defined.
 
 ```cs
-public class Contact
+public class Author
 {
+    public string Bio { get; set; }
+
     public int Id { get; set; }
 
-    public string FirstName { get; set; }
+    public string Name { get; set; }
 
-    public string LastName { get; set; }
-
-    public string Email { get; set; }
-
-    public string PhoneNumber { get; set; }
+    public string Photo { get; set; }
 }
 ```
 
-Create a resource definition called `ContactDefinition` and define each of the fields in the `CreateFields()` method as follows:
+When registering the resource for the `Author` class, you can define each of the display fields as follow:
 
 ```cs
-public class ContactDefinition : ResourceDefinition<Contact>
+builder.AddResource<Author>(rb =>
 {
-    protected override IEnumerable<IField> CreateFields()
-    {
-        return new IField[]
-        {
-            CreateField(c => c.Id, f => f.IsKey = true),
-            CreateField(c => c.FirstName),
-            CreateField(c => c.LastName),
-            CreateField(c => c.EmailAddress),
-            CreateField(c => c.PhoneNumber, f => f.HideOnList())
-        };
-    }
-}
+    rb.AddField(a => a.Photo);
+    rb.AddField(a => a.Name);
+    rb.AddField(a => a.Bio);
+});
 ```
 
-## Specifying field attributes
+ Note that in the code example above we did not declare a display field for the `Id` property. This is because the `Id` property is the key field and not something we necessarily want to display to the user in the user interface.
 
-Note in the example above that the field definition for the `Id` property has extra parameters defined. The optional `configureField` parameter of the `CreateField` method is a callback that allows you to specify extra attributes for the field.
 
-### Specifying a key field
+### Specifying the name of the field
 
-If the example above, we define the `Id` property as the **key field** for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.
+Each field requires a unique name which StellarAdmin will try and determine from the lambda expression passed to the `AddField()` method. This works when the lambda expression is a member expression, but if you create a complex expression, StellarAdmin will not be able to determine the name of the field. 
 
-You can also specify the key field with data annotations by adding a `[Key]` attribute to property of your model that represents the key field:
+The following code represents a complex expression where StellarAdmin will not be able to determine the name of the field:
 
 ```cs
-public class Contact
-{
-    [Key]
-    public int Id { get; set; }
-
-    // ...
-}
+rb.AddField(a => $"{a.FirstName} {a.LastName}");
 ```
 
-When defining an **EF Core resource definition**, StellarAdmin will rely on EF Core to infer the key field. So in other words, for our `Contact` entity, that will be the property named `Id` or `ContactId`, or the property defined as a key using the `HasKey` method of the EF Core Fluent API.
+In this case, you will need to specify the optional `configure` parameter for the `AddField` method. You will be passed an instance of `FieldDefinitionBuilder<TResource>` that allows you to further configure the field. To specify the name of the field, you can call the `HasName()` method.
+
+```cs
+rb.AddField(a => $"{a.FirstName} {a.LastName}", f => f.HasName("Fullname"));
+```
 
 ### Specifying display attributes
 
-The `configureField` callback allows you to control various aspects of the field. You can, for example, specify the `Label` and `HelpText`.
-
-### Specifying field visibility
-
-You can also control the visibility of a field by calling the various `Hide*` methods. `Hide()` hides a field in all views. This is useful, for example, for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the `HideOnForms()` method that hides the field in the edit and create views.
-
-## Specifying the name of the field
-
-The second optional parameter for the `CreateField` method is the `name` parameter. By default, the `Name` of the field is determined by the underlying property name, but there may be cases where specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:
+The `configure` callback parameter of the `AddField` method also allows you to control various display properties of the field. You can, for example, specify the **label** and **help text** for a field by calling the `HasLabel()` and `HasHelpText()` methods.
 
 ```cs
-CreateField(c => $"{c.FirstName} {c.LastName}");
+rb.AddField(a => a.Bio,
+    f =>
+    {
+        f.HasLabel("Biography");
+        f.HasHelpText("Enter a short biography of the author");
+    });
+
 ```
 
-In this case StellarAdmin will be unable to determine the name and you will have to explicitly define a name:
+## Specifying a key field
+
+It is essential to specify a key field for a resource so StellarAdmin knows how to retrieve specific instances of a resource. StellarAdmin can automatically determine the key field of a resource under the following conditions:
+
+* The property that represents the primary key of your class has a `[Key]` attribute specified
+* When using the `DbContextDataSource`, StellarAdmin will request the primary key details from Entity Framework. This means that as long as Entity Framework can determine the primary key of your entity - whether that be by convention, Data Annotations or the Fluent API - StellarAdmin will be able to determine it as well.
+
+In cases where the key field cannot be automatically determined, you can specify it manually when you register your resource as follows:
 
 ```cs
-CreateField(c => $"{c.FirstName} {c.LastName}", name: "Fullname");
+builder.AddResource<Author>(rb =>
+{
+    rb.HasKey(a => a.Id);
+    
+    // ...
+});
 ```
