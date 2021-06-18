@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -119,6 +119,11 @@
                             Introduction
                         </span>
                     </a>
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            How it works
+                        </span>
+                    </a>
                     <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
@@ -127,6 +132,11 @@
                     <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Resources
+                        </span>
+                    </a>
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Data sources
                         </span>
                     </a>
                     <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
@@ -159,10 +169,15 @@
                             Support
                         </span>
                     </a>
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Changelog
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-5">
                 <div class="flex">
                     <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -170,20 +185,192 @@
                     </svg>
                     </div>
                     <div class="ml-3">
-                    <p class="text-sm leading-5 text-yellow-700">
+                    <p class="leading-5 text-yellow-700">
                         StellarAdmin is still in development. We'd love for you to try it out and get your 
                         <a href="/docs/support" class="underline">feedback</a>, 
-                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
+                        but please be advised that you may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
-            <article>
-                <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin allows for a standard set of actions to be performed on a resource, such as editing and deleting a resource. However, you may want to allow the user to perform other non-standard actions on a resource, for example marking an order as delivered, or publishing a blog post.</p>
-<p>StellarAdmin allows you to define custom actions for a resource that will be displayed to the user in the Admin UI.</p>
-<h2 id="defining-a-custom-action">Defining a custom action</h2>
-<p>todo...</p>
+            <article class="prose max-w-none mb-20">
+                <h1>Defining custom actions for your resources</h1><h1>
+                </h1><h2 id="introduction">Introduction</h2>
+<p>StellarAdmin has a standard set of actions that a user can perform on a resource, such as editing and deleting a resource. You may want to allow the user to perform other actions on a resource, for example, marking an order as delivered or publishing a blog post.</p>
+<p>StellarAdmin allows you to define custom actions for a resource that will be available to the user.</p>
+<p><img src="actions/custom-action-button.png" alt="Actions in the resource index view"></p>
+<h2 id="types-of-actions">Types of Actions</h2>
+<p>You to define three different kinds of custom actions:</p>
+<ol>
+<li><strong>Simple actions</strong> will execute immediately after a user has clicked the button for the action.</li>
+<li><strong>Confirmable actions</strong> will prompt the user for confirmation before the action executed.</li>
+<li><strong>Form actions</strong> will prompt the user to supply input that the action can use on execution.</li>
+</ol>
+<h3 id="defining-a-simple-action">Defining a Simple Action</h3>
+<p>To create a simple action, inherit from the <code>SimpleResourceAction</code> class and override the <code>Execute</code> method to perform the business logic required. The <code>keys</code> parameter will contain a list of primary key values for the resources on which the action must be performed. The <code>context</code> parameter will give you access to various properties of the context in which the action was executed. You can inject any services required by your action in the action constructor.</p>
+<p>The code below demonstrates a simple action that clears the <code>PublishDate</code> of the selected blog posts.</p>
+<pre><code class="language-cs">public class UnpublishPost : SimpleResourceAction
+{
+    private readonly BlogDbContext _dbContext;
+
+    public UnpublishPost(BlogDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+    
+    public override async Task&lt;ActionResult&gt; Execute(object[] keys, ActionRequestContext context)
+    {
+        if (keys != null)
+        {
+            foreach (var key in keys)
+            {
+                var blogPost = await _dbContext.BlogPosts.FindAsync(new Guid(key.ToString() ?? string.Empty));
+                if (blogPost != null)
+                {
+                    blogPost.PublishDate = null;
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return ActionResult.Success().WithRefresh().WithNotification("The blog post was unpublished");
+    }
+}
+</code></pre>
+<p>After you have created your action class, you need to register it in the resource builder. Call the <code>AddSimpleAction</code> method, specifying the type of your action class as the generic parameter and the text to be displayed on the button that executes the action as the <code>label</code> parameter.</p>
+<pre><code class="language-cs">builder.AddResource&lt;BlogPost&gt;(rb =&gt;
+{
+    // ...
+
+    rb.AddSimpleAction&lt;UnpublishPost&gt;("Unpublish");
+});
+</code></pre>
+<h3 id="defining-a-confirmable-action">Defining a Confirmable Action</h3>
+<p>Defining a confirmable action is the same process as for simple actions, but you need to inherit from the <code>ConfirmationResourceAction</code> class.</p>
+<pre><code class="language-cs">public class UnpublishPost : ConfirmationResourceAction
+{
+    // ...
+
+    public override async Task&lt;ActionResult&gt; Execute(object[] keys, ActionRequestContext context)
+    {
+        // ...
+    }
+}
+</code></pre>
+<p>To register the action with your resource, call the <code>AddConfirmationAction</code> method.</p>
+<pre><code class="language-cs">builder.AddResource&lt;BlogPost&gt;(rb =&gt;
+{
+    // ...
+
+    rb.AddConfirmationAction&lt;UnpublishPost&gt;("Unpublish",
+        actionBuilder =&gt;
+        {
+            actionBuilder.HasDialogTitle("Unpublish blog post");
+            actionBuilder.HasDialogPrompt("This will effectively remove the blog post from the website. Are you sure you want to proceed?");
+            actionBuilder.HasConfirmActionText("Unpublish");
+        });
+});
+</code></pre>
+<p>You can specify extra parameters during the action registration to change the text displayed in the confirmation dialog. Call the <code>HasDialogTitle()</code>, <code>HasDialogPrompt()</code>, <code>HasConfirmActionText()</code>, and <code>HasCancelActionText()</code> methods to specify these values.</p>
+<p><img src="actions/action-dialog-components.png" alt="The confirm dialog components"></p>
+<h3 id="defining-a-form-action">Defining a Form Action</h3>
+<p>A form action requires a model class representing the fields the user will supply in the dialog. Let's say we want to create an action that allows a user to publish a blog post. The action dialog should prompt the user for the date the blog post will be published. We can define a class called <code>PublishBlogPostModel</code> with a property named <code>PublishDate</code>.</p>
+<pre><code class="language-cs">public class PublishBlogPostModel
+{
+    public DateTime PublishDate { get; set; }
+}
+</code></pre>
+<p>To implement the action, create a new class that inherits from <code>FormResourceAction&lt;TModel&gt;</code>, passing the model class you created as the <code>TModel</code> generic parameter.</p>
+<pre><code class="language-cs">public class PublishBlogPost : FormResourceAction&lt;PublishBlogPostModel&gt;
+{
+    // ...
+}
+</code></pre>
+<p>The signature of the execute method is a little bit different from the simple and confirmable actions, as you will also be passed a <code>model</code> parameter. This parameter contains an instance of the model class with the values entered by the user. The code sample below demonstrates the complete implementation of a form resource action.</p>
+<pre><code class="language-cs">public class PublishBlogPostModel
+{
+    public DateTime PublishDate { get; set; }
+}
+
+public class PublishBlogPost : FormResourceAction&lt;PublishBlogPostModel&gt;
+{
+    private readonly BlogDbContext _dbContext;
+
+    public PublishBlogPost(BlogDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+    protected override async Task&lt;ActionResult&gt; Execute(object[] keys, PublishBlogPostModel model, FormActionRequestContext context)
+    {
+        if (keys != null)
+        {
+            foreach (var key in keys)
+            {
+                var blogPost = await _dbContext.BlogPosts.FindAsync(new Guid(key.ToString() ?? string.Empty));
+                if (blogPost != null)
+                {
+                    blogPost.PublishDate = model.PublishDate;
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        return ActionResult.Success().WithRefresh().WithNotification("The blog post was published successfully");
+    }
+}
+</code></pre>
+<p>To register the action with your resource, you need to call the <code>AddFormAction</code> method, passing the action class and action model classes as generic parameters. You will also need to declare fields for each of your action model class properties by calling the <code>AddField()</code> method.</p>
+<p>As for the confirmable action, you can also alter the dialog title, prompt, etc, by calling the appropriate methods.</p>
+<pre><code class="language-cs">builder.AddResource&lt;BlogPost&gt;(rb =&gt;
+{
+    // ...
+
+    rb.AddFormAction&lt;PublishBlogPost, PublishBlogPostModel&gt;("Publish",
+        actionBuilder =&gt;
+        {
+            actionBuilder.HasDialogTitle("Publish blog post");
+            actionBuilder.HasDialogPrompt("When do you want this blog post to be published?");
+            actionBuilder.HasConfirmActionText("Publish");
+            
+            actionBuilder.AddField(m =&gt; m.PublishDate, f =&gt;
+            {
+                f.HasLabel("Publication date:");
+                f.HasEditor&lt;DateEditor&gt;();
+            });
+        });
+});
+</code></pre>
+<p>The code sample above will result in the following dialog:</p>
+<p><img src="actions/form-action-dialog.png" alt="Sample dialog for a form action"></p>
+<h2 id="performing-destructive-actions">Performing destructive actions</h2>
+<p>Some actions are destructive as they can irreversibly alter resources. For such actions, you can indicate to the user that they are about to perform a dangerous action by calling the <code>IsDestructive()</code> method during registration.</p>
+<pre><code class="language-cs">builder.AddResource&lt;BlogPost&gt;(rb =&gt;
+{
+    // ...
+
+    rb.AddConfirmationAction&lt;UnpublishPost&gt;("Unpublish",
+        actionBuilder =&gt;
+        {
+            // ...
+
+            actionBuilder.IsDestructive();
+        });
+});
+</code></pre>
+<p>The button the user clicks will give a visual indication that the action is dangerous.</p>
+<p><img src="actions/destructive-action.png" alt="The button for a destructive action"></p>
+<p>For actions that display a dialog, the appearance of the dialog icon and confirm button will also be altered to indicate to the user that they are about to perform a dangerous action.</p>
+<p><img src="actions/destructive-action-dialog.png" alt="The dialog for a destructive action"></p>
+<h2 id="action-results">Action results</h2>
+<p>An action must return an <code>ActionResult</code> that indicates either success or failure. To return a successful result, you can return <code>ActionResult.Success()</code>. Conversely, you can return <code>ActionResult.Failure()</code> to indicate that the action was not executed successfully.</p>
+<p>You can also alter the response by chaining the following methods to the response:</p>
+<ul>
+<li><code>WithRefresh()</code> indicates to StellarAdmin that it should refresh the current view. You should call this whenever you perform an action that alters the content of the current page. Otherwise, the changes made by your action will not be reflected.</li>
+<li><code>WithNotification("...")</code> will display a notification toast with the text specified to the user. The visual appearance of the toast will depend on whether the action was successful or not.</li>
+</ul>
+<p>You can refer to the various code examples earlier in this document to see this in action.</p>
 
             </article>
         </div>

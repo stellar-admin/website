@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -119,6 +119,11 @@
                             Introduction
                         </span>
                     </a>
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            How it works
+                        </span>
+                    </a>
                     <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
@@ -127,6 +132,11 @@
                     <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Resources
+                        </span>
+                    </a>
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Data sources
                         </span>
                     </a>
                     <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
@@ -159,10 +169,15 @@
                             Support
                         </span>
                     </a>
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Changelog
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-5">
                 <div class="flex">
                     <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -170,27 +185,31 @@
                     </svg>
                     </div>
                     <div class="ml-3">
-                    <p class="text-sm leading-5 text-yellow-700">
+                    <p class="leading-5 text-yellow-700">
                         StellarAdmin is still in development. We'd love for you to try it out and get your 
                         <a href="/docs/support" class="underline">feedback</a>, 
-                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
+                        but please be advised that you may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
-            <article>
-                <h2 id="introduction">Introduction</h2>
-<p>Editors determine how a field's value is display in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).</p>
-<p>StellarAdmin currently has support for the following field editors:</p>
+            <article class="prose max-w-none mb-20">
+                <h1>Customizing the editors for your fields</h1><h1>
+                </h1><h2 id="introduction">Introduction</h2>
+<p>Editors determine how a field's value is displayed in read-only views such as the list and detail view, and how the value is edited in the form views (i.e. the edit and create views).</p>
+<p>StellarAdmin has the following field editors:</p>
 <ul>
 <li><a href="#boolean-editor">Boolean Editor</a></li>
 <li><a href="#date-editor">Date Editor</a></li>
 <li><a href="#datetime-editor">Date/Time Editor</a></li>
+<li><a href="#image-editor">Image Editor</a></li>
+<li><a href="#markdown-editor">Markdown Editor</a></li>
 <li><a href="#select-editor">Select Editor</a></li>
+<li><a href="#text-area-editor">Text Area Editor</a></li>
 <li><a href="#text-editor">Text Editor</a></li>
 </ul>
 <h2 id="default-editors">Default editors</h2>
-<p>StellarAdmin tries to apply intelligent defaults to determine the editor for a particular field based on the data type of the field. The table below lists the circumstances under which each editor will be configured by default.</p>
+<p>StellarAdmin determines the default editor for a field based on the data type of the field. The table below lists the circumstances under which each editor will be configured as the default.</p>
 <table>
 <thead>
 <tr>
@@ -201,26 +220,34 @@
 <tbody>
 <tr>
 <td>Boolean Editor</td>
-<td>All fields with a data type of <code>bool</code></td>
+<td>All <code>bool</code> fields.</td>
 </tr>
 <tr>
 <td>Date/Time Editor</td>
-<td>All fields with a data type of <code>DateTime</code> or <code>DateTimeOffset</code></td>
+<td>All <code>DateTime</code> and <code>DateTimeOffset</code> fields.</td>
 </tr>
 <tr>
 <td>Select Editor</td>
-<td>All fields with an <code>enum</code> data type.</td>
+<td>All <code>enum</code> fields.</td>
 </tr>
 <tr>
 <td>Text Editor</td>
-<td>All fields that do not match any of the other criteria</td>
+<td>All fields that do not match any of the criteria above.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="specifying-an-editor">Specifying an editor</h2>
-<p>If you are not happy with the defaults, or you want to specify extra parameters for the editor, you can specify an editor in the <code>configureField</code> callback when defining a field:</p>
-<pre><code class="language-cs">// Specify a date-only field editor
-CreateField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;());
+<p>You can specify a specific editor by calling the <code>HasEditor&lt;TEditor&gt;()</code> method when adding a field. The <code>HasEditor&lt;TEditor&gt;()</code> method has an optional <code>configureEditor</code> parameter that allows you to specify properties to customize the editor, such as the display format for the <code>DateEditor</code> in the example below.</p>
+<pre><code class="language-cs">builder.AddResource&lt;BlogPost&gt;(rb =&gt;
+{
+    rb.AddField(post =&gt; post.Title);
+    rb.AddField(post =&gt; post.PublishDate, f =&gt; 
+        {
+            f.HasEditor&lt;DateEditor&gt;((editor, _) =&gt; editor.DisplayFormat = "FFF");
+        });
+    rb.AddField(post =&gt; post.AuthorId);
+    rb.AddField(post =&gt; post.Content, f =&gt; f.HasEditor&lt;MarkdownEditor&gt;());
+});
 </code></pre>
 <h2 id="editor-types">Editor types</h2>
 <h3 id="boolean-editor">Boolean Editor</h3>
@@ -229,6 +256,10 @@ CreateField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;()
 <p>The <code>DateEditor</code> allows you to edit date values.</p>
 <h3 id="datetime-editor">Date/Time Editor</h3>
 <p>The <code>DateTimeEditor</code> allows you to edit date/time values.</p>
+<h3 id="image-editor">Image Editor</h3>
+<p>...</p>
+<h3 id="markdown-editor">Markdown Editor</h3>
+<p>...</p>
 <h3 id="select-editor">Select Editor</h3>
 <p>The <code>SelectEditor</code> allows you to select an item from a list of values. When used with an <code>enum</code> data type, the editor automatically displays the members of the type. You can use this in combination with the <code>DisplayAttribute</code> the specify the display text of the select editor.</p>
 <pre><code class="language-cs">public enum InterventionLinkType
@@ -240,6 +271,8 @@ CreateField(l =&gt; l.StartDate, field =&gt; field.UseEditor&lt;DateEditor&gt;()
     Buy = 1
 }
 </code></pre>
+<h3 id="text-area-editor">Text Area Editor</h3>
+<p>...</p>
 <h3 id="text-editor">Text Editor</h3>
 <p>The <code>TextEditor</code> allows you to edit a value using a simple text input field.</p>
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -119,6 +119,11 @@
                             Introduction
                         </span>
                     </a>
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            How it works
+                        </span>
+                    </a>
                     <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
@@ -127,6 +132,11 @@
                     <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Resources
+                        </span>
+                    </a>
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Data sources
                         </span>
                     </a>
                     <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
@@ -159,10 +169,15 @@
                             Support
                         </span>
                     </a>
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Changelog
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-5">
                 <div class="flex">
                     <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -170,68 +185,37 @@
                     </svg>
                     </div>
                     <div class="ml-3">
-                    <p class="text-sm leading-5 text-yellow-700">
+                    <p class="leading-5 text-yellow-700">
                         StellarAdmin is still in development. We'd love for you to try it out and get your 
                         <a href="/docs/support" class="underline">feedback</a>, 
-                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
+                        but please be advised that you may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
-            <article>
-                <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin allows you to create <em>resource definitions</em> that describe the data models of your application. For example, an e-commerce application may have resource definitions for entities such as <strong>Product</strong>, <strong>Order</strong> and <strong>Customer</strong>.</p>
-<p>A resource definition has <a href="fields">fields</a> and <a href="actions">actions</a> and takes care of querying and updating the underlying data source. A resource definition also defines other behaviour, such as whether a resource allows editing and deleting.</p>
+            <article class="prose max-w-none mb-20">
+                <h1>Defining resources in StellarAdmin</h1><h1>
+                </h1><h2 id="introduction">Introduction</h2>
+<p>Central to StellarAdmin is the concept of "resources". A resource is a representation of the underlying domain models or entities that your application makes use of. For example, a blogging application may have resources for entities such as <strong>Blog post</strong>, <strong>Author</strong> and <strong>Category</strong>.</p>
 <h2 id="defining-a-resource">Defining a resource</h2>
-<p>You define a resource definition by creating a class that inherits from <code>ResourceDefinition&lt;TResource&gt;</code> or, if you are using EF Core, <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>.</p>
-<p>When using <code>EfCoreResourceDefinition&lt;TDbContext, TResource&gt;</code>, most functionality is taken care of for you, such as querying the resource, updating and deleting resources, etc. Using <code>ResourceDefinition&lt;TResource&gt;</code> requires you to take care of this functionality yourself, but it gives you a lot more flexibility over where you get your data from. You can, for example, define a resource that represents information coming from an external API, such as Stripe.</p>
-<h3 id="using-ef-core">Using EF Core</h3>
-<p>The EF Core use case is the simplest, so let's look at that first. In this scenario, let's assume the following database context and model:</p>
-<pre><code class="language-cs">public class Contact
+<p>You define resources in StellarAdmin when you register the StellarAdmin services in your <code>Startup.ConfigureServices</code> method. The <code>AddStellarAdmin()</code> method takes an optional <code>configure</code> parameter that gives you access to the <code>StellarAdminBuilder</code> class that allows you to register resources.</p>
+<p>The builder has an <code>AddResource&lt;TResource&gt;</code> method you call to declare a resource. The <code>TResource</code> generic parameter specifies the model the resource will be managing. In the code below, we register a new resource that will manage the <code>Author</code> class.</p>
+<pre><code class="language-cs">services.AddStellarAdmin(builder =&gt;
 {
-    public int Id { get; set; }
-
-    public string Email { get; set; }
-
-    public string FirstName { get; set; }
-
-    public string LastName { get; set; }
-}
-
-public class ApplicationDbContext : DbContext
-{
-    public DbSet&lt;Contact&gt; Contacts { get; set; }
-}
-</code></pre>
-<p>You can create a resource definition that allows you to maintain Contacts:</p>
-<pre><code class="language-cs">public class ContactDefinition : EfCoreResourceDefinition&lt;ApplicationDbContext, Contact&gt;
-{
-    public ContactDefinition(ApplicationDbContext dbContext)
-        : base(dbContext)
+    builder.AddResource&lt;Author&gt;(rb =&gt;
     {
-    }
-}
+        // ...
+    });
+});
 </code></pre>
-<p>You need to define the <code>TDbContext</code> and <code>TResource</code> generic parameters which are the database context and entity types respectively. The base constructor of the EF Core resource definition takes a <code>dbContext</code> parameter which is an instance of your database context type.</p>
-<p>All resource definitions are registered with the ASP.NET Core dependency injection, so you can inject any other service you require in the constructor of your resource definition. Also ensure that your database context it is registered with the ASP.NET Core dependency injection as per the <a href="https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&amp;tabs=visual-studio#startupcs">ASP.NET Core docs</a>)</p>
-<p>You can refer to the <a href="https://github.com/stellar-admin/samples/tree/master/Store">Store Sample</a> for a more detailed example of how to create resource definitions for EF Core.</p>
-<h3 id="using-another-data-source">Using another data source</h3>
-<p>If you want to create a resource definition that represents data coming from another source, you can inherit from <code>ResourceDefinition&lt;TResource&gt;</code>. You resource definition class will need to override the following <code>abstract</code> methods defined in <code>ResourceDefinition&lt;TResource&gt;</code>:</p>
-<h4 id="getlistasync">GetListAsync</h4>
-<p>This method executes when retrieving a list of resources. The <code>query</code> parameter contains paging information such as the <code>PageNo</code> and <code>PageSize</code>. You need to return a <code>PagedResourceList</code> that contains the list of resources as well as paging information.</p>
-<h4 id="getbykeyasync">GetByKeyAsync</h4>
-<p>The method executes when retrieving a single instance of a resource. The <code>key</code> parameter contains the primary key value of the resource. You must return the resource or null if not found.</p>
-<h4 id="createasync">CreateAsync</h4>
-<p>This method executes when creating a new resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>CreateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
-<h4 id="updateasync">UpdateAsync</h4>
-<p>The method executes when updating a resource. The <code>key</code> parameter contains the primary key value of the resource. The <code>values</code> dictionary contains key-value pairs with the field names and values. You can call the <code>SetResourceValues</code> protected method to apply the values to a resource instance.</p>
-<p>The <code>UpdateAsync</code> method must return a <code>ValidationResult</code> that indicates whether the resource is valid or not. The <code>ValidateResource</code> protected method can be called to validate a resource instance, and you can return the result.</p>
-<h4 id="deleteasync">DeleteAsync</h4>
-<p>This method executes when deleting a resource. The <code>key</code> parameter contains the primary key of the resource to be deleted.</p>
-<h4 id="getlookuplistasync">GetLookupListAsync</h4>
-<p>This method executes when displaying the resource in a lookup list - such as when another resource references it.</p>
-<p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample</a> for an example of how to implement a resource definition that gets data from a custom data source.</p>
+<p>The <code>AddResource&lt;TResource&gt;</code> method has a <code>configure</code> parameter that gives you access to the <code>ResourceDefinitionBuilder&lt;TResource&gt;</code> class that will allow you to define the resource. It allows you to do the following:</p>
+<ol>
+<li>Define the data source of the resource through the <code>UseDataSource()</code> method</li>
+<li>Define the fields of the resource through the <code>AddField()</code> method</li>
+<li>Define the primary key of the resource through the <code>HasKey()</code> method</li>
+<li>Define the display field of the resource through the <code>HasDisplay()</code> method</li>
+<li>Register custom actions for the resource through the <code>AddSimpleAction()</code>, <code>AddConfirmationAction()</code>, and <code>AddFormAction()</code> methods.</li>
+</ol>
 
             </article>
         </div>

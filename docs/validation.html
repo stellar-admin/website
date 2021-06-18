@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -119,6 +119,11 @@
                             Introduction
                         </span>
                     </a>
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            How it works
+                        </span>
+                    </a>
                     <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
@@ -127,6 +132,11 @@
                     <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Resources
+                        </span>
+                    </a>
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Data sources
                         </span>
                     </a>
                     <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
@@ -159,10 +169,15 @@
                             Support
                         </span>
                     </a>
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Changelog
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-5">
                 <div class="flex">
                     <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -170,20 +185,44 @@
                     </svg>
                     </div>
                     <div class="ml-3">
-                    <p class="text-sm leading-5 text-yellow-700">
+                    <p class="leading-5 text-yellow-700">
                         StellarAdmin is still in development. We'd love for you to try it out and get your 
                         <a href="/docs/support" class="underline">feedback</a>, 
-                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
+                        but please be advised that you may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
-            <article>
-                <h2 id="introduction">Introduction</h2>
-<p>StellarAdmin integrates with the standard ASP.NET Core <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-3.1">model validation mechanisms</a>.</p>
-<p>You can define validation on your resource models via <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-3.1#validation-attributes">data annotations</a>, implementing <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-3.1#ivalidatableobject">IValidatableObject</a> for class level validation, or integrate a 3rd party validation library such as <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html">FluentValidation</a>.</p>
+            <article class="prose max-w-none mb-20">
+                <h1>Validating your resources</h1><h1>
+                </h1><h2 id="introduction">Introduction</h2>
+<p>StellarAdmin integrates with ASP.NET Core <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation">model validation</a>. You can define validation for your resources using the following methods:</p>
+<ul>
+<li>Using <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation#validation-attributes">data annotations</a></li>
+<li>Implementing <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation#ivalidatableobject">IValidatableObject</a> for class level validation</li>
+<li>Integrate a 3rd party validation library such as <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html">FluentValidation</a>.</li>
+</ul>
+<h2 id="validating-resources">Validating resources</h2>
+<p>When using the <code>DbContextDataSource</code>, StellarAdmin will automatically perform validation on your resources before updating the entity on your database context. However, when you are making use of the <code>DelegateDataSource</code>, you will need to perform the validation yourself. StellarAdmin provides a <code>FormHelpers</code> class with a <code>ValidateResource</code> method that you can call.</p>
+<h2 id="validating-actions">Validating actions</h2>
+<p>StellarAdmin automatically performs validation on the model specified for form-based actions. All you need to do is to specify validation rules for your model using one of the three methods mentioned at earlier in this document. In the example below, the <code>PublishDate</code> property of the action model has a <code>Required</code> attribute specified to ensure that the user specifies a value before the action will be executed.</p>
+<pre><code class="language-cs">public class PublishBlogPost : FormResourceAction&lt;PublishBlogPost.PublishBlogPostModel&gt;
+{
+    public class PublishBlogPostModel
+    {
+        [Required]
+        public DateTime PublishDate { get; set; }
+    }
+
+    protected override async Task&lt;ActionResult&gt; Execute(object[] keys, PublishBlogPostModel model, FormActionRequestContext context)
+    {
+        //...
+    }
+}
+</code></pre>
 <h2 id="error-display">Error display</h2>
-<p>todo</p>
+<p>If your resource or action model has validation errors, StellarAdmin will highlight the fields containing validation errors and display the error message below the field.</p>
+<p><img src="validation.png" alt="Validation errors displayed in the StellarAdmin UI"></p>
 
             </article>
         </div>

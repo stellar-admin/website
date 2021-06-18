@@ -114,7 +114,7 @@
     <div class="grid grid-cols-5 gap-4 mt-4">
         <div class="col-span-1">
             <nav>
-                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Introduction
                         </span>
@@ -134,7 +134,7 @@
                             Resources
                         </span>
                     </a>
-                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Data sources
                         </span>
@@ -194,11 +194,81 @@
                 </div>
             </div>
             <article class="prose max-w-none mb-20">
-                <h1>Introduction to StellarAdmin</h1><h1>
-                </h1><h2 id="introduction">Introduction</h2>
-<p>StellarAdmin is a library for ASP.NET Core that allows you to rapidly create admin screens for your application. StellarAdmin allows you to map your application's existing domain models or entities to "resources", which StellarAdmin uses to create admin screens for your users.</p>
-<h2 id="intended-use">Intended use</h2>
-<p>StellarAdmin is intended to be used to create admin screens and dashboards for your application that is used by internal admin users and support staff. It is intended to help you rapidly create screens that allow these users to manage the administrative functions of the application. StellarAdmin is <strong>not intended for use</strong> to create a front-end to be used by the end-users of your application.</p>
+                <h1>Defining the data source for your resource</h1><h1>
+                </h1><h2 id="overview">Overview</h2>
+<p>A resource's data source acts as the interface between StellarAdmin and your application's data store. StellarAdmin comes with two data source out of the box, namely:</p>
+<ol>
+<li>The <code>DelegateDataSource</code> allows you to specify the interaction between StellarAdmin and your data store through callback methods.</li>
+<li>The <code>DbContextDataSource</code> (available in the <code>StellarAdmin.EntityFrameworkCore</code> NuGet package) takes care of all interaction between StellarAdmin and your application's <code>DbContext</code> on your behalf. If you use Entity Framework in your application, then this should be you first choice.</li>
+</ol>
+<h2 id="using-the-delegatedatasource">Using the DelegateDataSource</h2>
+<p>The <code>DelegateDataSource</code> allows you to specify the interaction between StellarAdmin and your data store through callback methods. To use the <code>DelegateDataSource</code>, call the <code>UseDataSource()</code> method and use the overload that takes a <code>configure</code> parameter of type <code>Action&lt;DelegateDataSourceOptions&lt;TResource&gt;&gt;</code> as in the code example below.</p>
+<pre><code class="language-cs">builder.AddResource&lt;Author&gt;(rb =&gt;
+{
+    rb.UseDataSource(options =&gt;
+    {
+        options.OnCreate = async request =&gt;
+        {
+            // ...
+        };
+        options.OnDelete = async request =&gt;
+        {
+            // ...
+        };
+        options.OnUpdate = async request =&gt;
+        {
+            // ...
+        };
+        options.OnGetList = async request =&gt;
+        {
+            // ...
+        };
+        options.OnGetSingle = async request =&gt;
+        {
+            // ...
+        };
+        options.OnGetLookupList = async request =&gt;
+        {
+            // ...
+        };
+    });
+}
+</code></pre>
+<ul>
+<li>The <code>OnCreate</code> delegate is called when creating a new resource. It takes a <code>CreateRequest</code> parameter that contains the values entered by the user. It must return a <code>Task&lt;ValidationResult&gt;</code> that indicates whether the resource is valid or not.</li>
+<li>The <code>OnDelete</code> delegate is called when deleting a resource. It takes a <code>DeleteRequest</code> parameter that contains the primary key value of the resource to be deleted.</li>
+<li>The <code>OnUpdate</code> delegate is called when updating a resource. It takes an <code>UpdateRequest</code> parameter contains the primary key value of the resource to be deleted as well as the values entered by the user. It must return a <code>Task&lt;ValidationResult&gt;</code> that indicates whether the resource is valid or not.</li>
+<li>The <code>OnGetList</code> delegate is called when retrieving a list of resources. It takes a <code>GetListRequest</code> parameter with a <code>Query</code> property that contains paging information such as the <code>PageNo</code> and <code>PageSize</code>. You must return a <code>Task&lt;PagedResourceList&gt;</code> that contains the list of resources as well as paging information.</li>
+<li>The <code>OnGetSingle</code> delegate is called when retrieving a single instance of a resource. It takes a <code>GetSingleRequest</code> parameter with the primary key value of the resource. You must return a <code>Task&lt;TResource?&gt;</code> with the resource, or null if not found.</li>
+<li>The <code>OnGetLookupList</code> delefate is called when displaying the resource in a lookup list - such as when another resource references it.</li>
+</ul>
+<p>Please refer to the <a href="https://github.com/stellar-admin/samples/tree/master/ContactList">Contact List Sample</a> for a complete example of how to use the <code>DelegateDataSource</code> to read and write data from a custom data source.</p>
+<h2 id="using-the-dbcontextdatasource">Using the DbContextDataSource</h2>
+<p>To use the <code>DbContextDataSource</code>, ensure that you can installed the <code>StellarAdmin.EntityFrameworkCore</code> NuGet package.</p>
+<p>When you register your resource, you can call the <code>UseDataSource&lt;TDataSource, TOptions&gt;()</code> method which takes two generic parameters:</p>
+<ol>
+<li><code>TDataSource</code> is the type of the data source you want to use, in this case, the <code>DbContextDataSource&lt;TDbContext, TResource&gt;</code>. <code>DbContextDataSource&lt;TDbContext, TResource&gt;</code> itself takes two paramters namely:
+<ul>
+<li><code>TDbContext</code> is the type of your <code>DbContext</code></li>
+<li><code>TResource</code> is the entity managed by the <code>DbContext</code></li>
+</ul>
+</li>
+<li><code>TOptions</code> is an instance <code>DbContextDataSourceOptions&lt;TResource&gt;</code> where the <code>TResource</code> generic parameter is the entity class.</li>
+</ol>
+<pre><code class="language-cs">builder.AddResource&lt;Author&gt;(rb =&gt;
+{
+    rb.UseDataSource&lt;DbContextDataSource&lt;BlogDbContext, Author&gt;, DbContextDataSourceOptions&lt;Author&gt;&gt;();
+
+    // ...
+});
+</code></pre>
+<p>Admittedly, all those generic parameters are painful to look at, so we made it easier for you by providing the <code>AddEntityResource&lt;TDbContext, TResource&gt;</code> extension method on the <code>StellarAdminBuilder</code> class. It takes your database context and entity type as generic parameters, and it will take care of the calls to <code>AddResource</code> and <code>UseDataSource</code> for you.</p>
+<p>The <code>AddEntityResource</code> extension method allows you to replace the code above with the following, which is much easier to read and understand.</p>
+<pre><code class="language-cs">builder.AddEntityResource&lt;BlogDbContext, Author&gt;(rb =&gt;
+{
+    // ...
+});
+</code></pre>
 
             </article>
         </div>

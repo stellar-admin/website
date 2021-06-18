@@ -114,7 +114,7 @@
     <div class="grid grid-cols-5 gap-4 mt-4">
         <div class="col-span-1">
             <nav>
-                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Introduction
                         </span>
@@ -169,7 +169,7 @@
                             Support
                         </span>
                     </a>
-                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             Changelog
                         </span>
@@ -194,11 +194,18 @@
                 </div>
             </div>
             <article class="prose max-w-none mb-20">
-                <h1>Introduction to StellarAdmin</h1><h1>
-                </h1><h2 id="introduction">Introduction</h2>
-<p>StellarAdmin is a library for ASP.NET Core that allows you to rapidly create admin screens for your application. StellarAdmin allows you to map your application's existing domain models or entities to "resources", which StellarAdmin uses to create admin screens for your users.</p>
-<h2 id="intended-use">Intended use</h2>
-<p>StellarAdmin is intended to be used to create admin screens and dashboards for your application that is used by internal admin users and support staff. It is intended to help you rapidly create screens that allow these users to manage the administrative functions of the application. StellarAdmin is <strong>not intended for use</strong> to create a front-end to be used by the end-users of your application.</p>
+                <h1>The StellarAdmin changelog</h1><h1>
+                </h1><h2 id="v0.20.0">v0.20.0</h2>
+<p>Version 0.20.0 denotes a major change in the underlying architecture for StellarAdmin. One of the major reasons for this was that we wanted to make it more flexible regarding where you resource definition are defined. We want to get to a point where you can just point to your <code>DbContext</code> and StellarAdmin will determine the resources from the entity classes managed by the <code>DbContext</code>. It also leaves open the possibility to define resources in external sources such as a database or, dare we say it, a YAML file.</p>
+<p>Another major change was to decouple the reading and writing of resources from your underlying data store from the actual entity definition. We now have the concept of a data source which acts as a gateway between your resource and the underlying data store.</p>
+<p>Due to these major changes, it would be impractical to give any sort of migration guide. However, here are some of the highlights of the major changes with links to the documentation that will explain how to use it in your current application.</p>
+<ol>
+<li>You no longer define resources by inheriting from <code>ResourceDefinition&lt;T&gt;</code>. You now <a href="resources">define resources</a> using the new <code>StellarAdminBuilder</code>.</li>
+<li>Reading and writing data from your data store has been moved to <a href="datasources">data sources</a>. If you use Entity Framework core, you can <a href="datasources#using-the-dbcontextdatasource">use the new DbContextDataSource</a>. If you have a custom data source you can <a href="datasources#using-the-delegatedatasource">use the new DelegateDataSource</a>.</li>
+<li>You now <a href="fields">define fields</a> using the new <code>ResourceDefinitionBuilder</code>.</li>
+<li>For actions, you need to inherit from one of the new base classes, then register the action with your resource <a href="actions">using the ResourceDefinitionBuilder</a>.</li>
+</ol>
+<p>Our apologies for making you go through all these changes, but we do believe that it will lead to a better product in the end. Hopefully we can minimize major changes like this going forward.</p>
 
             </article>
         </div>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -119,6 +119,11 @@
                             Introduction
                         </span>
                     </a>
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            How it works
+                        </span>
+                    </a>
                     <a href="/docs/installation" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Installation
@@ -127,6 +132,11 @@
                     <a href="/docs/resources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Resources
+                        </span>
+                    </a>
+                    <a href="/docs/datasources" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Data sources
                         </span>
                     </a>
                     <a href="/docs/fields" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
@@ -159,10 +169,15 @@
                             Support
                         </span>
                     </a>
+                    <a href="/docs/changelog" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                        <span class="truncate">
+                            Changelog
+                        </span>
+                    </a>
             </nav>
         </div>
         <div class="col-span-4">
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-5">
                 <div class="flex">
                     <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -170,73 +185,70 @@
                     </svg>
                     </div>
                     <div class="ml-3">
-                    <p class="text-sm leading-5 text-yellow-700">
+                    <p class="leading-5 text-yellow-700">
                         StellarAdmin is still in development. We'd love for you to try it out and get your 
                         <a href="/docs/support" class="underline">feedback</a>, 
-                        but please be advised that your may run into bugs. Changes to public APIs may also occur.
+                        but please be advised that you may run into bugs. Changes to public APIs may also occur.
                     </p>
                     </div>
                 </div>
             </div>
-            <article>
-                <h2 id="automatically-generated-fields">Automatically generated fields</h2>
-<p>StellarAdmin will automatically define fields representing all the simple properties of the underlying resource model. StellarAdmin uses data annotations to determine fields attributes such as the field <code>Label</code>, <code>Description</code> etc.</p>
-<h2 id="manually-define-fields">Manually define fields</h2>
-<p>If you would like more control over the field definitions, you can manually define fields for your resource definition. To do this, override the <code>CreateFields()</code> method in your resource definition and return an <code>IEnumerable&lt;IField&gt;</code> that contains the list of fields. You can define each of the individual fields by calling the <code>CreateField()</code> method, passing a lambda expression representing the field as the <code>expression</code> parameter.</p>
-<p>Let's assume you have the following resource.</p>
-<pre><code class="language-cs">public class Contact
+            <article class="prose max-w-none mb-20">
+                <h1>Defining fields for your resource</h1><h1>
+                </h1><h2 id="specifying-display-fields">Specifying display fields</h2>
+<p>Display fields are fields that will be displayed to the user in the various views, such as the resource index view, resource detail view, and the edit and create views. You can specify the display fields of your resource by calling the <code>AddField()</code> method when registering your resource. The <code>AddField</code> method takes an <code>expression</code> parameter which specifies a lambda expression that must be evaluated to return the value of the field.</p>
+<p>Let's assume you have the following <code>Author</code> class defined.</p>
+<pre><code class="language-cs">public class Author
 {
+    public string Bio { get; set; }
+
     public int Id { get; set; }
 
-    public string FirstName { get; set; }
+    public string Name { get; set; }
 
-    public string LastName { get; set; }
-
-    public string Email { get; set; }
-
-    public string PhoneNumber { get; set; }
+    public string Photo { get; set; }
 }
 </code></pre>
-<p>Create a resource definition called <code>ContactDefinition</code> and define each of the fields in the <code>CreateFields()</code> method as follows:</p>
-<pre><code class="language-cs">public class ContactDefinition : ResourceDefinition&lt;Contact&gt;
+<p>When registering the resource for the <code>Author</code> class, you can define each of the display fields as follow:</p>
+<pre><code class="language-cs">builder.AddResource&lt;Author&gt;(rb =&gt;
 {
-    protected override IEnumerable&lt;IField&gt; CreateFields()
-    {
-        return new IField[]
-        {
-            CreateField(c =&gt; c.Id, f =&gt; f.IsKey = true),
-            CreateField(c =&gt; c.FirstName),
-            CreateField(c =&gt; c.LastName),
-            CreateField(c =&gt; c.EmailAddress),
-            CreateField(c =&gt; c.PhoneNumber, f =&gt; f.HideOnList())
-        };
-    }
-}
+    rb.AddField(a =&gt; a.Photo);
+    rb.AddField(a =&gt; a.Name);
+    rb.AddField(a =&gt; a.Bio);
+});
 </code></pre>
-<h2 id="specifying-field-attributes">Specifying field attributes</h2>
-<p>Note in the example above that the field definition for the <code>Id</code> property has extra parameters defined. The optional <code>configureField</code> parameter of the <code>CreateField</code> method is a callback that allows you to specify extra attributes for the field.</p>
-<h3 id="specifying-a-key-field">Specifying a key field</h3>
-<p>If the example above, we define the <code>Id</code> property as the <strong>key field</strong> for the resource. It is essential to specify a key field for a resource. If no key field is specified, you cannot view, edit, create or delete resource for that particular resource definition - you can only see a list view.</p>
-<p>You can also specify the key field with data annotations by adding a <code>[Key]</code> attribute to property of your model that represents the key field:</p>
-<pre><code class="language-cs">public class Contact
-{
-    [Key]
-    public int Id { get; set; }
-
-    // ...
-}
+<p>Note that in the code example above we did not declare a display field for the <code>Id</code> property. This is because the <code>Id</code> property is the key field and not something we necessarily want to display to the user in the user interface.</p>
+<h3 id="specifying-the-name-of-the-field">Specifying the name of the field</h3>
+<p>Each field requires a unique name which StellarAdmin will try and determine from the lambda expression passed to the <code>AddField()</code> method. This works when the lambda expression is a member expression, but if you create a complex expression, StellarAdmin will not be able to determine the name of the field.</p>
+<p>The following code represents a complex expression where StellarAdmin will not be able to determine the name of the field:</p>
+<pre><code class="language-cs">rb.AddField(a =&gt; $"{a.FirstName} {a.LastName}");
 </code></pre>
-<p>When defining an <strong>EF Core resource definition</strong>, StellarAdmin will rely on EF Core to infer the key field. So in other words, for our <code>Contact</code> entity, that will be the property named <code>Id</code> or <code>ContactId</code>, or the property defined as a key using the <code>HasKey</code> method of the EF Core Fluent API.</p>
+<p>In this case, you will need to specify the optional <code>configure</code> parameter for the <code>AddField</code> method. You will be passed an instance of <code>FieldDefinitionBuilder&lt;TResource&gt;</code> that allows you to further configure the field. To specify the name of the field, you can call the <code>HasName()</code> method.</p>
+<pre><code class="language-cs">rb.AddField(a =&gt; $"{a.FirstName} {a.LastName}", f =&gt; f.HasName("Fullname"));
+</code></pre>
 <h3 id="specifying-display-attributes">Specifying display attributes</h3>
-<p>The <code>configureField</code> callback allows you to control various aspects of the field. You can, for example, specify the <code>Label</code> and <code>HelpText</code>.</p>
-<h3 id="specifying-field-visibility">Specifying field visibility</h3>
-<p>You can also control the visibility of a field by calling the various <code>Hide*</code> methods. <code>Hide()</code> hides a field in all views. This is useful, for example, for key fields that you never want to display to the user. Or maybe you want the key field to only be visible in the list and detail views, in which case you can call the <code>HideOnForms()</code> method that hides the field in the edit and create views.</p>
-<h2 id="specifying-the-name-of-the-field">Specifying the name of the field</h2>
-<p>The second optional parameter for the <code>CreateField</code> method is the <code>name</code> parameter. By default, the <code>Name</code> of the field is determined by the underlying property name, but there may be cases where specifying the name field is required. For example, if your field does not reference a property, but is a complex expression like the following:</p>
-<pre><code class="language-cs">CreateField(c =&gt; $"{c.FirstName} {c.LastName}");
+<p>The <code>configure</code> callback parameter of the <code>AddField</code> method also allows you to control various display properties of the field. You can, for example, specify the <strong>label</strong> and <strong>help text</strong> for a field by calling the <code>HasLabel()</code> and <code>HasHelpText()</code> methods.</p>
+<pre><code class="language-cs">rb.AddField(a =&gt; a.Bio,
+    f =&gt;
+    {
+        f.HasLabel("Biography");
+        f.HasHelpText("Enter a short biography of the author");
+    });
+
 </code></pre>
-<p>In this case StellarAdmin will be unable to determine the name and you will have to explicitly define a name:</p>
-<pre><code class="language-cs">CreateField(c =&gt; $"{c.FirstName} {c.LastName}", name: "Fullname");
+<h2 id="specifying-a-key-field">Specifying a key field</h2>
+<p>It is essential to specify a key field for a resource so StellarAdmin knows how to retrieve specific instances of a resource. StellarAdmin can automatically determine the key field of a resource under the following conditions:</p>
+<ul>
+<li>The property that represents the primary key of your class has a <code>[Key]</code> attribute specified</li>
+<li>When using the <code>DbContextDataSource</code>, StellarAdmin will request the primary key details from Entity Framework. This means that as long as Entity Framework can determine the primary key of your entity - whether that be by convention, Data Annotations or the Fluent API - StellarAdmin will be able to determine it as well.</li>
+</ul>
+<p>In cases where the key field cannot be automatically determined, you can specify it manually when you register your resource as follows:</p>
+<pre><code class="language-cs">builder.AddResource&lt;Author&gt;(rb =&gt;
+{
+    rb.HasKey(a =&gt; a.Id);
+    
+    // ...
+});
 </code></pre>
 
             </article>

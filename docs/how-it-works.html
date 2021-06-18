@@ -114,12 +114,12 @@
     <div class="grid grid-cols-5 gap-4 mt-4">
         <div class="col-span-1">
             <nav>
-                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
+                    <a href="/docs/introduction" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
                         <span class="truncate">
                             Introduction
                         </span>
                     </a>
-                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 hover:bg-gray-50 focus:bg-gray-100">
+                    <a href="/docs/how-it-works" class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 bg-gray-100 hover:bg-gray-100 focus:bg-gray-200">
                         <span class="truncate">
                             How it works
                         </span>
@@ -194,11 +194,28 @@
                 </div>
             </div>
             <article class="prose max-w-none mb-20">
-                <h1>Introduction to StellarAdmin</h1><h1>
+                <h1>How StellarAdmin works</h1><h1>
                 </h1><h2 id="introduction">Introduction</h2>
-<p>StellarAdmin is a library for ASP.NET Core that allows you to rapidly create admin screens for your application. StellarAdmin allows you to map your application's existing domain models or entities to "resources", which StellarAdmin uses to create admin screens for your users.</p>
-<h2 id="intended-use">Intended use</h2>
-<p>StellarAdmin is intended to be used to create admin screens and dashboards for your application that is used by internal admin users and support staff. It is intended to help you rapidly create screens that allow these users to manage the administrative functions of the application. StellarAdmin is <strong>not intended for use</strong> to create a front-end to be used by the end-users of your application.</p>
+<p>StellarAdmin works by defining "resources" that describe the data models or entities used by your application. For example, a blogging application may have resources for entities such as <strong>Blog post</strong>, <strong>Author</strong> and <strong>Category</strong>.</p>
+<p>For each resource, you need to tell StellarAdmin a number of things, such as how to read and write data for the resource, the structure (i.e. properties, primary key, etc.) of the resource, and the actions a user can perform on a resource.</p>
+<h2 id="defining-resources">Defining resources</h2>
+<p>You define resources when registering the StellarAdmin services in your application. Please refer to the <a href="resources">Resources documentation</a> for more detail.</p>
+<h3 id="reading-and-writing-data">Reading and writing data</h3>
+<p>When you define a resource in StellarAdmin, you need to specify the data source for the resource. The data source acts as the interface between StellarAdmin and your application's data store.</p>
+<p>For more information on defining a data source, refer to the <a href="datasources">Data sources documentation</a>.</p>
+<h3 id="defining-the-resource-structure">Defining the resource structure</h3>
+<p>StellarAdmin needs to understand the structure of your resources. Specifically, it needs to know the fields of a resource and how those fields map to the properties of your data model. StellarAdmin also needs to know the primary key of a resource and the display field of a resource which is used when a resource is referenced by other resources.</p>
+<p>As hinted in the previous sentence, StellarAdmin also allows you to define relationships between resources. In a blogging application, there will be a relationship between <strong>blog post</strong> and <strong>author</strong> ( a blog post is written by an author), as well as <strong>blog post</strong> and <strong>category</strong> (a blog post belongs to a category).</p>
+<p>For more information on defining fields and relationships, refer to the <a href="fields">Fields documentation</a>.</p>
+<h3 id="defining-and-registering-actions">Defining and registering actions</h3>
+<p>StellarAdmin comes with a number of standard actions that can be performed on a resource, such as:</p>
+<ul>
+<li>creating a new resource,</li>
+<li>editing a resource, and</li>
+<li>deleting a resources</li>
+</ul>
+<p>In many instances, you may also want users of your application to perform custom actions on a resource. For example, in a blogging application you may want to allow users to publish a new blog post which may require you to run custom business logic.</p>
+<p>For more information on creating custom actions, refer to the <a href="actions">Actions documentation</a>.</p>
 
             </article>
         </div>
