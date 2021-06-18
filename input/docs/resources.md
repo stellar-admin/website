@@ -1,3 +1,5 @@
+title: Defining resources in StellarAdmin
+nav-title: Resources
 order: 4
 ---
 

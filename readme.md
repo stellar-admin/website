@@ -7,5 +7,5 @@ npm install
 Build the Tailwind CSS file
 
 ```
-npx tailwindcss-cli@latest build .\styles.css -o input/assets/css/styles.css
+npx tailwindcss@latest build -i .\styles.css -o input/assets/css/styles.css
 ```

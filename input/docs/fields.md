@@ -1,3 +1,5 @@
+title: Defining fields for your resource
+nav-title: Fields
 order: 6
 ---
 
@@ -8,16 +10,16 @@ Display fields are fields that will be displayed to the user in the various view
 Let's assume you have the following `Author` class defined.
 
 ```cs
-    public class Author
-    {
-        public string Bio { get; set; }
+public class Author
+{
+    public string Bio { get; set; }
 
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Photo { get; set; }
-    }
+    public string Photo { get; set; }
+}
 ```
 
 When registering the resource for the `Author` class, you can define each of the display fields as follow:

@@ -1,3 +1,5 @@
+title: Installing StellarAdmin in your ASP.NET Core application
+nav-title: Installation
 xref: get-started
 order: 3
 ---

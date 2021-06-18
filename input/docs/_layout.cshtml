@@ -114,7 +114,7 @@
 
                     <a href="@ExecutionContext.GetLink(document)" class="@cssClass">
                         <span class="truncate">
-                            @document.GetTitle()
+                            @(document.GetString("nav-title") ?? document.GetTitle())
                         </span>
                     </a>
                 }
@@ -138,6 +138,7 @@
                 </div>
             </div>
             <article class="prose max-w-none mb-20">
+                <h1>@Document.GetTitle()<h1>
                 @RenderBody()
             </article>
         </div>

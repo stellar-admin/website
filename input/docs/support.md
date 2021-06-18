@@ -1,3 +1,5 @@
+title: Getting Support
+nav-title: Support
 order: 11
 ---
 

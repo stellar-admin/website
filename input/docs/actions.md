@@ -1,3 +1,5 @@
+title: Defining custom actions for your resources
+nav-title: Actions
 order: 9
 ---
 

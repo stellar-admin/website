@@ -1,3 +1,5 @@
+title: Defining the data source for your resource
+nav-title: Data sources
 order: 5
 ---
 

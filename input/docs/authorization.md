@@ -1,3 +1,5 @@
+title: Authorizing access to StellarAdmin
+nav-title: Authorization
 order: 10
 ---
 

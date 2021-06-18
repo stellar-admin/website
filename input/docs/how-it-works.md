@@ -1,3 +1,5 @@
+title: How StellarAdmin works
+nav-title: How it works
 order: 2
 ---
 

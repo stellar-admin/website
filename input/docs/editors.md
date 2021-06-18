@@ -1,3 +1,5 @@
+title: Customizing the editors for your fields
+nav-title: Editors
 order: 7
 ---
 

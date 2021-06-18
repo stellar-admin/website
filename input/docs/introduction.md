@@ -1,4 +1,6 @@
 xref: docs-home
+title: Introduction to StellarAdmin
+nav-title: Introduction
 order: 1
 ---
 

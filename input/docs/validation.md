@@ -1,3 +1,5 @@
+title: Validating your resources
+nav-title: Validation
 order: 8
 ---
 
