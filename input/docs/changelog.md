@@ -3,6 +3,10 @@ nav-title: Changelog
 order: 12
 ---
 
+## v0.21.0
+
+* Removed the dependency on the Static File Middleware. If you had to add a call to `UseStaticFiles()` in your `Startup.Configure` method just for StellarAdmin, feel free to remove it.
+
 ## v0.20.0
 
 Version 0.20.0 denotes a major change in the underlying architecture for StellarAdmin. One of the major reasons for this was that we wanted to make it more flexible regarding where you resource definition are defined. We want to get to a point where you can just point to your `DbContext` and StellarAdmin will determine the resources from the entity classes managed by the `DbContext`. It also leaves open the possibility to define resources in external sources such as a database or, dare we say it, a YAML file.

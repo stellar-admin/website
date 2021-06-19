@@ -36,15 +36,12 @@ public void ConfigureServices(IServiceCollection services)
 
 ## Register endpoints
 
-To register the StellarAdmin endpoints, add a call to `MapStellarAdmin()` in the `Configure` method of your `Startup` class. Also ensure that you have registered the Static File Middleware by calling the `UseStaticFiles()` method.
+To register the StellarAdmin endpoints, add a call to `MapStellarAdmin()` in the `Configure` method of your `Startup` class.
 
 ```cs
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     // ...
-
-    // The Static File Middleware is required by StellarAdmin
-    app.UseStaticFiles();
 
     app.UseEndpoints(endpoints =>
     {
