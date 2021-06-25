@@ -3,9 +3,14 @@ nav-title: Changelog
 order: 12
 ---
 
-## v0.21.0
+## v0.23.0
 
 * Removed the dependency on the Static File Middleware. If you had to add a call to `UseStaticFiles()` in your `Startup.Configure` method just for StellarAdmin, feel free to remove it.
+* Fixed issues with referenced resources on EF Core data sources.
+* Better support for referenced resources on non-EF Core data sources.
+* Apply resource permissions correctly on the front-end
+* Allow specifying default values for fields
+* Added a new [Blog Sample](https://github.com/stellar-admin/samples)
 
 ## v0.20.0
 
