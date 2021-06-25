@@ -216,13 +216,10 @@ dotnet add package StellarAdmin.EntityFrameworkCore
 }
 </code></pre>
 <h2 id="register-endpoints">Register endpoints</h2>
-<p>To register the StellarAdmin endpoints, add a call to <code>MapStellarAdmin()</code> in the <code>Configure</code> method of your <code>Startup</code> class. Also ensure that you have registered the Static File Middleware by calling the <code>UseStaticFiles()</code> method.</p>
+<p>To register the StellarAdmin endpoints, add a call to <code>MapStellarAdmin()</code> in the <code>Configure</code> method of your <code>Startup</code> class.</p>
 <pre><code class="language-cs">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     // ...
-
-    // The Static File Middleware is required by StellarAdmin
-    app.UseStaticFiles();
 
     app.UseEndpoints(endpoints =&gt;
     {

@@ -195,7 +195,16 @@
             </div>
             <article class="prose max-w-none mb-20">
                 <h1>The StellarAdmin changelog</h1><h1>
-                </h1><h2 id="v0.20.0">v0.20.0</h2>
+                </h1><h2 id="v0.23.0">v0.23.0</h2>
+<ul>
+<li>Removed the dependency on the Static File Middleware. If you had to add a call to <code>UseStaticFiles()</code> in your <code>Startup.Configure</code> method just for StellarAdmin, feel free to remove it.</li>
+<li>Fixed issues with referenced resources on EF Core data sources.</li>
+<li>Better support for referenced resources on non-EF Core data sources.</li>
+<li>Apply resource permissions correctly on the front-end</li>
+<li>Allow specifying default values for fields</li>
+<li>Added a new <a href="https://github.com/stellar-admin/samples">Blog Sample</a></li>
+</ul>
+<h2 id="v0.20.0">v0.20.0</h2>
 <p>Version 0.20.0 denotes a major change in the underlying architecture for StellarAdmin. One of the major reasons for this was that we wanted to make it more flexible regarding where you resource definition are defined. We want to get to a point where you can just point to your <code>DbContext</code> and StellarAdmin will determine the resources from the entity classes managed by the <code>DbContext</code>. It also leaves open the possibility to define resources in external sources such as a database or, dare we say it, a YAML file.</p>
 <p>Another major change was to decouple the reading and writing of resources from your underlying data store from the actual entity definition. We now have the concept of a data source which acts as a gateway between your resource and the underlying data store.</p>
 <p>Due to these major changes, it would be impractical to give any sort of migration guide. However, here are some of the highlights of the major changes with links to the documentation that will explain how to use it in your current application.</p>
