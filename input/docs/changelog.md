@@ -3,6 +3,11 @@ nav-title: Changelog
 order: 12
 ---
 
+## v0.24.0
+
+* Various UI updates
+* Renamed `ResourceDefinitionBuilder<TResource>.AddPanel()` to `ResourceDefinitionBuilder<TResource>.AddSection()`
+
 ## v0.23.0
 
 * Removed the dependency on the Static File Middleware. If you had to add a call to `UseStaticFiles()` in your `Startup.Configure` method just for StellarAdmin, feel free to remove it.
