@@ -3,6 +3,13 @@ nav-title: Changelog
 order: 12
 ---
 
+## v0.25.0
+
+* Added a NumberEditor for currency and other number inputs
+* Enhancements to the DateEditor and DateTimeEditor
+* Enhancements to the MarkdownEditor 
+* Various smaller bugfixes
+
 ## v0.24.0
 
 * Various UI updates
