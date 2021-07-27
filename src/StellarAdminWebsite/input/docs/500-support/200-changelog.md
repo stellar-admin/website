@@ -1,6 +1,13 @@
 title: Changelog
 ---
 
+## v0.26.0
+
+* [Resource segments](/docs/concepts/filtering/segments) allow users to view subsets of resources. 
+* The ability to delete a resource from the resource detail page.
+* A new "Save and Add Another" button on resource creation screens allow users to rapidly add multiple resources.
+* `DbContextDataSourceOptions<TResource>.ApplyFilter` has been renamed to `ApplyFilters` and now takes a `ResourceFilter` instance instead of a simple string with the search term. The search term is available in `ResourceFilter.SearchTerm`.
+
 ## v0.25.0
 
 * Added a NumberEditor for currency and other number inputs
