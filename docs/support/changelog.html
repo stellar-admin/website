@@ -147,7 +147,14 @@
                 </div>
                 <article class="prose max-w-none mb-20">
                     <h1>Changelog</h1>
-                    <div><h2 id="v0.25.0">v0.25.0</h2>
+                    <div><h2 id="v0.26.0">v0.26.0</h2>
+<ul>
+<li><a href="/docs/concepts/filtering/segments">Resource segments</a> allow users to view subsets of resources.</li>
+<li>The ability to delete a resource from the resource detail page.</li>
+<li>A new "Save and Add Another" button on resource creation screens allow users to rapidly add multiple resources.</li>
+<li><code>DbContextDataSourceOptions&lt;TResource&gt;.ApplyFilter</code> has been renamed to <code>ApplyFilters</code> and now takes a <code>ResourceFilter</code> instance instead of a simple string with the search term. The search term is available in <code>ResourceFilter.SearchTerm</code>.</li>
+</ul>
+<h2 id="v0.25.0">v0.25.0</h2>
 <ul>
 <li>Added a NumberEditor for currency and other number inputs</li>
 <li>Enhancements to the DateEditor and DateTimeEditor</li>
