@@ -147,7 +147,28 @@
                 </div>
                 <article class="prose max-w-none mb-20">
                     <h1>Changelog</h1>
-                    <div><h2 id="v0.26.0">v0.26.0</h2>
+                    <div><h2 id="v0.27.0">v0.27.0</h2>
+<ul>
+<li>Support for master-detail relationships with Collections</li>
+<li>Allow deleting resources from the resource detail page</li>
+<li>Allow rapidly adding resources with the new "Save and Add Another" button</li>
+<li>Renamed the <code>*ResourceAction</code> base classes
+<ul>
+<li><code>SimpleResourceAction</code> -&gt; <code>SimpleResourceActionHandler</code></li>
+<li><code>ConfirmationResourceAction</code> -&gt; <code>ConfirmationResourceActionHandler</code></li>
+<li><code>FormResourceAction&lt;&gt;</code> -&gt; <code>FormResourceActionHandler&lt;&gt;</code></li>
+</ul>
+</li>
+<li>Ranamed the various <code>Add*Action</code> methods of the resource builder
+<ul>
+<li><code>AddSimpleAction&lt;&gt;</code> -&gt; <code>AddAction&lt;&gt;</code></li>
+<li><code>AddConfirmationAction&lt;&gt;</code> -&gt; <code>AddAction&lt;&gt;</code></li>
+<li><code>AddFormAction&lt;,&gt;</code> -&gt; <code>AddAction&lt;,&gt;</code></li>
+</ul>
+</li>
+<li>Various namespace changes</li>
+</ul>
+<h2 id="v0.26.0">v0.26.0</h2>
 <ul>
 <li><a href="/docs/concepts/filtering/segments">Resource segments</a> allow users to view subsets of resources.</li>
 <li>The ability to delete a resource from the resource detail page.</li>
