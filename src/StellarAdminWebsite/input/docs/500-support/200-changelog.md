@@ -1,6 +1,21 @@
 title: Changelog
 ---
 
+## v0.27.0
+
+* Support for master-detail relationships with Collections
+* Allow deleting resources from the resource detail page
+* Allow rapidly adding resources with the new "Save and Add Another" button
+* Renamed the `*ResourceAction` base classes
+    - `SimpleResourceAction` -> `SimpleResourceActionHandler`
+    - `ConfirmationResourceAction` -> `ConfirmationResourceActionHandler`
+    - `FormResourceAction<>` -> `FormResourceActionHandler<>`
+* Ranamed the various `Add*Action` methods of the resource builder
+    - `AddSimpleAction<>` -> `AddAction<>`
+    - `AddConfirmationAction<>` -> `AddAction<>`
+    - `AddFormAction<,>` -> `AddAction<,>`
+* Various namespace changes
+
 ## v0.26.0
 
 * [Resource segments](/docs/concepts/filtering/segments) allow users to view subsets of resources. 

@@ -4,12 +4,12 @@ title: Defining actions
 
 ## Simple actions
 
-To create a simple action, inherit from the `SimpleResourceAction` class and override the `Execute` method to perform the business logic required. The `keys` parameter will contain a list of primary key values for the resources on which the action must be performed. The `context` parameter will give you access to various properties of the context in which the action was executed. You can inject any services required by your action in the action constructor.
+To create a simple action handler, inherit from the `SimpleResourceActionHandler` class and override the `Execute` method to perform the business logic required. The `keys` parameter will contain a list of primary key values for the resources on which the action must be performed. The `context` parameter will give you access to various properties of the context in which the action was executed. You can inject any services required by your action in the action constructor.
 
 The code below demonstrates a simple action that clears the `PublishDate` of the selected blog posts.
 
 ```cs
-public class UnpublishPost : SimpleResourceAction
+public class UnpublishPost : SimpleResourceActionHandler
 {
     private readonly BlogDbContext _dbContext;
 
@@ -39,23 +39,23 @@ public class UnpublishPost : SimpleResourceAction
 }
 ```
 
-After you have created your action class, you need to register it in the resource builder. Call the `AddSimpleAction` method, specifying the type of your action class as the generic parameter and the text to be displayed on the button that executes the action as the `label` parameter.
+After you have created your action class, you need to register it in the resource builder. Call the `AddAction` method, specifying the type of your action handler class as the generic parameter and the text to be displayed on the button that executes the action as the `label` parameter.
 
 ```cs
 builder.AddResource<BlogPost>(rb =>
 {
     // ...
 
-    rb.AddSimpleAction<UnpublishPost>("Unpublish");
+    rb.AddAction<UnpublishPost>("Unpublish");
 });
 ```
 
 ## Confirmable actions
 
-Defining a confirmable action is the same process as for simple actions, but you need to inherit from the `ConfirmationResourceAction` class.
+Defining a confirmable action is the same process as for simple actions, but you need to inherit from the `ConfirmationResourceActionHandler` class.
 
 ```cs
-public class UnpublishPost : ConfirmationResourceAction
+public class UnpublishPost : ConfirmationResourceActionHandler
 {
     // ...
 
@@ -66,14 +66,14 @@ public class UnpublishPost : ConfirmationResourceAction
 }
 ```
 
-To register the action with your resource, call the `AddConfirmationAction` method.
+To register the action with your resource, call the `AddAction` method.
 
 ```cs
 builder.AddResource<BlogPost>(rb =>
 {
     // ...
 
-    rb.AddConfirmationAction<UnpublishPost>("Unpublish",
+    rb.AddAction<UnpublishPost>("Unpublish",
         actionBuilder =>
         {
             actionBuilder.HasDialogTitle("Unpublish blog post");
@@ -98,16 +98,16 @@ public class PublishBlogPostModel
 }
 ```
 
-To implement the action, create a new class that inherits from `FormResourceAction<TModel>`, passing the model class you created as the `TModel` generic parameter.
+To implement the action, create a new class that inherits from `FormResourceActionHandler<TModel>`, passing the model class you created as the `TModel` generic parameter.
 
 ```cs
-public class PublishBlogPost : FormResourceAction<PublishBlogPostModel>
+public class PublishBlogPost : FormResourceActionHandler<PublishBlogPostModel>
 {
     // ...
 }
 ```
 
-The signature of the execute method is a little bit different from the simple and confirmable actions, as you will also be passed a `model` parameter. This parameter contains an instance of the model class with the values entered by the user. The code sample below demonstrates the complete implementation of a form resource action.
+The signature of the execute method is a little bit different from the simple and confirmable action handlers, as you will also be passed a `model` parameter. This parameter contains an instance of the model class with the values entered by the user. The code sample below demonstrates the complete implementation of a form resource action handler.
 
 ```cs
 public class PublishBlogPostModel
@@ -115,7 +115,7 @@ public class PublishBlogPostModel
     public DateTime PublishDate { get; set; }
 }
 
-public class PublishBlogPost : FormResourceAction<PublishBlogPostModel>
+public class PublishBlogPost : FormResourceActionHandler<PublishBlogPostModel>
 {
     private readonly BlogDbContext _dbContext;
 
@@ -144,7 +144,7 @@ public class PublishBlogPost : FormResourceAction<PublishBlogPostModel>
 }
 ```
 
-To register the action with your resource, you need to call the `AddFormAction` method, passing the action class and action model classes as generic parameters. You will also need to declare fields for each of your action model class properties by calling the `AddField()` method. 
+To register the action with your resource, you need to call the `AddAction` method, passing the action handler class and action model classes as generic parameters. You will also need to declare fields for each of your action model class properties by calling the `AddField()` method. 
 
 As for the confirmable action, you can also alter the dialog title, prompt, etc, by calling the appropriate methods.
 
@@ -153,7 +153,7 @@ builder.AddResource<BlogPost>(rb =>
 {
     // ...
 
-    rb.AddFormAction<PublishBlogPost, PublishBlogPostModel>("Publish",
+    rb.AddAction<PublishBlogPost, PublishBlogPostModel>("Publish",
         actionBuilder =>
         {
             actionBuilder.HasDialogTitle("Publish blog post");

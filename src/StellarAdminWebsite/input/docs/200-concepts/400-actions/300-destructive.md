@@ -8,7 +8,7 @@ builder.AddResource<BlogPost>(rb =>
 {
     // ...
 
-    rb.AddConfirmationAction<UnpublishPost>("Unpublish",
+    rb.AddAction<UnpublishPost>("Unpublish",
         actionBuilder =>
         {
             // ...
