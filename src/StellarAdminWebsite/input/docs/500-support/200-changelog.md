@@ -1,6 +1,10 @@
 title: Changelog
 ---
 
+## v0.28.0
+
+* Added breadcrumbs to the various resource pages. This is especially useful for the new master-detail view as you could easily lose context of which master resource you are looking at.
+
 ## v0.27.0
 
 * Support for master-detail relationships with Collections
@@ -10,7 +14,7 @@ title: Changelog
     - `SimpleResourceAction` -> `SimpleResourceActionHandler`
     - `ConfirmationResourceAction` -> `ConfirmationResourceActionHandler`
     - `FormResourceAction<>` -> `FormResourceActionHandler<>`
-* Ranamed the various `Add*Action` methods of the resource builder
+* Renamed the various `Add*Action` methods of the resource builder
     - `AddSimpleAction<>` -> `AddAction<>`
     - `AddConfirmationAction<>` -> `AddAction<>`
     - `AddFormAction<,>` -> `AddAction<,>`
