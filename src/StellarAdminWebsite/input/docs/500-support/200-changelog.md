@@ -3,7 +3,8 @@ title: Changelog
 
 ## v0.28.0
 
-* Added breadcrumbs to the various resource pages. This is especially useful for the new master-detail view as you could easily lose context of which master resource you are looking at.
+* Added breadcrumbs to the various resource pages, which is especially useful for the new master-detail view as you could lose the context of which master resource you are viewing.
+* Renamed the `HasDisplay()` method of the resource builder to `HasTitle()`.
 
 ## v0.27.0
 
