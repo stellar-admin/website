@@ -1,0 +1,45 @@
+---
+title: Alert
+---
+
+Alerts are used to display notifications or other important messages inline.
+
+```razor
+<sui-alert>
+    <sui-icon name="circle-check"/>
+    <sui-alert-title>All purchases restored</sui-alert-title>
+    <sui-alert-description>We have found and restored 9 of your purchases</sui-alert-description>
+</sui-alert>
+```
+
+## Usage
+
+The Alert Tag Helper can be used in either composition mode or shorthand mode. The composition mode is useful when the title or description contains HTML markup or additional HTML elements. It also allows you to add additional HTML attributes to the individual components of the alert - such as additional CSS class names via the `class` attribute.
+
+```razor
+<sui-alert>
+    <sui-icon name="..."/>
+    <sui-alert-title>...</sui-alert-title>
+    <sui-alert-description>...</sui-alert-description>
+</sui-alert>
+```
+
+If you just want a simple alert with a plain text description and perhaps a title and icon, the shorthand mode allows for more compact markup.
+
+```razor
+<sui-alert icon="..." title="..." description="..."/>
+```
+
+## Examples
+
+### Variants
+
+Use variants to communicate different types of messages.
+
+### Icon
+
+Add an icon to your alert for additional information.
+
+### Custom CSS
+
+Add custom CSS classes restyle any of the Alert components.

@@ -1,0 +1,9 @@
+{
+    "[mdx]":  {
+		"editor.wordWrap": "on",
+	},
+    "markdownShortcuts.languages": [
+        "MDX",
+        "markdown"
+    ]
+}

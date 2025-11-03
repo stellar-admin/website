@@ -1,0 +1,47 @@
+---
+title: Link button
+---
+
+Displays an HTML anchor element representing a button that can be used to navigate to other URLs.
+
+## Usage
+
+```razor
+<sui-link-button>Proceed</sui-link-button>
+```
+
+## Examples
+
+### Default
+
+If you do not specify any attributes, the link button will be rendered using the default variant (`ButtonVariant.Default`) and size (`ButtonSize.Default`).
+
+### URL
+
+The URL of a link button can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+<Callout type="warn">
+  The same rules as for the `AnchorTagHelper` are applicable in that you cannot
+  specify overlapping URL-related attributes. For example, if you specify an
+  `href` attribute along with any of the `asp-*` attributes, an exception will
+  be thrown. Likewise, if you specify an `asp-controller` attribute, as well as
+  an `asp-page` attribute, an exception will be thrown.
+</Callout>
+
+### Size
+
+Specify the size using the `size` attribute.
+
+### Variant
+
+Specify the variant using the `variant` attribute.
+
+### Icons
+
+### Additional attributes
+
+`sui-link-button` is a wrapper around the HTML Anchor (`<a>`) element. You can use any of the [Anchor element
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes).
