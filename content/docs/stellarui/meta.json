@@ -1,0 +1,6 @@
+{
+  "title": "StellarUI",
+  "description": "StellarUI Tag Helpers",
+  "root": true,
+  "pages": ["...", "!components/_include"]
+}

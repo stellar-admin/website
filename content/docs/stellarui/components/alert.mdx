@@ -2,15 +2,14 @@
 title: Alert
 ---
 
+import { DemoPreview } from "@/components/demo-preview";
+import { Demo } from "@/components/demo";
+
 Alerts are used to display notifications or other important messages inline.
 
-```razor
-<sui-alert>
-    <sui-icon name="circle-check"/>
-    <sui-alert-title>All purchases restored</sui-alert-title>
-    <sui-alert-description>We have found and restored 9 of your purchases</sui-alert-description>
-</sui-alert>
-```
+<Demo src="/demo/tag-helpers/alert-intro.html">
+  <include>./_include/alert-intro.mdx</include>
+</Demo>
 
 ## Usage
 
@@ -36,10 +35,30 @@ If you just want a simple alert with a plain text description and perhaps a titl
 
 Use variants to communicate different types of messages.
 
+<Demo src="/demo/tag-helpers/alert-variants.html">
+  <include>./_include/alert-variants.mdx</include>
+</Demo>
+
 ### Icon
 
 Add an icon to your alert for additional information.
 
+<Demo src="/demo/tag-helpers/alert-icon.html">
+  <include>./_include/alert-icon.mdx</include>
+</Demo>
+
 ### Custom CSS
 
 Add custom CSS classes restyle any of the Alert components.
+
+<Demo src="/demo/tag-helpers/alert-custom-css.html">
+  <include>./_include/alert-custom-css.mdx</include>
+</Demo>
+
+### Action buttons
+
+You can add additional content such as buttons to the alert.
+
+<Demo src="/demo/tag-helpers/alert-actions.html">
+  <include>./_include/alert-actions.mdx</include>
+</Demo>
