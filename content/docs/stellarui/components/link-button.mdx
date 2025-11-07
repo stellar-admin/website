@@ -2,21 +2,27 @@
 title: Link button
 ---
 
+import { Demo } from "@/components/demo";
+
 Displays an HTML anchor element representing a button that can be used to navigate to other URLs.
+
+<Demo src="/demo/tag-helpers/link-button-intro.html">
+  <include>./_include/link-button-intro.mdx</include>
+</Demo>
 
 ## Usage
 
 ```razor
-<sui-link-button>Proceed</sui-link-button>
+<sui-linkbutton>Proceed</sui-linkbutton>
 ```
 
 ## Examples
 
-### Default
-
-If you do not specify any attributes, the link button will be rendered using the default variant (`ButtonVariant.Default`) and size (`ButtonSize.Default`).
-
 ### URL
+
+<Demo src="/demo/tag-helpers/link-button-url.html">
+  <include>./_include/link-button-url.mdx</include>
+</Demo>
 
 The URL of a link button can be specified a couple of ways:
 
@@ -35,13 +41,31 @@ The URL of a link button can be specified a couple of ways:
 
 Specify the size using the `size` attribute.
 
+<Demo src="/demo/tag-helpers/link-button-sizes.html">
+  <include>./_include/link-button-sizes.mdx</include>
+</Demo>
+
 ### Variant
 
 Specify the variant using the `variant` attribute.
 
+<Demo src="/demo/tag-helpers/link-button-variants.html">
+  <include>./_include/link-button-variants.mdx</include>
+</Demo>
+
 ### Icons
+
+Add an icon to a link button using the `<sui-icon>` Tag Helper.
+
+<Demo src="/demo/tag-helpers/link-button-icon.html">
+  <include>./_include/link-button-icon.mdx</include>
+</Demo>
 
 ### Additional attributes
 
-`sui-link-button` is a wrapper around the HTML Anchor (`<a>`) element. You can use any of the [Anchor element
+Since the Link Button Tag Helper is a wrapper around the HTML Anchor (`<a>`) element, you can use any of the [Anchor element
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes).
+
+<Demo src="/demo/tag-helpers/link-button-additional-attributes.html">
+  <include>./_include/link-button-additional-attributes.mdx</include>
+</Demo>
