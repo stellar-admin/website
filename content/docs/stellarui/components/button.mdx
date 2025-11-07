@@ -2,7 +2,13 @@
 title: Button
 ---
 
+import { Demo } from "@/components/demo";
+
 Displays a button component that can be used to trigger actions like submitting forms or triggering JavaScript functions.
+
+<Demo src="/demo/tag-helpers/button-intro.html">
+  <include>./_include/button-intro.mdx</include>
+</Demo>
 
 ## Usage
 
@@ -12,21 +18,43 @@ Displays a button component that can be used to trigger actions like submitting 
 
 ## Examples
 
-### Default
-
-If you do not specify any attributes, the button will be rendered using the default variant (`ButtonVariant.Default`) and size (`ButtonSize.Default`).
-
 ### Size
 
 Specify the size using the `size` attribute.
+
+<Demo src="/demo/tag-helpers/button-sizes.html">
+  <include>./_include/button-sizes.mdx</include>
+</Demo>
 
 ### Variant
 
 Specify the variant using the `variant` attribute.
 
+<Demo src="/demo/tag-helpers/button-variants.html">
+  <include>./_include/button-variants.mdx</include>
+</Demo>
+
 ### Icons
+
+Add an icon to a button using the `<sui-icon>` Tag Helper.
+
+<Demo src="/demo/tag-helpers/button-icon.html">
+  <include>./_include/button-icon.mdx</include>
+</Demo>
+
+### Spinner
+
+Indicate that the system is busy with a spinner.
+
+<Demo src="/demo/tag-helpers/button-spinner.html">
+  <include>./_include/button-spinner.mdx</include>
+</Demo>
 
 ### Specify additional attributes
 
-`sui-button` is a wrapper around the HTML Button (`<button>`) element. You can use any of the [Button element
+Since `sui-button` is a wrapper around the HTML Button (`<button>`) element, you can use any of the [Button element
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes).
+
+<Demo src="/demo/tag-helpers/button-additional-attributes.html">
+  <include>./_include/button-additional-attributes.mdx</include>
+</Demo>

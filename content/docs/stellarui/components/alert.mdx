@@ -2,7 +2,6 @@
 title: Alert
 ---
 
-import { DemoPreview } from "@/components/demo-preview";
 import { Demo } from "@/components/demo";
 
 Alerts are used to display notifications or other important messages inline.
@@ -54,6 +53,14 @@ Add custom CSS classes restyle any of the Alert components.
 <Demo src="/demo/tag-helpers/alert-custom-css.html">
   <include>./_include/alert-custom-css.mdx</include>
 </Demo>
+
+<Callout type="info">
+  All of the individual alert-related Tag Helpers render a `<div>` element. As such, you
+  can add any of the [`div`
+  attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/div)
+  to these Tag Helpers and they will be passed to the underlying `div`. This is
+  not limited just to the `class` attribute.
+</Callout>
 
 ### Action buttons
 
