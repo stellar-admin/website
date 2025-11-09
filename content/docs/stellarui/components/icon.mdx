@@ -1,0 +1,48 @@
+---
+title: Icon
+---
+
+import { Demo } from "@/components/demo";
+import Lucide from "./images/lucide.png";
+
+Displays an SVG icon from the [Lucide](https://lucide.dev/) icon toolkit.
+
+<Demo src="/demo/tag-helpers/icon-intro.html">
+  <include>./_include/icon-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-icon name="..."/>
+```
+
+To find the `name` of an icon, go to the [Lucide icons page](https://lucide.dev/icons/) and search for the icon you want to use. When you hover over the icon, the name is displayed in a tooltip.
+
+<img src={Lucide.src} />
+
+## Examples
+
+### Size
+
+The default width and height of an icon is 24px. You can change the size of an icon using the Tailwind size classes.
+
+<Demo src="/demo/tag-helpers/icon-size.html">
+  <include>./_include/icon-size.mdx</include>
+</Demo>
+
+### Color
+
+Change the color of an icon by setting the font color.
+
+<Demo src="/demo/tag-helpers/icon-color.html">
+  <include>./_include/icon-color.mdx</include>
+</Demo>
+
+### Stroke Width
+
+By default, icons use a stroke width of 2 px. The stroke width can be changed using the `stroke-width` attribute.
+
+<Demo src="/demo/tag-helpers/icon-stroke-width.html">
+  <include>./_include/icon-stroke-width.mdx</include>
+</Demo>
