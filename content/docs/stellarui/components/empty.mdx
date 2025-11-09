@@ -1,0 +1,44 @@
+---
+title: Empty
+---
+
+import { Demo } from "@/components/demo";
+
+The Empty Tag Helper allows you to display an empty state.
+
+<Demo src="/demo/tag-helpers/empty-intro.html">
+  <include>./_include/empty-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-empty>
+    <sui-empty-header>
+        <sui-empty-media>...</sui-empty-media>
+        <sui-empty-title>...</sui-empty-title>
+        <sui-empty-description>...</sui-empty-description>
+    </sui-empty-header>
+    <sui-empty-content>
+        ...
+    </sui-empty-content>
+</sui-empty>
+```
+
+## Examples
+
+### Display avatar
+
+Display an Avatar instead of an icon.
+
+<Demo src="/demo/tag-helpers/empty-avatar.html">
+  <include>./_include/empty-avatar.mdx</include>
+</Demo>
+
+### Custom CSS
+
+Use the `class` attribute to add custom CSS styling to any of the breadcrumb components.
+
+<Demo src="/demo/tag-helpers/empty-custom-css.html">
+  <include>./_include/empty-custom-css.mdx</include>
+</Demo>
