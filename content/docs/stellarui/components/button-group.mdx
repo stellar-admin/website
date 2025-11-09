@@ -1,0 +1,62 @@
+---
+title: Button Group
+---
+
+import { Demo } from "@/components/demo";
+
+A button group allows you to group related buttons into sections.
+
+<Demo src="/demo/tag-helpers/button-group-intro.html">
+  <include>./_include/button-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-button-group>
+    <sui-button>...</sui-button>
+    <sui-button>...</sui-button>
+</sui-button-group>
+```
+
+## Examples
+
+### Orientation
+
+Use the `orientation` property to switch to a vertical layout.
+
+<Demo src="/demo/tag-helpers/button-group-orientation.html">
+  <include>./_include/button-group-orientation.mdx</include>
+</Demo>
+
+### Sizes
+
+Control the size of the buttons using the `size` property of the individual buttons.
+
+<Demo src="/demo/tag-helpers/button-group-sizes.html">
+  <include>./_include/button-group-sizes.mdx</include>
+</Demo>
+
+### Nested
+
+You can nest button groups to create multiple groupings.
+
+<Demo src="/demo/tag-helpers/button-group-nested.html">
+  <include>./_include/button-group-nested.mdx</include>
+</Demo>
+
+### Separator
+
+When using button variants without a border (such as `Default` or `Secondary`), you can add a separator to visually separate buttons.
+
+<Demo src="/demo/tag-helpers/button-group-separator.html">
+  <include>./_include/button-group-separator.mdx</include>
+</Demo>
+
+### Text
+
+Use the `<sui-button-group-text>` Tag Helper to display static text.
+
+<Demo src="/demo/tag-helpers/button-group-text.html">
+  <include>./_include/button-group-text.mdx</include>
+</Demo>
