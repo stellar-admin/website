@@ -1,0 +1,63 @@
+---
+title: Breadcrumb
+---
+
+import { Demo } from "@/components/demo";
+
+Breadcrumbs provide navigation context and allow users to quickly navigate the current page's hierarchy.
+
+<Demo src="/demo/tag-helpers/breadcrumb-intro.html">
+  <include>./_include/breadcrumb-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-breadcrumb>
+    <sui-breadcrumb-list>
+        <sui-breadcrumb-item>
+            <sui-breadcrumb-link href="...">Level 1</sui-breadcrumb-link>
+        </sui-breadcrumb-item>
+        <sui-breadcrumb-separator/>
+        <sui-breadcrumb-item>
+            <sui-breadcrumb-link href="...">Level 2</sui-breadcrumb-link>
+        </sui-breadcrumb-item>
+        <sui-breadcrumb-separator/>
+        <sui-breadcrumb-page>Current Page</sui-breadcrumb-page>
+    </sui-breadcrumb-list>
+</sui-breadcrumb>
+```
+
+## Examples
+
+### Custom separator
+
+Use the Icon Tag Helper for a custom separator.
+
+<Demo src="/demo/tag-helpers/breadcrumb-custom-separator.html">
+  <include>./_include/breadcrumb-custom-separator.mdx</include>
+</Demo>
+
+### Collapsed
+
+Use the `<sui-breadcrumb-ellipsis />` component to collapse a large navigation hierarchy.
+
+<Demo src="/demo/tag-helpers/breadcrumb-collapsed.html">
+  <include>./_include/breadcrumb-collapsed.mdx</include>
+</Demo>
+
+### Custom CSS
+
+Use the `class` attribute to add custom CSS styling to any of the breadcrumb components.
+
+<Demo src="/demo/tag-helpers/breadcrumb-custom-css.html">
+  <include>./_include/breadcrumb-custom-css.mdx</include>
+</Demo>
+
+### Icons
+
+Use the Icon Tag Helper and custom CSS to display icons next to navigation items.
+
+<Demo src="/demo/tag-helpers/breadcrumb-icons.html">
+  <include>./_include/breadcrumb-icons.mdx</include>
+</Demo>
