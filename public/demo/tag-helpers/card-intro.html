@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/styles.css"/>
+</head>
+<body>
+    
+
+<div class="flex max-w-sm">
+    <!-- code begin -->
+    <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm py-0 pt-6" data-slot="card">
+        <div data-slot="card-header" class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
+            <div data-slot="card-title" class="leading-none font-semibold">Bangkok, Thailand</div>
+            <div data-slot="card-description" class="text-muted-foreground text-sm">
+                Bangkok is an exhilarating metropolis where ancient, gilded temples stand in vibrant contrast to modern
+                skyscrapers, world-class street food, and electrifying nightlife.
+            </div>
+        </div>
+        <div class="px-0" data-slot="card-content">
+            <img
+                class="rounded-b-xl"
+                src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2274"/>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+</body>
+</html>

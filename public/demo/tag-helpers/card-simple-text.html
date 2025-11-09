@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/styles.css"/>
+</head>
+<body>
+    
+
+<div class="w-[400px]">
+    <!-- code begin -->
+    <div data-slot="card" class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
+        <div data-slot="card-header" class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
+            <div data-slot="card-title" class="leading-none font-semibold">24/7 Expert Support</div>
+            <div data-slot="card-description" class="text-muted-foreground text-sm">Immediate assistance for any unexpected changes or emergencies on the road.
+            </div>
+        </div>
+        <div data-slot="card-content" class="px-6">
+            <p>Travel with confidence knowing our dedicated global support team is always available via chat or phone to
+                help manage re-bookings, cancellations, and itinerary adjustments.</p>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+</body>
+</html>
