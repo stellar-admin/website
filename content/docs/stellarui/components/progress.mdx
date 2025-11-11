@@ -1,0 +1,37 @@
+---
+title: Progress
+---
+
+import { Demo } from "@/components/demo";
+
+Indicates the progress of a task.
+
+<Demo src="/demo/tag-helpers/progress-intro.html">
+  <include>./_include/progress-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-progress value="...">
+    <sui-progress-indicator/>
+</sui-progress>
+```
+
+## Examples
+
+### Custom CSS
+
+You can customize the look-and-feel using CSS classes.
+
+<Demo src="/demo/tag-helpers/progress-custom-css.html">
+  <include>./_include/progress-custom-css.mdx</include>
+</Demo>
+
+### Minimum and Maximum Values
+
+Specify custom `minimum` and `maximum` values. The default values are `0` and `100` respectively.
+
+<Demo src="/demo/tag-helpers/progress-min-max.html">
+  <include>./_include/progress-min-max.mdx</include>
+</Demo>
