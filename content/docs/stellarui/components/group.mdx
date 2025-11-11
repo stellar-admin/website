@@ -1,0 +1,39 @@
+---
+title: Group
+---
+
+import { Demo } from "@/components/demo";
+
+Arrange elements and components within a horizontal flex container.
+
+## Usage
+
+```razor
+<sui-group>...</sui-group>
+```
+
+## Examples
+
+### Gap
+
+Control the horizontal gap between items with the `gap` attribute. You can specify a custom gap by adding a `class` from [Tailwind's `gap-` utility](https://tailwindcss.com/docs/gap).
+
+<Demo src="/demo/tag-helpers/group-gap.html">
+  <include>./_include/group-gap.mdx</include>
+</Demo>
+
+### Justify
+
+Control how items are positioned along a group's horizontal axis.
+
+<Demo src="/demo/tag-helpers/group-justify.html">
+  <include>./_include/group-justify.mdx</include>
+</Demo>
+
+### Align
+
+Control how items are positioned along a group's vertical axis.
+
+<Demo src="/demo/tag-helpers/group-align.html">
+  <include>./_include/group-align.mdx</include>
+</Demo>

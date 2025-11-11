@@ -1,0 +1,39 @@
+---
+title: Stack
+---
+
+import { Demo } from "@/components/demo";
+
+Arrange elements and components within a vertical flex container.
+
+## Usage
+
+```razor
+<sui-stack>...</sui-stack>
+```
+
+## Examples
+
+### Gap
+
+Control the vertical gap between items with the `gap` attribute. You can specify a custom gap by adding a `class` from [Tailwind's `gap-` utility](https://tailwindcss.com/docs/gap).
+
+<Demo src="/demo/tag-helpers/stack-gap.html">
+  <include>./_include/stack-gap.mdx</include>
+</Demo>
+
+### Justify
+
+Control how items are positioned along a stack's vertical axis.
+
+<Demo src="/demo/tag-helpers/stack-justify.html">
+  <include>./_include/stack-justify.mdx</include>
+</Demo>
+
+### Align
+
+Control how items are positioned along a stack's horizontal axis.
+
+<Demo src="/demo/tag-helpers/stack-align.html">
+  <include>./_include/stack-align.mdx</include>
+</Demo>
