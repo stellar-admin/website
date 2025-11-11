@@ -31,7 +31,7 @@ export function DemoPreview({ src }: { src: string }) {
   return (
     <iframe
       ref={iframeRef}
-      className="w-full mx-auto bg-white dark:bg-gray-900 px-10 py-10"
+      className="w-full"
       src={src}
       onLoad={handleLoad}
       style={{
