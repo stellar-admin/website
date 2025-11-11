@@ -1,0 +1,27 @@
+---
+title: Skeleton
+---
+
+import { Demo } from "@/components/demo";
+
+Displays a placeholder while content is loading.
+
+<Demo src="/demo/tag-helpers/skeleton-intro.html">
+  <include>./_include/skeleton-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-skeleton class="..." />
+```
+
+By default, the Skeleton Tag Helper only defines the color and shimmering animation effect. The shape and outline of the skeleton is defined using Tailwind's width and height utility classes.
+
+## Examples
+
+### Card
+
+<Demo src="/demo/tag-helpers/skeleton-card.html">
+  <include>./_include/skeleton-card.mdx</include>
+</Demo>
