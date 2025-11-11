@@ -1,0 +1,59 @@
+---
+title: Pagination
+---
+
+import { Demo } from "@/components/demo";
+
+Allows user to navigate between multiple pages of data.
+
+<Demo src="/demo/tag-helpers/pagination-intro.html">
+  <include>./_include/pagination-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-pagination>
+    <sui-pagination-content>
+        <sui-pagination-item>
+            <sui-pagination-first href="#"/>
+        </sui-pagination-item>
+        <sui-pagination-item>
+            <sui-pagination-previous href="#"/>
+        </sui-pagination-item>
+        <sui-pagination-item>
+            <sui-pagination-link href="#">1</sui-pagination-link>
+        </sui-pagination-item>
+        <sui-pagination-item>
+            <sui-pagination-ellipsis/>
+        </sui-pagination-item>
+        <sui-pagination-item>
+            <sui-pagination-next href="#"/>
+        </sui-pagination-item>
+        <sui-pagination-item>
+            <sui-pagination-last href="#"/>
+        </sui-pagination-item>
+    </sui-pagination-content>
+</sui-pagination>
+```
+
+## Examples
+
+### URL
+
+The URL of `sui-pagination-link`, `sui-pagination-first`, `sui-pagination-previous`, `sui-pagination-next`, and `sui-pagination-last` can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+<Demo src="/demo/tag-helpers/pagination-url.html">
+  <include>./_include/pagination-url.mdx</include>
+</Demo>
+
+### Custom Content
+
+You can change the default content of the first, previous, next, last, and ellipsis buttons.
+
+<Demo src="/demo/tag-helpers/pagination-custom-content.html">
+  <include>./_include/pagination-custom-content.mdx</include>
+</Demo>
