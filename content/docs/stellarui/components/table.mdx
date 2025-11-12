@@ -1,0 +1,42 @@
+---
+title: Table
+---
+
+import { Demo } from "@/components/demo";
+
+Displays data in a tabular format.
+
+<Demo src="/demo/tag-helpers/table-intro.html">
+  <include>./_include/table-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sui-table>
+    <sui-table-caption>...</sui-table-caption>
+    <sui-table-header>
+        <sui-table-row>
+            <sui-table-head>...</sui-table-head>
+        </sui-table-row>
+    </sui-table-header>
+    <sui-table-body>
+        <sui-table-row>
+            <sui-table-cell>...</sui-table-cell>
+        </sui-table-row>
+    </sui-table-body>
+    <sui-table-footer>
+        <sui-table-row>
+            <sui-table-cell>...</sui-table-cell>
+        </sui-table-row>
+    </sui-table-footer>
+</sui-table>
+```
+
+## Examples
+
+### With border
+
+<Demo src="/demo/tag-helpers/table-border.html">
+  <include>./_include/table-border.mdx</include>
+</Demo>
