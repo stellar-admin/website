@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "---Data Display---",
+    "badge",
+    "card",
+    "empty",
+    "icon",
+    "item",
+    "kbd",
+    "separator",
+    "table",
+    "---Feedback---",
+    "alert",
+    "progress",
+    "skeleton",
+    "spinner",
+    "---Navigation---",
+    "breadcrumb",
+    "pagination",
+    "---Forms---",
+    "button",
+    "button-group",
+    "link-button",
+    "---Layout---",
+    "group",
+    "stack"
+  ]
+}
