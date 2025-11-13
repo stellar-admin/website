@@ -20,6 +20,8 @@
     "---Forms---",
     "button",
     "button-group",
+    "field",
+    "input",
     "link-button",
     "---Layout---",
     "group",

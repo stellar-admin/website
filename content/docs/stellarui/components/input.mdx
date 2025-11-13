@@ -1,0 +1,118 @@
+---
+title: Input
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Demo } from "@/components/demo";
+
+Displays a form input field.
+
+<Demo src="/demo/tag-helpers/input-intro.html">
+  <include>./_include/input-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The Input Tag Helper generates an [HTML Input Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) and uses the built-in [ASP.NET Core Input Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper) internally.
+
+```razor
+<sui-input/>
+```
+
+All the same rules as the built-in Tag Helper applies for things like data binding and resolving input types from data annotation attributes. You can also use any of the [standard input attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes) and they will flow through correctly to the underlying `<input>` element.
+
+## Examples
+
+### With Field
+
+Use the Input Tag Helper with the [Field Tag Helper](field) to create form input fields with labels and descriptions.
+
+<Demo src="/demo/tag-helpers/input-with-field.html">
+  <include>./_include/input-with-field.mdx</include>
+</Demo>
+
+### Implicit Field
+
+You can also let StellarUI create an implicit field for an input.
+
+<Demo src="/demo/tag-helpers/input-implicit-field.html">
+  <include>./_include/input-implicit-field.mdx</include>
+</Demo>
+
+An implicit field will the created when you do either of the following:
+
+1. Add the `label`, `description`, or `error` attributes.
+1. Use data binding by specifying the `asp-for` attribute (see example below).
+
+Even if either of the above is true, an implicit field will not be created under the following conditions:
+
+1. The input is explicitly wrapped inside a Field Tag Helper
+1. You opted out by setting the `render-field` attribute on the Input Tag Helper to `false`.
+
+### Data binding
+
+Bind the input to your model using the `asp-for` attribute. StellarUI will bind the value, set the `id` and `name` attributes, and display any validation errors.
+
+<Demo src="/demo/tag-helpers/input-data-binding.html">
+<Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/input-data-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+      ```cs
+      public class DataBindingModel
+      {
+          [Display(
+              Name = "Email address",
+              Description = "The email address where you want to receive your booking confirmation",
+              Prompt = "e.g. ibn.battuta@rihlah.travel"
+          )]
+          [DataType(DataType.EmailAddress)]
+          public string? Email { get; set; }
+      }
+      ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+When using data binding, StellarUI will automatically wrap the input inside a [Field Tag Helper](field) and use data annotations for the label, description, placeholder, and validation messages. If you want to opt out of this behaviour, you can set the `render-field` attribute to `false`.
+
+### Input Types
+
+You can specify the input type explicitly using the `type` attribute.
+
+<Demo src="/demo/tag-helpers/input-input-types.html">
+  <include>./_include/input-input-types.mdx</include>
+</Demo>
+
+### Infer Input Types via Data Binding
+
+When you use data binding, the input type will be inferred from the underlying data type and data annotations. For more information on this, refer to the built-in [ASP.NET Core Input Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper).
+
+<Demo src="/demo/tag-helpers/input-input-type-data-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/input-input-type-data-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+      ```cs
+      public class InputTypeDataBindingModel
+      {
+          public bool Checkbox { get; set; }
+
+          [DataType(DataType.Date)]
+          public DateTime? Date { get; set; }
+
+          [DataType(DataType.Password)]
+          public string? Password { get; set; }
+
+          public string? Radio { get; set; }
+
+          public string? Text { get; set; }
+      }
+      ```
+    </Tab>
+
+  </Tabs>
+</Demo>

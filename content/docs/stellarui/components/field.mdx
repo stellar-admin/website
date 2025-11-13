@@ -1,0 +1,266 @@
+---
+title: Field
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+Easily create form fields with labels, help text and input controls.
+
+<Demo src="/demo/tag-helpers/field-intro.html">
+  <include>./_include/field-intro.mdx</include>
+</Demo>
+
+## Usage
+
+## Examples
+
+### Implicit fields
+
+Whenever you use any if the various field input Tag Helpers (such as `<sui-input>`, `<sui-textarea>`, `<sui-select>` etc.) along with data binding, StellarUI will implicitly create a field with a label, description, and placeholder for you. You can see this demonstrated in the example below which implements the same form as above, but using data binding.
+
+<Demo src="/demo/tag-helpers/field-implicit.html">
+<Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/field-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+      ```cs
+      public class ImplicitModel
+      {
+          [Display(
+              Name = "Card Number",
+              Description = "Enter your 16-digit card number",
+              Prompt = "1234 5678 9012 3456"
+          )]
+          public string? CardNumber { get; set; }
+
+          [Display(Name = "Comments", Prompt = "Add any additional comments")]
+          public string? Comments { get; set; }
+
+          [Display(Name = "CVV")]
+          public string? Cvv { get; set; }
+
+          [Display(Name = "Same as shipping address")]
+          public bool IsBillingAddressSame { get; set; }
+
+          public string? Month { get; set; }
+
+          [Display(Name = "Name on Card", Prompt = "Ibn Battuta")]
+          public string? Name { get; set; }
+
+          public string? Year { get; set; }
+      }
+      ```
+    </Tab>
+
+  </Tabs>
+
+</Demo>
+
+### Input
+
+<Demo src="/demo/tag-helpers/field-input.html">
+    <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+      <include>./_include/field-input.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+      <include>./_include/field-input-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class InputImplicitModel
+        {
+            [Display(
+                Name = "Email",
+                Description = "Your email address",
+                Prompt = "e.g. ibn.battuta@rihlah.travel"
+            )]
+            [DataType(DataType.EmailAddress)]
+            public string? Email { get; set; }
+
+            [Display(
+                Name = "Password",
+                Description = "Must be at least 8 characters long.",
+                Prompt = "••••••••"
+            )]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
+
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Textarea
+
+<Demo src="/demo/tag-helpers/field-textarea.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-textarea.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-textarea-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class TextareaImplicitModel
+        {
+            [Display(
+                Name = "Feedback",
+                Description = "Share your thoughts about our service.",
+                Prompt = "Your feedback helps us improve..."
+            )]
+            public string? Feedback { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Select
+
+<Demo src="/demo/tag-helpers/field-select.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-select.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-select-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class SelectImplicitModel
+        {
+            [Display(Name = "Department", Description = "Select your department or area of work.")]
+            public string? Department { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Checkbox
+
+<Demo src="/demo/tag-helpers/field-checkbox.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-checkbox.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-checkbox-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class CheckboxImplicitModel
+        {
+            [Display(Name = "CDs, DVDs, and iPods")]
+            public bool MustDisplayCdDvd { get; set; }
+
+            [Display(Name = "Connected servers")]
+            public bool MustDisplayConnectedServers { get; set; }
+
+            [Display(Name = "External disks")]
+            public bool MustDisplayExternalDisks { get; set; }
+
+            [Display(Name = "Hard disks")]
+            public bool MustDisplayHardDisks { get; set; }
+
+            [Display(
+                Name = "Sync Desktop & Documents folders",
+                Description = "Your Desktop & Documents folders are being synced with iCloud Drive. You can access them from other devices."
+            )]
+            public bool MustSyncDesktopFolders { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Radio
+
+<Demo src="/demo/tag-helpers/field-radio.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-radio.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-radio-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class RadioImplicitModel
+        {
+            public string? SubscriptionType { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Fieldset
+
+<Demo src="/demo/tag-helpers/field-fieldset.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-fieldset.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-fieldset-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class FieldsetImplicitModel
+        {
+            [Display(Name = "Street Address", Prompt = "123 Main St")]
+            public string? Street { get; set; }
+
+            [Display(Name = "City", Prompt = "New York")]
+            public string? City { get; set; }
+
+            [Display(Name = "Postal Code", Prompt = "90502")]
+            public string? PostalCode { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Field Group
+
+Stack `<sui-field>` components with `<sui-field-group>`. Add `<sui-field-separator>` to divide them. When grouping checkboxes or radio buttons, you can add `data-slot="checkbox-group"` or `data-slot="radio-group"` to tighten up spacing between the individual inputs.
+
+<Demo src="/demo/tag-helpers/field-field-group.html">
+  <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
+    <Tab value="Using Explicit Fields">
+        <include>./_include/field-field-group.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Fields">
+        <include>./_include/field-field-group-implicit.mdx</include>
+    </Tab>
+    <Tab value="Model">
+        ```cs
+        public class FieldGroupImplicitModel
+        {
+            [Display(Name = "Push notifications")]
+            public bool EnableResponsePushNotifications { get; set; }
+
+            [Display(Name = "Email notifications")]
+            public bool EnableTaskEmailNotifications { get; set; }
+
+            [Display(Name = "Push notifications")]
+            public bool EnableTaskPushNotifications { get; set; }
+        }
+        ```
+    </Tab>
+
+  </Tabs>
+</Demo>
