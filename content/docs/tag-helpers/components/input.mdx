@@ -33,7 +33,7 @@ Use the Input Tag Helper with the [Field Tag Helper](field) to create form input
 
 ### Implicit Field
 
-You can also let StellarUI create an implicit field for an input.
+You can also let StellarAdmin create an implicit field for an input.
 
 <Demo src="/demo/tag-helpers/input-implicit-field.html">
   <include>./_include/input-implicit-field.mdx</include>
@@ -51,7 +51,7 @@ Even if either of the above is true, an implicit field will not be created under
 
 ### Data binding
 
-Bind the input to your model using the `asp-for` attribute. StellarUI will bind the value, set the `id` and `name` attributes, and display any validation errors.
+Bind the input to your model using the `asp-for` attribute. StellarAdmin will bind the value, set the `id` and `name` attributes, and display any validation errors.
 
 <Demo src="/demo/tag-helpers/input-data-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -76,7 +76,7 @@ Bind the input to your model using the `asp-for` attribute. StellarUI will bind 
   </Tabs>
 </Demo>
 
-When using data binding, StellarUI will automatically wrap the input inside a [Field Tag Helper](field) and use data annotations for the label, description, placeholder, and validation messages. If you want to opt out of this behaviour, you can set the `render-field` attribute to `false`.
+When using data binding, StellarAdmin will automatically wrap the input inside a [Field Tag Helper](field) and use data annotations for the label, description, placeholder, and validation messages. If you want to opt out of this behaviour, you can set the `render-field` attribute to `false`.
 
 ### Input Types
 
