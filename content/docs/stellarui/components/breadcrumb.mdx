@@ -13,19 +13,19 @@ Breadcrumbs provide navigation context and allow users to quickly navigate the c
 ## Usage
 
 ```razor
-<sui-breadcrumb>
-    <sui-breadcrumb-list>
-        <sui-breadcrumb-item>
-            <sui-breadcrumb-link href="...">Level 1</sui-breadcrumb-link>
-        </sui-breadcrumb-item>
-        <sui-breadcrumb-separator/>
-        <sui-breadcrumb-item>
-            <sui-breadcrumb-link href="...">Level 2</sui-breadcrumb-link>
-        </sui-breadcrumb-item>
-        <sui-breadcrumb-separator/>
-        <sui-breadcrumb-page>Current Page</sui-breadcrumb-page>
-    </sui-breadcrumb-list>
-</sui-breadcrumb>
+<sa-breadcrumb>
+    <sa-breadcrumb-list>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 1</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 2</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-page>Current Page</sa-breadcrumb-page>
+    </sa-breadcrumb-list>
+</sa-breadcrumb>
 ```
 
 ## Examples
@@ -40,7 +40,7 @@ Use the Icon Tag Helper for a custom separator.
 
 ### Collapsed
 
-Use the `<sui-breadcrumb-ellipsis />` component to collapse a large navigation hierarchy.
+Use the `<sa-breadcrumb-ellipsis />` component to collapse a large navigation hierarchy.
 
 <Demo src="/demo/tag-helpers/breadcrumb-collapsed.html">
   <include>./_include/breadcrumb-collapsed.mdx</include>
