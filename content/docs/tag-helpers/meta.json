@@ -1,6 +1,6 @@
 {
-  "title": "StellarUI",
-  "description": "StellarUI Tag Helpers",
+  "title": "Tag Helpers",
+  "description": "StellarAdmin Tag Helpers",
   "root": true,
   "pages": [
     "---Introduction---",

@@ -6,7 +6,7 @@ export default function HomePage() {
       <h1 className="text-2xl font-bold mb-4">Hello World</h1>
       <p>
         You can open{" "}
-        <Link href="/docs/stellarui" className="font-medium underline">
+        <Link href="/docs/tag-helpers" className="font-medium underline">
           /docs
         </Link>{" "}
         and see the documentation.
