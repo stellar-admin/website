@@ -1,0 +1,57 @@
+---
+title: Tabs
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+Allow users to switch between different views.
+
+<Demo src="/demo/tag-helpers/tabs-intro.html">
+  <include>./_include/tabs-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+
+```
+
+## Examples
+
+### Orientation
+
+Create vertical tabs by setting the `orientation` attribute.
+
+<Demo src="/demo/tag-helpers/tabs-orientation.html">
+  <include>./_include/tabs-orientation.mdx</include>
+</Demo>
+
+### Icons
+
+Use icons along with the text.
+
+<Demo src="/demo/tag-helpers/tabs-icons.html">
+  <include>./_include/tabs-icons.mdx</include>
+</Demo>
+
+### Active item
+
+Set the currently active item using the `is-active` attribute.
+
+<Demo src="/demo/tag-helpers/tabs-active.html">
+  <include>./_include/tabs-active.mdx</include>
+</Demo>
+
+### Url
+
+The URL of `<sa-tab-link>` can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+<Demo src="/demo/tag-helpers/tabs-url.html">
+  <include>./_include/tabs-url.mdx</include>
+</Demo>
+
+When specifying the URL, StellarAdmin will automatically set the `is-active` attribute for the tab link representing the currently active route, so you should not need to specify the `is-active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `is-active` attribute to either `true` or `false`.
