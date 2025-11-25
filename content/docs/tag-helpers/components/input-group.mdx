@@ -3,6 +3,85 @@ title: Input Group
 ---
 
 import { Demo } from "@/components/demo";
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 Display additional information or actions to an input or textarea.
+
+<Demo src="/demo/tag-helpers/input-group-intro.html">
+  <include>./_include/input-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-input-group>
+    <!-- 1. Add inputs -->
+    <sa-input-group-input/>
+    <!-- or -->
+    <sa-input-group-textarea/>
+    <!-- 2. Add addons -->
+    <sa-input-group-addon align="...">
+        <!-- you can add text inside the addon... -->
+        <sa-input-group-text>...</sa-input-group-text>
+        <!-- ...or buttons -->
+        <sa-input-group-button/>
+    </sa-input-group-addon>
+</sa-input-group>
+```
+
+## Examples
+
+### Icons
+
+Display icons inside inputs.
+
+<Demo src="/demo/tag-helpers/input-group-icons.html">
+  <include>./_include/input-group-icons.mdx</include>
+</Demo>
+
+### Text
+
+Display additional text information alongside inputs.
+
+<Demo src="/demo/tag-helpers/input-group-text.html">
+  <include>./_include/input-group-text.mdx</include>
+</Demo>
+
+### Textarea
+
+Input groups also work with textarea components. Use `InputGroupAddOnVariantAlignment.BlockStart` or `InputGroupAddOnVariantAlignment.BlockEnd` for alignment.
+
+<Demo src="/demo/tag-helpers/input-group-textarea.html">
+  <include>./_include/input-group-textarea.mdx</include>
+</Demo>
+
+### Buttons
+
+Add buttons to perform actions within the input group.
+
+<Demo src="/demo/tag-helpers/input-group-buttons.html">
+  <include>./_include/input-group-buttons.mdx</include>
+</Demo>
+
+### Spinner
+
+Show loading indicators while processing input.
+
+<Demo src="/demo/tag-helpers/input-group-spinner.html">
+  <include>./_include/input-group-spinner.mdx</include>
+</Demo>
+
+### Label
+
+Add labels within input groups to improve accessibility.
+
+<Demo src="/demo/tag-helpers/input-group-label.html">
+  <include>./_include/input-group-label.mdx</include>
+</Demo>
+
+### Button Group
+
+Wrap input groups with button groups to create prefixes and suffixes.
+
+<Demo src="/demo/tag-helpers/input-group-button-group.html">
+  <include>./_include/input-group-button-group.mdx</include>
+</Demo>
