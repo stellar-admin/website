@@ -7,19 +7,21 @@ export function DemoPreview({ src }: { src: string }) {
   const [height, setHeight] = useState(undefined);
 
   function handleLoad() {
-    if (iframeRef.current && iframeRef.current.contentWindow) {
+    // @ts-ignore
+    if (iframeRef?.current?.contentWindow) {
       const computedStyle = window.getComputedStyle(iframeRef.current);
       const paddingTop = parseFloat(
-        computedStyle.getPropertyValue("padding-top")
+        computedStyle.getPropertyValue("padding-top"),
       );
       const paddingBottom = parseFloat(
-        computedStyle.getPropertyValue("padding-bottom")
+        computedStyle.getPropertyValue("padding-bottom"),
       );
       setHeight(
+        // @ts-ignore
         iframeRef.current?.contentWindow.document.body.scrollHeight +
           paddingTop +
           paddingBottom +
-          5
+          5,
       );
     }
   }
