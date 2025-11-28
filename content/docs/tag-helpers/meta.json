@@ -3,9 +3,10 @@
   "description": "StellarAdmin Tag Helpers",
   "root": true,
   "pages": [
-    "---Introduction---",
+    "---Getting Started---",
     "index",
     "installation",
+    "acknowledgements",
     "principles",
     "...components"
   ]

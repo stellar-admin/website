@@ -1,0 +1,28 @@
+---
+title: Acknowledgements
+description: The libraries and tools that inspired StellarAdmin
+---
+
+## shadcn/ui
+
+As mentioned in the [introduction](.), StellarAdmin is based on [shadcn/ui](https://ui.shadcn.com/). The majority of the styling and component structures were lifted as-is from shadcn/ui.
+
+Although StellarAdmin is inspired by and based on shadcn/ui, it does not follow its core principle.
+
+You see, shadcn/ui is not a traditional library that you reference, but rather it copies the source code for all components into your project, allowing you to "own" and extend the components as you please. It is really a component distribution system that allows you to install the source code for components from various sources (called registries) into your own application.
+
+StellarAdmin is just a traditional component library that you reference via a NuGet package. However, it is based on the shadcn/ui styling which has two main advantages:
+
+1. It provided a starting point for beautiful CSS styling for the various components. This saved me a lot of time during the development as I could, for the most part, simply copy the styles from the shadcn/ui components and did not have to wrestle with creating the styles myself.
+2. Since it is based on the shadcn/ui styles, you can tap into the shadcn/ui theming system and override any of the [variables](https://ui.shadcn.com/docs/theming#list-of-variables) to create your custom themes. You can also use theme variables from websites such as [tweakcn](https://tweakcn.com/).
+
+
+## Mantine
+
+I've used [Mantine](https://mantine.dev/) on some projects and found it a highly underrated library. StellarAdmin does not use any code from Mantine, but the shorthand mode that is available for many of the components was inspired by Mantine.
+
+## Fumadocs
+
+This website you are reading now is built using [Fumadocs](https://fumadocs.dev/). Fumadocs is a React-based framework that allows you to rapidly create documentation websites. It saved me a lot of time by giving me a solid framework and a beautiful website design.
+
+## Third-Party Licenses
