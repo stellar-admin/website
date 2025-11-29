@@ -24,7 +24,7 @@ export default function Hero() {
           components you can use to create CRUD screens in ASP.NET Core MVC and
           Razor Pages applications.
         </p>
-        <div className="mt-12 flex items-center justify-center gap-4">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button size="lg" className="rounded-full text-base" asChild>
             <Link href="/docs/tag-helpers">
               <Book className="size-5" /> View Documentation
