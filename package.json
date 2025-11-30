@@ -8,10 +8,7 @@
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "lint": "biome check",
-    "format": "biome format --write",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "format": "biome format --write"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
