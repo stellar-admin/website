@@ -5,9 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css" />
     <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
 </head>
 <body>
-    
+    <script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
 <div data-slot="alert" role="alert" class="relative w-full rounded-lg border px-4 py-3 text-sm grid has-[&gt;svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[&gt;svg]:gap-x-3 gap-y-0.5 items-start [&amp;&gt;svg]:size-4 [&amp;&gt;svg]:translate-y-0.5 text-destructive bg-card [&amp;&gt;svg]:text-current *:data-[slot=alert-description]:text-destructive/90">
@@ -28,6 +40,7 @@
     </div>
 </div>
 </div>
+
 
 </body>
 </html>

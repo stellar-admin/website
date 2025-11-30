@@ -5,9 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css" />
     <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
 </head>
 <body>
-    
+    <script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
 <div role="group" data-slot="button-group" data-orientation="vertical" class="flex w-fit items-stretch [&amp;&gt;*]:focus-visible:z-10 [&amp;&gt;*]:focus-visible:relative [&amp;&gt;[data-slot=select-trigger]:not([class*=&#x27;w-&#x27;])]:w-fit [&amp;&gt;input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&amp;&gt;[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[&gt;[data-slot=button-group]]:gap-2 flex-col [&amp;&gt;*:not(:first-child)]:rounded-t-none [&amp;&gt;*:not(:first-child)]:border-t-0 [&amp;&gt;*:not(:last-child)]:rounded-b-none">
@@ -19,6 +31,7 @@
     </button>
 </div>
 </div>
+
 
 </body>
 </html>
