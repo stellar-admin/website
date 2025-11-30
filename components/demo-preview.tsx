@@ -3,41 +3,46 @@
 import { useEffect, useRef, useState } from "react";
 
 export function DemoPreview({ src }: { src: string }) {
-  const iframeRef = useRef(null);
-  const [height, setHeight] = useState(undefined);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [height, setHeight] = useState("auto");
 
-  function handleLoad() {
-    // @ts-ignore
+  function resizeIframe() {
     if (iframeRef?.current?.contentWindow) {
-      const computedStyle = window.getComputedStyle(iframeRef.current);
-      const paddingTop = parseFloat(
-        computedStyle.getPropertyValue("padding-top"),
-      );
-      const paddingBottom = parseFloat(
-        computedStyle.getPropertyValue("padding-bottom"),
-      );
       setHeight(
-        // @ts-ignore
-        iframeRef.current?.contentWindow.document.body.scrollHeight +
-          paddingTop +
-          paddingBottom +
-          5,
+        `${iframeRef.current?.contentWindow.document.body.scrollHeight + 5}px`,
       );
     }
   }
 
   useEffect(() => {
-    handleLoad();
-  }, []);
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    iframe.onload = resizeIframe;
+
+    if (
+      iframe.contentDocument &&
+      (iframe.contentDocument.readyState === "complete" ||
+        iframe.contentDocument.readyState === "interactive")
+    ) {
+      resizeIframe();
+    }
+
+    return () => {
+      if (iframe) {
+        iframe.onload = null;
+      }
+    };
+  }, [src]);
 
   return (
     <iframe
       ref={iframeRef}
       className="w-full"
       src={src}
-      onLoad={handleLoad}
+      title="Demo"
       style={{
-        height: height === undefined ? undefined : height + "px",
+        height: height,
       }}
     ></iframe>
   );
