@@ -15,23 +15,12 @@ export function DemoPreview({ src }: { src: string }) {
   }
 
   useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    iframe.onload = resizeIframe;
-
-    if (
-      iframe.contentDocument &&
-      (iframe.contentDocument.readyState === "complete" ||
-        iframe.contentDocument.readyState === "interactive")
-    ) {
-      resizeIframe();
+    iframeRef.current?.addEventListener("load", resizeIframe);
+    if (iframeRef.current) {
+      iframeRef.current.src = src;
     }
-
     return () => {
-      if (iframe) {
-        iframe.onload = null;
-      }
+      iframeRef.current?.removeEventListener("load", resizeIframe);
     };
   }, [src]);
 
@@ -39,8 +28,7 @@ export function DemoPreview({ src }: { src: string }) {
     <iframe
       ref={iframeRef}
       className="w-full"
-      src={src}
-      title="Demo"
+      title="Component demo"
       style={{
         height: height,
       }}
