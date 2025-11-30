@@ -1,0 +1,53 @@
+---
+title: Avatar
+description: An image element or initials representing the user.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/avatar-intro.html">
+    <include>./_include/avatar-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use `<sa-avatar>` to display a single avatar. Display a group of avatars using `<sa-avatar-group>`.
+
+```razor
+<!-- Display a single avatar -->
+<sa-avatar src="..." />
+
+<!-- Display a group of avatars -->
+<sa-avatar-group>
+    <sa-avatar src="..." />
+    <sa-avatar src="..." />
+</sa-avatar-group>
+```
+
+## Examples
+
+### Avatar Group
+
+Add a group of avatars using `<sa-avatar-group>`.
+
+<Demo src="/demo/tag-helpers/avatar-avatar-group.html">
+    <include>./_include/avatar-avatar-group.mdx</include>
+</Demo>
+
+### Initials
+
+Display the initials of a user using the `initials` attribute. You can specify the `name` attribute instead, and the initials will be automatically determined.
+
+<Demo src="/demo/tag-helpers/avatar-initials.html">
+    <include>./_include/avatar-initials.mdx</include>
+</Demo>
+
+
+### Custom CSS
+
+Customize the display of the avatar by specifying custom CSS classes.
+
+<Demo src="/demo/tag-helpers/avatar-custom-css.html">
+    <include>./_include/avatar-custom-css.mdx</include>
+</Demo>
+

@@ -1,6 +1,7 @@
 {
   "pages": [
     "---Data Display---",
+    "avatar",
     "badge",
     "card",
     "empty",
