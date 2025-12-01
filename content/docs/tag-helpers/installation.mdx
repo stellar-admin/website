@@ -2,13 +2,68 @@
 title: Installation
 description: Get started with the StellarAdmin Tag Helpers
 ---
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-## Introduction
 
-StellarAdmin is a UI component library for ASP.NET Core thats allow you to rapidly create user interfaces for Razor Pages and MVC applications using [Tag Helpers](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro). It is inspired by and based on the popular [shadcn/ui](https://ui.shadcn.com/) for React. It uses [Tailwind](https://tailwindcss.com/) for styling and [Alpine.js](https://alpinejs.dev/) for client-side interactivity.
+## Manual Installation
 
-<Callout>
-  Although StellarAdmin is inspired by and based on **shadcn/ui**, it does not
-  follow some of its core principles. For more information, refer to the
-  [principles](principles) document.
-</Callout>
+The following installation instructions assume you are adding StellarAdmin to an existing ASP.NET MVC/Razor Pages project.
+
+<Steps>
+    <Step>
+        ### Install package
+
+        Install the StellarAdmin NuGet package.
+
+        <Tabs items={['.NET CLI', 'Package Manager']}>
+            <Tab>
+                ```text
+                dotnet add package StellarAdmin.TagHelpers --prerelease
+                ```
+            </Tab>
+            <Tab>
+                ```text
+                Install-Package StellarAdmin.TagHelpers -IncludePrerelease
+                ```
+            </Tab>
+        </Tabs>
+    </Step>
+    <Step>
+        ### Register services
+
+        Update your `Program.cs` (or `Startup.cs`) to register the StellarAdmin services.
+
+        ```cs
+        using StellarAdmin;
+
+        builder.Services.AddStellarAdmin();
+        ```
+    </Step>
+    <Step>
+        ### Update imports
+
+        Update your `_ViewImports.cshtml` to register the StellarAdmin Tag Helpers.
+
+        ```razor
+        @addTagHelper *, StellarAdmin.TagHelpers
+        ```
+    </Step>
+    <Step>
+        ### Include stylesheet
+
+        In your `_Layout.cshtml` file (or whichever layout file you use), include the StellarAdmin stylesheet in the `head` section.
+
+        ```razor
+        <head>
+            <!-- ... -->
+            <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.css"/>
+        </head>
+        ```
+    </Step>
+</Steps>
+
+## Starter Templates
+
+Coming soon...
+

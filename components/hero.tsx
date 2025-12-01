@@ -36,7 +36,7 @@ export default function Hero() {
             className="rounded-full text-base shadow-none"
             asChild
           >
-            <Link href="/docs/tag-helpers/components/badge">
+            <Link href="/docs/tag-helpers/components/avatar">
               <Blocks className="size-5" /> View Components
             </Link>
           </Button>
