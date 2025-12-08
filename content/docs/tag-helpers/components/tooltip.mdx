@@ -24,6 +24,22 @@ import { Demo } from "@/components/demo";
 
 ## Examples
 
+### Delay
+
+Use the `delay` attribute to specify the time delay (in ms) before the tooltip opens. Use the `close-delay` attribute to specify the time delay (in ms) before the tooltip closes after the mouse cursor or focus moves away.
+
+<Demo src="/demo/tag-helpers/tooltip-delay.html">
+  <include>./_include/tooltip-delay.mdx</include>
+</Demo>
+
+### Default open state
+
+Use the `default-open` attribute to specify whether the tooltip must be open (i.e. displaying) be default.
+
+<Demo src="/demo/tag-helpers/tooltip-open.html">
+  <include>./_include/tooltip-open.mdx</include>
+</Demo>
+
 ### Teleport
 
 The `teleport` attribute of `<sa-tooltip-content>` allows you to transport your tooltip content to another part of the DOM on the page entirely. This is useful for things like modals (especially nesting them), where it's helpful to break out of the z-index of the current container.
