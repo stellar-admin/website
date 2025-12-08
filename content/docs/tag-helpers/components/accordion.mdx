@@ -1,0 +1,48 @@
+---
+title: Accordion
+description: Divide content into collapsible sections
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/accordion-intro.html">
+  <include>./_include/accordion-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use `<sa-accordion>` to wrap a collection of accordion items. Individual items are created using the `<sa-accordion-item>` element containing `<sa-accordion-item-trigger>` and `<sa-accordion-item-content>` which contains the title and content respectively.
+
+```razor
+<sa-accordion>
+    <sa-accordion-item>
+        <sa-accordion-item-trigger>
+            ...
+        </sa-accordion-item-trigger>
+        <sa-accordion-item-content>
+            ...
+        </sa-accordion-item-content>
+    </sa-accordion-item>
+    <sa-accordion-item>
+        ...
+    </sa-accordion-item>
+</sa-accordion>
+```
+
+## Examples
+
+### Single
+
+Allow only a single item to be open at a time using the `type` attribute. When allowing only a single open item, the `collapsible` attribute indicates whether the item can be closed or not.
+
+<Demo src="/demo/tag-helpers/accordion-single.html">
+  <include>./_include/accordion-single.mdx</include>
+</Demo>
+
+### Disabled
+
+Disable the accordion using the `disabled` attribute.
+
+<Demo src="/demo/tag-helpers/accordion-disabled.html">
+  <include>./_include/accordion-disabled.mdx</include>
+</Demo>

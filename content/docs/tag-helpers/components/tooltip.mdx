@@ -1,0 +1,33 @@
+---
+title: Tooltip
+description: A popup that displays information related to an element when the mouse hovers over it.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/tooltip-intro.html">
+  <include>./_include/tooltip-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-tooltip>
+    <sa-tooltip-trigger>
+        <!-- Add the element that triggers the tooltip -->
+    </sa-tooltip-trigger>
+    <sa-tooltip-content>
+        <!-- Add the text to display inside the tooltip popover -->
+    </sa-tooltip-content>
+</sa-tooltip>
+```
+
+## Examples
+
+### Teleport
+
+The `teleport` attribute of `<sa-tooltip-content>` allows you to transport your tooltip content to another part of the DOM on the page entirely. This is useful for things like modals (especially nesting them), where it's helpful to break out of the z-index of the current container.
+
+<Demo src="/demo/tag-helpers/tooltip-teleport.html">
+  <include>./_include/tooltip-teleport.mdx</include>
+</Demo>
