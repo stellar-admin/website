@@ -30,6 +30,8 @@
     "link-button",
     "---Layout---",
     "group",
-    "stack"
+    "stack",
+    "---Utilities---",
+    "as-child"
   ]
 }
