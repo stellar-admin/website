@@ -16,9 +16,9 @@ Use `<sa-accordion>` to wrap a collection of accordion items. Individual items a
 ```razor
 <sa-accordion>
     <sa-accordion-item>
-        <sa-accordion-item-trigger>
+        <sa-accordion-item-title>
             ...
-        </sa-accordion-item-trigger>
+        </sa-accordion-item-title>
         <sa-accordion-item-content>
             ...
         </sa-accordion-item-content>
@@ -31,17 +31,27 @@ Use `<sa-accordion>` to wrap a collection of accordion items. Individual items a
 
 ## Examples
 
-### Single
+### Single open item
 
-Allow only a single item to be open at a time using the `type` attribute. When allowing only a single open item, the `collapsible` attribute indicates whether the item can be closed or not.
+The `name` attribute of `<sa-accordion-item>` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
+
+This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `<sa-accordion-item>` uses.
 
 <Demo src="/demo/tag-helpers/accordion-single.html">
   <include>./_include/accordion-single.mdx</include>
 </Demo>
 
+### Default open
+
+Add the `open` attribute to an accordion item to open it by default.
+
+<Demo src="/demo/tag-helpers/accordion-open.html">
+  <include>./_include/accordion-open.mdx</include>
+</Demo>
+
 ### Disabled
 
-Disable the accordion using the `disabled` attribute.
+Disable accordion items using the `disabled` attribute.
 
 <Demo src="/demo/tag-helpers/accordion-disabled.html">
   <include>./_include/accordion-disabled.mdx</include>
