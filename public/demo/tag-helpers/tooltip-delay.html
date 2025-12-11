@@ -22,27 +22,31 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-<div class="flex flex-row items-start gap-x-6 justify-start">
-    <div x-data="tooltip(1000,100,false)">
-        <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
-            <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
-                Open Delay (1000ms)
-            </button>
+<div class="py-10">
+    <!-- code begin -->
+    <div class="flex flex-row items-start gap-x-6 justify-start">
+        <div x-data="tooltip(1000, 100, false, &#x27;top&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
+                    Open Delay (1000ms)
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Opened after 1000ms
+            </div></div>
         </div>
-        <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
-            Opened after 1000ms
-        </div></div>
-    </div>
-    <div x-data="tooltip(50,1000,false)">
-        <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
-            <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
-                Close Delay (1000ms)
-            </button>
+        <div x-data="tooltip(50, 1000, false, &#x27;top&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
+                    Close Delay (1000ms)
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Will close after 1000ms
+            </div></div>
         </div>
-        <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
-            Will close after 1000ms
-        </div></div>
     </div>
+    <!-- code end -->
 </div>
 </div>
 

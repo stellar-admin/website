@@ -48,14 +48,6 @@ You can trigger the popover on hover using the `open-on-hover` attribute.
   <include>./_include/popover-hover.mdx</include>
 </Demo>
 
-### Open by default
-
-Open a popover by default using the `default-open` attribute.
-
-<Demo src="/demo/tag-helpers/popover-default-open.html">
-  <include>./_include/popover-default-open.mdx</include>
-</Demo>
-
 ### Position
 
 Control the position of the popover relative to the trigger element using the `popup-side` and `popup-align` attributes.
@@ -70,4 +62,20 @@ Control the offset of the popover from the trigger element using the `popup-offs
 
 <Demo src="/demo/tag-helpers/popover-offset.html">
   <include>./_include/popover-offset.mdx</include>
+</Demo>
+
+### Open by default
+
+Open a popover by default using the `default-open` attribute.
+
+<Demo src="/demo/tag-helpers/popover-default-open.html">
+  <include>./_include/popover-default-open.mdx</include>
+</Demo>
+
+### Teleport
+
+Use the `teleport` attribute of `sa-popover-content` to teleport your popup content to another part of the DOM. This is helpful to break out of the z-index of the current container.
+
+<Demo src="/demo/tag-helpers/popover-teleport.html">
+  <include>./_include/popover-teleport.mdx</include>
 </Demo>

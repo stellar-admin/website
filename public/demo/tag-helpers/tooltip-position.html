@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+<div class="py-10">
+    <!-- code begin -->
+    <div class="grid grid-cols-2 gap-4">
+        <div x-data="tooltip(50, 100, false, &#x27;top-start&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[&gt;svg]:px-3 size-30" data-slot="button">
+                    Top Start
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Positioned with the top start of the trigger
+            </div></div>
+        </div>
+        <div x-data="tooltip(50, 100, false, &#x27;right&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[&gt;svg]:px-3 size-30" data-slot="button">
+                    Right Center
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Positioned with the right center of the trigger
+            </div></div>
+        </div>
+        <div x-data="tooltip(50, 100, false, &#x27;left-end&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[&gt;svg]:px-3 size-30" data-slot="button">
+                    Left End
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Positioned with the left end of the trigger
+            </div></div>
+        </div>
+        <div x-data="tooltip(50, 100, false, &#x27;bottom-end&#x27;, 8)">
+            <div x-bind="trigger" x-ref="trigger" class="w-fit inline-block">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[&gt;svg]:px-3 size-30" data-slot="button">
+                    Bottom End
+                </button>
+            </div>
+            <div x-cloak=""><div class="z-50 bg-foreground text-background overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95" x-bind="content" x-ref="content">
+                Positioned with the bottom end of the trigger
+            </div></div>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+</div>
+
+
+<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+</body>
+</html>

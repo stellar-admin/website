@@ -24,6 +24,22 @@ import { Demo } from "@/components/demo";
 
 ## Examples
 
+### Position
+
+Control the position of the tooltip relative to the trigger element using the `tooltip-side` and `tooltip-align` attributes.
+
+<Demo src="/demo/tag-helpers/tooltip-position.html">
+  <include>./_include/tooltip-position.mdx</include>
+</Demo>
+
+### Offset
+
+Control the offset of the tooltip from the trigger element using the `tooltip-offset` attribute.
+
+<Demo src="/demo/tag-helpers/tooltip-offset.html">
+  <include>./_include/tooltip-offset.mdx</include>
+</Demo>
+
 ### Delay
 
 Use the `delay` attribute to specify the time delay (in ms) before the tooltip opens. Use the `close-delay` attribute to specify the time delay (in ms) before the tooltip closes after the mouse cursor or focus moves away.
@@ -42,7 +58,7 @@ Use the `default-open` attribute to specify whether the tooltip must be open (i.
 
 ### Teleport
 
-The `teleport` attribute of `<sa-tooltip-content>` allows you to transport your tooltip content to another part of the DOM on the page entirely. This is useful for things like modals (especially nesting them), where it's helpful to break out of the z-index of the current container.
+Use the `teleport` attribute of `sa-tooltip-content` to teleport your tooltip content to another part of the DOM. This is helpful to break out of the z-index of the current container.
 
 <Demo src="/demo/tag-helpers/tooltip-teleport.html">
   <include>./_include/tooltip-teleport.mdx</include>

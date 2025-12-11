@@ -24,7 +24,7 @@
     
 <div class="min-h-[120px]">
     <!-- code begin -->
-    <div x-data="popover(false, false,  &#x27;bottom&#x27;, 4)" data-slot="popover">
+    <div x-data="popover(false, false, &#x27;bottom&#x27;, 4)" data-slot="popover">
         <button data-slot="popover-trigger" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3" x-bind="trigger" x-ref="trigger">Use as-child with Button</button>
         
         <div class="z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none" x-bind="content" x-cloak="">
