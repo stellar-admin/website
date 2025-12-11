@@ -14,10 +14,10 @@ import { Demo } from "@/components/demo";
 ```razor
 <sa-popover>
     <sa-popover-trigger>
-        <!-- the element that triggers the popover -->
+        <!-- add the element that triggers the popover here -->
     </sa-popover-trigger>
     <sa-popover-content>
-        <!-- the popover content -->
+        <!-- add the popover content here -->
     </sa-popover-content>
 </sa-popover>
 ```
@@ -34,6 +34,12 @@ To work around this limitation, make sure you add the [`as-child` Tag Helper att
   <include>./_include/popover-button-in-trigger.mdx</include>
 </Demo>
 
+<Callout type="warn">
+  The `as-child` Tag Helper is very powerful but comes with some caveats. Please
+  refer to the [documentation](/docs/tag-helpers/components/as-child) for more
+  information.
+</Callout>
+
 ### Hover
 
 You can trigger the popover on hover using the `open-on-hover` attribute.
@@ -44,17 +50,23 @@ You can trigger the popover on hover using the `open-on-hover` attribute.
 
 ### Open by default
 
+Open a popover by default using the `default-open` attribute.
+
 <Demo src="/demo/tag-helpers/popover-default-open.html">
   <include>./_include/popover-default-open.mdx</include>
 </Demo>
 
 ### Position
 
+Control the position of the popover relative to the trigger element using the `popup-side` and `popup-align` attributes.
+
 <Demo src="/demo/tag-helpers/popover-position.html">
   <include>./_include/popover-position.mdx</include>
 </Demo>
 
 ### Offset
+
+Control the offset of the popover from the trigger element using the `popup-offset` attribute.
 
 <Demo src="/demo/tag-helpers/popover-offset.html">
   <include>./_include/popover-offset.mdx</include>
