@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+<div class="min-h-[260px]">
+    <!-- code begin -->
+    <div x-data="popover(true, false,  &#x27;bottom&#x27;, 4)" data-slot="popover">
+        <button class="cursor-pointer flex items-center gap-3" x-bind="trigger" x-ref="trigger" data-slot="popover-trigger">
+            <div data-slot="avatar" class="relative flex shrink-0 overflow-hidden rounded-full size-10"><img alt="" class="aspect-square size-full" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></div>
+            <span class="font-medium">Ibn Battuta</span>
+        </button>
+        <div class="z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none flex flex-col gap-3" x-bind="content" x-cloak="">
+            <div data-slot="avatar" class="relative flex shrink-0 overflow-hidden rounded-full size-10"><img alt="" class="aspect-square size-full" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></div>
+            <div>
+                <p class="font-medium">Ibn Battuta</p>
+                <div class="flex items-center gap-2">
+                    <div>@ibnbattuta</div>
+                    <span data-slot="badge" class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-primary text-primary-foreground [a&amp;]:hover:bg-primary/90">Follows you</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <p><span class="font-medium">655</span> following</p>
+                <p><span class="font-medium">100.3k</span> followers</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-4 py-2 has-[&gt;svg]:px-3 flex-1" data-slot="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    Following
+                </button>
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[&gt;svg]:px-3 flex-1" data-slot="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect height="16" rx="2" width="20" x="2" y="4"></rect></svg>
+                    Message
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+</div>
+
+
+<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+</body>
+</html>

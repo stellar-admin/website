@@ -1,0 +1,61 @@
+---
+title: Popover
+description: Display additional information in a popover on click or hover
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/popover-intro.html">
+  <include>./_include/popover-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-popover>
+    <sa-popover-trigger>
+        <!-- the element that triggers the popover -->
+    </sa-popover-trigger>
+    <sa-popover-content>
+        <!-- the popover content -->
+    </sa-popover-content>
+</sa-popover>
+```
+
+## Examples
+
+### Button as trigger
+
+The `sa-popover-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
+
+To work around this limitation, make sure you add the [`as-child` Tag Helper attribute](/docs/tag-helpers/components/as-child) to `sa-popover-trigger`. This will merge the attributes and behavior of `sa-popover-trigger` with its child content and render a single `button` element.
+
+<Demo src="/demo/tag-helpers/popover-button-in-trigger.html">
+  <include>./_include/popover-button-in-trigger.mdx</include>
+</Demo>
+
+### Hover
+
+You can trigger the popover on hover using the `open-on-hover` attribute.
+
+<Demo src="/demo/tag-helpers/popover-hover.html">
+  <include>./_include/popover-hover.mdx</include>
+</Demo>
+
+### Open by default
+
+<Demo src="/demo/tag-helpers/popover-default-open.html">
+  <include>./_include/popover-default-open.mdx</include>
+</Demo>
+
+### Position
+
+<Demo src="/demo/tag-helpers/popover-position.html">
+  <include>./_include/popover-position.mdx</include>
+</Demo>
+
+### Offset
+
+<Demo src="/demo/tag-helpers/popover-offset.html">
+  <include>./_include/popover-offset.mdx</include>
+</Demo>
