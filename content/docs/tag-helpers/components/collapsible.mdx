@@ -1,0 +1,41 @@
+---
+title: Collapsible
+description: An interactive component which expands/collapses a panel.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/collapsible-intro.html">
+  <include>./_include/collapsible-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-collapsible>
+    <sa-collapsible-trigger>
+    <!-- add the element that triggers the collapsible content here -->>
+    </sa-collapsible-trigger>
+    <sa-collapsible-content>
+    <!-- add the collapsible content here -->
+    </sa-collapsible-content>
+</sa-collapsible>
+```
+
+## Examples
+
+### Button as trigger
+
+The `sa-collapsible-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
+
+To work around this limitation, make sure you add the [`as-child` Tag Helper attribute](/docs/tag-helpers/components/as-child) to `sa-collapsible-trigger`. This will merge the attributes and behavior of `sa-collapsible-trigger` with its child content and render a single `button` element.
+
+<Demo src="/demo/tag-helpers/collapsible-as-child.html">
+  <include>./_include/collapsible-as-child.mdx</include>
+</Demo>
+
+<Callout type="warn">
+  The `as-child` Tag Helper is very powerful but comes with some caveats. Please
+  refer to the [documentation](/docs/tag-helpers/components/as-child) for more
+  information.
+</Callout>

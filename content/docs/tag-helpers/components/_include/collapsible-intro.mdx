@@ -1,0 +1,51 @@
+```razor
+<sa-collapsible class="flex w-[350px] flex-col gap-2 group/collapsible">
+    <div class="flex items-center justify-between gap-4">
+        <h4 class="text-sm font-semibold">
+            @@ibnbattuta has 3 bookings
+        </h4>
+        <sa-collapsible-trigger as-child="true">
+            <sa-button variant="Ghost" size="Icon" class="size-8">
+                <sa-icon name="chevrons-up-down" class="group-data-[state=open]/collapsible:hidden"/>
+                <sa-icon name="chevrons-down-up" class="hidden group-data-[state=open]/collapsible:block"/>
+                <span class="sr-only">Toggle</span>
+            </sa-button>
+        </sa-collapsible-trigger>
+    </div>
+    <sa-item variant="Outline" size="Small">
+        <sa-item-media>
+            <img
+                class="object-cover size-12 rounded"
+                src="https://images.unsplash.com/photo-1681785841804-4d8a976ee892?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+        </sa-item-media>
+        <sa-item-content>
+            <sa-item-title>Non-stop to NYC (JFK)</sa-item-title>
+            <sa-item-description>Departure 8AM - Dec 24, 2025</sa-item-description>
+        </sa-item-content>
+    </sa-item>
+    <sa-collapsible-content class="flex flex-col gap-2">
+        <sa-item variant="Outline" size="Small">
+            <sa-item-media>
+                <img
+                    class="object-cover size-12 rounded"
+                    src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+            </sa-item-media>
+            <sa-item-content>
+                <sa-item-title>The Grand Resort & Spa</sa-item-title>
+                <sa-item-description>Check-in Dec 25 | 7 Nights</sa-item-description>
+            </sa-item-content>
+        </sa-item>
+        <sa-item variant="Outline" size="Small">
+            <sa-item-media>
+                <img
+                    class="object-cover size-12 rounded"
+                    src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+            </sa-item-media>
+            <sa-item-content>
+                <sa-item-title>Westminster Abbey Tour</sa-item-title>
+                <sa-item-description>Dec 26, 11:00 AM Slot | 2 Adult Tickets</sa-item-description>
+            </sa-item-content>
+        </sa-item>
+    </sa-collapsible-content>
+</sa-collapsible>
+```

@@ -48,6 +48,7 @@
     --text-2xl--line-height: calc(2 / 1.5);
     --font-weight-normal: 400;
     --font-weight-medium: 500;
+    --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
@@ -241,6 +242,9 @@
   .grid {
     display: grid;
   }
+  .hidden {
+    display: none;
+  }
   .aspect-square {
     aspect-ratio: 1 / 1;
   }
@@ -297,6 +301,9 @@
   .h-\[300px\] {
     height: 300px;
   }
+  .min-h-\[70px\] {
+    min-height: 70px;
+  }
   .min-h-\[120px\] {
     min-height: 120px;
   }
@@ -308,6 +315,9 @@
   }
   .min-h-\[260px\] {
     min-height: 260px;
+  }
+  .min-h-\[300px\] {
+    min-height: 300px;
   }
   .w-4 {
     width: calc(var(--spacing) * 4);
@@ -329,6 +339,9 @@
   }
   .w-\[300px\] {
     width: 300px;
+  }
+  .w-\[350px\] {
+    width: 350px;
   }
   .w-\[400px\] {
     width: 400px;
@@ -656,6 +669,10 @@
     --tw-font-weight: var(--font-weight-normal);
     font-weight: var(--font-weight-normal);
   }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
   .text-amber-500 {
     color: var(--color-amber-500);
   }
@@ -750,6 +767,16 @@
   }
   .\[--radius\:9999rem\] {
     --radius: 9999rem;
+  }
+  .group-data-\[state\=open\]\/collapsible\:block {
+    &:is(:where(.group\/collapsible)[data-state="open"] *) {
+      display: block;
+    }
+  }
+  .group-data-\[state\=open\]\/collapsible\:hidden {
+    &:is(:where(.group\/collapsible)[data-state="open"] *) {
+      display: none;
+    }
   }
   .hover\:bg-linear-to-r {
     &:hover {
