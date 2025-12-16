@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `<sa-accordion>` to wrap a collection of accordion items. Individual items are created using the `<sa-accordion-item>` element containing `<sa-accordion-item-trigger>` and `<sa-accordion-item-content>` which contains the title and content respectively.
+Use `sa-accordion` to wrap a collection of accordion items. Individual items are created using the `sa-accordion-item` element containing `sa-accordion-item-title` and `sa-accordion-item-content` which contains the title and content respectively.
 
 ```razor
 <sa-accordion>
@@ -33,9 +33,9 @@ Use `<sa-accordion>` to wrap a collection of accordion items. Individual items a
 
 ### Single open item
 
-The `name` attribute of `<sa-accordion-item>` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
+The `name` attribute of `sa-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
 
-This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `<sa-accordion-item>` uses.
+This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `sa-accordion-item` uses.
 
 <Demo src="/demo/tag-helpers/accordion-single.html">
   <include>./_include/accordion-single.mdx</include>

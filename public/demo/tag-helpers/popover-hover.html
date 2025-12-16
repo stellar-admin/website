@@ -26,16 +26,16 @@
     <!-- code begin -->
     <div x-data="popover(true, false, &#x27;bottom&#x27;, 4)" data-slot="popover">
         <button class="cursor-pointer flex items-center gap-3" x-bind="trigger" x-ref="trigger" data-slot="popover-trigger">
-            <div data-slot="avatar" class="relative flex shrink-0 overflow-hidden rounded-full size-10"><img alt="" class="aspect-square size-full" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></div>
+            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></span>
             <span class="font-medium">Ibn Battuta</span>
         </button>
         <div class="z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none flex flex-col gap-3" x-bind="content" x-cloak="">
-            <div data-slot="avatar" class="relative flex shrink-0 overflow-hidden rounded-full size-10"><img alt="" class="aspect-square size-full" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></div>
+            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></span>
             <div>
                 <p class="font-medium">Ibn Battuta</p>
                 <div class="flex items-center gap-2">
                     <div>@ibnbattuta</div>
-                    <span data-slot="badge" class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-primary text-primary-foreground [a&amp;]:hover:bg-primary/90">Follows you</span>
+                    <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-primary text-primary-foreground [a]:hover:bg-primary/80">Follows you</span>
                 </div>
             </div>
             <div class="flex items-center gap-4">
