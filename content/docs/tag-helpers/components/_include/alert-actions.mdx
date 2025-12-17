@@ -1,15 +1,22 @@
 ```razor
-<sa-alert variant="AlertVariant.Destructive">
-    <sa-icon name="circle-alert"/>
-    <sa-alert-title>Payment Failed</sa-alert-title>
-    <sa-alert-description>
-        <p>We were unable to process your payment for the flight reservation.</p>
-    </sa-alert-description>
-    <sa-alert-action>
-        <sa-button size="Small" variant="Secondary">
-            <sa-icon name="mail"/>
-            Contact Support
-        </sa-button>
-    </sa-alert-action>
-</sa-alert>
+<div class="mx-auto flex w-full max-w-lg flex-col gap-4">
+    <sa-alert>
+        <sa-icon name="circle-alert"/>
+        <sa-alert-title>The selected emails have been marked as spam.</sa-alert-title>
+        <sa-alert-action>
+            <sa-button size="ButtonSize.ExtraSmall">Undo</sa-button>
+        </sa-alert-action>
+    </sa-alert>
+    <sa-alert>
+        <sa-icon name="circle-alert"/>
+        <sa-alert-title>The selected emails have been marked as spam.</sa-alert-title>
+        <sa-alert-description>
+            This is a very long alert title that demonstrates how the component
+            handles extended text content.
+        </sa-alert-description>
+        <sa-alert-action>
+            <sa-badge variant="BadgeVariant.Secondary">Badge</sa-badge>
+        </sa-alert-action>
+    </sa-alert>
+</div>
 ```

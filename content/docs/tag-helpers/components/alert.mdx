@@ -16,9 +16,17 @@ The Alert Tag Helper can be used in either composition mode or shorthand mode. T
 
 ```razor
 <sa-alert>
+    <!-- Add an optional icon -->
     <sa-icon name="..."/>
-    <sa-alert-title>...</sa-alert-title>
-    <sa-alert-description>...</sa-alert-description>
+    <sa-alert-title>
+        <!-- Add the title of the alert -->
+    </sa-alert-title>
+    <sa-alert-description>
+        <!-- Add the description of the alert -->
+    </sa-alert-description>
+    <sa-alert-actions>
+        <!-- Add actions the user can take -->
+    </sa-alert-actions>
 </sa-alert>
 ```
 
@@ -30,39 +38,35 @@ If you just want a simple alert with a plain text description and perhaps a titl
 
 ## Examples
 
-### Variants
+### Basic
 
-Use variants to communicate different types of messages.
-
-<Demo src="/demo/tag-helpers/alert-variants.html">
-  <include>./_include/alert-variants.mdx</include>
+<Demo src="/demo/tag-helpers/alert-basic.html">
+  <include>./_include/alert-basic.mdx</include>
 </Demo>
 
-### Icon
+### Shorthand
+
+<Demo src="/demo/tag-helpers/alert-shorthand.html">
+  <include>./_include/alert-shorthand.mdx</include>
+</Demo>
+
+### Icons
 
 Add an icon to your alert for additional information.
 
-<Demo src="/demo/tag-helpers/alert-icon.html">
-  <include>./_include/alert-icon.mdx</include>
+<Demo src="/demo/tag-helpers/alert-icons.html">
+  <include>./_include/alert-icons.mdx</include>
 </Demo>
 
-### Custom CSS
+### Destructive
 
 Add custom CSS classes to restyle any of the Alert components.
 
-<Demo src="/demo/tag-helpers/alert-custom-css.html">
-  <include>./_include/alert-custom-css.mdx</include>
+<Demo src="/demo/tag-helpers/alert-destructive.html">
+  <include>./_include/alert-destructive.mdx</include>
 </Demo>
 
-<Callout type="info">
-  All of the individual alert-related Tag Helpers render a `<div>` element. As such, you
-  can add any of the [`div`
-  attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/div)
-  to these Tag Helpers and they will be passed to the underlying `div`. This is
-  not limited just to the `class` attribute.
-</Callout>
-
-### Action buttons
+### Actions
 
 You can add additional content such as buttons to the alert.
 
