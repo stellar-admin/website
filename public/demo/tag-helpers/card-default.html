@@ -22,29 +22,25 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-<div class="ring-foreground/10 bg-card text-card-foreground gap-6 overflow-hidden rounded-xl py-6 text-sm shadow-xs ring-1 has-[&gt;img:first-child]:pt-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col relative mx-auto w-full max-w-sm pt-0" data-slot="card" data-size="default">
-    <div class="absolute inset-0 z-30 aspect-video"></div>
-    <img
-        src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2274"
-        alt="Photo by cartayen on Unsplash"
-        title="Photo by cartayen on Unsplash"
-        class="relative z-20 aspect-video w-full object-cover"
-    />
+<div class="ring-foreground/10 bg-card text-card-foreground gap-6 overflow-hidden rounded-xl py-6 text-sm shadow-xs ring-1 has-[&gt;img:first-child]:pt-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
     <div data-slot="card-header" class="gap-1 rounded-t-xl px-6 group-data-[size=sm]/card:px-4 [.border-b]:pb-6 group-data-[size=sm]/card:[.border-b]:pb-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
-        <div data-slot="card-title" class="text-base leading-normal font-medium group-data-[size=sm]/card:text-sm">Bangkok, Thailand</div>
+        <div data-slot="card-title" class="text-base leading-normal font-medium group-data-[size=sm]/card:text-sm">Default Card</div>
         <div data-slot="card-description" class="text-muted-foreground text-sm">
-            Bangkok is an exhilarating metropolis where ancient, gilded temples stand in vibrant contrast to modern
-            skyscrapers, world-class street food, and electrifying nightlife.
+            This card uses the default size variant.
         </div>
+    </div>
+    <div data-slot="card-content" class="px-6 group-data-[size=sm]/card:px-4">
+        <p>
+            The card component supports a size prop that defaults to
+            &quot;default&quot; for standard spacing and sizing.
+        </p>
     </div>
     <div data-slot="card-footer" class="rounded-b-xl px-6 group-data-[size=sm]/card:px-4 [.border-t]:pt-6 group-data-[size=sm]/card:[.border-t]:pt-4 flex items-center">
         <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 w-full" data-slot="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
-            Bookmark
+            Action
         </button>
     </div>
 </div>
-
 
 </div>
 
