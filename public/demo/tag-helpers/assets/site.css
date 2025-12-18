@@ -311,6 +311,9 @@
   .h-\[300px\] {
     height: 300px;
   }
+  .h-fit {
+    height: fit-content;
+  }
   .min-h-\[70px\] {
     min-height: 70px;
   }
@@ -337,6 +340,9 @@
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
+  }
+  .w-12\! {
+    width: calc(var(--spacing) * 12) !important;
   }
   .w-\[100px\] {
     width: 100px;
@@ -373,6 +379,12 @@
   }
   .max-w-5xl {
     max-width: var(--container-5xl);
+  }
+  .max-w-\[300px\] {
+    max-width: 300px;
+  }
+  .max-w-\[500px\] {
+    max-width: 500px;
   }
   .max-w-lg {
     max-width: var(--container-lg);
@@ -819,9 +831,6 @@
   }
   .\[--radius\:9999px\] {
     --radius: 9999px;
-  }
-  .\[--radius\:9999rem\] {
-    --radius: 9999rem;
   }
   .group-data-\[state\=open\]\/collapsible\:block {
     &:is(:where(.group\/collapsible)[data-state="open"] *) {

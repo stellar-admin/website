@@ -1,20 +1,17 @@
 ```razor
 <sa-button-group>
     <sa-button-group>
-        <sa-button variant="ButtonVariant.Outline">1</sa-button>
-        <sa-button variant="ButtonVariant.Outline">2</sa-button>
-        <sa-button variant="ButtonVariant.Outline">3</sa-button>
-        <sa-button variant="ButtonVariant.Outline">4</sa-button>
-        <sa-button variant="ButtonVariant.Outline">5</sa-button>
-        <sa-button variant="ButtonVariant.Outline">6</sa-button>
+        <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Icon">
+            <sa-icon name="plus"/>
+        </sa-button>
     </sa-button-group>
     <sa-button-group>
-        <sa-button variant="ButtonVariant.Outline">
-            <sa-icon name="chevron-left"/>
-        </sa-button>
-        <sa-button variant="ButtonVariant.Outline">
-            <sa-icon name="chevron-right"/>
-        </sa-button>
+        <sa-input-group>
+            <sa-input-group-input placeholder="Send a message..."/>
+            <sa-input-group-addon align="InputGroupAddOnVariantAlignment.InlineEnd">
+                <sa-icon name="audio-lines"/>
+            </sa-input-group-addon>
+        </sa-input-group>
     </sa-button-group>
 </sa-button-group>
 ```
