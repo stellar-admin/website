@@ -248,6 +248,9 @@
   .z-30 {
     z-index: 30;
   }
+  .col-span-full {
+    grid-column: 1 / -1;
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -339,6 +342,9 @@
   }
   .min-h-\[120px\] {
     min-height: 120px;
+  }
+  .min-h-\[180px\] {
+    min-height: 180px;
   }
   .min-h-\[200px\] {
     min-height: 200px;
@@ -438,6 +444,9 @@
   }
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid-cols-subgrid {
+    grid-template-columns: subgrid;
   }
   .flex-col {
     flex-direction: column;

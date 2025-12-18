@@ -1,0 +1,48 @@
+```razor
+<sa-card class="mx-auto w-[350px]" size="CardSize.Small">
+  <sa-card-header>
+    <sa-card-title>Radius</sa-card-title>
+    <sa-card-description>
+      Set the corner radius of the element.
+    </sa-card-description>
+  </sa-card-header>
+  <sa-card-content>
+    <sa-collapsible class="flex items-start gap-2 group/collapsible">
+      <sa-field-group class="grid w-full grid-cols-2 gap-2">
+        <sa-field>
+          <sa-field-label for="radius-x-1" class="sr-only">
+            Radius X
+          </sa-field-label>
+          <sa-input id="radius-x-1" placeholder="0"/>
+        </sa-field>
+        <sa-field>
+          <sa-field-label for="radius-y-1" class="sr-only">
+            Radius Y
+          </sa-field-label>
+          <sa-input id="radius-y-1" placeholder="0"/>
+        </sa-field>
+        <sa-collapsible-content class="col-span-full grid grid-cols-subgrid gap-2">
+          <sa-field>
+            <sa-field-label for="radius-x-2" class="sr-only">
+              Radius X
+            </sa-field-label>
+            <sa-input id="radius-x-2" placeholder="0"/>
+          </sa-field>
+          <sa-field>
+            <sa-field-label for="radius-y-2" class="sr-only">
+              Radius Y
+            </sa-field-label>
+            <sa-input id="radius-y-2" placeholder="0"/>
+          </sa-field>
+        </sa-collapsible-content>
+      </sa-field-group>
+      <sa-collapsible-trigger as-child="true">
+        <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Icon">
+          <sa-icon name="minimize" class="group-data-[state=open]/collapsible:hidden"/>
+          <sa-icon name="maximize" class="hidden group-data-[state=open]/collapsible:block"/>
+        </sa-button>
+      </sa-collapsible-trigger>
+    </sa-collapsible>
+  </sa-card-content>
+</sa-card>
+```
