@@ -1,14 +1,14 @@
 ```razor
 <sa-field-group>
   <sa-field-set>
-    <sa-field-legend variant="Label">
+    <sa-field-legend variant="FieldLegendVariant.Label">
       Show these items on the desktop
     </sa-field-legend>
     <sa-field-description>
       Select the items you want to show on the desktop.
     </sa-field-description>
     <sa-field-group class="gap-3">
-      <sa-field orientation="Horizontal">
+      <sa-field orientation="FieldOrientation.Horizontal">
         <sa-input type="checkbox" id="finder-pref-hard-disks"/>
         <sa-field-label
           for="finder-pref-hard-disks"
@@ -16,7 +16,7 @@
           Hard disks
         </sa-field-label>
       </sa-field>
-      <sa-field orientation="Horizontal">
+      <sa-field orientation="FieldOrientation.Horizontal">
         <sa-input type="checkbox" id="finder-pref-external-disks"/>
         <sa-field-label
           for="finder-pref-external-disks"
@@ -24,7 +24,7 @@
           External disks
         </sa-field-label>
       </sa-field>
-      <sa-field orientation="Horizontal">
+      <sa-field orientation="FieldOrientation.Horizontal">
         <sa-input type="checkbox" id="finder-pref-cds-dvds"/>
         <sa-field-label
           for="finder-pref-cds-dvds"
@@ -32,7 +32,7 @@
           CDs, DVDs, and iPods
         </sa-field-label>
       </sa-field>
-      <sa-field orientation="Horizontal">
+      <sa-field orientation="FieldOrientation.Horizontal">
         <sa-input type="checkbox" id="finder-pref-connected-servers"/>
         <sa-field-label
           for="finder-pref-connected-servers"
@@ -43,7 +43,7 @@
     </sa-field-group>
   </sa-field-set>
   <sa-field-separator/>
-  <sa-field orientation="Horizontal">
+  <sa-field orientation="FieldOrientation.Horizontal">
     <sa-input type="checkbox" id="finder-pref-sync-folders" checked="checked"/>
     <sa-field-content>
       <sa-field-label for="finder-pref-sync-folders">

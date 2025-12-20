@@ -8,15 +8,15 @@
     </sa-popover-trigger>
     <sa-popover-content class="flex flex-col gap-3">
         <sa-field-set>
-            <sa-field-legend variant="Label">Sort By</sa-field-legend>
+            <sa-field-legend variant="FieldLegendVariant.Label">Sort By</sa-field-legend>
             <sa-field-group data-slot="radio-group">
-                <sa-field orientation="Horizontal">
+                <sa-field orientation="FieldOrientation.Horizontal">
                     <sa-input type="radio" name="sort-by" value="departure" id="sort-departure" checked/>
                     <sa-field-label for="sort-departure" class="font-normal">
                         Departure Date
                     </sa-field-label>
                 </sa-field>
-                <sa-field orientation="Horizontal">
+                <sa-field orientation="FieldOrientation.Horizontal">
                     <sa-input type="radio" name="sort-by" value="posted" id="sort-posted"/>
                     <sa-field-label for="sort-posted" class="font-normal">
                         Date Posted
@@ -26,15 +26,15 @@
         </sa-field-set>
         <sa-separator orientation="Horizontal"/>
         <sa-field-set>
-            <sa-field-legend variant="Label">View As</sa-field-legend>
+            <sa-field-legend variant="FieldLegendVariant.Label">View As</sa-field-legend>
             <sa-field-group data-slot="radio-group">
-                <sa-field orientation="Horizontal">
+                <sa-field orientation="FieldOrientation.Horizontal">
                     <sa-input type="radio" name="view-as" value="departure" id="view-list" checked/>
                     <sa-field-label for="view-list" class="font-normal">
                         List
                     </sa-field-label>
                 </sa-field>
-                <sa-field orientation="Horizontal">
+                <sa-field orientation="FieldOrientation.Horizontal">
                     <sa-input type="radio" name="view-as" value="posted" id="view-gallery"/>
                     <sa-field-label for="view-gallery" class="font-normal">
                         Gallery

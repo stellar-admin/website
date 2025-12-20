@@ -249,6 +249,9 @@
   .col-span-full {
     grid-column: 1 / -1;
   }
+  .col-start-1 {
+    grid-column-start: 1;
+  }
   .mx-auto {
     margin-inline: auto;
   }
