@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <kbd data-slot="kbd-group" class="gap-1 inline-flex items-center">
+    <kbd data-slot="kbd" class="bg-muted text-muted-foreground [[data-slot=tooltip-content]_&amp;]:bg-background/20 [[data-slot=tooltip-content]_&amp;]:text-background dark:[[data-slot=tooltip-content]_&amp;]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">Ctrl</kbd>
+    <kbd data-slot="kbd" class="bg-muted text-muted-foreground [[data-slot=tooltip-content]_&amp;]:bg-background/20 [[data-slot=tooltip-content]_&amp;]:text-background dark:[[data-slot=tooltip-content]_&amp;]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">Shift</kbd>
+    <kbd data-slot="kbd" class="bg-muted text-muted-foreground [[data-slot=tooltip-content]_&amp;]:bg-background/20 [[data-slot=tooltip-content]_&amp;]:text-background dark:[[data-slot=tooltip-content]_&amp;]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">P</kbd>
+</kbd>
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+</body>
+</html>
