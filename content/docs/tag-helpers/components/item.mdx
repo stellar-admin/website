@@ -27,10 +27,21 @@ A versatile component that can be used to display any content.
     <sa-item-actions>
         ...
     </sa-item-actions>
+    <sa-item-footer>
+        ...
+    </sa-item-footer>
 </sa-item>
 ```
 
 ## Examples
+
+### Elements
+
+The following demo demonstrates all the various elements you can use.
+
+<Demo src="/demo/tag-helpers/item-components.html">
+  <include>./_include/item-components.mdx</include>
+</Demo>
 
 ### Variant
 
@@ -59,34 +70,42 @@ The URL can be specified a couple of ways:
 1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
 2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
 
-### Icon
-
-<Demo src="/demo/tag-helpers/item-icon.html">
-  <include>./_include/item-icon.mdx</include>
-</Demo>
-
-### Avatar
-
-<Demo src="/demo/tag-helpers/item-avatar.html">
-  <include>./_include/item-avatar.mdx</include>
-</Demo>
-
-### Image
-
-<Demo src="/demo/tag-helpers/item-image.html">
-  <include>./_include/item-image.mdx</include>
-</Demo>
-
 ### Group
 
-Wrap items in an `sa-item-group` container to group them together. Items can be separated with `sa-item-separator`.
+Wrap items in `sa-item-group` container to group them together.
 
 <Demo src="/demo/tag-helpers/item-group.html">
   <include>./_include/item-group.mdx</include>
+</Demo>
+
+### Separator
+
+Items can be separated with `sa-item-separator`.
+
+<Demo src="/demo/tag-helpers/item-separator.html">
+  <include>./_include/item-separator.mdx</include>
 </Demo>
 
 ### Header
 
 <Demo src="/demo/tag-helpers/item-header.html">
   <include>./_include/item-header.mdx</include>
+</Demo>
+
+### Footer
+
+<Demo src="/demo/tag-helpers/item-footer.html">
+  <include>./_include/item-footer.mdx</include>
+</Demo>
+
+### Header and Footer
+
+<Demo src="/demo/tag-helpers/item-header-and-footer.html">
+  <include>./_include/item-header-and-footer.mdx</include>
+</Demo>
+
+### Image
+
+<Demo src="/demo/tag-helpers/item-image.html">
+  <include>./_include/item-image.mdx</include>
 </Demo>

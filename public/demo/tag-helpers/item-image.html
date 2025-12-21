@@ -22,49 +22,46 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-<div class="w-lg">
+    <div class="w-lg">
     <div class="flex flex-col items-stretch gap-y-4 justify-start">
         <!-- code begin -->
-        <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] p-4 gap-4 border-border" data-slot="item" data-variant="outline" data-size="default">
-            <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
-                <img
-                    class="object-cover size-12 rounded"
-                    src="https://images.unsplash.com/photo-1681785841804-4d8a976ee892?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+        <div data-slot="item" data-variant="outline" data-size="default" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-3.5 px-4 py-3.5 border-border">
+            <div data-slot="item-media" data-variant="image" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-image">
+                <img src="/demo/tag-helpers/assets/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Non-stop to NYC (JFK)</div>
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">Delta Airlines - 8:00 AM Departure</div>
-            </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">$450</div>
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Project Dashboard</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+                    Overview of project settings and configuration.
+                </p>
             </div>
         </div>
-        <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] p-4 gap-4 border-border" data-slot="item" data-variant="outline" data-size="default">
-            <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
-                <img
-                    class="object-cover size-12 rounded"
-                    src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+        <div data-slot="item" data-variant="outline" data-size="default" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-3.5 px-4 py-3.5 border-border">
+            <div data-slot="item-media" data-variant="image" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-image">
+                <img src="/demo/tag-helpers/assets/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">The Grand Resort & Spa</div>
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">4.5 Stars ⋅ Free Cancellation</div>
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Document</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">A document with metadata displayed.</p>
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">$189/night</div>
+            <div data-slot="item-actions" class="gap-2 flex items-center">
+                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5">
+                    View
+                </button>
             </div>
         </div>
-        <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] p-4 gap-4 border-border" data-slot="item" data-variant="outline" data-size="default">
-            <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
-                <img
-                    class="object-cover size-12 rounded"
-                    src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+        <div data-slot="item" data-variant="outline" data-size="default" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-3.5 px-4 py-3.5 border-border">
+            <div data-slot="item-media" data-variant="image" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-image">
+                <img src="/demo/tag-helpers/assets/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Transfer to Downtown</div>
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">Pick-up at 10:30 AM - Hotel Lobby</div>
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">File Attachment</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+                    Complete file with image, title, description, and action button.
+                </p>
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">30 min</div>
+            <div data-slot="item-actions" class="gap-2 flex items-center">
+                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5">Download</button>
             </div>
         </div>
         <!-- code end -->

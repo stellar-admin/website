@@ -1,26 +1,26 @@
 ```razor
-<sa-item variant="Outline">
+<sa-item variant="ItemVariant.Outline">
     <sa-item-content>
-        <sa-item-title>Flight to Paris</sa-item-title>
+        <sa-item-title>Default Size</sa-item-title>
         <sa-item-description>
-            Departs 10:15, Gate A4
+            The default size has comfortable spacing
         </sa-item-description>
     </sa-item-content>
-    <sa-item-actions>
-        <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Small">
-            View Details
-        </sa-button>
-    </sa-item-actions>
 </sa-item>
-<sa-link-item variant="Outline" size="Small" href="#">
-    <sa-item-media>
-        <sa-icon name="luggage" class="size-5"/>
-    </sa-item-media>
+<sa-item variant="ItemVariant.Outline" size="ItemSize.Small">
     <sa-item-content>
-        <sa-item-title>Baggage policy updated.</sa-item-title>
+        <sa-item-title>Small Size</sa-item-title>
+        <sa-item-description>
+            The small size is for more compact items
+        </sa-item-description>
     </sa-item-content>
-    <sa-item-actions>
-        <sa-icon name="chevron-right" class="size-4"/>
-    </sa-item-actions>
-</sa-link-item>
+</sa-item>
+<sa-item variant="ItemVariant.Outline" size="ItemSize.ExtraSmall">
+    <sa-item-content>
+        <sa-item-title>Extra Small Size</sa-item-title>
+        <sa-item-description>
+            Extra Small size is the most compact
+        </sa-item-description>
+    </sa-item-content>
+</sa-item>
 ```

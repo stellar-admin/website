@@ -36,38 +36,38 @@
                 </button>
             
         </div>
-        <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] py-3 px-4 gap-2.5 border-border" data-slot="item" data-variant="outline" data-size="sm">
-            <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
+        <div data-slot="item" data-variant="outline" data-size="sm" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-border">
+            <div data-slot="item-media" data-variant="default" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-default">
                 <img
                     class="object-cover size-12 rounded"
                     src="https://images.unsplash.com/photo-1681785841804-4d8a976ee892?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Non-stop to NYC (JFK)</div>
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">Departure 8AM - Dec 24, 2025</div>
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Non-stop to NYC (JFK)</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">Departure 8AM - Dec 24, 2025</p>
             </div>
         </div>
         <div class="flex flex-col gap-2" x-bind="content" data-slot="collapsible-content">
-            <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] py-3 px-4 gap-2.5 border-border" data-slot="item" data-variant="outline" data-size="sm">
-                <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
+            <div data-slot="item" data-variant="outline" data-size="sm" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-border">
+                <div data-slot="item-media" data-variant="default" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-default">
                     <img
                         class="object-cover size-12 rounded"
                         src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
                 </div>
-                <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                    <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">The Grand Resort & Spa</div>
-                    <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">Check-in Dec 25 | 7 Nights</div>
+                <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                    <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">The Grand Resort & Spa</div>
+                    <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">Check-in Dec 25 | 7 Nights</p>
                 </div>
             </div>
-            <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] py-3 px-4 gap-2.5 border-border" data-slot="item" data-variant="outline" data-size="sm">
-                <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
+            <div data-slot="item" data-variant="outline" data-size="sm" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-border">
+                <div data-slot="item-media" data-variant="default" class="gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-default">
                     <img
                         class="object-cover size-12 rounded"
                         src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
                 </div>
-                <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                    <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Westminster Abbey Tour</div>
-                    <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">Dec 26, 11:00 AM Slot | 2 Adult Tickets</div>
+                <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                    <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Westminster Abbey Tour</div>
+                    <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">Dec 26, 11:00 AM Slot | 2 Adult Tickets</p>
                 </div>
             </div>
         </div>

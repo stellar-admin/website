@@ -22,36 +22,37 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-<div class="w-lg">
+    <div class="w-lg">
     <div class="flex flex-col items-stretch gap-y-4 justify-start">
         <!-- code begin -->
-        <div class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] p-4 gap-4 border-border" data-slot="item" data-variant="outline" data-size="default">
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Flight to Paris</div>
-                <div class="text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4" data-slot="item-description">
-                    Departs 10:15, Gate A4
-                </div>
-            </div>
-            <div class="flex items-center gap-2" data-slot="item-actions">
-                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding text-sm font-medium focus-visible:ring-[3px] aria-invalid:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5">
-                    View Details
-                </button>
+        <div data-slot="item" data-variant="outline" data-size="default" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-3.5 px-4 py-3.5 border-border">
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Default Size</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+                    The default size has comfortable spacing
+                </p>
             </div>
         </div>
-        <a href="#" class="group/item flex items-center border text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] py-3 px-4 gap-2.5 border-border" data-slot="item" data-variant="outline" data-size="sm">
-            <div class="flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&amp;_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5 bg-transparent" data-slot="item-media" data-variant="Default">
-                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"></path><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14"></path><path d="M10 20h4"></path><circle cx="16" cy="20" r="2"></circle><circle cx="8" cy="20" r="2"></circle></svg>
+        <div data-slot="item" data-variant="outline" data-size="sm" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-border">
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Small Size</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+                    The small size is for more compact items
+                </p>
             </div>
-            <div class="flex flex-1 flex-col gap-1 [&amp;&#x2B;[data-slot=item-content]]:flex-none" data-slot="item-content">
-                <div class="flex w-fit items-center gap-2 text-sm leading-snug font-medium" data-slot="item-title">Baggage policy updated.</div>
+        </div>
+        <div data-slot="item" data-variant="outline" data-size="xs" class="[a]:hover:bg-muted rounded-md border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2 px-2.5 py-2 [[data-slot=dropdown-menu-content]_&amp;]:p-0 border-border">
+            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
+                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Extra Small Size</div>
+                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+                    Extra Small size is the most compact
+                </p>
             </div>
-            <div class="flex items-center gap-2" data-slot="item-actions">
-                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
-            </div>
-        </a>
+        </div>
         <!-- code end -->
     </div>
 </div>
+
 </div>
 
 

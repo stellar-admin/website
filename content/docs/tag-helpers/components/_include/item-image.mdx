@@ -1,44 +1,41 @@
 ```razor
-<sa-item variant="Outline">
-    <sa-item-media>
-        <img
-            class="object-cover size-12 rounded"
-            src="https://images.unsplash.com/photo-1681785841804-4d8a976ee892?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+<sa-item variant="ItemVariant.Outline">
+    <sa-item-media variant="ItemMediaVariant.Image">
+        <img src="/gradients/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
     </sa-item-media>
     <sa-item-content>
-        <sa-item-title>Non-stop to NYC (JFK)</sa-item-title>
-        <sa-item-description>Delta Airlines - 8:00 AM Departure</sa-item-description>
-    </sa-item-content>
-    <sa-item-content>
-        <sa-item-description>$450</sa-item-description>
+        <sa-item-title>Project Dashboard</sa-item-title>
+        <sa-item-description>
+            Overview of project settings and configuration.
+        </sa-item-description>
     </sa-item-content>
 </sa-item>
-<sa-item variant="Outline">
-    <sa-item-media>
-        <img
-            class="object-cover size-12 rounded"
-            src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+<sa-item variant="ItemVariant.Outline">
+    <sa-item-media variant="ItemMediaVariant.Image">
+        <img src="/gradients/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
     </sa-item-media>
     <sa-item-content>
-        <sa-item-title>The Grand Resort & Spa</sa-item-title>
-        <sa-item-description>4.5 Stars ⋅ Free Cancellation</sa-item-description>
+        <sa-item-title>Document</sa-item-title>
+        <sa-item-description>A document with metadata displayed.</sa-item-description>
     </sa-item-content>
-    <sa-item-content>
-        <sa-item-description>$189/night</sa-item-description>
-    </sa-item-content>
+    <sa-item-actions>
+        <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Small">
+            View
+        </sa-button>
+    </sa-item-actions>
 </sa-item>
-<sa-item variant="Outline">
-    <sa-item-media>
-        <img
-            class="object-cover size-12 rounded"
-            src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+<sa-item variant="ItemVariant.Outline">
+    <sa-item-media variant="ItemMediaVariant.Image">
+        <img src="/gradients/gradient-1.jpg" class="w-[40px] h-[40px] object-cover grayscale" />
     </sa-item-media>
     <sa-item-content>
-        <sa-item-title>Transfer to Downtown</sa-item-title>
-        <sa-item-description>Pick-up at 10:30 AM - Hotel Lobby</sa-item-description>
+        <sa-item-title>File Attachment</sa-item-title>
+        <sa-item-description>
+            Complete file with image, title, description, and action button.
+        </sa-item-description>
     </sa-item-content>
-    <sa-item-content>
-        <sa-item-description>30 min</sa-item-description>
-    </sa-item-content>
+    <sa-item-actions>
+        <sa-button size="ButtonSize.Small">Download</sa-button>
+    </sa-item-actions>
 </sa-item>
 ```
