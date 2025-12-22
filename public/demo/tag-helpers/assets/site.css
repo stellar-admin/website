@@ -8,7 +8,6 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-50: oklch(97.1% 0.013 17.38);
-    --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-300: oklch(80.8% 0.114 19.571);
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-700: oklch(50.5% 0.213 27.518);
@@ -236,6 +235,9 @@
   .relative {
     position: relative;
   }
+  .static {
+    position: static;
+  }
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
@@ -274,6 +276,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline {
+    display: inline;
   }
   .inline-block {
     display: inline-block;
@@ -362,6 +367,12 @@
   }
   .w-12\! {
     width: calc(var(--spacing) * 12) !important;
+  }
+  .w-16 {
+    width: calc(var(--spacing) * 16);
+  }
+  .w-40 {
+    width: calc(var(--spacing) * 40);
   }
   .w-\[40px\] {
     width: 40px;
@@ -502,6 +513,11 @@
   .self-stretch {
     align-self: stretch;
   }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .rounded {
     border-radius: 0.25rem;
   }
@@ -513,9 +529,6 @@
   }
   .rounded-md {
     border-radius: var(--radius-md);
-  }
-  .rounded-none {
-    border-radius: 0;
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
@@ -570,12 +583,6 @@
   .bg-red-50 {
     background-color: var(--color-red-50);
   }
-  .bg-red-200 {
-    background-color: var(--color-red-200);
-  }
-  .bg-red-500 {
-    background-color: var(--color-red-500);
-  }
   .bg-sky-50 {
     background-color: var(--color-sky-50);
   }
@@ -605,6 +612,9 @@
   }
   .p-\[100px\] {
     padding: 100px;
+  }
+  .px-0 {
+    padding-inline: calc(var(--spacing) * 0);
   }
   .px-1\.5 {
     padding-inline: calc(var(--spacing) * 1.5);

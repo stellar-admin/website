@@ -24,10 +24,12 @@
     
     <div class="flex w-full flex-col max-w-md">
     <!-- code begin -->
-    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 71%;"></div></div></div>
+    <div data-slot="progress" class="flex flex-wrap gap-3">
+        <span data-slot="progress-label" class="text-sm font-medium">Upload progress</span>
+        <span data-slot="progress-value" class="text-muted-foreground ml-auto text-sm tabular-nums">56%</span>
+    <div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 56%;"></div></div></div>
     <!-- code end -->
 </div>
-
 
 </div>
 

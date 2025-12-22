@@ -22,9 +22,15 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-<div data-slot="progress" class="bg-primary/20 relative h-2 w-full overflow-hidden rounded-full">
-    <div data-slot="progress-indicator" class="bg-primary h-full w-full flex-1 transition-all" style="transform: translateX(-50%)"></div>
+    <div class="flex w-full flex-col gap-4">
+    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 0%;"></div></div></div>
+    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 25%;"></div></div></div>
+    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 50%;"></div></div></div>
+    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 75%;"></div></div></div>
+    <div data-slot="progress" class="flex flex-wrap gap-3"><div class="bg-muted h-1.5 rounded-full relative flex w-full items-center overflow-x-hidden" data-slot="progress-track"><div class="bg-primary h-full transition-all" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 100%;"></div></div></div>
 </div>
+
+
 
 </div>
 

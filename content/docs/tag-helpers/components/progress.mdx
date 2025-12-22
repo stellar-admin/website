@@ -14,19 +14,12 @@ Indicates the progress of a task.
 
 ```razor
 <sa-progress value="...">
-    <sa-progress-indicator/>
+    <sa-progress-label>...</sa-progress-label>
+    <sa-progress-value/>
 </sa-progress>
 ```
 
 ## Examples
-
-### Custom CSS
-
-You can customize the look-and-feel using CSS classes.
-
-<Demo src="/demo/tag-helpers/progress-custom-css.html">
-  <include>./_include/progress-custom-css.mdx</include>
-</Demo>
 
 ### Minimum and Maximum Values
 
@@ -34,4 +27,16 @@ Specify custom `minimum` and `maximum` values. The default values are `0` and `1
 
 <Demo src="/demo/tag-helpers/progress-min-max.html">
   <include>./_include/progress-min-max.mdx</include>
+</Demo>
+
+### With Label
+
+<Demo src="/demo/tag-helpers/progress-with-label.html">
+  <include>./_include/progress-with-label.mdx</include>
+</Demo>
+
+### File Upload List
+
+<Demo src="/demo/tag-helpers/progress-file-upload-list.html">
+  <include>./_include/progress-file-upload-list.mdx</include>
 </Demo>
