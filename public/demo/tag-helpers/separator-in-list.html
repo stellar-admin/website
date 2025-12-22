@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-[400px] flex flex-col gap-2 text-sm">
+    <dl class="flex items-center justify-between">
+        <dt>Item 1</dt>
+        <dd class="text-muted-foreground">Value 1</dd>
+    </dl>
+    <div role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal" class="bg-border shrink-0 h-px w-full"></div>
+    <dl class="flex items-center justify-between">
+        <dt>Item 2</dt>
+        <dd class="text-muted-foreground">Value 2</dd>
+    </dl>
+    <div role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal" class="bg-border shrink-0 h-px w-full"></div>
+    <dl class="flex items-center justify-between">
+        <dt>Item 3</dt>
+        <dd class="text-muted-foreground">Value 3</dd>
+    </dl>
+</div>
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+</body>
+</html>
