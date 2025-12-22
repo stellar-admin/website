@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-md">
+    <!-- code begin -->
+    <div class="flex w-full flex-col gap-7">
+        <div class="flex flex-col gap-3">
+            <div class="bg-muted rounded-md animate-pulse h-4 w-20" data-slot="skeleton"></div>
+            <div class="bg-muted rounded-md animate-pulse h-10 w-full" data-slot="skeleton"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+            <div class="bg-muted rounded-md animate-pulse h-4 w-24" data-slot="skeleton"></div>
+            <div class="bg-muted rounded-md animate-pulse h-10 w-full" data-slot="skeleton"></div>
+        </div>
+        <div class="bg-muted rounded-md animate-pulse h-9 w-24" data-slot="skeleton"></div>
+    </div>
+    <!-- code end -->
+</div>
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+</body>
+</html>

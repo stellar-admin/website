@@ -1,9 +1,11 @@
 ```razor
-<sa-group gap="GroupGap.Small" align="GroupAlign.Center">
-    <sa-skeleton class="size-12 rounded-full"/>
-    <sa-stack gap="StackGap.Small">
-        <sa-skeleton class="h-4 w-[250px]"/>
-        <sa-skeleton class="h-4 w-[200px]"/>
-    </sa-stack>
-</sa-group>
+<sa-card class="w-full">
+    <sa-card-header>
+        <sa-skeleton class="h-4 w-2/3"/>
+        <sa-skeleton class="h-4 w-1/2"/>
+    </sa-card-header>
+    <sa-card-content>
+        <sa-skeleton class="aspect-square w-full"/>
+    </sa-card-content>
+</sa-card>
 ```
