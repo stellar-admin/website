@@ -10,8 +10,8 @@
     --color-red-50: oklch(97.1% 0.013 17.38);
     --color-red-300: oklch(80.8% 0.114 19.571);
     --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
-    --color-red-800: oklch(44.4% 0.177 26.899);
     --color-red-950: oklch(25.8% 0.092 26.042);
     --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-amber-500: oklch(76.9% 0.188 70.08);
@@ -20,7 +20,6 @@
     --color-green-300: oklch(87.1% 0.15 154.449);
     --color-green-600: oklch(62.7% 0.194 149.214);
     --color-green-700: oklch(52.7% 0.154 150.069);
-    --color-green-800: oklch(44.8% 0.119 151.328);
     --color-green-950: oklch(26.6% 0.065 152.934);
     --color-emerald-500: oklch(69.6% 0.17 162.48);
     --color-sky-50: oklch(97.7% 0.013 236.62);
@@ -33,7 +32,6 @@
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-blue-600: oklch(54.6% 0.245 262.881);
     --color-blue-700: oklch(48.8% 0.243 264.376);
-    --color-blue-800: oklch(42.4% 0.199 265.638);
     --color-blue-950: oklch(28.2% 0.091 267.935);
     --color-indigo-100: oklch(93% 0.034 272.788);
     --color-indigo-500: oklch(58.5% 0.233 277.117);
@@ -762,11 +760,11 @@
   .text-blue-50 {
     color: var(--color-blue-50);
   }
+  .text-blue-600 {
+    color: var(--color-blue-600);
+  }
   .text-blue-700 {
     color: var(--color-blue-700);
-  }
-  .text-blue-800 {
-    color: var(--color-blue-800);
   }
   .text-emerald-500 {
     color: var(--color-emerald-500);
@@ -774,11 +772,11 @@
   .text-green-50 {
     color: var(--color-green-50);
   }
+  .text-green-600 {
+    color: var(--color-green-600);
+  }
   .text-green-700 {
     color: var(--color-green-700);
-  }
-  .text-green-800 {
-    color: var(--color-green-800);
   }
   .text-lime-500 {
     color: var(--color-lime-500);
@@ -792,11 +790,11 @@
   .text-red-500 {
     color: var(--color-red-500);
   }
+  .text-red-600 {
+    color: var(--color-red-600);
+  }
   .text-red-700 {
     color: var(--color-red-700);
-  }
-  .text-red-800 {
-    color: var(--color-red-800);
   }
   .text-sky-50 {
     color: var(--color-sky-50);
