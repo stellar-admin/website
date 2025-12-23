@@ -13,10 +13,20 @@ Allow users to switch between different views.
 ## Usage
 
 ```razor
-
+<sa-tab-list>
+    <sa-tab-link>...</sa-tab-link>
+</sa-tab-list>
 ```
 
 ## Examples
+
+### Variant
+
+Create underline tabs by setting the `variant` attribute.
+
+<Demo src="/demo/tag-helpers/tabs-line.html">
+  <include>./_include/tabs-line.mdx</include>
+</Demo>
 
 ### Orientation
 
@@ -32,6 +42,12 @@ Use icons along with the text.
 
 <Demo src="/demo/tag-helpers/tabs-icons.html">
   <include>./_include/tabs-icons.mdx</include>
+</Demo>
+
+### Icons Only
+
+<Demo src="/demo/tag-helpers/tabs-icons-only.html">
+  <include>./_include/tabs-icons-only.mdx</include>
 </Demo>
 
 ### Active item
@@ -54,3 +70,11 @@ The URL of `<sa-tab-link>` can be specified a couple of ways:
 </Demo>
 
 When specifying the URL, StellarAdmin will automatically set the `is-active` attribute for the tab link representing the currently active route, so you should not need to specify the `is-active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `is-active` attribute to either `true` or `false`.
+
+### Disabled
+
+Disable a tab using the `disabled` attribute.
+
+<Demo src="/demo/tag-helpers/tabs-disabled.html">
+  <include>./_include/tabs-disabled.mdx</include>
+</Demo>
