@@ -1,47 +1,47 @@
 ```razor
-<sa-popover>
-    <sa-popover-trigger as-child="true">
-        <sa-button variant="ButtonVariant.Outline">
-            <sa-icon name="sliders-horizontal" class="text-muted-foreground"/>
+<dui-popover>
+    <dui-popover-trigger as-child="true">
+        <dui-button variant="ButtonVariant.Outline">
+            <dui-icon name="sliders-horizontal" class="text-muted-foreground"/>
             Configure View
-        </sa-button>
-    </sa-popover-trigger>
-    <sa-popover-content class="flex flex-col gap-3">
-        <sa-field-set>
-            <sa-field-legend variant="FieldLegendVariant.Label">Sort By</sa-field-legend>
-            <sa-field-group data-slot="radio-group">
-                <sa-field orientation="FieldOrientation.Horizontal">
-                    <sa-input type="radio" name="sort-by" value="departure" id="sort-departure" checked/>
-                    <sa-field-label for="sort-departure" class="font-normal">
+        </dui-button>
+    </dui-popover-trigger>
+    <dui-popover-content class="flex flex-col gap-3">
+        <dui-field-set>
+            <dui-field-legend variant="FieldLegendVariant.Label">Sort By</dui-field-legend>
+            <dui-field-group data-slot="radio-group">
+                <dui-field orientation="FieldOrientation.Horizontal">
+                    <dui-input type="radio" name="sort-by" value="departure" id="sort-departure" checked/>
+                    <dui-field-label for="sort-departure" class="font-normal">
                         Departure Date
-                    </sa-field-label>
-                </sa-field>
-                <sa-field orientation="FieldOrientation.Horizontal">
-                    <sa-input type="radio" name="sort-by" value="posted" id="sort-posted"/>
-                    <sa-field-label for="sort-posted" class="font-normal">
+                    </dui-field-label>
+                </dui-field>
+                <dui-field orientation="FieldOrientation.Horizontal">
+                    <dui-input type="radio" name="sort-by" value="posted" id="sort-posted"/>
+                    <dui-field-label for="sort-posted" class="font-normal">
                         Date Posted
-                    </sa-field-label>
-                </sa-field>
-            </sa-field-group>
-        </sa-field-set>
-        <sa-separator orientation="SeparatorOrientation.Horizontal"/>
-        <sa-field-set>
-            <sa-field-legend variant="FieldLegendVariant.Label">View As</sa-field-legend>
-            <sa-field-group data-slot="radio-group">
-                <sa-field orientation="FieldOrientation.Horizontal">
-                    <sa-input type="radio" name="view-as" value="departure" id="view-list" checked/>
-                    <sa-field-label for="view-list" class="font-normal">
+                    </dui-field-label>
+                </dui-field>
+            </dui-field-group>
+        </dui-field-set>
+        <dui-separator orientation="SeparatorOrientation.Horizontal"/>
+        <dui-field-set>
+            <dui-field-legend variant="FieldLegendVariant.Label">View As</dui-field-legend>
+            <dui-field-group data-slot="radio-group">
+                <dui-field orientation="FieldOrientation.Horizontal">
+                    <dui-input type="radio" name="view-as" value="departure" id="view-list" checked/>
+                    <dui-field-label for="view-list" class="font-normal">
                         List
-                    </sa-field-label>
-                </sa-field>
-                <sa-field orientation="FieldOrientation.Horizontal">
-                    <sa-input type="radio" name="view-as" value="posted" id="view-gallery"/>
-                    <sa-field-label for="view-gallery" class="font-normal">
+                    </dui-field-label>
+                </dui-field>
+                <dui-field orientation="FieldOrientation.Horizontal">
+                    <dui-input type="radio" name="view-as" value="posted" id="view-gallery"/>
+                    <dui-field-label for="view-gallery" class="font-normal">
                         Gallery
-                    </sa-field-label>
-                </sa-field>
-            </sa-field-group>
-        </sa-field-set>
-    </sa-popover-content>
-</sa-popover>
+                    </dui-field-label>
+                </dui-field>
+            </dui-field-group>
+        </dui-field-set>
+    </dui-popover-content>
+</dui-popover>
 ```

@@ -13,35 +13,35 @@ Allow users to navigate between multiple pages of data.
 ## Usage
 
 ```razor
-<sa-pagination>
-    <sa-pagination-content>
-        <sa-pagination-item>
-            <sa-pagination-first href="#"/>
-        </sa-pagination-item>
-        <sa-pagination-item>
-            <sa-pagination-previous href="#"/>
-        </sa-pagination-item>
-        <sa-pagination-item>
-            <sa-pagination-link href="#">1</sa-pagination-link>
-        </sa-pagination-item>
-        <sa-pagination-item>
-            <sa-pagination-ellipsis/>
-        </sa-pagination-item>
-        <sa-pagination-item>
-            <sa-pagination-next href="#"/>
-        </sa-pagination-item>
-        <sa-pagination-item>
-            <sa-pagination-last href="#"/>
-        </sa-pagination-item>
-    </sa-pagination-content>
-</sa-pagination>
+<dui-pagination>
+    <dui-pagination-content>
+        <dui-pagination-item>
+            <dui-pagination-first href="#"/>
+        </dui-pagination-item>
+        <dui-pagination-item>
+            <dui-pagination-previous href="#"/>
+        </dui-pagination-item>
+        <dui-pagination-item>
+            <dui-pagination-link href="#">1</dui-pagination-link>
+        </dui-pagination-item>
+        <dui-pagination-item>
+            <dui-pagination-ellipsis/>
+        </dui-pagination-item>
+        <dui-pagination-item>
+            <dui-pagination-next href="#"/>
+        </dui-pagination-item>
+        <dui-pagination-item>
+            <dui-pagination-last href="#"/>
+        </dui-pagination-item>
+    </dui-pagination-content>
+</dui-pagination>
 ```
 
 ## Examples
 
 ### URL
 
-The URL of `sa-pagination-link`, `sa-pagination-first`, `sa-pagination-previous`, `sa-pagination-next`, and `sa-pagination-last` can be specified a couple of ways:
+The URL of `dui-pagination-link`, `dui-pagination-first`, `dui-pagination-previous`, `dui-pagination-next`, and `dui-pagination-last` can be specified a couple of ways:
 
 1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
 2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.

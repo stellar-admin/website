@@ -1,28 +1,28 @@
 ```razor
-<sa-empty class="min-h-[300px]">
-    <sa-empty-header>
-        <sa-empty-media variant="Icon">
-            <sa-spinner/>
-        </sa-empty-media>
-        <sa-empty-title>No projects yet</sa-empty-title>
-        <sa-empty-description>
+<dui-empty class="min-h-[300px]">
+    <dui-empty-header>
+        <dui-empty-media variant="EmptyMediaVariant.Icon">
+            <dui-spinner/>
+        </dui-empty-media>
+        <dui-empty-title>No projects yet</dui-empty-title>
+        <dui-empty-description>
             You haven&apos;t created any projects yet. Get started by creating
             your first project.
-        </sa-empty-description>
-    </sa-empty-header>
-    <sa-empty-content>
+        </dui-empty-description>
+    </dui-empty-header>
+    <dui-empty-content>
         <div class="flex gap-2">
-            <sa-linkbutton href="#">
+            <dui-linkbutton href="#">
                 Create project
-            </sa-linkbutton>
-            <sa-button variant="ButtonVariant.Outline">
+            </dui-linkbutton>
+            <dui-button variant="ButtonVariant.Outline">
                 Import project
-            </sa-button>
+            </dui-button>
         </div>
-        <sa-linkbutton variant="ButtonVariant.Link" href="#" class="text-muted-foreground">
+        <dui-linkbutton variant="ButtonVariant.Link" href="#" class="text-muted-foreground">
             Learn more
-            <sa-icon name="arrow-right"/>
-        </sa-linkbutton>
-    </sa-empty-content>
-</sa-empty>
+            <dui-icon name="arrow-right"/>
+        </dui-linkbutton>
+    </dui-empty-content>
+</dui-empty>
 ```

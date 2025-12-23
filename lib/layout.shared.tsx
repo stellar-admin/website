@@ -4,7 +4,7 @@ export function baseOptions(): BaseLayoutProps {
   return {
     githubUrl: "https://github.com/stellar-admin/",
     nav: {
-      title: "StellarAdmin",
+      title: "DuneUI",
     },
   };
 }

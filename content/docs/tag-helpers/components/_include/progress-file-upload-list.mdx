@@ -1,23 +1,23 @@
 ```razor
-<sa-item-group>
+<dui-item-group>
     @foreach (var file in Model)
     {
-        <sa-item size="ItemSize.ExtraSmall" class="px-0">
-            <sa-item-media variant="ItemMediaVariant.Icon">
-                <sa-icon name="file"/>
-            </sa-item-media>
-            <sa-item-content class="inline-block truncate">
-                <sa-item-title class="inline">@file.Name</sa-item-title>
-            </sa-item-content>
-            <sa-item-content>
-                <sa-progress value="@file.Progress" class="w-40"/>
-            </sa-item-content>
-            <sa-item-actions class="w-16 justify-end">
+        <dui-item size="ItemSize.ExtraSmall" class="px-0">
+            <dui-item-media variant="ItemMediaVariant.Icon">
+                <dui-icon name="file"/>
+            </dui-item-media>
+            <dui-item-content class="inline-block truncate">
+                <dui-item-title class="inline">@file.Name</dui-item-title>
+            </dui-item-content>
+            <dui-item-content>
+                <dui-progress value="@file.Progress" class="w-40"/>
+            </dui-item-content>
+            <dui-item-actions class="w-16 justify-end">
             <span class="text-muted-foreground text-sm">
                 @file.TimeRemaining
             </span>
-            </sa-item-actions>
-        </sa-item>
+            </dui-item-actions>
+        </dui-item>
     }
-</sa-item-group>
+</dui-item-group>
 ```

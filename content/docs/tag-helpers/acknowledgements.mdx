@@ -1,38 +1,38 @@
 ---
 title: Acknowledgements & Licenses
-description: The libraries and tools that inspired StellarAdmin
+description: The libraries and tools that inspired DuneUI
 ---
 
 ## Acknowledgements
 
 ### shadcn/ui
 
-As mentioned in the [introduction](.), StellarAdmin is based on [shadcn/ui](https://ui.shadcn.com/). The majority of the styling and component structures were lifted as-is from shadcn/ui.
+As mentioned in the [introduction](.), DuneUI is based on [shadcn/ui](https://ui.shadcn.com/). The majority of the styling and component structures were lifted as-is from shadcn/ui.
 
-Although StellarAdmin is inspired by and based on shadcn/ui, it does not follow its core principle.
+Although DuneUI is inspired by and based on shadcn/ui, it does not follow its core principle.
 
 You see, shadcn/ui is not a traditional library that you reference, but rather it copies the source code for all components into your project, allowing you to "own" and extend the components as you please. It is really a component distribution system that allows you to install the source code for components from various sources (called registries) into your own application.
 
-StellarAdmin is just a traditional component library that you reference via a NuGet package. However, it is based on the shadcn/ui styling which has two main advantages:
+DuneUI is just a traditional component library that you reference via a NuGet package. However, it is based on the shadcn/ui styling which has two main advantages:
 
 1. It provided a starting point for beautiful CSS styling for the various components. This saved me a lot of time during the development as I could, for the most part, simply copy the styles from the shadcn/ui components and did not have to wrestle with creating the styles myself.
 2. Since it is based on the shadcn/ui styles, you can tap into the shadcn/ui theming system and override any of the [variables](https://ui.shadcn.com/docs/theming#list-of-variables) to create your custom themes. You can also use theme variables from websites such as [tweakcn](https://tweakcn.com/).
 
 ### Tailwind CSS
 
-Like shadcn/ui, StellarAdmin in built on top of [Tailwind CSS](https://tailwindcss.com/). Tailwind CSS is a utility-first CSS framework that provides a set of pre-designed classes, like `flex`, `pt-4`, and `text-center`, that can be composed directly in your HTML to rapidly build custom user interfaces without writing custom CSS.
+Like shadcn/ui, DuneUI in built on top of [Tailwind CSS](https://tailwindcss.com/). Tailwind CSS is a utility-first CSS framework that provides a set of pre-designed classes, like `flex`, `pt-4`, and `text-center`, that can be composed directly in your HTML to rapidly build custom user interfaces without writing custom CSS.
 
 ### Alpine.js
 
-StellarAdmin Pro uses [Alpine.js](https://alpinejs.dev/). Alpine.js is a minimal, rugged JavaScript framework for composing behavior directly into your HTML, offering the reactivity and declarative approach of larger frameworks like Vue or React, but with a much smaller footprint.
+DuneUI Pro uses [Alpine.js](https://alpinejs.dev/). Alpine.js is a minimal, rugged JavaScript framework for composing behavior directly into your HTML, offering the reactivity and declarative approach of larger frameworks like Vue or React, but with a much smaller footprint.
 
 ### Artisan UI
 
-[Artisan UI](https://github.com/yungifez/artisan-ui) is a component library that brings shadcn/ui to Laravel - it is basically for Laravel what StellarAdmin hopes to be for ASP.NET Core. Like StellarAdmin, it uses TailwindCSS and Alpine.js. StellarAdmin uses [their Alpine.js code](https://github.com/yungifez/artisan-ui/tree/main/resources/js) as the starting point for many of the interactive components that are available in StellarAdmin Pro. This code has since been modified to fit with the StellarAdmin way of doing things.
+[Artisan UI](https://github.com/yungifez/artisan-ui) is a component library that brings shadcn/ui to Laravel - it is basically for Laravel what DuneUI hopes to be for ASP.NET Core. Like DuneUI, it uses TailwindCSS and Alpine.js. DuneUI uses [their Alpine.js code](https://github.com/yungifez/artisan-ui/tree/main/resources/js) as the starting point for many of the interactive components that are available in DuneUI Pro. This code has since been modified to fit with the DuneUI way of doing things.
 
 ### Lucide
 
-[Lucide](https://lucide.dev) is an open-source icon library and is used by StellarAdmin in the `sa-icon` Tag Helper as well as some other Tag Helpers.
+[Lucide](https://lucide.dev) is an open-source icon library and is used by DuneUI in the `dui-icon` Tag Helper as well as some other Tag Helpers.
 
 ### TailwindMerge.NET
 
@@ -44,7 +44,7 @@ This website you are reading now is built using [Fumadocs](https://fumadocs.dev/
 
 ### Other UI libraries
 
-In the course of building StellarAdmin and researched many other UI libraries for inspiration and some of them may have influenced some of the design decisions I made.
+In the course of building DuneUI and researched many other UI libraries for inspiration and some of them may have influenced some of the design decisions I made.
 
 - [Mantine](https://mantine.dev/) - a UI library for React.
 - [Flux](https://fluxui.dev) - a UI library for Laravel Livewire using Tailwind CSS.

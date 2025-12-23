@@ -12,14 +12,14 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<sa-tooltip>
-    <sa-tooltip-trigger>
+<dui-tooltip>
+    <dui-tooltip-trigger>
         <!-- Add the element that triggers the tooltip -->
-    </sa-tooltip-trigger>
-    <sa-tooltip-content>
+    </dui-tooltip-trigger>
+    <dui-tooltip-content>
         <!-- Add the text to display inside the tooltip popover -->
-    </sa-tooltip-content>
-</sa-tooltip>
+    </dui-tooltip-content>
+</dui-tooltip>
 ```
 
 ## Examples
@@ -58,7 +58,7 @@ Use the `default-open` attribute to specify whether the tooltip must be open (i.
 
 ### Teleport
 
-Use the `teleport` attribute of `sa-tooltip-content` to teleport your tooltip content to another part of the DOM. This is helpful to break out of the z-index of the current container.
+Use the `teleport` attribute of `dui-tooltip-content` to teleport your tooltip content to another part of the DOM. This is helpful to break out of the z-index of the current container.
 
 <Demo src="/demo/tag-helpers/tooltip-teleport.html">
   <include>./_include/tooltip-teleport.mdx</include>

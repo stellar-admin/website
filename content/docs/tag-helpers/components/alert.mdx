@@ -15,25 +15,25 @@ Alerts are used to display notifications or other important messages inline.
 The Alert Tag Helper can be used in either composition mode or shorthand mode. The composition mode is useful when the title or description contains HTML markup or additional HTML elements. It also allows you to add additional HTML attributes to the individual components of the alert - such as additional CSS class names via the `class` attribute.
 
 ```razor
-<sa-alert>
+<dui-alert>
     <!-- Add an optional icon -->
-    <sa-icon name="..."/>
-    <sa-alert-title>
+    <dui-icon name="..."/>
+    <dui-alert-title>
         <!-- Add the title of the alert -->
-    </sa-alert-title>
-    <sa-alert-description>
+    </dui-alert-title>
+    <dui-alert-description>
         <!-- Add the description of the alert -->
-    </sa-alert-description>
-    <sa-alert-actions>
+    </dui-alert-description>
+    <dui-alert-actions>
         <!-- Add actions the user can take -->
-    </sa-alert-actions>
-</sa-alert>
+    </dui-alert-actions>
+</dui-alert>
 ```
 
 If you just want a simple alert with a plain text description and perhaps a title and icon, the shorthand mode allows for more compact markup.
 
 ```razor
-<sa-alert icon="..." title="..." description="..."/>
+<dui-alert icon="..." title="..." description="..."/>
 ```
 
 ## Examples

@@ -13,9 +13,9 @@ Allow users to switch between different views.
 ## Usage
 
 ```razor
-<sa-tab-list>
-    <sa-tab-link>...</sa-tab-link>
-</sa-tab-list>
+<dui-tab-list>
+    <dui-tab-link>...</dui-tab-link>
+</dui-tab-list>
 ```
 
 ## Examples
@@ -60,7 +60,7 @@ Set the currently active item using the `is-active` attribute.
 
 ### Url
 
-The URL of `<sa-tab-link>` can be specified a couple of ways:
+The URL of `dui-tab-link` can be specified a couple of ways:
 
 1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
 2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
@@ -69,7 +69,7 @@ The URL of `<sa-tab-link>` can be specified a couple of ways:
   <include>./_include/tabs-url.mdx</include>
 </Demo>
 
-When specifying the URL, StellarAdmin will automatically set the `is-active` attribute for the tab link representing the currently active route, so you should not need to specify the `is-active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `is-active` attribute to either `true` or `false`.
+When specifying the URL, DuneUI will automatically set the `is-active` attribute for the tab link representing the currently active route, so you should not need to specify the `is-active` attribute explicitly. However, DuneUI can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `is-active` attribute to either `true` or `false`.
 
 ### Disabled
 

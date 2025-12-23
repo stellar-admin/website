@@ -20,9 +20,9 @@ export default function Hero() {
           Create beautiful ASP.NET Core apps
         </h1>
         <p className="mt-6 md:text-lg text-foreground/80">
-          StellarAdmin Tag Helpers is a collection of beautifully designed
-          components you can use to create CRUD screens in ASP.NET Core MVC and
-          Razor Pages applications.
+          DuneUI Tag Helpers is a collection of beautifully designed components
+          you can use to create CRUD screens in ASP.NET Core MVC and Razor Pages
+          applications.
         </p>
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button size="lg" className="rounded-full text-base" asChild>

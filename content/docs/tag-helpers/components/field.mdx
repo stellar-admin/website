@@ -13,19 +13,19 @@ Easily create form fields with labels, help text and input controls.
 
 ## Usage
 
-The `<sa-field>` family of Tag Helpers are designed for composing accessible forms. `<sa-field>` is the core wrapper for a single field.
+The `dui-field` family of Tag Helpers are designed for composing accessible forms. `dui-field` is the core wrapper for a single field.
 
 <Demo src="/demo/tag-helpers/field-usage-field.html">
   <include>./_include/field-usage-field.mdx</include>
 </Demo>
 
-`<sa-field-content>` is a flex column that groups label and description. This component is useful when you use a field in horizontal orientation
+`dui-field-content` is a flex column that groups label and description. This component is useful when you use a field in horizontal orientation
 
 <Demo src="/demo/tag-helpers/field-usage-field-content.html">
   <include>./_include/field-usage-field-content.mdx</include>
 </Demo>
 
-Wrap related fields with `<sa-field-group`>, and use `<sa-field-set>` with `<sa-field-legend>` for semantic grouping.
+Wrap related fields with `dui-field-group`, and use `dui-field-set` with `dui-field-legend` for semantic grouping.
 
 <Demo src="/demo/tag-helpers/field-usage-field-group.html">
   <include>./_include/field-usage-field-group.mdx</include>
@@ -33,26 +33,26 @@ Wrap related fields with `<sa-field-group`>, and use `<sa-field-set>` with `<sa-
 
 ## Explicit and implicit fields
 
-The usage examples demonstrated so far require a lot of boilerplate when creating fields by specifying `<sa-field>`, `<sa-field-label>`, `<sa-field-description>`, etc. To improve the developer experience, all the StellarAdmin input controls such as `<sa-input>`, `<sa-select>`, `<sa-textarea>`, etc. can implicitly create fields using one of the following two techniques.
+The usage examples demonstrated so far require a lot of boilerplate when creating fields by specifying `dui-field`, `dui-field-label`, `dui-field-description`, etc. To improve the developer experience, all the DuneUI input controls such as `dui-input`, `dui-select`, `dui-textarea`, etc. can implicitly create fields using one of the following two techniques.
 
-1. When using data binding (with the `asp-for` attribute), StellarAdmin will implicitly wrap the input inside a `<sa-field>` with the corresponding `<sa-field-label>` and `<sa-field-description>` inferred from data annotations. If your model contains errors related to the bound property, a `<sa-field-error>` component with the error message will also be added.
+1. When using data binding (with the `asp-for` attribute), DuneUI will implicitly wrap the input inside a `dui-field` with the corresponding `dui-field-label` and `dui-field-description` inferred from data annotations. If your model contains errors related to the bound property, a `dui-field-error` component with the error message will also be added.
 
    ```razor
-   <sa-input asp-for="Model.Name"/>
+   <dui-input asp-for="Model.Name"/>
    ```
 
-2. If you are not using data binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `<sa-field>` with the corresponding `<sa-field-label>`, `<sa-field-description>`, and `<sa-field-error>` automatically added.
+2. If you are not using data binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `dui-field` with the corresponding `dui-field-label`, `dui-field-description`, and `dui-field-error` automatically added.
 
    ```razor
-   <sa-input label="First Name"
+   <dui-input label="First Name"
              description="First name as displayed on card"
              error="This is a super-dooper error"/>
    ```
 
-In both cases mentioned above, you can opt out of implicit fields by setting the `render-field` attribute to `false`. In the example below, StellarAdmin will not create an implicit field, even though we're using model binding.
+In both cases mentioned above, you can opt out of implicit fields by setting the `render-field` attribute to `false`. In the example below, DuneUI will not create an implicit field, even though we're using model binding.
 
 ```razor
-<sa-input render-field="false" asp-for="Model.Name"/>
+<dui-input render-field="false" asp-for="Model.Name"/>
 ```
 
 Most of the examples in this document demonstrate both explicit and implicit mode. Notice how compact the implicit examples are compared to their explicit counterparts.
@@ -61,7 +61,7 @@ Most of the examples in this document demonstrate both explicit and implicit mod
 
 ### Implicit fields
 
-Whenever you use any if the various field input Tag Helpers (such as `<sa-input>`, `<sa-textarea>`, `<sa-select>` etc.) along with data binding, StellarAdmin will implicitly create a field with a label, description, and placeholder for you. You can see this demonstrated in the example below which implements the same form as above, but using data binding.
+Whenever you use any if the various field input Tag Helpers (such as `dui-input`, `dui-textarea`, `dui-select` etc.) along with data binding, DuneUI will implicitly create a field with a label, description, and placeholder for you. You can see this demonstrated in the example below which implements the same form as above, but using data binding.
 
 <Demo src="/demo/tag-helpers/field-implicit.html">
 <Tabs items={["Razor", "Model"]}>
@@ -280,7 +280,7 @@ Whenever you use any if the various field input Tag Helpers (such as `<sa-input>
 
 ### Field Group
 
-Stack `<sa-field>` components with `<sa-field-group>`. Add `<sa-field-separator>` to divide them. When grouping checkboxes or radio buttons, you can add `data-slot="checkbox-group"` or `data-slot="radio-group"` to tighten up spacing between the individual inputs.
+Stack `dui-field` components with `dui-field-group`. Add `dui-field-separator` to divide them. When grouping checkboxes or radio buttons, you can add `data-slot="checkbox-group"` or `data-slot="radio-group"` to tighten up spacing between the individual inputs.
 
 <Demo src="/demo/tag-helpers/field-field-group.html">
   <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>

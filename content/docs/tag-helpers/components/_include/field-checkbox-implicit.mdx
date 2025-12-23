@@ -1,20 +1,20 @@
 ```razor
-<sa-field-group>
-    <sa-field-set>
-        <sa-field-legend variant="FieldLegendVariant.Label">
+<dui-field-group>
+    <dui-field-set>
+        <dui-field-legend variant="FieldLegendVariant.Label">
             Show these items on the desktop
-        </sa-field-legend>
-        <sa-field-description>
+        </dui-field-legend>
+        <dui-field-description>
             Select the items you want to show on the desktop.
-        </sa-field-description>
-        <sa-field-group class="gap-3">
-            <sa-input asp-for="MustDisplayHardDisks"/>
-            <sa-input asp-for="MustDisplayExternalDisks"/>
-            <sa-input asp-for="MustDisplayCdDvd"/>
-            <sa-input asp-for="MustDisplayConnectedServers"/>
-        </sa-field-group>
-    </sa-field-set>
-    <sa-field-separator/>
-    <sa-input asp-for="MustSyncDesktopFolders"/>
-</sa-field-group>
+        </dui-field-description>
+        <dui-field-group class="gap-3">
+            <dui-input asp-for="MustDisplayHardDisks"/>
+            <dui-input asp-for="MustDisplayExternalDisks"/>
+            <dui-input asp-for="MustDisplayCdDvd"/>
+            <dui-input asp-for="MustDisplayConnectedServers"/>
+        </dui-field-group>
+    </dui-field-set>
+    <dui-field-separator/>
+    <dui-input asp-for="MustSyncDesktopFolders"/>
+</dui-field-group>
 ```

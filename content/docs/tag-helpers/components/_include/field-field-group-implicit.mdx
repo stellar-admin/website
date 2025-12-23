@@ -1,25 +1,25 @@
 ```razor
-<sa-field-group>
-    <sa-field-set>
-        <sa-field-label>Responses</sa-field-label>
-        <sa-field-description>
+<dui-field-group>
+    <dui-field-set>
+        <dui-field-label>Responses</dui-field-label>
+        <dui-field-description>
             Get notified when ChatGPT responds to requests that take time, like
             research or image generation.
-        </sa-field-description>
-        <sa-field-group data-slot="checkbox-group">
-            <sa-input asp-for="EnableResponsePushNotifications" disabled/>
-        </sa-field-group>
-    </sa-field-set>
-    <sa-field-separator/>
-    <sa-field-set>
-        <sa-field-label>Tasks</sa-field-label>
-        <sa-field-description>
+        </dui-field-description>
+        <dui-field-group data-slot="checkbox-group">
+            <dui-input asp-for="EnableResponsePushNotifications" disabled/>
+        </dui-field-group>
+    </dui-field-set>
+    <dui-field-separator/>
+    <dui-field-set>
+        <dui-field-label>Tasks</dui-field-label>
+        <dui-field-description>
             Get notified when tasks you&apos;ve created have updates. <a href="#">Manage tasks</a>
-        </sa-field-description>
-        <sa-field-group data-slot="checkbox-group">
-            <sa-input asp-for="EnableTaskPushNotifications"/>
-            <sa-input asp-for="EnableTaskEmailNotifications"/>
-        </sa-field-group>
-    </sa-field-set>
-</sa-field-group>
+        </dui-field-description>
+        <dui-field-group data-slot="checkbox-group">
+            <dui-input asp-for="EnableTaskPushNotifications"/>
+            <dui-input asp-for="EnableTaskEmailNotifications"/>
+        </dui-field-group>
+    </dui-field-set>
+</dui-field-group>
 ```

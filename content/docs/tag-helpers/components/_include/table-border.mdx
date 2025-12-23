@@ -1,37 +1,37 @@
 ```razor
 <div class="w-full rounded-md border">
-    <sa-table>
-        <sa-table-header>
-            <sa-table-row>
-                <sa-table-head class="w-[100px]">Booking #</sa-table-head>
-                <sa-table-head>Status</sa-table-head>
-                <sa-table-head>Destination</sa-table-head>
-                <sa-table-head class="text-right">Amount</sa-table-head>
-            </sa-table-row>
-        </sa-table-header>
-        <sa-table-body>
+    <dui-table>
+        <dui-table-header>
+            <dui-table-row>
+                <dui-table-head class="w-[100px]">Booking #</dui-table-head>
+                <dui-table-head>Status</dui-table-head>
+                <dui-table-head>Destination</dui-table-head>
+                <dui-table-head class="text-right">Amount</dui-table-head>
+            </dui-table-row>
+        </dui-table-header>
+        <dui-table-body>
             @foreach (var booking in StaticData.Bookings)
             {
-                <sa-table-row>
-                    <sa-table-cell class="font-medium">@booking.Id</sa-table-cell>
-                    <sa-table-cell>
-                        <sa-badge variant="@GetBadgeVariant(booking.Status)">
+                <dui-table-row>
+                    <dui-table-cell class="font-medium">@booking.Id</dui-table-cell>
+                    <dui-table-cell>
+                        <dui-badge variant="@GetBadgeVariant(booking.Status)">
                             @booking.Status.ToString()
-                        </sa-badge>
-                    </sa-table-cell>
-                    <sa-table-cell>@booking.Destination</sa-table-cell>
-                    <sa-table-cell class="text-right">
+                        </dui-badge>
+                    </dui-table-cell>
+                    <dui-table-cell>@booking.Destination</dui-table-cell>
+                    <dui-table-cell class="text-right">
                         @booking.Amount.ToString("N")
-                    </sa-table-cell>
-                </sa-table-row>
+                    </dui-table-cell>
+                </dui-table-row>
             }
-        </sa-table-body>
-        <sa-table-footer>
-            <sa-table-row>
-                <sa-table-cell colspan="3">
+        </dui-table-body>
+        <dui-table-footer>
+            <dui-table-row>
+                <dui-table-cell colspan="3">
                     Total Active Value
-                </sa-table-cell>
-                <sa-table-cell class="text-right">
+                </dui-table-cell>
+                <dui-table-cell class="text-right">
                     @{
                         var activeValue = StaticData.Bookings
                             .Where(b => b.Status != BookingStatus.Cancelled)
@@ -39,10 +39,10 @@
                             .Sum();
                     }
                     @activeValue.ToString("N")
-                </sa-table-cell>
-            </sa-table-row>
-        </sa-table-footer>
-    </sa-table>
+                </dui-table-cell>
+            </dui-table-row>
+        </dui-table-footer>
+    </dui-table>
 </div>
 
 @functions

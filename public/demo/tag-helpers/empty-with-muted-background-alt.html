@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.css"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin-pro.css"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui-pro.css"/>
     
     <style>
         body {
@@ -22,15 +22,15 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="flex min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12 bg-muted/50" data-slot="empty">
-    <div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2 text-center">
-        <div data-slot="empty-title" class="text-lg font-medium tracking-tight">404 - Not Found</div>
-        <div data-slot="empty-description" class="text-muted-foreground [&amp;&gt;a:hover]:text-primary text-sm/relaxed [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+    <div class="gap-4 rounded-lg border-dashed p-12 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance bg-muted/50" data-slot="empty">
+    <div data-slot="empty-header" class="gap-2 flex max-w-sm flex-col items-center">
+        <div data-slot="empty-title" class="dui-empty-title">404 - Not Found</div>
+        <div data-slot="empty-description" class="text-sm/relaxed text-muted-foreground [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
             The page you&apos;re looking for doesn&apos;t exist. Try searching
             for what you need below.
         </div>
     </div>
-    <div data-slot="empty-content" class="flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance">
+    <div data-slot="empty-content" class="gap-4 text-sm flex w-full max-w-sm min-w-0 flex-col items-center text-balance">
         <div class="border-input dark:bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-md border shadow-xs transition-[color,box-shadow] has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[&gt;[data-align=block-end]]:h-auto has-[&gt;[data-align=block-end]]:flex-col has-[&gt;[data-align=block-start]]:h-auto has-[&gt;[data-align=block-start]]:flex-col has-[&gt;[data-align=block-end]]:[&amp;&gt;input]:pt-3 has-[&gt;[data-align=block-start]]:[&amp;&gt;input]:pb-3 has-[&gt;[data-align=inline-end]]:[&amp;&gt;input]:pr-1.5 has-[&gt;[data-align=inline-start]]:[&amp;&gt;input]:pl-1.5 [[data-slot=combobox-content]_&amp;]:focus-within:border-inherit [[data-slot=combobox-content]_&amp;]:focus-within:ring-0 group/input-group relative flex min-w-0 items-center outline-none has-[&gt;textarea]:h-auto w-3/4" role="group" data-slot="input-group">
             <input placeholder="Try searching for pages..." data-slot="input-group-control" class="placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground border-input h-9 w-full min-w-0 px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm file:text-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent flex-1" />
             <div role="group" data-slot="input-group-addon" data-align="inline-start" onclick="(function(e) {&#xD;&#xA;  if ((e.target).closest(&#x27;button&#x27;)) {&#xD;&#xA;    return;&#xD;&#xA;  }&#xD;&#xA;  e.currentTarget.parentElement?.querySelector(&#x27;input&#x27;)?.focus();&#xD;&#xA;})(event);" class="text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&amp;&gt;kbd]:rounded-[calc(var(--radius)-5px)] [&amp;&gt;svg:not([class*=&#x27;size-&#x27;])]:size-4 flex cursor-text items-center justify-center select-none pl-2 has-[&gt;button]:ml-[-0.25rem] has-[&gt;kbd]:ml-[-0.15rem] order-first">
@@ -40,7 +40,7 @@
                 <kbd data-slot="kbd" class="bg-muted text-muted-foreground [[data-slot=tooltip-content]_&amp;]:bg-background/20 [[data-slot=tooltip-content]_&amp;]:text-background dark:[[data-slot=tooltip-content]_&amp;]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3 pointer-events-none inline-flex items-center justify-center select-none">/</kbd>
             </div>
         </div>
-        <div data-slot="empty-description" class="text-muted-foreground [&amp;&gt;a:hover]:text-primary text-sm/relaxed [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+        <div data-slot="empty-description" class="text-sm/relaxed text-muted-foreground [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
             Need help? <a href="#">Contact support</a>
         </div>
     </div>
@@ -49,6 +49,6 @@
 </div>
 
 
-<script src="/demo/tag-helpers/assets/stellar-admin-pro.js"></script>
+<script src="/demo/tag-helpers/assets/dune-ui-pro.js"></script>
 </body>
 </html>

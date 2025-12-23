@@ -11,31 +11,31 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `sa-accordion` to wrap a collection of accordion items. Individual items are created using the `sa-accordion-item` element containing `sa-accordion-item-title` and `sa-accordion-item-content` which contains the title and content respectively.
+Use `dui-accordion` to wrap a collection of accordion items. Individual items are created using the `dui-accordion-item` element containing `dui-accordion-item-title` and `dui-accordion-item-content` which contains the title and content respectively.
 
 ```razor
-<sa-accordion>
-    <sa-accordion-item>
-        <sa-accordion-item-title>
+<dui-accordion>
+    <dui-accordion-item>
+        <dui-accordion-item-title>
             ...
-        </sa-accordion-item-title>
-        <sa-accordion-item-content>
+        </dui-accordion-item-title>
+        <dui-accordion-item-content>
             ...
-        </sa-accordion-item-content>
-    </sa-accordion-item>
-    <sa-accordion-item>
+        </dui-accordion-item-content>
+    </dui-accordion-item>
+    <dui-accordion-item>
         ...
-    </sa-accordion-item>
-</sa-accordion>
+    </dui-accordion-item>
+</dui-accordion>
 ```
 
 ## Examples
 
 ### Single open item
 
-The `name` attribute of `sa-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
+The `name` attribute of `dui-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
 
-This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `sa-accordion-item` uses.
+This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `dui-accordion-item` uses.
 
 <Demo src="/demo/tag-helpers/accordion-single.html">
   <include>./_include/accordion-single.mdx</include>

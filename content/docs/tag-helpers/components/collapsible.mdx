@@ -12,23 +12,23 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<sa-collapsible>
-    <sa-collapsible-trigger>
+<dui-collapsible>
+    <dui-collapsible-trigger>
     <!-- add the element that triggers the collapsible content here -->>
-    </sa-collapsible-trigger>
-    <sa-collapsible-content>
+    </dui-collapsible-trigger>
+    <dui-collapsible-content>
     <!-- add the collapsible content here -->
-    </sa-collapsible-content>
-</sa-collapsible>
+    </dui-collapsible-content>
+</dui-collapsible>
 ```
 
 ## Examples
 
 ### Button as trigger
 
-The `sa-collapsible-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
+The `dui-collapsible-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
 
-To work around this limitation, make sure you add the [`as-child` Tag Helper attribute](/docs/tag-helpers/components/as-child) to `sa-collapsible-trigger`. This will merge the attributes and behavior of `sa-collapsible-trigger` with its child content and render a single `button` element.
+To work around this limitation, make sure you add the [`as-child` Tag Helper attribute](/docs/tag-helpers/components/as-child) to `dui-collapsible-trigger`. This will merge the attributes and behavior of `dui-collapsible-trigger` with its child content and render a single `button` element.
 
 <Demo src="/demo/tag-helpers/collapsible-as-child.html">
   <include>./_include/collapsible-as-child.mdx</include>
