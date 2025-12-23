@@ -1,6 +1,8 @@
 ```razor
+    var bookingStatusList = Html.GetEnumSelectList<BookingStatus>();
+}
 <sa-table>
-        <sa-table-caption>Total Active Value includes Confirmed and Pending bookings only.</sa-table-caption>
+    <sa-table-caption>Total Active Value includes Confirmed and Pending bookings only.</sa-table-caption>
     <sa-table-header>
         <sa-table-row>
             <sa-table-head class="w-[100px]">Booking #</sa-table-head>
@@ -15,9 +17,14 @@
             <sa-table-row>
                 <sa-table-cell class="font-medium">@booking.Id</sa-table-cell>
                 <sa-table-cell>
-                    <sa-badge variant="@GetBadgeVariant(booking.Status)">
-                        @booking.Status.ToString()
-                    </sa-badge>
+                    <sa-select>
+                        @foreach (var selectListItem in bookingStatusList)
+                        {
+                            var selected = BookingStatus.TryParse(selectListItem.Value, out BookingStatus status) && booking.Status == status;
+                            
+                            <option value="@selectListItem.Value" selected="@(selected)">@selectListItem.Text</option>
+                        }
+                    </sa-select>
                 </sa-table-cell>
                 <sa-table-cell>@booking.Destination</sa-table-cell>
                 <sa-table-cell class="text-right">
@@ -43,14 +50,4 @@
         </sa-table-row>
     </sa-table-footer>
 </sa-table>
-
-@functions
-{
-    BadgeVariant GetBadgeVariant(BookingStatus status) => status switch
-    {
-        BookingStatus.Cancelled => BadgeVariant.Destructive,
-        BookingStatus.Pending => BadgeVariant.Secondary,
-        _ => BadgeVariant.Default
-    };
-}
 ```
