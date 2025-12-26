@@ -26,6 +26,7 @@
     "---Forms---",
     "button",
     "button-group",
+    "checkbox",
     "field",
     "input",
     "input-group",

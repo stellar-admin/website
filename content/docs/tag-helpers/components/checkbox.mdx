@@ -1,0 +1,144 @@
+---
+title: Checkbox
+description: Capture boolean input from user
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/checkbox-intro.html">
+  <include>./_include/checkbox-intro.mdx</include>
+</Demo>
+
+## Usage
+
+DuneUI does not have a specific Checkbox Tag Helper, but uses the normal `dui-input` Tag Helper with the `type` attribute specified as `checkbox`. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations.
+
+```razor
+<dui-input type="checkbox"/>
+```
+
+## Examples
+
+### Model binding
+
+The `dui-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `dui-input` to a model with a `bool` data type, DuneUI will render a checkbox.
+
+When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/checkbox-model-binding.html">
+<Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/checkbox-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Accept terms and conditions",
+            Description = "By clicking this checkbox, you agree to the terms and conditions."
+        )]
+        public bool AcceptTerms { get; set; } = true;
+    }
+    ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Model binding validation
+
+When using model binding, validation errors from [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
+
+<Demo src="/demo/tag-helpers/checkbox-validation.html">
+    <Tabs items={["Razor", "Model"]}>
+        <Tab value="Razor">
+        <include>./_include/checkbox-validation.mdx</include>
+        </Tab>
+        <Tab value="Model">
+        ```cs
+        public class ValidationModel
+        {
+            [Display(
+                Name = "Accept terms and conditions",
+                Description = "By clicking this checkbox, you agree to the terms and conditions."
+            )]
+            [Required(ErrorMessage = "You must accept the terms and conditions")]
+            public bool AcceptTerms { get; set; }
+        }
+        ```
+        </Tab>
+    </Tabs>
+</Demo>
+
+### With Field
+
+If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
+
+<Demo src="/demo/tag-helpers/checkbox-field-explicit.html">
+  <include>./_include/checkbox-field-explicit.mdx</include>
+</Demo>
+
+### Implicit Field
+
+You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
+
+<Demo src="/demo/tag-helpers/checkbox-field-implicit.html">
+  <include>./_include/checkbox-field-implicit.mdx</include>
+</Demo>
+
+### Manual Validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
+
+The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+
+<Demo src="/demo/tag-helpers/checkbox-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/checkbox-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/checkbox-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Disabled
+
+<Demo src="/demo/tag-helpers/checkbox-disabled.html">
+  <include>./_include/checkbox-disabled.mdx</include>
+</Demo>
+
+### Group
+
+<Demo src="/demo/tag-helpers/checkbox-group.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field", "Model"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/checkbox-group.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/checkbox-group-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class GroupModel
+    {
+        [Display(Name = "Landmark & Attractions")]
+        public bool Landmarks { get; set; } = true;
+
+        [Display(Name = "Restaurants & Bars")]
+        public bool Restaurants { get; set; } = true;
+
+        [Display(Name = "Transit Stations")]
+        public bool Stations { get; set; }
+
+        [Display(Name = "Local Tour Guides")]
+        public bool LocalGuides { get; set; }
+    }
+    ```
+    </Tab>
+
+  </Tabs>
+</Demo>
