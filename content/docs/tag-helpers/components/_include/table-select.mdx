@@ -17,7 +17,7 @@
             <dui-table-row>
                 <dui-table-cell class="font-medium">@booking.Id</dui-table-cell>
                 <dui-table-cell>
-                    <dui-select>
+                    <dui-select size="SelectSize.Small">
                         @foreach (var selectListItem in bookingStatusList)
                         {
                             var selected = BookingStatus.TryParse(selectListItem.Value, out BookingStatus status) && booking.Status == status;

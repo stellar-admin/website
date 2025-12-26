@@ -23,40 +23,14 @@ All the same rules as the built-in Tag Helper applies for things like data bindi
 
 ## Examples
 
-### With Field
+### Model binding
 
-Use the Input Tag Helper with the [Field Tag Helper](field) to create form input fields with labels and descriptions.
+The `dui-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
-<Demo src="/demo/tag-helpers/input-with-field.html">
-  <include>./_include/input-with-field.mdx</include>
-</Demo>
-
-### Implicit Field
-
-You can also let DuneUI create an implicit field for an input.
-
-<Demo src="/demo/tag-helpers/input-implicit-field.html">
-  <include>./_include/input-implicit-field.mdx</include>
-</Demo>
-
-An implicit field will the created when you do either of the following:
-
-1. Add the `label`, `description`, or `error` attributes.
-1. Use data binding by specifying the `asp-for` attribute (see example below).
-
-Even if either of the above is true, an implicit field will not be created under the following conditions:
-
-1. The input is explicitly wrapped inside a Field Tag Helper
-1. You opted out by setting the `render-field` attribute on the Input Tag Helper to `false`.
-
-### Data binding
-
-Bind the input to your model using the `asp-for` attribute. DuneUI will bind the value, set the `id` and `name` attributes, and display any validation errors.
-
-<Demo src="/demo/tag-helpers/input-data-binding.html">
+<Demo src="/demo/tag-helpers/input-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
     <Tab value="Razor">
-      <include>./_include/input-data-binding.mdx</include>
+      <include>./_include/input-model-binding.mdx</include>
     </Tab>
     <Tab value="Model">
       ```cs
@@ -76,7 +50,65 @@ Bind the input to your model using the `asp-for` attribute. DuneUI will bind the
   </Tabs>
 </Demo>
 
-When using data binding, DuneUI will automatically wrap the input inside a [Field Tag Helper](field) and use data annotations for the label, description, placeholder, and validation messages. If you want to opt out of this behaviour, you can set the `render-field` attribute to `false`.
+### Model binding validation
+
+When using model binding, validation errors from [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
+
+<Demo src="/demo/tag-helpers/input-validation.html">
+    <Tabs items={["Razor", "Model"]}>
+        <Tab value="Razor">
+        <include>./_include/input-validation.mdx</include>
+        </Tab>
+        <Tab value="Model">
+        ```cs
+        public class ValidationModel
+        {
+            [Display(
+                Name = "Email address",
+                Description = "The email address where you want to receive your booking confirmation",
+                Prompt = "e.g. ibn.battuta@rihlah.travel"
+            )]
+            [DataType(DataType.EmailAddress)]
+            [Required(ErrorMessage = "Enter your email address")]
+            public string? Email { get; set; }
+        }
+        ```
+        </Tab>
+    </Tabs>
+</Demo>
+
+### With Field
+
+If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
+
+<Demo src="/demo/tag-helpers/input-field-explicit.html">
+  <include>./_include/input-field-explicit.mdx</include>
+</Demo>
+
+### Implicit Field
+
+You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
+
+<Demo src="/demo/tag-helpers/input-field-implicit.html">
+  <include>./_include/input-field-implicit.mdx</include>
+</Demo>
+
+### Manual Validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
+
+The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+
+<Demo src="/demo/tag-helpers/input-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/input-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/input-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>
 
 ### Input Types
 
@@ -86,30 +118,46 @@ You can specify the input type explicitly using the `type` attribute.
   <include>./_include/input-input-types.mdx</include>
 </Demo>
 
-### Infer Input Types via Data Binding
+### Infer Input Types via Model Binding
 
-When you use data binding, the input type will be inferred from the underlying data type and data annotations. For more information on this, refer to the built-in [ASP.NET Core Input Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper).
+When you use model binding, the input type will be inferred from the underlying data type and data annotations. For more information on this, refer to the built-in [ASP.NET Core Input Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper).
 
-<Demo src="/demo/tag-helpers/input-input-type-data-binding.html">
+<Demo src="/demo/tag-helpers/input-input-types-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
     <Tab value="Razor">
-      <include>./_include/input-input-type-data-binding.mdx</include>
+      <include>./_include/input-input-types-model-binding.mdx</include>
     </Tab>
     <Tab value="Model">
       ```cs
-      public class InputTypeDataBindingModel
+      public class InputTypesModelBindingModel
       {
-          public bool Checkbox { get; set; }
-
           [DataType(DataType.Date)]
           public DateTime? Date { get; set; }
 
+          public IFormFile? File { get; set; }
+
+          [Display(Prompt = "123")]
+          public int? Number { get; set; }
+
           [DataType(DataType.Password)]
+          [Display(Prompt = "Password")]
           public string? Password { get; set; }
 
-          public string? Radio { get; set; }
+          [Display(Prompt = "Enter a search term...")]
+          public string? Search { get; set; }
+
+          [DataType(DataType.PhoneNumber)]
+          [Display(Prompt = "+66 (12) 345 6789")]
+          public string? Tel { get; set; }
 
           public string? Text { get; set; }
+
+          [DataType(DataType.Time)]
+          public string? Time { get; set; }
+
+          [DataType(DataType.Url)]
+          [Display(Prompt = "https://wwww.duneui.com")]
+          public string? Url { get; set; }
       }
       ```
     </Tab>

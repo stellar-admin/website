@@ -1,0 +1,103 @@
+---
+title: Textarea
+description: Displays a text area that allows users to enter multiple lines of text input
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/textarea-intro.html">
+  <include>./_include/textarea-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<dui-textarea />
+```
+
+## Examples
+
+### Model binding
+
+The `dui-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, DuneUI will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
+
+<Demo src="/demo/tag-helpers/textarea-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/textarea-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ReviewModel
+    {
+        [Display(
+            Name = "Describe your experience",
+            Description = "Your feedback helps other travelers make better choices. Be as descriptive as possible!",
+            Prompt = "The view from the balcony was breathtaking, but the breakfast service was a bit slow..."
+        )]
+        public string? Review { get; set; }
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Model binding validation
+
+When using model binding, validation errors from [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
+
+<Demo src="/demo/tag-helpers/textarea-validation.html">
+    <Tabs items={["Razor", "Model"]}>
+        <Tab value="Razor">
+        <include>./_include/textarea-validation.mdx</include>
+        </Tab>
+        <Tab value="Model">
+        ```cs
+        public class ReviewValidationModel
+        {
+            [Display(
+                Name = "Describe your experience",
+                Description = "Your feedback helps other travelers make better choices. Be as descriptive as possible!",
+                Prompt = "The view from the balcony was breathtaking, but the breakfast service was a bit slow..."
+            )]
+            [Required(ErrorMessage = "Please leave a review for other travelers")]
+            public string? Review { get; set; }
+        }
+        ```
+        </Tab>
+    </Tabs>
+</Demo>
+
+### With Field
+
+If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your text area inside a field.
+
+<Demo src="/demo/tag-helpers/textarea-field-explicit.html">
+  <include>./_include/textarea-field-explicit.mdx</include>
+</Demo>
+
+### Implicit Field
+
+You can also implicitly wrap the text area inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
+
+<Demo src="/demo/tag-helpers/textarea-field-implicit.html">
+  <include>./_include/textarea-field-implicit.mdx</include>
+</Demo>
+
+### Manual Validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the text area.
+
+The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+
+<Demo src="/demo/tag-helpers/textarea-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/textarea-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/textarea-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>

@@ -30,6 +30,8 @@
     "input",
     "input-group",
     "link-button",
+    "select",
+    "textarea",
     "---Layout---",
     "group",
     "stack",
