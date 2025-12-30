@@ -1,0 +1,104 @@
+---
+title: Radio button
+description: Allow users to select from a list of choices
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/radio-intro.html">
+  <include>./_include/radio-intro.mdx</include>
+</Demo>
+
+## Usage
+
+DuneUI does not have a specific Radio button Tag Helper, but uses the normal `dui-input` Tag Helper with the `type` attribute specified as `radio`.
+
+```razor
+<dui-input type="radio"/>
+```
+
+### Model binding
+
+The `dui-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/radio-model-binding.html">
+<Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/radio-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        public string? BedType { get; set; } = "single";
+    }
+    ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Model binding validation
+
+When using model binding, a radio button will reflect an error state for validation errors from [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation).
+
+However, the radio button **will not display the error message** - it will only indicate that the radio has an error state by adding a red border. To display the error message, you will need to explicitly add a `dui-field-error` Tag Helper that is bound to the same property using the `asp-for` attribute.
+
+The reason for this behavior is that multiple radio buttons are typically bound to the same property. Therefore, if the error message is displayed on the radio button, the same error message will be repeated for each individual radio button.
+
+Instead, the preferred behavior would be to display a single error message for the entire group of radio buttons that are bound to the same property. It is therefore up to you as developer to explicitly display the error message in the correct place in the user interface using the `dui-field-error` component.
+
+<Demo src="/demo/tag-helpers/radio-validation.html">
+    <Tabs items={["Razor", "Model"]}>
+        <Tab value="Razor">
+        <include>./_include/radio-validation.mdx</include>
+        </Tab>
+        <Tab value="Model">
+        ```cs
+        public class ValidationModel
+        {
+            [Required(ErrorMessage = "Please select a bed type")]
+            public string? BedType { get; set; }
+        }
+        ```
+        </Tab>
+    </Tabs>
+</Demo>
+
+### With Field
+
+If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
+
+<Demo src="/demo/tag-helpers/radio-field-explicit.html">
+  <include>./_include/radio-field-explicit.mdx</include>
+</Demo>
+
+### Implicit Field
+
+You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
+
+<Demo src="/demo/tag-helpers/radio-field-implicit.html">
+  <include>./_include/radio-field-implicit.mdx</include>
+</Demo>
+
+### Manual Validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input. The error message can be displayed using either a `dui-field-error` Tag Helper.
+
+<Demo src="/demo/tag-helpers/radio-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/radio-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/radio-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Disabled
+
+<Demo src="/demo/tag-helpers/radio-disabled.html">
+  <include>./_include/radio-disabled.mdx</include>
+</Demo>
