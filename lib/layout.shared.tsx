@@ -4,7 +4,7 @@ import DuneUILogo from "./dune-ui-logo";
 
 export function baseOptions(): BaseLayoutProps {
   return {
-    githubUrl: "https://github.com/stellar-admin/",
+    githubUrl: "https://github.com/dune-ui/dune-ui",
     nav: {
       title: (
         <>
