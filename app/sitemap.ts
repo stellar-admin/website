@@ -1,16 +1,26 @@
 import type { MetadataRoute } from "next";
-import { source } from "@/lib/source";
+import { source, blog } from "@/lib/source";
 
 export const revalidate = false;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = (path: string): string =>
     new URL(path, "https://www.duneui.com").toString();
-  const items = await Promise.all(
+  const docPages = await Promise.all(
     source.getPages().map(async (page) => {
       return {
         url: url(page.url),
         lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+      } as MetadataRoute.Sitemap[number];
+    })
+  );
+  const blogPosts = await Promise.all(
+    blog.getPages().map(async (page) => {
+      return {
+        url: url(page.url),
+        lastModified: page.data.date,
         changeFrequency: "weekly",
         priority: 0.5,
       } as MetadataRoute.Sitemap[number];
@@ -28,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...items.filter((v) => v !== undefined),
+    ...blogPosts.filter((v) => v !== undefined),
+    ...docPages.filter((v) => v !== undefined),
   ];
 }
