@@ -4,6 +4,9 @@ description: An interactive component which expands/collapses a panel.
 ---
 
 import { Demo } from "@/components/demo";
+import ProNotice from "@/components/pro-notice";
+
+<ProNotice componentName="Collapsible" className="mb-6" />
 
 <Demo src="/demo/tag-helpers/collapsible-intro.html">
   <include>./_include/collapsible-intro.mdx</include>
@@ -25,6 +28,8 @@ import { Demo } from "@/components/demo";
 ## Examples
 
 ### Button as trigger
+
+<ProNotice componentName="as-child" className="mb-6" />
 
 The `dui-collapsible-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
 

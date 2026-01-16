@@ -3,6 +3,10 @@ title: as-child
 description: Merges a container element's output attributes onto a child element
 ---
 
+import ProNotice from "@/components/pro-notice";
+
+<ProNotice componentName="as-child" />
+
 ## Introduction
 
 The `as-child` Tag Helper allows the attributes and behavior of its container element to be applied to the first child element. When the `as-child` attribute is used, the container element itself is not rendered to the output. Instead, the `as-child` Tag Helper merges all the container's output attributes onto the child element, effectively substituting the container with its child in the final HTML.
