@@ -12,7 +12,7 @@ export const source = loader({
 
 export const blog = loader({
   baseUrl: "/blog",
-  source: createMDXSource(blogPosts),
+  source: createMDXSource(blogPosts.filter((p) => p.date <= new Date())),
 });
 
 export function getPageImage(page: InferPageType<typeof source>) {

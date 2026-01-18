@@ -2,3 +2,4 @@ StellarAdmin
 DuneUI
 shadcn/ui
 tweakcn
+entrypoint
