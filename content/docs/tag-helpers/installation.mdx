@@ -43,11 +43,30 @@ The following installation instructions assume you are adding DuneUI to an exist
     <Step>
         ### Update imports
 
-        Update your `_ViewImports.cshtml` to register the DuneUI Tag Helpers.
+        Update your `_ViewImports.cshtml` to register the DuneUI Tag Helpers and import the `DuneUI.TagHelpers` namespace.
 
         ```razor
         @using DuneUI.TagHelpers
         @addTagHelper *, DuneUI
+        ```
+    </Step>
+    <Step>
+        ### Add stylesheets and JavaScript file
+
+        Add the DuneUI stylesheet (`/_content/DuneUI/dune-ui.css`) and JavaScript file (`/_content/DuneUI/dune-ui.js`) to your Razor layout.
+
+        ```razor
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            ...
+            <link rel="stylesheet" href="/_content/DuneUI/dune-ui.css" asp-append-version="true"/>
+        </head>
+        <body>
+        ...
+        <script src="/_content/DuneUI/dune-ui.js" asp-append-version="true"></script>
+        </body>
+        </html>
         ```
     </Step>
     <Step>
