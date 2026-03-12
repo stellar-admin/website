@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.iybnhaoyb8.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.8bpr8ir3lm.css" />
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+    <script type="module" src="/demo/tag-helpers/assets/dune-ui.dlfwf3rwwb.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="py-2">
+    <!-- code begin -->
+    <div class="flex flex-col items-stretch gap-y-2 justify-start">
+        <button interestfor="--tooltip-js-events" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding text-sm font-medium focus-visible:ring-3 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg">
+            <svg viewBox="0 0 24 24" width="24" stroke-linecap="round" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linejoin="round" height="24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path></svg>
+        </button>
+        <label class="text-sm font-bold">Events:</label>
+        <div class="font-mono w-100 h-40 overflow-y-auto bg-gray-50" id="--tooltip-js-events-output">
+        </div>
+    </div>
+    <div id="--tooltip-js-events" popover="hint" data-slot="tooltip-content" class="items-center gap-1.5 rounded-md px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm w-fit max-w-xs origin-(--transform-origin) bg-foreground text-background try-flip-all m-2 anchored-top duration-200 ease-in opacity-100 not-open:opacity-0 starting:open:opacity-0 [transition-property:opacity,display,overlay] [transition-behavior:allow-discrete]">
+        This tooltip emits JS events when it opens and closes
+    </div>
+    <script>
+        let counter = 0;
+        const eventsTooltip = document.getElementById('--tooltip-js-events');
+        const eventsTooltipEventOutput = document.getElementById('--tooltip-js-events-output');
+
+        eventsTooltip.addEventListener("interest", (e) => {
+            eventsTooltipEventOutput.innerText = `${++counter}: Tooltip opened\n` + eventsTooltipEventOutput.innerText;
+        });
+        eventsTooltip.addEventListener("loseinterest", (e) => {
+            eventsTooltipEventOutput.innerText = `${++counter}: Tooltip closed\n` + eventsTooltipEventOutput.innerText;
+        });
+    </script>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/interestfor.min.js"></script>
+
+</body>
+</html>

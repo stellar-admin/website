@@ -11,22 +11,41 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+The `<dui-tooltip>` Tag Helper uses the [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers) and [Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) APIs to display a tooltip for UI elements.
+
+<Callout type="warn">
+  The Interest Invokers API is still experimental. See the Limitations below.
+</Callout>
+
 ```razor
-<dui-tooltip>
-    <dui-tooltip-trigger>
-        <!-- Add the element that triggers the tooltip -->
-    </dui-tooltip-trigger>
-    <dui-tooltip-content>
-        <!-- Add the text to display inside the tooltip popover -->
-    </dui-tooltip-content>
+<!-- Add the element to trigger the tooltip and specify the ID of
+     the tooltip to trigger using the interestfor attribute -->
+<dui-button interestfor="--example-tooltip">
+    Tooltip trigger
+</dui-button>
+<!-- Add the tooltip and specify its id attribute -->
+<dui-tooltip id="--example-tooltip">
+    <!-- Add the text to display inside the tooltip -->
 </dui-tooltip>
 ```
+
+### Limitations
+
+1. The Interest Invokers API is [not supported across all browsers](https://caniuse.com/wf-interest-invokers) yet. You will need to use a polyfill such as [mfreed7/interestfor](https://github.com/mfreed7/interestfor) to ensure it works across all browsers.
+2. Not all elements can be used as an invoker element (i.e. the element that triggers the tooltip). Officially, the `<a>`, `<button>` and `<area>` elements are supported, but in our tests it also works with `<input>` elements. As such you can use it with any of these, as well as the `<dui-button>`, `<dui-linkbutton>`, `<dui-input>`, `<dui-select>`, and `<dui-textarea>` Tag Helpers.
+
+We strongly recommend you [read about the Interest Invokers API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers#creating_an_interest_invoker) to familiarise yourself with its use and limitations.
 
 ## Examples
 
 ### Position
 
-Control the position of the tooltip relative to the trigger element using the `tooltip-side` and `tooltip-align` attributes.
+Control the position of the tooltip relative to the trigger element using the `position` attribute. The default value is `PositionArea.Top`.
+
+<Callout type="tip">
+  You can visualize the various values by using the Chrome team's [Anchor
+  Position Tool](https://chrome.dev/anchor-tool/).
+</Callout>
 
 <Demo src="/demo/tag-helpers/tooltip-position.html">
   <include>./_include/tooltip-position.mdx</include>
@@ -34,7 +53,7 @@ Control the position of the tooltip relative to the trigger element using the `t
 
 ### Offset
 
-Control the offset of the tooltip from the trigger element using the `tooltip-offset` attribute.
+Control the offset of the tooltip from the trigger element by adding a margin to the tooltip.
 
 <Demo src="/demo/tag-helpers/tooltip-offset.html">
   <include>./_include/tooltip-offset.mdx</include>
@@ -42,24 +61,49 @@ Control the offset of the tooltip from the trigger element using the `tooltip-of
 
 ### Delay
 
-Use the `delay` attribute to specify the time delay (in ms) before the tooltip opens. Use the `close-delay` attribute to specify the time delay (in ms) before the tooltip closes after the mouse cursor or focus moves away.
+You can add a delay before opening and closing the tooltip by using the `interest-delay-start` and `interest-delay-end` CSS properties.
+
+<Callout type="tip">
+  If you're using the `mfreed7/interestfor` Polyfill, you will need to use the
+  `--interest-delay-start` and `--interest-delay-end` CSS properties in addition
+  to the above-mentioned properties.
+</Callout>
 
 <Demo src="/demo/tag-helpers/tooltip-delay.html">
   <include>./_include/tooltip-delay.mdx</include>
 </Demo>
 
-### Default open state
+### Supported Tag Helpers
 
-Use the `default-open` attribute to specify whether the tooltip must be open (i.e. displaying) be default.
+You can use `<dui-tooltip>` with the `<dui-button>`, `<dui-linkbutton>`, `<dui-input>`, `<dui-select>`, and `<dui-textarea>` Tag Helpers.
 
-<Demo src="/demo/tag-helpers/tooltip-open.html">
-  <include>./_include/tooltip-open.mdx</include>
+<Callout type="tip">
+  The limitations regarding which HTML elements it can be used with is due to
+  the [limitations](#limitations) of the Interest Invokers API.
+</Callout>
+
+<Demo src="/demo/tag-helpers/tooltip-elements.html">
+  <include>./_include/tooltip-elements.mdx</include>
 </Demo>
 
-### Teleport
+### JavaScript API
 
-Use the `teleport` attribute of `dui-tooltip-content` to teleport your tooltip content to another part of the DOM. This is helpful to break out of the z-index of the current container.
+Since `<dui-tooltip>` uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), you can use the `showPopover()`, `hidePopover()` and `togglePopover()` methods to control visibility of the popover.
 
-<Demo src="/demo/tag-helpers/tooltip-teleport.html">
-  <include>./_include/tooltip-teleport.mdx</include>
+When using the JavaScript API, you also need to make sure you specify the `source` element to ensure the tooltip is aligned correctly with the UI element for which the tooltip is shown.
+
+<Callout type="tip">
+  The `togglePopover()` method does not work correctly on Chromium browsers when you use the `popover="hint"` attribute - which is the default value `<dui-tooltip>` uses. If you want to use `togglePopover()` on Chromium, you must override this attribute by setting it to `manual`, as you can see in the example below.
+</Callout>
+
+<Demo src="/demo/tag-helpers/tooltip-js-api.html">
+  <include>./_include/tooltip-js-api.mdx</include>
+</Demo>
+
+### JavaScript Events
+
+The [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers) API fires the `interest` and `loseinterest` events on the `<dui-tooltip>` whenever it is shown or hidden respectively.
+
+<Demo src="/demo/tag-helpers/tooltip-js-events.html">
+  <include>./_include/tooltip-js-events.mdx</include>
 </Demo>
