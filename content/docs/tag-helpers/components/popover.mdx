@@ -11,38 +11,33 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+`<dui-popover>` uses the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) and renders a `div` element with a `popover` attribute. The popover can be opened by using the `popovertarget` attribute on a `<dui-button>` element.
+
 ```razor
-<dui-popover>
-    <dui-popover-trigger>
-        <!-- add the element that triggers the popover here -->
-    </dui-popover-trigger>
-    <dui-popover-content>
-        <!-- add the popover content here -->
-    </dui-popover-content>
+<dui-button popovertarget="--my-popover">Element that triggers popover</dui-button>
+<dui-popover id="--my-popover">
+  <!-- add the popover content here -->
 </dui-popover>
 ```
 
 ## Examples
 
-### Button as trigger
+### With Button Group
 
-The `dui-popover-trigger` is rendered as a button. This creates issues when you want to add a button element inside the trigger as you cannot use nested `button` elements.
+Create a split button that opens a popover using the `<dui-button-group>` Tag Helper.
 
-To work around this limitation, make sure you add the [`as-child` Tag Helper attribute](/docs/tag-helpers/components/as-child) to `dui-popover-trigger`. This will merge the attributes and behavior of `dui-popover-trigger` with its child content and render a single `button` element.
-
-<Demo src="/demo/tag-helpers/popover-button-in-trigger.html">
-  <include>./_include/popover-button-in-trigger.mdx</include>
+<Demo src="/demo/tag-helpers/popover-button-group.html">
+  <include>./_include/popover-button-group.mdx</include>
 </Demo>
-
-<Callout type="warn">
-  The `as-child` Tag Helper is very powerful but comes with some caveats. Please
-  refer to the [documentation](/docs/tag-helpers/components/as-child) for more
-  information.
-</Callout>
 
 ### Hover
 
-You can trigger the popover on hover using the `open-on-hover` attribute.
+You can trigger the popover on hover using an [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers).
+
+<Callout type="tip">
+  For more information on interest invokers, please see our [Tooltip](tooltip)
+  documentation.
+</Callout>
 
 <Demo src="/demo/tag-helpers/popover-hover.html">
   <include>./_include/popover-hover.mdx</include>
@@ -50,7 +45,12 @@ You can trigger the popover on hover using the `open-on-hover` attribute.
 
 ### Position
 
-Control the position of the popover relative to the trigger element using the `popup-side` and `popup-align` attributes.
+Control the position of the popover relative to the trigger element using the `position` attribute. The default value is `PositionArea.Bottom`.
+
+<Callout type="tip">
+  You can visualize the various values by using the Chrome team's [Anchor
+  Position Tool](https://chrome.dev/anchor-tool/).
+</Callout>
 
 <Demo src="/demo/tag-helpers/popover-position.html">
   <include>./_include/popover-position.mdx</include>
@@ -58,24 +58,34 @@ Control the position of the popover relative to the trigger element using the `p
 
 ### Offset
 
-Control the offset of the popover from the trigger element using the `popup-offset` attribute.
+Control the offset of the popover from the trigger element using one of Tailwind's [margin utilities](https://tailwindcss.com/docs/margin).
 
 <Demo src="/demo/tag-helpers/popover-offset.html">
   <include>./_include/popover-offset.mdx</include>
 </Demo>
 
-### Open by default
+### Manual dismiss
 
-Open a popover by default using the `default-open` attribute.
+By default, `<dui-popover>` is light dismissable - meaning you can hide the popover by clicking outside of it or pressing the `Esc` key. You can change this behaviour by setting the `popover` attribute to `manual` which will require it to be explicitly closed using `popovertargetaction="hide"` or JavaScript.
 
-<Demo src="/demo/tag-helpers/popover-default-open.html">
-  <include>./_include/popover-default-open.mdx</include>
+<Demo src="/demo/tag-helpers/popover-manual-dismiss.html">
+  <include>./_include/popover-manual-dismiss.mdx</include>
 </Demo>
 
-### Teleport
+### JavaScript API
 
-Use the `teleport` attribute of `dui-popover-content` to teleport your popup content to another part of the DOM. This is helpful to break out of the z-index of the current container.
+Since `<dui-popover>` uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), you can use the `showPopover()`, `hidePopover()` and `togglePopover()` methods to control visibility of the popover.
 
-<Demo src="/demo/tag-helpers/popover-teleport.html">
-  <include>./_include/popover-teleport.mdx</include>
+When using the JavaScript API, you also need to make sure you specify the `source` element to ensure the tooltip is aligned correctly with the UI element for which the tooltip is shown.
+
+<Demo src="/demo/tag-helpers/popover-js-api.html">
+  <include>./_include/popover-js-api.mdx</include>
+</Demo>
+
+### JavaScript Events
+
+The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) fires the `beforetoggle` and `toggle` events on `<dui-popover>` before it is shown/hidden and after it is show/hidden respectively. You can prevent opening the popover by calling `event.preventDefault()` in the `beforetoggle` event handler.
+
+<Demo src="/demo/tag-helpers/popover-js-events.html">
+  <include>./_include/popover-js-events.mdx</include>
 </Demo>
