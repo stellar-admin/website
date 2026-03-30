@@ -1,0 +1,96 @@
+---
+title: Dialog
+description: Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/dialog-intro.html">
+  <include>./_include/dialog-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<dui-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog). Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<dui-button>` element.
+
+```razor
+<dui-button commandfor="--custom-dialog" command="show-modal">
+    Dialog Trigger
+</dui-button>
+<dui-dialog id="--custom-dialog">
+    <dui-dialog-header>
+        <dui-dialog-title>...</dui-dialog-title>
+        <dui-dialog-description>...</dui-dialog-description>
+    </dui-dialog-header>
+    <!-- Dialog content goes here -->
+    <dui-dialog-footer>
+        <dui-button variant="ButtonVariant.Outline" commandfor="--custom-dialog" command="close">
+            Close
+        </dui-button>
+    </dui-dialog-footer>
+</dui-dialog>
+```
+
+For more information, you can review the following MDN documentation:
+
+- [&lt;dialog&gt;: The Dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) (documents the JS API)
+- [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API)
+
+## Examples
+
+### Dismissing the dialog
+
+Control how the dialog can be dismissed using the [`closedby` attribute](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy). The default behavior allows closing via the `Esc` key or a close button. Set `closedby="any"` to also allow clicking the backdrop (light dismiss), or `closedby="none"` to require explicit dismissal via a close button only.
+
+<Demo src="/demo/tag-helpers/dialog-dismissing.html">
+  <include>./_include/dialog-dismissing.mdx</include>
+</Demo>
+
+### Set return value
+
+Add submit buttons to a `form` with `method="dialog"` and set a `value` on each button. When the buttons are clicked, the dialog will close and the `returnValue` will be set to the value of the button that was clicked.
+
+<Demo src="/demo/tag-helpers/dialog-return-value.html">
+  <include>./_include/dialog-return-value.mdx</include>
+</Demo>
+
+### Get form content depending on return value
+
+Check [`returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue) to determine which button was clicked, then use `FormData` in the `close` event handler to read the submitted values.
+
+<Demo src="/demo/tag-helpers/dialog-return-form-value.html">
+  <include>./_include/dialog-return-form-value.mdx</include>
+</Demo>
+
+### Scrollable content
+
+Wrap long content in a container with a fixed height and vertical scrolling enabled (using the Tailwind `max-h-` and `overflow-y-auto` utility classes) to make it scrollable within the dialog without resizing the dialog itself.
+
+<Demo src="/demo/tag-helpers/dialog-scrollable-content.html">
+  <include>./_include/dialog-scrollable-content.mdx</include>
+</Demo>
+
+### Sticky footer
+
+Combine scrollable content with `<dui-dialog-footer>` to keep the footer always visible while the body scrolls.
+
+<Demo src="/demo/tag-helpers/dialog-sticky-footer.html">
+  <include>./_include/dialog-sticky-footer.mdx</include>
+</Demo>
+
+### JavaScript API
+
+Since `<dui-dialog>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
+
+<Demo src="/demo/tag-helpers/dialog-js-api.html">
+  <include>./_include/dialog-js-api.mdx</include>
+</Demo>
+
+### JavaScript events
+
+The dialog fires `beforetoggle` and `toggle` events as it opens and closes, a `cancel` event when the user attempts to close via `Esc` or `request-close`, and a `close` event once closed. Call `preventDefault()` in `beforetoggle` to prevent opening, or in `cancel` to prevent closing.
+
+<Demo src="/demo/tag-helpers/dialog-js-events.html">
+  <include>./_include/dialog-js-events.mdx</include>
+</Demo>

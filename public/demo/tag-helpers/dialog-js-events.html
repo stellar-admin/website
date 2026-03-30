@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.r1c4zd0wr6.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.aaewzejjqh.css" />
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+    <script type="module" src="/demo/tag-helpers/assets/dune-ui.k3xwc9gl6z.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="min-h-[450px]">
+    <!-- code begin -->
+    <div class="flex flex-col items-start gap-y-2 justify-start min-w-md">
+        <button commandfor="--dialog-js-events-dialog" command="show-modal" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+            Open Dialog
+        </button>
+        <div class="data-[invalid=true]:text-destructive gap-2 group/field flex w-full flex-row items-center [&amp;&gt;[data-slot=field-label]]:flex-auto has-[&gt;[data-slot=field-content]]:items-start has-[&gt;[data-slot=field-content]]:[&amp;&gt;[role=checkbox],[role=radio]]:mt-px" data-orientation="horizontal" data-slot="field"><span class="relative flex items-center"><input type="checkbox" id="--dialog-js-events-prevent-toggle-checkbox" data-slot="input" class="border-input dark:bg-input/30 checked:bg-primary checked:text-primary-foreground dark:checked:bg-primary checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 flex size-4 items-center justify-center rounded-[4px] border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 [&amp;.input-validation-error]:aria-checked:border-primary [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 before:content[&#x27;&#x27;] appearance-none"></input><span class="[&amp;&gt;svg]:size-3.5 invisible peer-checked:visible"><svg class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-100 dark:text-black" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" height="24" viewBox="0 0 24 24" stroke-linecap="round" fill="none" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="gap-0.5 group/field-content flex flex-1 flex-col leading-snug"><label data-slot="field-label" class="text-sm font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:rounded-lg has-[&gt;[data-slot=field]]:border *:data-[slot=field]:p-2.5 group/field-label peer/field-label flex w-fit leading-snug has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col">PreventDefault() in beforetoggle event</label><p data-slot="field-description" class="text-muted-foreground text-left text-sm [[data-variant=legend]&#x2B;&amp;]:-mt-1.5 leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance last:mt-0 nth-last-2:-mt-1 [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">Will prevent the dialog from opening</p></div></div>
+        <label class="text-sm font-bold">Events:</label>
+        <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--dialog-js-events-output">
+        </div>
+    </div>
+    <del-dialog><dialog id="--dialog-js-events-dialog" data-slot="dialog-content" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs">
+        <div data-slot="dialog-header" class="gap-2 flex flex-col">
+            <h2 data-slot="dialog-title" class="text-base leading-none font-medium font-heading">Events</h2>
+        </div>
+        <p>This dialog is used to demonstrates events.</p>
+        <div class="data-[invalid=true]:text-destructive gap-2 group/field flex w-full flex-row items-center [&amp;&gt;[data-slot=field-label]]:flex-auto has-[&gt;[data-slot=field-content]]:items-start has-[&gt;[data-slot=field-content]]:[&amp;&gt;[role=checkbox],[role=radio]]:mt-px" data-orientation="horizontal" data-slot="field"><span class="relative flex items-center"><input type="checkbox" id="--dialog-js-events-prevent-cancel-checkbox" data-slot="input" class="border-input dark:bg-input/30 checked:bg-primary checked:text-primary-foreground dark:checked:bg-primary checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 flex size-4 items-center justify-center rounded-[4px] border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 [&amp;.input-validation-error]:aria-checked:border-primary [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 before:content[&#x27;&#x27;] appearance-none"></input><span class="[&amp;&gt;svg]:size-3.5 invisible peer-checked:visible"><svg class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-100 dark:text-black" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" height="24" viewBox="0 0 24 24" stroke-linecap="round" fill="none" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="gap-0.5 group/field-content flex flex-1 flex-col leading-snug"><label data-slot="field-label" class="text-sm font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:rounded-lg has-[&gt;[data-slot=field]]:border *:data-[slot=field]:p-2.5 group/field-label peer/field-label flex w-fit leading-snug has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col">PreventDefault() in cancel event</label><p data-slot="field-description" class="text-muted-foreground text-left text-sm [[data-variant=legend]&#x2B;&amp;]:-mt-1.5 leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance last:mt-0 nth-last-2:-mt-1 [&amp;&gt;a:hover]:text-primary [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">Will prevent the Request Close button from closing the dialog</p></div></div>
+        <div data-slot="dialog-footer" class="bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+            <button commandfor="--dialog-js-events-dialog" command="close" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                Close
+            </button>
+            <button commandfor="--dialog-js-events-dialog" command="request-close" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                Request Close
+            </button>
+        </div>
+    </dialog></del-dialog>
+    <script>
+        let counter = 0;
+        const dialogEventsDialog = document.getElementById('--dialog-js-events-dialog');
+        const dialogEventsOutput = document.getElementById('--dialog-js-events-output');
+        const dialogEventsPreventToggleCheckbox = document.getElementById('--dialog-js-events-prevent-toggle-checkbox');
+        const dialogEventsPreventCancelCheckbox = document.getElementById('--dialog-js-events-prevent-cancel-checkbox');
+
+        dialogEventsDialog.addEventListener("beforetoggle", (e) => {
+            if (dialogEventsPreventToggleCheckbox.checked === true) {
+                dialogEventsOutput.innerText = `${++counter}: beforetoggle event prevented!\n` + dialogEventsOutput.innerText;
+                e.preventDefault();
+                return;
+            }
+            dialogEventsOutput.innerText = `${++counter}: beforetoggle event: ${e.oldState} -> ${e.newState}\n` + dialogEventsOutput.innerText;
+        });
+        dialogEventsDialog.addEventListener("toggle", (e) => {
+            dialogEventsOutput.innerText = `${++counter}: toggle event: ${e.oldState} -> ${e.newState}\n` + dialogEventsOutput.innerText;
+        });
+        dialogEventsDialog.addEventListener("cancel", (e) => {
+            if (dialogEventsPreventCancelCheckbox.checked === true) {
+                dialogEventsOutput.innerText = `${++counter}: cancel event prevented!\n` + dialogEventsOutput.innerText;
+                e.preventDefault();
+                return;
+            }
+            dialogEventsOutput.innerText = `${++counter}: cancel event\n` + dialogEventsOutput.innerText;
+        });
+        dialogEventsDialog.addEventListener("close", (e) => {
+            dialogEventsOutput.innerText = `${++counter}: close event\n` + dialogEventsOutput.innerText;
+        });
+    </script>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/interestfor.min.js"></script>
+
+</body>
+</html>
