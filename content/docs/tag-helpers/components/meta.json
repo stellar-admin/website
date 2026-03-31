@@ -14,6 +14,7 @@
     "table",
     "---Feedback---",
     "alert",
+    "dialog",
     "progress",
     "skeleton",
     "spinner",
@@ -37,7 +38,7 @@
     "---Layout---",
     "group",
     "stack",
-    "---Utilities---",
-    "as-child"
+    "---JavaScript Helpers---",
+    "js-dialog"
   ]
 }

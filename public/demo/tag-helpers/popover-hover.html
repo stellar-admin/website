@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.tx9f0k8r23.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.r6pf8co0ba.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.m7hy5g3gui.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.h8tf7dvuhe.css" />
     
     <style>
         body {
@@ -13,6 +13,7 @@
         }
     </style>
 
+    <script defer src="/demo/tag-helpers/assets/dune-ui.zc5f55r0jy.js"></script>
 </head>
 <body>
 <script>
@@ -22,14 +23,14 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="min-h-[260px]">
+    <div class="min-h-[260px] max-w-md flex justify center">
     <!-- code begin -->
-    <div x-data="popover(true, false, &#x27;bottom&#x27;, 4)" data-slot="popover">
-        <button class="cursor-pointer flex items-center gap-3" x-bind="trigger" x-ref="trigger" data-slot="popover-trigger">
-            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></span>
-            <span class="font-medium">Ibn Battuta</span>
-        </button>
-        <div class="z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none flex flex-col gap-3" x-bind="content" x-cloak="">
+    <p>While most tourists stick to the bustling markets of Marrakech, our resident history expert,
+        <a href="#" interestfor="--popover-hover" class="underline decoration-dotted decoration-2 underline-offset-2">Ibn Battuta</a>,
+        suggests heading north to the ancient streets of Tangier to truly capture the spirit of the Maghreb
+    </p>
+    <div id="--popover-hover" popover="" data-slot="popover-content" class="bg-popover text-popover-foreground ring-foreground/10 gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 w-72 outline-hidden try-flip-all anchored-bottom mt-2 duration-200 ease-in opacity-100 not-open:opacity-0 starting:open:opacity-0 [transition-property:opacity,display,overlay] [transition-behavior:allow-discrete]">
+        <div class="flex flex-col gap-3">
             <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brooklynn"></img></span>
             <div>
                 <p class="font-medium">Ibn Battuta</p>
@@ -43,12 +44,12 @@
                 <p><span class="font-medium">100.3k</span> followers</p>
             </div>
             <div class="flex gap-2">
-                <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 outline-none group/button select-none bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 flex-1" data-slot="button">
-                    <svg stroke-width="2" viewBox="0 0 24 24" stroke-linejoin="round" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" width="24" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg>
+                <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 outline-none group/button select-none bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 flex-1" data-slot="button">
+                    <svg width="24" height="24" stroke-width="2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg>
                     Following
                 </button>
-                <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-[3px] [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground hover:bg-primary/80 h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 flex-1" data-slot="button">
-                    <svg stroke-width="2" viewBox="0 0 24 24" stroke-linejoin="round" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" width="24" fill="none" stroke="currentColor"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect height="16" rx="2" width="20" x="2" y="4"></rect></svg>
+                <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground [a]:hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 flex-1" data-slot="button">
+                    <svg width="24" height="24" stroke-width="2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect height="16" rx="2" width="20" x="2" y="4"></rect></svg>
                     Message
                 </button>
             </div>
@@ -61,6 +62,5 @@
 
 
 
-<script src="/demo/tag-helpers/assets/dune-ui.9tt3b0sbro.js"></script>
 </body>
 </html>

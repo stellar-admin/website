@@ -1,12 +1,10 @@
 ```razor
-<dui-popover>
-    <dui-popover-trigger as-child="true">
-        <dui-button variant="ButtonVariant.Outline">
-            <dui-icon name="sliders-horizontal" class="text-muted-foreground"/>
-            Configure View
-        </dui-button>
-    </dui-popover-trigger>
-    <dui-popover-content class="flex flex-col gap-3">
+<dui-button variant="ButtonVariant.Outline" popovertarget="--popover-intro">
+    <dui-icon name="sliders-horizontal" class="text-muted-foreground"/>
+    Configure View
+</dui-button>
+<dui-popover id="--popover-intro">
+    <div class="flex flex-col gap-y-3">
         <dui-field-set>
             <dui-field-legend variant="FieldLegendVariant.Label">Sort By</dui-field-legend>
             <dui-field-group data-slot="radio-group">
@@ -42,6 +40,6 @@
                 </dui-field>
             </dui-field-group>
         </dui-field-set>
-    </dui-popover-content>
+    </div>
 </dui-popover>
 ```

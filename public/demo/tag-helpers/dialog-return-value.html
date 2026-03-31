@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.m7hy5g3gui.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.h8tf7dvuhe.css" />
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+    <script defer src="/demo/tag-helpers/assets/dune-ui.zc5f55r0jy.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="min-h-[450px]">
+    <!-- code begin -->
+    <div class="flex justify-center">
+        <button commandfor="--dialog-return-value" command="show-modal" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+            Open Alert Dialog
+        </button>
+    </div>
+    <del-dialog><dialog id="--dialog-return-value" data-slot="dialog-content" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs">
+        <div data-slot="dialog-header" class="gap-2 flex flex-col">
+            <h2 data-slot="dialog-title" class="text-base leading-none font-medium font-heading">Are you absolutely sure?</h2>
+            <p data-slot="dialog-description" class="text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3">
+                This action cannot be undone. This will permanently delete your account from our servers.
+            </p>
+        </div>
+        <form method="dialog">
+            <div data-slot="dialog-footer" class="bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                <button type="submit" value="cancel" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                    Cancel
+                </button>
+                <button type="submit" value="confirm" autofocus data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground [a]:hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                    Continue
+                </button>
+            </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Hw1P_Hxrm1JkkjLb9MZW3N9NmNJ2VX4vFRKHQoYZxl7Rhg4z1ua4muJuF5MaQqS1a8jDJZqTPF5ZoRGrvgjza0dQFo_qnfOR31DyCnLIL8l0Ca2OstomzE6I8J9xgDMksJyNlgWE9ZPNWiKw7GjsQA" /></form>
+    </dialog></del-dialog>
+    <script>
+        (function() {
+            const dialog = document.getElementById("--dialog-return-value");
+
+            dialog.addEventListener("close", () => {
+                const cancelled = dialog.returnValue === "" || dialog.returnValue === "cancel";
+                if (cancelled) {
+                    alert("The action has been cancelled");
+                    return;
+                }
+
+                alert("The action has been confirmed");
+            });
+            dialog.addEventListener("toggle", (e) => {
+                // Reset the return value every time the dialog opens to prevent a previous
+                // returnValue from being returned when pressing the Esc key
+                if (e.newState === "open") {
+                    dialog.returnValue = "";
+                }
+            });
+        })();
+    </script>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

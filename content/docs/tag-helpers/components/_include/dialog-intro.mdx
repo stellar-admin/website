@@ -1,0 +1,31 @@
+```razor
+<div class="flex justify-center">
+    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-intro" command="show-modal">
+        Open
+    </dui-button>
+</div>
+<dui-dialog id="--dialog-intro">
+    <dui-dialog-header>
+        <dui-dialog-title>Edit profile</dui-dialog-title>
+        <dui-dialog-description>Make changes to your profile here. Click save when you're done.</dui-dialog-description>
+    </dui-dialog-header>
+    <dui-field-group>
+        <dui-field>
+            <dui-label for="--dialog-intro-name">Name</dui-label>
+            <dui-input id="--dialog-intro-name" name="name" defaultValue="Ibn Battuta"/>
+        </dui-field>
+        <dui-field>
+            <dui-label for="--dialog-intro-username">Username</dui-label>
+            <dui-input id="--dialog-intro-username" name="username" defaultValue="@@ibnbattuta"/>
+        </dui-field>
+    </dui-field-group>
+    <dui-dialog-footer>
+        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-intro" command="close">
+            Cancel
+        </dui-button>
+        <dui-button commandfor="--dialog-intro" command="close">
+            Save Changes
+        </dui-button>
+    </dui-dialog-footer>
+</dui-dialog>
+```
