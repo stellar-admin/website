@@ -210,9 +210,6 @@
   .pointer-events-none {
     pointer-events: none;
   }
-  .collapse {
-    visibility: collapse;
-  }
   .invisible {
     visibility: hidden;
   }
@@ -1660,10 +1657,6 @@
     --tw-duration: 100ms;
     transition-duration: 100ms;
   }
-  .duration-150 {
-    --tw-duration: 150ms;
-    transition-duration: 150ms;
-  }
   .duration-200 {
     --tw-duration: 200ms;
     transition-duration: 200ms;
@@ -1694,10 +1687,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-0wCNRAJBI8: auto;
-    --toolwind-toggle-PPjczUkWB6: transparent;
-    --toolwind-toggle-JLcHVEkeKa: inherit;
-    --toolwind-toggle-1C5bzOin2p: 0px;
+    --toolwind-toggle-nEAUeSHOce: auto;
+    --toolwind-toggle-4qyzVRJljw: transparent;
+    --toolwind-toggle-zAYsgzSZSs: inherit;
+    --toolwind-toggle-V0ArX0jEgt: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -7360,10 +7353,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-0wCNRAJBI8, 0px);
-    background-color: var(--toolwind-toggle-PPjczUkWB6, canvas);
-    color: var(--toolwind-toggle-JLcHVEkeKa, canvastext);
-    margin: var(--toolwind-toggle-1C5bzOin2p, auto);
+    inset: var(--toolwind-toggle-nEAUeSHOce, 0px);
+    background-color: var(--toolwind-toggle-4qyzVRJljw, canvas);
+    color: var(--toolwind-toggle-zAYsgzSZSs, canvastext);
+    margin: var(--toolwind-toggle-V0ArX0jEgt, auto);
   }
 }
 @property --tw-translate-x {

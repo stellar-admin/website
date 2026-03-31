@@ -31,7 +31,7 @@ The `<dui-tooltip>` Tag Helper uses the [Interest Invokers](https://developer.mo
 
 ### Limitations
 
-1. The Interest Invokers API is [not supported across all browsers](https://caniuse.com/wf-interest-invokers) yet. You will need to use a polyfill such as [mfreed7/interestfor](https://github.com/mfreed7/interestfor) to ensure it works across all browsers.
+1. The Interest Invokers API is [not supported across all browsers](https://caniuse.com/wf-interest-invokers) yet. DuneUI includes the [mfreed7/interestfor](https://github.com/mfreed7/interestfor) polyfill to ensure it works across all browsers. Make sure you have included the DuneUI JavaScript file in your pages.
 2. Not all elements can be used as an invoker element (i.e. the element that triggers the tooltip). Officially, the `<a>`, `<button>` and `<area>` elements are supported, but in our tests it also works with `<input>` elements. As such you can use it with any of these, as well as the `<dui-button>`, `<dui-linkbutton>`, `<dui-input>`, `<dui-select>`, and `<dui-textarea>` Tag Helpers.
 
 We strongly recommend you [read about the Interest Invokers API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers#creating_an_interest_invoker) to familiarise yourself with its use and limitations.
