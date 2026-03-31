@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.r1c4zd0wr6.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.aaewzejjqh.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.m8cokme8xk.css" />
     
     <style>
         body {
@@ -13,7 +13,7 @@
         }
     </style>
 
-    <script type="module" src="/demo/tag-helpers/assets/dune-ui.k3xwc9gl6z.js"></script>
+    <script type="module" src="/demo/tag-helpers/assets/dune-ui.inxviwy4js.js"></script>
 </head>
 <body>
 <script>
@@ -46,20 +46,29 @@
                     Continue
                 </button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Hw1P_Hxrm1JkkjLb9MZW3PQF8WSsihsNHGipOwtdhvcm1d-AAoBhzJ8zQWYTSx_5NqIwHbyutWhCXsrTwwdVMEICLP7bEHP1XruF9Et5MAFUHsPv4tSj2ybGps54mdxErWipHwHooLm_hXwtvsGgXw" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Hw1P_Hxrm1JkkjLb9MZW3MW4ecsUgW3c8erYNd-AVlfkonJMZN5hAaP1W1-K4ZrF3KFW58t9PVZQXLFeqMiAdL1tKaC7Ip6J2ifNvuUqinmtWtRo4iuf5FwmDMN-Tes_3XbCuLUvGjtIWgA05htVCk" /></form>
     </dialog></del-dialog>
     <script>
-        const dialogReturnValueDialog = document.getElementById("--dialog-return-value");
+        (function() {
+            const dialog = document.getElementById("--dialog-return-value");
 
-        dialogReturnValueDialog.addEventListener("close", () => {
-            const cancelled = !dialogReturnValueDialog.returnValue || dialogReturnValueDialog.returnValue === "cancel";
-            if (cancelled) {
-                alert("The action has been cancelled");
-                return;
-            }
+            dialog.addEventListener("close", () => {
+                const cancelled = dialog.returnValue === "" || dialog.returnValue === "cancel";
+                if (cancelled) {
+                    alert("The action has been cancelled");
+                    return;
+                }
 
-            alert("The action has been confirmed");
-        });
+                alert("The action has been confirmed");
+            });
+            dialog.addEventListener("toggle", (e) => {
+                // Reset the return value every time the dialog opens to prevent a previous
+                // returnValue from being returned when pressing the Esc key
+                if (e.newState === "open") {
+                    dialog.returnValue = "";
+                }
+            });
+        })();
     </script>
     <!-- code end -->
 </div>

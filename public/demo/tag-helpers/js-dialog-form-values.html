@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.r1c4zd0wr6.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.m8cokme8xk.css" />
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+
+    <script type="module" src="/demo/tag-helpers/assets/dune-ui.inxviwy4js.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="min-h-[450px]">
+    <!-- code begin -->
+    <div class="flex flex-col items-start gap-y-4 justify-start min-w-md">
+        <button id="--js-dialog-form-values-button" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+            Open Dialog
+        </button>
+        <label class="text-sm font-bold">Result:</label>
+        <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--js-dialog-form-values-result">-</div>
+    </div>
+    <del-dialog><dialog id="--dialog-return-form-value-helper" data-slot="dialog-content" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs">
+        <form method="dialog" class="grid gap-4" action="/DocsStatic/?name=Js/Dialog/_FormValues">
+            <div data-slot="dialog-header" class="gap-2 flex flex-col">
+                <h2 data-slot="dialog-title" class="text-base leading-none font-medium font-heading">Edit profile</h2>
+                <p data-slot="dialog-description" class="text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3">Make changes to your profile here. Click save when you're done.
+                </p>
+            </div>
+            <div data-slot="field-group" class="gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4 data-[slot=radio-group]:gap-3 group/field-group @container/field-group flex w-full flex-col">
+                <div class="data-[invalid=true]:text-destructive gap-2 group/field flex w-full flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                    <label for="--js-dialog-form-values-name" data-slot="label" class="gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed">Name</label>
+                    <input id="--js-dialog-form-values-name" name="name" defaultValue="Ibn Battuta" required data-slot="input" class="dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 md:text-sm dark:[&amp;.input-validation-error]:border-destructive/50 file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive"></input>
+                </div>
+                <div class="data-[invalid=true]:text-destructive gap-2 group/field flex w-full flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                    <label for="--js-dialog-form-values-username" data-slot="label" class="gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed">Username</label>
+                    <input id="--js-dialog-form-values-username" name="username" defaultValue="@ibnbattuta" required data-slot="input" class="dark:bg-input/30 border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-3 md:text-sm dark:[&amp;.input-validation-error]:border-destructive/50 file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive"></input>
+                </div>
+            </div>
+            <div data-slot="dialog-footer" class="bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                <button type="submit" value="cancel" formnovalidate data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                    Cancel
+                </button>
+                <button type="submit" value="confirm" value="confirm" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground [a]:hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </dialog></del-dialog>
+    <script type="module">
+        (function () {
+            const dialog = window.duneui.dialog(document.getElementById("--dialog-return-form-value-helper"));
+            const button = document.getElementById("--js-dialog-form-values-button");
+            const resultDisplay = document.getElementById("--js-dialog-form-values-result");
+
+            button.addEventListener("click", async (event) => {
+                const result = await dialog.showAsync();
+                resultDisplay.innerHTML = JSON.stringify(result, null, 4);
+            });
+        })();
+    </script>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+<script src="/demo/tag-helpers/assets/interestfor.min.js"></script>
+
+</body>
+</html>

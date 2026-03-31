@@ -38,6 +38,8 @@
     "---Layout---",
     "group",
     "stack",
+    "---JavaScript Helpers---",
+    "js-dialog",
     "---Utilities---",
     "as-child"
   ]

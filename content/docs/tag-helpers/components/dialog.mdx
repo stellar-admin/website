@@ -51,6 +51,12 @@ Control how the dialog can be dismissed using the [`closedby` attribute](https:/
 
 Add submit buttons to a `form` with `method="dialog"` and set a `value` on each button. When the buttons are clicked, the dialog will close and the `returnValue` will be set to the value of the button that was clicked.
 
+<Callout type="tip">
+  If you want to return a result from the dialog, we strongly recommend using
+  the [`dialog()` helper](js-dialog) which allows you to use dialogs in an
+  async/await style
+</Callout>
+
 <Demo src="/demo/tag-helpers/dialog-return-value.html">
   <include>./_include/dialog-return-value.mdx</include>
 </Demo>
@@ -58,6 +64,12 @@ Add submit buttons to a `form` with `method="dialog"` and set a `value` on each 
 ### Get form content depending on return value
 
 Check [`returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue) to determine which button was clicked, then use `FormData` in the `close` event handler to read the submitted values.
+
+<Callout type="tip">
+  If you want to return a result from the dialog, we strongly recommend using
+  the [`dialog()` helper](js-dialog) which allows you to use dialogs in an
+  async/await style
+</Callout>
 
 <Demo src="/demo/tag-helpers/dialog-return-form-value.html">
   <include>./_include/dialog-return-form-value.mdx</include>

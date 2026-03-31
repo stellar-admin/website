@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.r1c4zd0wr6.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.aaewzejjqh.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.m8cokme8xk.css" />
     
     <style>
         body {
@@ -13,7 +13,7 @@
         }
     </style>
 
-    <script type="module" src="/demo/tag-helpers/assets/dune-ui.k3xwc9gl6z.js"></script>
+    <script type="module" src="/demo/tag-helpers/assets/dune-ui.inxviwy4js.js"></script>
 </head>
 <body>
 <script>
@@ -24,18 +24,18 @@
 <div class="preview flex w-full justify-center px-10 py-10">
     
     <!--strip
-is-active="true"
+asp-antiforgery="false"
 -->
 <div class="min-h-[450px]">
     <!-- code begin -->
     <div class="flex flex-col items-start gap-y-4 justify-start min-w-md">
-        <button commandfor="--dialog-return-form-value" command="show-modal" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+        <button commandfor="--dialog-return-form-value-dialog" command="show-modal" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
             Open Dialog with Form
         </button>
         <label class="text-sm font-bold">Output:</label>
         <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--dialog-return-form-value-output">-</div>
     </div>
-    <del-dialog><dialog id="--dialog-return-form-value" data-slot="dialog-content" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs">
+    <del-dialog><dialog id="--dialog-return-form-value-dialog" data-slot="dialog-content" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl p-4 text-sm ring-1 duration-100 sm:max-w-sm fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs">
         <form method="dialog" class="grid gap-4" action="/DocsStatic/?name=Dialog/_ReturnFormValue">
             <div data-slot="dialog-header" class="gap-2 flex flex-col">
                 <h2 data-slot="dialog-title" class="text-base leading-none font-medium font-heading">Edit profile</h2>
@@ -53,7 +53,7 @@ is-active="true"
                 </div>
             </div>
             <div data-slot="dialog-footer" class="bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-                <button type="button" commandfor="--dialog-return-form-value" command="close" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+                <button type="button" commandfor="--dialog-return-form-value-dialog" command="close" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
                     Cancel
                 </button>
                 <button type="submit" value="confirm" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground [a]:hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
@@ -63,20 +63,29 @@ is-active="true"
         </form>
     </dialog></del-dialog>
     <script>
-        const dialogReturnFormValueDialog = document.getElementById("--dialog-return-form-value");
-        const dialogReturnFormValueOutput = document.getElementById("--dialog-return-form-value-output");
+        (function() {
+            const dialog = document.getElementById("--dialog-return-form-value-dialog");
+            const output = document.getElementById("--dialog-return-form-value-output");
 
-        dialogReturnFormValueDialog.addEventListener("close", () => {
-            const cancelled = !dialogReturnFormValueDialog.returnValue || dialogReturnFormValueDialog.returnValue === "cancel";
-            if (cancelled) {
-                dialogReturnFormValueOutput.innerHTML = "Cancelled";
-                return;
-            }
+            dialog.addEventListener("close", () => {
+                const cancelled = dialog.returnValue === "" || dialog.returnValue === "cancel";
+                if (cancelled) {
+                    output.innerHTML = "Cancelled";
+                    return;
+                }
 
-            const form = dialogReturnFormValueDialog.querySelector("form");
-            const data = Object.fromEntries(new FormData(form));
-            dialogReturnFormValueOutput.innerHTML = JSON.stringify(data, null, 2);
-        });
+                const form = dialog.querySelector("form");
+                const data = Object.fromEntries(new FormData(form));
+                output.innerHTML = JSON.stringify(data, null, 2);
+            });
+            dialog.addEventListener("toggle", (e) => {
+                // Reset the return value every time the dialog opens to prevent a previous
+                // returnValue from being returned when pressing the Esc key
+                if (e.newState === "open") {
+                    dialog.returnValue = "";
+                }
+            });
+        })();
     </script>
     <!-- code end -->
 </div>

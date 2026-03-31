@@ -1,0 +1,51 @@
+---
+title: dialog()
+description: A JavaScript wrapper to help you work with promise-based dialogs
+---
+
+import { Demo } from "@/components/demo";
+
+The `dialog()` function returns a wrapper around an existing `<dialog>` element that makes it easy to use dialogs in an async/await style. Call `showAsync()` to open the dialog as a modal and get back a promise that resolves when the dialog closes, yielding a result with a `confirmed` flag, the dialog's `returnValue`, and any form data collected from within the dialog.
+
+You can also close the dialog programmatically by calling `confirm(data?)` or `cancel()` on the wrapper, which resolve the promise immediately with the appropriate result.
+
+## Usage
+
+```js
+const dialog = window.duneui.dialog(document.getElementById("myDialog"));
+const result = await dialog.showAsync();
+```
+
+## Examples
+
+### Basic Usage
+
+Open a dialog with `showAsync()` and await the result. The result object includes a `confirmed` property and the dialog's `returnValue` - in this example set by the submit buttons' `value` attributes.
+
+The `confirmed` property will be false under the following conditions:
+
+- The dialog was light-dismissed
+- The dialog was dismissed using the `Esc` key
+- The form's `returnValue` is set to `cancel`.
+
+<Demo src="/demo/tag-helpers/js-dialog-intro.html">
+  <include>./_include/js-dialog-intro.mdx</include>
+</Demo>
+
+### Returning Form values
+
+When the dialog is confirmed, any form data within the dialog is serialized and returned in the `data` property of the result.
+
+<Demo src="/demo/tag-helpers/js-dialog-form-values.html">
+  <include>./_include/js-dialog-form-values.mdx</include>
+</Demo>
+
+### Manual Result
+
+You can close the dialog programmatically using the `confirm(data?)` and `cancel()` methods. This will resolve the promise. When calling `cancel()`, the `confirmed` property of the result will be set to `false`.
+
+When calling `confirm(data?)`, the `confirmed` property will be set to `true`. You can also optionally pass a `data` parameter to the method, which will be returned in the `data` property of the result.
+
+<Demo src="/demo/tag-helpers/js-dialog-manual-result.html">
+  <include>./_include/js-dialog-manual-result.mdx</include>
+</Demo>
