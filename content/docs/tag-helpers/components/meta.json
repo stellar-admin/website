@@ -39,8 +39,6 @@
     "group",
     "stack",
     "---JavaScript Helpers---",
-    "js-dialog",
-    "---Utilities---",
-    "as-child"
+    "js-dialog"
   ]
 }
