@@ -1,10 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.1/schema.json",
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
-    }
-  },
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -12,20 +7,41 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!.source"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.source",
+      "!.vercel",
+      "!.output",
+      "!.nitro",
+      "!.tanstack",
+      "!public",
+      "!content",
+      "!src/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
+      }
     },
     "domains": {
-      "next": "recommended",
       "react": "recommended"
     }
   },

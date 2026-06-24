@@ -7,8 +7,6 @@ import {
 } from "fumadocs-mdx/config";
 import { z } from "zod";
 
-// You can customise Zod schemas for frontmatter and `meta.json` here
-// see https://fumadocs.dev/docs/mdx/collections
 export const docs = defineDocs({
   dir: "content/docs",
   docs: {
@@ -16,7 +14,13 @@ export const docs = defineDocs({
     postprocess: {
       includeProcessedMarkdown: true,
     },
-    files: ["**", "!**/_include/"],
+    // `_include` files are MDX partials pulled in via <include>, not pages.
+    // fumadocs-mdx's Vite codegen mangles `!` negation patterns (it prepends
+    // "./", breaking import.meta.glob negation), so we exclude the partials with
+    // positive, depth-scoped globs instead. Real docs live at
+    // `tag-helpers/*.mdx` and `tag-helpers/components/*.mdx`; the `_include`
+    // partials sit one level deeper and are therefore never matched.
+    files: ["*/*.{md,mdx}", "*/*/*.{md,mdx}"],
   },
   meta: {
     schema: metaSchema,
@@ -26,15 +30,10 @@ export const docs = defineDocs({
 export const blogPosts = defineCollections({
   type: "doc",
   dir: "content/blog",
-  // add required frontmatter properties
   schema: frontmatterSchema.extend({
     author: z.string(),
     date: z.iso.date().or(z.date()),
   }),
 });
 
-export default defineConfig({
-  mdxOptions: {
-    // MDX options
-  },
-});
+export default defineConfig();

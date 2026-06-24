@@ -1,15 +1,12 @@
 {
-    "[mdx]":  {
-		"editor.wordWrap": "on",
-	},
-    "markdownShortcuts.languages": [
-        "MDX",
-        "markdown"
-    ],
-    "pasteImage.basePath": "${currentFileDir}",
-    "pasteImage.namePrefix": "${currentFileNameWithoutExt}/",
-    "pasteImage.filePathConfirmInputBoxMode": "fullPath",
-    "pasteImage.defaultName": "SSS",
-    "pasteImage.prefix": "![](",
-    "pasteImage.suffix": ")"
+  "[mdx]": {
+    "editor.wordWrap": "on"
+  },
+  "markdownShortcuts.languages": ["MDX", "markdown"],
+  "pasteImage.basePath": "${currentFileDir}",
+  "pasteImage.namePrefix": "${currentFileNameWithoutExt}/",
+  "pasteImage.filePathConfirmInputBoxMode": "fullPath",
+  "pasteImage.defaultName": "SSS",
+  "pasteImage.prefix": "![](",
+  "pasteImage.suffix": ")"
 }
