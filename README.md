@@ -1,45 +1,44 @@
-# website
+# DuneUI Website
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+Documentation site for the [DuneUI](https://www.duneui.com/) components, built with
+[TanStack Start](https://tanstack.com/start) and [Fumadocs](https://fumadocs.dev/).
 
-Run development server:
+## Stack
+
+- **TanStack Start** (Vite) — app framework, static prerendering (SSG)
+- **Fumadocs** (`fumadocs-core` / `fumadocs-ui` / `fumadocs-mdx`) — docs engine + MDX content
+- **Tailwind CSS v4** + **shadcn/ui** (base-ui, `base-vega` style) with the **Fumadocs shadcn theme**
+- **Biome** — lint & format
+
+## Requirements
+
+This project uses **pnpm** and blocks other package managers (`engine-strict` +
+`only-allow pnpm`). Install [pnpm](https://pnpm.io/) first.
 
 ```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+pnpm install
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+## Scripts
 
-## Explore
+```bash
+pnpm dev          # start the dev server (http://localhost:3000)
+pnpm build        # build + static prerender to .vercel/output
+pnpm preview      # preview the production build
+pnpm lint         # Biome lint + format check
+pnpm format       # Biome format (write)
+pnpm types:check  # regenerate .source types + tsc --noEmit
+```
 
-In the project, you can see:
+## Content
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
+- **Docs** live in `content/docs` (the `tag-helpers` section). Navigation is driven by
+  `meta.json` files. MDX partials under `_include/` are pulled in with `<include>` and are
+  not standalone pages.
+- **Blog** posts live in `content/blog`.
+- Static component demos are served from `public/demo` and embedded via the `<Demo>` component.
 
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
+## Notes
 
-### Fumadocs MDX
-
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
-
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
+- OG image generation (the old Next.js `/og/docs/...` route) is not yet ported; it needs a
+  satori/takumi-based renderer on TanStack Start and is tracked as a follow-up.
