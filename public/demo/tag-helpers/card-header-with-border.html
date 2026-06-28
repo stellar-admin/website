@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.m7hy5g3gui.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.h8tf7dvuhe.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.6ifgcgr6tp.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.7pa0ss7pfk.css" />
     
     <style>
         body {
@@ -13,7 +13,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.zc5f55r0jy.js"></script>
+    <script defer src="/demo/tag-helpers/assets/dune-ui.yt9ok48yvi.js"></script>
 </head>
 <body>
 <script>
@@ -23,14 +23,14 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="ring-foreground/10 bg-card text-card-foreground gap-4 overflow-hidden rounded-xl py-4 text-sm ring-1 has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
-    <div class="gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] border-b" data-slot="card-header">
+    <div class="ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
+    <div class="gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] border-b" data-slot="card-header">
         <div data-slot="card-title" class="text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">Header with Border</div>
         <div data-slot="card-description" class="text-muted-foreground text-sm">
             This is a card with a header that has a bottom border.
         </div>
     </div>
-    <div data-slot="card-content" class="px-4 group-data-[size=sm]/card:px-3">
+    <div data-slot="card-content" class="px-(--card-spacing)">
         <p>
             The header has a border-b class applied, creating a visual
             separation between the header and content sections.

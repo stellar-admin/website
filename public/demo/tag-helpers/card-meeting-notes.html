@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.m7hy5g3gui.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.h8tf7dvuhe.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.6ifgcgr6tp.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.7pa0ss7pfk.css" />
     
     <style>
         body {
@@ -13,7 +13,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.zc5f55r0jy.js"></script>
+    <script defer src="/demo/tag-helpers/assets/dune-ui.yt9ok48yvi.js"></script>
 </head>
 <body>
 <script>
@@ -23,20 +23,20 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="ring-foreground/10 bg-card text-card-foreground gap-4 overflow-hidden rounded-xl py-4 text-sm ring-1 has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
-    <div data-slot="card-header" class="gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
+    <div class="ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
+    <div data-slot="card-header" class="gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
         <div data-slot="card-title" class="text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">Meeting Notes</div>
         <div data-slot="card-description" class="text-muted-foreground text-sm">
             Transcript from the meeting with the client.
         </div>
         <div data-slot="card-action" class="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
             <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3.5">
-                <svg width="24" height="24" stroke-width="2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect><path d="M7 15h4M15 15h2M7 11h2M13 11h4"></path></svg>
+                <svg stroke-linejoin="round" height="24" stroke-linecap="round" stroke="currentColor" width="24" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect><path d="M7 15h4M15 15h2M7 11h2M13 11h4"></path></svg>
                 Transcribe
             </button>
         </div>
     </div>
-    <div data-slot="card-content" class="px-4 group-data-[size=sm]/card:px-3">
+    <div data-slot="card-content" class="px-(--card-spacing)">
         <p>
             Client requested dashboard redesign with focus on mobile
             responsiveness.
@@ -49,7 +49,7 @@
             <li>Follow-up meeting scheduled for next Tuesday</li>
         </ol>
     </div>
-    <div data-slot="card-footer" class="bg-muted/50 rounded-b-xl border-t p-4 group-data-[size=sm]/card:p-3 flex items-center">
+    <div data-slot="card-footer" class="bg-muted/50 rounded-b-xl border-t p-(--card-spacing) flex items-center">
         <div data-slot="avatar-group" class="*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2">
             <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
             <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>

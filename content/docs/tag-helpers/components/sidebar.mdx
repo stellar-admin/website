@@ -1,0 +1,112 @@
+---
+title: Sidebar
+description: Displays a sidebar to navigate inside the application
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/sidebar-intro.html" mode="fullscreen">
+  <include>./_include/sidebar-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap the sidebar and your page content in a `dui-sidebar-wrapper`. The `dui-sidebar` holds the navigation — composed of `dui-sidebar-header`, `dui-sidebar-content` and `dui-sidebar-footer` — while `dui-sidebar-inset` holds the main page content. Navigation is built up from `dui-sidebar-group`, `dui-sidebar-menu`, `dui-sidebar-menu-item` and `dui-sidebar-menu-link`. Use `dui-sidebar-trigger` to toggle the sidebar.
+
+```razor
+<dui-sidebar-wrapper>
+    <dui-sidebar>
+        <dui-sidebar-header>
+            ...
+        </dui-sidebar-header>
+        <dui-sidebar-content>
+            <dui-sidebar-group>
+                <dui-sidebar-group-label>Platform</dui-sidebar-group-label>
+                <dui-sidebar-group-content>
+                    <dui-sidebar-menu>
+                        <dui-sidebar-menu-item>
+                            <dui-sidebar-menu-link href="...">
+                                <dui-icon name="layout-dashboard" />
+                                <span>Dashboard</span>
+                            </dui-sidebar-menu-link>
+                        </dui-sidebar-menu-item>
+                    </dui-sidebar-menu>
+                </dui-sidebar-group-content>
+            </dui-sidebar-group>
+        </dui-sidebar-content>
+        <dui-sidebar-footer>
+            ...
+        </dui-sidebar-footer>
+    </dui-sidebar>
+    <dui-sidebar-inset>
+        <dui-sidebar-trigger />
+        <!-- Main page content -->
+    </dui-sidebar-inset>
+</dui-sidebar-wrapper>
+```
+
+## Examples
+
+### Inset variant
+
+Set `variant="SidebarVariant.Inset"` to render the main content as a floating, rounded card inset from the edges of the screen.
+
+<Demo src="/demo/tag-helpers/sidebar-inset-variant.html" mode="fullscreen">
+  <include>./_include/sidebar-inset-variant.mdx</include>
+</Demo>
+
+### Floating variant
+
+Set `variant="SidebarVariant.Floating"` to detach the sidebar from the edge of the screen and render it as a floating panel.
+
+<Demo src="/demo/tag-helpers/sidebar-floating-variant.html" mode="fullscreen">
+  <include>./_include/sidebar-floating-variant.mdx</include>
+</Demo>
+
+### Alternate trigger icon
+
+Provide child content to `dui-sidebar-trigger` to override the default icon. Use the `in-aria-expanded` and `not-in-aria-expanded` variants to swap the icon based on whether the sidebar is open or closed.
+
+<Demo src="/demo/tag-helpers/sidebar-alternate-trigger-icon.html" mode="fullscreen">
+  <include>./_include/sidebar-alternate-trigger-icon.mdx</include>
+</Demo>
+
+### Right side
+
+Set `side="SidebarSide.Right"` to anchor the sidebar to the right edge of the screen.
+
+<Demo src="/demo/tag-helpers/sidebar-right-side.html" mode="fullscreen">
+  <include>./_include/sidebar-right-side.mdx</include>
+</Demo>
+
+### Collapsible to icons
+
+Set `collapsible="SidebarCollapsible.Icon"` to collapse the sidebar down to icons only, instead of hiding it entirely.
+
+<Demo src="/demo/tag-helpers/sidebar-collapsible-icon.html" mode="fullscreen">
+  <include>./_include/sidebar-collapsible-icon.mdx</include>
+</Demo>
+
+### Collapsible groups
+
+Wrap a `dui-sidebar-group` in a `dui-collapsible` to let an entire section of the sidebar collapse and expand together.
+
+<Demo src="/demo/tag-helpers/sidebar-collapsible-groups.html" mode="fullscreen">
+  <include>./_include/sidebar-collapsible-groups.mdx</include>
+</Demo>
+
+### Collapsible items
+
+Use `dui-sidebar-menu-button` together with `dui-collapsible` to create a menu item that expands to reveal nested sub-items.
+
+<Demo src="/demo/tag-helpers/sidebar-collapsible-items.html" mode="fullscreen">
+  <include>./_include/sidebar-collapsible-items.mdx</include>
+</Demo>
+
+### Sidebar in a dialog
+
+Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `dui-dialog`, for example as part of a settings screen.
+
+<Demo src="/demo/tag-helpers/sidebar-sidebar-in-dialog.html" mode="fullscreen">
+  <include>./_include/sidebar-sidebar-in-dialog.mdx</include>
+</Demo>
