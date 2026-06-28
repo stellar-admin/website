@@ -1,0 +1,94 @@
+---
+title: Sheet
+description: A sheet slides in from the edge of the screen to display supplementary content or actions without leaving the current page.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/sheet-intro.html">
+  <include>./_include/sheet-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<dui-sheet>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) styled to slide in from the edge of the screen. Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<dui-button>` element.
+
+```razor
+<dui-button commandfor="--custom-sheet" command="show-modal">
+    Sheet Trigger
+</dui-button>
+<dui-sheet id="--custom-sheet">
+    <dui-sheet-header>
+        <dui-sheet-title>...</dui-sheet-title>
+        <dui-sheet-description>...</dui-sheet-description>
+    </dui-sheet-header>
+    <!-- Sheet content goes here -->
+    <dui-sheet-footer>
+        <dui-button variant="ButtonVariant.Outline" commandfor="--custom-sheet" command="close">
+            Close
+        </dui-button>
+    </dui-sheet-footer>
+</dui-sheet>
+```
+
+Because the sheet renders a native `dialog` element, the same JavaScript API and events documented for the [Dialog](dialog) component apply here too. For more information, you can review the following MDN documentation:
+
+- [&lt;dialog&gt;: The Dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) (documents the JS API)
+- [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API)
+
+## Examples
+
+### Sides
+
+Use the `side` attribute to control which edge of the screen the sheet slides in from. It accepts `SheetSide.Top`, `SheetSide.Right` (the default), `SheetSide.Bottom`, and `SheetSide.Left`.
+
+<Demo src="/demo/tag-helpers/sheet-sides.html">
+  <include>./_include/sheet-sides.mdx</include>
+</Demo>
+
+### Dismissing the sheet
+
+Control how the sheet can be dismissed using the [`closedby` attribute](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy). The default behavior allows closing via the `Esc` key or a close button. Set `closedby="any"` to also allow clicking the backdrop (light dismiss), or `closedby="none"` to require explicit dismissal via a close button only.
+
+<Demo src="/demo/tag-helpers/sheet-dismissing.html">
+  <include>./_include/sheet-dismissing.mdx</include>
+</Demo>
+
+### Without a close button
+
+By default the sheet renders a close button in the top-right corner. Set `show-close-button="false"` to hide it.
+
+<Demo src="/demo/tag-helpers/sheet-no-close-button.html">
+  <include>./_include/sheet-no-close-button.mdx</include>
+</Demo>
+
+### Get form content depending on return value
+
+Add submit buttons to a `form` with `method="dialog"` and set a `value` on each button. Check [`returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue) to determine which button was clicked, then use `FormData` in the `close` event handler to read the submitted values.
+
+<Callout type="tip">
+  If you want to return a result from the sheet, we strongly recommend using
+  the [`dialog()` helper](js-dialog) which allows you to use sheets in an
+  async/await style
+</Callout>
+
+<Demo src="/demo/tag-helpers/sheet-return-form-value.html">
+  <include>./_include/sheet-return-form-value.mdx</include>
+</Demo>
+
+### JavaScript API
+
+Since `<dui-sheet>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
+
+<Demo src="/demo/tag-helpers/sheet-js-api.html">
+  <include>./_include/sheet-js-api.mdx</include>
+</Demo>
+
+### JavaScript events
+
+The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `cancel` event when the user attempts to close via `Esc` or `request-close`, and a `close` event once closed. Call `preventDefault()` in `beforetoggle` to prevent opening, or in `cancel` to prevent closing.
+
+<Demo src="/demo/tag-helpers/sheet-js-events.html">
+  <include>./_include/sheet-js-events.mdx</include>
+</Demo>
