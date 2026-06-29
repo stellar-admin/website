@@ -1,0 +1,63 @@
+---
+title: Switch
+description: A control that lets users toggle a setting on or off
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/switch-intro.html">
+  <include>./_include/switch-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `dui-switch` Tag Helper renders a native checkbox styled as a switch. Because the underlying element is a checkbox, the switch posts its value back and model-binds like any other `bool`, while the on/off appearance is driven entirely by CSS — no JavaScript is required.
+
+```razor
+<dui-switch/>
+```
+
+## Examples
+
+### Model binding
+
+The `dui-switch` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `bool` property and an unchecked switch will post `false`.
+
+When using model binding, DuneUI will automatically wrap the switch inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/switch-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/switch-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Email notifications",
+            Description = "Receive emails about your account activity."
+        )]
+        public bool EmailNotifications { get; set; } = true;
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Sizes
+
+Use the `size` attribute to control the size of the switch. It accepts `SwitchSize.Default` (the default) and `SwitchSize.Small`.
+
+<Demo src="/demo/tag-helpers/switch-sizes.html">
+  <include>./_include/switch-sizes.mdx</include>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent the user from interacting with the switch.
+
+<Demo src="/demo/tag-helpers/switch-disabled.html">
+  <include>./_include/switch-disabled.mdx</include>
+</Demo>

@@ -12,6 +12,7 @@
     "input-group",
     "radio",
     "select",
+    "switch",
     "textarea",
     "---Actions---",
     "button",
