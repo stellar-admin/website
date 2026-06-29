@@ -1,0 +1,124 @@
+---
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/toggle-group-intro.html">
+  <include>./_include/toggle-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `dui-toggle-group` Tag Helper groups a set of related toggles into a single segmented control. Each option is a `dui-toggle-group-item` with a `value`.
+
+Use the `type` attribute to choose how many items can be selected:
+
+- `ToggleGroupType.Single` (the default) renders the items as native radio buttons, so only one can be selected at a time and it binds to a scalar (e.g. a `string` or `enum`). Arrow-key navigation between items works out of the box.
+- `ToggleGroupType.Multiple` renders the items as native checkboxes, so any number can be selected and they bind to a collection (e.g. a `string[]`).
+
+Either way the values post back with no JavaScript required.
+
+```razor
+<dui-toggle-group name="results-view" type="ToggleGroupType.Single">
+    <dui-toggle-group-item value="list" aria-label="List view">
+        <dui-icon name="list"/>
+    </dui-toggle-group-item>
+    <dui-toggle-group-item value="grid" aria-label="Grid view">
+        <dui-icon name="layout-grid"/>
+    </dui-toggle-group-item>
+    <dui-toggle-group-item value="map" aria-label="Map view">
+        <dui-icon name="map"/>
+    </dui-toggle-group-item>
+</dui-toggle-group>
+```
+
+## Examples
+
+### Outline
+
+Use the `variant` attribute to control the visual style of the items. It accepts `ToggleVariant.Default` (the default) and `ToggleVariant.Outline`. The variant is inherited by every item in the group.
+
+<Demo src="/demo/tag-helpers/toggle-group-outline.html">
+  <include>./_include/toggle-group-outline.mdx</include>
+</Demo>
+
+### Multiple
+
+Set `type="ToggleGroupType.Multiple"` to allow more than one item to be selected at a time.
+
+<Demo src="/demo/tag-helpers/toggle-group-multiple.html">
+  <include>./_include/toggle-group-multiple.mdx</include>
+</Demo>
+
+### Sizes
+
+Use the `size` attribute to control the size of the items. It accepts `ToggleSize.Default` (the default), `ToggleSize.Small` and `ToggleSize.Large`. The size is inherited by every item in the group.
+
+<Demo src="/demo/tag-helpers/toggle-group-sizes.html">
+  <include>./_include/toggle-group-sizes.mdx</include>
+</Demo>
+
+### Spacing
+
+By default the items are joined into a single segmented control. Use the `spacing` attribute to separate them with a gap instead — `0` (the default) keeps them joined, while any other value renders each item as its own button.
+
+<Demo src="/demo/tag-helpers/toggle-group-spacing.html">
+  <include>./_include/toggle-group-spacing.mdx</include>
+</Demo>
+
+### Vertical
+
+Use the `orientation` attribute to lay the group out vertically. It accepts `ToggleGroupOrientation.Horizontal` (the default) and `ToggleGroupOrientation.Vertical`.
+
+<Demo src="/demo/tag-helpers/toggle-group-vertical.html">
+  <include>./_include/toggle-group-vertical.mdx</include>
+</Demo>
+
+### Model binding
+
+The `dui-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection; the items whose `value` matches the bound value(s) are rendered as selected.
+
+When using model binding, DuneUI will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/toggle-group-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/toggle-group-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(Name = "Results view")]
+        public string ResultsView { get; set; } = "grid";
+
+        [Display(Name = "Amenities")]
+        public string[] Amenities { get; set; } = ["wifi", "pool"];
+
+        [Display(Name = "Sort results by")]
+        public ResultsSort Sort { get; set; } = ResultsSort.Recommended;
+
+        [Display(Name = "Trip styles")]
+        public TripStyle[] TripStyles { get; set; } = [TripStyle.Beach, TripStyle.City];
+    }
+
+    public enum ResultsSort
+    {
+        Recommended,
+        Price,
+        Rating,
+    }
+
+    public enum TripStyle
+    {
+        Beach,
+        City,
+        Camping,
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>

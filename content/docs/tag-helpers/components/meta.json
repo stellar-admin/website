@@ -15,6 +15,8 @@
     "slider",
     "switch",
     "textarea",
+    "toggle",
+    "toggle-group",
     "---Actions---",
     "button",
     "button-group",

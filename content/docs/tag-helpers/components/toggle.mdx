@@ -1,0 +1,83 @@
+---
+title: Toggle
+description: A two-state button that can be toggled on or off
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/toggle-intro.html">
+  <include>./_include/toggle-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `dui-toggle` Tag Helper renders a two-state button — useful for things like formatting toggles or filters. It is backed by a native checkbox, so it posts its value back and model-binds like any other `bool`, while the pressed appearance is driven entirely by CSS — no JavaScript is required.
+
+Place an icon and/or text inside the Tag Helper to label the toggle.
+
+```razor
+<dui-toggle aria-label="Toggle bold">
+    <dui-icon name="bold"/>
+</dui-toggle>
+```
+
+## Examples
+
+### Outline
+
+Use the `variant` attribute to control the visual style of the toggle. It accepts `ToggleVariant.Default` (the default) and `ToggleVariant.Outline`.
+
+<Demo src="/demo/tag-helpers/toggle-outline.html">
+  <include>./_include/toggle-outline.mdx</include>
+</Demo>
+
+### With text
+
+A toggle can contain both an icon and a text label.
+
+<Demo src="/demo/tag-helpers/toggle-with-text.html">
+  <include>./_include/toggle-with-text.mdx</include>
+</Demo>
+
+### Sizes
+
+Use the `size` attribute to control the size of the toggle. It accepts `ToggleSize.Default` (the default), `ToggleSize.Small` and `ToggleSize.Large`.
+
+<Demo src="/demo/tag-helpers/toggle-sizes.html">
+  <include>./_include/toggle-sizes.mdx</include>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent the user from interacting with the toggle.
+
+<Demo src="/demo/tag-helpers/toggle-disabled.html">
+  <include>./_include/toggle-disabled.mdx</include>
+</Demo>
+
+### Model binding
+
+The `dui-toggle` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `bool` property and an un-pressed toggle will post `false`.
+
+Because a toggle is self-labelling, this example opts out of the automatic [Field](field) wrapper by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/toggle-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/toggle-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Breakfast included",
+            Description = "Only show stays that serve breakfast."
+        )]
+        public bool BreakfastIncluded { get; set; } = true;
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
