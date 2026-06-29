@@ -1,0 +1,148 @@
+---
+title: Input OTP
+description: An input for one-time passwords and verification codes, rendered as individual character slots
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/input-otp-intro.html">
+  <include>./_include/input-otp-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `dui-input-otp` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single hidden `<input>` that holds the whole code — so it model-binds and posts back like any other text field — overlaid on the individual character slots. A small `del-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
+
+Use the `max-length` attribute to control how many characters the code has.
+
+```razor
+<dui-input-otp max-length="6"/>
+```
+
+<Callout type="warn">
+  Input OTP only submits a value when you set `asp-for` or `name`. Just like a
+  native input without a `name`, an Input OTP without one (such as most of the
+  examples on this page) renders and is fully interactive but posts nothing. Use
+  `asp-for` to [model bind](#model-binding), or set `name` to post a value
+  without binding.
+</Callout>
+
+## Examples
+
+### Number of digits
+
+Use the `max-length` attribute to set the number of slots. It defaults to `6`.
+
+<Demo src="/demo/tag-helpers/input-otp-four-digits.html">
+  <include>./_include/input-otp-four-digits.mdx</include>
+</Demo>
+
+### Groups
+
+Use the `groups` attribute to split the slots into groups, separated by a separator. Provide a comma-separated list of group sizes — the sizes must add up to `max-length` (when both are set), otherwise the total is taken from the groups.
+
+<Demo src="/demo/tag-helpers/input-otp-groups.html">
+  <include>./_include/input-otp-groups.mdx</include>
+</Demo>
+
+### Separator
+
+A separator is rendered automatically between groups. Supply more than two groups to add multiple separators.
+
+<Demo src="/demo/tag-helpers/input-otp-separator.html">
+  <include>./_include/input-otp-separator.mdx</include>
+</Demo>
+
+### Pattern
+
+Use the `pattern` attribute to constrain the allowed characters with a regular expression — any input that would make the value fail to match is rejected. It defaults to digits only (`^\d*$`). Pair it with `inputmode` to control the on-screen keyboard.
+
+<Demo src="/demo/tag-helpers/input-otp-pattern.html">
+  <include>./_include/input-otp-pattern.mdx</include>
+</Demo>
+
+### Composition
+
+For full control over the layout, compose the slots by hand with the `dui-input-otp-group`, `dui-input-otp-slot`, and `dui-input-otp-separator` Tag Helpers instead of letting `groups` generate them. Slots take their position automatically in document order.
+
+<Demo src="/demo/tag-helpers/input-otp-composition.html">
+  <include>./_include/input-otp-composition.mdx</include>
+</Demo>
+
+### Model binding
+
+The `dui-input-otp` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `string` and the whole code posts straight back to the property.
+
+When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/input-otp-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/input-otp-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "One-time password",
+            Description = "Enter the 6-digit code we sent to your phone."
+        )]
+        public string OneTimePassword { get; set; } = "123";
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Validation
+
+Validation works like any other model-bound field. Add validation attributes to your model and the slots reflect the invalid state, with the error message rendered below.
+
+<Demo src="/demo/tag-helpers/input-otp-validation.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/input-otp-validation.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ValidationModel
+    {
+        [Display(
+            Name = "One-time password",
+            Description = "Enter the 6-digit code we sent to your phone."
+        )]
+        [Required(ErrorMessage = "Enter the complete 6-digit code")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Enter the complete 6-digit code")]
+        public string OneTimePassword { get; set; } = "123";
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Manual Validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This applies the destructive styling to the slots.
+
+The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+
+<Demo src="/demo/tag-helpers/input-otp-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/input-otp-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/input-otp-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent the user from interacting with the input.
+
+<Demo src="/demo/tag-helpers/input-otp-disabled.html">
+  <include>./_include/input-otp-disabled.mdx</include>
+</Demo>
