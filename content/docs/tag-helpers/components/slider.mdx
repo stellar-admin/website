@@ -20,6 +20,14 @@ Use the `min`, `max`, and `step` attributes to control the range and the increme
 <dui-slider value="50" min="0" max="100"/>
 ```
 
+<Callout type="warn">
+  The slider only submits a value when you set `asp-for` or `name`. Just like a
+  native input without a `name`, a slider with only a `value` (such as the
+  examples on this page) renders and is fully interactive but posts nothing.
+  Use `asp-for` to [model bind](#model-binding), or set `name` to post a value
+  without binding.
+</Callout>
+
 ## Examples
 
 ### Range
