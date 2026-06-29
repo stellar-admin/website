@@ -1,0 +1,98 @@
+---
+title: Slider
+description: An input where the user selects a value, or range of values, from a given range
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/tag-helpers/slider-intro.html">
+  <include>./_include/slider-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `dui-slider` Tag Helper renders a slider for selecting a value from within a range. It is backed by a small `del-slider` web component that handles pointer dragging, keyboard interaction, and clicking the track to seek, while the value is posted back through hidden inputs so it model-binds like any other form field.
+
+Use the `min`, `max`, and `step` attributes to control the range and the increment the slider snaps to.
+
+```razor
+<dui-slider value="50" min="0" max="100"/>
+```
+
+## Examples
+
+### Range
+
+Supply a comma-separated list of values to render multiple thumbs. With two values the slider acts as a range slider. Use the `min-distance` attribute to enforce a minimum gap between adjacent thumbs.
+
+<Demo src="/demo/tag-helpers/slider-range.html">
+  <include>./_include/slider-range.mdx</include>
+</Demo>
+
+### Multiple thumbs
+
+The slider is not limited to two thumbs — provide as many values as you need and a thumb is rendered for each.
+
+<Demo src="/demo/tag-helpers/slider-multiple-thumbs.html">
+  <include>./_include/slider-multiple-thumbs.mdx</include>
+</Demo>
+
+### Model binding
+
+The `dui-slider` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to an `int` for a single-thumb slider, or to an `int[]` (or `List<int>`) for a range slider — the posted values bind straight back to the collection.
+
+When using model binding, DuneUI will automatically wrap the slider inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/tag-helpers/slider-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/slider-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Maximum distance from center",
+            Description = "Only show stays within this many km of the city center."
+        )]
+        public int MaximumDistanceFromCenter { get; set; } = 40;
+
+        [Display(Name = "Price per night", Description = "Filter stays to a nightly price range.")]
+        public int[] PricePerNight { get; set; } = [200, 800];
+
+        [Display(
+            Name = "Guest rating bands",
+            Description = "Boundaries for the low, medium, and high guest-rating bands."
+        )]
+        public int[] GuestRatingBands { get; set; } = [25, 50, 75];
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Steps
+
+Use the `step` attribute to control the increment the slider snaps to as it moves.
+
+<Demo src="/demo/tag-helpers/slider-steps.html">
+  <include>./_include/slider-steps.mdx</include>
+</Demo>
+
+### Vertical
+
+Set the `orientation` attribute to `SliderOrientation.Vertical` to lay the slider out vertically. It defaults to `SliderOrientation.Horizontal`.
+
+<Demo src="/demo/tag-helpers/slider-vertical.html">
+  <include>./_include/slider-vertical.mdx</include>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent the user from interacting with the slider.
+
+<Demo src="/demo/tag-helpers/slider-disabled.html">
+  <include>./_include/slider-disabled.mdx</include>
+</Demo>
