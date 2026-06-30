@@ -1030,6 +1030,9 @@
   .gap-10 {
     gap: calc(var(--spacing) * 10);
   }
+  .gap-\[--spacing\(var\(--gap\)\)\] {
+    gap: calc(var(--spacing) * var(--gap));
+  }
   .gap-px {
     gap: 1px;
   }
@@ -2062,10 +2065,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-Cho6lQFniR: auto;
-    --toolwind-toggle-YBVXdKM6Uh: transparent;
-    --toolwind-toggle-AK9NglnFb1: inherit;
-    --toolwind-toggle-oS0Mx9GeN2: 0px;
+    --toolwind-toggle-EmXKyJKaDS: auto;
+    --toolwind-toggle-MjKmWiQH2K: transparent;
+    --toolwind-toggle-LkrCHs0KVA: inherit;
+    --toolwind-toggle-zfX5Bk1dVS: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -4693,6 +4696,11 @@
   .has-\[\:disabled\]\:opacity-50 {
     &:has(*:is(:disabled)) {
       opacity: 50%;
+    }
+  }
+  .has-\[\:focus-visible\]\:z-10 {
+    &:has(*:is(:focus-visible)) {
+      z-index: 10;
     }
   }
   .has-\[\:focus-visible\]\:border-ring {
@@ -9563,10 +9571,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-Cho6lQFniR, 0px);
-    background-color: var(--toolwind-toggle-YBVXdKM6Uh, canvas);
-    color: var(--toolwind-toggle-AK9NglnFb1, canvastext);
-    margin: var(--toolwind-toggle-oS0Mx9GeN2, auto);
+    inset: var(--toolwind-toggle-EmXKyJKaDS, 0px);
+    background-color: var(--toolwind-toggle-MjKmWiQH2K, canvas);
+    color: var(--toolwind-toggle-LkrCHs0KVA, canvastext);
+    margin: var(--toolwind-toggle-zfX5Bk1dVS, auto);
   }
 }
 @property --tw-translate-x {

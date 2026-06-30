@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `dui-toggle-group` Tag Helper groups a set of related toggles into a single segmented control. Each option is a `dui-toggle-group-item` with a `value`.
+The `dui-toggle-group` Tag Helper groups a set of related toggles. Each option is a `dui-toggle-group-item` with a `value`.
 
 Use the `type` attribute to choose how many items can be selected:
 
@@ -61,9 +61,17 @@ Use the `size` attribute to control the size of the items. It accepts `ToggleSiz
   <include>./_include/toggle-group-sizes.mdx</include>
 </Demo>
 
+### Joined
+
+Set `spacing="0"` to collapse the gap and join the items into a single segmented control, with shared borders and rounding on the outer corners.
+
+<Demo src="/demo/tag-helpers/toggle-group-joined.html">
+  <include>./_include/toggle-group-joined.mdx</include>
+</Demo>
+
 ### Spacing
 
-By default the items are joined into a single segmented control. Use the `spacing` attribute to separate them with a gap instead — `0` (the default) keeps them joined, while any other value renders each item as its own button.
+Use the `spacing` attribute to control the gap between items. It defaults to `2` and accepts any number, which is multiplied by `0.25rem` (so `spacing="2"` is a `0.5rem` gap). Set it to `0` to join the items into a single segmented control (see [Joined](#joined) above).
 
 <Demo src="/demo/tag-helpers/toggle-group-spacing.html">
   <include>./_include/toggle-group-spacing.mdx</include>
