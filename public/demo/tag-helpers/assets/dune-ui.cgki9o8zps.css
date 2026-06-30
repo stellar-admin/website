@@ -2062,10 +2062,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-1VdfDbo31A: auto;
-    --toolwind-toggle-Rg1IJ3AbTf: transparent;
-    --toolwind-toggle-GxnXNOJ8cX: inherit;
-    --toolwind-toggle-qaXFR35Avm: 0px;
+    --toolwind-toggle-KsmPWuMiJ8: auto;
+    --toolwind-toggle-pVhuE2R5ZD: transparent;
+    --toolwind-toggle-l8SF8vu6Oj: inherit;
+    --toolwind-toggle-qVyme3m1nf: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -2587,6 +2587,16 @@
     &:is(:where(.group\/avatar)[data-size="lg"] *) {
       width: calc(var(--spacing) * 3);
       height: calc(var(--spacing) * 3);
+    }
+  }
+  .group-data-\[size\=sm\]\/alert-dialog-content\:grid {
+    &:is(:where(.group\/alert-dialog-content)[data-size="sm"] *) {
+      display: grid;
+    }
+  }
+  .group-data-\[size\=sm\]\/alert-dialog-content\:grid-cols-2 {
+    &:is(:where(.group\/alert-dialog-content)[data-size="sm"] *) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   .group-data-\[size\=sm\]\/attachment\:w-8 {
@@ -9548,10 +9558,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-1VdfDbo31A, 0px);
-    background-color: var(--toolwind-toggle-Rg1IJ3AbTf, canvas);
-    color: var(--toolwind-toggle-GxnXNOJ8cX, canvastext);
-    margin: var(--toolwind-toggle-qaXFR35Avm, auto);
+    inset: var(--toolwind-toggle-KsmPWuMiJ8, 0px);
+    background-color: var(--toolwind-toggle-pVhuE2R5ZD, canvas);
+    color: var(--toolwind-toggle-l8SF8vu6Oj, canvastext);
+    margin: var(--toolwind-toggle-qVyme3m1nf, auto);
   }
 }
 @property --tw-translate-x {

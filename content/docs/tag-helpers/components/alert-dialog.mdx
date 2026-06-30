@@ -1,0 +1,86 @@
+---
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a confirm or cancel response.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/alert-dialog-intro.html">
+  <include>./_include/alert-dialog-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<dui-alert-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog), styled as a centered confirmation modal. Open it with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) by adding `commandfor` and `command="show-modal"` to a `<dui-button>`.
+
+Unlike `<dui-dialog>`, an alert dialog is **not** light-dismissable: pressing `Esc` cancels it, but clicking the backdrop does nothing (`closedby="closerequest"` by default). Wrap the footer in a `<form method="dialog">` and use `<dui-alert-dialog-action>` / `<dui-alert-dialog-cancel>` so the dialog closes with the correct `returnValue`.
+
+```razor
+<dui-button commandfor="--confirm" command="show-modal">
+    Show Dialog
+</dui-button>
+<dui-alert-dialog id="--confirm">
+    <dui-alert-dialog-header>
+        <dui-alert-dialog-title>Cancel this booking?</dui-alert-dialog-title>
+        <dui-alert-dialog-description>
+            This action cannot be undone.
+        </dui-alert-dialog-description>
+    </dui-alert-dialog-header>
+    <form method="dialog">
+        <dui-alert-dialog-footer>
+            <dui-alert-dialog-cancel>Keep booking</dui-alert-dialog-cancel>
+            <dui-alert-dialog-action>Continue</dui-alert-dialog-action>
+        </dui-alert-dialog-footer>
+    </form>
+</dui-alert-dialog>
+```
+
+`<dui-alert-dialog-cancel>` renders a submit button with `value="cancel"` and `<dui-alert-dialog-action>` one with `value="confirm"`, so the wrapping `method="dialog"` form closes the dialog and sets `returnValue` accordingly.
+
+## Examples
+
+### Destructive action
+
+Pass `variant="ButtonVariant.Destructive"` to `<dui-alert-dialog-action>` for irreversible operations such as deleting data.
+
+<Demo src="/demo/tag-helpers/alert-dialog-destructive.html">
+  <include>./_include/alert-dialog-destructive.mdx</include>
+</Demo>
+
+### Size
+
+Use the `size` attribute (`AlertDialogSize.Default` or `AlertDialogSize.Small`) to switch between the wider, left-aligned default layout and the compact, centered small layout.
+
+<Demo src="/demo/tag-helpers/alert-dialog-size.html">
+  <include>./_include/alert-dialog-size.mdx</include>
+</Demo>
+
+### Media
+
+Add a `<dui-alert-dialog-media>` slot to the header to show a media element such as an icon or image above the title.
+
+<Demo src="/demo/tag-helpers/alert-dialog-media.html">
+  <include>./_include/alert-dialog-media.mdx</include>
+</Demo>
+
+### Small with media
+
+Combine `size="AlertDialogSize.Small"` with `<dui-alert-dialog-media>` for a compact, centered dialog that still leads with an icon.
+
+<Demo src="/demo/tag-helpers/alert-dialog-small-media.html">
+  <include>./_include/alert-dialog-small-media.mdx</include>
+</Demo>
+
+### JavaScript API
+
+For the common "await a confirmation before acting" flow, use the `window.duneui.alertDialog()` helper. Its `confirmAsync()` method resolves to `true` when the user activates the action button and `false` on cancel or `Esc`.
+
+<Callout type="tip">
+  `alertDialog()` is built on the same primitive as the [`dialog()`
+  helper](js-dialog); use it whenever you want to drive a confirmation in an
+  async/await style.
+</Callout>
+
+<Demo src="/demo/tag-helpers/alert-dialog-js-api.html">
+  <include>./_include/alert-dialog-js-api.mdx</include>
+</Demo>
