@@ -54,6 +54,22 @@ A separator is rendered automatically between groups. Supply more than two group
   <include>./_include/input-otp-separator.mdx</include>
 </Demo>
 
+### Custom separator
+
+Compose the slots by hand and supply child content to the `dui-input-otp-separator` Tag Helper to replace the default separator glyph. Any content works — here a `dui-icon` renders a different icon between the groups.
+
+<Demo src="/demo/tag-helpers/input-otp-custom-separator.html">
+  <include>./_include/input-otp-custom-separator.mdx</include>
+</Demo>
+
+### Size
+
+Increase the size of the slots by applying utility classes to the groups. Target the slots from the group with the `*:data-[slot=input-otp-slot]:` variant so the sizing applies to every slot inside it.
+
+<Demo src="/demo/tag-helpers/input-otp-size.html">
+  <include>./_include/input-otp-size.mdx</include>
+</Demo>
+
 ### Pattern
 
 Use the `pattern` attribute to constrain the allowed characters with a regular expression — any input that would make the value fail to match is rejected. It defaults to digits only (`^\d*$`). Pair it with `inputmode` to control the on-screen keyboard.
