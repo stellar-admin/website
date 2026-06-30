@@ -2062,10 +2062,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-KsmPWuMiJ8: auto;
-    --toolwind-toggle-pVhuE2R5ZD: transparent;
-    --toolwind-toggle-l8SF8vu6Oj: inherit;
-    --toolwind-toggle-qVyme3m1nf: 0px;
+    --toolwind-toggle-Cho6lQFniR: auto;
+    --toolwind-toggle-YBVXdKM6Uh: transparent;
+    --toolwind-toggle-AK9NglnFb1: inherit;
+    --toolwind-toggle-oS0Mx9GeN2: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -5226,6 +5226,11 @@
   .data-starting-style\:opacity-0 {
     &[data-starting-style] {
       opacity: 0%;
+    }
+  }
+  .data-\[active\=true\]\:z-10 {
+    &[data-active="true"] {
+      z-index: 10;
     }
   }
   .data-\[active\=true\]\:border-ring {
@@ -9558,10 +9563,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-KsmPWuMiJ8, 0px);
-    background-color: var(--toolwind-toggle-pVhuE2R5ZD, canvas);
-    color: var(--toolwind-toggle-l8SF8vu6Oj, canvastext);
-    margin: var(--toolwind-toggle-qVyme3m1nf, auto);
+    inset: var(--toolwind-toggle-Cho6lQFniR, 0px);
+    background-color: var(--toolwind-toggle-YBVXdKM6Uh, canvas);
+    color: var(--toolwind-toggle-AK9NglnFb1, canvastext);
+    margin: var(--toolwind-toggle-oS0Mx9GeN2, auto);
   }
 }
 @property --tw-translate-x {
