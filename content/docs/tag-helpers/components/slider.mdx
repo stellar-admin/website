@@ -97,6 +97,14 @@ Set the `orientation` attribute to `SliderOrientation.Vertical` to lay the slide
   <include>./_include/slider-vertical.mdx</include>
 </Demo>
 
+### Thumb alignment
+
+Use the `thumb-alignment` attribute to control how the thumb sits relative to its value. It defaults to `SliderThumbAlignment.Edge`, which keeps the thumb fully within the track at the extremes so it never overhangs the ends. Set it to `SliderThumbAlignment.Center` to center the thumb on its value instead, letting it extend past the track at the minimum and maximum.
+
+<Demo src="/demo/tag-helpers/slider-thumb-alignment.html">
+  <include>./_include/slider-thumb-alignment.mdx</include>
+</Demo>
+
 ### Disabled
 
 Add the `disabled` attribute to prevent the user from interacting with the slider.
