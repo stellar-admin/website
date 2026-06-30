@@ -898,9 +898,6 @@
   .cursor-default {
     cursor: default;
   }
-  .cursor-grab {
-    cursor: grab;
-  }
   .cursor-pointer {
     cursor: pointer;
   }
@@ -2065,10 +2062,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-EmXKyJKaDS: auto;
-    --toolwind-toggle-MjKmWiQH2K: transparent;
-    --toolwind-toggle-LkrCHs0KVA: inherit;
-    --toolwind-toggle-zfX5Bk1dVS: 0px;
+    --toolwind-toggle-jXREAkoc4p: auto;
+    --toolwind-toggle-LrpR3HE03o: transparent;
+    --toolwind-toggle-sngbgdqqn7: inherit;
+    --toolwind-toggle-ObdOMJXSkv: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -7738,11 +7735,6 @@
       color: var(--foreground);
     }
   }
-  .data-disabled\:pointer-events-none {
-    &:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])) {
-      pointer-events: none;
-    }
-  }
   .data-disabled\:cursor-not-allowed {
     &:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])) {
       cursor: not-allowed;
@@ -7947,11 +7939,6 @@
   .data-vertical\:min-h-40 {
     &:where([data-orientation="vertical"]) {
       min-height: calc(var(--spacing) * 40);
-    }
-  }
-  .data-vertical\:min-h-44 {
-    &:where([data-orientation="vertical"]) {
-      min-height: calc(var(--spacing) * 44);
     }
   }
   .data-vertical\:w-0\.5 {
@@ -9571,10 +9558,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-EmXKyJKaDS, 0px);
-    background-color: var(--toolwind-toggle-MjKmWiQH2K, canvas);
-    color: var(--toolwind-toggle-LkrCHs0KVA, canvastext);
-    margin: var(--toolwind-toggle-zfX5Bk1dVS, auto);
+    inset: var(--toolwind-toggle-jXREAkoc4p, 0px);
+    background-color: var(--toolwind-toggle-LrpR3HE03o, canvas);
+    color: var(--toolwind-toggle-sngbgdqqn7, canvastext);
+    margin: var(--toolwind-toggle-ObdOMJXSkv, auto);
   }
 }
 @property --tw-translate-x {
