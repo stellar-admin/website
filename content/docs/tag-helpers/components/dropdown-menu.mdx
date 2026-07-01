@@ -84,3 +84,19 @@ For non-link items, attach a click handler however you like — an inline `oncli
 <Demo src="/demo/tag-helpers/dropdown-menu-click-events.html">
   <include>./_include/dropdown-menu-click-events.mdx</include>
 </Demo>
+
+### Reacting to checkbox changes
+
+Checkbox items report toggles through a bubbling `checkedchange` event, so you can listen on the item, its enclosing `<dui-dropdown-menu-group>`, or any ancestor — a single listener on the group is usually cleanest. `event.detail.checked` is the item's new state. Checkbox items carry no `value`, so identify which one changed via `event.target`. The event fires for both mouse and keyboard activation, and the menu deliberately stays open so multiple toggles feel natural.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-checkbox-events.html">
+  <include>./_include/dropdown-menu-checkbox-events.mdx</include>
+</Demo>
+
+### Reacting to radio changes
+
+Radio items report selection through a bubbling `valuechange` event. Mirroring Base UI's `RadioGroup.onValueChange`, listen on the `<dui-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-radio-events.html">
+  <include>./_include/dropdown-menu-radio-events.mdx</include>
+</Demo>
