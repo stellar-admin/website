@@ -1,0 +1,76 @@
+---
+title: alertDialog()
+description: A JavaScript wrapper for awaiting a confirmation from an alert dialog
+---
+
+import { Demo } from "@/components/demo";
+
+The `alertDialog()` function is a confirmation-focused wrapper around the [`dialog()` helper](js-dialog) for use with the [Alert Dialog](alert-dialog) component. Since an alert dialog's whole purpose is "await a confirmation before doing something", the wrapper exposes a boolean-returning `confirmAsync()` method: it resolves `true` when the user activates the action button, and `false` when the dialog is cancelled or dismissed with the `Esc` key.
+
+## Usage
+
+```js
+const alertDialog = window.duneui.alertDialog(document.getElementById("myAlertDialog"));
+if (await alertDialog.confirmAsync()) {
+  // perform the confirmed action
+}
+```
+
+## Examples
+
+### Basic Usage
+
+Open the alert dialog with `confirmAsync()` and await the boolean result. The `<dui-alert-dialog-action>` button confirms the dialog, while `<dui-alert-dialog-cancel>` or the `Esc` key cancels it.
+
+<Demo src="/demo/tag-helpers/js-alert-dialog-intro.html">
+  <include>./_include/js-alert-dialog-intro.mdx</include>
+</Demo>
+
+### Manual Result
+
+You can resolve the confirmation programmatically using the `confirm()` and `cancel()` methods. This closes the dialog and resolves the pending promise with `true` or `false` respectively.
+
+<Demo src="/demo/tag-helpers/js-alert-dialog-manual-result.html">
+  <include>./_include/js-alert-dialog-manual-result.mdx</include>
+</Demo>
+
+## API Reference
+
+### `alertDialog(selector)`
+
+The `alertDialog()` factory function, exposed as `window.duneui.alertDialog`,
+wraps an existing `<dialog>` element (such as the one rendered by
+`<dui-alert-dialog>`) and returns a wrapper object with the methods below. It
+throws if the element cannot be found or is not a `HTMLDialogElement`.
+
+<TypeTable
+  type={{
+    selector: {
+      description:
+        "The dialog to wrap - either a CSS selector string or the HTMLDialogElement itself.",
+      type: "string | HTMLDialogElement",
+    },
+  }}
+/>
+
+#### Wrapper methods
+
+<TypeTable
+  type={{
+    confirmAsync: {
+      description:
+        "Opens the alert dialog as a modal and returns a promise that resolves to true when the dialog was confirmed, or false when it was cancelled or dismissed with Esc.",
+      type: "() => Promise<boolean>",
+    },
+    confirm: {
+      description:
+        "Closes the open dialog and resolves the pending promise with true. Throws if no dialog is open.",
+      type: "() => void",
+    },
+    cancel: {
+      description:
+        "Closes the open dialog and resolves the pending promise with false. Throws if no dialog is open.",
+      type: "() => void",
+    },
+  }}
+/>

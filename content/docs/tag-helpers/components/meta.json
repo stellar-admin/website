@@ -50,6 +50,7 @@
     "sidebar",
     "tabs",
     "---JavaScript Helpers---",
+    "js-alert-dialog",
     "js-dialog"
   ]
 }
