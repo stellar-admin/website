@@ -69,6 +69,14 @@ Nest a `<dui-dropdown-menu-sub>` containing a `<dui-dropdown-menu-sub-trigger>` 
   <include>./_include/dropdown-menu-submenu.mdx</include>
 </Demo>
 
+### Inset
+
+Set `inset="true"` on an item, label or sub-trigger to indent it by the width of the leading icon/checkbox column. Use it so text-only items and labels line up with sibling items that have a leading icon or a checkbox/radio indicator.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-inset.html">
+  <include>./_include/dropdown-menu-inset.mdx</include>
+</Demo>
+
 ### Links
 
 An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`; otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<dui-linkbutton>`.
