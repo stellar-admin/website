@@ -106,3 +106,46 @@ The dialog fires `beforetoggle` and `toggle` events as it opens and closes, a `c
 <Demo src="/demo/tag-helpers/dialog-js-events.html">
   <include>./_include/dialog-js-events.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-dialog>`
+
+The `<dui-dialog>` tag helper renders a native [`<dialog>`
+element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
+and has no attributes of its own — it forwards any standard `<dialog>`
+attributes (such as `id` or `closedby`) to the rendered element. The dialog is
+opened and closed via the [Invoker Commands
+API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a
+button with `command="show-modal"` or `command="close"` and a `commandfor`
+attribute referencing the dialog's `id`.
+
+### `<dui-dialog-header>`
+
+The `<dui-dialog-header>` tag helper renders a `<div>` element that groups the
+dialog's title and description. It has no attributes of its own and forwards
+any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-dialog-title>`
+
+The `<dui-dialog-title>` tag helper renders an `<h2>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-dialog-description>`
+
+The `<dui-dialog-description>` tag helper renders a `<p>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-dialog-footer>`
+
+The `<dui-dialog-footer>` tag helper renders a `<div>` element that hosts the
+dialog's action buttons. It has no attributes of its own and forwards any
+standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

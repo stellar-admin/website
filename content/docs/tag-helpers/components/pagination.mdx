@@ -56,3 +56,199 @@ You can change the default content of the first, previous, next, last, and ellip
 <Demo src="/demo/tag-helpers/pagination-custom-content.html">
   <include>./_include/pagination-custom-content.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-pagination>`
+
+The `<dui-pagination>` tag helper renders a `<nav>` element with
+`role="navigation"` and `aria-label="pagination"`. It has no attributes of its
+own, but forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-pagination-content>`
+
+The `<dui-pagination-content>` tag helper renders a `<ul>` element containing
+the pagination items. It has no attributes of its own.
+
+### `<dui-pagination-item>`
+
+The `<dui-pagination-item>` tag helper renders an `<li>` element wrapping a
+single link. It has no attributes of its own.
+
+### `<dui-pagination-first>`
+
+The `<dui-pagination-first>` tag helper renders an `<a>` element styled as a
+ghost button; when empty, it renders a chevron icon and "First" text by
+default. It forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+and accepts the same [routing attributes](#routing-attributes) as
+`<dui-pagination-link>`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+  }}
+/>
+
+### `<dui-pagination-previous>`
+
+The `<dui-pagination-previous>` tag helper renders an `<a>` element styled as a
+ghost button; when empty, it renders a chevron icon and "Previous" text by
+default. It forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+and accepts the same [routing attributes](#routing-attributes) as
+`<dui-pagination-link>`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+  }}
+/>
+
+### `<dui-pagination-link>`
+
+The `<dui-pagination-link>` tag helper renders an `<a>` element styled as a
+button. In addition to the attributes below, it forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+(such as `href`) to the rendered element.
+
+<TypeTable
+  type={{
+    "is-active": {
+      description:
+        "Whether the link points to the current page. Active links are styled as an outline button and get aria-current=\"page\".",
+      type: "bool",
+      default: "false",
+    },
+    size: {
+      description: "The size of the link button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The pagination links also accept the same routing attributes as the ASP.NET
+Core [Anchor Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
+for generating the `href`. Supply either an `href` or these attributes — not
+both. These attributes are accepted by `<dui-pagination-link>`,
+`<dui-pagination-first>`, `<dui-pagination-previous>`, `<dui-pagination-next>`,
+and `<dui-pagination-last>`.
+
+<TypeTable
+  type={{
+    "asp-action": {
+      description:
+        "The name of the action method. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-controller": {
+      description:
+        "The name of the controller. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-area": {
+      description: "The name of the area. Must be null if asp-route is set.",
+      type: "string",
+    },
+    "asp-page": {
+      description:
+        "The name of the Razor page. Must be null if asp-route, asp-action, or asp-controller is set.",
+      type: "string",
+    },
+    "asp-page-handler": {
+      description: "The name of the Razor page handler.",
+      type: "string",
+    },
+    "asp-route": {
+      description:
+        "The name of the route. Must be null if asp-action, asp-controller, asp-area, or asp-page is set.",
+      type: "string",
+    },
+    "asp-route-*": {
+      description:
+        "Additional route parameters, e.g. asp-route-id. Bound into the route values dictionary.",
+      type: "string",
+    },
+    "asp-protocol": {
+      description: 'The URL protocol, such as "http" or "https".',
+      type: "string",
+    },
+    "asp-host": {
+      description: "The host name for the URL.",
+      type: "string",
+    },
+    "asp-fragment": {
+      description: "The URL fragment (the part after #).",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-pagination-ellipsis>`
+
+The `<dui-pagination-ellipsis>` tag helper renders a `<span>` element with
+`aria-hidden="true"`; when empty, it renders an ellipsis icon with
+screen-reader-only "More pages" text by default. It has no attributes of its
+own.
+
+### `<dui-pagination-next>`
+
+The `<dui-pagination-next>` tag helper renders an `<a>` element styled as a
+ghost button; when empty, it renders "Next" text and a chevron icon by default.
+It forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+and accepts the same [routing attributes](#routing-attributes) as
+`<dui-pagination-link>`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+  }}
+/>
+
+### `<dui-pagination-last>`
+
+The `<dui-pagination-last>` tag helper renders an `<a>` element styled as a
+ghost button; when empty, it renders "Last" text and a chevron icon by default.
+It forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+and accepts the same [routing attributes](#routing-attributes) as
+`<dui-pagination-link>`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+  }}
+/>

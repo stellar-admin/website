@@ -116,3 +116,301 @@ Radio items report selection through a bubbling `valuechange` event. Listen on t
 <Demo src="/demo/tag-helpers/dropdown-menu-radio-events.html">
   <include>./_include/dropdown-menu-radio-events.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-dropdown-menu>`
+
+The `<dui-dropdown-menu>` tag helper groups a trigger and its menu content. It
+renders no element of its own — it only generates the shared id (honouring a
+user-supplied `id`) that connects the trigger to the menu.
+
+### `<dui-dropdown-menu-trigger>`
+
+The `<dui-dropdown-menu-trigger>` tag helper renders a `<button>` styled as a
+`<dui-button>` that opens the menu via the native `popovertarget` attribute. In
+addition to the attributes below, it forwards any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the trigger button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+    variant: {
+      description: "The visual style of the trigger button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Outline",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-content>`
+
+The `<dui-dropdown-menu-content>` tag helper renders the menu itself as a
+`<del-dropdown-menu>` web component with the [`popover`
+attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover),
+anchored to the trigger. It forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    position: {
+      description: "Where the menu opens relative to its trigger.",
+      type: "PositionArea",
+      typeDescription:
+        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
+      default: "PositionArea.BottomSpanRight",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-item>`
+
+The `<dui-dropdown-menu-item>` tag helper renders a `<div role="menuitem">`, or
+an [`<a
+role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+when an `href` or any routing attribute is supplied.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "true",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool",
+      default: "false",
+    },
+    href: {
+      description:
+        "A raw URL. When set, the item renders as a navigation link.",
+      type: "string",
+    },
+    inset: {
+      description:
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "DropdownMenuItemVariant",
+      typeDescription:
+        "DropdownMenuItemVariant.Default | DropdownMenuItemVariant.Destructive",
+      default: "DropdownMenuItemVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The item also accepts the same routing attributes as the ASP.NET Core [Anchor
+Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
+for generating the `href`. Supply either an `href` or these attributes — not
+both.
+
+<TypeTable
+  type={{
+    "asp-action": {
+      description:
+        "The name of the action method. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-controller": {
+      description:
+        "The name of the controller. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-area": {
+      description: "The name of the area. Must be null if asp-route is set.",
+      type: "string",
+    },
+    "asp-page": {
+      description:
+        "The name of the Razor page. Must be null if asp-route, asp-action, or asp-controller is set.",
+      type: "string",
+    },
+    "asp-page-handler": {
+      description: "The name of the Razor page handler.",
+      type: "string",
+    },
+    "asp-route": {
+      description:
+        "The name of the route. Must be null if asp-action, asp-controller, asp-area, or asp-page is set.",
+      type: "string",
+    },
+    "asp-route-*": {
+      description:
+        "Additional route parameters, e.g. asp-route-id. Bound into the route values dictionary.",
+      type: "string",
+    },
+    "asp-protocol": {
+      description: 'The URL protocol, such as "http" or "https".',
+      type: "string",
+    },
+    "asp-host": {
+      description: "The host name for the URL.",
+      type: "string",
+    },
+    "asp-fragment": {
+      description: "The URL fragment (the part after #).",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-checkbox-item>`
+
+The `<dui-dropdown-menu-checkbox-item>` tag helper renders a `<div
+role="menuitemcheckbox">` with a leading check indicator. Toggling it raises a
+bubbling `checkedchange` event.
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the item is initially checked.",
+      type: "bool",
+      default: "false",
+    },
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "false",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool",
+      default: "false",
+    },
+    inset: {
+      description:
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-radio-group>`
+
+The `<dui-dropdown-menu-radio-group>` tag helper renders a `<div role="group">`
+that enforces single selection among its radio items and raises a bubbling
+`valuechange` event when the selection changes.
+
+<TypeTable
+  type={{
+    value: {
+      description: "The value of the currently selected radio item.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-radio-item>`
+
+The `<dui-dropdown-menu-radio-item>` tag helper renders a `<div
+role="menuitemradio">` with a leading check indicator, checked when its `value`
+matches the group's `value`.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "false",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool",
+      default: "false",
+    },
+    value: {
+      description: "The value this item contributes to the radio group.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-label>`
+
+The `<dui-dropdown-menu-label>` tag helper renders a `<div>` used as a heading
+for a group of items.
+
+<TypeTable
+  type={{
+    inset: {
+      description:
+        "Indents the label by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-separator>`
+
+The `<dui-dropdown-menu-separator>` tag helper renders a `<div
+role="separator">` between groups of items. It has no attributes of its own.
+
+### `<dui-dropdown-menu-shortcut>`
+
+The `<dui-dropdown-menu-shortcut>` tag helper renders a `<span>` for a trailing
+keyboard hint. It has no attributes of its own.
+
+### `<dui-dropdown-menu-group>`
+
+The `<dui-dropdown-menu-group>` tag helper renders a `<div role="group">` for
+grouping related items. It has no attributes of its own.
+
+### `<dui-dropdown-menu-sub>`
+
+The `<dui-dropdown-menu-sub>` tag helper groups a sub-trigger and its submenu.
+Like `<dui-dropdown-menu>`, it renders no element of its own and only generates
+the shared id connecting the two.
+
+### `<dui-dropdown-menu-sub-trigger>`
+
+The `<dui-dropdown-menu-sub-trigger>` tag helper renders a `<div
+role="menuitem">` with a trailing chevron that opens its submenu on hover or
+with the `→` key.
+
+<TypeTable
+  type={{
+    inset: {
+      description:
+        "Indents the sub-trigger by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<dui-dropdown-menu-sub-content>`
+
+The `<dui-dropdown-menu-sub-content>` tag helper renders a submenu as a
+`<del-dropdown-menu>` popover anchored to its sub-trigger, accepting the same
+`position` values as `<dui-dropdown-menu-content>`.
+
+<TypeTable
+  type={{
+    position: {
+      description: "Where the submenu opens relative to its sub-trigger.",
+      type: "PositionArea",
+      typeDescription:
+        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
+      default: "PositionArea.RightSpanBottom",
+    },
+  }}
+/>

@@ -130,3 +130,117 @@ When using model binding, DuneUI will automatically wrap the group inside a [Fie
     </Tab>
   </Tabs>
 </Demo>
+
+## API Reference
+
+### `<dui-toggle-group>`
+
+The `<dui-toggle-group>` tag helper renders a `<div role="group">` element
+containing the items. In addition to the attributes below, it forwards any
+standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `aria-label`) to the rendered element. When `asp-for` is
+set, the group model-binds and is wrapped in an implicit [Field](field).
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description:
+        "The form name the item inputs post under when asp-for is not set.",
+      type: "string",
+    },
+    orientation: {
+      description: "The layout direction of the group.",
+      type: "ToggleGroupOrientation",
+      typeDescription:
+        "ToggleGroupOrientation.Horizontal | ToggleGroupOrientation.Vertical",
+      default: "ToggleGroupOrientation.Horizontal",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the group in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    size: {
+      description: "The size of the items. Inherited by every item in the group.",
+      type: "ToggleSize",
+      typeDescription: "ToggleSize.Default | ToggleSize.Small | ToggleSize.Large",
+      default: "ToggleSize.Default",
+    },
+    spacing: {
+      description:
+        "The gap between items, multiplied by 0.25rem. Set to 0 to join the items into a single segmented control.",
+      type: "int",
+      default: "2",
+    },
+    type: {
+      description:
+        "Whether a single item (radio-backed, scalar binding) or multiple items (checkbox-backed, collection binding) can be selected.",
+      type: "ToggleGroupType",
+      typeDescription: "ToggleGroupType.Single | ToggleGroupType.Multiple",
+      default: "ToggleGroupType.Single",
+    },
+    variant: {
+      description:
+        "The visual style of the items. Inherited by every item in the group.",
+      type: "ToggleVariant",
+      typeDescription: "ToggleVariant.Default | ToggleVariant.Outline",
+      default: "ToggleVariant.Default",
+    },
+  }}
+/>
+
+### `<dui-toggle-group-item>`
+
+The `<dui-toggle-group-item>` tag helper renders a `<label>` element wrapping
+a visually hidden native `<input type="radio">` or `<input type="checkbox">`,
+depending on the group's `type`. In addition to the attributes below, it
+forwards any standard [`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `aria-label`) to the rendered input.
+
+<TypeTable
+  type={{
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool",
+    },
+    selected: {
+      description:
+        "Forces the selected state. When unset, selection is derived from the value(s) bound through the parent group's asp-for.",
+      type: "bool",
+    },
+    size: {
+      description:
+        "Overrides the parent group's size for this item.",
+      type: "ToggleSize",
+      typeDescription: "ToggleSize.Default | ToggleSize.Small | ToggleSize.Large",
+    },
+    value: {
+      description: "The value this item posts when selected.",
+      type: "string",
+    },
+    variant: {
+      description:
+        "Overrides the parent group's variant for this item.",
+      type: "ToggleVariant",
+      typeDescription: "ToggleVariant.Default | ToggleVariant.Outline",
+    },
+  }}
+/>

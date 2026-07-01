@@ -36,3 +36,41 @@ Control how items are positioned along a stack's horizontal axis.
 <Demo src="/demo/tag-helpers/stack-align.html">
   <include>./_include/stack-align.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-stack>`
+
+The `<dui-stack>` tag helper renders a `<div>` element laid out as a vertical
+flex container. In addition to the attributes below, it forwards any standard
+[global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        "How items are positioned along the stack's horizontal axis.",
+      type: "StackAlign",
+      typeDescription:
+        "StackAlign.Stretch | StackAlign.Center | StackAlign.Start | StackAlign.End",
+      default: "StackAlign.Stretch",
+    },
+    gap: {
+      description: "The vertical gap between items.",
+      type: "StackGap",
+      typeDescription:
+        "StackGap.ExtraSmall | StackGap.Small | StackGap.Default | StackGap.Large | StackGap.ExtraLarge",
+      default: "StackGap.Default",
+    },
+    justify: {
+      description:
+        "How items are positioned along the stack's vertical axis.",
+      type: "StackJustify",
+      typeDescription:
+        "StackJustify.Center | StackJustify.Start | StackJustify.End | StackJustify.SpaceBetween | StackJustify.SpaceAround",
+      default: "StackJustify.Start",
+    },
+  }}
+/>

@@ -307,3 +307,124 @@ Stack `dui-field` components with `dui-field-group`. Add `dui-field-separator` t
 
   </Tabs>
 </Demo>
+
+## API Reference
+
+### `<dui-field>`
+
+The `<dui-field>` tag helper renders a `<div>` element that wraps a single form
+field. In addition to the attribute below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The layout direction of the field.",
+      type: "FieldOrientation",
+      typeDescription:
+        "FieldOrientation.Vertical | FieldOrientation.Horizontal | FieldOrientation.Responsive",
+      default: "FieldOrientation.Vertical",
+    },
+  }}
+/>
+
+### `<dui-field-label>`
+
+The `<dui-field-label>` tag helper renders a `<label>` element. In addition to
+the attribute below, it forwards any standard [`<label>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/label#attributes)
+(such as `for`) to the rendered element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. When the tag has no content, the label text is inferred from the bound property's [Display] metadata.",
+      type: "ModelExpression",
+    },
+  }}
+/>
+
+### `<dui-field-description>`
+
+The `<dui-field-description>` tag helper renders a `<p>` element with help text
+for a field, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. When the tag has no content, the description is inferred from the bound property's [Display] metadata; nothing is rendered if there is none.",
+      type: "ModelExpression",
+    },
+  }}
+/>
+
+### `<dui-field-error>`
+
+The `<dui-field-error>` tag helper renders a `<div>` element with
+`role="alert"` that displays a validation message, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+It is hidden unless a validation error is present.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. When the tag has no content, the validation message for the bound property is rendered.",
+      type: "ModelExpression",
+    },
+  }}
+/>
+
+### `<dui-field-title>`
+
+The `<dui-field-title>` tag helper renders a `<div>` element for a
+non-`<label>` field title, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-field-content>`
+
+The `<dui-field-content>` tag helper renders a `<div>` element that groups the
+label and description of a horizontal field, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-field-group>`
+
+The `<dui-field-group>` tag helper renders a `<div>` element that stacks
+related fields, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-field-separator>`
+
+The `<dui-field-separator>` tag helper renders a `<div>` element containing a
+horizontal separator, with any child content rendered as text on top of the
+line. It forwards any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-field-set>`
+
+The `<dui-field-set>` tag helper renders a `<fieldset>` element. It forwards
+any standard [`<fieldset>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset#attributes)
+(such as `disabled`, `form`, or `name`) to the rendered element.
+
+### `<dui-field-legend>`
+
+The `<dui-field-legend>` tag helper renders a `<legend>` element for a
+`<dui-field-set>`. In addition to the attribute below, it forwards any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the legend.",
+      type: "FieldLegendVariant",
+      typeDescription: "FieldLegendVariant.Legend | FieldLegendVariant.Label",
+      default: "FieldLegendVariant.Legend",
+    },
+  }}
+/>

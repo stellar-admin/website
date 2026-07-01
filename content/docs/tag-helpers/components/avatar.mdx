@@ -77,3 +77,63 @@ Add a group of avatars using `dui-avatar-group`.
 <Demo src="/demo/tag-helpers/avatar-in-empty.html">
   <include>./_include/avatar-in-empty.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-avatar>`
+
+The `<dui-avatar>` tag helper renders a `<span>` element containing either an
+`<img>` (when `src` is set) or a fallback `<span>` with the initials. In
+addition to the attributes below, it forwards any standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `title`) to the rendered element.
+
+<TypeTable
+  type={{
+    initials: {
+      description:
+        "The initials to display when no image source is set. Takes precedence over initials derived from name.",
+      type: "string",
+    },
+    name: {
+      description:
+        "The name of the user. Used as the image's alt text and to automatically derive the initials.",
+      type: "string",
+    },
+    size: {
+      description: "The size of the avatar.",
+      type: "AvatarSize",
+      typeDescription: "AvatarSize.Default | AvatarSize.Small | AvatarSize.Large",
+      default: "AvatarSize.Default",
+    },
+    src: {
+      description: "The source URL of the avatar image.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-avatar-badge>`
+
+The `<dui-avatar-badge>` tag helper renders a `<span>` element positioned in
+the bottom-right corner of the parent avatar, sized to match the avatar's
+`size`. It has no attributes of its own, but forwards any standard [global
+HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-avatar-group>`
+
+The `<dui-avatar-group>` tag helper renders a `<div>` element that overlaps
+its child avatars. It has no attributes of its own, but forwards any standard
+[global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-avatar-group-count>`
+
+The `<dui-avatar-group-count>` tag helper renders a `<div>` element displaying
+its child content (such as `+3`) at the end of an avatar group. It has no
+attributes of its own, but forwards any standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

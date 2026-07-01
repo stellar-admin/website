@@ -162,3 +162,121 @@ Add the `disabled` attribute to prevent the user from interacting with the input
 <Demo src="/demo/tag-helpers/input-otp-disabled.html">
   <include>./_include/input-otp-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-input-otp>`
+
+The `<dui-input-otp>` tag helper renders a `<del-input-otp>` web component
+containing the slot cells and a single transparent `<input>` element that
+holds the whole code and posts it as one form value. In addition to the
+attributes below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered container. When `asp-for` is set, it delegates to the built-in
+[ASP.NET Core Input Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
+to resolve the input's name, value, and validation attributes.
+
+<TypeTable
+  type={{
+    "aria-invalid": {
+      description:
+        "Forces the invalid (error) styling. Set to true for manual validation when not model binding; otherwise the invalid state is derived from the bound field's ModelState.",
+      type: "bool",
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    disabled: {
+      description: "Whether the input is disabled.",
+      type: "bool",
+      default: "false",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the input is associated with.",
+      type: "string",
+    },
+    groups: {
+      description:
+        'Splits the slots into groups separated by a separator, e.g. "3,3". The sizes must sum to max-length when both are set.',
+      type: "string",
+    },
+    inputmode: {
+      description: "The virtual keyboard hint applied to the input.",
+      type: "string",
+      default: "numeric",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    "max-length": {
+      description: "The number of slots.",
+      type: "int",
+      default: "6",
+    },
+    name: {
+      description: "The name of the rendered <input> element.",
+      type: "string",
+    },
+    pattern: {
+      description:
+        "A regular expression the input is constrained to — characters that would make the value fail to match are rejected.",
+      type: "string",
+      default: "^\\d*$",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the input in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    value: {
+      description: "The initial code when not bound via asp-for.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-input-otp-group>`
+
+The `<dui-input-otp-group>` tag helper renders a `<div>` element that groups a
+run of slots. It has no attributes of its own and forwards any standard
+[global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-input-otp-slot>`
+
+The `<dui-input-otp-slot>` tag helper renders a `<div>` element that displays
+one character of the code and the active caret. In addition to the attribute
+below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    index: {
+      description:
+        "The zero-based position of this slot. When omitted, the slot takes the next position in document order.",
+      type: "int",
+    },
+  }}
+/>
+
+### `<dui-input-otp-separator>`
+
+The `<dui-input-otp-separator>` tag helper renders a `<div>` element with
+`role="separator"`, containing a minus icon by default — supply child content
+to override it. It has no attributes of its own and forwards any standard
+[global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

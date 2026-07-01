@@ -67,3 +67,54 @@ import { Demo } from "@/components/demo";
 <Demo src="/demo/tag-helpers/card-meeting-notes.html">
   <include>./_include/card-meeting-notes.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-card>`
+
+The `<dui-card>` tag helper renders a `<div>` element. In addition to the
+attributes below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `class`) to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the card.",
+      type: "CardSize",
+      typeDescription: "CardSize.Default | CardSize.Small",
+      default: "CardSize.Default",
+    },
+  }}
+/>
+
+### `<dui-card-header>`
+
+The `<dui-card-header>` tag helper renders a `<div>` element grouping the
+title, description, and optional action. It has no attributes of its own.
+
+### `<dui-card-title>`
+
+The `<dui-card-title>` tag helper renders a `<div>` element containing the
+title. It has no attributes of its own.
+
+### `<dui-card-description>`
+
+The `<dui-card-description>` tag helper renders a `<div>` element containing
+the description. It has no attributes of its own.
+
+### `<dui-card-action>`
+
+The `<dui-card-action>` tag helper renders a `<div>` element positioned in the
+top-right corner of the header, for actions such as buttons. It has no
+attributes of its own.
+
+### `<dui-card-content>`
+
+The `<dui-card-content>` tag helper renders a `<div>` element containing the
+main content. It has no attributes of its own.
+
+### `<dui-card-footer>`
+
+The `<dui-card-footer>` tag helper renders a `<div>` element containing the
+footer content. It has no attributes of its own.

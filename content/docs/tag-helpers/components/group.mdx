@@ -36,3 +36,41 @@ Control how items are positioned along a group's vertical axis.
 <Demo src="/demo/tag-helpers/group-align.html">
   <include>./_include/group-align.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-group>`
+
+The `<dui-group>` tag helper renders a `<div>` element laid out as a
+horizontal flex container. In addition to the attributes below, it forwards
+any standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        "How items are positioned along the group's vertical axis.",
+      type: "GroupAlign",
+      typeDescription:
+        "GroupAlign.Stretch | GroupAlign.Center | GroupAlign.Start | GroupAlign.End | GroupAlign.Baseline",
+      default: "GroupAlign.Start",
+    },
+    gap: {
+      description: "The horizontal gap between items.",
+      type: "GroupGap",
+      typeDescription:
+        "GroupGap.ExtraSmall | GroupGap.Small | GroupGap.Default | GroupGap.Large | GroupGap.ExtraLarge",
+      default: "GroupGap.Default",
+    },
+    justify: {
+      description:
+        "How items are positioned along the group's horizontal axis.",
+      type: "GroupJustify",
+      typeDescription:
+        "GroupJustify.Center | GroupJustify.Start | GroupJustify.End | GroupJustify.SpaceBetween | GroupJustify.SpaceAround",
+      default: "GroupJustify.Start",
+    },
+  }}
+/>

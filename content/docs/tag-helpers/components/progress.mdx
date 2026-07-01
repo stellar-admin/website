@@ -39,3 +39,50 @@ Specify custom `minimum` and `maximum` values. The default values are `0` and `1
 <Demo src="/demo/tag-helpers/progress-file-upload-list.html">
   <include>./_include/progress-file-upload-list.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-progress>`
+
+The `<dui-progress>` tag helper renders a `<div>` element containing the
+progress track and indicator. In addition to the attributes below, it forwards
+any [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    maximum: {
+      description: "The maximum value. Must be greater than minimum.",
+      type: "int",
+      default: "100",
+    },
+    minimum: {
+      description: "The minimum value. Must be less than maximum.",
+      type: "int",
+      default: "0",
+    },
+    value: {
+      description:
+        "The current value. Must be between minimum and maximum.",
+      type: "int",
+      default: "0",
+    },
+  }}
+/>
+
+### `<dui-progress-label>`
+
+The `<dui-progress-label>` tag helper renders a `<span>` element containing
+the label text. It has no attributes of its own, but forwards any [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-progress-value>`
+
+The `<dui-progress-value>` tag helper renders a `<span>` element. When it has
+no content, it displays the percentage completed, calculated from the parent
+`<dui-progress>` values. It has no attributes of its own, but forwards any
+[global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

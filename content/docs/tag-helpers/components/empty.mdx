@@ -55,3 +55,49 @@ import { Demo } from "@/components/demo";
 <Demo src="/demo/tag-helpers/empty-with-muted-background-alt.html">
   <include>./_include/empty-with-muted-background-alt.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-empty>`
+
+The `<dui-empty>` tag helper renders a `<div>` element that centers the empty
+state content. It has no attributes of its own, but forwards any standard
+[global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `class`) to the rendered element.
+
+### `<dui-empty-header>`
+
+The `<dui-empty-header>` tag helper renders a `<div>` element grouping the
+media, title, and description. It has no attributes of its own.
+
+### `<dui-empty-media>`
+
+The `<dui-empty-media>` tag helper renders a `<div>` element for displaying an
+icon, image, or avatar.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the media container.",
+      type: "EmptyMediaVariant",
+      typeDescription: "EmptyMediaVariant.Default | EmptyMediaVariant.Icon",
+      default: "EmptyMediaVariant.Default",
+    },
+  }}
+/>
+
+### `<dui-empty-title>`
+
+The `<dui-empty-title>` tag helper renders a `<div>` element containing the
+title. It has no attributes of its own.
+
+### `<dui-empty-description>`
+
+The `<dui-empty-description>` tag helper renders a `<div>` element containing
+the description. It has no attributes of its own.
+
+### `<dui-empty-content>`
+
+The `<dui-empty-content>` tag helper renders a `<div>` element for actions
+such as buttons or links. It has no attributes of its own.

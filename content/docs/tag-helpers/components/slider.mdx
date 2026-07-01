@@ -112,3 +112,97 @@ Add the `disabled` attribute to prevent the user from interacting with the slide
 <Demo src="/demo/tag-helpers/slider-disabled.html">
   <include>./_include/slider-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-slider>`
+
+The `<dui-slider>` tag helper renders a `<del-slider>` web component
+containing the track, a thumb per value, and a hidden `<input>` per thumb that
+posts the value. In addition to the attributes below, it forwards any [global
+HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. Bind to an int for a single thumb, or a collection of int for multiple thumbs.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    disabled: {
+      description: "Disables the slider.",
+      type: "bool",
+      default: "false",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description:
+        "The id of the <form> the hidden inputs are associated with.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    max: {
+      description: "The maximum value of the slider.",
+      type: "int",
+      default: "100",
+    },
+    min: {
+      description: "The minimum value of the slider. Must be less than max.",
+      type: "int",
+      default: "0",
+    },
+    "min-distance": {
+      description:
+        "The minimum distance (in value units) enforced between adjacent thumbs on a range slider.",
+      type: "int",
+      default: "0",
+    },
+    name: {
+      description:
+        "The name of the hidden <input> elements that post the value.",
+      type: "string",
+    },
+    orientation: {
+      description: "The orientation of the slider.",
+      type: "SliderOrientation",
+      typeDescription:
+        "SliderOrientation.Horizontal | SliderOrientation.Vertical",
+      default: "SliderOrientation.Horizontal",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the slider in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    step: {
+      description: "The increment the slider snaps to.",
+      type: "int",
+      default: "1",
+    },
+    "thumb-alignment": {
+      description:
+        "How the thumb is positioned relative to its value: Edge keeps the thumb fully within the track at the extremes, Center centers it on the value so it overhangs the ends.",
+      type: "SliderThumbAlignment",
+      typeDescription:
+        "SliderThumbAlignment.Center | SliderThumbAlignment.Edge",
+      default: "SliderThumbAlignment.Edge",
+    },
+    value: {
+      description:
+        "The value(s) of the slider when not bound via asp-for. A single number renders one thumb; a comma-separated list (e.g. 20,80) renders a thumb per value.",
+      type: "string",
+    },
+  }}
+/>

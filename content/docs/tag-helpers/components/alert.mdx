@@ -72,3 +72,58 @@ You can add additional content such as buttons to the alert.
 <Demo src="/demo/tag-helpers/alert-actions.html">
   <include>./_include/alert-actions.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-alert>`
+
+The `<dui-alert>` tag helper renders a `<div>` element with `role="alert"`. In
+addition to the attributes below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element. The `icon`, `title`, and
+`description` shorthand attributes cannot be combined with child content.
+
+<TypeTable
+  type={{
+    description: {
+      description: "The description of the alert (shorthand mode).",
+      type: "string",
+    },
+    icon: {
+      description: "The name of an icon to render in the alert.",
+      type: "string",
+    },
+    title: {
+      description: "The title of the alert (shorthand mode).",
+      type: "string",
+    },
+    variant: {
+      description: "The visual style of the alert.",
+      type: "AlertVariant",
+      typeDescription: "AlertVariant.Default | AlertVariant.Destructive",
+      default: "AlertVariant.Default",
+    },
+  }}
+/>
+
+### `<dui-alert-title>`
+
+The `<dui-alert-title>` tag helper renders a `<div>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-alert-description>`
+
+The `<dui-alert-description>` tag helper renders a `<div>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-alert-action>`
+
+The `<dui-alert-action>` tag helper renders a `<div>` element that hosts
+actions the user can take. It has no attributes of its own and forwards any
+standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

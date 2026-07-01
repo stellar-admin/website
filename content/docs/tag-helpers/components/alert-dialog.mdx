@@ -84,3 +84,95 @@ For the common "await a confirmation before acting" flow, use the `window.duneui
 <Demo src="/demo/tag-helpers/alert-dialog-js-api.html">
   <include>./_include/alert-dialog-js-api.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-alert-dialog>`
+
+The `<dui-alert-dialog>` tag helper renders a native [`<dialog>`
+element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
+which is opened and closed via the Invoker Commands API
+(`command="show-modal"` / `command="close"` on a button whose `commandfor`
+targets the dialog's `id`). In addition to the attribute below, it forwards any
+standard [`<dialog>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#attributes)
+to the rendered element; `closedby` defaults to `closerequest` so the dialog is
+not light-dismissable.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the alert dialog.",
+      type: "AlertDialogSize",
+      typeDescription: "AlertDialogSize.Default | AlertDialogSize.Small",
+      default: "AlertDialogSize.Default",
+    },
+  }}
+/>
+
+### `<dui-alert-dialog-header>`
+
+The `<dui-alert-dialog-header>` tag helper renders a `<div>` element that groups
+the media, title, and description. It has no attributes of its own.
+
+### `<dui-alert-dialog-media>`
+
+The `<dui-alert-dialog-media>` tag helper renders a `<div>` element for showing
+an icon or image above the title. It has no attributes of its own.
+
+### `<dui-alert-dialog-title>`
+
+The `<dui-alert-dialog-title>` tag helper renders an `<h2>` element containing
+the dialog's title. It has no attributes of its own.
+
+### `<dui-alert-dialog-description>`
+
+The `<dui-alert-dialog-description>` tag helper renders a `<p>` element
+containing the dialog's description. It has no attributes of its own.
+
+### `<dui-alert-dialog-footer>`
+
+The `<dui-alert-dialog-footer>` tag helper renders a `<div>` element that lays
+out the cancel and action buttons. It has no attributes of its own.
+
+### `<dui-alert-dialog-cancel>`
+
+The `<dui-alert-dialog-cancel>` tag helper renders a `<button type="submit">`
+with `value="cancel"` (unless you supply your own `value`), so a wrapping
+`<form method="dialog">` closes the dialog with that `returnValue`. It forwards
+any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Outline",
+    },
+  }}
+/>
+
+### `<dui-alert-dialog-action>`
+
+The `<dui-alert-dialog-action>` tag helper renders a `<button type="submit">`
+with `value="confirm"` (unless you supply your own `value`), so a wrapping
+`<form method="dialog">` closes the dialog with that `returnValue`. It forwards
+any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Default",
+    },
+  }}
+/>

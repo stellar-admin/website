@@ -49,3 +49,73 @@ When calling `confirm(data?)`, the `confirmed` property will be set to `true`. Y
 <Demo src="/demo/tag-helpers/js-dialog-manual-result.html">
   <include>./_include/js-dialog-manual-result.mdx</include>
 </Demo>
+
+## API Reference
+
+### `dialog(element)`
+
+The `dialog()` factory function, exposed as `window.duneui.dialog`, wraps an
+existing `<dialog>` element and returns a wrapper object with the methods
+below. It throws if the element cannot be found or is not a
+`HTMLDialogElement`.
+
+<TypeTable
+  type={{
+    selector: {
+      description:
+        "The dialog to wrap - either a CSS selector string or the HTMLDialogElement itself.",
+      type: "string | HTMLDialogElement",
+    },
+    options: {
+      description:
+        "Optional settings. clearReturnValueOnOpen (default true) resets the dialog's returnValue each time showAsync() opens it.",
+      type: "{ clearReturnValueOnOpen?: boolean }",
+    },
+  }}
+/>
+
+#### Wrapper methods
+
+<TypeTable
+  type={{
+    showAsync: {
+      description:
+        "Opens the dialog as a modal and returns a promise that resolves with a result object (see below) when the dialog closes.",
+      type: "() => Promise<Result>",
+    },
+    confirm: {
+      description:
+        "Closes the open dialog and resolves the pending promise with confirmed set to true. When data is omitted, the form data inside the dialog is serialized instead. Throws if no dialog is open.",
+      type: "(data?: object) => void",
+    },
+    cancel: {
+      description:
+        "Closes the open dialog and resolves the pending promise with confirmed set to false. Throws if no dialog is open.",
+      type: "() => void",
+    },
+  }}
+/>
+
+#### Result object
+
+The promise returned by `showAsync()` resolves with an object containing the
+following properties:
+
+<TypeTable
+  type={{
+    confirmed: {
+      description:
+        "false when the dialog was light-dismissed, dismissed with Esc, or closed with a returnValue of 'cancel'; true otherwise.",
+      type: "boolean",
+    },
+    returnValue: {
+      description: "The dialog element's returnValue at the time it closed.",
+      type: "string",
+    },
+    data: {
+      description:
+        "The values of the form inside the dialog, serialized via FormData, when the dialog was confirmed; null when it was cancelled or contains no form.",
+      type: "object | null",
+    },
+  }}
+/>

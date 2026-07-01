@@ -110,3 +110,283 @@ Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `dui-di
 <Demo src="/demo/tag-helpers/sidebar-sidebar-in-dialog.html" mode="fullscreen">
   <include>./_include/sidebar-sidebar-in-dialog.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-sidebar-wrapper>`
+
+The `<dui-sidebar-wrapper>` tag helper renders a `<del-sidebar>` web component
+that wraps the sidebar and page content and owns the open/collapsed state.
+Nested `<dui-sidebar-trigger>` elements toggle it through the Invoker Commands
+API; it honours a user-supplied `id` and generates one otherwise. It forwards
+any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-sidebar>`
+
+The `<dui-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
+(including the mobile drawer and its backdrop). It forwards any standard
+[global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the sidebar.",
+      type: "SidebarVariant",
+      typeDescription:
+        "SidebarVariant.Sidebar | SidebarVariant.Floating | SidebarVariant.Inset",
+      default: "SidebarVariant.Sidebar",
+    },
+    side: {
+      description: "The edge of the screen the sidebar is anchored to.",
+      type: "SidebarSide",
+      typeDescription: "SidebarSide.Left | SidebarSide.Right",
+      default: "SidebarSide.Left",
+    },
+    collapsible: {
+      description: "How the sidebar collapses.",
+      type: "SidebarCollapsible",
+      typeDescription:
+        "SidebarCollapsible.Offcanvas | SidebarCollapsible.Icon | SidebarCollapsible.None",
+      default: "SidebarCollapsible.Offcanvas",
+    },
+  }}
+/>
+
+### `<dui-sidebar-trigger>`
+
+The `<dui-sidebar-trigger>` tag helper renders a `<button>` that toggles the
+sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting
+the wrapper). It shows a default panel icon unless you supply child content,
+and forwards any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+### `<dui-sidebar-header>`
+
+The `<dui-sidebar-header>` tag helper renders a `<div>` for content pinned to
+the top of the sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-content>`
+
+The `<dui-sidebar-content>` tag helper renders a `<div>` holding the scrollable
+body of the sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-footer>`
+
+The `<dui-sidebar-footer>` tag helper renders a `<div>` for content pinned to
+the bottom of the sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-inset>`
+
+The `<dui-sidebar-inset>` tag helper renders a `<main>` element holding the
+page content next to the sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-separator>`
+
+The `<dui-sidebar-separator>` tag helper renders a horizontal `<div
+role="separator">` inside the sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-group>`
+
+The `<dui-sidebar-group>` tag helper renders a `<div>` for a section of the
+sidebar. It has no attributes of its own.
+
+### `<dui-sidebar-group-label>`
+
+The `<dui-sidebar-group-label>` tag helper renders a `<div>` heading for a
+group. It has no attributes of its own.
+
+### `<dui-sidebar-group-content>`
+
+The `<dui-sidebar-group-content>` tag helper renders a `<div>` holding a
+group's content. It has no attributes of its own.
+
+### `<dui-sidebar-menu>`
+
+The `<dui-sidebar-menu>` tag helper renders a `<ul>` containing menu items. It
+has no attributes of its own.
+
+### `<dui-sidebar-menu-item>`
+
+The `<dui-sidebar-menu-item>` tag helper renders an `<li>` for a single menu
+entry. It has no attributes of its own.
+
+### `<dui-sidebar-menu-button>`
+
+The `<dui-sidebar-menu-button>` tag helper renders a `<button>` styled as a
+menu entry — typically paired with `<dui-collapsible>` for expandable items. In
+addition to the attributes below, it forwards any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "SidebarMenuButtonSize",
+      typeDescription:
+        "SidebarMenuButtonSize.Default | SidebarMenuButtonSize.Small | SidebarMenuButtonSize.Large",
+      default: "SidebarMenuButtonSize.Default",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "SidebarMenuButtonVariant",
+      typeDescription:
+        "SidebarMenuButtonVariant.Default | SidebarMenuButtonVariant.Outline",
+      default: "SidebarMenuButtonVariant.Default",
+    },
+    "is-active": {
+      description: "Whether the button is rendered in the active state.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<dui-sidebar-menu-link>`
+
+The `<dui-sidebar-menu-link>` tag helper renders an
+[`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+element styled as a menu entry. It is marked active automatically when its
+routing attributes match the current route.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link.",
+      type: "SidebarMenuLinkSize",
+      typeDescription:
+        "SidebarMenuLinkSize.Default | SidebarMenuLinkSize.Small | SidebarMenuLinkSize.Large",
+      default: "SidebarMenuLinkSize.Default",
+    },
+    variant: {
+      description: "The visual style of the link.",
+      type: "SidebarMenuLinkVariant",
+      typeDescription:
+        "SidebarMenuLinkVariant.Default | SidebarMenuLinkVariant.Outline",
+      default: "SidebarMenuLinkVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The menu link also accepts the same routing attributes as the ASP.NET Core
+[Anchor Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
+for generating the `href`. Supply either an `href` or these attributes — not
+both.
+
+<TypeTable
+  type={{
+    "asp-action": {
+      description:
+        "The name of the action method. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-controller": {
+      description:
+        "The name of the controller. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-area": {
+      description: "The name of the area. Must be null if asp-route is set.",
+      type: "string",
+    },
+    "asp-page": {
+      description:
+        "The name of the Razor page. Must be null if asp-route, asp-action, or asp-controller is set.",
+      type: "string",
+    },
+    "asp-page-handler": {
+      description: "The name of the Razor page handler.",
+      type: "string",
+    },
+    "asp-route": {
+      description:
+        "The name of the route. Must be null if asp-action, asp-controller, asp-area, or asp-page is set.",
+      type: "string",
+    },
+    "asp-route-*": {
+      description:
+        "Additional route parameters, e.g. asp-route-id. Bound into the route values dictionary.",
+      type: "string",
+    },
+    "asp-protocol": {
+      description: 'The URL protocol, such as "http" or "https".',
+      type: "string",
+    },
+    "asp-host": {
+      description: "The host name for the URL.",
+      type: "string",
+    },
+    "asp-fragment": {
+      description: "The URL fragment (the part after #).",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-sidebar-menu-badge>`
+
+The `<dui-sidebar-menu-badge>` tag helper renders a `<div>` badge (such as a
+count) alongside a menu entry. It has no attributes of its own.
+
+### `<dui-sidebar-menu-sub>`
+
+The `<dui-sidebar-menu-sub>` tag helper renders a `<ul>` containing nested
+sub-items. It has no attributes of its own.
+
+### `<dui-sidebar-menu-sub-item>`
+
+The `<dui-sidebar-menu-sub-item>` tag helper renders an `<li>` for a single
+sub-entry. It has no attributes of its own.
+
+### `<dui-sidebar-menu-sub-button>`
+
+The `<dui-sidebar-menu-sub-button>` tag helper renders a `<button>` styled as a
+sub-entry. In addition to the attributes below, it forwards any standard
+[`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "SidebarMenuSubLinkSize",
+      typeDescription:
+        "SidebarMenuSubLinkSize.Small | SidebarMenuSubLinkSize.Medium",
+      default: "SidebarMenuSubLinkSize.Medium",
+    },
+    "is-active": {
+      description: "Whether the button is rendered in the active state.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<dui-sidebar-menu-sub-link>`
+
+The `<dui-sidebar-menu-sub-link>` tag helper renders an
+[`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+element styled as a sub-entry, marked active automatically when its route
+matches. It accepts the same routing attributes as `<dui-sidebar-menu-link>`
+above.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the link.",
+      type: "SidebarMenuSubLinkSize",
+      typeDescription:
+        "SidebarMenuSubLinkSize.Small | SidebarMenuSubLinkSize.Medium",
+      default: "SidebarMenuSubLinkSize.Medium",
+    },
+  }}
+/>

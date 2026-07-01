@@ -56,3 +56,37 @@ Disable accordion items using the `disabled` attribute.
 <Demo src="/demo/tag-helpers/accordion-disabled.html">
   <include>./_include/accordion-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-accordion>`
+
+The `<dui-accordion>` tag helper renders a `<div>` element that wraps the
+accordion items. It has no attributes of its own, but forwards any [global
+HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `class` or `id`) to the rendered element.
+
+### `<dui-accordion-item>`
+
+The `<dui-accordion-item>` tag helper renders a `<details>` element. It has no
+attributes of its own, but forwards any standard [`<details>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#attributes)
+(such as `name` or `open`) to the rendered element; adding a `disabled`
+attribute renders the item as disabled.
+
+### `<dui-accordion-item-title>`
+
+The `<dui-accordion-item-title>` tag helper renders a `<summary>` element and
+appends a chevron indicator icon after the title content. It has no attributes
+of its own, but forwards any [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-accordion-item-content>`
+
+The `<dui-accordion-item-content>` tag helper renders a `<div>` element
+containing an inner content wrapper. It has no attributes of its own, but
+forwards any [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

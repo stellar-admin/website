@@ -108,3 +108,181 @@ Items can be separated with `dui-item-separator`.
 <Demo src="/demo/tag-helpers/item-image.html">
   <include>./_include/item-image.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-item>`
+
+The `<dui-item>` tag helper renders a `<div>` element. In addition to the
+attributes below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the item.",
+      type: "ItemSize",
+      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      default: "ItemSize.Default",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "ItemVariant",
+      typeDescription:
+        "ItemVariant.Default | ItemVariant.Outline | ItemVariant.Muted",
+      default: "ItemVariant.Default",
+    },
+  }}
+/>
+
+### `<dui-link-item>`
+
+The `<dui-link-item>` tag helper renders an `<a>` element styled as an item,
+making the entire item clickable. In addition to the attributes below, it
+forwards any standard [`<a>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
+(such as `href`, `target`, or `rel`) to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the item.",
+      type: "ItemSize",
+      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      default: "ItemSize.Default",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "ItemVariant",
+      typeDescription:
+        "ItemVariant.Default | ItemVariant.Outline | ItemVariant.Muted",
+      default: "ItemVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The link item also accepts the same routing attributes as the ASP.NET Core
+[Anchor Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
+for generating the `href`. Supply either an `href` or these attributes — not
+both.
+
+<TypeTable
+  type={{
+    "asp-action": {
+      description:
+        "The name of the action method. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-controller": {
+      description:
+        "The name of the controller. Must be null if asp-route or asp-page is set.",
+      type: "string",
+    },
+    "asp-area": {
+      description: "The name of the area. Must be null if asp-route is set.",
+      type: "string",
+    },
+    "asp-page": {
+      description:
+        "The name of the Razor page. Must be null if asp-route, asp-action, or asp-controller is set.",
+      type: "string",
+    },
+    "asp-page-handler": {
+      description: "The name of the Razor page handler.",
+      type: "string",
+    },
+    "asp-route": {
+      description:
+        "The name of the route. Must be null if asp-action, asp-controller, asp-area, or asp-page is set.",
+      type: "string",
+    },
+    "asp-route-*": {
+      description:
+        "Additional route parameters, e.g. asp-route-id. Bound into the route values dictionary.",
+      type: "string",
+    },
+    "asp-protocol": {
+      description: 'The URL protocol, such as "http" or "https".',
+      type: "string",
+    },
+    "asp-host": {
+      description: "The host name for the URL.",
+      type: "string",
+    },
+    "asp-fragment": {
+      description: "The URL fragment (the part after #).",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-item-group>`
+
+The `<dui-item-group>` tag helper renders a `<div>` element with `role="list"`
+that groups items together, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-header>`
+
+The `<dui-item-header>` tag helper renders a `<div>` element for the item
+header, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-media>`
+
+The `<dui-item-media>` tag helper renders a `<div>` element that hosts an icon,
+image, or avatar. In addition to the attribute below, it forwards any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The type of media the element contains.",
+      type: "ItemMediaVariant",
+      typeDescription:
+        "ItemMediaVariant.Default | ItemMediaVariant.Icon | ItemMediaVariant.Image",
+      default: "ItemMediaVariant.Default",
+    },
+  }}
+/>
+
+### `<dui-item-content>`
+
+The `<dui-item-content>` tag helper renders a `<div>` element that groups the
+item title and description, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-title>`
+
+The `<dui-item-title>` tag helper renders a `<div>` element for the item title,
+forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-description>`
+
+The `<dui-item-description>` tag helper renders a `<p>` element for the item
+description, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-actions>`
+
+The `<dui-item-actions>` tag helper renders a `<div>` element that hosts
+buttons or other actions, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-footer>`
+
+The `<dui-item-footer>` tag helper renders a `<div>` element for the item
+footer, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<dui-item-separator>`
+
+The `<dui-item-separator>` tag helper renders a horizontal separator (a `<div>`
+with `role="separator"`) between items, forwarding any [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

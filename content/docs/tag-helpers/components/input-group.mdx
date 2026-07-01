@@ -84,3 +84,116 @@ Wrap input groups with button groups to create prefixes and suffixes.
 <Demo src="/demo/tag-helpers/input-group-button-group.html">
   <include>./_include/input-group-button-group.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-input-group>`
+
+The `<dui-input-group>` tag helper renders a `<div>` element with `role="group"`
+that wraps the input and its add-ons. It has no attributes of its own, but
+forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-input-group-input>`
+
+The `<dui-input-group-input>` tag helper renders an `<input>` element styled for
+use inside an input group. In addition to the attributes below, it forwards any
+standard [`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `placeholder` or `disabled`) to the rendered element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format string applied to the asp-for value when rendering it.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the form element the input is associated with.",
+      type: "string",
+    },
+    type: {
+      description: "The type of the rendered input element.",
+      type: "string",
+    },
+    value: {
+      description: "The value of the rendered input element.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<dui-input-group-textarea>`
+
+The `<dui-input-group-textarea>` tag helper renders a `<textarea>` element
+styled for use inside an input group. In addition to the attribute below, it
+forwards any standard [`<textarea>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
+(such as `rows` or `placeholder`) to the rendered element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+  }}
+/>
+
+### `<dui-input-group-addon>`
+
+The `<dui-input-group-addon>` tag helper renders a `<div>` element with
+`role="group"` that holds text, icons, or buttons alongside the input. It
+forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+<TypeTable
+  type={{
+    align: {
+      description: "The alignment of the add-on relative to the input.",
+      type: "InputGroupAddOnVariantAlignment",
+      typeDescription:
+        "InputGroupAddOnVariantAlignment.InlineStart | InputGroupAddOnVariantAlignment.InlineEnd | InputGroupAddOnVariantAlignment.BlockStart | InputGroupAddOnVariantAlignment.BlockEnd",
+      default: "InputGroupAddOnVariantAlignment.InlineStart",
+    },
+  }}
+/>
+
+### `<dui-input-group-text>`
+
+The `<dui-input-group-text>` tag helper renders a `<span>` element for
+displaying text inside an add-on. It has no attributes of its own.
+
+### `<dui-input-group-button>`
+
+The `<dui-input-group-button>` tag helper renders a `<button>` element sized for
+use inside an add-on. In addition to the attributes below, it forwards any
+standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+(such as `type` or `disabled`) to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "InputGroupButtonSize",
+      typeDescription:
+        "InputGroupButtonSize.ExtraSmall | InputGroupButtonSize.Small | InputGroupButtonSize.IconExtraSmall | InputGroupButtonSize.IconSmall",
+      default: "InputGroupButtonSize.ExtraSmall",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Ghost",
+    },
+  }}
+/>

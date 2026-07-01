@@ -92,3 +92,67 @@ The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `ca
 <Demo src="/demo/tag-helpers/sheet-js-events.html">
   <include>./_include/sheet-js-events.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-sheet>`
+
+The `<dui-sheet>` tag helper renders a native [`<dialog>`
+element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
+styled to slide in from the edge of the screen. In addition to the attributes
+below, it forwards any standard `<dialog>` attributes (such as `id` or
+`closedby`) to the rendered element. The sheet is opened and closed via the
+[Invoker Commands
+API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a
+button with `command="show-modal"` or `command="close"` and a `commandfor`
+attribute referencing the sheet's `id` (auto-generated when you don't supply
+one).
+
+<TypeTable
+  type={{
+    "show-close-button": {
+      description:
+        "Whether to render the close button in the top-right corner of the sheet.",
+      type: "bool",
+      default: "true",
+    },
+    side: {
+      description:
+        "The edge of the screen the sheet slides in from.",
+      type: "SheetSide",
+      typeDescription:
+        "SheetSide.Top | SheetSide.Right | SheetSide.Bottom | SheetSide.Left",
+      default: "SheetSide.Right",
+    },
+  }}
+/>
+
+### `<dui-sheet-header>`
+
+The `<dui-sheet-header>` tag helper renders a `<div>` element that groups the
+sheet's title and description. It has no attributes of its own and forwards
+any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-sheet-title>`
+
+The `<dui-sheet-title>` tag helper renders an `<h2>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-sheet-description>`
+
+The `<dui-sheet-description>` tag helper renders a `<p>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-sheet-footer>`
+
+The `<dui-sheet-footer>` tag helper renders a `<div>` element pinned to the
+bottom of the sheet that hosts the sheet's action buttons. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
