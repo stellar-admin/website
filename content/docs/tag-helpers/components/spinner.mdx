@@ -1,10 +1,9 @@
 ---
 title: Spinner
+description: Indicates a loading or busy state
 ---
 
 import { Demo } from "@/components/demo";
-
-Indicates a loading or busy state.
 
 <Demo src="/demo/tag-helpers/spinner-intro.html">
   <include>./_include/spinner-intro.mdx</include>
@@ -57,3 +56,12 @@ Control the color with the Tailwind text color utilities.
 <Demo src="/demo/tag-helpers/spinner-in-empty.html">
   <include>./_include/spinner-in-empty.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-spinner>`
+
+The `<dui-spinner>` tag helper renders an `<svg>` element containing a spinner
+icon, with `role="status"` and `aria-label="Loading"` applied. It takes no
+component-specific attributes and forwards any standard HTML attributes (such
+as `class`) to the rendered element.

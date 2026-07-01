@@ -1,10 +1,9 @@
 ---
 title: Kbd
+description: Displays keystrokes or keyboard shortcuts
 ---
 
 import { Demo } from "@/components/demo";
-
-Displays keystrokes or keyboard shortcuts.
 
 <Demo src="/demo/tag-helpers/kbd-intro.html">
   <include>./_include/kbd-intro.mdx</include>
@@ -67,3 +66,17 @@ Use `dui-kbd-group` to group keyboard keys together.
 <Demo src="/demo/tag-helpers/kbd-tooltip.html">
   <include>./_include/kbd-tooltip.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-kbd>`
+
+The `<dui-kbd>` tag helper renders a `<kbd>` element representing a single
+key. It takes no component-specific attributes and forwards any standard HTML
+attributes (such as `class`) to the rendered element.
+
+### `<dui-kbd-group>`
+
+The `<dui-kbd-group>` tag helper renders a `<kbd>` element that groups
+multiple keys together. It takes no component-specific attributes and forwards
+any standard HTML attributes (such as `class`) to the rendered element.

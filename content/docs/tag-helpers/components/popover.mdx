@@ -89,3 +89,50 @@ The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/U
 <Demo src="/demo/tag-helpers/popover-js-events.html">
   <include>./_include/popover-js-events.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-popover>`
+
+The `<dui-popover>` tag helper renders a `<div>` element with a `popover`
+attribute (which you can override by supplying your own `popover` attribute,
+e.g. `popover="manual"`), opened by a button whose `popovertarget` attribute
+references the popover's `id`. In addition to the attribute below, it forwards
+any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
+
+<TypeTable
+  type={{
+    position: {
+      description:
+        "The position of the popover relative to the trigger element.",
+      type: "PositionArea",
+      typeDescription:
+        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
+      default: "PositionArea.Bottom",
+    },
+  }}
+/>
+
+### `<dui-popover-header>`
+
+The `<dui-popover-header>` tag helper renders a `<div>` element that groups the
+popover's title and description. It has no attributes of its own and forwards
+any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-popover-title>`
+
+The `<dui-popover-title>` tag helper renders an `<h2>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.
+
+### `<dui-popover-description>`
+
+The `<dui-popover-description>` tag helper renders a `<p>` element. It has no
+attributes of its own and forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+to the rendered element.

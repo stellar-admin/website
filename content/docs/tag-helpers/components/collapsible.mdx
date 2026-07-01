@@ -12,13 +12,11 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-collapsible>
-    <dui-collapsible-trigger>
-    <!-- add the element that triggers the collapsible content here -->>
-    </dui-collapsible-trigger>
-    <dui-collapsible-content>
+<dui-button commandfor="my-collapsible" command="--toggle">
+    <!-- add the element that triggers the collapsible content here -->
+</dui-button>
+<dui-collapsible id="my-collapsible" hidden="">
     <!-- add the collapsible content here -->
-    </dui-collapsible-content>
 </dui-collapsible>
 ```
 
@@ -29,3 +27,15 @@ import { Demo } from "@/components/demo";
 <Demo src="/demo/tag-helpers/collapsible-settings.html">
   <include>./_include/collapsible-settings.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-collapsible>`
+
+The `<dui-collapsible>` tag helper renders a `<del-collapsible>` custom element
+and has no attributes of its own; it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id`, `class`, or `hidden`) to the rendered element. Give it an `id`
+(and the `hidden` attribute to start collapsed), and toggle it via the native
+Invoker Commands API using a button with `command="--toggle"` and `commandfor`
+referencing that `id`.

@@ -1,11 +1,10 @@
 ---
 title: Icon
+description: Displays an SVG icon from the Lucide icon toolkit
 ---
 
 import { Demo } from "@/components/demo";
 import Lucide from "./images/lucide.png";
-
-Displays an SVG icon from the [Lucide](https://lucide.dev/) icon toolkit.
 
 <Demo src="/demo/tag-helpers/icon-intro.html">
   <include>./_include/icon-intro.mdx</include>
@@ -46,3 +45,23 @@ By default, icons use a stroke width of 2 px. The stroke width can be changed us
 <Demo src="/demo/tag-helpers/icon-stroke-width.html">
   <include>./_include/icon-stroke-width.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-icon>`
+
+The `<dui-icon>` tag helper renders an inline [`<svg>`
+element](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg).
+Any standard `<svg>` attributes you supply (such as `class` or `stroke-width`)
+are forwarded to the rendered element and take precedence over the icon's
+default attributes.
+
+<TypeTable
+  type={{
+    name: {
+      description:
+        "The name of the icon to render. When the icon is not found, a fallback placeholder icon is rendered instead.",
+      type: "string",
+    },
+  }}
+/>

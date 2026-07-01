@@ -102,3 +102,67 @@ If you're not using ASP.NET Core model binding, you can manually indicate valida
 <Demo src="/demo/tag-helpers/radio-disabled.html">
   <include>./_include/radio-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-input>`
+
+The `<dui-input>` tag helper with `type="radio"` renders an
+`<input type="radio">` element, wrapped in a `<span>` together with the radio
+indicator icon. In addition to the attributes below, it forwards any standard
+[`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `checked`, `disabled`, or `aria-invalid`) to the rendered `<input>`
+element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format string used to format the value bound via asp-for.",
+      type: "string",
+    },
+    description: {
+      description:
+        "The description text rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    error: {
+      description:
+        "The error message rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    form: {
+      description:
+        "The id of the form element the input is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "The label text rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered input element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the input in a Field. When not set, a field is rendered automatically when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    type: {
+      description:
+        "The type of the rendered input element. Set to radio to render a radio button.",
+      type: "string",
+    },
+    value: {
+      description: "The value of the rendered input element.",
+      type: "string",
+    },
+  }}
+/>

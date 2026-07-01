@@ -107,3 +107,27 @@ The [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover
 <Demo src="/demo/tag-helpers/tooltip-js-events.html">
   <include>./_include/tooltip-js-events.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-tooltip>`
+
+The `<dui-tooltip>` tag helper renders a `<div>` element with `popover="hint"`
+(which you can override by supplying your own `popover` attribute), shown by an
+invoker element whose `interestfor` attribute references the tooltip's `id`. In
+addition to the attribute below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id`, `class`, or `title`) to the rendered element.
+
+<TypeTable
+  type={{
+    position: {
+      description:
+        "The position of the tooltip relative to the trigger element.",
+      type: "PositionArea",
+      typeDescription:
+        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
+      default: "PositionArea.Top",
+    },
+  }}
+/>

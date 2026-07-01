@@ -121,3 +121,57 @@ Use the `size` attribute to control the size of the select.
 <Demo src="/demo/tag-helpers/select-disabled.html">
   <include>./_include/select-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-select>`
+
+The `<dui-select>` tag helper renders a native `<select>` element inside a
+wrapper `<div>`. In addition to the attributes below, it forwards any standard
+[`<select>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#attributes)
+(such as `multiple` or `disabled`) to the rendered element. When `asp-for` or
+`asp-items` is set, it delegates to the built-in [ASP.NET Core Select Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-select-tag-helper)
+to generate the options and selected value.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    "asp-items": {
+      description:
+        "A collection of SelectListItem objects used to populate the options.",
+      type: "IEnumerable<SelectListItem>",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered <select> element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the select in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    size: {
+      description: "The size of the select.",
+      type: "SelectSize",
+      typeDescription: "SelectSize.Default | SelectSize.Small",
+      default: "SelectSize.Default",
+    },
+  }}
+/>

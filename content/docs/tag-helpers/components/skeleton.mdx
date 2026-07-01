@@ -1,10 +1,9 @@
 ---
 title: Skeleton
+description: Displays a placeholder while content is loading
 ---
 
 import { Demo } from "@/components/demo";
-
-Displays a placeholder while content is loading.
 
 <Demo src="/demo/tag-helpers/skeleton-intro.html">
   <include>./_include/skeleton-intro.mdx</include>
@@ -43,3 +42,11 @@ By default, the Skeleton Tag Helper only defines the color and shimmering animat
 <Demo src="/demo/tag-helpers/skeleton-table.html">
   <include>./_include/skeleton-table.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-skeleton>`
+
+The `<dui-skeleton>` tag helper renders a `<div>` element. It takes no
+component-specific attributes and forwards any standard HTML attributes (such
+as `class`) to the rendered element.

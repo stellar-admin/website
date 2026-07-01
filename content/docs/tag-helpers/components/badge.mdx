@@ -54,3 +54,24 @@ Use variants to communicate different types of information categories.
 <Demo src="/demo/tag-helpers/badge-custom-colors.html">
   <include>./_include/badge-custom-colors.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-badge>`
+
+The `<dui-badge>` tag helper renders a `<span>` element. In addition to the
+attribute below, it forwards any standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id`, `class`, or `title`) to the rendered element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the badge.",
+      type: "BadgeVariant",
+      typeDescription:
+        "BadgeVariant.Default | BadgeVariant.Secondary | BadgeVariant.Destructive | BadgeVariant.Outline | BadgeVariant.Ghost | BadgeVariant.Link",
+      default: "BadgeVariant.Default",
+    },
+  }}
+/>

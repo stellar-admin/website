@@ -1,10 +1,9 @@
 ---
 title: Separator
+description: Visually divides or groups content
 ---
 
 import { Demo } from "@/components/demo";
-
-Visually divides or groups content.
 
 <Demo src="/demo/tag-helpers/separator-intro.html">
   <include>./_include/separator-intro.mdx</include>
@@ -41,3 +40,25 @@ Visually divides or groups content.
 <Demo src="/demo/tag-helpers/separator-in-list.html">
   <include>./_include/separator-in-list.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-separator>`
+
+The `<dui-separator>` tag helper renders a `<div>` element with
+`role="separator"`. In addition to the attribute below, it forwards any
+standard [global
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id`, `class`, or `title`) to the rendered element.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The orientation of the separator.",
+      type: "SeparatorOrientation",
+      typeDescription:
+        "SeparatorOrientation.Horizontal | SeparatorOrientation.Vertical",
+      default: "SeparatorOrientation.Horizontal",
+    },
+  }}
+/>

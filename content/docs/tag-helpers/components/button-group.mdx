@@ -1,10 +1,9 @@
 ---
 title: Button Group
+description: Group related buttons together into a single section
 ---
 
 import { Demo } from "@/components/demo";
-
-A button group allows you to group related buttons into sections.
 
 <Demo src="/demo/tag-helpers/button-group-intro.html">
   <include>./_include/button-group-intro.mdx</include>
@@ -130,3 +129,43 @@ Use the `orientation` property to switch to a vertical layout.
 <Demo src="/demo/tag-helpers/button-group-vertical-nested.html">
   <include>./_include/button-group-vertical-nested.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-button-group>`
+
+The wrapper element that groups related buttons. Renders a `<div role="group">`.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The layout direction of the grouped buttons.",
+      type: "ButtonGroupOrientation",
+      typeDescription:
+        "ButtonGroupOrientation.Horizontal | ButtonGroupOrientation.Vertical",
+      default: "ButtonGroupOrientation.Horizontal",
+    },
+  }}
+/>
+
+### `<dui-button-group-separator>`
+
+An optional divider placed between buttons in a group. Renders a separator and
+takes no attributes other than `orientation`.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The orientation of the separator.",
+      type: "SeparatorOrientation",
+      typeDescription:
+        "SeparatorOrientation.Horizontal | SeparatorOrientation.Vertical",
+      default: "SeparatorOrientation.Vertical",
+    },
+  }}
+/>
+
+### `<dui-button-group-text>`
+
+Wraps inline text or labels within a button group. Renders a `<div>` and takes
+no additional attributes beyond the standard HTML attributes (such as `class`).

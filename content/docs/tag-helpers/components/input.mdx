@@ -163,3 +163,65 @@ When you use model binding, the input type will be inferred from the underlying 
 
   </Tabs>
 </Demo>
+
+## API Reference
+
+### `<dui-input>`
+
+The `<dui-input>` tag helper renders an `<input>` element (checkbox and radio
+inputs are additionally wrapped in a `<span>` that hosts the indicator icon).
+In addition to the attributes below, it forwards any standard [`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `placeholder`, `disabled`, or `aria-invalid`) to the rendered
+element. When `asp-for` is set, it delegates to the built-in [ASP.NET Core
+Input Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
+to resolve the input type, value, and validation attributes.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format used to format the bound value when asp-for is set.",
+      type: "string",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the input is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered <input> element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the input in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    type: {
+      description:
+        "The type of the input. When using asp-for, the type is inferred from the model.",
+      type: "string",
+    },
+    value: {
+      description: "The value of the input.",
+      type: "string",
+    },
+  }}
+/>

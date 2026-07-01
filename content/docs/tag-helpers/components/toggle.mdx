@@ -81,3 +81,66 @@ Because a toggle is self-labelling, this example opts out of the automatic [Fiel
     </Tab>
   </Tabs>
 </Demo>
+
+## API Reference
+
+### `<dui-toggle>`
+
+The `<dui-toggle>` tag helper renders a `<label>` wrapping a visually hidden
+native `<input type="checkbox">` that carries the on/off value. In addition to
+the attributes below, it forwards any standard [`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `checked` or `disabled`) to the rendered input. When `asp-for` is
+set, it delegates to the built-in [ASP.NET Core Input Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
+so the toggle model-binds like any other `bool`.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the toggle is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered <input> element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the toggle in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    size: {
+      description: "The size of the toggle.",
+      type: "ToggleSize",
+      typeDescription: "ToggleSize.Default | ToggleSize.Small | ToggleSize.Large",
+      default: "ToggleSize.Default",
+    },
+    value: {
+      description: "The value of the underlying checkbox.",
+      type: "string",
+    },
+    variant: {
+      description: "The visual style of the toggle.",
+      type: "ToggleVariant",
+      typeDescription: "ToggleVariant.Default | ToggleVariant.Outline",
+      default: "ToggleVariant.Default",
+    },
+  }}
+/>

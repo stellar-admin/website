@@ -1,10 +1,9 @@
 ---
 title: Button
+description: Trigger an action, such as submitting a form or running JavaScript
 ---
 
 import { Demo } from "@/components/demo";
-
-Displays a button component that can be used to trigger actions like submitting forms or triggering JavaScript functions.
 
 <Demo src="/demo/tag-helpers/button-intro.html">
   <include>./_include/button-intro.mdx</include>
@@ -13,7 +12,7 @@ Displays a button component that can be used to trigger actions like submitting 
 ## Usage
 
 ```razor
-<dui-button>Proceed</button>
+<dui-button>Proceed</dui-button>
 ```
 
 ## Examples
@@ -68,3 +67,31 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 <Demo src="/demo/tag-helpers/button-additional-attributes.html">
   <include>./_include/button-additional-attributes.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-button>`
+
+The `<dui-button>` tag helper renders a `<button>` element. In addition to the
+attributes below, it forwards any standard [`<button>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
+(such as `type`, `disabled`, or `aria-invalid`) to the rendered element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Default",
+    },
+  }}
+/>

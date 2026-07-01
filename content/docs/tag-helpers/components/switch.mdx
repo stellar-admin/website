@@ -61,3 +61,60 @@ Add the `disabled` attribute to prevent the user from interacting with the switc
 <Demo src="/demo/tag-helpers/switch-disabled.html">
   <include>./_include/switch-disabled.mdx</include>
 </Demo>
+
+## API Reference
+
+### `<dui-switch>`
+
+The `<dui-switch>` tag helper renders a native `<input type="checkbox" role="switch">`
+wrapped in a `<span>` that hosts the thumb. In addition to the attributes
+below, it forwards any standard [`<input>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
+(such as `checked` or `disabled`) to the rendered input. When `asp-for` is
+set, it delegates to the built-in [ASP.NET Core Input Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
+so the switch model-binds like any other `bool`.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the switch is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered <input> element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the switch in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    size: {
+      description: "The size of the switch.",
+      type: "SwitchSize",
+      typeDescription: "SwitchSize.Default | SwitchSize.Small",
+      default: "SwitchSize.Default",
+    },
+    value: {
+      description: "The value of the underlying checkbox.",
+      type: "string",
+    },
+  }}
+/>

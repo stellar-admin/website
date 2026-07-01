@@ -101,3 +101,48 @@ The error message can be displayed using either a `dui-field-error` Tag Helper (
     </Tab>
   </Tabs>
 </Demo>
+
+## API Reference
+
+### `<dui-textarea>`
+
+The `<dui-textarea>` tag helper renders a `<textarea>` element. In addition to
+the attributes below, it forwards any standard [`<textarea>`
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
+(such as `rows`, `placeholder`, or `aria-invalid`) to the rendered element.
+The `asp-for` attribute provides the same model binding as the built-in
+[Textarea Tag
+Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-textarea-tag-helper).
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    label: {
+      description:
+        "The label text rendered when the textarea is wrapped in an implicit Field.",
+      type: "string",
+    },
+    description: {
+      description:
+        "The description text rendered when the textarea is wrapped in an implicit Field.",
+      type: "string",
+    },
+    error: {
+      description:
+        "The error message rendered when the textarea is wrapped in an implicit Field.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered textarea element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the textarea in a Field. When omitted, a Field is rendered automatically when asp-for, label, description, or error is set and the textarea is not already inside a Field.",
+      type: "bool",
+    },
+  }}
+/>
