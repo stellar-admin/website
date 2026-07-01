@@ -68,3 +68,19 @@ Nest a `<dui-dropdown-menu-sub>` containing a `<dui-dropdown-menu-sub-trigger>` 
 <Demo src="/demo/tag-helpers/dropdown-menu-submenu.html">
   <include>./_include/dropdown-menu-submenu.mdx</include>
 </Demo>
+
+### Links
+
+An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`; otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<dui-linkbutton>`.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-links.html">
+  <include>./_include/dropdown-menu-links.mdx</include>
+</Demo>
+
+### Handling clicks
+
+For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", …)`. Because the `del-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-click-events.html">
+  <include>./_include/dropdown-menu-click-events.mdx</include>
+</Demo>

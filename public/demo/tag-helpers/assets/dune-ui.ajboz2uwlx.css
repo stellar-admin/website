@@ -2068,10 +2068,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-0xau4Wggzo: auto;
-    --toolwind-toggle-DdTNUCuCvz: transparent;
-    --toolwind-toggle-5Es95TEJPb: inherit;
-    --toolwind-toggle-vaZ2zlJkWg: 0px;
+    --toolwind-toggle-dE3AicgrBR: auto;
+    --toolwind-toggle-gu79MbwNab: transparent;
+    --toolwind-toggle-zHJMYOvRUl: inherit;
+    --toolwind-toggle-uvQRX69FQ4: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -9569,10 +9569,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-0xau4Wggzo, 0px);
-    background-color: var(--toolwind-toggle-DdTNUCuCvz, canvas);
-    color: var(--toolwind-toggle-5Es95TEJPb, canvastext);
-    margin: var(--toolwind-toggle-vaZ2zlJkWg, auto);
+    inset: var(--toolwind-toggle-dE3AicgrBR, 0px);
+    background-color: var(--toolwind-toggle-gu79MbwNab, canvas);
+    color: var(--toolwind-toggle-zHJMYOvRUl, canvastext);
+    margin: var(--toolwind-toggle-uvQRX69FQ4, auto);
   }
 }
 @property --tw-translate-x {
