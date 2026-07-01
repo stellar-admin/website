@@ -257,6 +257,9 @@
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
+  .start {
+    inset-inline-start: var(--spacing);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -681,6 +684,9 @@
   }
   .h-svh {
     height: 100svh;
+  }
+  .max-h-\(--available-height\) {
+    max-height: var(--available-height);
   }
   .max-h-72 {
     max-height: calc(var(--spacing) * 72);
@@ -2062,10 +2068,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-kixUXfKKFB: auto;
-    --toolwind-toggle-hG8DHYozDl: transparent;
-    --toolwind-toggle-g3aFNfApzA: inherit;
-    --toolwind-toggle-PWLE3kBwQJ: 0px;
+    --toolwind-toggle-0xau4Wggzo: auto;
+    --toolwind-toggle-DdTNUCuCvz: transparent;
+    --toolwind-toggle-5Es95TEJPb: inherit;
+    --toolwind-toggle-vaZ2zlJkWg: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -7735,6 +7741,11 @@
       color: var(--foreground);
     }
   }
+  .data-disabled\:pointer-events-none {
+    &:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])) {
+      pointer-events: none;
+    }
+  }
   .data-disabled\:cursor-not-allowed {
     &:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])) {
       cursor: not-allowed;
@@ -9558,10 +9569,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-kixUXfKKFB, 0px);
-    background-color: var(--toolwind-toggle-hG8DHYozDl, canvas);
-    color: var(--toolwind-toggle-g3aFNfApzA, canvastext);
-    margin: var(--toolwind-toggle-PWLE3kBwQJ, auto);
+    inset: var(--toolwind-toggle-0xau4Wggzo, 0px);
+    background-color: var(--toolwind-toggle-DdTNUCuCvz, canvas);
+    color: var(--toolwind-toggle-5Es95TEJPb, canvastext);
+    margin: var(--toolwind-toggle-vaZ2zlJkWg, auto);
   }
 }
 @property --tw-translate-x {

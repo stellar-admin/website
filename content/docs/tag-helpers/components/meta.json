@@ -38,6 +38,7 @@
     "---Overlays---",
     "alert-dialog",
     "dialog",
+    "dropdown-menu",
     "popover",
     "sheet",
     "tooltip",
