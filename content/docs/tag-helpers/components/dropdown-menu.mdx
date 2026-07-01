@@ -93,6 +93,14 @@ For non-link items, attach a click handler however you like — an inline `oncli
   <include>./_include/dropdown-menu-click-events.mdx</include>
 </Demo>
 
+### Close on click
+
+By default a plain `<dui-dropdown-menu-item>` closes the menu when activated, while checkbox and radio items stay open so you can adjust several at once. Override that per item with `close-on-click`: set `close-on-click="false"` on a plain item to keep the menu open (handy for a repeatable action), or `close-on-click="true"` on a checkbox/radio item to apply the choice and dismiss the menu. It applies to both mouse and keyboard activation.
+
+<Demo src="/demo/tag-helpers/dropdown-menu-close-on-click.html">
+  <include>./_include/dropdown-menu-close-on-click.mdx</include>
+</Demo>
+
 ### Reacting to checkbox changes
 
 Checkbox items report toggles through a bubbling `checkedchange` event, so you can listen on the item, its enclosing `<dui-dropdown-menu-group>`, or any ancestor — a single listener on the group is usually cleanest. `event.detail.checked` is the item's new state. Checkbox items carry no `value`, so identify which one changed via `event.target`. The event fires for both mouse and keyboard activation, and the menu deliberately stays open so multiple toggles feel natural.
