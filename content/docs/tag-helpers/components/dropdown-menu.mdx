@@ -111,7 +111,7 @@ Checkbox items report toggles through a bubbling `checkedchange` event, so you c
 
 ### Reacting to radio changes
 
-Radio items report selection through a bubbling `valuechange` event. Mirroring Base UI's `RadioGroup.onValueChange`, listen on the `<dui-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
+Radio items report selection through a bubbling `valuechange` event. Listen on the `<dui-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-radio-events.html">
   <include>./_include/dropdown-menu-radio-events.mdx</include>
