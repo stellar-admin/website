@@ -9,7 +9,7 @@ export default function Hero() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center max-w-3xl">
         <a
-          href="https://www.nuget.org/packages/DuneUI.TagHelpers/"
+          href="https://www.nuget.org/packages/DuneUI/"
           target="_blank"
           className={cn(
             badgeVariants({
@@ -44,7 +44,7 @@ export default function Hero() {
           </Link>
           <Link
             to="/docs/$"
-            params={{ _splat: "tag-helpers/components/avatar" }}
+            params={{ _splat: "tag-helpers/components/card" }}
             className={cn(
               buttonVariants({
                 variant: "outline",
