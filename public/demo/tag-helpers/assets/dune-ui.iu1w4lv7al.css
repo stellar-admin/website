@@ -260,6 +260,9 @@
   .start {
     inset-inline-start: var(--spacing);
   }
+  .end {
+    inset-inline-end: var(--spacing);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -1113,6 +1116,9 @@
   }
   .overflow-y-auto {
     overflow-y: auto;
+  }
+  .rounded {
+    border-radius: 0.25rem;
   }
   .rounded-2xl {
     border-radius: calc(var(--radius) + 8px);
@@ -2071,10 +2077,10 @@
   }
   .try-flip-all {
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    --toolwind-toggle-R6zveC3bYX: auto;
-    --toolwind-toggle-1qsUejchC1: transparent;
-    --toolwind-toggle-rg2RWfZ9Ex: inherit;
-    --toolwind-toggle-cJHI9VGFrq: 0px;
+    --toolwind-toggle-uFKg9yqtiN: auto;
+    --toolwind-toggle-0ObeR0Hpnm: transparent;
+    --toolwind-toggle-Dsx7cC3hB3: inherit;
+    --toolwind-toggle-5Jrcjysmqe: 0px;
   }
   .outline-none {
     --tw-outline-style: none;
@@ -9723,10 +9729,10 @@
 }
 @layer base {
   [popover] {
-    inset: var(--toolwind-toggle-R6zveC3bYX, 0px);
-    background-color: var(--toolwind-toggle-1qsUejchC1, canvas);
-    color: var(--toolwind-toggle-rg2RWfZ9Ex, canvastext);
-    margin: var(--toolwind-toggle-cJHI9VGFrq, auto);
+    inset: var(--toolwind-toggle-uFKg9yqtiN, 0px);
+    background-color: var(--toolwind-toggle-0ObeR0Hpnm, canvas);
+    color: var(--toolwind-toggle-Dsx7cC3hB3, canvastext);
+    margin: var(--toolwind-toggle-5Jrcjysmqe, auto);
   }
 }
 @property --tw-translate-x {

@@ -2,6 +2,7 @@
   "pages": [
     "---Layout---",
     "card",
+    "container",
     "group",
     "separator",
     "stack",

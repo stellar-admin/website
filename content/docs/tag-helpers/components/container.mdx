@@ -1,0 +1,41 @@
+---
+title: Container
+description: Center and constrain page content within a responsive, width-limited wrapper
+---
+
+import { Demo } from "@/components/demo";
+
+## Usage
+
+```razor
+<dui-container>...</dui-container>
+```
+
+## Examples
+
+### Basic
+
+A container horizontally centers its content, constrains it to a responsive max-width, and applies responsive horizontal padding.
+
+<Demo src="/demo/tag-helpers/container-intro.html">
+  <include>./_include/container-intro.mdx</include>
+</Demo>
+
+### Page layout
+
+Use a container as the outermost page wrapper, then compose `<dui-stack>` and `<dui-group>` inside it to lay out the content vertically and horizontally.
+
+<Demo src="/demo/tag-helpers/container-page-layout.html">
+  <include>./_include/container-page-layout.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<dui-container>`
+
+The `<dui-container>` tag helper renders a `<div>` element that horizontally
+centers its content (`mx-auto`), constrains it to Tailwind's responsive
+`container` max-widths, and applies responsive horizontal padding. It has no
+attributes of its own; it forwards any standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
