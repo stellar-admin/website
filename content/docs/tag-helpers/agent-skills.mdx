@@ -1,0 +1,65 @@
+---
+title: Agent Skills
+description: Teach an AI coding agent how to build UIs with DuneUI
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+DuneUI ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with DuneUI — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<dui-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
+
+The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). The DuneUI GitHub repository doubles as the marketplace, so installing them is two commands.
+
+## Installation
+
+<Steps>
+    <Step>
+        ### Add the marketplace
+
+        From within Claude Code, register the DuneUI repository as a plugin marketplace.
+
+        ```text
+        /plugin marketplace add dune-ui/dune-ui
+        ```
+    </Step>
+    <Step>
+        ### Install the plugin
+
+        Install the `duneui` plugin from the marketplace.
+
+        ```text
+        /plugin install duneui@dune-ui
+        ```
+    </Step>
+    <Step>
+        ### Refresh your skills
+
+        Newly installed skills may not appear straight away. Run `/reload-skills` (or restart Claude Code) so it picks up the DuneUI skills.
+
+        ```text
+        /reload-skills
+        ```
+    </Step>
+</Steps>
+
+<Callout type="info">
+    The skills are versioned with the repository, independent of the DuneUI
+    NuGet package — you can install them into any project, whether or not it
+    already references DuneUI.
+</Callout>
+
+## What's included
+
+Installing the plugin adds four skills:
+
+| Skill | What it does |
+|-------|--------------|
+| `duneui` | The anchor skill. Covers setup, the full component catalog, and the library's conventions. **Auto-activates** when you edit `.cshtml` or `.razor` files. |
+| `duneui-forms` | Building forms — fields, validation, model binding, and input groups. |
+| `duneui-layout` | Page shells — sidebars, dashboards, and layout composition. |
+| `duneui-theming` | Theming, dark mode, and menu color / appearance / accent configuration. |
+
+## Using the skills
+
+The `duneui` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with DuneUI"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
+
+The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the version you have installed.
