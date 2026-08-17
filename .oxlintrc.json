@@ -12,6 +12,7 @@
     "react/react-in-jsx-scope": "off",
     "react/iframe-missing-sandbox": "off",
     "eslint/no-underscore-dangle": "off",
+    "jsx-a11y/prefer-tag-over-role": "off",
     "typescript/consistent-return": "off"
   },
   "ignorePatterns": [

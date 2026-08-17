@@ -1,11 +1,11 @@
 import type { BaseLayoutProps, LinkItemType } from "fumadocs-ui/layouts/shared";
-import DuneUILogo from "./dune-ui-logo";
+import StellarAdminLogo from "./stellar-admin-logo";
 import { gitConfig } from "./shared";
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: <DuneUILogo className="p-2.5" />,
+      title: <StellarAdminLogo />,
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };
