@@ -1,32 +1,32 @@
 ```razor
-<dui-stack align="StackAlign.Start" class="min-w-md">
-    <dui-button variant="ButtonVariant.Outline" id="--js-dialog-intro-button">
+<sa-stack align="StackAlign.Start" class="min-w-md">
+    <sa-button variant="ButtonVariant.Outline" id="--js-dialog-intro-button">
         Open Dialog
-    </dui-button>
+    </sa-button>
     <label class="text-sm font-bold">Result:</label>
     <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--js-dialog-intro-result">-</div>
-</dui-stack>
-<dui-dialog id="--js-dialog-intro-dialog">
-    <dui-dialog-header>
-        <dui-dialog-title>Are you absolutely sure?</dui-dialog-title>
-        <dui-dialog-description>
+</sa-stack>
+<sa-dialog id="--js-dialog-intro-dialog">
+    <sa-dialog-header>
+        <sa-dialog-title>Are you absolutely sure?</sa-dialog-title>
+        <sa-dialog-description>
             This action cannot be undone. This will permanently delete your account from our servers.
-        </dui-dialog-description>
-    </dui-dialog-header>
+        </sa-dialog-description>
+    </sa-dialog-header>
     <form method="dialog" >
-        <dui-dialog-footer>
-            <dui-button variant="ButtonVariant.Outline" type="submit" value="cancel">
+        <sa-dialog-footer>
+            <sa-button variant="ButtonVariant.Outline" type="submit" value="cancel">
                 Cancel
-            </dui-button>
-            <dui-button type="submit" value="confirm" autofocus>
+            </sa-button>
+            <sa-button type="submit" value="confirm" autofocus>
                 Continue
-            </dui-button>
-        </dui-dialog-footer>
+            </sa-button>
+        </sa-dialog-footer>
     </form>
-</dui-dialog>
+</sa-dialog>
 <script type="module">
     (function () {
-        const dialog = window.duneui.dialog(document.getElementById("--js-dialog-intro-dialog"));
+        const dialog = window.stellarAdmin.dialog(document.getElementById("--js-dialog-intro-dialog"));
         const triggerButton = document.getElementById("--js-dialog-intro-button");
         const resultDisplay = document.getElementById("--js-dialog-intro-result");
 

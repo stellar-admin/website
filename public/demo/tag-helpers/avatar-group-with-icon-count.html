@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -25,28 +28,28 @@
     
     <div class="flex flex-col gap-6">
     <!-- code begin -->
-    <div data-slot="avatar-group" class="*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2">
-        <span data-slot="avatar" data-size="sm" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
-        <span data-slot="avatar" data-size="sm" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
-        <span data-slot="avatar" data-size="sm" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
-        <div data-slot="avatar-group-count" class="bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&amp;&gt;svg]:size-4 group-has-data-[size=lg]/avatar-group:[&amp;&gt;svg]:size-5 group-has-data-[size=sm]/avatar-group:[&amp;&gt;svg]:size-3 ring-background relative flex shrink-0 items-center justify-center ring-2">
-            <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+    <div data-slot="avatar-group" class="sa-avatar-group group/avatar-group">
+        <span data-slot="avatar" data-size="sm" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+        <span data-slot="avatar" data-size="sm" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+        <span data-slot="avatar" data-size="sm" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
+        <div data-slot="avatar-group-count" class="sa-avatar-group-count">
+            <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
         </div>
     </div>
-    <div data-slot="avatar-group" class="*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2">
-        <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
-        <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
-        <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
-        <div data-slot="avatar-group-count" class="bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&amp;&gt;svg]:size-4 group-has-data-[size=lg]/avatar-group:[&amp;&gt;svg]:size-5 group-has-data-[size=sm]/avatar-group:[&amp;&gt;svg]:size-3 ring-background relative flex shrink-0 items-center justify-center ring-2">
-            <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+    <div data-slot="avatar-group" class="sa-avatar-group group/avatar-group">
+        <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+        <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+        <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
+        <div data-slot="avatar-group-count" class="sa-avatar-group-count">
+            <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
         </div>
     </div>
-    <div data-slot="avatar-group" class="*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2">
-        <span data-slot="avatar" data-size="lg" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
-        <span data-slot="avatar" data-size="lg" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
-        <span data-slot="avatar" data-size="lg" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
-        <div data-slot="avatar-group-count" class="bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&amp;&gt;svg]:size-4 group-has-data-[size=lg]/avatar-group:[&amp;&gt;svg]:size-5 group-has-data-[size=sm]/avatar-group:[&amp;&gt;svg]:size-3 ring-background relative flex shrink-0 items-center justify-center ring-2">
-            <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+    <div data-slot="avatar-group" class="sa-avatar-group group/avatar-group">
+        <span data-slot="avatar" data-size="lg" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+        <span data-slot="avatar" data-size="lg" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+        <span data-slot="avatar" data-size="lg" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
+        <div data-slot="avatar-group-count" class="sa-avatar-group-count">
+            <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
         </div>
     </div>
     <!-- code end -->

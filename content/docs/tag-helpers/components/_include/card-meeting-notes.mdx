@@ -1,44 +1,44 @@
 ```razor
-<dui-card class="mx-auto w-full max-w-sm">
-    <dui-card-header>
-        <dui-card-title>Meeting Notes</dui-card-title>
-        <dui-card-description>
+<sa-card class="mx-auto w-full max-w-sm">
+    <sa-card-header>
+        <sa-card-title>Meeting Notes</sa-card-title>
+        <sa-card-description>
             Transcript from the meeting with the client.
-        </dui-card-description>
-        <dui-card-action>
-            <dui-dropdown-menu>
-                <dui-dropdown-menu-trigger variant="ButtonVariant.Ghost" size="ButtonSize.Icon">
-                    <dui-icon name="ellipsis" class="text-muted-foreground"/>
+        </sa-card-description>
+        <sa-card-action>
+            <sa-dropdown-menu>
+                <sa-dropdown-menu-trigger variant="ButtonVariant.Ghost" size="ButtonSize.Icon">
+                    <sa-icon name="ellipsis" class="text-muted-foreground"/>
                     <span class="sr-only">More options</span>
-                </dui-dropdown-menu-trigger>
-                <dui-dropdown-menu-content class="w-44">
-                    <dui-dropdown-menu-item>
-                        <dui-icon name="captions"/>
+                </sa-dropdown-menu-trigger>
+                <sa-dropdown-menu-content class="w-44">
+                    <sa-dropdown-menu-item>
+                        <sa-icon name="captions"/>
                         Transcribe
-                    </dui-dropdown-menu-item>
-                    <dui-dropdown-menu-separator/>
-                    <dui-dropdown-menu-item>
-                        <dui-icon name="copy"/>
+                    </sa-dropdown-menu-item>
+                    <sa-dropdown-menu-separator/>
+                    <sa-dropdown-menu-item>
+                        <sa-icon name="copy"/>
                         Copy transcript
-                    </dui-dropdown-menu-item>
-                    <dui-dropdown-menu-item>
-                        <dui-icon name="share"/>
+                    </sa-dropdown-menu-item>
+                    <sa-dropdown-menu-item>
+                        <sa-icon name="share"/>
                         Share notes
-                    </dui-dropdown-menu-item>
-                    <dui-dropdown-menu-item>
-                        <dui-icon name="download"/>
+                    </sa-dropdown-menu-item>
+                    <sa-dropdown-menu-item>
+                        <sa-icon name="download"/>
                         Export as PDF
-                    </dui-dropdown-menu-item>
-                    <dui-dropdown-menu-separator/>
-                    <dui-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
-                        <dui-icon name="trash-2"/>
+                    </sa-dropdown-menu-item>
+                    <sa-dropdown-menu-separator/>
+                    <sa-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
+                        <sa-icon name="trash-2"/>
                         Delete
-                    </dui-dropdown-menu-item>
-                </dui-dropdown-menu-content>
-            </dui-dropdown-menu>
-        </dui-card-action>
-    </dui-card-header>
-    <dui-card-content>
+                    </sa-dropdown-menu-item>
+                </sa-dropdown-menu-content>
+            </sa-dropdown-menu>
+        </sa-card-action>
+    </sa-card-header>
+    <sa-card-content>
         <p>
             Client requested dashboard redesign with focus on mobile
             responsiveness.
@@ -50,14 +50,14 @@
             <li>Timeline: 6 weeks</li>
             <li>Follow-up meeting scheduled for next Tuesday</li>
         </ol>
-    </dui-card-content>
-    <dui-card-footer>
-        <dui-avatar-group>
-            <dui-avatar src="/avatars/avatar-3.jpg" />
-            <dui-avatar src="/avatars/avatar-2.jpg" />
-            <dui-avatar src="/avatars/avatar-1.jpg" />
-            <dui-avatar-group-count>+8</dui-avatar-group-count>
-        </dui-avatar-group>
-    </dui-card-footer>
-</dui-card>
+    </sa-card-content>
+    <sa-card-footer>
+        <sa-avatar-group>
+            <sa-avatar src="/avatars/avatar-3.jpg" />
+            <sa-avatar src="/avatars/avatar-2.jpg" />
+            <sa-avatar src="/avatars/avatar-1.jpg" />
+            <sa-avatar-group-count>+8</sa-avatar-group-count>
+        </sa-avatar-group>
+    </sa-card-footer>
+</sa-card>
 ```

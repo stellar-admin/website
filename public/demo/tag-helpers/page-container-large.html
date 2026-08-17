@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
+</head>
+<body>
+
+    <!-- code begin -->
+<div data-slot="page-container" data-width="large" class="sa-page-container sa-page-container-width-large">
+    <header data-slot="page-header" class="sa-page-header">
+        <h1 data-slot="page-header-title" class="sa-page-header-title sa-font-heading font-heading">Dashboard</h1>
+        <p data-slot="page-header-description" class="sa-page-header-description">
+            Performance across all Voyager Travel routes this month.
+        </p>
+        <div data-slot="page-header-actions" class="sa-page-header-actions">
+            <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
+                <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>
+                Last 30 days
+            </button>
+        </div>
+    </header>
+    <div class="grid gap-4 md:grid-cols-3">
+        <div data-slot="card" data-size="default" class="sa-card group/card">
+            <div data-slot="card-header" class="sa-card-header group/card-header">
+                <div data-slot="card-description" class="sa-card-description">Reservations today</div>
+                <div class="sa-card-title text-2xl tabular-nums" data-slot="card-title">1,284</div>
+            </div>
+        </div>
+        <div data-slot="card" data-size="default" class="sa-card group/card">
+            <div data-slot="card-header" class="sa-card-header group/card-header">
+                <div data-slot="card-description" class="sa-card-description">Seats sold</div>
+                <div class="sa-card-title text-2xl tabular-nums" data-slot="card-title">87.4%</div>
+            </div>
+        </div>
+        <div data-slot="card" data-size="default" class="sa-card group/card">
+            <div data-slot="card-header" class="sa-card-header group/card-header">
+                <div data-slot="card-description" class="sa-card-description">Revenue (MTD)</div>
+                <div class="sa-card-title text-2xl tabular-nums" data-slot="card-title">$2.31M</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid gap-4 lg:grid-cols-2">
+        <div data-slot="card" data-size="default" class="sa-card group/card">
+            <div data-slot="card-header" class="sa-card-header group/card-header">
+                <div data-slot="card-title" class="sa-card-title">Top destinations</div>
+                <div data-slot="card-description" class="sa-card-description">By confirmed bookings this month.</div>
+            </div>
+            <div data-slot="card-content" class="sa-card-content">
+                <div class="flex flex-col gap-3 text-sm">
+                    <div class="flex items-center justify-between">
+                        <span>Kyoto, Japan</span>
+                        <span class="text-muted-foreground tabular-nums">312 bookings</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Lisbon, Portugal</span>
+                        <span class="text-muted-foreground tabular-nums">287 bookings</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Cape Town, South Africa</span>
+                        <span class="text-muted-foreground tabular-nums">243 bookings</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Cusco, Peru</span>
+                        <span class="text-muted-foreground tabular-nums">198 bookings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-slot="card" data-size="default" class="sa-card group/card">
+            <div data-slot="card-header" class="sa-card-header group/card-header">
+                <div data-slot="card-title" class="sa-card-title">Booking status</div>
+                <div data-slot="card-description" class="sa-card-description">Current state of this month&apos;s bookings.</div>
+            </div>
+            <div data-slot="card-content" class="sa-card-content">
+                <div class="flex flex-col gap-3 text-sm">
+                    <div class="flex items-center justify-between">
+                        <span>Confirmed</span>
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-default">1,082</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Pending payment</span>
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-secondary">146</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Cancelled</span>
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-destructive">56</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- code end -->
+
+
+
+
+</body>
+</html>

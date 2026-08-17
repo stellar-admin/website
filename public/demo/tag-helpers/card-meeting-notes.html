@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -23,46 +26,46 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col mx-auto w-full max-w-sm" data-slot="card" data-size="default">
-    <div data-slot="card-header" class="gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
-        <div data-slot="card-title" class="text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">Meeting Notes</div>
-        <div data-slot="card-description" class="text-muted-foreground text-sm">
+    <div class="sa-card group/card mx-auto w-full max-w-sm" data-slot="card" data-size="default">
+    <div data-slot="card-header" class="sa-card-header group/card-header">
+        <div data-slot="card-title" class="sa-card-title">Meeting Notes</div>
+        <div data-slot="card-description" class="sa-card-description">
             Transcript from the meeting with the client.
         </div>
-        <div data-slot="card-action" class="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
+        <div data-slot="card-action" class="sa-card-action">
             
-                <button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" popovertarget="--dui-dropdown-menu-655d6a82c71f8cd62bfcbc723455512c349b0598bcb364c6b27216681873ca2611493" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground size-8">
-                    <svg class="text-muted-foreground" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                <button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" popovertarget="--sa-dropdown-menu-7795034a7087a0932f72e2af7b752ff453ca599d55dc549794b7d3000615cff112009" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon">
+                    <svg class="text-muted-foreground" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                     <span class="sr-only">More options</span>
                 </button>
-                <del-dropdown-menu class="data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 overflow-x-hidden overflow-y-auto outline-hidden try-flip-all anchored-bottom-span-right mt-2 duration-200 ease-in opacity-100 not-open:opacity-0 starting:open:opacity-0 [transition-property:opacity,display,overlay] [transition-behavior:allow-discrete] w-44" id="--dui-dropdown-menu-655d6a82c71f8cd62bfcbc723455512c349b0598bcb364c6b27216681873ca2611493" popover="" role="menu" data-slot="dropdown-menu-content" data-side="bottom">
-                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect><path d="M7 15h4M15 15h2M7 11h2M13 11h4"></path></svg>
+                <sel-dropdown-menu class="sa-dropdown-menu-content sa-dropdown-menu-content-logical dark anchored-bottom-span-right w-44" id="--sa-dropdown-menu-7795034a7087a0932f72e2af7b752ff453ca599d55dc549794b7d3000615cff112009" popover="" role="menu" data-slot="dropdown-menu-content" data-anchor-side="bottom" data-side="bottom">
+                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect><path d="M7 15h4M15 15h2M7 11h2M13 11h4"></path></svg>
                         Transcribe
                     </div>
-                    <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="bg-border -mx-1 my-1 h-px"></div>
-                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                    <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
+                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
                         Copy transcript
                     </div>
-                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M12 2v13"></path><path d="m16 6-4-4-4 4"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path></svg>
+                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M12 2v13"></path><path d="m16 6-4-4-4 4"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path></svg>
                         Share notes
                     </div>
-                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>
+                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>
                         Export as PDF
                     </div>
-                    <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="bg-border -mx-1 my-1 h-px"></div>
-                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="destructive" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
+                    <div role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="destructive" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                         Delete
                     </div>
-                </del-dropdown-menu>
+                </sel-dropdown-menu>
             
         </div>
     </div>
-    <div data-slot="card-content" class="px-(--card-spacing)">
+    <div data-slot="card-content" class="sa-card-content">
         <p>
             Client requested dashboard redesign with focus on mobile
             responsiveness.
@@ -75,12 +78,12 @@
             <li>Follow-up meeting scheduled for next Tuesday</li>
         </ol>
     </div>
-    <div data-slot="card-footer" class="bg-muted/50 rounded-b-xl border-t p-(--card-spacing) flex items-center">
-        <div data-slot="avatar-group" class="*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2">
-            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
-            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
-            <span data-slot="avatar" data-size="default" class="size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten"><img alt="" class="rounded-full aspect-square size-full object-cover" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
-            <div data-slot="avatar-group-count" class="bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&amp;&gt;svg]:size-4 group-has-data-[size=lg]/avatar-group:[&amp;&gt;svg]:size-5 group-has-data-[size=sm]/avatar-group:[&amp;&gt;svg]:size-3 ring-background relative flex shrink-0 items-center justify-center ring-2">+8</div>
+    <div data-slot="card-footer" class="sa-card-footer">
+        <div data-slot="avatar-group" class="sa-avatar-group group/avatar-group">
+            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-3.jpg"></img></span>
+            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+            <div data-slot="avatar-group-count" class="sa-avatar-group-count">+8</div>
         </div>
     </div>
 </div>

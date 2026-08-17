@@ -1,122 +1,122 @@
 ```razor
-<dui-sidebar-wrapper>
-    <dui-sidebar variant="SidebarVariant.Floating">
-        <dui-sidebar-header>
-            <dui-sidebar-menu>
-                <dui-sidebar-menu-item>
-                    <dui-sidebar-menu-link href="#" size="SidebarMenuLinkSize.Large">
+<sa-sidebar-wrapper>
+    <sa-sidebar variant="SidebarVariant.Floating">
+        <sa-sidebar-header>
+            <sa-sidebar-menu>
+                <sa-sidebar-menu-item>
+                    <sa-sidebar-menu-link href="#" size="SidebarMenuLinkSize.Large">
                         <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                            <dui-icon name="compass"/>
+                            <sa-icon name="compass"/>
                         </div>
                         <div class="grid flex-1 text-left text-sm leading-tight">
                             <span class="truncate font-semibold">Voyager Travel</span>
                             <span class="truncate text-xs text-muted-foreground">Admin Console</span>
                         </div>
-                    </dui-sidebar-menu-link>
-                </dui-sidebar-menu-item>
-            </dui-sidebar-menu>
-        </dui-sidebar-header>
+                    </sa-sidebar-menu-link>
+                </sa-sidebar-menu-item>
+            </sa-sidebar-menu>
+        </sa-sidebar-header>
 
-        <dui-sidebar-content>
-            <dui-sidebar-group>
-                <dui-sidebar-group-label>Platform</dui-sidebar-group-label>
-                <dui-sidebar-group-content>
-                    <dui-sidebar-menu>
-                        <dui-sidebar-menu-item>
-                            <dui-sidebar-menu-link href="#">
-                                <dui-icon name="layout-dashboard"/>
+        <sa-sidebar-content>
+            <sa-sidebar-group>
+                <sa-sidebar-group-label>Platform</sa-sidebar-group-label>
+                <sa-sidebar-group-content>
+                    <sa-sidebar-menu>
+                        <sa-sidebar-menu-item>
+                            <sa-sidebar-menu-link href="#">
+                                <sa-icon name="layout-dashboard"/>
                                 <span>Dashboard</span>
-                            </dui-sidebar-menu-link>
-                        </dui-sidebar-menu-item>
-                        <dui-sidebar-menu-item>
-                            <dui-sidebar-menu-link href="#">
-                                <dui-icon name="ticket"/>
+                            </sa-sidebar-menu-link>
+                        </sa-sidebar-menu-item>
+                        <sa-sidebar-menu-item>
+                            <sa-sidebar-menu-link href="#">
+                                <sa-icon name="ticket"/>
                                 <span>Bookings</span>
-                            </dui-sidebar-menu-link>
-                            <dui-sidebar-menu-badge>12</dui-sidebar-menu-badge>
-                        </dui-sidebar-menu-item>
-                        <dui-sidebar-menu-item>
-                            <dui-sidebar-menu-link href="#">
-                                <dui-icon name="map-pinned"/>
+                            </sa-sidebar-menu-link>
+                            <sa-sidebar-menu-badge>12</sa-sidebar-menu-badge>
+                        </sa-sidebar-menu-item>
+                        <sa-sidebar-menu-item>
+                            <sa-sidebar-menu-link href="#">
+                                <sa-icon name="map-pinned"/>
                                 <span>Destinations</span>
-                            </dui-sidebar-menu-link>
-                        </dui-sidebar-menu-item>
-                        <dui-sidebar-menu-item>
-                            <dui-sidebar-menu-link href="#">
-                                <dui-icon name="users"/>
+                            </sa-sidebar-menu-link>
+                        </sa-sidebar-menu-item>
+                        <sa-sidebar-menu-item>
+                            <sa-sidebar-menu-link href="#">
+                                <sa-icon name="users"/>
                                 <span>Customers</span>
-                            </dui-sidebar-menu-link>
-                        </dui-sidebar-menu-item>
-                    </dui-sidebar-menu>
-                </dui-sidebar-group-content>
-            </dui-sidebar-group>
-        </dui-sidebar-content>
+                            </sa-sidebar-menu-link>
+                        </sa-sidebar-menu-item>
+                    </sa-sidebar-menu>
+                </sa-sidebar-group-content>
+            </sa-sidebar-group>
+        </sa-sidebar-content>
 
-        <dui-sidebar-footer>
-            <dui-sidebar-menu>
-                <dui-sidebar-menu-item>
-                    <dui-dropdown-menu id="nav-user-menu">
-                        <dui-sidebar-menu-button size="SidebarMenuButtonSize.Large" popovertarget="nav-user-menu" aria-haspopup="menu">
+        <sa-sidebar-footer>
+            <sa-sidebar-menu>
+                <sa-sidebar-menu-item>
+                    <sa-dropdown-menu id="nav-user-menu">
+                        <sa-sidebar-menu-button size="SidebarMenuButtonSize.Large" popovertarget="nav-user-menu" aria-haspopup="menu">
                             <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-muted text-foreground">
-                                <dui-icon name="user"/>
+                                <sa-icon name="user"/>
                             </div>
                             <div class="grid flex-1 text-left text-sm leading-tight">
                                 <span class="truncate font-semibold">Amelia Hart</span>
                                 <span class="truncate text-xs text-muted-foreground">amelia@voyager.travel</span>
                             </div>
-                            <dui-icon name="chevrons-up-down" class="ml-auto"/>
-                        </dui-sidebar-menu-button>
-                        <dui-dropdown-menu-content class="w-56" position="PositionArea.RightSpanTop">
-                            <dui-dropdown-menu-label class="p-0 font-normal">
+                            <sa-icon name="chevrons-up-down" class="ml-auto"/>
+                        </sa-sidebar-menu-button>
+                        <sa-dropdown-menu-content class="w-56" position="PositionArea.RightSpanTop">
+                            <sa-dropdown-menu-label class="p-0 font-normal">
                                 <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-muted text-foreground">
-                                        <dui-icon name="user"/>
+                                        <sa-icon name="user"/>
                                     </div>
                                     <div class="grid flex-1 text-left text-sm leading-tight">
                                         <span class="truncate font-semibold">Amelia Hart</span>
                                         <span class="truncate text-xs text-muted-foreground">amelia@voyager.travel</span>
                                     </div>
                                 </div>
-                            </dui-dropdown-menu-label>
-                            <dui-dropdown-menu-separator/>
-                            <dui-dropdown-menu-group>
-                                <dui-dropdown-menu-item>
-                                    <dui-icon name="badge-check"/>
+                            </sa-dropdown-menu-label>
+                            <sa-dropdown-menu-separator/>
+                            <sa-dropdown-menu-group>
+                                <sa-dropdown-menu-item>
+                                    <sa-icon name="badge-check"/>
                                     Account
-                                </dui-dropdown-menu-item>
-                                <dui-dropdown-menu-item>
-                                    <dui-icon name="credit-card"/>
+                                </sa-dropdown-menu-item>
+                                <sa-dropdown-menu-item>
+                                    <sa-icon name="credit-card"/>
                                     Billing
-                                </dui-dropdown-menu-item>
-                                <dui-dropdown-menu-item>
-                                    <dui-icon name="bell"/>
+                                </sa-dropdown-menu-item>
+                                <sa-dropdown-menu-item>
+                                    <sa-icon name="bell"/>
                                     Notifications
-                                </dui-dropdown-menu-item>
-                            </dui-dropdown-menu-group>
-                            <dui-dropdown-menu-separator/>
-                            <dui-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
-                                <dui-icon name="log-out"/>
+                                </sa-dropdown-menu-item>
+                            </sa-dropdown-menu-group>
+                            <sa-dropdown-menu-separator/>
+                            <sa-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
+                                <sa-icon name="log-out"/>
                                 Log out
-                            </dui-dropdown-menu-item>
-                        </dui-dropdown-menu-content>
-                    </dui-dropdown-menu>
-                </dui-sidebar-menu-item>
-            </dui-sidebar-menu>
-        </dui-sidebar-footer>
-    </dui-sidebar>
+                            </sa-dropdown-menu-item>
+                        </sa-dropdown-menu-content>
+                    </sa-dropdown-menu>
+                </sa-sidebar-menu-item>
+            </sa-sidebar-menu>
+        </sa-sidebar-footer>
+    </sa-sidebar>
 
-    <dui-sidebar-inset>
-        <header class="flex h-14 items-center gap-2 border-b px-4">
-            <dui-sidebar-trigger></dui-sidebar-trigger>
-            <dui-separator orientation="SeparatorOrientation.Vertical" class="mx-1 h-4"/>
+    <sa-sidebar-inset>
+        <sa-app-header>
+            <sa-sidebar-trigger></sa-sidebar-trigger>
+            <sa-app-header-separator/>
             <span class="text-sm font-medium">Dashboard</span>
-        </header>
+        </sa-app-header>
         <div class="p-4">
             <p class="text-sm text-muted-foreground">
                 The <code class="font-mono">floating</code> variant detaches the sidebar into a
                 rounded panel with its own border and shadow.
             </p>
         </div>
-    </dui-sidebar-inset>
-</dui-sidebar-wrapper>
+    </sa-sidebar-inset>
+</sa-sidebar-wrapper>
 ```

@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -23,7 +26,7 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col relative mx-auto w-full max-w-sm pt-0" data-slot="card" data-size="default">
+    <div class="sa-card group/card relative mx-auto w-full max-w-sm pt-0" data-slot="card" data-size="default">
     <div class="bg-primary absolute inset-0 z-30 aspect-video opacity-50 mix-blend-color"></div>
     <img
         src="https://images.unsplash.com/photo-1604076850742-4c7221f3101b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -31,15 +34,15 @@
         title="Photo by mymind on Unsplash"
         class="relative z-20 aspect-video w-full object-cover brightness-60 grayscale"
     />
-    <div data-slot="card-header" class="gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
-        <div data-slot="card-title" class="text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">Beautiful Landscape</div>
-        <div data-slot="card-description" class="text-muted-foreground text-sm">
+    <div data-slot="card-header" class="sa-card-header group/card-header">
+        <div data-slot="card-title" class="sa-card-title">Beautiful Landscape</div>
+        <div data-slot="card-description" class="sa-card-description">
             A stunning view that captures the essence of natural beauty.
         </div>
     </div>
-    <div data-slot="card-footer" class="bg-muted/50 rounded-b-xl border-t p-(--card-spacing) flex items-center">
-        <button class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 w-full" data-slot="button">
-            <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+    <div data-slot="card-footer" class="sa-card-footer">
+        <button class="sa-button group/button sa-button-variant-default sa-button-size-default w-full" data-slot="button">
+            <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
             Button
         </button>
     </div>

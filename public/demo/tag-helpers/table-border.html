@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -24,83 +27,83 @@
 <div class="preview flex w-full justify-center px-10 py-10">
     
     <div class="w-full rounded-md border">
-    <div data-slot="table-container" class="relative w-full overflow-x-auto"><table class="caption-bottom text-sm relative w-full overflow-x-auto" data-slot="table">
-        <thead data-slot="table-header" class="[&amp;_tr]:border-b">
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <th class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 w-[100px]" data-slot="table-head">Booking #</th>
-                <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Status</th>
-                <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Destination</th>
-                <th class="text-foreground h-10 px-2 align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-head">Amount</th>
+    <div data-slot="table-container" class="sa-table-container"><table class="sa-table sa-table-container" data-slot="table">
+        <thead data-slot="table-header" class="sa-table-header">
+            <tr data-slot="table-row" class="sa-table-row">
+                <th class="sa-table-head w-[100px]" data-slot="table-head">Booking #</th>
+                <th data-slot="table-head" class="sa-table-head">Status</th>
+                <th data-slot="table-head" class="sa-table-head">Destination</th>
+                <th class="sa-table-head text-right" data-slot="table-head">Amount</th>
             </tr>
         </thead>
-        <tbody data-slot="table-body" class="[&amp;_tr:last-child]:border-0">
-                <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4821</td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                        <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-primary text-primary-foreground [a]:hover:bg-primary/80">
+        <tbody data-slot="table-body" class="sa-table-body">
+                <tr data-slot="table-row" class="sa-table-row">
+                    <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4821</td>
+                    <td data-slot="table-cell" class="sa-table-cell">
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-default">
                             Confirmed
                         </span>
                     </td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">London, UK</td>
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                    <td data-slot="table-cell" class="sa-table-cell">London, UK</td>
+                    <td class="sa-table-cell text-right" data-slot="table-cell">
                         1,249.990
                     </td>
                 </tr>
-                <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4822</td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                        <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80">
+                <tr data-slot="table-row" class="sa-table-row">
+                    <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4822</td>
+                    <td data-slot="table-cell" class="sa-table-cell">
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-secondary">
                             Pending
                         </span>
                     </td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Kyoto, Japan</td>
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                    <td data-slot="table-cell" class="sa-table-cell">Kyoto, Japan</td>
+                    <td class="sa-table-cell text-right" data-slot="table-cell">
                         2,450.000
                     </td>
                 </tr>
-                <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4823</td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                        <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-primary text-primary-foreground [a]:hover:bg-primary/80">
+                <tr data-slot="table-row" class="sa-table-row">
+                    <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4823</td>
+                    <td data-slot="table-cell" class="sa-table-cell">
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-default">
                             Confirmed
                         </span>
                     </td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Cancun, Mexico</td>
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                    <td data-slot="table-cell" class="sa-table-cell">Cancun, Mexico</td>
+                    <td class="sa-table-cell text-right" data-slot="table-cell">
                         850.500
                     </td>
                 </tr>
-                <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4824</td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                        <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-primary text-primary-foreground [a]:hover:bg-primary/80">
+                <tr data-slot="table-row" class="sa-table-row">
+                    <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4824</td>
+                    <td data-slot="table-cell" class="sa-table-cell">
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-default">
                             Confirmed
                         </span>
                     </td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Cape Town, SA</td>
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                    <td data-slot="table-cell" class="sa-table-cell">Cape Town, SA</td>
+                    <td class="sa-table-cell text-right" data-slot="table-cell">
                         1,500.000
                     </td>
                 </tr>
-                <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4825</td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                        <span data-slot="badge" class="h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;&gt;svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors overflow-hidden group/badge bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20">
+                <tr data-slot="table-row" class="sa-table-row">
+                    <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4825</td>
+                    <td data-slot="table-cell" class="sa-table-cell">
+                        <span data-slot="badge" class="sa-badge group/badge sa-badge-variant-destructive">
                             Cancelled
                         </span>
                     </td>
-                    <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Rome, Italy</td>
-                    <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                    <td data-slot="table-cell" class="sa-table-cell">Rome, Italy</td>
+                    <td class="sa-table-cell text-right" data-slot="table-cell">
                         185.000
                     </td>
                 </tr>
         </tbody>
-        <tfoot data-slot="table-footer" class="bg-muted/50 border-t font-medium [&amp;&gt;tr]:last:border-b-0">
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td colspan="3" data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
+        <tfoot data-slot="table-footer" class="sa-table-footer">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td colspan="3" data-slot="table-cell" class="sa-table-cell">
                     Total Active Value
                 </td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     6,050.490
                 </td>
             </tr>

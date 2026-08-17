@@ -1,24 +1,24 @@
 ```razor
-<dui-stack align="StackAlign.Center">
-    <dui-button variant="ButtonVariant.Outline" size="ButtonSize.IconSmall" 
+<sa-stack align="StackAlign.Center">
+    <sa-button variant="ButtonVariant.Outline" size="ButtonSize.IconSmall" 
                 interestfor="--tooltip-js-api" id="--tooltip-js-api-button">
-        <dui-icon name="braces"/>
-    </dui-button>
-    <dui-group>
-        <dui-button variant="ButtonVariant.Outline" id="--tooltip-js-api-open">
+        <sa-icon name="braces"/>
+    </sa-button>
+    <sa-group>
+        <sa-button variant="ButtonVariant.Outline" id="--tooltip-js-api-open">
             Open
-        </dui-button>
-        <dui-button variant="ButtonVariant.Outline" id="--tooltip-js-api-close">
+        </sa-button>
+        <sa-button variant="ButtonVariant.Outline" id="--tooltip-js-api-close">
             Close
-        </dui-button>
-        <dui-button variant="ButtonVariant.Outline" id="--tooltip-js-api-toggle">
+        </sa-button>
+        <sa-button variant="ButtonVariant.Outline" id="--tooltip-js-api-toggle">
             Toggle
-        </dui-button>
-    </dui-group>
-</dui-stack>
-<dui-tooltip id="--tooltip-js-api" popover="manual">
+        </sa-button>
+    </sa-group>
+</sa-stack>
+<sa-tooltip id="--tooltip-js-api" popover="manual">
     This tooltip can be controlled via the Popover JS API
-</dui-tooltip>
+</sa-tooltip>
 <script>
     const apiTooltip = document.getElementById('--tooltip-js-api');
     const apiTooltipButton = document.getElementById('--tooltip-js-api-button');

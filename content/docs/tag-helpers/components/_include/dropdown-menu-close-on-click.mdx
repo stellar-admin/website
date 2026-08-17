@@ -1,29 +1,29 @@
 ```razor
-<dui-stack gap="StackGap.Small" align="StackAlign.Center">
-    <dui-dropdown-menu>
-        <dui-dropdown-menu-trigger variant="ButtonVariant.Outline">
-            <dui-icon name="settings-2" class="text-muted-foreground"/>
+<sa-stack gap="StackGap.Small" align="StackAlign.Center">
+    <sa-dropdown-menu>
+        <sa-dropdown-menu-trigger variant="ButtonVariant.Outline">
+            <sa-icon name="settings-2" class="text-muted-foreground"/>
             Booking Options
-        </dui-dropdown-menu-trigger>
-        <dui-dropdown-menu-content class="w-64">
-            <dui-dropdown-menu-label>Availability</dui-dropdown-menu-label>
-            <dui-dropdown-menu-separator/>
+        </sa-dropdown-menu-trigger>
+        <sa-dropdown-menu-content class="w-64">
+            <sa-dropdown-menu-label>Availability</sa-dropdown-menu-label>
+            <sa-dropdown-menu-separator/>
             <!-- A plain item closes the menu by default; close-on-click="false" keeps it
                  open so you can click it repeatedly. -->
-            <dui-dropdown-menu-item close-on-click="false" onclick="voyagerRefresh()">
-                <dui-icon name="refresh-cw"/>
+            <sa-dropdown-menu-item close-on-click="false" onclick="voyagerRefresh()">
+                <sa-icon name="refresh-cw"/>
                 Refresh availability
-            </dui-dropdown-menu-item>
-            <dui-dropdown-menu-separator/>
-            <dui-dropdown-menu-label>Preferences</dui-dropdown-menu-label>
+            </sa-dropdown-menu-item>
+            <sa-dropdown-menu-separator/>
+            <sa-dropdown-menu-label>Preferences</sa-dropdown-menu-label>
             <!-- Checkbox items stay open by default... -->
-            <dui-dropdown-menu-checkbox-item checked="true">Include breakfast</dui-dropdown-menu-checkbox-item>
+            <sa-dropdown-menu-checkbox-item checked="true">Include breakfast</sa-dropdown-menu-checkbox-item>
             <!-- ...while close-on-click="true" applies the choice and dismisses the menu. -->
-            <dui-dropdown-menu-checkbox-item close-on-click="true">Flexible dates (apply &amp; close)</dui-dropdown-menu-checkbox-item>
-        </dui-dropdown-menu-content>
-    </dui-dropdown-menu>
+            <sa-dropdown-menu-checkbox-item close-on-click="true">Flexible dates (apply &amp; close)</sa-dropdown-menu-checkbox-item>
+        </sa-dropdown-menu-content>
+    </sa-dropdown-menu>
     <p class="text-muted-foreground text-sm" id="--booking-options-output">Refreshed 0 times.</p>
-</dui-stack>
+</sa-stack>
 <script>
     (() => {
         let count = 0;

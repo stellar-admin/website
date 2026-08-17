@@ -3,64 +3,67 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 
     <div class="min-h-[450px]">
     <!-- code begin -->
     <div class="flex justify-center">
-        <button commandfor="dialog-settings" command="show-modal" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+        <button commandfor="dialog-settings" command="show-modal" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
             Open settings
         </button>
     </div>
 
-    <del-dialog><dialog id="dialog-settings" class="bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 data-open:grid max-w-[calc(100%-2rem)] gap-4 rounded-xl text-sm ring-1 duration-100 fixed inset-0 m-auto outline-none backdrop:supports-backdrop-filter:backdrop-blur-xs w-[min(760px,100vw_-_2rem)] overflow-hidden p-0 sm:max-w-none" data-slot="dialog-content">
-        <h2 class="sr-only" data-slot="dialog-title" class="text-base leading-none font-medium font-heading sr-only">Settings</h2>
-        <p class="sr-only" data-slot="dialog-description" class="text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3 sr-only">Customize your settings here.</p>
+    <sel-dialog><dialog id="dialog-settings" class="sa-dialog-content w-[min(760px,100vw_-_2rem)] overflow-hidden p-0 sm:max-w-none" data-slot="dialog-content">
+        <h2 class="sr-only" data-slot="dialog-title" class="sa-dialog-title sa-font-heading font-heading sr-only">Settings</h2>
+        <p class="sr-only" data-slot="dialog-description" class="sa-dialog-description sr-only">Customize your settings here.</p>
 
-        <del-sidebar class="group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex w-full min-h-0 items-start" id="--dui-sidebar-7608edcacc98feb3af5a727cf5f4f3ff15b72371c3d9d85ed50114e95e9e948913295" data-slot="sidebar-wrapper" style="--sidebar-width: 16rem; --sidebar-width-icon: 3rem; --sidebar-width-mobile: 18rem">
-            <div class="bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 text-sidebar-foreground flex-col border-r flex h-[480px] w-48" data-slot="sidebar" data-variant="sidebar" data-side="left" data-collapsible="none">
-                <div data-slot="sidebar-content" data-sidebar="content" class="no-scrollbar gap-0 flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden">
-                    <div data-slot="sidebar-group" data-sidebar="group" class="p-2 relative flex w-full min-w-0 flex-col">
-                        <div data-slot="sidebar-group-content" data-sidebar="group-content" class="text-sm w-full">
-                            <ul data-slot="sidebar-menu" data-sidebar="menu" class="gap-0 flex w-full min-w-0 flex-col">
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+        <sel-sidebar class="sa-sidebar-wrapper group/sidebar-wrapper min-h-0 items-start" id="--sa-sidebar-31f69e4e61189a098df7db0c5c059141208ce51c9e69d8b57bfb4a1c1b72d75b14291" data-slot="sidebar-wrapper" style="--sidebar-width: 16rem; --sidebar-width-icon: 3rem; --sidebar-width-mobile: 18rem">
+            <div class="sa-sidebar-inner flex h-[480px] w-48" data-slot="sidebar" data-variant="sidebar" data-side="left" data-collapsible="none">
+                <div data-slot="sidebar-content" data-sidebar="content" class="sa-sidebar-content">
+                    <div data-slot="sidebar-group" data-sidebar="group" class="sa-sidebar-group">
+                        <div data-slot="sidebar-group-content" data-sidebar="group-content" class="sa-sidebar-group-content">
+                            <ul data-slot="sidebar-menu" data-sidebar="menu" class="sa-sidebar-menu">
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
                                         <span>Notifications</span>
                                     </a>
                                 </li>
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
                                         <span>Navigation</span>
                                     </a>
                                 </li>
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m14.622 17.897-10.68-2.913"></path><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"></path><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"></path></svg>
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m14.622 17.897-10.68-2.913"></path><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"></path><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"></path></svg>
                                         <span>Appearance</span>
                                     </a>
                                 </li>
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-active data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-active data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
                                         <span>Messages &amp; media</span>
                                     </a>
                                 </li>
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
                                         <span>Language &amp; region</span>
                                     </a>
                                 </li>
-                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="ring-sidebar-ring active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;&gt;span:last-child]:truncate [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-8 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                                        <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></svg>
+                                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
+                                    <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
+                                        <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></svg>
                                         <span>Accessibility</span>
                                     </a>
                                 </li>
@@ -71,7 +74,7 @@
             </div>
 
             <main class="flex h-[480px] flex-1 flex-col overflow-hidden">
-                <header class="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+                <header class="sa-app-header h-16" data-slot="app-header">
                     <span class="text-base font-medium">Messages &amp; media</span>
                 </header>
                 <div class="flex flex-1 flex-col gap-4 overflow-y-auto p-4">
@@ -85,8 +88,8 @@
                     <div class="aspect-video max-w-3xl rounded-lg bg-muted"></div>
                 </div>
             </main>
-        </del-sidebar>
-    </dialog></del-dialog>
+        </sel-sidebar>
+    </dialog></sel-dialog>
     <!-- code end -->
 </div>
 

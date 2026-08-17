@@ -1,53 +1,53 @@
 ```razor
-<div class="flex justify-center">
-    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-default" command="show-modal">
+<sa-group justify="GroupJustify.Center">
+    <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-default" command="show-modal">
         Default Dismiss
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-light" command="show-modal">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-light" command="show-modal">
         Light Dismiss
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-manual" command="show-modal">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-manual" command="show-modal">
         Manual Dismiss
-    </dui-button>
-</div>
-<dui-dialog id="--dialog-dismiss-default">
-    <dui-dialog-header>
-        <dui-dialog-title>Default Dismiss</dui-dialog-title>
-    </dui-dialog-header>
+    </sa-button>
+</sa-group>
+<sa-dialog id="--dialog-dismiss-default">
+    <sa-dialog-header>
+        <sa-dialog-title>Default Dismiss</sa-dialog-title>
+    </sa-dialog-header>
     <p>This dialog can be closed by pressing the
-        <dui-kbd>Esc</dui-kbd>
+        <sa-kbd>Esc</sa-kbd>
         key or clicking the close button below.
     </p>
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-default" command="close">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-default" command="close">
             Close
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
-<dui-dialog id="--dialog-dismiss-light" closedby="any">
-    <dui-dialog-header>
-        <dui-dialog-title>Light Dismiss</dui-dialog-title>
-    </dui-dialog-header>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
+<sa-dialog id="--dialog-dismiss-light" closedby="any">
+    <sa-dialog-header>
+        <sa-dialog-title>Light Dismiss</sa-dialog-title>
+    </sa-dialog-header>
     <p>This dialog can be closed by pressing the
-        <dui-kbd>Esc</dui-kbd>
+        <sa-kbd>Esc</sa-kbd>
         key, clicking on the backdrop, or clicking the close button below.
     </p>
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-light" command="close">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-light" command="close">
             Close
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
-<dui-dialog id="--dialog-dismiss-manual" closedby="none">
-    <dui-dialog-header>
-        <dui-dialog-title>Manual Dismiss</dui-dialog-title>
-    </dui-dialog-header>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
+<sa-dialog id="--dialog-dismiss-manual" closedby="none">
+    <sa-dialog-header>
+        <sa-dialog-title>Manual Dismiss</sa-dialog-title>
+    </sa-dialog-header>
     <p>This dialog can only be closed by clicking the close button below.
     </p>
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-manual" command="close">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-dismiss-manual" command="close">
             Close
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
 ```

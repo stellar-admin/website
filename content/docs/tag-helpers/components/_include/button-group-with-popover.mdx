@@ -1,33 +1,33 @@
 ```razor
-<dui-button-group>
-    <dui-button variant="ButtonVariant.Outline">
-        <dui-icon name="bot"/>
+<sa-button-group>
+    <sa-button variant="ButtonVariant.Outline">
+        <sa-icon name="bot"/>
         Copilot
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" size="ButtonSize.Icon" popovertarget="--popover-offset">
-        <dui-icon name="chevron-down"/>
-    </dui-button>
-</dui-button-group>
-<dui-popover id="--popover-offset" position="PositionArea.BottomSpanLeft">
-    <dui-stack gap="StackGap.Small">
-        <dui-popover-header>
-            <dui-popover-title>Start a new task with Copilot</dui-popover-title>
-            <dui-popover-description>
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Icon" popovertarget="--popover-offset">
+        <sa-icon name="chevron-down"/>
+    </sa-button>
+</sa-button-group>
+<sa-popover id="--popover-offset" position="PositionArea.BottomSpanLeft">
+    <sa-stack gap="StackGap.Small">
+        <sa-popover-header>
+            <sa-popover-title>Start a new task with Copilot</sa-popover-title>
+            <sa-popover-description>
                 Describe your task in natural language.
-            </dui-popover-description>
-        </dui-popover-header>
-        <dui-field>
-            <dui-field-label for="--button-group-popopver-task" class="sr-only">
+            </sa-popover-description>
+        </sa-popover-header>
+        <sa-field>
+            <sa-field-label for="--button-group-popopver-task" class="sr-only">
                 Task Description
-            </dui-field-label>
-            <dui-textarea
+            </sa-field-label>
+            <sa-textarea
                 id="--button-group-popopver-task"
                 placeholder="I need to..."
                 class="resize-none"/>
-            <dui-field-description>
+            <sa-field-description>
                 Copilot will open a pull request for review.
-            </dui-field-description>
-        </dui-field>
-    </dui-stack>
-</dui-popover>
+            </sa-field-description>
+        </sa-field>
+    </sa-stack>
+</sa-popover>
 ```

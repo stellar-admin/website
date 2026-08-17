@@ -1,21 +1,21 @@
 ```razor
 <div class="flex justify-center">
-    <dui-button variant="ButtonVariant.Destructive" commandfor="--alert-dialog-destructive" command="show-modal">
+    <sa-button variant="ButtonVariant.Destructive" commandfor="--alert-dialog-destructive" command="show-modal">
         Cancel Booking
-    </dui-button>
+    </sa-button>
 </div>
-<dui-alert-dialog id="--alert-dialog-destructive">
-    <dui-alert-dialog-header>
-        <dui-alert-dialog-title>Cancel this booking?</dui-alert-dialog-title>
-        <dui-alert-dialog-description>
+<sa-alert-dialog id="--alert-dialog-destructive">
+    <sa-alert-dialog-header>
+        <sa-alert-dialog-title>Cancel this booking?</sa-alert-dialog-title>
+        <sa-alert-dialog-description>
             This action cannot be undone. Your reservation for Trip #TRV-987 to Paris will be permanently cancelled and your seats released.
-        </dui-alert-dialog-description>
-    </dui-alert-dialog-header>
+        </sa-alert-dialog-description>
+    </sa-alert-dialog-header>
     <form method="dialog">
-        <dui-alert-dialog-footer>
-            <dui-alert-dialog-cancel>Keep booking</dui-alert-dialog-cancel>
-            <dui-alert-dialog-action variant="ButtonVariant.Destructive">Cancel booking</dui-alert-dialog-action>
-        </dui-alert-dialog-footer>
+        <sa-alert-dialog-footer>
+            <sa-alert-dialog-cancel>Keep booking</sa-alert-dialog-cancel>
+            <sa-alert-dialog-action variant="ButtonVariant.Destructive">Cancel booking</sa-alert-dialog-action>
+        </sa-alert-dialog-footer>
     </form>
-</dui-alert-dialog>
+</sa-alert-dialog>
 ```

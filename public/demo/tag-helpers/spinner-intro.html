@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -24,14 +27,14 @@
 <div class="preview flex w-full justify-center px-10 py-10">
     
     <div class="w-md">
-    <div data-slot="item" data-variant="muted" data-size="default" class="[a]:hover:bg-muted rounded-lg border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 bg-muted/50 border-transparent">
-        <div data-slot="item-media" data-variant="default" class="gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start flex shrink-0 items-center justify-center [&amp;_svg]:pointer-events-none dui-item-media-variant-default">
-            <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round" role="status" aria-label="Loading" class="size-4 animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+    <div data-slot="item" data-variant="muted" data-size="default" class="sa-item group/item sa-item-size-default sa-item-variant-muted">
+        <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+            <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor" role="status" aria-label="Loading" class="sa-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
         </div>
-        <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
-            <div class="gap-2 text-sm leading-snug font-medium underline-offset-4 w-fit items-center line-clamp-1" data-slot="item-title">Processing payment...</div>
+        <div data-slot="item-content" class="sa-item-content">
+            <div class="sa-item-title line-clamp-1" data-slot="item-title">Processing payment...</div>
         </div>
-        <div class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none flex-none justify-end" data-slot="item-content">
+        <div class="sa-item-content flex-none justify-end" data-slot="item-content">
             <span class="text-sm tabular-nums">$100.00</span>
         </div>
     </div>

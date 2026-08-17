@@ -1,16 +1,16 @@
 ```razor
 <div class="flex justify-center">
-    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-scrollable-content" command="show-modal">
+    <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-scrollable-content" command="show-modal">
         Open
-    </dui-button>
+    </sa-button>
 </div>
-<dui-dialog id="--dialog-scrollable-content">
-    <dui-dialog-header>
-        <dui-dialog-title>Scrollable Content</dui-dialog-title>
-        <dui-dialog-description>
+<sa-dialog id="--dialog-scrollable-content">
+    <sa-dialog-header>
+        <sa-dialog-title>Scrollable Content</sa-dialog-title>
+        <sa-dialog-description>
             This is a dialog with scrollable content.
-        </dui-dialog-description>
-    </dui-dialog-header>
+        </sa-dialog-description>
+    </sa-dialog-header>
     <div class="-mx-4 max-h-[300px] overflow-y-auto px-4">
         @for (int i = 0; i < 10; i++)
         {
@@ -25,5 +25,5 @@
             </p>
         }
     </div>
-</dui-dialog>
+</sa-dialog>
 ```

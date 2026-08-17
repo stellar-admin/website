@@ -1,35 +1,35 @@
 ```razor
-<dui-dropdown-menu>
-    <dui-dropdown-menu-trigger variant="ButtonVariant.Outline">
-        <dui-icon name="compass" class="text-muted-foreground"/>
+<sa-dropdown-menu>
+    <sa-dropdown-menu-trigger variant="ButtonVariant.Outline">
+        <sa-icon name="compass" class="text-muted-foreground"/>
         Quick Links
-    </dui-dropdown-menu-trigger>
-    <dui-dropdown-menu-content class="w-56">
-        <dui-dropdown-menu-label>Navigate</dui-dropdown-menu-label>
-        <dui-dropdown-menu-separator/>
-        <dui-dropdown-menu-group>
+    </sa-dropdown-menu-trigger>
+    <sa-dropdown-menu-content class="w-56">
+        <sa-dropdown-menu-label>Navigate</sa-dropdown-menu-label>
+        <sa-dropdown-menu-separator/>
+        <sa-dropdown-menu-group>
             <!-- Link to a Razor Page with a route value -->
-            <dui-dropdown-menu-item asp-page="/Booking/Details" asp-route-id="TRP-4821">
-                <dui-icon name="luggage"/>
+            <sa-dropdown-menu-item asp-page="/Booking/Details" asp-route-id="TRP-4821">
+                <sa-icon name="luggage"/>
                 View Booking
-            </dui-dropdown-menu-item>
+            </sa-dropdown-menu-item>
             <!-- Link to an MVC controller action -->
-            <dui-dropdown-menu-item asp-controller="Search" asp-action="Index">
-                <dui-icon name="search"/>
+            <sa-dropdown-menu-item asp-controller="Search" asp-action="Index">
+                <sa-icon name="search"/>
                 Search Trips
-            </dui-dropdown-menu-item>
-            <dui-dropdown-menu-item asp-controller="User" asp-action="Profile">
-                <dui-icon name="circle-user-round"/>
+            </sa-dropdown-menu-item>
+            <sa-dropdown-menu-item asp-controller="User" asp-action="Profile">
+                <sa-icon name="circle-user-round"/>
                 My Profile
-            </dui-dropdown-menu-item>
-        </dui-dropdown-menu-group>
-        <dui-dropdown-menu-separator/>
+            </sa-dropdown-menu-item>
+        </sa-dropdown-menu-group>
+        <sa-dropdown-menu-separator/>
         <!-- External link via a raw href -->
-        <dui-dropdown-menu-item href="https://help.voyager.travel" target="_blank" rel="noopener noreferrer">
-            <dui-icon name="life-buoy"/>
+        <sa-dropdown-menu-item href="https://help.voyager.travel" target="_blank" rel="noopener noreferrer">
+            <sa-icon name="life-buoy"/>
             Help Center
-            <dui-icon name="external-link" class="ml-auto size-4"/>
-        </dui-dropdown-menu-item>
-    </dui-dropdown-menu-content>
-</dui-dropdown-menu>
+            <sa-icon name="external-link" class="ml-auto size-4"/>
+        </sa-dropdown-menu-item>
+    </sa-dropdown-menu-content>
+</sa-dropdown-menu>
 ```

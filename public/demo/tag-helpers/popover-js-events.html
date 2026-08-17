@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -24,19 +27,19 @@
 <div class="preview flex w-full justify-center px-10 py-10">
     
     <!-- code begin -->
-<div class="flex flex-col items-stretch gap-y-2 justify-start min-w-md">
-    <button popovertarget="--popover-js-events" data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
+<div class="sa-stack sa-stack-align-stretch sa-stack-gap-sm sa-stack-justify-start min-w-md">
+    <button popovertarget="--popover-js-events" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
         Toggle Popover
     </button>
-    <div class="data-[invalid=true]:text-destructive gap-2 group/field flex w-full flex-row items-center [&amp;&gt;[data-slot=field-label]]:flex-auto has-[&gt;[data-slot=field-content]]:items-start has-[&gt;[data-slot=field-content]]:[&amp;&gt;[role=checkbox],[role=radio]]:mt-px" data-orientation="horizontal" data-slot="field"><span class="relative flex items-center"><input type="checkbox" id="--popover-prevent-checkbox" data-slot="input" class="border-input dark:bg-input/30 checked:bg-primary checked:text-primary-foreground dark:checked:bg-primary checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 flex size-4 items-center justify-center rounded-[4px] border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 [&amp;.input-validation-error]:aria-checked:border-primary [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 before:content[&#x27;&#x27;] appearance-none"></input><span class="[&amp;&gt;svg]:size-3.5 invisible peer-checked:visible"><svg class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-100 dark:text-black" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="gap-0.5 group/field-content flex flex-1 flex-col leading-snug"><label data-slot="field-label" class="text-sm font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:rounded-lg has-[&gt;[data-slot=field]]:border *:data-[slot=field]:p-2.5 group/field-label peer/field-label flex w-fit leading-snug has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col">Prevent popover toggle</label></div></div>
+    <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" id="--popover-prevent-checkbox" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="sa-field-content group/field-content"><label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Prevent popover toggle</label></div></div>
     <label class="text-sm font-bold">Events:</label>
     <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--popover-js-events-output">
     </div>
 </div>
-<div id="--popover-js-events" class="bg-popover text-popover-foreground ring-foreground/10 gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 w-72 outline-hidden try-flip-all anchored-bottom duration-200 ease-in opacity-100 not-open:opacity-0 starting:open:opacity-0 [transition-property:opacity,display,overlay] [transition-behavior:allow-discrete] mt-5" popover="" data-slot="popover-content">
-    <div class="flex flex-col items-stretch gap-y-4 justify-start">
-        <div class="bg-muted rounded-md animate-pulse h-4 w-[250px]" data-slot="skeleton"></div>
-        <div class="bg-muted rounded-md animate-pulse h-4 w-[250px]" data-slot="skeleton"></div>
+<div id="--popover-js-events" class="sa-popover-content anchored-bottom mt-5" popover="" data-slot="popover-content" data-anchor-side="bottom">
+    <div class="sa-stack sa-stack-align-stretch sa-stack-gap-md sa-stack-justify-start">
+        <div class="sa-skeleton h-4 w-[250px]" data-slot="skeleton"></div>
+        <div class="sa-skeleton h-4 w-[250px]" data-slot="skeleton"></div>
     </div>
 </div>
 <script>

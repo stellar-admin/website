@@ -1,20 +1,20 @@
 ```razor
-<dui-group justify="GroupJustify.Center">
-    <dui-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-show-modal-button">
+<sa-group justify="GroupJustify.Center">
+    <sa-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-show-modal-button">
         Show Modal
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-show-button">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-show-button">
         Show
-    </dui-button>
-</dui-group>
-<dui-dialog id="--dialog-open-via-js-dialog">
+    </sa-button>
+</sa-group>
+<sa-dialog id="--dialog-open-via-js-dialog">
     This is the dialog content...
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-close-button">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" id="--dialog-open-via-js-close-button">
             Close via JS
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
 <script>
     (function() {
         const dialog = document.getElementById("--dialog-open-via-js-dialog");

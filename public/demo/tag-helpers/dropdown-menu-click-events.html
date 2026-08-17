@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -25,37 +28,37 @@
     
     <div class="min-h-[330px]">
     <!-- code begin -->
-    <div class="flex flex-col items-center gap-y-2 justify-start">
+    <div class="sa-stack sa-stack-align-center sa-stack-gap-sm sa-stack-justify-start">
         
-            <button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" popovertarget="--dui-dropdown-menu-57d8ffd6cf9fcbca66d3f9a14fa6d39d10b267e0c544c682b75687f32d91bb797245" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2">
-                <svg class="text-muted-foreground" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            <button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" popovertarget="--sa-dropdown-menu-aa067686dd84560138990fab038c40c5d7c75ac7ccd848209c824728e5e81bfb7633" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
+                <svg class="text-muted-foreground" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                 Trip Actions
             </button>
-            <del-dropdown-menu class="data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 overflow-x-hidden overflow-y-auto outline-hidden try-flip-all anchored-bottom-span-right mt-2 duration-200 ease-in opacity-100 not-open:opacity-0 starting:open:opacity-0 [transition-property:opacity,display,overlay] [transition-behavior:allow-discrete] w-56" id="--dui-dropdown-menu-57d8ffd6cf9fcbca66d3f9a14fa6d39d10b267e0c544c682b75687f32d91bb797245" popover="" role="menu" data-slot="dropdown-menu-content" data-side="bottom">
-                <div data-slot="dropdown-menu-label" class="text-muted-foreground px-1.5 py-1 text-xs font-medium data-inset:pl-7">Trip #TRV-987</div>
-                <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="bg-border -mx-1 my-1 h-px"></div>
+            <sel-dropdown-menu class="sa-dropdown-menu-content sa-dropdown-menu-content-logical dark anchored-bottom-span-right w-56" id="--sa-dropdown-menu-aa067686dd84560138990fab038c40c5d7c75ac7ccd848209c824728e5e81bfb7633" popover="" role="menu" data-slot="dropdown-menu-content" data-anchor-side="bottom" data-side="bottom">
+                <div data-slot="dropdown-menu-label" class="sa-dropdown-menu-label">Trip #TRV-987</div>
+                <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
                 <!-- A non-link item receives click events on any element: here via an inline onclick -->
-                <div onclick="voyagerTripAction('Trip link copied to clipboard')" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                    <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <div onclick="voyagerTripAction('Trip link copied to clipboard')" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                    <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                     Copy Trip Link
                 </div>
                 <!-- ...or wired up in script with addEventListener (see below) -->
-                <div id="--duplicate-trip-item" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                    <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <div id="--duplicate-trip-item" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                    <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
                     Duplicate Trip
                 </div>
-                <div id="--print-itinerary-item" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 group/dropdown-menu-item relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0">
-                    <svg fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"></path><rect height="8" rx="1" width="12" x="6" y="14"></rect></svg>
+                <div id="--print-itinerary-item" role="menuitem" tabindex="-1" data-slot="dropdown-menu-item" data-variant="default" class="sa-dropdown-menu-item group/dropdown-menu-item">
+                    <svg fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"></path><rect height="8" rx="1" width="12" x="6" y="14"></rect></svg>
                     Print Itinerary
                 </div>
-            </del-dropdown-menu>
+            </sel-dropdown-menu>
         
         <p class="text-muted-foreground text-sm" id="--trip-action-output">
             Choose an action from the menu.
         </p>
     </div>
     <script>
-        // The del-dropdown-menu web component dispatches a real click on the focused item for
+        // The sel-dropdown-menu web component dispatches a real click on the focused item for
         // both mouse clicks and keyboard activation (Enter / Space), so a plain click listener
         // works for either. The menu closes on select after your handler runs.
         function voyagerTripAction(message) {

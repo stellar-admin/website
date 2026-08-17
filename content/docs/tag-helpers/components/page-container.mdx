@@ -1,0 +1,71 @@
+---
+title: Page Container
+description: Wrap the main content of a page, centering it and constraining it to a width appropriate for the type of page
+---
+
+import { Demo } from "@/components/demo";
+
+## Usage
+
+Wrap the main content of a page in a `<sa-page-container>`. It centers the content horizontally, applies a consistent gutter, spaces its children vertically, and can constrain the content to a maximum width via the `width` attribute.
+
+```razor
+<sa-page-container width="PageContainerWidth.Medium">
+    ...
+</sa-page-container>
+```
+
+## Examples
+
+### Full width
+
+The default width. The content fills the available space, which suits pages built around data tables and grids.
+
+<Demo src="/demo/tag-helpers/page-container-full.html" mode="fullscreen">
+  <include>./_include/page-container-full.mdx</include>
+</Demo>
+
+### Large
+
+A wide layout suited to dashboards.
+
+<Demo src="/demo/tag-helpers/page-container-large.html" mode="fullscreen">
+  <include>./_include/page-container-large.mdx</include>
+</Demo>
+
+### Medium
+
+A medium-width layout suited to detail and settings pages.
+
+<Demo src="/demo/tag-helpers/page-container-medium.html" mode="fullscreen">
+  <include>./_include/page-container-medium.mdx</include>
+</Demo>
+
+### Small
+
+A narrow layout suited to single-column forms.
+
+<Demo src="/demo/tag-helpers/page-container-small.html" mode="fullscreen">
+  <include>./_include/page-container-small.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-page-container>`
+
+The `<sa-page-container>` tag helper renders a `<div>` element wrapping the
+main content of a page. In addition to the attribute below, it forwards any
+standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
+
+<TypeTable
+  type={{
+    width: {
+      description:
+        "The maximum width to which the content is constrained. One of Full, Large, Medium, or Small.",
+      type: "PageContainerWidth",
+      default: "Full",
+    },
+  }}
+/>

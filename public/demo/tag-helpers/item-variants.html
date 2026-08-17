@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -24,43 +27,43 @@
 <div class="preview flex w-full justify-center px-10 py-10">
     
     <div class="w-lg">
-    <div class="flex flex-col items-stretch gap-y-4 justify-start">
+    <div class="sa-stack sa-stack-align-stretch sa-stack-gap-md sa-stack-justify-start">
         <!-- code begin -->
-        <div data-slot="item" data-variant="default" data-size="default" class="[a]:hover:bg-muted rounded-lg border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-transparent">
-            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
-                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Default Variant</div>
-                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+        <div data-slot="item" data-variant="default" data-size="default" class="sa-item group/item sa-item-size-default sa-item-variant-default">
+            <div data-slot="item-content" class="sa-item-content">
+                <div data-slot="item-title" class="sa-item-title">Default Variant</div>
+                <p data-slot="item-description" class="sa-item-description">
                     Standard styling with subtle background and borders.
                 </p>
             </div>
-            <div data-slot="item-actions" class="gap-2 flex items-center">
-                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3.5">
+            <div data-slot="item-actions" class="sa-item-actions">
+                <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
                     Open
                 </button>
             </div>
         </div>
-        <div data-slot="item" data-variant="outline" data-size="default" class="[a]:hover:bg-muted rounded-lg border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 border-border">
-            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
-                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Outline Variant</div>
-                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+        <div data-slot="item" data-variant="outline" data-size="default" class="sa-item group/item sa-item-size-default sa-item-variant-outline">
+            <div data-slot="item-content" class="sa-item-content">
+                <div data-slot="item-title" class="sa-item-title">Outline Variant</div>
+                <p data-slot="item-description" class="sa-item-description">
                     Outlined style with clear borders and transparent background.
                 </p>
             </div>
-            <div data-slot="item-actions" class="gap-2 flex items-center">
-                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3.5">
+            <div data-slot="item-actions" class="sa-item-actions">
+                <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
                     Open
                 </button>
             </div>
         </div>
-        <div data-slot="item" data-variant="muted" data-size="default" class="[a]:hover:bg-muted rounded-lg border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-100 focus-visible:ring-[3px] [a]:transition-colors gap-2.5 px-3 py-2.5 bg-muted/50 border-transparent">
-            <div data-slot="item-content" class="gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&amp;&#x2B;[data-slot=item-content]]:flex-none">
-                <div data-slot="item-title" class="gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center">Muted Variant</div>
-                <p data-slot="item-description" class="text-muted-foreground text-left text-sm leading-normal group-data-[size=xs]/item:text-xs [&amp;&gt;a:hover]:text-primary line-clamp-2 font-normal [&amp;&gt;a]:underline [&amp;&gt;a]:underline-offset-4">
+        <div data-slot="item" data-variant="muted" data-size="default" class="sa-item group/item sa-item-size-default sa-item-variant-muted">
+            <div data-slot="item-content" class="sa-item-content">
+                <div data-slot="item-title" class="sa-item-title">Muted Variant</div>
+                <p data-slot="item-description" class="sa-item-description">
                     Subdued appearance with muted colors for secondary content.
                 </p>
             </div>
-            <div data-slot="item-actions" class="gap-2 flex items-center">
-                <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 border bg-clip-padding font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none shrink-0 [&amp;_svg]:shrink-0 outline-none group/button select-none border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-3.5">
+            <div data-slot="item-actions" class="sa-item-actions">
+                <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
                     Open
                 </button>
             </div>

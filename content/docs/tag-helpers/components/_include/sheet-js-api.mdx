@@ -1,23 +1,23 @@
 ```razor
-<dui-group justify="GroupJustify.Center">
-    <dui-button variant="ButtonVariant.Outline" id="--sheet-js-api-show-modal-button">
+<sa-group justify="GroupJustify.Center">
+    <sa-button variant="ButtonVariant.Outline" id="--sheet-js-api-show-modal-button">
         Show Modal
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" id="--sheet-js-api-show-button">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" id="--sheet-js-api-show-button">
         Show
-    </dui-button>
-</dui-group>
-<dui-sheet id="--sheet-js-api-sheet">
-    <dui-sheet-header>
-        <dui-sheet-title>JavaScript API</dui-sheet-title>
-        <dui-sheet-description>You can open and close this sheet using the dialog JS API</dui-sheet-description>
-    </dui-sheet-header>
-    <dui-sheet-footer>
-        <dui-button variant="ButtonVariant.Outline" id="--sheet-js-api-close-button">
+    </sa-button>
+</sa-group>
+<sa-sheet id="--sheet-js-api-sheet">
+    <sa-sheet-header>
+        <sa-sheet-title>JavaScript API</sa-sheet-title>
+        <sa-sheet-description>You can open and close this sheet using the dialog JS API</sa-sheet-description>
+    </sa-sheet-header>
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" id="--sheet-js-api-close-button">
             Close via JS
-        </dui-button>
-    </dui-sheet-footer>
-</dui-sheet>
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
 <script>
     (function() {
         const sheet = document.getElementById("--sheet-js-api-sheet");

@@ -1,58 +1,58 @@
 ```razor
 <div class="flex justify-center gap-2">
-    <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-default" command="show-modal">
+    <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-default" command="show-modal">
         Default Dismiss
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-light" command="show-modal">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-light" command="show-modal">
         Light Dismiss
-    </dui-button>
-    <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-manual" command="show-modal">
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-manual" command="show-modal">
         Manual Dismiss
-    </dui-button>
+    </sa-button>
 </div>
-<dui-sheet id="--sheet-dismiss-default">
-    <dui-sheet-header>
-        <dui-sheet-title>Default Dismiss</dui-sheet-title>
-    </dui-sheet-header>
+<sa-sheet id="--sheet-dismiss-default">
+    <sa-sheet-header>
+        <sa-sheet-title>Default Dismiss</sa-sheet-title>
+    </sa-sheet-header>
     <div class="p-4">
         <p>This sheet can be closed by pressing the
-            <dui-kbd>Esc</dui-kbd>
+            <sa-kbd>Esc</sa-kbd>
             key or clicking the close button below.
         </p>
     </div>
-    <dui-sheet-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-default" command="close">
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-default" command="close">
             Close
-        </dui-button>
-    </dui-sheet-footer>
-</dui-sheet>
-<dui-sheet id="--sheet-dismiss-light" closedby="any">
-    <dui-sheet-header>
-        <dui-sheet-title>Light Dismiss</dui-sheet-title>
-    </dui-sheet-header>
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
+<sa-sheet id="--sheet-dismiss-light" closedby="any">
+    <sa-sheet-header>
+        <sa-sheet-title>Light Dismiss</sa-sheet-title>
+    </sa-sheet-header>
     <div class="p-4">
         <p>This sheet can be closed by pressing the
-            <dui-kbd>Esc</dui-kbd>
+            <sa-kbd>Esc</sa-kbd>
             key, clicking on the backdrop, or clicking the close button below.
         </p>
     </div>
-    <dui-sheet-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-light" command="close">
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-light" command="close">
             Close
-        </dui-button>
-    </dui-sheet-footer>
-</dui-sheet>
-<dui-sheet id="--sheet-dismiss-manual" closedby="none">
-    <dui-sheet-header>
-        <dui-sheet-title>Manual Dismiss</dui-sheet-title>
-    </dui-sheet-header>
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
+<sa-sheet id="--sheet-dismiss-manual" closedby="none">
+    <sa-sheet-header>
+        <sa-sheet-title>Manual Dismiss</sa-sheet-title>
+    </sa-sheet-header>
     <div class="p-4">
         <p>This sheet can only be closed by clicking the close button below.</p>
     </div>
-    <dui-sheet-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-manual" command="close">
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--sheet-dismiss-manual" command="close">
             Close
-        </dui-button>
-    </dui-sheet-footer>
-</dui-sheet>
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
 ```

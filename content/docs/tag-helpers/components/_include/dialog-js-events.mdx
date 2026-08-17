@@ -1,34 +1,34 @@
 ```razor
-<dui-stack gap="StackGap.Small" align="StackAlign.Start" class="min-w-md">
-    <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="show-modal">
+<sa-stack gap="StackGap.Small" align="StackAlign.Start" class="min-w-md">
+    <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="show-modal">
         Open Dialog
-    </dui-button>
-    <dui-input type="checkbox"
+    </sa-button>
+    <sa-input type="checkbox"
                id="--dialog-js-events-prevent-toggle-checkbox"
                label="PreventDefault() in beforetoggle event"
                description="Will prevent the dialog from opening"/>
     <label class="text-sm font-bold">Events:</label>
     <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--dialog-js-events-output">
     </div>
-</dui-stack>
-<dui-dialog id="--dialog-js-events-dialog">
-    <dui-dialog-header>
-        <dui-dialog-title>Events</dui-dialog-title>
-    </dui-dialog-header>
+</sa-stack>
+<sa-dialog id="--dialog-js-events-dialog">
+    <sa-dialog-header>
+        <sa-dialog-title>Events</sa-dialog-title>
+    </sa-dialog-header>
     <p>This dialog is used to demonstrates events.</p>
-    <dui-input type="checkbox"
+    <sa-input type="checkbox"
                id="--dialog-js-events-prevent-cancel-checkbox"
                label="PreventDefault() in cancel event"
                description="Will prevent the Request Close button from closing the dialog"/>
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="close">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="close">
             Close
-        </dui-button>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="request-close">
+        </sa-button>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--dialog-js-events-dialog" command="request-close">
             Request Close
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
 <script>
     (function () {
         let counter = 0;

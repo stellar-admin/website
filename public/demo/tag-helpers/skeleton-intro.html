@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -25,13 +28,13 @@
     
     <div class="w-full max-w-md">
     <!-- code begin -->
-    <div class="ring-foreground/10 bg-card text-card-foreground gap-(--card-spacing) overflow-hidden rounded-xl py-(--card-spacing) text-sm ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[&gt;img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col w-full" data-slot="card" data-size="default">
-        <div data-slot="card-header" class="gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing) group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]">
-            <div class="bg-muted rounded-md animate-pulse h-4 w-2/3" data-slot="skeleton"></div>
-            <div class="bg-muted rounded-md animate-pulse h-4 w-1/2" data-slot="skeleton"></div>
+    <div class="sa-card group/card w-full" data-slot="card" data-size="default">
+        <div data-slot="card-header" class="sa-card-header group/card-header">
+            <div class="sa-skeleton h-4 w-2/3" data-slot="skeleton"></div>
+            <div class="sa-skeleton h-4 w-1/2" data-slot="skeleton"></div>
         </div>
-        <div data-slot="card-content" class="px-(--card-spacing)">
-            <div class="bg-muted rounded-md animate-pulse aspect-square w-full" data-slot="skeleton"></div>
+        <div data-slot="card-content" class="sa-card-content">
+            <div class="sa-skeleton aspect-square w-full" data-slot="skeleton"></div>
         </div>
     </div>
     <!-- code end -->

@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.bosdw4c0h9.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/dune-ui.iu1w4lv7al.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
     
     <style>
         body {
@@ -13,7 +16,7 @@
         }
     </style>
 
-    <script defer src="/demo/tag-helpers/assets/dune-ui.edbu3mkpc0.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
 </head>
 <body>
 <script>
@@ -23,94 +26,94 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div data-slot="table-container" class="relative w-full overflow-x-auto"><table class="caption-bottom text-sm relative w-full overflow-x-auto" data-slot="table">
-    <caption data-slot="table-caption" class="text-muted-foreground mt-4 text-sm">Total Active Value includes Confirmed and Pending bookings only.</caption>
-    <thead data-slot="table-header" class="[&amp;_tr]:border-b">
-        <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-            <th class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 w-[100px]" data-slot="table-head">Booking #</th>
-            <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Status</th>
-            <th data-slot="table-head" class="text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Destination</th>
-            <th class="text-foreground h-10 px-2 align-middle font-medium whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-head">Amount</th>
+    <div data-slot="table-container" class="sa-table-container"><table class="sa-table sa-table-container" data-slot="table">
+    <caption data-slot="table-caption" class="sa-table-caption">Total Active Value includes Confirmed and Pending bookings only.</caption>
+    <thead data-slot="table-header" class="sa-table-header">
+        <tr data-slot="table-row" class="sa-table-row">
+            <th class="sa-table-head w-[100px]" data-slot="table-head">Booking #</th>
+            <th data-slot="table-head" class="sa-table-head">Status</th>
+            <th data-slot="table-head" class="sa-table-head">Destination</th>
+            <th class="sa-table-head text-right" data-slot="table-head">Amount</th>
         </tr>
     </thead>
-    <tbody data-slot="table-body" class="[&amp;_tr:last-child]:border-0">
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4821</td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                    <div data-slot="native-select-wrapper" data-size="sm" class="group/native-select relative w-fit has-[select:disabled]:opacity-50"><select data-slot="native-select" data-size="sm" class="border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed">
+    <tbody data-slot="table-body" class="sa-table-body">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4821</td>
+                <td data-slot="table-cell" class="sa-table-cell">
+                    <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="sm" class="sa-native-select">
                             <option value="0" selected="selected">Confirmed</option>
                             <option value="1">Pending</option>
                             <option value="2">Cancelled</option>
-                    </select><svg class="text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
                 </td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">London, UK</td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td data-slot="table-cell" class="sa-table-cell">London, UK</td>
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     1,249.990
                 </td>
             </tr>    
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4822</td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                    <div data-slot="native-select-wrapper" data-size="sm" class="group/native-select relative w-fit has-[select:disabled]:opacity-50"><select data-slot="native-select" data-size="sm" class="border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4822</td>
+                <td data-slot="table-cell" class="sa-table-cell">
+                    <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="sm" class="sa-native-select">
                             <option value="0">Confirmed</option>
                             <option value="1" selected="selected">Pending</option>
                             <option value="2">Cancelled</option>
-                    </select><svg class="text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
                 </td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Kyoto, Japan</td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td data-slot="table-cell" class="sa-table-cell">Kyoto, Japan</td>
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     2,450.000
                 </td>
             </tr>    
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4823</td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                    <div data-slot="native-select-wrapper" data-size="sm" class="group/native-select relative w-fit has-[select:disabled]:opacity-50"><select data-slot="native-select" data-size="sm" class="border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4823</td>
+                <td data-slot="table-cell" class="sa-table-cell">
+                    <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="sm" class="sa-native-select">
                             <option value="0" selected="selected">Confirmed</option>
                             <option value="1">Pending</option>
                             <option value="2">Cancelled</option>
-                    </select><svg class="text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
                 </td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Cancun, Mexico</td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td data-slot="table-cell" class="sa-table-cell">Cancun, Mexico</td>
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     850.500
                 </td>
             </tr>    
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4824</td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                    <div data-slot="native-select-wrapper" data-size="sm" class="group/native-select relative w-fit has-[select:disabled]:opacity-50"><select data-slot="native-select" data-size="sm" class="border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4824</td>
+                <td data-slot="table-cell" class="sa-table-cell">
+                    <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="sm" class="sa-native-select">
                             <option value="0" selected="selected">Confirmed</option>
                             <option value="1">Pending</option>
                             <option value="2">Cancelled</option>
-                    </select><svg class="text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
                 </td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Cape Town, SA</td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td data-slot="table-cell" class="sa-table-cell">Cape Town, SA</td>
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     1,500.000
                 </td>
             </tr>    
-            <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 font-medium" data-slot="table-cell">TRP-4825</td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
-                    <div data-slot="native-select-wrapper" data-size="sm" class="group/native-select relative w-fit has-[select:disabled]:opacity-50"><select data-slot="native-select" data-size="sm" class="border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 [&amp;.input-validation-error]:ring-destructive/20 dark:[&amp;.input-validation-error]:ring-destructive/40 [&amp;.input-validation-error]:border-destructive dark:[&amp;.input-validation-error]:border-destructive/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed">
+            <tr data-slot="table-row" class="sa-table-row">
+                <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4825</td>
+                <td data-slot="table-cell" class="sa-table-cell">
+                    <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="sm" class="sa-native-select">
                             <option value="0">Confirmed</option>
                             <option value="1">Pending</option>
                             <option value="2" selected="selected">Cancelled</option>
-                    </select><svg class="text-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linecap="round" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
                 </td>
-                <td data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">Rome, Italy</td>
-                <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+                <td data-slot="table-cell" class="sa-table-cell">Rome, Italy</td>
+                <td class="sa-table-cell text-right" data-slot="table-cell">
                     185.000
                 </td>
             </tr>    
     </tbody>
-    <tfoot data-slot="table-footer" class="bg-muted/50 border-t font-medium [&amp;&gt;tr]:last:border-b-0">
-        <tr data-slot="table-row" class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors">
-            <td colspan="3" data-slot="table-cell" class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0">
+    <tfoot data-slot="table-footer" class="sa-table-footer">
+        <tr data-slot="table-row" class="sa-table-row">
+            <td colspan="3" data-slot="table-cell" class="sa-table-cell">
                 Total Active Value
             </td>
-            <td class="p-2 align-middle whitespace-nowrap [&amp;:has([role=checkbox])]:pr-0 text-right" data-slot="table-cell">
+            <td class="sa-table-cell text-right" data-slot="table-cell">
                 6,050.490
             </td>
         </tr>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.r7faauge04.js"></script>
+</head>
+<body>
+
+    <!-- code begin -->
+<div data-slot="page-container" data-width="small" class="sa-page-container sa-page-container-width-small">
+    <header data-slot="page-header" class="sa-page-header">
+        <h1 data-slot="page-header-title" class="sa-page-header-title sa-font-heading font-heading">Add destination</h1>
+        <p data-slot="page-header-description" class="sa-page-header-description">
+            Create a new destination that customers can book through Voyager Travel.
+        </p>
+    </header>
+    <form>
+        <div data-slot="field-group" class="sa-field-group group/field-group">
+            <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                <label for="destination-name" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Name</label>
+                <input id="destination-name" type="text" placeholder="e.g. Kyoto, Japan" data-slot="input" class="sa-input"></input>
+                <p data-slot="field-description" class="sa-field-description">Shown to customers when browsing destinations.</p>
+            </div>
+            <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                <label for="destination-region" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Region</label>
+                <div id="destination-region" data-slot="native-select-wrapper" data-size="default" class="sa-native-select-wrapper group/native-select"><select id="destination-region" data-slot="native-select" data-size="default" class="sa-native-select">
+                    <option value="africa">Africa</option>
+                    <option value="asia-pacific" selected>Asia-Pacific</option>
+                    <option value="europe">Europe</option>
+                    <option value="north-america">North America</option>
+                    <option value="south-america">South America</option>
+                </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
+            </div>
+            <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                <label for="destination-description" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Description</label>
+                <textarea id="destination-description" placeholder="What makes this destination worth the trip?" data-slot="textarea" class="sa-textarea"></textarea>
+                <p data-slot="field-description" class="sa-field-description">
+                    Appears on the destination page and in package brochures.
+                </p>
+            </div>
+            <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="destination-featured" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" viewBox="0 0 24 24" width="24" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <label for="destination-featured" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
+                    Feature on the home page
+                </label>
+            </div>
+        </div>
+        <div class="sa-group sa-group-align-start sa-group-gap-md sa-group-justify-end mt-6">
+            <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">Cancel</button>
+            <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-default">Save destination</button>
+        </div>
+    </form>
+</div>
+<!-- code end -->
+
+
+
+
+</body>
+</html>
