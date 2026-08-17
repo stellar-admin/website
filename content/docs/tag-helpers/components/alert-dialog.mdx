@@ -11,37 +11,37 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<dui-alert-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog), styled as a centered confirmation modal. Open it with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) by adding `commandfor` and `command="show-modal"` to a `<dui-button>`.
+`<sa-alert-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog), styled as a centered confirmation modal. Open it with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) by adding `commandfor` and `command="show-modal"` to a `<sa-button>`.
 
-Unlike `<dui-dialog>`, an alert dialog is **not** light-dismissable: pressing `Esc` cancels it, but clicking the backdrop does nothing (`closedby="closerequest"` by default). Wrap the footer in a `<form method="dialog">` and use `<dui-alert-dialog-action>` / `<dui-alert-dialog-cancel>` so the dialog closes with the correct `returnValue`.
+Unlike `<sa-dialog>`, an alert dialog is **not** light-dismissable: pressing `Esc` cancels it, but clicking the backdrop does nothing (`closedby="closerequest"` by default). Wrap the footer in a `<form method="dialog">` and use `<sa-alert-dialog-action>` / `<sa-alert-dialog-cancel>` so the dialog closes with the correct `returnValue`.
 
 ```razor
-<dui-button commandfor="--confirm" command="show-modal">
+<sa-button commandfor="--confirm" command="show-modal">
     Show Dialog
-</dui-button>
-<dui-alert-dialog id="--confirm">
-    <dui-alert-dialog-header>
-        <dui-alert-dialog-title>Cancel this booking?</dui-alert-dialog-title>
-        <dui-alert-dialog-description>
+</sa-button>
+<sa-alert-dialog id="--confirm">
+    <sa-alert-dialog-header>
+        <sa-alert-dialog-title>Cancel this booking?</sa-alert-dialog-title>
+        <sa-alert-dialog-description>
             This action cannot be undone.
-        </dui-alert-dialog-description>
-    </dui-alert-dialog-header>
+        </sa-alert-dialog-description>
+    </sa-alert-dialog-header>
     <form method="dialog">
-        <dui-alert-dialog-footer>
-            <dui-alert-dialog-cancel>Keep booking</dui-alert-dialog-cancel>
-            <dui-alert-dialog-action>Continue</dui-alert-dialog-action>
-        </dui-alert-dialog-footer>
+        <sa-alert-dialog-footer>
+            <sa-alert-dialog-cancel>Keep booking</sa-alert-dialog-cancel>
+            <sa-alert-dialog-action>Continue</sa-alert-dialog-action>
+        </sa-alert-dialog-footer>
     </form>
-</dui-alert-dialog>
+</sa-alert-dialog>
 ```
 
-`<dui-alert-dialog-cancel>` renders a submit button with `value="cancel"` and `<dui-alert-dialog-action>` one with `value="confirm"`, so the wrapping `method="dialog"` form closes the dialog and sets `returnValue` accordingly.
+`<sa-alert-dialog-cancel>` renders a submit button with `value="cancel"` and `<sa-alert-dialog-action>` one with `value="confirm"`, so the wrapping `method="dialog"` form closes the dialog and sets `returnValue` accordingly.
 
 ## Examples
 
 ### Destructive action
 
-Pass `variant="ButtonVariant.Destructive"` to `<dui-alert-dialog-action>` for irreversible operations such as deleting data.
+Pass `variant="ButtonVariant.Destructive"` to `<sa-alert-dialog-action>` for irreversible operations such as deleting data.
 
 <Demo src="/demo/tag-helpers/alert-dialog-destructive.html">
   <include>./_include/alert-dialog-destructive.mdx</include>
@@ -57,7 +57,7 @@ Use the `size` attribute (`AlertDialogSize.Default` or `AlertDialogSize.Small`) 
 
 ### Media
 
-Add a `<dui-alert-dialog-media>` slot to the header to show a media element such as an icon or image above the title.
+Add a `<sa-alert-dialog-media>` slot to the header to show a media element such as an icon or image above the title.
 
 <Demo src="/demo/tag-helpers/alert-dialog-media.html">
   <include>./_include/alert-dialog-media.mdx</include>
@@ -65,7 +65,7 @@ Add a `<dui-alert-dialog-media>` slot to the header to show a media element such
 
 ### Small with media
 
-Combine `size="AlertDialogSize.Small"` with `<dui-alert-dialog-media>` for a compact, centered dialog that still leads with an icon.
+Combine `size="AlertDialogSize.Small"` with `<sa-alert-dialog-media>` for a compact, centered dialog that still leads with an icon.
 
 <Demo src="/demo/tag-helpers/alert-dialog-small-media.html">
   <include>./_include/alert-dialog-small-media.mdx</include>
@@ -73,7 +73,7 @@ Combine `size="AlertDialogSize.Small"` with `<dui-alert-dialog-media>` for a com
 
 ### JavaScript API
 
-For the common "await a confirmation before acting" flow, use the `window.duneui.alertDialog()` helper. Its `confirmAsync()` method resolves to `true` when the user activates the action button and `false` on cancel or `Esc`.
+For the common "await a confirmation before acting" flow, use the `window.stellarAdmin.alertDialog()` helper. Its `confirmAsync()` method resolves to `true` when the user activates the action button and `false` on cancel or `Esc`.
 
 <Callout type="tip">
   `alertDialog()` is built on the same primitive as the [`dialog()`
@@ -88,9 +88,9 @@ For the common "await a confirmation before acting" flow, use the `window.duneui
 
 ## API Reference
 
-### `<dui-alert-dialog>`
+### `<sa-alert-dialog>`
 
-The `<dui-alert-dialog>` tag helper renders a native [`<dialog>`
+The `<sa-alert-dialog>` tag helper renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 which is opened and closed via the Invoker Commands API
 (`command="show-modal"` / `command="close"` on a button whose `commandfor`
@@ -111,34 +111,34 @@ not light-dismissable.
   }}
 />
 
-### `<dui-alert-dialog-header>`
+### `<sa-alert-dialog-header>`
 
-The `<dui-alert-dialog-header>` tag helper renders a `<div>` element that groups
+The `<sa-alert-dialog-header>` tag helper renders a `<div>` element that groups
 the media, title, and description. It has no attributes of its own.
 
-### `<dui-alert-dialog-media>`
+### `<sa-alert-dialog-media>`
 
-The `<dui-alert-dialog-media>` tag helper renders a `<div>` element for showing
+The `<sa-alert-dialog-media>` tag helper renders a `<div>` element for showing
 an icon or image above the title. It has no attributes of its own.
 
-### `<dui-alert-dialog-title>`
+### `<sa-alert-dialog-title>`
 
-The `<dui-alert-dialog-title>` tag helper renders an `<h2>` element containing
+The `<sa-alert-dialog-title>` tag helper renders an `<h2>` element containing
 the dialog's title. It has no attributes of its own.
 
-### `<dui-alert-dialog-description>`
+### `<sa-alert-dialog-description>`
 
-The `<dui-alert-dialog-description>` tag helper renders a `<p>` element
+The `<sa-alert-dialog-description>` tag helper renders a `<p>` element
 containing the dialog's description. It has no attributes of its own.
 
-### `<dui-alert-dialog-footer>`
+### `<sa-alert-dialog-footer>`
 
-The `<dui-alert-dialog-footer>` tag helper renders a `<div>` element that lays
+The `<sa-alert-dialog-footer>` tag helper renders a `<div>` element that lays
 out the cancel and action buttons. It has no attributes of its own.
 
-### `<dui-alert-dialog-cancel>`
+### `<sa-alert-dialog-cancel>`
 
-The `<dui-alert-dialog-cancel>` tag helper renders a `<button type="submit">`
+The `<sa-alert-dialog-cancel>` tag helper renders a `<button type="submit">`
 with `value="cancel"` (unless you supply your own `value`), so a wrapping
 `<form method="dialog">` closes the dialog with that `returnValue`. It forwards
 any standard [`<button>`
@@ -157,9 +157,9 @@ to the rendered element.
   }}
 />
 
-### `<dui-alert-dialog-action>`
+### `<sa-alert-dialog-action>`
 
-The `<dui-alert-dialog-action>` tag helper renders a `<button type="submit">`
+The `<sa-alert-dialog-action>` tag helper renders a `<button type="submit">`
 with `value="confirm"` (unless you supply your own `value`), so a wrapping
 `<form method="dialog">` closes the dialog with that `returnValue`. It forwards
 any standard [`<button>`

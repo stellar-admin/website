@@ -12,35 +12,35 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-pagination>
-    <dui-pagination-content>
-        <dui-pagination-item>
-            <dui-pagination-first href="#"/>
-        </dui-pagination-item>
-        <dui-pagination-item>
-            <dui-pagination-previous href="#"/>
-        </dui-pagination-item>
-        <dui-pagination-item>
-            <dui-pagination-link href="#">1</dui-pagination-link>
-        </dui-pagination-item>
-        <dui-pagination-item>
-            <dui-pagination-ellipsis/>
-        </dui-pagination-item>
-        <dui-pagination-item>
-            <dui-pagination-next href="#"/>
-        </dui-pagination-item>
-        <dui-pagination-item>
-            <dui-pagination-last href="#"/>
-        </dui-pagination-item>
-    </dui-pagination-content>
-</dui-pagination>
+<sa-pagination>
+    <sa-pagination-content>
+        <sa-pagination-item>
+            <sa-pagination-first href="#"/>
+        </sa-pagination-item>
+        <sa-pagination-item>
+            <sa-pagination-previous href="#"/>
+        </sa-pagination-item>
+        <sa-pagination-item>
+            <sa-pagination-link href="#">1</sa-pagination-link>
+        </sa-pagination-item>
+        <sa-pagination-item>
+            <sa-pagination-ellipsis/>
+        </sa-pagination-item>
+        <sa-pagination-item>
+            <sa-pagination-next href="#"/>
+        </sa-pagination-item>
+        <sa-pagination-item>
+            <sa-pagination-last href="#"/>
+        </sa-pagination-item>
+    </sa-pagination-content>
+</sa-pagination>
 ```
 
 ## Examples
 
 ### URL
 
-The URL of `dui-pagination-link`, `dui-pagination-first`, `dui-pagination-previous`, `dui-pagination-next`, and `dui-pagination-last` can be specified a couple of ways:
+The URL of `sa-pagination-link`, `sa-pagination-first`, `sa-pagination-previous`, `sa-pagination-next`, and `sa-pagination-last` can be specified a couple of ways:
 
 1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
 2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
@@ -59,32 +59,32 @@ You can change the default content of the first, previous, next, last, and ellip
 
 ## API Reference
 
-### `<dui-pagination>`
+### `<sa-pagination>`
 
-The `<dui-pagination>` tag helper renders a `<nav>` element with
+The `<sa-pagination>` tag helper renders a `<nav>` element with
 `role="navigation"` and `aria-label="pagination"`. It has no attributes of its
 own, but forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-pagination-content>`
+### `<sa-pagination-content>`
 
-The `<dui-pagination-content>` tag helper renders a `<ul>` element containing
+The `<sa-pagination-content>` tag helper renders a `<ul>` element containing
 the pagination items. It has no attributes of its own.
 
-### `<dui-pagination-item>`
+### `<sa-pagination-item>`
 
-The `<dui-pagination-item>` tag helper renders an `<li>` element wrapping a
+The `<sa-pagination-item>` tag helper renders an `<li>` element wrapping a
 single link. It has no attributes of its own.
 
-### `<dui-pagination-first>`
+### `<sa-pagination-first>`
 
-The `<dui-pagination-first>` tag helper renders an `<a>` element styled as a
+The `<sa-pagination-first>` tag helper renders an `<a>` element styled as a
 ghost button; when empty, it renders a chevron icon and "First" text by
 default. It forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 and accepts the same [routing attributes](#routing-attributes) as
-`<dui-pagination-link>`.
+`<sa-pagination-link>`.
 
 <TypeTable
   type={{
@@ -98,14 +98,14 @@ and accepts the same [routing attributes](#routing-attributes) as
   }}
 />
 
-### `<dui-pagination-previous>`
+### `<sa-pagination-previous>`
 
-The `<dui-pagination-previous>` tag helper renders an `<a>` element styled as a
+The `<sa-pagination-previous>` tag helper renders an `<a>` element styled as a
 ghost button; when empty, it renders a chevron icon and "Previous" text by
 default. It forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 and accepts the same [routing attributes](#routing-attributes) as
-`<dui-pagination-link>`.
+`<sa-pagination-link>`.
 
 <TypeTable
   type={{
@@ -119,9 +119,9 @@ and accepts the same [routing attributes](#routing-attributes) as
   }}
 />
 
-### `<dui-pagination-link>`
+### `<sa-pagination-link>`
 
-The `<dui-pagination-link>` tag helper renders an `<a>` element styled as a
+The `<sa-pagination-link>` tag helper renders an `<a>` element styled as a
 button. In addition to the attributes below, it forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 (such as `href`) to the rendered element.
@@ -150,9 +150,9 @@ The pagination links also accept the same routing attributes as the ASP.NET
 Core [Anchor Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
 for generating the `href`. Supply either an `href` or these attributes — not
-both. These attributes are accepted by `<dui-pagination-link>`,
-`<dui-pagination-first>`, `<dui-pagination-previous>`, `<dui-pagination-next>`,
-and `<dui-pagination-last>`.
+both. These attributes are accepted by `<sa-pagination-link>`,
+`<sa-pagination-first>`, `<sa-pagination-previous>`, `<sa-pagination-next>`,
+and `<sa-pagination-last>`.
 
 <TypeTable
   type={{
@@ -204,21 +204,21 @@ and `<dui-pagination-last>`.
   }}
 />
 
-### `<dui-pagination-ellipsis>`
+### `<sa-pagination-ellipsis>`
 
-The `<dui-pagination-ellipsis>` tag helper renders a `<span>` element with
+The `<sa-pagination-ellipsis>` tag helper renders a `<span>` element with
 `aria-hidden="true"`; when empty, it renders an ellipsis icon with
 screen-reader-only "More pages" text by default. It has no attributes of its
 own.
 
-### `<dui-pagination-next>`
+### `<sa-pagination-next>`
 
-The `<dui-pagination-next>` tag helper renders an `<a>` element styled as a
+The `<sa-pagination-next>` tag helper renders an `<a>` element styled as a
 ghost button; when empty, it renders "Next" text and a chevron icon by default.
 It forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 and accepts the same [routing attributes](#routing-attributes) as
-`<dui-pagination-link>`.
+`<sa-pagination-link>`.
 
 <TypeTable
   type={{
@@ -232,14 +232,14 @@ and accepts the same [routing attributes](#routing-attributes) as
   }}
 />
 
-### `<dui-pagination-last>`
+### `<sa-pagination-last>`
 
-The `<dui-pagination-last>` tag helper renders an `<a>` element styled as a
+The `<sa-pagination-last>` tag helper renders an `<a>` element styled as a
 ghost button; when empty, it renders "Last" text and a chevron icon by default.
 It forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 and accepts the same [routing attributes](#routing-attributes) as
-`<dui-pagination-link>`.
+`<sa-pagination-link>`.
 
 <TypeTable
   type={{

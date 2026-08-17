@@ -12,10 +12,10 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-progress value="...">
-    <dui-progress-label>...</dui-progress-label>
-    <dui-progress-value/>
-</dui-progress>
+<sa-progress value="...">
+    <sa-progress-label>...</sa-progress-label>
+    <sa-progress-value/>
+</sa-progress>
 ```
 
 ## Examples
@@ -42,9 +42,9 @@ Specify custom `minimum` and `maximum` values. The default values are `0` and `1
 
 ## API Reference
 
-### `<dui-progress>`
+### `<sa-progress>`
 
-The `<dui-progress>` tag helper renders a `<div>` element containing the
+The `<sa-progress>` tag helper renders a `<div>` element containing the
 progress track and indicator. In addition to the attributes below, it forwards
 any [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
@@ -71,18 +71,18 @@ to the rendered element.
   }}
 />
 
-### `<dui-progress-label>`
+### `<sa-progress-label>`
 
-The `<dui-progress-label>` tag helper renders a `<span>` element containing
+The `<sa-progress-label>` tag helper renders a `<span>` element containing
 the label text. It has no attributes of its own, but forwards any [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-progress-value>`
+### `<sa-progress-value>`
 
-The `<dui-progress-value>` tag helper renders a `<span>` element. When it has
+The `<sa-progress-value>` tag helper renders a `<span>` element. When it has
 no content, it displays the percentage completed, calculated from the parent
-`<dui-progress>` values. It has no attributes of its own, but forwards any
+`<sa-progress>` values. It has no attributes of its own, but forwards any
 [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.

@@ -1,13 +1,13 @@
 ---
 title: Agent Skills
-description: Teach an AI coding agent how to build UIs with DuneUI
+description: Teach an AI coding agent how to build UIs with StellarAdmin
 ---
 
 import { Step, Steps } from "fumadocs-ui/components/steps";
 
-DuneUI ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with DuneUI — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<dui-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
+StellarAdmin ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with StellarAdmin — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<sa-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
 
-The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). The DuneUI GitHub repository doubles as the marketplace, so installing them is two commands.
+The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). The StellarAdmin GitHub repository doubles as the marketplace, so installing them is two commands.
 
 ## Installation
 
@@ -15,7 +15,7 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     <Step>
         ### Add the marketplace
 
-        From within Claude Code, register the DuneUI repository as a plugin marketplace.
+        From within Claude Code, register the StellarAdmin repository as a plugin marketplace.
 
         ```text
         /plugin marketplace add dune-ui/dune-ui
@@ -33,7 +33,7 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     <Step>
         ### Refresh your skills
 
-        Newly installed skills may not appear straight away. Run `/reload-skills` (or restart Claude Code) so it picks up the DuneUI skills.
+        Newly installed skills may not appear straight away. Run `/reload-skills` (or restart Claude Code) so it picks up the StellarAdmin skills.
 
         ```text
         /reload-skills
@@ -42,9 +42,9 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
 </Steps>
 
 <Callout type="info">
-    The skills are versioned with the repository, independent of the DuneUI
+    The skills are versioned with the repository, independent of the StellarAdmin
     NuGet package — you can install them into any project, whether or not it
-    already references DuneUI.
+    already references StellarAdmin.
 </Callout>
 
 ## What's included
@@ -60,6 +60,6 @@ Installing the plugin adds four skills:
 
 ## Using the skills
 
-The `duneui` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with DuneUI"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
+The `duneui` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
 
 The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the version you have installed.

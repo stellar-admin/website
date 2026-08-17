@@ -15,7 +15,7 @@ import { Demo } from "@/components/demo";
 The Input Tag Helper generates an [HTML Input Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) and uses the built-in [ASP.NET Core Input Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper) internally.
 
 ```razor
-<dui-input/>
+<sa-input/>
 ```
 
 All the same rules as the built-in Tag Helper applies for things like data binding and resolving input types from data annotation attributes. You can also use any of the [standard input attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes) and they will flow through correctly to the underlying `<input>` element.
@@ -24,7 +24,7 @@ All the same rules as the built-in Tag Helper applies for things like data bindi
 
 ### Model binding
 
-The `dui-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/input-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -96,7 +96,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
 
-The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/input-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -155,7 +155,7 @@ When you use model binding, the input type will be inferred from the underlying 
           public string? Time { get; set; }
 
           [DataType(DataType.Url)]
-          [Display(Prompt = "https://wwww.duneui.com")]
+          [Display(Prompt = "https://www.example.com")]
           public string? Url { get; set; }
       }
       ```
@@ -166,9 +166,9 @@ When you use model binding, the input type will be inferred from the underlying 
 
 ## API Reference
 
-### `<dui-input>`
+### `<sa-input>`
 
-The `<dui-input>` tag helper renders an `<input>` element (checkbox and radio
+The `<sa-input>` tag helper renders an `<input>` element (checkbox and radio
 inputs are additionally wrapped in a `<span>` that hosts the indicator icon).
 In addition to the attributes below, it forwards any standard [`<input>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)

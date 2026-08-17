@@ -11,34 +11,34 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<dui-dropdown-menu>` groups a trigger and its menu. The `<dui-dropdown-menu-trigger>` renders a `<dui-button>` (defaulting to `ButtonVariant.Outline`) that opens the menu using the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), and `<dui-dropdown-menu-content>` holds the menu items.
+`<sa-dropdown-menu>` groups a trigger and its menu. The `<sa-dropdown-menu-trigger>` renders a `<sa-button>` (defaulting to `ButtonVariant.Outline`) that opens the menu using the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), and `<sa-dropdown-menu-content>` holds the menu items.
 
-Compose the content from `<dui-dropdown-menu-item>` entries, grouping and labelling them with `<dui-dropdown-menu-label>`, `<dui-dropdown-menu-separator>` and `<dui-dropdown-menu-group>`. Add a trailing keyboard hint with `<dui-dropdown-menu-shortcut>`, and mark an item as dangerous with `variant="DropdownMenuItemVariant.Destructive"`.
+Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelling them with `<sa-dropdown-menu-label>`, `<sa-dropdown-menu-separator>` and `<sa-dropdown-menu-group>`. Add a trailing keyboard hint with `<sa-dropdown-menu-shortcut>`, and mark an item as dangerous with `variant="DropdownMenuItemVariant.Destructive"`.
 
 ```razor
-<dui-dropdown-menu>
-    <dui-dropdown-menu-trigger variant="ButtonVariant.Outline">Open Menu</dui-dropdown-menu-trigger>
-    <dui-dropdown-menu-content class="w-56">
-        <dui-dropdown-menu-label>My Account</dui-dropdown-menu-label>
-        <dui-dropdown-menu-separator/>
-        <dui-dropdown-menu-item>
-            <dui-icon name="user"/>
+<sa-dropdown-menu>
+    <sa-dropdown-menu-trigger variant="ButtonVariant.Outline">Open Menu</sa-dropdown-menu-trigger>
+    <sa-dropdown-menu-content class="w-56">
+        <sa-dropdown-menu-label>My Account</sa-dropdown-menu-label>
+        <sa-dropdown-menu-separator/>
+        <sa-dropdown-menu-item>
+            <sa-icon name="user"/>
             Profile
-            <dui-dropdown-menu-shortcut>⇧⌘P</dui-dropdown-menu-shortcut>
-        </dui-dropdown-menu-item>
-        <dui-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
-            <dui-icon name="log-out"/>
+            <sa-dropdown-menu-shortcut>⇧⌘P</sa-dropdown-menu-shortcut>
+        </sa-dropdown-menu-item>
+        <sa-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
+            <sa-icon name="log-out"/>
             Log out
-        </dui-dropdown-menu-item>
-    </dui-dropdown-menu-content>
-</dui-dropdown-menu>
+        </sa-dropdown-menu-item>
+    </sa-dropdown-menu-content>
+</sa-dropdown-menu>
 ```
 
-Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by the `del-dropdown-menu` web component, so no additional JavaScript is required.
+Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by the `sel-dropdown-menu` web component, so no additional JavaScript is required.
 
 <Callout type="tip">
   Control where the menu opens relative to its trigger with the `position`
-  attribute on `<dui-dropdown-menu-content>`. It accepts the same `PositionArea`
+  attribute on `<sa-dropdown-menu-content>`. It accepts the same `PositionArea`
   values as the [Popover](popover) Tag Helper and defaults to opening below the
   trigger.
 </Callout>
@@ -47,7 +47,7 @@ Keyboard navigation, type-ahead, roving focus and close-on-select are handled fo
 
 ### Checkbox Items
 
-Use `<dui-dropdown-menu-checkbox-item>` for options that can be toggled independently. Set `checked="true"` to render an item as selected; the menu stays open as items are toggled.
+Use `<sa-dropdown-menu-checkbox-item>` for options that can be toggled independently. Set `checked="true"` to render an item as selected; the menu stays open as items are toggled.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-checkbox-items.html">
   <include>./_include/dropdown-menu-checkbox-items.mdx</include>
@@ -55,7 +55,7 @@ Use `<dui-dropdown-menu-checkbox-item>` for options that can be toggled independ
 
 ### Radio Group
 
-Wrap `<dui-dropdown-menu-radio-item>` elements in a `<dui-dropdown-menu-radio-group>` for a set of mutually exclusive options. The group's `value` attribute determines which item is selected.
+Wrap `<sa-dropdown-menu-radio-item>` elements in a `<sa-dropdown-menu-radio-group>` for a set of mutually exclusive options. The group's `value` attribute determines which item is selected.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-radio-group.html">
   <include>./_include/dropdown-menu-radio-group.mdx</include>
@@ -63,7 +63,7 @@ Wrap `<dui-dropdown-menu-radio-item>` elements in a `<dui-dropdown-menu-radio-gr
 
 ### Submenus
 
-Nest a `<dui-dropdown-menu-sub>` containing a `<dui-dropdown-menu-sub-trigger>` and `<dui-dropdown-menu-sub-content>` to create a submenu. Submenus open on hover or with the `→` key, and close with `←`.
+Nest a `<sa-dropdown-menu-sub>` containing a `<sa-dropdown-menu-sub-trigger>` and `<sa-dropdown-menu-sub-content>` to create a submenu. Submenus open on hover or with the `→` key, and close with `←`.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-submenu.html">
   <include>./_include/dropdown-menu-submenu.mdx</include>
@@ -79,7 +79,7 @@ Set `inset="true"` on an item, label or sub-trigger to indent it by the width of
 
 ### Links
 
-An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`; otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<dui-linkbutton>`.
+An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`; otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<sa-linkbutton>`.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-links.html">
   <include>./_include/dropdown-menu-links.mdx</include>
@@ -87,7 +87,7 @@ An item becomes a navigation link when you give it a URL — either a raw `href`
 
 ### Handling clicks
 
-For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", …)`. Because the `del-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
+For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", …)`. Because the `sel-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-click-events.html">
   <include>./_include/dropdown-menu-click-events.mdx</include>
@@ -95,7 +95,7 @@ For non-link items, attach a click handler however you like — an inline `oncli
 
 ### Close on click
 
-By default a plain `<dui-dropdown-menu-item>` closes the menu when activated, while checkbox and radio items stay open so you can adjust several at once. Override that per item with `close-on-click`: set `close-on-click="false"` on a plain item to keep the menu open (handy for a repeatable action), or `close-on-click="true"` on a checkbox/radio item to apply the choice and dismiss the menu. It applies to both mouse and keyboard activation.
+By default a plain `<sa-dropdown-menu-item>` closes the menu when activated, while checkbox and radio items stay open so you can adjust several at once. Override that per item with `close-on-click`: set `close-on-click="false"` on a plain item to keep the menu open (handy for a repeatable action), or `close-on-click="true"` on a checkbox/radio item to apply the choice and dismiss the menu. It applies to both mouse and keyboard activation.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-close-on-click.html">
   <include>./_include/dropdown-menu-close-on-click.mdx</include>
@@ -103,7 +103,7 @@ By default a plain `<dui-dropdown-menu-item>` closes the menu when activated, wh
 
 ### Reacting to checkbox changes
 
-Checkbox items report toggles through a bubbling `checkedchange` event, so you can listen on the item, its enclosing `<dui-dropdown-menu-group>`, or any ancestor — a single listener on the group is usually cleanest. `event.detail.checked` is the item's new state. Checkbox items carry no `value`, so identify which one changed via `event.target`. The event fires for both mouse and keyboard activation, and the menu deliberately stays open so multiple toggles feel natural.
+Checkbox items report toggles through a bubbling `checkedchange` event, so you can listen on the item, its enclosing `<sa-dropdown-menu-group>`, or any ancestor — a single listener on the group is usually cleanest. `event.detail.checked` is the item's new state. Checkbox items carry no `value`, so identify which one changed via `event.target`. The event fires for both mouse and keyboard activation, and the menu deliberately stays open so multiple toggles feel natural.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-checkbox-events.html">
   <include>./_include/dropdown-menu-checkbox-events.mdx</include>
@@ -111,7 +111,7 @@ Checkbox items report toggles through a bubbling `checkedchange` event, so you c
 
 ### Reacting to radio changes
 
-Radio items report selection through a bubbling `valuechange` event. Listen on the `<dui-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
+Radio items report selection through a bubbling `valuechange` event. Listen on the `<sa-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-radio-events.html">
   <include>./_include/dropdown-menu-radio-events.mdx</include>
@@ -119,16 +119,16 @@ Radio items report selection through a bubbling `valuechange` event. Listen on t
 
 ## API Reference
 
-### `<dui-dropdown-menu>`
+### `<sa-dropdown-menu>`
 
-The `<dui-dropdown-menu>` tag helper groups a trigger and its menu content. It
+The `<sa-dropdown-menu>` tag helper groups a trigger and its menu content. It
 renders no element of its own — it only generates the shared id (honouring a
 user-supplied `id`) that connects the trigger to the menu.
 
-### `<dui-dropdown-menu-trigger>`
+### `<sa-dropdown-menu-trigger>`
 
-The `<dui-dropdown-menu-trigger>` tag helper renders a `<button>` styled as a
-`<dui-button>` that opens the menu via the native `popovertarget` attribute. In
+The `<sa-dropdown-menu-trigger>` tag helper renders a `<button>` styled as a
+`<sa-button>` that opens the menu via the native `popovertarget` attribute. In
 addition to the attributes below, it forwards any standard [`<button>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
 to the rendered element.
@@ -152,10 +152,10 @@ to the rendered element.
   }}
 />
 
-### `<dui-dropdown-menu-content>`
+### `<sa-dropdown-menu-content>`
 
-The `<dui-dropdown-menu-content>` tag helper renders the menu itself as a
-`<del-dropdown-menu>` web component with the [`popover`
+The `<sa-dropdown-menu-content>` tag helper renders the menu itself as a
+`<sel-dropdown-menu>` web component with the [`popover`
 attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover),
 anchored to the trigger. It forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
@@ -173,9 +173,9 @@ to the rendered element.
   }}
 />
 
-### `<dui-dropdown-menu-item>`
+### `<sa-dropdown-menu-item>`
 
-The `<dui-dropdown-menu-item>` tag helper renders a `<div role="menuitem">`, or
+The `<sa-dropdown-menu-item>` tag helper renders a `<div role="menuitem">`, or
 an [`<a
 role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 when an `href` or any routing attribute is supplied.
@@ -271,9 +271,9 @@ both.
   }}
 />
 
-### `<dui-dropdown-menu-checkbox-item>`
+### `<sa-dropdown-menu-checkbox-item>`
 
-The `<dui-dropdown-menu-checkbox-item>` tag helper renders a `<div
+The `<sa-dropdown-menu-checkbox-item>` tag helper renders a `<div
 role="menuitemcheckbox">` with a leading check indicator. Toggling it raises a
 bubbling `checkedchange` event.
 
@@ -303,9 +303,9 @@ bubbling `checkedchange` event.
   }}
 />
 
-### `<dui-dropdown-menu-radio-group>`
+### `<sa-dropdown-menu-radio-group>`
 
-The `<dui-dropdown-menu-radio-group>` tag helper renders a `<div role="group">`
+The `<sa-dropdown-menu-radio-group>` tag helper renders a `<div role="group">`
 that enforces single selection among its radio items and raises a bubbling
 `valuechange` event when the selection changes.
 
@@ -318,9 +318,9 @@ that enforces single selection among its radio items and raises a bubbling
   }}
 />
 
-### `<dui-dropdown-menu-radio-item>`
+### `<sa-dropdown-menu-radio-item>`
 
-The `<dui-dropdown-menu-radio-item>` tag helper renders a `<div
+The `<sa-dropdown-menu-radio-item>` tag helper renders a `<div
 role="menuitemradio">` with a leading check indicator, checked when its `value`
 matches the group's `value`.
 
@@ -343,9 +343,9 @@ matches the group's `value`.
   }}
 />
 
-### `<dui-dropdown-menu-label>`
+### `<sa-dropdown-menu-label>`
 
-The `<dui-dropdown-menu-label>` tag helper renders a `<div>` used as a heading
+The `<sa-dropdown-menu-label>` tag helper renders a `<div>` used as a heading
 for a group of items.
 
 <TypeTable
@@ -359,30 +359,30 @@ for a group of items.
   }}
 />
 
-### `<dui-dropdown-menu-separator>`
+### `<sa-dropdown-menu-separator>`
 
-The `<dui-dropdown-menu-separator>` tag helper renders a `<div
+The `<sa-dropdown-menu-separator>` tag helper renders a `<div
 role="separator">` between groups of items. It has no attributes of its own.
 
-### `<dui-dropdown-menu-shortcut>`
+### `<sa-dropdown-menu-shortcut>`
 
-The `<dui-dropdown-menu-shortcut>` tag helper renders a `<span>` for a trailing
+The `<sa-dropdown-menu-shortcut>` tag helper renders a `<span>` for a trailing
 keyboard hint. It has no attributes of its own.
 
-### `<dui-dropdown-menu-group>`
+### `<sa-dropdown-menu-group>`
 
-The `<dui-dropdown-menu-group>` tag helper renders a `<div role="group">` for
+The `<sa-dropdown-menu-group>` tag helper renders a `<div role="group">` for
 grouping related items. It has no attributes of its own.
 
-### `<dui-dropdown-menu-sub>`
+### `<sa-dropdown-menu-sub>`
 
-The `<dui-dropdown-menu-sub>` tag helper groups a sub-trigger and its submenu.
-Like `<dui-dropdown-menu>`, it renders no element of its own and only generates
+The `<sa-dropdown-menu-sub>` tag helper groups a sub-trigger and its submenu.
+Like `<sa-dropdown-menu>`, it renders no element of its own and only generates
 the shared id connecting the two.
 
-### `<dui-dropdown-menu-sub-trigger>`
+### `<sa-dropdown-menu-sub-trigger>`
 
-The `<dui-dropdown-menu-sub-trigger>` tag helper renders a `<div
+The `<sa-dropdown-menu-sub-trigger>` tag helper renders a `<div
 role="menuitem">` with a trailing chevron that opens its submenu on hover or
 with the `→` key.
 
@@ -397,11 +397,11 @@ with the `→` key.
   }}
 />
 
-### `<dui-dropdown-menu-sub-content>`
+### `<sa-dropdown-menu-sub-content>`
 
-The `<dui-dropdown-menu-sub-content>` tag helper renders a submenu as a
-`<del-dropdown-menu>` popover anchored to its sub-trigger, accepting the same
-`position` values as `<dui-dropdown-menu-content>`.
+The `<sa-dropdown-menu-sub-content>` tag helper renders a submenu as a
+`<sel-dropdown-menu>` popover anchored to its sub-trigger, accepting the same
+`position` values as `<sa-dropdown-menu-content>`.
 
 <TypeTable
   type={{

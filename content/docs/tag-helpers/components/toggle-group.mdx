@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `dui-toggle-group` Tag Helper groups a set of related toggles. Each option is a `dui-toggle-group-item` with a `value`.
+The `sa-toggle-group` Tag Helper groups a set of related toggles. Each option is a `sa-toggle-group-item` with a `value`.
 
 Use the `type` attribute to choose how many items can be selected:
 
@@ -22,17 +22,17 @@ Use the `type` attribute to choose how many items can be selected:
 Either way the values post back with no JavaScript required.
 
 ```razor
-<dui-toggle-group name="results-view" type="ToggleGroupType.Single">
-    <dui-toggle-group-item value="list" aria-label="List view">
-        <dui-icon name="list"/>
-    </dui-toggle-group-item>
-    <dui-toggle-group-item value="grid" aria-label="Grid view">
-        <dui-icon name="layout-grid"/>
-    </dui-toggle-group-item>
-    <dui-toggle-group-item value="map" aria-label="Map view">
-        <dui-icon name="map"/>
-    </dui-toggle-group-item>
-</dui-toggle-group>
+<sa-toggle-group name="results-view" type="ToggleGroupType.Single">
+    <sa-toggle-group-item value="list" aria-label="List view">
+        <sa-icon name="list"/>
+    </sa-toggle-group-item>
+    <sa-toggle-group-item value="grid" aria-label="Grid view">
+        <sa-icon name="layout-grid"/>
+    </sa-toggle-group-item>
+    <sa-toggle-group-item value="map" aria-label="Map view">
+        <sa-icon name="map"/>
+    </sa-toggle-group-item>
+</sa-toggle-group>
 ```
 
 ## Examples
@@ -87,9 +87,9 @@ Use the `orientation` attribute to lay the group out vertically. It accepts `Tog
 
 ### Model binding
 
-The `dui-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection; the items whose `value` matches the bound value(s) are rendered as selected.
+The `sa-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection; the items whose `value` matches the bound value(s) are rendered as selected.
 
-When using model binding, DuneUI will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+When using model binding, StellarAdmin will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/toggle-group-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -133,9 +133,9 @@ When using model binding, DuneUI will automatically wrap the group inside a [Fie
 
 ## API Reference
 
-### `<dui-toggle-group>`
+### `<sa-toggle-group>`
 
-The `<dui-toggle-group>` tag helper renders a `<div role="group">` element
+The `<sa-toggle-group>` tag helper renders a `<div role="group">` element
 containing the items. In addition to the attributes below, it forwards any
 standard [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
@@ -206,9 +206,9 @@ set, the group model-binds and is wrapped in an implicit [Field](field).
   }}
 />
 
-### `<dui-toggle-group-item>`
+### `<sa-toggle-group-item>`
 
-The `<dui-toggle-group-item>` tag helper renders a `<label>` element wrapping
+The `<sa-toggle-group-item>` tag helper renders a `<label>` element wrapping
 a visually hidden native `<input type="radio">` or `<input type="checkbox">`,
 depending on the group's `type`. In addition to the attributes below, it
 forwards any standard [`<input>`

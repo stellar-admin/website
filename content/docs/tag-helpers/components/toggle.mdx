@@ -12,14 +12,14 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `dui-toggle` Tag Helper renders a two-state button — useful for things like formatting toggles or filters. It is backed by a native checkbox, so it posts its value back and model-binds like any other `bool`, while the pressed appearance is driven entirely by CSS — no JavaScript is required.
+The `sa-toggle` Tag Helper renders a two-state button — useful for things like formatting toggles or filters. It is backed by a native checkbox, so it posts its value back and model-binds like any other `bool`, while the pressed appearance is driven entirely by CSS — no JavaScript is required.
 
 Place an icon and/or text inside the Tag Helper to label the toggle.
 
 ```razor
-<dui-toggle aria-label="Toggle bold">
-    <dui-icon name="bold"/>
-</dui-toggle>
+<sa-toggle aria-label="Toggle bold">
+    <sa-icon name="bold"/>
+</sa-toggle>
 ```
 
 ## Examples
@@ -58,7 +58,7 @@ Add the `disabled` attribute to prevent the user from interacting with the toggl
 
 ### Model binding
 
-The `dui-toggle` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `bool` property and an un-pressed toggle will post `false`.
+The `sa-toggle` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `bool` property and an un-pressed toggle will post `false`.
 
 Because a toggle is self-labelling, this example opts out of the automatic [Field](field) wrapper by setting the `render-field` attribute to `false`.
 
@@ -84,9 +84,9 @@ Because a toggle is self-labelling, this example opts out of the automatic [Fiel
 
 ## API Reference
 
-### `<dui-toggle>`
+### `<sa-toggle>`
 
-The `<dui-toggle>` tag helper renders a `<label>` wrapping a visually hidden
+The `<sa-toggle>` tag helper renders a `<label>` wrapping a visually hidden
 native `<input type="checkbox">` that carries the on/off value. In addition to
 the attributes below, it forwards any standard [`<input>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)

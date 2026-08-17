@@ -9,7 +9,7 @@ export default function Hero() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center max-w-3xl">
         <a
-          href="https://www.nuget.org/packages/DuneUI/"
+          href="https://www.nuget.org/packages/StellarAdmin.TagHelpers/"
           target="_blank"
           className={cn(
             badgeVariants({
@@ -25,8 +25,8 @@ export default function Hero() {
           Create beautiful ASP.NET Core apps
         </h1>
         <p className="mt-6 md:text-lg text-foreground/80">
-          DuneUI Tag Helpers is a collection of beautifully designed components
-          you can use to create CRUD screens in ASP.NET Core MVC and Razor Pages
+          StellarAdmin is a collection of beautifully designed components you
+          can use to create CRUD screens in ASP.NET Core MVC and Razor Pages
           applications.
         </p>
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">

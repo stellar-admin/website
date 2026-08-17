@@ -12,7 +12,7 @@ You can also close the dialog programmatically by calling `confirm(data?)` or `c
 ## Usage
 
 ```js
-const dialog = window.duneui.dialog(document.getElementById("myDialog"));
+const dialog = window.stellarAdmin.dialog(document.getElementById("myDialog"));
 const result = await dialog.showAsync();
 ```
 
@@ -54,7 +54,7 @@ When calling `confirm(data?)`, the `confirmed` property will be set to `true`. Y
 
 ### `dialog(element)`
 
-The `dialog()` factory function, exposed as `window.duneui.dialog`, wraps an
+The `dialog()` factory function, exposed as `window.stellarAdmin.dialog`, wraps an
 existing `<dialog>` element and returns a wrapper object with the methods
 below. It throws if the element cannot be found or is not a
 `HTMLDialogElement`.

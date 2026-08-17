@@ -10,7 +10,7 @@ The `alertDialog()` function is a confirmation-focused wrapper around the [`dial
 ## Usage
 
 ```js
-const alertDialog = window.duneui.alertDialog(document.getElementById("myAlertDialog"));
+const alertDialog = window.stellarAdmin.alertDialog(document.getElementById("myAlertDialog"));
 if (await alertDialog.confirmAsync()) {
   // perform the confirmed action
 }
@@ -20,7 +20,7 @@ if (await alertDialog.confirmAsync()) {
 
 ### Basic Usage
 
-Open the alert dialog with `confirmAsync()` and await the boolean result. The `<dui-alert-dialog-action>` button confirms the dialog, while `<dui-alert-dialog-cancel>` or the `Esc` key cancels it.
+Open the alert dialog with `confirmAsync()` and await the boolean result. The `<sa-alert-dialog-action>` button confirms the dialog, while `<sa-alert-dialog-cancel>` or the `Esc` key cancels it.
 
 <Demo src="/demo/tag-helpers/js-alert-dialog-intro.html">
   <include>./_include/js-alert-dialog-intro.mdx</include>
@@ -38,9 +38,9 @@ You can resolve the confirmation programmatically using the `confirm()` and `can
 
 ### `alertDialog(selector)`
 
-The `alertDialog()` factory function, exposed as `window.duneui.alertDialog`,
+The `alertDialog()` factory function, exposed as `window.stellarAdmin.alertDialog`,
 wraps an existing `<dialog>` element (such as the one rendered by
-`<dui-alert-dialog>`) and returns a wrapper object with the methods below. It
+`<sa-alert-dialog>`) and returns a wrapper object with the methods below. It
 throws if the element cannot be found or is not a `HTMLDialogElement`.
 
 <TypeTable

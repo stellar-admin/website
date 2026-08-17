@@ -11,31 +11,31 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `dui-accordion` to wrap a collection of accordion items. Individual items are created using the `dui-accordion-item` element containing `dui-accordion-item-title` and `dui-accordion-item-content` which contains the title and content respectively.
+Use `sa-accordion` to wrap a collection of accordion items. Individual items are created using the `sa-accordion-item` element containing `sa-accordion-item-title` and `sa-accordion-item-content` which contains the title and content respectively.
 
 ```razor
-<dui-accordion>
-    <dui-accordion-item>
-        <dui-accordion-item-title>
+<sa-accordion>
+    <sa-accordion-item>
+        <sa-accordion-item-title>
             ...
-        </dui-accordion-item-title>
-        <dui-accordion-item-content>
+        </sa-accordion-item-title>
+        <sa-accordion-item-content>
             ...
-        </dui-accordion-item-content>
-    </dui-accordion-item>
-    <dui-accordion-item>
+        </sa-accordion-item-content>
+    </sa-accordion-item>
+    <sa-accordion-item>
         ...
-    </dui-accordion-item>
-</dui-accordion>
+    </sa-accordion-item>
+</sa-accordion>
 ```
 
 ## Examples
 
 ### Single open item
 
-The `name` attribute of `dui-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
+The `name` attribute of `sa-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
 
-This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `dui-accordion-item` uses.
+This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `sa-accordion-item` uses.
 
 <Demo src="/demo/tag-helpers/accordion-single.html">
   <include>./_include/accordion-single.mdx</include>
@@ -59,33 +59,33 @@ Disable accordion items using the `disabled` attribute.
 
 ## API Reference
 
-### `<dui-accordion>`
+### `<sa-accordion>`
 
-The `<dui-accordion>` tag helper renders a `<div>` element that wraps the
+The `<sa-accordion>` tag helper renders a `<div>` element that wraps the
 accordion items. It has no attributes of its own, but forwards any [global
 HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 (such as `class` or `id`) to the rendered element.
 
-### `<dui-accordion-item>`
+### `<sa-accordion-item>`
 
-The `<dui-accordion-item>` tag helper renders a `<details>` element. It has no
+The `<sa-accordion-item>` tag helper renders a `<details>` element. It has no
 attributes of its own, but forwards any standard [`<details>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#attributes)
 (such as `name` or `open`) to the rendered element; adding a `disabled`
 attribute renders the item as disabled.
 
-### `<dui-accordion-item-title>`
+### `<sa-accordion-item-title>`
 
-The `<dui-accordion-item-title>` tag helper renders a `<summary>` element and
+The `<sa-accordion-item-title>` tag helper renders a `<summary>` element and
 appends a chevron indicator icon after the title content. It has no attributes
 of its own, but forwards any [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-accordion-item-content>`
+### `<sa-accordion-item-content>`
 
-The `<dui-accordion-item-content>` tag helper renders a `<div>` element
+The `<sa-accordion-item-content>` tag helper renders a `<div>` element
 containing an inner content wrapper. It has no attributes of its own, but
 forwards any [global HTML
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)

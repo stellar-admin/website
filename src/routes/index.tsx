@@ -7,11 +7,11 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "DuneUI - Create beautiful ASP.NET Core apps" },
+      { title: "StellarAdmin - Create beautiful ASP.NET Core apps" },
       {
         name: "description",
         content:
-          "DuneUI Tag Helpers is a collection of beautifully designed components you can use to create CRUD screens in ASP.NET Core MVC and Razor Pages applications.",
+          "StellarAdmin is a collection of beautifully designed components you can use to create CRUD screens in ASP.NET Core MVC and Razor Pages applications.",
       },
     ],
   }),

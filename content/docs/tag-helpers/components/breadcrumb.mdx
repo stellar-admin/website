@@ -12,19 +12,19 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-breadcrumb>
-    <dui-breadcrumb-list>
-        <dui-breadcrumb-item>
-            <dui-breadcrumb-link href="...">Level 1</dui-breadcrumb-link>
-        </dui-breadcrumb-item>
-        <dui-breadcrumb-separator/>
-        <dui-breadcrumb-item>
-            <dui-breadcrumb-link href="...">Level 2</dui-breadcrumb-link>
-        </dui-breadcrumb-item>
-        <dui-breadcrumb-separator/>
-        <dui-breadcrumb-page>Current Page</dui-breadcrumb-page>
-    </dui-breadcrumb-list>
-</dui-breadcrumb>
+<sa-breadcrumb>
+    <sa-breadcrumb-list>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 1</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 2</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-page>Current Page</sa-breadcrumb-page>
+    </sa-breadcrumb-list>
+</sa-breadcrumb>
 ```
 
 ## Examples
@@ -39,7 +39,7 @@ Use the Icon Tag Helper for a custom separator.
 
 ### Collapsed
 
-Use the `dui-breadcrumb-ellipsis` component to collapse a large navigation hierarchy.
+Use the `sa-breadcrumb-ellipsis` component to collapse a large navigation hierarchy.
 
 <Demo src="/demo/tag-helpers/breadcrumb-collapsed.html">
   <include>./_include/breadcrumb-collapsed.mdx</include>
@@ -63,30 +63,30 @@ Use the Icon Tag Helper and custom CSS to display icons next to navigation items
 
 ## API Reference
 
-### `<dui-breadcrumb>`
+### `<sa-breadcrumb>`
 
-The `<dui-breadcrumb>` tag helper renders a [`<nav>`
+The `<sa-breadcrumb>` tag helper renders a [`<nav>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav)
 with `aria-label="breadcrumb"`. It has no attributes of its own, but forwards
 any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-breadcrumb-list>`
+### `<sa-breadcrumb-list>`
 
-The `<dui-breadcrumb-list>` tag helper renders an [`<ol>`
+The `<sa-breadcrumb-list>` tag helper renders an [`<ol>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol)
 containing the breadcrumb items. It has no attributes of its own.
 
-### `<dui-breadcrumb-item>`
+### `<sa-breadcrumb-item>`
 
-The `<dui-breadcrumb-item>` tag helper renders an [`<li>`
+The `<sa-breadcrumb-item>` tag helper renders an [`<li>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li).
 It has no attributes of its own.
 
-### `<dui-breadcrumb-link>`
+### `<sa-breadcrumb-link>`
 
-The `<dui-breadcrumb-link>` tag helper renders an `<a>` element. In addition
+The `<sa-breadcrumb-link>` tag helper renders an `<a>` element. In addition
 to the routing attributes below, it forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 (such as `href`, `target`, or `rel`) to the rendered element.
@@ -149,21 +149,21 @@ both.
   }}
 />
 
-### `<dui-breadcrumb-page>`
+### `<sa-breadcrumb-page>`
 
-The `<dui-breadcrumb-page>` tag helper renders a `<span>` element with
+The `<sa-breadcrumb-page>` tag helper renders a `<span>` element with
 `aria-current="page"` representing the current page. It has no attributes of
 its own.
 
-### `<dui-breadcrumb-separator>`
+### `<sa-breadcrumb-separator>`
 
-The `<dui-breadcrumb-separator>` tag helper renders an [`<li>`
+The `<sa-breadcrumb-separator>` tag helper renders an [`<li>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li)
 that is hidden from assistive technology. It displays a chevron icon by
 default, or its child content when supplied. It has no attributes of its own.
 
-### `<dui-breadcrumb-ellipsis>`
+### `<sa-breadcrumb-ellipsis>`
 
-The `<dui-breadcrumb-ellipsis>` tag helper renders a `<span>` element
+The `<sa-breadcrumb-ellipsis>` tag helper renders a `<span>` element
 containing an ellipsis icon, used to indicate collapsed items. It has no
 attributes of its own.

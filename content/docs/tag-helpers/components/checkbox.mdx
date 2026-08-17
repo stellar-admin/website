@@ -12,19 +12,19 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-DuneUI does not have a specific Checkbox Tag Helper, but uses the normal `dui-input` Tag Helper with the `type` attribute specified as `checkbox`. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations.
+StellarAdmin does not have a specific Checkbox Tag Helper, but uses the normal `sa-input` Tag Helper with the `type` attribute specified as `checkbox`. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations.
 
 ```razor
-<dui-input type="checkbox"/>
+<sa-input type="checkbox"/>
 ```
 
 ## Examples
 
 ### Model binding
 
-The `dui-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `dui-input` to a model with a `bool` data type, DuneUI will render a checkbox.
+The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `sa-input` to a model with a `bool` data type, StellarAdmin will render a checkbox.
 
-When using model binding, DuneUI will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/checkbox-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -92,7 +92,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
 
-The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/checkbox-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -145,9 +145,9 @@ The error message can be displayed using either a `dui-field-error` Tag Helper (
 
 ## API Reference
 
-### `<dui-input>`
+### `<sa-input>`
 
-The `<dui-input>` tag helper with `type="checkbox"` renders an
+The `<sa-input>` tag helper with `type="checkbox"` renders an
 `<input type="checkbox">` element, wrapped in a `<span>` together with the
 check indicator icon. The `type` can also be inferred from a bound `bool`
 model property. In addition to the attributes below, it forwards any standard

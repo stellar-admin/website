@@ -11,24 +11,24 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<dui-sheet>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) styled to slide in from the edge of the screen. Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<dui-button>` element.
+`<sa-sheet>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) styled to slide in from the edge of the screen. Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<sa-button>` element.
 
 ```razor
-<dui-button commandfor="--custom-sheet" command="show-modal">
+<sa-button commandfor="--custom-sheet" command="show-modal">
     Sheet Trigger
-</dui-button>
-<dui-sheet id="--custom-sheet">
-    <dui-sheet-header>
-        <dui-sheet-title>...</dui-sheet-title>
-        <dui-sheet-description>...</dui-sheet-description>
-    </dui-sheet-header>
+</sa-button>
+<sa-sheet id="--custom-sheet">
+    <sa-sheet-header>
+        <sa-sheet-title>...</sa-sheet-title>
+        <sa-sheet-description>...</sa-sheet-description>
+    </sa-sheet-header>
     <!-- Sheet content goes here -->
-    <dui-sheet-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--custom-sheet" command="close">
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--custom-sheet" command="close">
             Close
-        </dui-button>
-    </dui-sheet-footer>
-</dui-sheet>
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
 ```
 
 Because the sheet renders a native `dialog` element, the same JavaScript API and events documented for the [Dialog](dialog) component apply here too. For more information, you can review the following MDN documentation:
@@ -79,7 +79,7 @@ Add submit buttons to a `form` with `method="dialog"` and set a `value` on each 
 
 ### JavaScript API
 
-Since `<dui-sheet>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
+Since `<sa-sheet>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
 
 <Demo src="/demo/tag-helpers/sheet-js-api.html">
   <include>./_include/sheet-js-api.mdx</include>
@@ -95,9 +95,9 @@ The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `ca
 
 ## API Reference
 
-### `<dui-sheet>`
+### `<sa-sheet>`
 
-The `<dui-sheet>` tag helper renders a native [`<dialog>`
+The `<sa-sheet>` tag helper renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 styled to slide in from the edge of the screen. In addition to the attributes
 below, it forwards any standard `<dialog>` attributes (such as `id` or
@@ -127,31 +127,31 @@ one).
   }}
 />
 
-### `<dui-sheet-header>`
+### `<sa-sheet-header>`
 
-The `<dui-sheet-header>` tag helper renders a `<div>` element that groups the
+The `<sa-sheet-header>` tag helper renders a `<div>` element that groups the
 sheet's title and description. It has no attributes of its own and forwards
 any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-sheet-title>`
+### `<sa-sheet-title>`
 
-The `<dui-sheet-title>` tag helper renders an `<h2>` element. It has no
+The `<sa-sheet-title>` tag helper renders an `<h2>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-sheet-description>`
+### `<sa-sheet-description>`
 
-The `<dui-sheet-description>` tag helper renders a `<p>` element. It has no
+The `<sa-sheet-description>` tag helper renders a `<p>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-sheet-footer>`
+### `<sa-sheet-footer>`
 
-The `<dui-sheet-footer>` tag helper renders a `<div>` element pinned to the
+The `<sa-sheet-footer>` tag helper renders a `<div>` element pinned to the
 bottom of the sheet that hosts the sheet's action buttons. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)

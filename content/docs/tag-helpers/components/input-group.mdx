@@ -12,19 +12,19 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-input-group>
+<sa-input-group>
     <!-- 1. Add inputs -->
-    <dui-input-group-input/>
+    <sa-input-group-input/>
     <!-- or -->
-    <dui-input-group-textarea/>
+    <sa-input-group-textarea/>
     <!-- 2. Add addons -->
-    <dui-input-group-addon align="...">
+    <sa-input-group-addon align="...">
         <!-- you can add text inside the addon... -->
-        <dui-input-group-text>...</dui-input-group-text>
+        <sa-input-group-text>...</sa-input-group-text>
         <!-- ...or buttons -->
-        <dui-input-group-button>...</dui-input-group-button>
-    </dui-input-group-addon>
-</dui-input-group>
+        <sa-input-group-button>...</sa-input-group-button>
+    </sa-input-group-addon>
+</sa-input-group>
 ```
 
 ## Examples
@@ -87,17 +87,17 @@ Wrap input groups with button groups to create prefixes and suffixes.
 
 ## API Reference
 
-### `<dui-input-group>`
+### `<sa-input-group>`
 
-The `<dui-input-group>` tag helper renders a `<div>` element with `role="group"`
+The `<sa-input-group>` tag helper renders a `<div>` element with `role="group"`
 that wraps the input and its add-ons. It has no attributes of its own, but
 forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-input-group-input>`
+### `<sa-input-group-input>`
 
-The `<dui-input-group-input>` tag helper renders an `<input>` element styled for
+The `<sa-input-group-input>` tag helper renders an `<input>` element styled for
 use inside an input group. In addition to the attributes below, it forwards any
 standard [`<input>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
@@ -129,9 +129,9 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
   }}
 />
 
-### `<dui-input-group-textarea>`
+### `<sa-input-group-textarea>`
 
-The `<dui-input-group-textarea>` tag helper renders a `<textarea>` element
+The `<sa-input-group-textarea>` tag helper renders a `<textarea>` element
 styled for use inside an input group. In addition to the attribute below, it
 forwards any standard [`<textarea>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
@@ -146,9 +146,9 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
   }}
 />
 
-### `<dui-input-group-addon>`
+### `<sa-input-group-addon>`
 
-The `<dui-input-group-addon>` tag helper renders a `<div>` element with
+The `<sa-input-group-addon>` tag helper renders a `<div>` element with
 `role="group"` that holds text, icons, or buttons alongside the input. It
 forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
@@ -166,14 +166,14 @@ to the rendered element.
   }}
 />
 
-### `<dui-input-group-text>`
+### `<sa-input-group-text>`
 
-The `<dui-input-group-text>` tag helper renders a `<span>` element for
+The `<sa-input-group-text>` tag helper renders a `<span>` element for
 displaying text inside an add-on. It has no attributes of its own.
 
-### `<dui-input-group-button>`
+### `<sa-input-group-button>`
 
-The `<dui-input-group-button>` tag helper renders a `<button>` element sized for
+The `<sa-input-group-button>` tag helper renders a `<button>` element sized for
 use inside an add-on. In addition to the attributes below, it forwards any
 standard [`<button>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)

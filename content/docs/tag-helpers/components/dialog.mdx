@@ -11,24 +11,24 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<dui-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog). Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<dui-button>` element.
+`<sa-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog). Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<sa-button>` element.
 
 ```razor
-<dui-button commandfor="--custom-dialog" command="show-modal">
+<sa-button commandfor="--custom-dialog" command="show-modal">
     Dialog Trigger
-</dui-button>
-<dui-dialog id="--custom-dialog">
-    <dui-dialog-header>
-        <dui-dialog-title>...</dui-dialog-title>
-        <dui-dialog-description>...</dui-dialog-description>
-    </dui-dialog-header>
+</sa-button>
+<sa-dialog id="--custom-dialog">
+    <sa-dialog-header>
+        <sa-dialog-title>...</sa-dialog-title>
+        <sa-dialog-description>...</sa-dialog-description>
+    </sa-dialog-header>
     <!-- Dialog content goes here -->
-    <dui-dialog-footer>
-        <dui-button variant="ButtonVariant.Outline" commandfor="--custom-dialog" command="close">
+    <sa-dialog-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--custom-dialog" command="close">
             Close
-        </dui-button>
-    </dui-dialog-footer>
-</dui-dialog>
+        </sa-button>
+    </sa-dialog-footer>
+</sa-dialog>
 ```
 
 For more information, you can review the following MDN documentation:
@@ -85,7 +85,7 @@ Wrap long content in a container with a fixed height and vertical scrolling enab
 
 ### Sticky footer
 
-Combine scrollable content with `<dui-dialog-footer>` to keep the footer always visible while the body scrolls.
+Combine scrollable content with `<sa-dialog-footer>` to keep the footer always visible while the body scrolls.
 
 <Demo src="/demo/tag-helpers/dialog-sticky-footer.html">
   <include>./_include/dialog-sticky-footer.mdx</include>
@@ -93,7 +93,7 @@ Combine scrollable content with `<dui-dialog-footer>` to keep the footer always 
 
 ### JavaScript API
 
-Since `<dui-dialog>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
+Since `<sa-dialog>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
 
 <Demo src="/demo/tag-helpers/dialog-js-api.html">
   <include>./_include/dialog-js-api.mdx</include>
@@ -109,9 +109,9 @@ The dialog fires `beforetoggle` and `toggle` events as it opens and closes, a `c
 
 ## API Reference
 
-### `<dui-dialog>`
+### `<sa-dialog>`
 
-The `<dui-dialog>` tag helper renders a native [`<dialog>`
+The `<sa-dialog>` tag helper renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 and has no attributes of its own — it forwards any standard `<dialog>`
 attributes (such as `id` or `closedby`) to the rendered element. The dialog is
@@ -120,31 +120,31 @@ API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a
 button with `command="show-modal"` or `command="close"` and a `commandfor`
 attribute referencing the dialog's `id`.
 
-### `<dui-dialog-header>`
+### `<sa-dialog-header>`
 
-The `<dui-dialog-header>` tag helper renders a `<div>` element that groups the
+The `<sa-dialog-header>` tag helper renders a `<div>` element that groups the
 dialog's title and description. It has no attributes of its own and forwards
 any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-dialog-title>`
+### `<sa-dialog-title>`
 
-The `<dui-dialog-title>` tag helper renders an `<h2>` element. It has no
+The `<sa-dialog-title>` tag helper renders an `<h2>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-dialog-description>`
+### `<sa-dialog-description>`
 
-The `<dui-dialog-description>` tag helper renders a `<p>` element. It has no
+The `<sa-dialog-description>` tag helper renders a `<p>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-dialog-footer>`
+### `<sa-dialog-footer>`
 
-The `<dui-dialog-footer>` tag helper renders a `<div>` element that hosts the
+The `<sa-dialog-footer>` tag helper renders a `<div>` element that hosts the
 dialog's action buttons. It has no attributes of its own and forwards any
 standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)

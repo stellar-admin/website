@@ -12,24 +12,24 @@ import { Demo } from "@/components/demo";
 ## Usage
 
 ```razor
-<dui-item variant="...">
-    <dui-item-header>
+<sa-item variant="...">
+    <sa-item-header>
         ...
-    </dui-item-header>
-    <dui-item-media>
+    </sa-item-header>
+    <sa-item-media>
         ...
-    </dui-item-media>
-    <dui-item-content>
-        <dui-item-title>...</dui-item-title>
-        <dui-item-description>...</dui-item-description>
-    </dui-item-content>
-    <dui-item-actions>
+    </sa-item-media>
+    <sa-item-content>
+        <sa-item-title>...</sa-item-title>
+        <sa-item-description>...</sa-item-description>
+    </sa-item-content>
+    <sa-item-actions>
         ...
-    </dui-item-actions>
-    <dui-item-footer>
+    </sa-item-actions>
+    <sa-item-footer>
         ...
-    </dui-item-footer>
-</dui-item>
+    </sa-item-footer>
+</sa-item>
 ```
 
 ## Examples
@@ -58,7 +58,7 @@ The Item Tag Helper has different sizes for different use cases. For example, yo
 
 ### Clickable items
 
-If you want to make the entire item clickable, use `dui-link-item` instead of `dui-item`.
+If you want to make the entire item clickable, use `sa-link-item` instead of `sa-item`.
 
 <Demo src="/demo/tag-helpers/item-link.html">
   <include>./_include/item-link.mdx</include>
@@ -71,7 +71,7 @@ The URL can be specified a couple of ways:
 
 ### Group
 
-Wrap items in `dui-item-group` container to group them together.
+Wrap items in `sa-item-group` container to group them together.
 
 <Demo src="/demo/tag-helpers/item-group.html">
   <include>./_include/item-group.mdx</include>
@@ -79,7 +79,7 @@ Wrap items in `dui-item-group` container to group them together.
 
 ### Separator
 
-Items can be separated with `dui-item-separator`.
+Items can be separated with `sa-item-separator`.
 
 <Demo src="/demo/tag-helpers/item-separator.html">
   <include>./_include/item-separator.mdx</include>
@@ -111,9 +111,9 @@ Items can be separated with `dui-item-separator`.
 
 ## API Reference
 
-### `<dui-item>`
+### `<sa-item>`
 
-The `<dui-item>` tag helper renders a `<div>` element. In addition to the
+The `<sa-item>` tag helper renders a `<div>` element. In addition to the
 attributes below, it forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
@@ -136,9 +136,9 @@ to the rendered element.
   }}
 />
 
-### `<dui-link-item>`
+### `<sa-link-item>`
 
-The `<dui-link-item>` tag helper renders an `<a>` element styled as an item,
+The `<sa-link-item>` tag helper renders an `<a>` element styled as an item,
 making the entire item clickable. In addition to the attributes below, it
 forwards any standard [`<a>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
@@ -220,21 +220,21 @@ both.
   }}
 />
 
-### `<dui-item-group>`
+### `<sa-item-group>`
 
-The `<dui-item-group>` tag helper renders a `<div>` element with `role="list"`
+The `<sa-item-group>` tag helper renders a `<div>` element with `role="list"`
 that groups items together, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-header>`
+### `<sa-item-header>`
 
-The `<dui-item-header>` tag helper renders a `<div>` element for the item
+The `<sa-item-header>` tag helper renders a `<div>` element for the item
 header, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-media>`
+### `<sa-item-media>`
 
-The `<dui-item-media>` tag helper renders a `<div>` element that hosts an icon,
+The `<sa-item-media>` tag helper renders a `<div>` element that hosts an icon,
 image, or avatar. In addition to the attribute below, it forwards any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
@@ -251,38 +251,38 @@ to the rendered element.
   }}
 />
 
-### `<dui-item-content>`
+### `<sa-item-content>`
 
-The `<dui-item-content>` tag helper renders a `<div>` element that groups the
+The `<sa-item-content>` tag helper renders a `<div>` element that groups the
 item title and description, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-title>`
+### `<sa-item-title>`
 
-The `<dui-item-title>` tag helper renders a `<div>` element for the item title,
+The `<sa-item-title>` tag helper renders a `<div>` element for the item title,
 forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-description>`
+### `<sa-item-description>`
 
-The `<dui-item-description>` tag helper renders a `<p>` element for the item
+The `<sa-item-description>` tag helper renders a `<p>` element for the item
 description, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-actions>`
+### `<sa-item-actions>`
 
-The `<dui-item-actions>` tag helper renders a `<div>` element that hosts
+The `<sa-item-actions>` tag helper renders a `<div>` element that hosts
 buttons or other actions, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-footer>`
+### `<sa-item-footer>`
 
-The `<dui-item-footer>` tag helper renders a `<div>` element for the item
+The `<sa-item-footer>` tag helper renders a `<div>` element for the item
 footer, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
-### `<dui-item-separator>`
+### `<sa-item-separator>`
 
-The `<dui-item-separator>` tag helper renders a horizontal separator (a `<div>`
+The `<sa-item-separator>` tag helper renders a horizontal separator (a `<div>`
 with `role="separator"`) between items, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

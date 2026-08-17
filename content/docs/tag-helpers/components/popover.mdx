@@ -11,20 +11,20 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<dui-popover>` uses the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) and renders a `div` element with a `popover` attribute. The popover can be opened by using the `popovertarget` attribute on a `<dui-button>` element.
+`<sa-popover>` uses the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) and renders a `div` element with a `popover` attribute. The popover can be opened by using the `popovertarget` attribute on a `<sa-button>` element.
 
 ```razor
-<dui-button popovertarget="--my-popover">Element that triggers popover</dui-button>
-<dui-popover id="--my-popover">
+<sa-button popovertarget="--my-popover">Element that triggers popover</sa-button>
+<sa-popover id="--my-popover">
   <!-- add the popover content here -->
-</dui-popover>
+</sa-popover>
 ```
 
 ## Examples
 
 ### With Button Group
 
-Create a split button that opens a popover using the `<dui-button-group>` Tag Helper.
+Create a split button that opens a popover using the `<sa-button-group>` Tag Helper.
 
 <Demo src="/demo/tag-helpers/popover-button-group.html">
   <include>./_include/popover-button-group.mdx</include>
@@ -66,7 +66,7 @@ Control the offset of the popover from the trigger element using one of Tailwind
 
 ### Manual dismiss
 
-By default, `<dui-popover>` is light dismissable - meaning you can hide the popover by clicking outside of it or pressing the `Esc` key. You can change this behaviour by setting the `popover` attribute to `manual` which will require it to be explicitly closed using `popovertargetaction="hide"` or JavaScript.
+By default, `<sa-popover>` is light dismissable - meaning you can hide the popover by clicking outside of it or pressing the `Esc` key. You can change this behaviour by setting the `popover` attribute to `manual` which will require it to be explicitly closed using `popovertargetaction="hide"` or JavaScript.
 
 <Demo src="/demo/tag-helpers/popover-manual-dismiss.html">
   <include>./_include/popover-manual-dismiss.mdx</include>
@@ -74,7 +74,7 @@ By default, `<dui-popover>` is light dismissable - meaning you can hide the popo
 
 ### JavaScript API
 
-Since `<dui-popover>` uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), you can use the `showPopover()`, `hidePopover()` and `togglePopover()` methods to control visibility of the popover.
+Since `<sa-popover>` uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), you can use the `showPopover()`, `hidePopover()` and `togglePopover()` methods to control visibility of the popover.
 
 When using the JavaScript API, you also need to make sure you specify the `source` element to ensure the tooltip is aligned correctly with the UI element for which the tooltip is shown.
 
@@ -84,7 +84,7 @@ When using the JavaScript API, you also need to make sure you specify the `sourc
 
 ### JavaScript Events
 
-The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) fires the `beforetoggle` and `toggle` events on `<dui-popover>` before it is shown/hidden and after it is show/hidden respectively. You can prevent opening the popover by calling `event.preventDefault()` in the `beforetoggle` event handler.
+The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) fires the `beforetoggle` and `toggle` events on `<sa-popover>` before it is shown/hidden and after it is show/hidden respectively. You can prevent opening the popover by calling `event.preventDefault()` in the `beforetoggle` event handler.
 
 <Demo src="/demo/tag-helpers/popover-js-events.html">
   <include>./_include/popover-js-events.mdx</include>
@@ -92,9 +92,9 @@ The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/U
 
 ## API Reference
 
-### `<dui-popover>`
+### `<sa-popover>`
 
-The `<dui-popover>` tag helper renders a `<div>` element with a `popover`
+The `<sa-popover>` tag helper renders a `<div>` element with a `popover`
 attribute (which you can override by supplying your own `popover` attribute,
 e.g. `popover="manual"`), opened by a button whose `popovertarget` attribute
 references the popover's `id`. In addition to the attribute below, it forwards
@@ -115,24 +115,24 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
   }}
 />
 
-### `<dui-popover-header>`
+### `<sa-popover-header>`
 
-The `<dui-popover-header>` tag helper renders a `<div>` element that groups the
+The `<sa-popover-header>` tag helper renders a `<div>` element that groups the
 popover's title and description. It has no attributes of its own and forwards
 any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-popover-title>`
+### `<sa-popover-title>`
 
-The `<dui-popover-title>` tag helper renders an `<h2>` element. It has no
+The `<sa-popover-title>` tag helper renders an `<h2>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-popover-description>`
+### `<sa-popover-description>`
 
-The `<dui-popover-description>` tag helper renders a `<p>` element. It has no
+The `<sa-popover-description>` tag helper renders a `<p>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.

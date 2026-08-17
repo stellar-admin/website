@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Get started with the DuneUI Tag Helpers
+description: Get started with the StellarAdmin Tag Helpers
 ---
 
 import { Step, Steps } from "fumadocs-ui/components/steps";
@@ -8,23 +8,23 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Add to existing project
 
-The following installation instructions assume you are adding DuneUI to an existing ASP.NET Core MVC or Razor Pages project.
+The following installation instructions assume you are adding StellarAdmin to an existing ASP.NET Core MVC or Razor Pages project.
 
 <Steps>
     <Step>
         ### Install package
 
-        Install the DuneUI NuGet package.
+        Install the StellarAdmin.TagHelpers NuGet package.
 
         <Tabs items={['.NET CLI', 'Package Manager']}>
             <Tab>
                 ```text
-                dotnet add package DuneUI
+                dotnet add package StellarAdmin.TagHelpers
                 ```
             </Tab>
             <Tab>
                 ```text
-                Install-Package DuneUI
+                Install-Package StellarAdmin.TagHelpers
                 ```
             </Tab>
         </Tabs>
@@ -32,36 +32,37 @@ The following installation instructions assume you are adding DuneUI to an exist
     <Step>
         ### Register services
 
-        Update your `Program.cs` (or `Startup.cs`) to register the DuneUI services.
+        Update your `Program.cs` (or `Startup.cs`) to register the StellarAdmin services.
 
         ```cs
-        using DuneUI;
+        using StellarAdmin;
+        using StellarAdmin.TagHelpers;
 
-        builder.Services.AddDuneUI();
+        builder.Services.AddStellarAdmin().AddUI();
         ```
     </Step>
     <Step>
         ### Update imports
 
-        Update your `_ViewImports.cshtml` to register the DuneUI Tag Helpers and import the `DuneUI.TagHelpers` namespace.
+        Update your `_ViewImports.cshtml` to register the StellarAdmin Tag Helpers and import the `StellarAdmin.TagHelpers` namespace.
 
         ```razor
-        @using DuneUI.TagHelpers
-        @addTagHelper *, DuneUI
+        @using StellarAdmin.TagHelpers
+        @addTagHelper *, StellarAdmin.TagHelpers
         ```
     </Step>
     <Step>
-        ### Add stylesheets and JavaScript file
+        ### Add stylesheet and JavaScript file
 
-        Add the DuneUI stylesheet (`/_content/DuneUI/dune-ui.css`) and JavaScript file (`/_content/DuneUI/dune-ui.js`) to your Razor layout.
+        StellarAdmin ships one stylesheet per theme (`vega`, `nova`, `luma`, `lyra`, `maia`, `mira`, `rhea`, and `sera`). Add exactly one theme stylesheet (`/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css`) and the JavaScript file (`/_content/StellarAdmin.TagHelpers/stellar-admin.js`) to your Razor layout. The example below uses the `nova` theme; switching themes is simply a matter of linking a different stylesheet.
 
         ```razor
         <!DOCTYPE html>
         <html lang="en">
         <head>
             ...
-            <link rel="stylesheet" href="/_content/DuneUI/dune-ui.css" asp-append-version="true"/>
-            <script defer src="/_content/DuneUI/dune-ui.js" asp-append-version="true"></script>
+            <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+            <script defer src="/_content/StellarAdmin.TagHelpers/stellar-admin.js" asp-append-version="true"></script>
         </head>
         <body>
             ...
@@ -72,19 +73,19 @@ The following installation instructions assume you are adding DuneUI to an exist
     <Step>
         ### (Optional) Remove 3rd party stylesheets
 
-        Using DuneUI along with 3rd party CSS libraries like Bootstrap will almost certainly result in incorrect rendering of the DuneUI components, since these libraries apply their own styling which may override the styling applied by DuneUI.
+        Using StellarAdmin along with 3rd party CSS libraries like Bootstrap will almost certainly result in incorrect rendering of the StellarAdmin components, since these libraries apply their own styling which may override the styling applied by StellarAdmin.
 
-        As such, we **strongly recommend** that you remove 3rd party stylesheets and only depend on the CSS styling applied by DuneUI.
+        As such, we **strongly recommend** that you remove 3rd party stylesheets and only depend on the CSS styling applied by StellarAdmin.
     </Step>
     <Step>
         ### Start using the Tag Helpers
 
-        Start using the DuneUI Tag Helpers inside your Razor Pages or MVC Views. For example, the code snippet below adds an alert to your page.
+        Start using the StellarAdmin Tag Helpers inside your Razor Pages or MVC Views. For example, the code snippet below adds an alert to your page.
 
         ```razor
-        <dui-alert>
-            <dui-alert-title>Success! You have configured DuneUI correctly.</dui-alert-title>
-        </dui-alert>
+        <sa-alert>
+            <sa-alert-title>Success! You have configured StellarAdmin correctly.</sa-alert-title>
+        </sa-alert>
         ```
     </Step>
 

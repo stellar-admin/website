@@ -13,14 +13,14 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 ## Usage
 
 ```razor
-<dui-textarea />
+<sa-textarea />
 ```
 
 ## Examples
 
 ### Model binding
 
-The `dui-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, DuneUI will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
+The `sa-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
 
 <Demo src="/demo/tag-helpers/textarea-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -89,7 +89,7 @@ You can also implicitly wrap the text area inside a [Field](field) using the sho
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the text area.
 
-The error message can be displayed using either a `dui-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/textarea-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -104,9 +104,9 @@ The error message can be displayed using either a `dui-field-error` Tag Helper (
 
 ## API Reference
 
-### `<dui-textarea>`
+### `<sa-textarea>`
 
-The `<dui-textarea>` tag helper renders a `<textarea>` element. In addition to
+The `<sa-textarea>` tag helper renders a `<textarea>` element. In addition to
 the attributes below, it forwards any standard [`<textarea>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
 (such as `rows`, `placeholder`, or `aria-invalid`) to the rendered element.

@@ -31,10 +31,10 @@ export const Route = createFileRoute("/blog/")({
   loader: async () => listPosts(),
   head: () => ({
     meta: [
-      { title: "Blog - DuneUI" },
+      { title: "Blog - StellarAdmin" },
       {
         name: "description",
-        content: "The latest news, tips and updates from DuneUI.",
+        content: "The latest news, tips and updates from StellarAdmin.",
       },
     ],
   }),

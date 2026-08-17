@@ -1,4 +1,4 @@
-export const appName = "DuneUI";
+export const appName = "StellarAdmin";
 export const siteUrl = "https://www.duneui.com";
 export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";

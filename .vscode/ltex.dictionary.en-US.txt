@@ -1,5 +1,5 @@
 StellarAdmin
-DuneUI
+StellarAdmin
 shadcn/ui
 tweakcn
 entrypoint

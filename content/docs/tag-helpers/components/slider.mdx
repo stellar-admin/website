@@ -12,12 +12,12 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `dui-slider` Tag Helper renders a slider for selecting a value from within a range. It is backed by a small `del-slider` web component that handles pointer dragging, keyboard interaction, and clicking the track to seek, while the value is posted back through hidden inputs so it model-binds like any other form field.
+The `sa-slider` Tag Helper renders a slider for selecting a value from within a range. It is backed by a small `sel-slider` web component that handles pointer dragging, keyboard interaction, and clicking the track to seek, while the value is posted back through hidden inputs so it model-binds like any other form field.
 
 Use the `min`, `max`, and `step` attributes to control the range and the increment the slider snaps to.
 
 ```razor
-<dui-slider value="50" min="0" max="100"/>
+<sa-slider value="50" min="0" max="100"/>
 ```
 
 <Callout type="warn">
@@ -48,9 +48,9 @@ The slider is not limited to two thumbs — provide as many values as you need a
 
 ### Model binding
 
-The `dui-slider` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to an `int` for a single-thumb slider, or to an `int[]` (or `List<int>`) for a range slider — the posted values bind straight back to the collection.
+The `sa-slider` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to an `int` for a single-thumb slider, or to an `int[]` (or `List<int>`) for a range slider — the posted values bind straight back to the collection.
 
-When using model binding, DuneUI will automatically wrap the slider inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+When using model binding, StellarAdmin will automatically wrap the slider inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/slider-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -115,9 +115,9 @@ Add the `disabled` attribute to prevent the user from interacting with the slide
 
 ## API Reference
 
-### `<dui-slider>`
+### `<sa-slider>`
 
-The `<dui-slider>` tag helper renders a `<del-slider>` web component
+The `<sa-slider>` tag helper renders a `<sel-slider>` web component
 containing the track, a thumb per value, and a hidden `<input>` per thumb that
 posts the value. In addition to the attributes below, it forwards any [global
 HTML

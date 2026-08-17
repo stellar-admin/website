@@ -14,25 +14,25 @@ import { Demo } from "@/components/demo";
 The Alert Tag Helper can be used in either composition mode or shorthand mode. The composition mode is useful when the title or description contains HTML markup or additional HTML elements. It also allows you to add additional HTML attributes to the individual components of the alert - such as additional CSS class names via the `class` attribute.
 
 ```razor
-<dui-alert>
+<sa-alert>
     <!-- Add an optional icon -->
-    <dui-icon name="..."/>
-    <dui-alert-title>
+    <sa-icon name="..."/>
+    <sa-alert-title>
         <!-- Add the title of the alert -->
-    </dui-alert-title>
-    <dui-alert-description>
+    </sa-alert-title>
+    <sa-alert-description>
         <!-- Add the description of the alert -->
-    </dui-alert-description>
-    <dui-alert-action>
+    </sa-alert-description>
+    <sa-alert-action>
         <!-- Add actions the user can take -->
-    </dui-alert-action>
-</dui-alert>
+    </sa-alert-action>
+</sa-alert>
 ```
 
 If you just want a simple alert with a plain text description and perhaps a title and icon, the shorthand mode allows for more compact markup.
 
 ```razor
-<dui-alert icon="..." title="..." description="..."/>
+<sa-alert icon="..." title="..." description="..."/>
 ```
 
 ## Examples
@@ -75,9 +75,9 @@ You can add additional content such as buttons to the alert.
 
 ## API Reference
 
-### `<dui-alert>`
+### `<sa-alert>`
 
-The `<dui-alert>` tag helper renders a `<div>` element with `role="alert"`. In
+The `<sa-alert>` tag helper renders a `<div>` element with `role="alert"`. In
 addition to the attributes below, it forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 (such as `id` or `class`) to the rendered element. The `icon`, `title`, and
@@ -106,23 +106,23 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
   }}
 />
 
-### `<dui-alert-title>`
+### `<sa-alert-title>`
 
-The `<dui-alert-title>` tag helper renders a `<div>` element. It has no
+The `<sa-alert-title>` tag helper renders a `<div>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-alert-description>`
+### `<sa-alert-description>`
 
-The `<dui-alert-description>` tag helper renders a `<div>` element. It has no
+The `<sa-alert-description>` tag helper renders a `<div>` element. It has no
 attributes of its own and forwards any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-alert-action>`
+### `<sa-alert-action>`
 
-The `<dui-alert-action>` tag helper renders a `<div>` element that hosts
+The `<sa-alert-action>` tag helper renders a `<div>` element that hosts
 actions the user can take. It has no attributes of its own and forwards any
 standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)

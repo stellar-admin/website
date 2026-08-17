@@ -11,38 +11,38 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Wrap the sidebar and your page content in a `dui-sidebar-wrapper`. The `dui-sidebar` holds the navigation — composed of `dui-sidebar-header`, `dui-sidebar-content` and `dui-sidebar-footer` — while `dui-sidebar-inset` holds the main page content. Navigation is built up from `dui-sidebar-group`, `dui-sidebar-menu`, `dui-sidebar-menu-item` and `dui-sidebar-menu-link`. Use `dui-sidebar-trigger` to toggle the sidebar.
+Wrap the sidebar and your page content in a `sa-sidebar-wrapper`. The `sa-sidebar` holds the navigation — composed of `sa-sidebar-header`, `sa-sidebar-content` and `sa-sidebar-footer` — while `sa-sidebar-inset` holds the main page content. Navigation is built up from `sa-sidebar-group`, `sa-sidebar-menu`, `sa-sidebar-menu-item` and `sa-sidebar-menu-link`. Use `sa-sidebar-trigger` to toggle the sidebar.
 
 ```razor
-<dui-sidebar-wrapper>
-    <dui-sidebar>
-        <dui-sidebar-header>
+<sa-sidebar-wrapper>
+    <sa-sidebar>
+        <sa-sidebar-header>
             ...
-        </dui-sidebar-header>
-        <dui-sidebar-content>
-            <dui-sidebar-group>
-                <dui-sidebar-group-label>Platform</dui-sidebar-group-label>
-                <dui-sidebar-group-content>
-                    <dui-sidebar-menu>
-                        <dui-sidebar-menu-item>
-                            <dui-sidebar-menu-link href="...">
-                                <dui-icon name="layout-dashboard" />
+        </sa-sidebar-header>
+        <sa-sidebar-content>
+            <sa-sidebar-group>
+                <sa-sidebar-group-label>Platform</sa-sidebar-group-label>
+                <sa-sidebar-group-content>
+                    <sa-sidebar-menu>
+                        <sa-sidebar-menu-item>
+                            <sa-sidebar-menu-link href="...">
+                                <sa-icon name="layout-dashboard" />
                                 <span>Dashboard</span>
-                            </dui-sidebar-menu-link>
-                        </dui-sidebar-menu-item>
-                    </dui-sidebar-menu>
-                </dui-sidebar-group-content>
-            </dui-sidebar-group>
-        </dui-sidebar-content>
-        <dui-sidebar-footer>
+                            </sa-sidebar-menu-link>
+                        </sa-sidebar-menu-item>
+                    </sa-sidebar-menu>
+                </sa-sidebar-group-content>
+            </sa-sidebar-group>
+        </sa-sidebar-content>
+        <sa-sidebar-footer>
             ...
-        </dui-sidebar-footer>
-    </dui-sidebar>
-    <dui-sidebar-inset>
-        <dui-sidebar-trigger />
+        </sa-sidebar-footer>
+    </sa-sidebar>
+    <sa-sidebar-inset>
+        <sa-sidebar-trigger />
         <!-- Main page content -->
-    </dui-sidebar-inset>
-</dui-sidebar-wrapper>
+    </sa-sidebar-inset>
+</sa-sidebar-wrapper>
 ```
 
 ## Examples
@@ -65,7 +65,7 @@ Set `variant="SidebarVariant.Floating"` to detach the sidebar from the edge of t
 
 ### Alternate trigger icon
 
-Provide child content to `dui-sidebar-trigger` to override the default icon. Use the `in-aria-expanded` and `not-in-aria-expanded` variants to swap the icon based on whether the sidebar is open or closed.
+Provide child content to `sa-sidebar-trigger` to override the default icon. Use the `in-aria-expanded` and `not-in-aria-expanded` variants to swap the icon based on whether the sidebar is open or closed.
 
 <Demo src="/demo/tag-helpers/sidebar-alternate-trigger-icon.html" mode="fullscreen">
   <include>./_include/sidebar-alternate-trigger-icon.mdx</include>
@@ -89,7 +89,7 @@ Set `collapsible="SidebarCollapsible.Icon"` to collapse the sidebar down to icon
 
 ### Collapsible groups
 
-Wrap a `dui-sidebar-group` in a `dui-collapsible` to let an entire section of the sidebar collapse and expand together.
+Wrap a `sa-sidebar-group` in a `sa-collapsible` to let an entire section of the sidebar collapse and expand together.
 
 <Demo src="/demo/tag-helpers/sidebar-collapsible-groups.html" mode="fullscreen">
   <include>./_include/sidebar-collapsible-groups.mdx</include>
@@ -97,7 +97,7 @@ Wrap a `dui-sidebar-group` in a `dui-collapsible` to let an entire section of th
 
 ### Collapsible items
 
-Use `dui-sidebar-menu-button` together with `dui-collapsible` to create a menu item that expands to reveal nested sub-items.
+Use `sa-sidebar-menu-button` together with `sa-collapsible` to create a menu item that expands to reveal nested sub-items.
 
 <Demo src="/demo/tag-helpers/sidebar-collapsible-items.html" mode="fullscreen">
   <include>./_include/sidebar-collapsible-items.mdx</include>
@@ -105,7 +105,7 @@ Use `dui-sidebar-menu-button` together with `dui-collapsible` to create a menu i
 
 ### Sidebar in a dialog
 
-Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `dui-dialog`, for example as part of a settings screen.
+Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `sa-dialog`, for example as part of a settings screen.
 
 <Demo src="/demo/tag-helpers/sidebar-sidebar-in-dialog.html" mode="fullscreen">
   <include>./_include/sidebar-sidebar-in-dialog.mdx</include>
@@ -113,19 +113,19 @@ Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `dui-di
 
 ## API Reference
 
-### `<dui-sidebar-wrapper>`
+### `<sa-sidebar-wrapper>`
 
-The `<dui-sidebar-wrapper>` tag helper renders a `<del-sidebar>` web component
+The `<sa-sidebar-wrapper>` tag helper renders a `<sel-sidebar>` web component
 that wraps the sidebar and page content and owns the open/collapsed state.
-Nested `<dui-sidebar-trigger>` elements toggle it through the Invoker Commands
+Nested `<sa-sidebar-trigger>` elements toggle it through the Invoker Commands
 API; it honours a user-supplied `id` and generates one otherwise. It forwards
 any standard [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
 to the rendered element.
 
-### `<dui-sidebar>`
+### `<sa-sidebar>`
 
-The `<dui-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
+The `<sa-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
 (including the mobile drawer and its backdrop). It forwards any standard
 [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
@@ -156,69 +156,69 @@ to the rendered element.
   }}
 />
 
-### `<dui-sidebar-trigger>`
+### `<sa-sidebar-trigger>`
 
-The `<dui-sidebar-trigger>` tag helper renders a `<button>` that toggles the
+The `<sa-sidebar-trigger>` tag helper renders a `<button>` that toggles the
 sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting
 the wrapper). It shows a default panel icon unless you supply child content,
 and forwards any standard [`<button>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
 to the rendered element.
 
-### `<dui-sidebar-header>`
+### `<sa-sidebar-header>`
 
-The `<dui-sidebar-header>` tag helper renders a `<div>` for content pinned to
+The `<sa-sidebar-header>` tag helper renders a `<div>` for content pinned to
 the top of the sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-content>`
+### `<sa-sidebar-content>`
 
-The `<dui-sidebar-content>` tag helper renders a `<div>` holding the scrollable
+The `<sa-sidebar-content>` tag helper renders a `<div>` holding the scrollable
 body of the sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-footer>`
+### `<sa-sidebar-footer>`
 
-The `<dui-sidebar-footer>` tag helper renders a `<div>` for content pinned to
+The `<sa-sidebar-footer>` tag helper renders a `<div>` for content pinned to
 the bottom of the sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-inset>`
+### `<sa-sidebar-inset>`
 
-The `<dui-sidebar-inset>` tag helper renders a `<main>` element holding the
+The `<sa-sidebar-inset>` tag helper renders a `<main>` element holding the
 page content next to the sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-separator>`
+### `<sa-sidebar-separator>`
 
-The `<dui-sidebar-separator>` tag helper renders a horizontal `<div
+The `<sa-sidebar-separator>` tag helper renders a horizontal `<div
 role="separator">` inside the sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-group>`
+### `<sa-sidebar-group>`
 
-The `<dui-sidebar-group>` tag helper renders a `<div>` for a section of the
+The `<sa-sidebar-group>` tag helper renders a `<div>` for a section of the
 sidebar. It has no attributes of its own.
 
-### `<dui-sidebar-group-label>`
+### `<sa-sidebar-group-label>`
 
-The `<dui-sidebar-group-label>` tag helper renders a `<div>` heading for a
+The `<sa-sidebar-group-label>` tag helper renders a `<div>` heading for a
 group. It has no attributes of its own.
 
-### `<dui-sidebar-group-content>`
+### `<sa-sidebar-group-content>`
 
-The `<dui-sidebar-group-content>` tag helper renders a `<div>` holding a
+The `<sa-sidebar-group-content>` tag helper renders a `<div>` holding a
 group's content. It has no attributes of its own.
 
-### `<dui-sidebar-menu>`
+### `<sa-sidebar-menu>`
 
-The `<dui-sidebar-menu>` tag helper renders a `<ul>` containing menu items. It
+The `<sa-sidebar-menu>` tag helper renders a `<ul>` containing menu items. It
 has no attributes of its own.
 
-### `<dui-sidebar-menu-item>`
+### `<sa-sidebar-menu-item>`
 
-The `<dui-sidebar-menu-item>` tag helper renders an `<li>` for a single menu
+The `<sa-sidebar-menu-item>` tag helper renders an `<li>` for a single menu
 entry. It has no attributes of its own.
 
-### `<dui-sidebar-menu-button>`
+### `<sa-sidebar-menu-button>`
 
-The `<dui-sidebar-menu-button>` tag helper renders a `<button>` styled as a
-menu entry — typically paired with `<dui-collapsible>` for expandable items. In
+The `<sa-sidebar-menu-button>` tag helper renders a `<button>` styled as a
+menu entry — typically paired with `<sa-collapsible>` for expandable items. In
 addition to the attributes below, it forwards any standard [`<button>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
 to the rendered element.
@@ -247,9 +247,9 @@ to the rendered element.
   }}
 />
 
-### `<dui-sidebar-menu-link>`
+### `<sa-sidebar-menu-link>`
 
-The `<dui-sidebar-menu-link>` tag helper renders an
+The `<sa-sidebar-menu-link>` tag helper renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a menu entry. It is marked active automatically when its
 routing attributes match the current route.
@@ -331,24 +331,24 @@ both.
   }}
 />
 
-### `<dui-sidebar-menu-badge>`
+### `<sa-sidebar-menu-badge>`
 
-The `<dui-sidebar-menu-badge>` tag helper renders a `<div>` badge (such as a
+The `<sa-sidebar-menu-badge>` tag helper renders a `<div>` badge (such as a
 count) alongside a menu entry. It has no attributes of its own.
 
-### `<dui-sidebar-menu-sub>`
+### `<sa-sidebar-menu-sub>`
 
-The `<dui-sidebar-menu-sub>` tag helper renders a `<ul>` containing nested
+The `<sa-sidebar-menu-sub>` tag helper renders a `<ul>` containing nested
 sub-items. It has no attributes of its own.
 
-### `<dui-sidebar-menu-sub-item>`
+### `<sa-sidebar-menu-sub-item>`
 
-The `<dui-sidebar-menu-sub-item>` tag helper renders an `<li>` for a single
+The `<sa-sidebar-menu-sub-item>` tag helper renders an `<li>` for a single
 sub-entry. It has no attributes of its own.
 
-### `<dui-sidebar-menu-sub-button>`
+### `<sa-sidebar-menu-sub-button>`
 
-The `<dui-sidebar-menu-sub-button>` tag helper renders a `<button>` styled as a
+The `<sa-sidebar-menu-sub-button>` tag helper renders a `<button>` styled as a
 sub-entry. In addition to the attributes below, it forwards any standard
 [`<button>`
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
@@ -371,12 +371,12 @@ to the rendered element.
   }}
 />
 
-### `<dui-sidebar-menu-sub-link>`
+### `<sa-sidebar-menu-sub-link>`
 
-The `<dui-sidebar-menu-sub-link>` tag helper renders an
+The `<sa-sidebar-menu-sub-link>` tag helper renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a sub-entry, marked active automatically when its route
-matches. It accepts the same routing attributes as `<dui-sidebar-menu-link>`
+matches. It accepts the same routing attributes as `<sa-sidebar-menu-link>`
 above.
 
 <TypeTable
