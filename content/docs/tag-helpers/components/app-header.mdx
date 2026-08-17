@@ -1,0 +1,75 @@
+---
+title: App Header
+description: The application's top navigation bar, composed with a sidebar trigger, breadcrumb, and trailing actions
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/app-header-intro.html">
+  <include>./_include/app-header-intro.mdx</include>
+</Demo>
+
+## Usage
+
+The `<sa-app-header>` renders the application's top navigation bar. Place leading content (such as an application name or an `<sa-breadcrumb>`) directly inside it, separated with `<sa-app-header-separator>` where needed, and put trailing content such as buttons or an avatar in `<sa-app-header-actions>`.
+
+```razor
+<sa-app-header>
+    <span>Voyager Travel</span>
+    <sa-app-header-separator/>
+    <sa-breadcrumb>...</sa-breadcrumb>
+    <sa-app-header-actions>
+        <sa-button>...</sa-button>
+    </sa-app-header-actions>
+</sa-app-header>
+```
+
+## Examples
+
+### Trailing actions
+
+Use `<sa-app-header-actions>` for the right-aligned area at the end of the header.
+
+<Demo src="/demo/tag-helpers/app-header-actions.html">
+  <include>./_include/app-header-actions.mdx</include>
+</Demo>
+
+### Custom height
+
+Override the header height by passing a height utility in the `class` attribute.
+
+<Demo src="/demo/tag-helpers/app-header-custom-height.html">
+  <include>./_include/app-header-custom-height.mdx</include>
+</Demo>
+
+### With sidebar
+
+The app header is typically placed at the top of `<sa-sidebar-inset>`, with an `<sa-sidebar-trigger>` as its first child followed by an `<sa-app-header-separator>`.
+
+<Demo src="/demo/tag-helpers/app-header-with-sidebar.html" mode="fullscreen">
+  <include>./_include/app-header-with-sidebar.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-app-header>`
+
+The `<sa-app-header>` tag helper renders a `<header>` element. It has no
+attributes of its own; it forwards any standard [global HTML
+attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
+(such as `id` or `class`) to the rendered element.
+
+### `<sa-app-header-actions>`
+
+The `<sa-app-header-actions>` tag helper renders a `<div>` element aligned to
+the end of the header, for trailing content such as buttons or an avatar. It
+has no attributes of its own; it forwards any global HTML attributes to the
+rendered element.
+
+### `<sa-app-header-separator>`
+
+The `<sa-app-header-separator>` tag helper renders a vertical
+[separator](./separator) sized for use inside the app header, typically
+between the sidebar trigger and the content that follows it. It has no
+attributes of its own; it forwards any global HTML attributes to the rendered
+element.

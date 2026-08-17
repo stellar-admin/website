@@ -48,6 +48,14 @@ Wrap the table in a bordered container to give it an outer border.
   <include>./_include/table-select.mdx</include>
 </Demo>
 
+### Row selection
+
+Wrap the table in `<sa-table-selection>` to add row selection. A checkbox in the table's header row acts as the select-all, a checkbox in a body row selects that row, and selected rows are highlighted. The selection posts as ordinary checkbox form data, so no extra wiring is needed to submit it.
+
+<Demo src="/demo/tag-helpers/table-row-selection.html">
+  <include>./_include/table-row-selection.mdx</include>
+</Demo>
+
 ## API Reference
 
 ### `<sa-table>`
@@ -101,3 +109,15 @@ The `<sa-table-cell>` tag helper renders a [`<td>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td),
 and forwards standard `<td>` attributes such as `colspan`. It has no
 attributes of its own.
+
+### `<sa-table-selection>`
+
+The `<sa-table-selection>` tag helper adds row selection to the table it
+wraps, rendered as a `sel-table-selection` web component. The checkbox in the
+table's header row acts as the select-all; a checkbox in a body row selects
+that row. Selected rows get `data-state="selected"`, the select-all reflects
+the checked/indeterminate state, and the selection posts as ordinary checkbox
+form data. From JavaScript, read the current selection from the element's
+`selectedValues` property, or listen for its bubbling `selection-change`
+event. It has no attributes of its own; it forwards any global HTML
+attributes (such as `id`) to the rendered element.

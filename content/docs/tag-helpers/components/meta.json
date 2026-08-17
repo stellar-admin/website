@@ -1,9 +1,11 @@
 {
   "pages": [
     "---Layout---",
+    "app-header",
     "card",
-    "page-container",
     "group",
+    "page-container",
+    "page-header",
     "separator",
     "stack",
     "---Forms---",

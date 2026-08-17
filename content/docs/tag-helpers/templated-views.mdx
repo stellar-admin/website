@@ -1,0 +1,169 @@
+---
+title: Templated Views & Slots
+description: Build your own tag helpers whose markup can be overridden, and pass content into named slots
+---
+
+import { Demo } from "@/components/demo";
+
+StellarAdmin gives your own tag helpers the same customization story its built-in components use, through two mechanisms:
+
+- **Templated tag helpers** keep their markup in a Razor view instead of C#, so the consuming application can swap the markup — per instance, or globally — without touching the tag helper.
+- **Named slots** let a caller pass content into specific spots of a tag helper's output with `<sa-slot-content>`, which the markup renders through `<sa-slot-outlet>`.
+
+## Templated tag helpers
+
+A tag helper whose markup should be overridable derives from `StellarAdminTemplatedTagHelperBase` instead of `StellarAdminTagHelperBase`. It names a view (`ViewName`) that resolves like a partial view, and supplies the view's model from `GetViewModel()`.
+
+```cs
+[HtmlTargetElement("docs-trip-card")]
+public class TripCardTagHelper : StellarAdminTemplatedTagHelperBase
+{
+    [HtmlAttributeName("booking")]
+    public Booking? Booking { get; set; }
+
+    protected override string ViewName => "_TripCard";
+
+    public TripCardTagHelper(ICompositeViewEngine viewEngine)
+        : base(viewEngine) { }
+
+    protected override object? GetViewModel()
+    {
+        return Booking;
+    }
+}
+```
+
+The markup lives in `Pages/Shared/_TripCard.cshtml`, freely composing the built-in tag helpers:
+
+```razor
+@model DocsSamples.Booking
+
+<sa-card class="w-full max-w-sm">
+    <sa-card-header>
+        <sa-card-title>@Model.Destination</sa-card-title>
+        <sa-card-description>Booking @Model.Id</sa-card-description>
+    </sa-card-header>
+    <sa-card-content>
+        <div class="flex items-center justify-between text-sm">
+            <sa-badge variant="BadgeVariant.Outline">@Model.Status</sa-badge>
+            <span class="font-medium">@Model.Amount.ToString("C")</span>
+        </div>
+    </sa-card-content>
+</sa-card>
+```
+
+Using the tag helper is then a single element:
+
+<Demo src="/demo/tag-helpers/templated-tag-helper-intro.html">
+  <include>./components/_include/templated-tag-helper-intro.mdx</include>
+</Demo>
+
+### Swapping the view per instance
+
+Every templated tag helper accepts a `view` attribute that overrides `ViewName` for that instance, so the same tag helper can render through a different view where needed.
+
+<Demo src="/demo/tag-helpers/templated-tag-helper-view-override.html">
+  <include>./components/_include/templated-tag-helper-view-override.mdx</include>
+</Demo>
+
+### Overriding the view globally
+
+Because the view resolves through normal view discovery, an application can override a templated tag helper's markup everywhere by supplying its own view with the same name — no subclassing or configuration involved. This is the same mechanism ASP.NET Core uses for overriding views from Razor class libraries.
+
+## Slot outlets
+
+A templated tag helper's view can hand spots of its markup over to the caller. The view renders `<sa-slot-outlet name="...">` where caller content should go; the outlet's own children are the fallback used when the caller does not fill the slot.
+
+```razor
+<sa-card-footer>
+    <sa-slot-outlet name="actions">
+        <sa-button size="ButtonSize.Small" variant="ButtonVariant.Outline">View details</sa-button>
+    </sa-slot-outlet>
+</sa-card-footer>
+```
+
+The caller fills the slot by placing `<sa-slot-content>` with the matching name among the tag helper's children:
+
+<Demo src="/demo/tag-helpers/slot-outlet-intro.html">
+  <include>./components/_include/slot-outlet-intro.mdx</include>
+</Demo>
+
+### Fallback content
+
+When the caller leaves the slot unfilled, the outlet renders its fallback children instead.
+
+<Demo src="/demo/tag-helpers/slot-outlet-fallback.html">
+  <include>./components/_include/slot-outlet-fallback.mdx</include>
+</Demo>
+
+## Named slots in any tag helper
+
+Named slots are not limited to templated views — any StellarAdmin tag helper can host them. The host executes its child content (which registers the `<sa-slot-content>` children with the host) and reads slots back with `TryGetNamedSlot`, rendering them wherever it chooses:
+
+```cs
+[HtmlTargetElement("docs-booking-summary")]
+public class BookingSummaryTagHelper : StellarAdminTagHelperBase
+{
+    [HtmlAttributeName("booking")]
+    public Booking? Booking { get; set; }
+
+    public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+    {
+        var childContent = await output.GetChildContentAsync();
+
+        output.TagName = "div";
+
+        // Header row, with the "actions" slot rendered at the end when filled
+        if (TryGetNamedSlot("actions", out var actions))
+        {
+            output.Content.AppendHtml(actions);
+        }
+
+        // The remaining children become the body
+        output.Content.AppendHtml(childContent);
+    }
+}
+```
+
+The caller mixes slot content and regular children freely — the `<sa-slot-content>` element assigns itself to the nearest StellarAdmin ancestor and renders nothing in place:
+
+<Demo src="/demo/tag-helpers/slot-content-intro.html">
+  <include>./components/_include/slot-content-intro.mdx</include>
+</Demo>
+
+A filled slot that the host never reads renders nothing.
+
+## API Reference
+
+### `<sa-slot-content>`
+
+The `<sa-slot-content>` tag helper assigns its child content to a named slot
+on the nearest StellarAdmin ancestor tag helper and renders nothing in place.
+Assigning the same slot name twice on the same host is an error.
+
+<TypeTable
+  type={{
+    name: {
+      description: "The name of the slot to assign the content to.",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
+
+### `<sa-slot-outlet>`
+
+The `<sa-slot-outlet>` tag helper renders the content of the named slot on
+the hosting tag helper. When the slot is unfilled — or the view renders as a
+plain partial, outside a templated tag helper — it renders its own child
+content as the fallback instead. It renders no element of its own.
+
+<TypeTable
+  type={{
+    name: {
+      description: "The name of the slot to render.",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
