@@ -3,19 +3,46 @@
 <head>
     <script>
         (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
-            function applyTheme() {
+            function applyDark() {
                 var theme = null;
                 try { theme = localStorage.getItem('theme'); } catch (e) { }
                 var dark = theme === 'dark' || (theme !== 'light' && media.matches);
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            applyTheme();
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
             window.addEventListener('storage', function (e) {
-                if (e.key === null || e.key === 'theme') applyTheme();
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
-            media.addEventListener('change', applyTheme);
+            media.addEventListener('change', applyDark);
         })();
     </script>
     <meta charset="utf-8"/>
@@ -24,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -45,27 +72,27 @@
     
     <div class="mx-auto flex w-full max-w-lg flex-col gap-4">
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-title" class="sa-alert-title">
       Let&apos;s try one with icon, title and a <a href="#">link</a>.
     </div>
   </div>
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-description" class="sa-alert-description">
       This one has an icon and a description only. No title. <a href="#">But it has a link</a> and a <a href="#">second
         link</a>.
     </div>
   </div>
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-title" class="sa-alert-title">Success! Your changes have been saved</div>
     <div data-slot="alert-description" class="sa-alert-description">
       This is an alert with icon, title and description.
     </div>
   </div>
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-title" class="sa-alert-title">
       This is a very long alert title that demonstrates how the component
       handles extended text content and potentially wraps across multiple
@@ -73,7 +100,7 @@
     </div>
   </div>
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-description" class="sa-alert-description">
       This is a very long alert description that demonstrates how the
       component handles extended text content and potentially wraps across
@@ -81,7 +108,7 @@
     </div>
   </div>
   <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default">
-    <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
     <div data-slot="alert-title" class="sa-alert-title">
       This is an extremely long alert title that spans multiple lines to
       demonstrate how the component handles very lengthy headings while

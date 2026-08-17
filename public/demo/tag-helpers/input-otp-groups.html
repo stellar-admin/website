@@ -3,19 +3,46 @@
 <head>
     <script>
         (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
-            function applyTheme() {
+            function applyDark() {
                 var theme = null;
                 try { theme = localStorage.getItem('theme'); } catch (e) { }
                 var dark = theme === 'dark' || (theme !== 'light' && media.matches);
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            applyTheme();
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
             window.addEventListener('storage', function (e) {
-                if (e.key === null || e.key === 'theme') applyTheme();
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
-            media.addEventListener('change', applyTheme);
+            media.addEventListener('change', applyDark);
         })();
     </script>
     <meta charset="utf-8"/>
@@ -24,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -43,7 +70,7 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <sel-input-otp data-input-otp-container="true" maxlength="6" data-pattern="^\d*$" class="sa-input-otp" style="position: relative; cursor: text; user-select: none; pointer-events: none; --root-height: 32px;" data-caret-class="sa-input-otp-caret" data-caret-line-class="sa-input-otp-caret-line"><div class="sa-input-otp-group" data-slot="input-otp-group"><div class="sa-input-otp-slot" data-active="false" data-index="0" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="1" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="2" data-slot="input-otp-slot"></div></div><div data-slot="input-otp-separator" role="separator" class="sa-input-otp-separator"><svg class="size-4" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path></svg></div><div class="sa-input-otp-group" data-slot="input-otp-group"><div class="sa-input-otp-slot" data-active="false" data-index="3" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="4" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="5" data-slot="input-otp-slot"></div></div><div style="position:absolute;inset:0;pointer-events:none"><input type="text" data-slot="input-otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" autocorrect="off" spellcheck="false" class="sa-input-otp-input" style="position: absolute; inset: 0px; width: calc(100% &#x2B; 40px); height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-size: var(--root-height); font-family: monospace; font-variant-numeric: tabular-nums; clip-path: inset(0px 40px 0px 0px);"></div></sel-input-otp>
+    <sel-input-otp data-input-otp-container="true" maxlength="6" data-pattern="^\d*$" class="sa-input-otp" style="position: relative; cursor: text; user-select: none; pointer-events: none; --root-height: 32px;" data-caret-class="sa-input-otp-caret" data-caret-line-class="sa-input-otp-caret-line"><div class="sa-input-otp-group" data-slot="input-otp-group"><div class="sa-input-otp-slot" data-active="false" data-index="0" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="1" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="2" data-slot="input-otp-slot"></div></div><div data-slot="input-otp-separator" role="separator" class="sa-input-otp-separator"><svg class="size-4" viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path></svg></div><div class="sa-input-otp-group" data-slot="input-otp-group"><div class="sa-input-otp-slot" data-active="false" data-index="3" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="4" data-slot="input-otp-slot"></div><div class="sa-input-otp-slot" data-active="false" data-index="5" data-slot="input-otp-slot"></div></div><div style="position:absolute;inset:0;pointer-events:none"><input type="text" data-slot="input-otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" autocorrect="off" spellcheck="false" class="sa-input-otp-input" style="position: absolute; inset: 0px; width: calc(100% &#x2B; 40px); height: 100%; display: flex; text-align: left; opacity: 1; color: transparent; pointer-events: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-size: var(--root-height); font-family: monospace; font-variant-numeric: tabular-nums; clip-path: inset(0px 40px 0px 0px);"></div></sel-input-otp>
 
 
 </div>

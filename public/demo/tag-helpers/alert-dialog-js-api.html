@@ -3,19 +3,46 @@
 <head>
     <script>
         (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
-            function applyTheme() {
+            function applyDark() {
                 var theme = null;
                 try { theme = localStorage.getItem('theme'); } catch (e) { }
                 var dark = theme === 'dark' || (theme !== 'light' && media.matches);
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            applyTheme();
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
             window.addEventListener('storage', function (e) {
-                if (e.key === null || e.key === 'theme') applyTheme();
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
-            media.addEventListener('change', applyTheme);
+            media.addEventListener('change', applyDark);
         })();
     </script>
     <meta charset="utf-8"/>
@@ -24,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -64,7 +91,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep it</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Remove</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y8B00WqviImtQF764SYOTap_ZLwhKnTNDxVkG3Sv3SjW0wokxCzzxsGo7HxvcCVQKKTw9vIqJqiZOjeNR2YYL7Bc8HKe1tMn_pFsHOWCTHptk_cvWZ6uK8MqFZsvd3Bxvs" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-gP_oPn9oO01q6fxKhXFUpQBKMZ6awD3undWdB0_vwHI7aQbczd2bDzfImeBOb50_PhFFuVW5To2Lu_B69OctRUyxsDzP9R54cVn7Y5BKSiVWYS0LRSBMROh8Ox40Dq0E" /></form>
     </dialog></sel-dialog>
     <script type="module">
         (function () {

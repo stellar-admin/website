@@ -3,19 +3,46 @@
 <head>
     <script>
         (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
-            function applyTheme() {
+            function applyDark() {
                 var theme = null;
                 try { theme = localStorage.getItem('theme'); } catch (e) { }
                 var dark = theme === 'dark' || (theme !== 'light' && media.matches);
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            applyTheme();
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
             window.addEventListener('storage', function (e) {
-                if (e.key === null || e.key === 'theme') applyTheme();
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
-            media.addEventListener('change', applyTheme);
+            media.addEventListener('change', applyDark);
         })();
     </script>
     <meta charset="utf-8"/>
@@ -24,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -53,7 +80,7 @@
     <sel-dialog><dialog id="--alert-dialog-media" data-slot="alert-dialog-content" data-size="default" closedby="closerequest" class="sa-alert-dialog-content group/alert-dialog-content">
         <div data-slot="alert-dialog-header" class="sa-alert-dialog-header">
             <div data-slot="alert-dialog-media" class="sa-alert-dialog-media">
-                <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 7.38 16.75"></path><path d="M12 8v8"></path><path d="M16 12H8"></path><path d="M2.5 8.875a10 10 0 0 0-.5 3"></path><path d="M2.83 16a10 10 0 0 0 2.43 3.4"></path><path d="M4.636 5.235a10 10 0 0 1 .891-.857"></path><path d="M8.644 21.42a10 10 0 0 0 7.631-.38"></path></svg>
+                <svg viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 0 1 7.38 16.75"></path><path d="M12 8v8"></path><path d="M16 12H8"></path><path d="M2.5 8.875a10 10 0 0 0-.5 3"></path><path d="M2.83 16a10 10 0 0 0 2.43 3.4"></path><path d="M4.636 5.235a10 10 0 0 1 .891-.857"></path><path d="M8.644 21.42a10 10 0 0 0 7.631-.38"></path></svg>
             </div>
             <h2 data-slot="alert-dialog-title" class="sa-alert-dialog-title sa-font-heading font-heading">Share this trip?</h2>
             <p data-slot="alert-dialog-description" class="sa-alert-dialog-description">
@@ -65,7 +92,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Cancel</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-default sa-button-size-default sa-alert-dialog-action">Share</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y9DqD9BZBy1Whje8nhjMrv98jdKJVthhwC5ygdJ6aCDSmwHZXPxN5fiHy5IfAsYuSfKvaBxT1ASsnvna5F0Pc_yDZc2rvv6sf-OgL-GPNIDkESH6bRv3HRmtUHB5iZyC6c" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y_UTSrBqkrXGR2YTLrSz1gRE52aIz_3jUMszQHjwtyx8TmOSEAL7J_89fcqj9Or_TMzvQZqW4qmbw9IW6jEw7nPPk1Y7zYJ4AnaJyoZLTPFhiFeYpkDKB-XU_u5_budXOg" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

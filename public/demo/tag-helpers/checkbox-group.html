@@ -3,19 +3,46 @@
 <head>
     <script>
         (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
-            function applyTheme() {
+            function applyDark() {
                 var theme = null;
                 try { theme = localStorage.getItem('theme'); } catch (e) { }
                 var dark = theme === 'dark' || (theme !== 'light' && media.matches);
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            applyTheme();
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
             window.addEventListener('storage', function (e) {
-                if (e.key === null || e.key === 'theme') applyTheme();
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
-            media.addEventListener('change', applyTheme);
+            media.addEventListener('change', applyDark);
         })();
     </script>
     <meta charset="utf-8"/>
@@ -24,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yk0a9dj22n.css" />
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.nova.cspk3t8uwa.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -49,25 +76,25 @@
         <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Show these items on the desktop:</label>
         <div data-slot="checkbox-group" class="sa-field-group group/field-group [&amp;_[data-slot=field-label]]:font-normal">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="checkbox" id="landmarks" checked data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="landmarks" checked data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                 <label for="landmarks" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
                     Landmark & Attractions
                 </label>
             </div>
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="checkbox" id="restaurants" checked data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="restaurants" checked data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                 <label for="restaurants" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
                     Restaurants & Bars
                 </label>
             </div>
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="checkbox" id="stations" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="stations" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                 <label for="stations" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
                     Transit Stations
                 </label>
             </div>
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="checkbox" id="tour-guides" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="tour-guides" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" height="24" fill="none" width="24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                 <label for="tour-guides" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
                     Local Tour Guides
                 </label>
