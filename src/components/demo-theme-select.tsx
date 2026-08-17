@@ -1,25 +1,42 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { demoThemes, useDemoTheme } from "@/lib/demo-theme";
+
+const themeItems = demoThemes.map((theme) => ({
+  value: theme,
+  label: theme[0].toUpperCase() + theme.slice(1),
+}));
 
 export function DemoThemeSelect() {
   const [theme, setTheme] = useDemoTheme();
 
   return (
-    <label className="text-muted-foreground flex items-center gap-2 text-xs">
-      Theme
-      <select
+    <div className="text-muted-foreground flex items-center gap-2 text-xs">
+      <span>Theme</span>
+      <Select
+        items={themeItems}
         value={theme}
-        onChange={(e) => {
-          const next = demoThemes.find((t) => t === e.target.value);
+        onValueChange={(value) => {
+          const next = demoThemes.find((t) => t === value);
           if (next) setTheme(next);
         }}
-        className="border-border bg-background text-foreground dark:bg-input/30 dark:border-input focus-visible:border-ring focus-visible:ring-ring/50 h-7 rounded-md border px-2 text-xs font-medium shadow-xs outline-none focus-visible:ring-[3px]"
       >
-        {demoThemes.map((demoTheme) => (
-          <option key={demoTheme} value={demoTheme}>
-            {demoTheme[0].toUpperCase() + demoTheme.slice(1)}
-          </option>
-        ))}
-      </select>
-    </label>
+        <SelectTrigger size="sm" aria-label="Demo theme" className="text-xs">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {themeItems.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
