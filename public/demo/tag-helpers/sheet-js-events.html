@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -32,7 +49,7 @@
         <button commandfor="--sheet-js-events-sheet" command="show-modal" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
             Open Sheet
         </button>
-        <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" id="--sheet-js-events-prevent-toggle-checkbox" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="sa-field-content group/field-content"><label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">PreventDefault() in beforetoggle event</label><p data-slot="field-description" class="sa-field-description">Will prevent the sheet from opening</p></div></div>
+        <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" id="--sheet-js-events-prevent-toggle-checkbox" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="sa-field-content group/field-content"><label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">PreventDefault() in beforetoggle event</label><p data-slot="field-description" class="sa-field-description">Will prevent the sheet from opening</p></div></div>
         <label class="text-sm font-bold">Events:</label>
         <div class="font-mono w-full h-40 overflow-y-auto bg-gray-50" id="--sheet-js-events-output">
         </div>
@@ -44,7 +61,7 @@
             </p>
         </div>
         <div class="p-4">
-            <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" id="--sheet-js-events-prevent-cancel-checkbox" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="sa-field-content group/field-content"><label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">PreventDefault() in cancel event</label><p data-slot="field-description" class="sa-field-description">Will prevent the Request Close button from closing the sheet</p></div></div>
+            <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" id="--sheet-js-events-prevent-cancel-checkbox" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div data-slot="field-content" class="sa-field-content group/field-content"><label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">PreventDefault() in cancel event</label><p data-slot="field-description" class="sa-field-description">Will prevent the Request Close button from closing the sheet</p></div></div>
         </div>
         <div data-slot="sheet-footer" class="sa-sheet-footer">
             <button commandfor="--sheet-js-events-sheet" command="close" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">

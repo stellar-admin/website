@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -35,10 +52,10 @@
                 <option>$</option>
                 <option>€</option>
                 <option>£</option>
-            </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg></div>
+            </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></div>
             <input id="amount" placeholder="Enter amount to send" data-slot="input" class="sa-input"></input>
             <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
-                <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </button>
         </div>
     </div>

@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -30,7 +47,7 @@
 <div class="flex w-full items-center justify-center">
     <!-- code begin -->
     <label data-slot="toggle" data-variant="outline" data-size="default" class="sa-toggle group/toggle sa-toggle-variant-outline sa-toggle-size-default"><input type="checkbox" checked="checked" data-val="true" data-val-required="The Breakfast included field is required." id="PartialModel_BreakfastIncluded" name="PartialModel.BreakfastIncluded" value="true" data-slot="toggle-input" class="peer sr-only"></input><input name="PartialModel.BreakfastIncluded" type="hidden" value="false">
-        <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg>
         Breakfast included
     </label>
     <!-- code end -->

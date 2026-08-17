@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -48,7 +65,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Cancel</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Delete</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y8etR7hSUxAY-fswu3tUKcrFnzoiwtUTGWq4OOWBrnG7NMgQcRKwNKsmurpsZg3vh3O00i6PsiabebjrZ1z1l68FauaK17brXBIhkDB4ZGvOVOKhzMEI-NBU0nXCcpR1bY" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-wn5L5firvYraqv4hEMsS6I9GHVfjcpJUo9krx4-hFWFDbSD2mPCCtJBkyLXdXrFpP6YP2ctbFxCjL1rkJfDIFV1jsFnuHGklIONu4n_H4zz6t5A-waUBcz0dtcxKaoBU" /></form>
     </dialog></sel-dialog>
     <sel-dialog><dialog id="--alert-dialog-size-sm" data-slot="alert-dialog-content" data-size="sm" closedby="closerequest" class="sa-alert-dialog-content group/alert-dialog-content">
         <div data-slot="alert-dialog-header" class="sa-alert-dialog-header">
@@ -62,7 +79,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Cancel</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Delete</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y8etR7hSUxAY-fswu3tUKcrFnzoiwtUTGWq4OOWBrnG7NMgQcRKwNKsmurpsZg3vh3O00i6PsiabebjrZ1z1l68FauaK17brXBIhkDB4ZGvOVOKhzMEI-NBU0nXCcpR1bY" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-wn5L5firvYraqv4hEMsS6I9GHVfjcpJUo9krx4-hFWFDbSD2mPCCtJBkyLXdXrFpP6YP2ctbFxCjL1rkJfDIFV1jsFnuHGklIONu4n_H4zz6t5A-waUBcz0dtcxKaoBU" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

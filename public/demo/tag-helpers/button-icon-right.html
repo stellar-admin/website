@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -31,105 +48,105 @@
   <div class="flex flex-wrap items-center gap-2">
     <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-xs">
       Default
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-secondary sa-button-size-xs">
       Secondary
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-xs">
       Outline
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-xs">
       Ghost
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-destructive sa-button-size-xs">
       Destructive
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-link sa-button-size-xs">
       Link
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
   </div>
   <div class="flex flex-wrap items-center gap-2">
     <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-sm">
       Default
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-secondary sa-button-size-sm">
       Secondary
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
       Outline
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-sm">
       Ghost
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-destructive sa-button-size-sm">
       Destructive
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-link sa-button-size-sm">
       Link
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
   </div>
   <div class="flex flex-wrap items-center gap-2">
     <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-default">
       Default
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-secondary sa-button-size-default">
       Secondary
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
       Outline
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-default">
       Ghost
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-destructive sa-button-size-default">
       Destructive
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-link sa-button-size-default">
       Link
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
   </div>
   <div class="flex flex-wrap items-center gap-2">
     <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-lg">
       Default
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-secondary sa-button-size-lg">
       Secondary
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-lg">
       Outline
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-lg">
       Ghost
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-destructive sa-button-size-lg">
       Destructive
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
     <button data-slot="button" class="sa-button group/button sa-button-variant-link sa-button-size-lg">
       Link
-      <svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
     </button>
   </div>
   <!-- code end -->

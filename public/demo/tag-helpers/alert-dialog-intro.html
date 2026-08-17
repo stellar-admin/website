@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -45,7 +62,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep editing</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-default sa-button-size-default sa-alert-dialog-action">Continue</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y9vyn63VlXsnCxN0uRwdR8X6bEgDnTVS28V11PUAisZU_9H_C3mz2xfHU24UrkSjrsEuSLqIS2kNujEkMI7CRiOEE66rtUXVtIsEdwi8xC0MxPCOTDnzweJJxttthXOyi8" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-UU5YNFPSVBed7eA3l8xgCT2-J8W0eUflUgrIm_7wOeVNqcDelMKXaev07C6EUU8poLYg3hSSFQLdBxq1t08xTu9Y7RdCsQbuNvpOKp5A0R-UiyCtNU09tRRK5Hel2-tg" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

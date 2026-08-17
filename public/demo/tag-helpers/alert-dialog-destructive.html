@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -45,7 +62,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep booking</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Cancel booking</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-_FhN_9cQHoaevW7wYuOcZpKilxgGcQzRWmpVCJ_whC0zTVUYorowHJvbWV8jWBshTcnvwPQ7ZW-zeoXMH1fW4m_D70bZpzP1t81SIXmaJFS7QNBMHDZwHph-SvZ79biY" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y_Sp8PiZrGG4oBNj5eJfCDCc9ec5Jjr_-PbmgDt1mb5-NiAXHOl0VaFkWa4krhv-bCedXyh_Zq0S7KknVhD8CaEaTTdX-WAR-WO3MmT0YhLcZ-MRzqlOR8YGIzljN9bAQ4" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

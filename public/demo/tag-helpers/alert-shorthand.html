@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -26,7 +43,7 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default"><svg stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg><div data-slot="alert-title" class="sa-alert-title"></div><div data-slot="alert-description" class="sa-alert-description"></div></div>
+    <div data-slot="alert" role="alert" class="sa-alert group/alert sa-alert-variant-default"><svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg><div data-slot="alert-title" class="sa-alert-title"></div><div data-slot="alert-description" class="sa-alert-description"></div></div>
 
 
 

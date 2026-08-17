@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -47,7 +64,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep it</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Remove</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y_XS8CqslyGNnUk6h75ztMEvzt60zeW7iBaagczkyD7M6z4MzqPC1sr-hPurkeFw-C0XmDvPzNXZvTP7zbyxlduoDsYIyCaAiAZwFH37dQab-pxEA2ZDWtuKkZu0a73tSo" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y8B00WqviImtQF764SYOTap_ZLwhKnTNDxVkG3Sv3SjW0wokxCzzxsGo7HxvcCVQKKTw9vIqJqiZOjeNR2YYL7Bc8HKe1tMn_pFsHOWCTHptk_cvWZ6uK8MqFZsvd3Bxvs" /></form>
     </dialog></sel-dialog>
     <script type="module">
         (function () {

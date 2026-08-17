@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -47,7 +64,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep Booking</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Cancel Booking</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y8EGVqhmRKrpo4gkYVgdneBr2kGEirGfQ6a1QtfFVi2JivZZkuA62DqASM5O4z87JoxxLDRI92HoZqbX7XN0h7_fsqqhSKfKWhLuhjC-3BMmqaIcQss3z2L8kr8GagH6kY" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y861KMHwGuCYPE9qoT5Nj1oNFRgKsdJhrvc6LxvmYeKpv2hgp3axmT1Cp8BSnfUxLCP6rKKqLCymaLTeEiLp0-y_v06Gzc3svzXywJJI_xtnmkEh-2RfUddZ9shg4kzYLM" /></form>
     </dialog></sel-dialog>
     <script type="module">
         (function () {

@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -31,7 +48,7 @@
         <thead data-slot="table-header" class="sa-table-header">
             <tr data-slot="table-row" class="sa-table-row">
                 <th class="sa-table-head w-12" data-slot="table-head">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" aria-label="Select all bookings" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <span class="sa-input-control-wrapper"><input type="checkbox" aria-label="Select all bookings" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                 </th>
                 <th class="sa-table-head w-[100px]" data-slot="table-head">Booking #</th>
                 <th data-slot="table-head" class="sa-table-head">Status</th>
@@ -42,7 +59,7 @@
         <tbody data-slot="table-body" class="sa-table-body">
                 <tr data-slot="table-row" class="sa-table-row">
                     <td data-slot="table-cell" class="sa-table-cell">
-                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4821" aria-label="Select booking TRP-4821" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4821" aria-label="Select booking TRP-4821" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     </td>
                     <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4821</td>
                     <td data-slot="table-cell" class="sa-table-cell">Confirmed</td>
@@ -51,7 +68,7 @@
                 </tr>
                 <tr data-slot="table-row" class="sa-table-row">
                     <td data-slot="table-cell" class="sa-table-cell">
-                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4822" checked="checked" aria-label="Select booking TRP-4822" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4822" checked="checked" aria-label="Select booking TRP-4822" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     </td>
                     <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4822</td>
                     <td data-slot="table-cell" class="sa-table-cell">Pending</td>
@@ -60,7 +77,7 @@
                 </tr>
                 <tr data-slot="table-row" class="sa-table-row">
                     <td data-slot="table-cell" class="sa-table-cell">
-                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4823" aria-label="Select booking TRP-4823" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4823" aria-label="Select booking TRP-4823" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     </td>
                     <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4823</td>
                     <td data-slot="table-cell" class="sa-table-cell">Confirmed</td>
@@ -69,7 +86,7 @@
                 </tr>
                 <tr data-slot="table-row" class="sa-table-row">
                     <td data-slot="table-cell" class="sa-table-cell">
-                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4824" aria-label="Select booking TRP-4824" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4824" aria-label="Select booking TRP-4824" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     </td>
                     <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4824</td>
                     <td data-slot="table-cell" class="sa-table-cell">Confirmed</td>
@@ -78,7 +95,7 @@
                 </tr>
                 <tr data-slot="table-row" class="sa-table-row">
                     <td data-slot="table-cell" class="sa-table-cell">
-                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4825" aria-label="Select booking TRP-4825" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                        <span class="sa-input-control-wrapper"><input type="checkbox" name="selectedBookings" value="TRP-4825" aria-label="Select booking TRP-4825" data-slot="input" class="sa-checkbox peer"></input><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     </td>
                     <td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4825</td>
                     <td data-slot="table-cell" class="sa-table-cell">Cancelled</td>

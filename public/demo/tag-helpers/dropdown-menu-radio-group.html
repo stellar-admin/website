@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            applyTheme();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyTheme();
+            });
+            media.addEventListener('change', applyTheme);
+        })();
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,9 +55,9 @@
                 <div data-slot="dropdown-menu-label" class="sa-dropdown-menu-label">Filter by Status</div>
                 <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
                 <div role="group" data-slot="dropdown-menu-radio-group" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691">
-                    <div role="menuitemradio" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-radio-item" data-state="checked" data-value="confirmed" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span>Confirmed</div>
-                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="pending" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator hidden" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span>Pending</div>
-                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="cancelled" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator hidden" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor" fill="none" height="24" width="24" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span>Cancelled</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-radio-item" data-state="checked" data-value="confirmed" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Confirmed</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="pending" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator hidden" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Pending</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="cancelled" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912691" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator hidden" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" width="24" height="24" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Cancelled</div>
                 </div>
             </sel-dropdown-menu>
         
