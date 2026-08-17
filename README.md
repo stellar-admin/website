@@ -37,6 +37,11 @@ pnpm types:check  # regenerate .source types + tsc --noEmit
   not standalone pages.
 - **Blog** posts live in `content/blog`.
 - Static component demos are served from `public/demo` and embedded via the `<Demo>` component.
+  They are exported by `DocsSamplesGenerator` in the stellar-admin-pro repo, which injects a script
+  into every page so demos follow the site's light/dark mode (the next-themes `theme` localStorage
+  key) and the `<Demo>` toolbar's theme selector (`demo-theme`) — same-origin localStorage plus
+  storage events, no iframe messaging. All theme bundles ship under stable names in
+  `public/demo/tag-helpers/assets/`.
 
 ## Notes
 
