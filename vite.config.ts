@@ -6,9 +6,21 @@ import mdx from "fumadocs-mdx/vite";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   server: {
     port: 3000,
+  },
+  build: {
+    // Docs-page MDX chunks (the sidebar page especially) minify large but
+    // gzip small; the default 500 kB threshold only produces noise here.
+    chunkSizeWarningLimit: 700,
+    rolldownOptions: {
+      checks: {
+        // Rolldown's build-profiling diagnostic always fires because the
+        // Tailwind transform dominates this (fast) build.
+        pluginTimings: false,
+      },
+    },
   },
   // `tslib` ships a `modules/index.js` indirection (used by the `import`+`node`
   // export condition) that re-imports the CJS `tslib.js` as a default import.
@@ -34,7 +46,9 @@ export default defineConfig({
     react(),
     // please see https://tanstack.com/start/latest/docs/framework/react/guide/hosting#nitro for guides on hosting
     nitro({
-      preset: "vercel",
+      // The deploy target only matters for builds; leaving it unset in dev
+      // skips the vercel-dev env emulation and its VERCEL_OIDC_TOKEN nag.
+      preset: command === "build" ? "vercel" : undefined,
       // Bundle tslib into the server instead of leaving a runtime `import
       // "tslib"`. Externalized, it would resolve via the package's export map to
       // the broken `modules/index.js` indirection at runtime; inlined (with the
@@ -52,4 +66,4 @@ export default defineConfig({
       tslib: "tslib/tslib.es6.mjs",
     },
   },
-});
+}));
