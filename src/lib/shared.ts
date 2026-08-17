@@ -1,5 +1,5 @@
 export const appName = "StellarAdmin";
-export const siteUrl = "https://www.duneui.com";
+export const siteUrl = "https://www.stellaradmin.com";
 export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";
 

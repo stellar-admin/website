@@ -1,6 +1,6 @@
 # StellarAdmin Website
 
-Documentation site for the [StellarAdmin](https://www.duneui.com/) components, built with
+Documentation site for the [StellarAdmin](https://www.stellaradmin.com/) components, built with
 [TanStack Start](https://tanstack.com/start) and [Fumadocs](https://fumadocs.dev/).
 
 ## Stack
