@@ -39,8 +39,8 @@ const serverLoader = createServerFn({ method: "GET" })
       date:
         page.data.date instanceof Date
           ? page.data.date.toISOString()
-          : String(page.data.date),
-      image: `/blog/${page.slugs}/og.png`,
+          : page.data.date,
+      image: `/blog/${page.slugs.join("/")}/og.png`,
     };
   });
 

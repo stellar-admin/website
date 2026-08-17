@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "jsx-a11y", "import", "typescript", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/iframe-missing-sandbox": "off",
+    "eslint/no-underscore-dangle": "off",
+    "typescript/consistent-return": "off"
+  },
+  "ignorePatterns": [
+    ".source/",
+    ".vercel/",
+    ".output/",
+    ".nitro/",
+    ".tanstack/",
+    "public/",
+    "content/",
+    "src/routeTree.gen.ts"
+  ]
+}

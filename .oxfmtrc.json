@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "ignorePatterns": [
+    ".source/",
+    ".vercel/",
+    ".output/",
+    ".nitro/",
+    ".tanstack/",
+    "public/",
+    "content/",
+    "src/routeTree.gen.ts",
+    "pnpm-lock.yaml"
+  ]
+}
