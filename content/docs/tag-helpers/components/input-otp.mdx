@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `sa-input-otp` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single hidden `<input>` that holds the whole code — so it model-binds and posts back like any other text field — overlaid on the individual character slots. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
+The `sa-input-otp` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
 
 Use the `max-length` attribute to control how many characters the code has.
 
@@ -138,7 +138,7 @@ Validation works like any other model-bound field. Add validation attributes to 
   </Tabs>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This applies the destructive styling to the slots.
 
@@ -157,7 +157,7 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### Disabled
 
-Add the `disabled` attribute to prevent the user from interacting with the input.
+Set `disabled="true"` to prevent the user from interacting with the input.
 
 <Demo src="/demo/tag-helpers/input-otp-disabled.html">
   <include>./_include/input-otp-disabled.mdx</include>
@@ -168,12 +168,9 @@ Add the `disabled` attribute to prevent the user from interacting with the input
 ### `<sa-input-otp>`
 
 The `<sa-input-otp>` tag helper renders a `<sel-input-otp>` web component
-containing the slot cells and a single transparent `<input>` element that
-holds the whole code and posts it as one form value. In addition to the
-attributes below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered container. When `asp-for` is set, it delegates to the built-in
-[ASP.NET Core Input Tag
+containing the slot cells and a single transparent `<input>` element that holds
+the whole code and posts it as one form value. When `asp-for` is set, it
+delegates to the built-in [ASP.NET Core Input Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
 to resolve the input's name, value, and validation attributes.
 
@@ -181,7 +178,7 @@ to resolve the input's name, value, and validation attributes.
   type={{
     "aria-invalid": {
       description:
-        "Forces the invalid (error) styling. Set to true for manual validation when not model binding; otherwise the invalid state is derived from the bound field's ModelState.",
+        "Forces the invalid (error) styling. Set to true for manual validation when not model binding. Otherwise the invalid state is derived from the bound field's ModelState.",
       type: "bool",
     },
     "asp-for": {
@@ -194,7 +191,7 @@ to resolve the input's name, value, and validation attributes.
     },
     disabled: {
       description: "Whether the input is disabled.",
-      type: "bool",
+      type: "bool?",
       default: "false",
     },
     error: {
@@ -249,18 +246,12 @@ to resolve the input's name, value, and validation attributes.
 ### `<sa-input-otp-group>`
 
 The `<sa-input-otp-group>` tag helper renders a `<div>` element that groups a
-run of slots. It has no attributes of its own and forwards any standard
-[global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+run of slots.
 
 ### `<sa-input-otp-slot>`
 
-The `<sa-input-otp-slot>` tag helper renders a `<div>` element that displays
-one character of the code and the active caret. In addition to the attribute
-below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-input-otp-slot>` tag helper renders a `<div>` element that displays one
+character of the code and the active caret.
 
 <TypeTable
   type={{
@@ -275,8 +266,5 @@ to the rendered element.
 ### `<sa-input-otp-separator>`
 
 The `<sa-input-otp-separator>` tag helper renders a `<div>` element with
-`role="separator"`, containing a minus icon by default — supply child content
-to override it. It has no attributes of its own and forwards any standard
-[global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+`role="separator"`, containing a minus icon by default — supply child content to
+override it.

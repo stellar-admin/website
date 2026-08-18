@@ -77,7 +77,7 @@ For the common "await a confirmation before acting" flow, use the `window.stella
 
 <Callout type="tip">
   `alertDialog()` is built on the same primitive as the [`dialog()`
-  helper](js-dialog); use it whenever you want to drive a confirmation in an
+  helper](js-dialog). Use it whenever you want to drive a confirmation in an
   async/await style. See the [`alertDialog()` documentation](js-alert-dialog)
   for the full API.
 </Callout>
@@ -92,15 +92,11 @@ For the common "await a confirmation before acting" flow, use the `window.stella
 
 The `<sa-alert-dialog>` tag helper renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
-which is opened and closed via the Invoker Commands API
-(`command="show-modal"` / `command="close"` on a button whose `commandfor`
-targets the dialog's `id`). In addition to the attribute below, it forwards any
-standard [`<dialog>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#attributes)
-to the rendered element; `closedby` defaults to `closerequest` so the dialog is
-not light-dismissable.
+which is opened and closed via the Invoker Commands API (`command="show-modal"`
+/ `command="close"` on a button whose `commandfor` targets the dialog's `id`).
+The `closedby` attribute defaults to `closerequest`, so the dialog is not light-dismissable.
 
-The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open; see [JavaScript & Interactivity](/docs/tag-helpers/javascript).
+The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/tag-helpers/javascript).
 
 <TypeTable
   type={{
@@ -116,36 +112,33 @@ The dialog is wrapped in a `<sel-dialog>` web component that locks page scrollin
 ### `<sa-alert-dialog-header>`
 
 The `<sa-alert-dialog-header>` tag helper renders a `<div>` element that groups
-the media, title, and description. It has no attributes of its own.
+the media, title, and description.
 
 ### `<sa-alert-dialog-media>`
 
 The `<sa-alert-dialog-media>` tag helper renders a `<div>` element for showing
-an icon or image above the title. It has no attributes of its own.
+an icon or image above the title.
 
 ### `<sa-alert-dialog-title>`
 
 The `<sa-alert-dialog-title>` tag helper renders an `<h2>` element containing
-the dialog's title. It has no attributes of its own.
+the dialog's title.
 
 ### `<sa-alert-dialog-description>`
 
 The `<sa-alert-dialog-description>` tag helper renders a `<p>` element
-containing the dialog's description. It has no attributes of its own.
+containing the dialog's description.
 
 ### `<sa-alert-dialog-footer>`
 
 The `<sa-alert-dialog-footer>` tag helper renders a `<div>` element that lays
-out the cancel and action buttons. It has no attributes of its own.
+out the cancel and action buttons.
 
 ### `<sa-alert-dialog-cancel>`
 
 The `<sa-alert-dialog-cancel>` tag helper renders a `<button type="submit">`
-with `value="cancel"` (unless you supply your own `value`), so a wrapping
-`<form method="dialog">` closes the dialog with that `returnValue`. It forwards
-any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+with `value="cancel"` (unless you supply your own `value`), so a wrapping `<form
+method="dialog">` closes the dialog with that `returnValue`.
 
 <TypeTable
   type={{
@@ -163,10 +156,7 @@ to the rendered element.
 
 The `<sa-alert-dialog-action>` tag helper renders a `<button type="submit">`
 with `value="confirm"` (unless you supply your own `value`), so a wrapping
-`<form method="dialog">` closes the dialog with that `returnValue`. It forwards
-any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+`<form method="dialog">` closes the dialog with that `returnValue`.
 
 <TypeTable
   type={{

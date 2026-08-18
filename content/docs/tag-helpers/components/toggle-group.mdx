@@ -87,7 +87,7 @@ Use the `orientation` attribute to lay the group out vertically. It accepts `Tog
 
 ### Model binding
 
-The `sa-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection; the items whose `value` matches the bound value(s) are rendered as selected.
+The `sa-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection. The items whose `value` matches the bound value(s) are rendered as selected.
 
 When using model binding, StellarAdmin will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
@@ -136,11 +136,8 @@ When using model binding, StellarAdmin will automatically wrap the group inside 
 ### `<sa-toggle-group>`
 
 The `<sa-toggle-group>` tag helper renders a `<div role="group">` element
-containing the items. In addition to the attributes below, it forwards any
-standard [global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id` or `aria-label`) to the rendered element. When `asp-for` is
-set, the group model-binds and is wrapped in an implicit [Field](field).
+containing the items. When `asp-for` is set, the group model-binds and is
+wrapped in an implicit [Field](field).
 
 <TypeTable
   type={{
@@ -208,18 +205,15 @@ set, the group model-binds and is wrapped in an implicit [Field](field).
 
 ### `<sa-toggle-group-item>`
 
-The `<sa-toggle-group-item>` tag helper renders a `<label>` element wrapping
-a visually hidden native `<input type="radio">` or `<input type="checkbox">`,
-depending on the group's `type`. In addition to the attributes below, it
-forwards any standard [`<input>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
-(such as `aria-label`) to the rendered input.
+The `<sa-toggle-group-item>` tag helper renders a `<label>` element wrapping a
+visually hidden native `<input type="radio">` or `<input type="checkbox">`,
+depending on the group's `type`.
 
 <TypeTable
   type={{
     disabled: {
       description: "Whether the item is disabled.",
-      type: "bool",
+      type: "bool?",
     },
     selected: {
       description:

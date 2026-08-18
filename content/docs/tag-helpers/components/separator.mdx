@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Renders a horizontal rule by default. Set `orientation` for a vertical one.
+
 ```razor
 <sa-separator/>
 ```
@@ -19,23 +21,31 @@ import { Demo } from "@/components/demo";
 
 ### Horizontal
 
+A horizontal separator between blocks of text.
+
 <Demo src="/demo/tag-helpers/separator-horizontal.html">
   <include>./_include/separator-horizontal.mdx</include>
 </Demo>
 
 ### Vertical
 
+Set `orientation="SeparatorOrientation.Vertical"` to divide inline items. The container needs a height for the line to be visible.
+
 <Demo src="/demo/tag-helpers/separator-vertical.html">
   <include>./_include/separator-vertical.mdx</include>
 </Demo>
 
-### Vertical Menu
+### Vertical menu
+
+Vertical separators between the entries of a horizontal menu.
 
 <Demo src="/demo/tag-helpers/separator-vertical-menu.html">
   <include>./_include/separator-vertical-menu.mdx</include>
 </Demo>
 
-### In List
+### In a list
+
+Horizontal separators between the rows of a definition list.
 
 <Demo src="/demo/tag-helpers/separator-in-list.html">
   <include>./_include/separator-in-list.mdx</include>
@@ -46,10 +56,7 @@ import { Demo } from "@/components/demo";
 ### `<sa-separator>`
 
 The `<sa-separator>` tag helper renders a `<div>` element with
-`role="separator"`. In addition to the attribute below, it forwards any
-standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id`, `class`, or `title`) to the rendered element.
+`role="separator"`.
 
 <TypeTable
   type={{

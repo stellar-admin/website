@@ -107,7 +107,7 @@ Use the `thumb-alignment` attribute to control how the thumb sits relative to it
 
 ### Disabled
 
-Add the `disabled` attribute to prevent the user from interacting with the slider.
+Set `disabled="true"` to prevent the user from interacting with the slider.
 
 <Demo src="/demo/tag-helpers/slider-disabled.html">
   <include>./_include/slider-disabled.mdx</include>
@@ -117,12 +117,9 @@ Add the `disabled` attribute to prevent the user from interacting with the slide
 
 ### `<sa-slider>`
 
-The `<sa-slider>` tag helper renders a `<sel-slider>` web component
-containing the track, a thumb per value, and a hidden `<input>` per thumb that
-posts the value. In addition to the attributes below, it forwards any [global
-HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-slider>` tag helper renders a `<sel-slider>` web component containing
+the track, a thumb per value, and a hidden `<input>` per thumb that posts the
+value.
 
 <TypeTable
   type={{
@@ -137,7 +134,7 @@ to the rendered element.
     },
     disabled: {
       description: "Disables the slider.",
-      type: "bool",
+      type: "bool?",
       default: "false",
     },
     error: {
@@ -201,7 +198,7 @@ to the rendered element.
     },
     value: {
       description:
-        "The value(s) of the slider when not bound via asp-for. A single number renders one thumb; a comma-separated list (e.g. 20,80) renders a thumb per value.",
+        "The value(s) of the slider when not bound via asp-for. A single number renders one thumb, and a comma-separated list (e.g. 20,80) renders a thumb per value.",
       type: "string",
     },
   }}

@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Put `<sa-tab-link>`s inside an `<sa-tab-list>`. Each tab is a link to a page.
+
 ```razor
 <sa-tab-list>
     <sa-tab-link>...</sa-tab-link>
@@ -43,7 +45,9 @@ Use icons along with the text.
   <include>./_include/tabs-icons.mdx</include>
 </Demo>
 
-### Icons Only
+### Icons only
+
+Tabs can contain only an icon. Give each one an accessible name.
 
 <Demo src="/demo/tag-helpers/tabs-icons-only.html">
   <include>./_include/tabs-icons-only.mdx</include>
@@ -57,7 +61,7 @@ Set the currently active item using the `is-active` attribute.
   <include>./_include/tabs-active.mdx</include>
 </Demo>
 
-### Url
+### URL
 
 The URL of `sa-tab-link` can be specified a couple of ways:
 
@@ -82,11 +86,8 @@ Disable a tab using the `disabled` attribute.
 
 ### `<sa-tab-list>`
 
-The `<sa-tab-list>` tag helper renders a `<div>` element wrapping an inner
-tab list `<div>`. In addition to the attributes below, it forwards any [global
-HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-tab-list>` tag helper renders a `<div>` element wrapping an inner tab
+list `<div>`.
 
 <TypeTable
   type={{
@@ -108,10 +109,7 @@ to the rendered element.
 
 ### `<sa-tab-link>`
 
-The `<sa-tab-link>` tag helper renders an `<a>` element. In addition to the
-attributes below, it forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-(such as `href` or `target`) to the rendered element.
+The `<sa-tab-link>` tag helper renders an `<a>` element.
 
 <TypeTable
   type={{

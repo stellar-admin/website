@@ -18,7 +18,7 @@ The Input Tag Helper generates an [HTML Input Element](https://developer.mozilla
 <sa-input/>
 ```
 
-All the same rules as the built-in Tag Helper applies for things like data binding and resolving input types from data annotation attributes. You can also use any of the [standard input attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes) and they will flow through correctly to the underlying `<input>` element.
+The same rules as for the built-in Tag Helper apply to things like data binding and resolving input types from data annotation attributes.
 
 ## Examples
 
@@ -76,7 +76,7 @@ When using model binding, validation errors from [Model state](https://learn.mic
     </Tabs>
 </Demo>
 
-### With Field
+### With field
 
 If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
 
@@ -84,7 +84,7 @@ If you are not using model binding, you can use the various [Field](field) Tag H
   <include>./_include/input-field-explicit.mdx</include>
 </Demo>
 
-### Implicit Field
+### Implicit field
 
 You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
 
@@ -92,7 +92,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
   <include>./_include/input-field-implicit.mdx</include>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
 
@@ -109,7 +109,7 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
   </Tabs>
 </Demo>
 
-### Input Types
+### Input types
 
 You can specify the input type explicitly using the `type` attribute.
 
@@ -117,7 +117,7 @@ You can specify the input type explicitly using the `type` attribute.
   <include>./_include/input-input-types.mdx</include>
 </Demo>
 
-### Infer Input Types via Model Binding
+### Infer input types via model binding
 
 When you use model binding, the input type will be inferred from the underlying data type and data annotations. For more information on this, refer to the built-in [ASP.NET Core Input Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper).
 
@@ -133,7 +133,7 @@ When you use model binding, the input type will be inferred from the underlying 
           [DataType(DataType.Date)]
           public DateTime? Date { get; set; }
 
-          public IFormFile? File { get; set; }
+public IFormFile? File { get; set; }
 
           [Display(Prompt = "123")]
           public int? Number { get; set; }
@@ -149,7 +149,7 @@ When you use model binding, the input type will be inferred from the underlying 
           [Display(Prompt = "+66 (12) 345 6789")]
           public string? Tel { get; set; }
 
-          public string? Text { get; set; }
+public string? Text { get; set; }
 
           [DataType(DataType.Time)]
           public string? Time { get; set; }
@@ -170,11 +170,7 @@ When you use model binding, the input type will be inferred from the underlying 
 
 The `<sa-input>` tag helper renders an `<input>` element (checkbox and radio
 inputs are additionally wrapped in a `<span>` that hosts the indicator icon).
-In addition to the attributes below, it forwards any standard [`<input>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
-(such as `placeholder`, `disabled`, or `aria-invalid`) to the rendered
-element. When `asp-for` is set, it delegates to the built-in [ASP.NET Core
-Input Tag
+When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
 to resolve the input type, value, and validation attributes.
 

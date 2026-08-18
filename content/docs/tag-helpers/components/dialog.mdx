@@ -112,42 +112,28 @@ The dialog fires `beforetoggle` and `toggle` events as it opens and closes, a `c
 ### `<sa-dialog>`
 
 The `<sa-dialog>` tag helper renders a native [`<dialog>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
-and has no attributes of its own — it forwards any standard `<dialog>`
-attributes (such as `id` or `closedby`) to the rendered element. The dialog is
-opened and closed via the [Invoker Commands
+element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog).
+The dialog is opened and closed via the [Invoker Commands
 API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a
 button with `command="show-modal"` or `command="close"` and a `commandfor`
 attribute referencing the dialog's `id`.
 
-The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open; see [JavaScript & Interactivity](/docs/tag-helpers/javascript).
+The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/tag-helpers/javascript).
 
 ### `<sa-dialog-header>`
 
 The `<sa-dialog-header>` tag helper renders a `<div>` element that groups the
-dialog's title and description. It has no attributes of its own and forwards
-any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+dialog's title and description.
 
 ### `<sa-dialog-title>`
 
-The `<sa-dialog-title>` tag helper renders an `<h2>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-dialog-title>` tag helper renders an `<h2>` element.
 
 ### `<sa-dialog-description>`
 
-The `<sa-dialog-description>` tag helper renders a `<p>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-dialog-description>` tag helper renders a `<p>` element.
 
 ### `<sa-dialog-footer>`
 
 The `<sa-dialog-footer>` tag helper renders a `<div>` element that hosts the
-dialog's action buttons. It has no attributes of its own and forwards any
-standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+dialog's action buttons.

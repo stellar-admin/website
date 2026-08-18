@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Renders an animated loading indicator. Its size and color follow the surrounding text unless overridden with utility classes.
+
 ```razor
 <sa-spinner/>
 ```
@@ -33,25 +35,33 @@ Control the color with the Tailwind text color utilities.
   <include>./_include/spinner-color.mdx</include>
 </Demo>
 
-### In Buttons
+### In buttons
+
+Place an `<sa-spinner>` inside a button to show a pending action.
 
 <Demo src="/demo/tag-helpers/spinner-in-buttons.html">
   <include>./_include/spinner-in-buttons.mdx</include>
 </Demo>
 
-### In Badges
+### In badges
+
+A spinner inside a badge, in each variant.
 
 <Demo src="/demo/tag-helpers/spinner-in-badges.html">
   <include>./_include/spinner-in-badges.mdx</include>
 </Demo>
 
-### In InputGroup
+### In an input group
+
+A spinner in an input group addon shows that the field is busy.
 
 <Demo src="/demo/tag-helpers/spinner-in-input-group.html">
   <include>./_include/spinner-in-input-group.mdx</include>
 </Demo>
 
-### In Empty
+### In an empty state
+
+A spinner as the media of an empty state while content loads.
 
 <Demo src="/demo/tag-helpers/spinner-in-empty.html">
   <include>./_include/spinner-in-empty.mdx</include>
@@ -62,6 +72,4 @@ Control the color with the Tailwind text color utilities.
 ### `<sa-spinner>`
 
 The `<sa-spinner>` tag helper renders an `<svg>` element containing a spinner
-icon, with `role="status"` and `aria-label="Loading"` applied. It takes no
-component-specific attributes and forwards any standard HTML attributes (such
-as `class`) to the rendered element.
+icon, with `role="status"` and `aria-label="Loading"` applied.

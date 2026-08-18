@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Wrap the trail in `<sa-breadcrumb>` and `<sa-breadcrumb-list>`, put each link in an `<sa-breadcrumb-item>`, separate items with `<sa-breadcrumb-separator>`, and mark the current page with `<sa-breadcrumb-page>`.
+
 ```razor
 <sa-breadcrumb>
     <sa-breadcrumb-list>
@@ -67,29 +69,22 @@ Use the Icon Tag Helper and custom CSS to display icons next to navigation items
 
 The `<sa-breadcrumb>` tag helper renders a [`<nav>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav)
-with `aria-label="breadcrumb"`. It has no attributes of its own, but forwards
-any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+with `aria-label="breadcrumb"`.
 
 ### `<sa-breadcrumb-list>`
 
 The `<sa-breadcrumb-list>` tag helper renders an [`<ol>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol)
-containing the breadcrumb items. It has no attributes of its own.
+containing the breadcrumb items.
 
 ### `<sa-breadcrumb-item>`
 
 The `<sa-breadcrumb-item>` tag helper renders an [`<li>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li).
-It has no attributes of its own.
 
 ### `<sa-breadcrumb-link>`
 
-The `<sa-breadcrumb-link>` tag helper renders an `<a>` element. In addition
-to the routing attributes below, it forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-(such as `href`, `target`, or `rel`) to the rendered element.
+The `<sa-breadcrumb-link>` tag helper renders an `<a>` element.
 
 #### Routing attributes
 
@@ -152,18 +147,16 @@ both.
 ### `<sa-breadcrumb-page>`
 
 The `<sa-breadcrumb-page>` tag helper renders a `<span>` element with
-`aria-current="page"` representing the current page. It has no attributes of
-its own.
+`aria-current="page"` representing the current page.
 
 ### `<sa-breadcrumb-separator>`
 
 The `<sa-breadcrumb-separator>` tag helper renders an [`<li>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li)
-that is hidden from assistive technology. It displays a chevron icon by
-default, or its child content when supplied. It has no attributes of its own.
+that is hidden from assistive technology. It displays a chevron icon by default,
+or its child content when supplied.
 
 ### `<sa-breadcrumb-ellipsis>`
 
-The `<sa-breadcrumb-ellipsis>` tag helper renders a `<span>` element
-containing an ellipsis icon, used to indicate collapsed items. It has no
-attributes of its own.
+The `<sa-breadcrumb-ellipsis>` tag helper renders a `<span>` element containing
+an ellipsis icon, used to indicate collapsed items.

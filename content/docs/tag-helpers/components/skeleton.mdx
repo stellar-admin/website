@@ -15,11 +15,13 @@ import { Demo } from "@/components/demo";
 <sa-skeleton class="..." />
 ```
 
-By default, the Skeleton Tag Helper only defines the color and shimmering animation effect. The shape and outline of the skeleton is defined using Tailwind's width and height utility classes.
+By default, the Skeleton Tag Helper only defines the color and the pulsing animation. The shape and outline of the skeleton is defined using Tailwind's width and height utility classes.
 
 ## Examples
 
 ### Avatar
+
+A round skeleton for the avatar next to two text lines.
 
 <Demo src="/demo/tag-helpers/skeleton-avatar.html">
   <include>./_include/skeleton-avatar.mdx</include>
@@ -27,17 +29,23 @@ By default, the Skeleton Tag Helper only defines the color and shimmering animat
 
 ### Text
 
+Stack skeletons of different widths to stand in for a paragraph.
+
 <Demo src="/demo/tag-helpers/skeleton-text.html">
   <include>./_include/skeleton-text.mdx</include>
 </Demo>
 
 ### Form
 
+Skeleton placeholders for labels and inputs while a form loads.
+
 <Demo src="/demo/tag-helpers/skeleton-form.html">
   <include>./_include/skeleton-form.mdx</include>
 </Demo>
 
 ### Table
+
+Rows of skeletons in a grid to stand in for a table.
 
 <Demo src="/demo/tag-helpers/skeleton-table.html">
   <include>./_include/skeleton-table.mdx</include>
@@ -47,6 +55,4 @@ By default, the Skeleton Tag Helper only defines the color and shimmering animat
 
 ### `<sa-skeleton>`
 
-The `<sa-skeleton>` tag helper renders a `<div>` element. It takes no
-component-specific attributes and forwards any standard HTML attributes (such
-as `class`) to the rendered element.
+The `<sa-skeleton>` tag helper renders a `<div>` element.

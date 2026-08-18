@@ -45,15 +45,15 @@ Keyboard navigation, type-ahead, roving focus and close-on-select are handled fo
 
 ## Examples
 
-### Checkbox Items
+### Checkbox items
 
-Use `<sa-dropdown-menu-checkbox-item>` for options that can be toggled independently. Set `checked="true"` to render an item as selected; the menu stays open as items are toggled.
+Use `<sa-dropdown-menu-checkbox-item>` for options that can be toggled independently. Set `checked="true"` to render an item as selected. The menu stays open as items are toggled.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-checkbox-items.html">
   <include>./_include/dropdown-menu-checkbox-items.mdx</include>
 </Demo>
 
-### Radio Group
+### Radio group
 
 Wrap `<sa-dropdown-menu-radio-item>` elements in a `<sa-dropdown-menu-radio-group>` for a set of mutually exclusive options. The group's `value` attribute determines which item is selected.
 
@@ -79,7 +79,7 @@ Set `inset="true"` on an item, label or sub-trigger to indent it by the width of
 
 ### Links
 
-An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`; otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<sa-linkbutton>`.
+An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`. Otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<sa-linkbutton>`.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-links.html">
   <include>./_include/dropdown-menu-links.mdx</include>
@@ -87,7 +87,7 @@ An item becomes a navigation link when you give it a URL — either a raw `href`
 
 ### Handling clicks
 
-For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", …)`. Because the `sel-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
+For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", ...)`. Because the `sel-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
 
 <Demo src="/demo/tag-helpers/dropdown-menu-click-events.html">
   <include>./_include/dropdown-menu-click-events.mdx</include>
@@ -125,15 +125,12 @@ The `<sa-dropdown-menu>` tag helper groups a trigger and its menu content. It
 renders no element of its own — it only generates the shared id (honouring a
 user-supplied `id`) that connects the trigger to the menu.
 
-The menu's color, appearance and item highlight are configured application-wide with `ConfigureMenu`; see [Theming & Dark Mode](/docs/tag-helpers/theming#menu-surfaces).
+The menu's color, appearance and item highlight are configured application-wide with `ConfigureMenu`. See [Theming & Dark Mode](/docs/tag-helpers/theming#menu-surfaces).
 
 ### `<sa-dropdown-menu-trigger>`
 
 The `<sa-dropdown-menu-trigger>` tag helper renders a `<button>` styled as a
-`<sa-button>` that opens the menu via the native `popovertarget` attribute. In
-addition to the attributes below, it forwards any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+`<sa-button>` that opens the menu via the native `popovertarget` attribute.
 
 <TypeTable
   type={{
@@ -159,9 +156,7 @@ to the rendered element.
 The `<sa-dropdown-menu-content>` tag helper renders the menu itself as a
 `<sel-dropdown-menu>` web component with the [`popover`
 attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover),
-anchored to the trigger. It forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+anchored to the trigger.
 
 <TypeTable
   type={{
@@ -191,7 +186,7 @@ when an `href` or any routing attribute is supplied.
     },
     disabled: {
       description: "Whether the item is disabled.",
-      type: "bool",
+      type: "bool?",
       default: "false",
     },
     href: {
@@ -293,7 +288,7 @@ bubbling `checkedchange` event.
     },
     disabled: {
       description: "Whether the item is disabled.",
-      type: "bool",
+      type: "bool?",
       default: "false",
     },
     inset: {
@@ -335,7 +330,7 @@ matches the group's `value`.
     },
     disabled: {
       description: "Whether the item is disabled.",
-      type: "bool",
+      type: "bool?",
       default: "false",
     },
     value: {
@@ -363,18 +358,18 @@ for a group of items.
 
 ### `<sa-dropdown-menu-separator>`
 
-The `<sa-dropdown-menu-separator>` tag helper renders a `<div
-role="separator">` between groups of items. It has no attributes of its own.
+The `<sa-dropdown-menu-separator>` tag helper renders a `<div role="separator">`
+between groups of items.
 
 ### `<sa-dropdown-menu-shortcut>`
 
 The `<sa-dropdown-menu-shortcut>` tag helper renders a `<span>` for a trailing
-keyboard hint. It has no attributes of its own.
+keyboard hint.
 
 ### `<sa-dropdown-menu-group>`
 
 The `<sa-dropdown-menu-group>` tag helper renders a `<div role="group">` for
-grouping related items. It has no attributes of its own.
+grouping related items.
 
 ### `<sa-dropdown-menu-sub>`
 

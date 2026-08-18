@@ -28,11 +28,13 @@ Use `sa-avatar` to display a single avatar. Display a group of avatars using `sa
 
 ### Sizes
 
+Set `size` to `AvatarSize.Small` or `AvatarSize.Large`. The sizes apply to image and initials avatars alike.
+
 <Demo src="/demo/tag-helpers/avatar-sizes.html">
   <include>./_include/avatar-sizes.mdx</include>
 </Demo>
 
-### Name or Initials
+### Name or initials
 
 Display the initials of a user using the `initials` attribute. You can specify the `name` attribute instead, and the initials will be automatically determined.
 
@@ -42,11 +44,15 @@ Display the initials of a user using the `initials` attribute. You can specify t
 
 ### Badge
 
+Nest an `<sa-avatar-badge>` inside the avatar to show a status dot that scales with the avatar size.
+
 <Demo src="/demo/tag-helpers/avatar-badge.html">
   <include>./_include/avatar-badge.mdx</include>
 </Demo>
 
-### Badge with Icon
+### Badge with icon
+
+The badge can hold an icon instead of a plain dot.
 
 <Demo src="/demo/tag-helpers/avatar-badge-with-icon.html">
   <include>./_include/avatar-badge-with-icon.mdx</include>
@@ -62,17 +68,23 @@ Add a group of avatars using `sa-avatar-group`.
 
 ### Group with count
 
+Add an `<sa-avatar-group-count>` as the last child of the group to show how many more people are not pictured.
+
 <Demo src="/demo/tag-helpers/avatar-group-with-count.html">
   <include>./_include/avatar-group-with-count.mdx</include>
 </Demo>
 
-### Group with Icon count
+### Group with icon count
+
+The count element accepts any content, such as an icon for an "add" affordance.
 
 <Demo src="/demo/tag-helpers/avatar-group-with-icon-count.html">
   <include>./_include/avatar-group-with-icon-count.mdx</include>
 </Demo>
 
-### In Empty
+### In an empty state
+
+Avatars and avatar groups can serve as the media of an [Empty](/docs/tag-helpers/components/empty) state.
 
 <Demo src="/demo/tag-helpers/avatar-in-empty.html">
   <include>./_include/avatar-in-empty.mdx</include>
@@ -83,10 +95,7 @@ Add a group of avatars using `sa-avatar-group`.
 ### `<sa-avatar>`
 
 The `<sa-avatar>` tag helper renders a `<span>` element containing either an
-`<img>` (when `src` is set) or a fallback `<span>` with the initials. In
-addition to the attributes below, it forwards any standard [global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id` or `title`) to the rendered element.
+`<img>` (when `src` is set) or a fallback `<span>` with the initials.
 
 <TypeTable
   type={{
@@ -115,25 +124,15 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 
 ### `<sa-avatar-badge>`
 
-The `<sa-avatar-badge>` tag helper renders a `<span>` element positioned in
-the bottom-right corner of the parent avatar, sized to match the avatar's
-`size`. It has no attributes of its own, but forwards any standard [global
-HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-avatar-badge>` tag helper renders a `<span>` element positioned in the
+bottom-right corner of the parent avatar, sized to match the avatar's `size`.
 
 ### `<sa-avatar-group>`
 
-The `<sa-avatar-group>` tag helper renders a `<div>` element that overlaps
-its child avatars. It has no attributes of its own, but forwards any standard
-[global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-avatar-group>` tag helper renders a `<div>` element that overlaps its
+child avatars.
 
 ### `<sa-avatar-group-count>`
 
 The `<sa-avatar-group-count>` tag helper renders a `<div>` element displaying
-its child content (such as `+3`) at the end of an avatar group. It has no
-attributes of its own, but forwards any standard [global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+its child content (such as `+3`) at the end of an avatar group.

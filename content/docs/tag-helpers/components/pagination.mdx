@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Build the pager from `<sa-pagination-item>`s inside `<sa-pagination-content>`, using the first, previous, link, ellipsis, next and last tags for each item.
+
 ```razor
 <sa-pagination>
     <sa-pagination-content>
@@ -49,7 +51,7 @@ The URL of `sa-pagination-link`, `sa-pagination-first`, `sa-pagination-previous`
   <include>./_include/pagination-url.mdx</include>
 </Demo>
 
-### Custom Content
+### Custom content
 
 You can change the default content of the first, previous, next, last, and ellipsis buttons.
 
@@ -62,28 +64,23 @@ You can change the default content of the first, previous, next, last, and ellip
 ### `<sa-pagination>`
 
 The `<sa-pagination>` tag helper renders a `<nav>` element with
-`role="navigation"` and `aria-label="pagination"`. It has no attributes of its
-own, but forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+`role="navigation"` and `aria-label="pagination"`.
 
 ### `<sa-pagination-content>`
 
-The `<sa-pagination-content>` tag helper renders a `<ul>` element containing
-the pagination items. It has no attributes of its own.
+The `<sa-pagination-content>` tag helper renders a `<ul>` element containing the
+pagination items.
 
 ### `<sa-pagination-item>`
 
 The `<sa-pagination-item>` tag helper renders an `<li>` element wrapping a
-single link. It has no attributes of its own.
+single link.
 
 ### `<sa-pagination-first>`
 
 The `<sa-pagination-first>` tag helper renders an `<a>` element styled as a
-ghost button; when empty, it renders a chevron icon and "First" text by
-default. It forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-and accepts the same [routing attributes](#routing-attributes) as
+ghost button. When empty, it renders a chevron icon and "First" text by default.
+It accepts the same [routing attributes](#routing-attributes) as
 `<sa-pagination-link>`.
 
 <TypeTable
@@ -101,10 +98,8 @@ and accepts the same [routing attributes](#routing-attributes) as
 ### `<sa-pagination-previous>`
 
 The `<sa-pagination-previous>` tag helper renders an `<a>` element styled as a
-ghost button; when empty, it renders a chevron icon and "Previous" text by
-default. It forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-and accepts the same [routing attributes](#routing-attributes) as
+ghost button. When empty, it renders a chevron icon and "Previous" text by
+default. It accepts the same [routing attributes](#routing-attributes) as
 `<sa-pagination-link>`.
 
 <TypeTable
@@ -122,9 +117,7 @@ and accepts the same [routing attributes](#routing-attributes) as
 ### `<sa-pagination-link>`
 
 The `<sa-pagination-link>` tag helper renders an `<a>` element styled as a
-button. In addition to the attributes below, it forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-(such as `href`) to the rendered element.
+button.
 
 <TypeTable
   type={{
@@ -207,17 +200,14 @@ and `<sa-pagination-last>`.
 ### `<sa-pagination-ellipsis>`
 
 The `<sa-pagination-ellipsis>` tag helper renders a `<span>` element with
-`aria-hidden="true"`; when empty, it renders an ellipsis icon with
-screen-reader-only "More pages" text by default. It has no attributes of its
-own.
+`aria-hidden="true"`. When empty, it renders an ellipsis icon with
+screen-reader-only "More pages" text by default.
 
 ### `<sa-pagination-next>`
 
-The `<sa-pagination-next>` tag helper renders an `<a>` element styled as a
-ghost button; when empty, it renders "Next" text and a chevron icon by default.
-It forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-and accepts the same [routing attributes](#routing-attributes) as
+The `<sa-pagination-next>` tag helper renders an `<a>` element styled as a ghost
+button. When empty, it renders "Next" text and a chevron icon by default. It
+accepts the same [routing attributes](#routing-attributes) as
 `<sa-pagination-link>`.
 
 <TypeTable
@@ -234,11 +224,9 @@ and accepts the same [routing attributes](#routing-attributes) as
 
 ### `<sa-pagination-last>`
 
-The `<sa-pagination-last>` tag helper renders an `<a>` element styled as a
-ghost button; when empty, it renders "Last" text and a chevron icon by default.
-It forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-and accepts the same [routing attributes](#routing-attributes) as
+The `<sa-pagination-last>` tag helper renders an `<a>` element styled as a ghost
+button. When empty, it renders "Last" text and a chevron icon by default. It
+accepts the same [routing attributes](#routing-attributes) as
 `<sa-pagination-link>`.
 
 <TypeTable

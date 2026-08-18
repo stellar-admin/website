@@ -18,7 +18,7 @@ if (await alertDialog.confirmAsync()) {
 
 ## Examples
 
-### Basic Usage
+### Basic usage
 
 Open the alert dialog with `confirmAsync()` and await the boolean result. The `<sa-alert-dialog-action>` button confirms the dialog, while `<sa-alert-dialog-cancel>` or the `Esc` key cancels it.
 
@@ -26,7 +26,7 @@ Open the alert dialog with `confirmAsync()` and await the boolean result. The `<
   <include>./_include/js-alert-dialog-intro.mdx</include>
 </Demo>
 
-### Manual Result
+### Manual result
 
 You can resolve the confirmation programmatically using the `confirm()` and `cancel()` methods. This closes the dialog and resolves the pending promise with `true` or `false` respectively.
 
@@ -64,8 +64,8 @@ throws if the element cannot be found or is not a `HTMLDialogElement`.
     },
     confirm: {
       description:
-        "Closes the open dialog and resolves the pending promise with true. Throws if no dialog is open.",
-      type: "() => void",
+        "Closes the open dialog and resolves the pending promise with true. Any data passed is forwarded to the underlying dialog() wrapper but not returned by confirmAsync(). Throws if no dialog is open.",
+      type: "(data?: object) => void",
     },
     cancel: {
       description:

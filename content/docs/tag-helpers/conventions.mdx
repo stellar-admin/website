@@ -1,0 +1,49 @@
+---
+title: Conventions
+description: The rules every StellarAdmin Tag Helper follows for attributes, classes, model binding and links
+---
+
+All StellarAdmin Tag Helpers share a handful of conventions. They are described once here rather than repeated on every component page, so the API Reference sections list only what is specific to each tag.
+
+## Attributes are passed through
+
+A Tag Helper only owns the attributes listed in its API Reference. Every other attribute you put on an `<sa-*>` tag is forwarded, unchanged, to the element it renders. That includes:
+
+- The [global HTML attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes) such as `id`, `class`, `style`, `title` and `hidden`.
+- `data-*` and `aria-*` attributes.
+- The native attributes of the rendered element: `href` and `target` on tags that render an `<a>`, `type`, `name`, `value`, `disabled`, `required` and `placeholder` on tags that render an `<input>`, `<select>` or `<textarea>`, and so on.
+- Event handler attributes and the attributes of libraries such as [htmx](https://htmx.org/) (`hx-get`, `hx-target`, ...) or Alpine.js.
+
+```razor
+<sa-button id="save" type="submit" form="booking-form" data-testid="save-button" hx-post="/bookings">
+    Save
+</sa-button>
+```
+
+Each API Reference section says which element a tag renders, so you know which native attributes apply. Where a component renders more than one element and needs to be specific about where an attribute lands (the [Table](/docs/tag-helpers/components/table), for example, puts `class` on the `<table>` and other attributes on its scroll container), the API Reference says so.
+
+## Adding your own classes
+
+The `class` attribute is passed through like any other, but rather than replacing the component's styling it is added alongside it. Every rendered element keeps its own `sa-*` class (`sa-button`, `sa-card`, `sa-input`, ...) and its `data-slot` attribute, and your classes are appended after them.
+
+```razor
+<sa-card class="mx-auto w-full max-w-sm">...</sa-card>
+```
+
+renders
+
+```html
+<div data-slot="card" class="sa-card group/card mx-auto w-full max-w-sm">...</div>
+```
+
+Use this for layout and spacing utilities, or for your own CSS classes. If your project runs its own Tailwind CSS build, utilities such as `w-full` or `bg-primary` work as usual (see [Theming & Dark Mode](/docs/tag-helpers/theming#using-the-design-tokens-in-your-own-markup) for making them resolve to the StellarAdmin design tokens). Without a Tailwind build, only the utility classes that ship in the theme stylesheet are available, so add your own classes and style them in your stylesheet.
+
+The `sa-*` classes and `data-slot` attributes are stable and are the recommended hooks when you want to restyle a component globally with your own CSS.
+
+## Model binding
+
+Form Tag Helpers accept `asp-for` and behave like the built-in ASP.NET Core Tag Helpers: the `name`, `id` and `value` come from the bound property, validation state is read from `ModelState`, and labels, descriptions and placeholders are taken from the property's `[Display]` metadata. See [Field](/docs/tag-helpers/components/field) for how the form Tag Helpers wrap themselves in a field when bound, and how to opt out with `render-field="false"`.
+
+## Links and routing
+
+Tag Helpers that render an `<a>` (Link Button, Breadcrumb links, Pagination links, Tab links, Link Item, Dropdown Menu links, ...) accept either a raw `href` or the standard ASP.NET Core routing attributes (`asp-page`, `asp-controller` / `asp-action`, `asp-route-*` and friends). Routing attributes are resolved by the framework's own anchor Tag Helper, so they behave exactly as they do on a plain `<a>`.

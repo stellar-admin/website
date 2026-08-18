@@ -60,7 +60,7 @@ Two kinds of command are in use:
 Two things to keep in mind:
 
 - The invoking element must be a `<button>` (a `<sa-button>` renders one). `commandfor` and `command` on any other element do nothing.
-- Invoker Commands are a recent web platform feature. Check [browser support](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API#browser_compatibility) against your audience before you rely on it; StellarAdmin does not bundle a polyfill for it.
+- Invoker Commands are a recent web platform feature. Check [browser support](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API#browser_compatibility) against your audience before you rely on it. StellarAdmin does not bundle a polyfill for it.
 
 ## Interest invokers
 
@@ -77,7 +77,7 @@ if (result.confirmed) {
 }
 ```
 
-- [`dialog()`](/docs/tag-helpers/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>`; `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
+- [`dialog()`](/docs/tag-helpers/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>`, and its `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
 - [`alertDialog()`](/docs/tag-helpers/components/js-alert-dialog) does the same for a `<sa-alert-dialog>`.
 
 If your page already defines `window.stellarAdmin`, the bundle logs a console warning and replaces it.

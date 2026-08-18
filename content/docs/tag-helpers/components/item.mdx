@@ -44,6 +44,8 @@ The following demo demonstrates all the various elements you can use.
 
 ### Variant
 
+Set `variant` to `ItemVariant.Outline` or `ItemVariant.Muted`. The default has a subtle background.
+
 <Demo src="/demo/tag-helpers/item-variants.html">
   <include>./_include/item-variants.mdx</include>
 </Demo>
@@ -87,23 +89,31 @@ Items can be separated with `sa-item-separator`.
 
 ### Header
 
+Add an `<sa-item-header>` above the content for a category or eyebrow.
+
 <Demo src="/demo/tag-helpers/item-header.html">
   <include>./_include/item-header.mdx</include>
 </Demo>
 
 ### Footer
 
+Add an `<sa-item-footer>` below the content for metadata.
+
 <Demo src="/demo/tag-helpers/item-footer.html">
   <include>./_include/item-footer.mdx</include>
 </Demo>
 
-### Header and Footer
+### Header and footer
+
+Header and footer can be combined on the same item.
 
 <Demo src="/demo/tag-helpers/item-header-and-footer.html">
   <include>./_include/item-header-and-footer.mdx</include>
 </Demo>
 
 ### Image
+
+Use `<sa-item-media variant="ItemMediaVariant.Image">` to show a thumbnail.
 
 <Demo src="/demo/tag-helpers/item-image.html">
   <include>./_include/item-image.mdx</include>
@@ -113,10 +123,7 @@ Items can be separated with `sa-item-separator`.
 
 ### `<sa-item>`
 
-The `<sa-item>` tag helper renders a `<div>` element. In addition to the
-attributes below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-item>` tag helper renders a `<div>` element.
 
 <TypeTable
   type={{
@@ -139,10 +146,7 @@ to the rendered element.
 ### `<sa-link-item>`
 
 The `<sa-link-item>` tag helper renders an `<a>` element styled as an item,
-making the entire item clickable. In addition to the attributes below, it
-forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-(such as `href`, `target`, or `rel`) to the rendered element.
+making the entire item clickable.
 
 <TypeTable
   type={{
@@ -235,9 +239,7 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 ### `<sa-item-media>`
 
 The `<sa-item-media>` tag helper renders a `<div>` element that hosts an icon,
-image, or avatar. In addition to the attribute below, it forwards any [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+image, or avatar.
 
 <TypeTable
   type={{

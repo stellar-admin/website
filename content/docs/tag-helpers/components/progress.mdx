@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Set `value` and optionally add a label and an `<sa-progress-value>` readout.
+
 ```razor
 <sa-progress value="...">
     <sa-progress-label>...</sa-progress-label>
@@ -20,7 +22,7 @@ import { Demo } from "@/components/demo";
 
 ## Examples
 
-### Minimum and Maximum Values
+### Minimum and maximum values
 
 Specify custom `minimum` and `maximum` values. The default values are `0` and `100` respectively.
 
@@ -28,13 +30,17 @@ Specify custom `minimum` and `maximum` values. The default values are `0` and `1
   <include>./_include/progress-min-max.mdx</include>
 </Demo>
 
-### With Label
+### With label
+
+Add an `<sa-progress-label>` and an `<sa-progress-value>`, which renders the current value as a percentage.
 
 <Demo src="/demo/tag-helpers/progress-with-label.html">
   <include>./_include/progress-with-label.mdx</include>
 </Demo>
 
-### File Upload List
+### File upload list
+
+Progress bars compose with [Item](/docs/tag-helpers/components/item) to build an upload list.
 
 <Demo src="/demo/tag-helpers/progress-file-upload-list.html">
   <include>./_include/progress-file-upload-list.mdx</include>
@@ -44,11 +50,8 @@ Specify custom `minimum` and `maximum` values. The default values are `0` and `1
 
 ### `<sa-progress>`
 
-The `<sa-progress>` tag helper renders a `<div>` element containing the
-progress track and indicator. In addition to the attributes below, it forwards
-any [global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-progress>` tag helper renders a `<div>` element containing the progress
+track and indicator.
 
 <TypeTable
   type={{
@@ -73,16 +76,11 @@ to the rendered element.
 
 ### `<sa-progress-label>`
 
-The `<sa-progress-label>` tag helper renders a `<span>` element containing
-the label text. It has no attributes of its own, but forwards any [global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-progress-label>` tag helper renders a `<span>` element containing the
+label text.
 
 ### `<sa-progress-value>`
 
-The `<sa-progress-value>` tag helper renders a `<span>` element. When it has
-no content, it displays the percentage completed, calculated from the parent
-`<sa-progress>` values. It has no attributes of its own, but forwards any
-[global HTML
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-progress-value>` tag helper renders a `<span>` element. When it has no
+content, it displays the percentage completed, calculated from the parent
+`<sa-progress>` values.

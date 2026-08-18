@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+An `<sa-linkbutton>` renders an `<a>` styled as a button. Give it an `href` or one of the routing attributes below.
+
 ```razor
 <sa-linkbutton>Proceed</sa-linkbutton>
 ```
@@ -36,7 +38,7 @@ The URL of a link button can be specified a couple of ways:
   an `asp-page` attribute, an exception will be thrown.
 </Callout>
 
-### Sizes and Variants
+### Sizes and variants
 
 Specify the size and variant using the `size` and `variant` attribute.
 
@@ -44,19 +46,25 @@ Specify the size and variant using the `size` and `variant` attribute.
   <include>./_include/link-button-sizes-variants.mdx</include>
 </Demo>
 
-### Icon Right
+### Icon right
+
+Place an `<sa-icon>` after the label to show it on the right.
 
 <Demo src="/demo/tag-helpers/link-button-icon-right.html">
   <include>./_include/link-button-icon-right.mdx</include>
 </Demo>
 
-### Icon Left
+### Icon left
+
+Place the `<sa-icon>` before the label to show it on the left.
 
 <Demo src="/demo/tag-helpers/link-button-icon-left.html">
   <include>./_include/link-button-icon-left.mdx</include>
 </Demo>
 
-### Icon Only
+### Icon only
+
+Use one of the `Icon*` sizes for a square icon-only link, and give it an accessible name with `aria-label` or visually hidden text.
 
 <Demo src="/demo/tag-helpers/link-button-icon-only.html">
   <include>./_include/link-button-icon-only.mdx</include>
@@ -76,9 +84,6 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 ### `<sa-linkbutton>`
 
 The `<sa-linkbutton>` tag helper renders an `<a>` element styled as a button.
-In addition to the attributes below, it forwards any standard [`<a>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-(such as `href`, `target`, or `rel`) to the rendered element.
 
 <TypeTable
   type={{

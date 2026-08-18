@@ -39,11 +39,15 @@ If you just want a simple alert with a plain text description and perhaps a titl
 
 ### Basic
 
+An alert can carry a title, a description, or both. The third alert has a description only.
+
 <Demo src="/demo/tag-helpers/alert-basic.html">
   <include>./_include/alert-basic.mdx</include>
 </Demo>
 
 ### Shorthand
+
+For simple alerts, pass `icon`, `title` and `description` as attributes on a self-closing `<sa-alert>` instead of nesting child tags.
 
 <Demo src="/demo/tag-helpers/alert-shorthand.html">
   <include>./_include/alert-shorthand.mdx</include>
@@ -59,7 +63,7 @@ Add an icon to your alert for additional information.
 
 ### Destructive
 
-Add custom CSS classes to restyle any of the Alert components.
+Set `variant="AlertVariant.Destructive"` for errors and other problems that need the user's attention.
 
 <Demo src="/demo/tag-helpers/alert-destructive.html">
   <include>./_include/alert-destructive.mdx</include>
@@ -77,11 +81,9 @@ You can add additional content such as buttons to the alert.
 
 ### `<sa-alert>`
 
-The `<sa-alert>` tag helper renders a `<div>` element with `role="alert"`. In
-addition to the attributes below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id` or `class`) to the rendered element. The `icon`, `title`, and
-`description` shorthand attributes cannot be combined with child content.
+The `<sa-alert>` tag helper renders a `<div>` element with `role="alert"`. The
+`icon`, `title`, and `description` shorthand attributes cannot be combined with
+child content.
 
 <TypeTable
   type={{
@@ -108,22 +110,13 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 
 ### `<sa-alert-title>`
 
-The `<sa-alert-title>` tag helper renders a `<div>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-alert-title>` tag helper renders a `<div>` element.
 
 ### `<sa-alert-description>`
 
-The `<sa-alert-description>` tag helper renders a `<div>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-alert-description>` tag helper renders a `<div>` element.
 
 ### `<sa-alert-action>`
 
-The `<sa-alert-action>` tag helper renders a `<div>` element that hosts
-actions the user can take. It has no attributes of its own and forwards any
-standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-alert-action>` tag helper renders a `<div>` element that hosts actions
+the user can take.

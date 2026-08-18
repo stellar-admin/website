@@ -129,23 +129,23 @@ builder.Services.AddStellarAdmin()
   type={{
     Color: {
       description:
-        "The color scheme of the menu surface. Default renders the menu in the page's current scheme; Inverted renders it in the dark scheme regardless of the page.",
+        "The color scheme of the menu surface. Default renders the menu in the page's current scheme. Inverted renders it in the dark scheme regardless of the page.",
       type: "MenuColor",
       default: "MenuColor.Default",
     },
     Appearance: {
       description:
-        "The surface treatment. Solid is an opaque popover surface; Translucent is a frosted surface with a backdrop blur.",
+        "The surface treatment. Solid is an opaque popover surface. Translucent is a frosted surface with a backdrop blur.",
       type: "MenuAppearance",
       default: "MenuAppearance.Solid",
     },
     Accent: {
       description:
-        "The highlight applied to the focused or hovered item. Subtle uses the muted accent color; Bold uses a solid primary highlight.",
+        "The highlight applied to the focused or hovered item. Subtle uses the muted accent color. Bold uses a solid primary highlight.",
       type: "MenuAccent",
       default: "MenuAccent.Subtle",
     },
   }}
 />
 
-The defaults apply without calling `ConfigureMenu`; call it only to change them.
+The defaults apply without calling `ConfigureMenu`. Call it only to change them.

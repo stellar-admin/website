@@ -12,6 +12,8 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
+Put native `<option>` elements inside `<sa-select>`. It renders a styled `<select>`.
+
 ```razor
 <sa-select>
     <option value="...">...</option>
@@ -69,7 +71,7 @@ When using model binding, validation errors from [Model state](https://learn.mic
     </Tabs>
 </Demo>
 
-### With Field
+### With field
 
 If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your select inside a field.
 
@@ -77,7 +79,7 @@ If you are not using model binding, you can use the various [Field](field) Tag H
   <include>./_include/select-field-explicit.mdx</include>
 </Demo>
 
-### Implicit Field
+### Implicit field
 
 You can also implicitly wrap the select inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
 
@@ -85,7 +87,7 @@ You can also implicitly wrap the select inside a [Field](field) using the shorth
   <include>./_include/select-field-implicit.mdx</include>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the select.
 
@@ -112,11 +114,15 @@ Use the `size` attribute to control the size of the select.
 
 ### Groups
 
+Native `<optgroup>` elements are supported for grouping options.
+
 <Demo src="/demo/tag-helpers/select-groups.html">
   <include>./_include/select-groups.mdx</include>
 </Demo>
 
 ### Disabled
+
+Add `disabled` to the select to prevent interaction.
 
 <Demo src="/demo/tag-helpers/select-disabled.html">
   <include>./_include/select-disabled.mdx</include>
@@ -127,11 +133,8 @@ Use the `size` attribute to control the size of the select.
 ### `<sa-select>`
 
 The `<sa-select>` tag helper renders a native `<select>` element inside a
-wrapper `<div>`. In addition to the attributes below, it forwards any standard
-[`<select>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#attributes)
-(such as `multiple` or `disabled`) to the rendered element. When `asp-for` or
-`asp-items` is set, it delegates to the built-in [ASP.NET Core Select Tag
+wrapper `<div>`. When `asp-for` or `asp-items` is set, it delegates to the
+built-in [ASP.NET Core Select Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-select-tag-helper)
 to generate the options and selected value.
 

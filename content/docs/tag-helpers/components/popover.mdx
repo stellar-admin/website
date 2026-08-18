@@ -22,7 +22,7 @@ import { Demo } from "@/components/demo";
 
 ## Examples
 
-### With Button Group
+### With button group
 
 Create a split button that opens a popover using the `<sa-button-group>` Tag Helper.
 
@@ -76,13 +76,13 @@ By default, `<sa-popover>` is light dismissable - meaning you can hide the popov
 
 Since `<sa-popover>` uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using), you can use the `showPopover()`, `hidePopover()` and `togglePopover()` methods to control visibility of the popover.
 
-When using the JavaScript API, you also need to make sure you specify the `source` element to ensure the tooltip is aligned correctly with the UI element for which the tooltip is shown.
+When opening a popover from JavaScript, pass the `source` element to `showPopover()` / `togglePopover()` so the popover is positioned relative to the element that opened it.
 
 <Demo src="/demo/tag-helpers/popover-js-api.html">
   <include>./_include/popover-js-api.mdx</include>
 </Demo>
 
-### JavaScript Events
+### JavaScript events
 
 The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) fires the `beforetoggle` and `toggle` events on `<sa-popover>` before it is shown/hidden and after it is show/hidden respectively. You can prevent opening the popover by calling `event.preventDefault()` in the `beforetoggle` event handler.
 
@@ -97,10 +97,7 @@ The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/U
 The `<sa-popover>` tag helper renders a `<div>` element with a `popover`
 attribute (which you can override by supplying your own `popover` attribute,
 e.g. `popover="manual"`), opened by a button whose `popovertarget` attribute
-references the popover's `id`. In addition to the attribute below, it forwards
-any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id` or `class`) to the rendered element.
+references the popover's `id`.
 
 <TypeTable
   type={{
@@ -118,21 +115,12 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 ### `<sa-popover-header>`
 
 The `<sa-popover-header>` tag helper renders a `<div>` element that groups the
-popover's title and description. It has no attributes of its own and forwards
-any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+popover's title and description.
 
 ### `<sa-popover-title>`
 
-The `<sa-popover-title>` tag helper renders an `<h2>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-popover-title>` tag helper renders an `<h2>` element.
 
 ### `<sa-popover-description>`
 
-The `<sa-popover-description>` tag helper renders a `<p>` element. It has no
-attributes of its own and forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+The `<sa-popover-description>` tag helper renders a `<p>` element.

@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Point a button at the collapsible with `commandfor` and `command="--toggle"`. Add `hidden` to render the content collapsed.
+
 ```razor
 <sa-button commandfor="my-collapsible" command="--toggle">
     <!-- add the element that triggers the collapsible content here -->
@@ -24,6 +26,8 @@ import { Demo } from "@/components/demo";
 
 ### Settings
 
+A collapsible inside a card, where the first row of fields is always visible and the trigger reveals the rest.
+
 <Demo src="/demo/tag-helpers/collapsible-settings.html">
   <include>./_include/collapsible-settings.mdx</include>
 </Demo>
@@ -31,7 +35,7 @@ import { Demo } from "@/components/demo";
 ### Expanded by default
 
 A collapsible is open unless it carries the `hidden` attribute. Leave `hidden`
-off to render the content expanded on page load; the trigger's `aria-expanded`
+off to render the content expanded on page load. The trigger's `aria-expanded`
 state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
 
 <Demo src="/demo/tag-helpers/collapsible-expanded.html">
@@ -42,10 +46,7 @@ state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
 
 ### `<sa-collapsible>`
 
-The `<sa-collapsible>` tag helper renders a `<sel-collapsible>` custom element
-and has no attributes of its own; it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id`, `class`, or `hidden`) to the rendered element. Give it an `id`
-(and the `hidden` attribute to start collapsed), and toggle it via the native
-Invoker Commands API using a button with `command="--toggle"` and `commandfor`
-referencing that `id`.
+The `<sa-collapsible>` tag helper renders a `<sel-collapsible>` custom element.
+Give it an `id` (and the `hidden` attribute to start collapsed), and toggle it
+via the native Invoker Commands API using a button with `command="--toggle"` and
+`commandfor` referencing that `id`.

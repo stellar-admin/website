@@ -72,7 +72,7 @@ When using model binding, validation errors from [Model state](https://learn.mic
     </Tabs>
 </Demo>
 
-### With Field
+### With field
 
 If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
 
@@ -80,7 +80,7 @@ If you are not using model binding, you can use the various [Field](field) Tag H
   <include>./_include/checkbox-field-explicit.mdx</include>
 </Demo>
 
-### Implicit Field
+### Implicit field
 
 You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
 
@@ -88,7 +88,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
   <include>./_include/checkbox-field-implicit.mdx</include>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
 
@@ -107,11 +107,15 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### Disabled
 
+Add the `disabled` attribute to prevent interaction. The label and description are dimmed with it.
+
 <Demo src="/demo/tag-helpers/checkbox-disabled.html">
   <include>./_include/checkbox-disabled.mdx</include>
 </Demo>
 
 ### Group
+
+Group related checkboxes in an `<sa-field-set>` with one `<sa-field>` per checkbox. With model binding, each checkbox binds to its own `bool` property.
 
 <Demo src="/demo/tag-helpers/checkbox-group.html">
   <Tabs items={["Using Explicit Field", "Using Model Binding", "Model"]}>
@@ -147,14 +151,10 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### `<sa-input>`
 
-The `<sa-input>` tag helper with `type="checkbox"` renders an
-`<input type="checkbox">` element, wrapped in a `<span>` together with the
-check indicator icon. The `type` can also be inferred from a bound `bool`
-model property. In addition to the attributes below, it forwards any standard
-[`<input>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
-(such as `checked`, `disabled`, or `aria-invalid`) to the rendered `<input>`
-element.
+The `<sa-input>` tag helper with `type="checkbox"` renders an `<input
+type="checkbox">` element, wrapped in a `<span>` together with the check
+indicator icon. The `type` can also be inferred from a bound `bool` model
+property.
 
 <TypeTable
   type={{

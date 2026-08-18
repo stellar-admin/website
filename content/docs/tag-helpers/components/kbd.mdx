@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Wrap a key name in `<sa-kbd>`. Use `<sa-kbd-group>` for combinations.
+
 ```razor
 <sa-kbd>...</sa-kbd>
 ```
@@ -19,11 +21,15 @@ import { Demo } from "@/components/demo";
 
 ### Basic
 
+Single keys, and combinations either inside one `<sa-kbd>` or as separate keys.
+
 <Demo src="/demo/tag-helpers/kbd-basic.html">
   <include>./_include/kbd-basic.mdx</include>
 </Demo>
 
-### Modifier Keys
+### Modifier keys
+
+Modifier symbols such as ⌘ render like any other key.
 
 <Demo src="/demo/tag-helpers/kbd-modifier-keys.html">
   <include>./_include/kbd-modifier-keys.mdx</include>
@@ -37,31 +43,41 @@ Use `sa-kbd-group` to group keyboard keys together.
   <include>./_include/kbd-kbd-group.mdx</include>
 </Demo>
 
-### Arrow Keys
+### Arrow keys
+
+Arrow symbols work the same way.
 
 <Demo src="/demo/tag-helpers/kbd-arrow-keys.html">
   <include>./_include/kbd-arrow-keys.mdx</include>
 </Demo>
 
-### With Icons
+### With icons
+
+An `<sa-icon>` can stand in for a key symbol.
 
 <Demo src="/demo/tag-helpers/kbd-with-icons.html">
   <include>./_include/kbd-with-icons.mdx</include>
 </Demo>
 
-### With Icons and Text
+### With icons and text
+
+Icons and text can be combined in one key.
 
 <Demo src="/demo/tag-helpers/kbd-with-icon-and-text.html">
   <include>./_include/kbd-with-icon-and-text.mdx</include>
 </Demo>
 
-### Input Group
+### Input group
+
+Show a shortcut hint inside an [Input Group](/docs/tag-helpers/components/input-group) addon.
 
 <Demo src="/demo/tag-helpers/kbd-input-group.html">
   <include>./_include/kbd-input-group.mdx</include>
 </Demo>
 
 ### Tooltip
+
+Show the shortcut for an action inside its [Tooltip](/docs/tag-helpers/components/tooltip).
 
 <Demo src="/demo/tag-helpers/kbd-tooltip.html">
   <include>./_include/kbd-tooltip.mdx</include>
@@ -71,12 +87,9 @@ Use `sa-kbd-group` to group keyboard keys together.
 
 ### `<sa-kbd>`
 
-The `<sa-kbd>` tag helper renders a `<kbd>` element representing a single
-key. It takes no component-specific attributes and forwards any standard HTML
-attributes (such as `class`) to the rendered element.
+The `<sa-kbd>` tag helper renders a `<kbd>` element representing a single key.
 
 ### `<sa-kbd-group>`
 
-The `<sa-kbd-group>` tag helper renders a `<kbd>` element that groups
-multiple keys together. It takes no component-specific attributes and forwards
-any standard HTML attributes (such as `class`) to the rendered element.
+The `<sa-kbd-group>` tag helper renders a `<kbd>` element that groups multiple
+keys together.

@@ -18,6 +18,8 @@ StellarAdmin does not have a specific Radio button Tag Helper, but uses the norm
 <sa-input type="radio"/>
 ```
 
+## Examples
+
 ### Model binding
 
 The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
@@ -66,7 +68,7 @@ Instead, the preferred behavior would be to display a single error message for t
     </Tabs>
 </Demo>
 
-### With Field
+### With field
 
 If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
 
@@ -74,7 +76,7 @@ If you are not using model binding, you can use the various [Field](field) Tag H
   <include>./_include/radio-field-explicit.mdx</include>
 </Demo>
 
-### Implicit Field
+### Implicit field
 
 You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
 
@@ -82,7 +84,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
   <include>./_include/radio-field-implicit.mdx</include>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input. The error message can be displayed using either a `sa-field-error` Tag Helper.
 
@@ -99,6 +101,8 @@ If you're not using ASP.NET Core model binding, you can manually indicate valida
 
 ### Disabled
 
+Add `disabled` to a radio to prevent it from being selected.
+
 <Demo src="/demo/tag-helpers/radio-disabled.html">
   <include>./_include/radio-disabled.mdx</include>
 </Demo>
@@ -107,13 +111,9 @@ If you're not using ASP.NET Core model binding, you can manually indicate valida
 
 ### `<sa-input>`
 
-The `<sa-input>` tag helper with `type="radio"` renders an
-`<input type="radio">` element, wrapped in a `<span>` together with the radio
-indicator icon. In addition to the attributes below, it forwards any standard
-[`<input>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
-(such as `checked`, `disabled`, or `aria-invalid`) to the rendered `<input>`
-element.
+The `<sa-input>` tag helper with `type="radio"` renders an `<input
+type="radio">` element, wrapped in a `<span>` together with the radio indicator
+icon.
 
 <TypeTable
   type={{

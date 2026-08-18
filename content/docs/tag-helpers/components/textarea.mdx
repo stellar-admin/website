@@ -12,6 +12,8 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
+Renders a styled `<textarea>`. Use `rows` and the other native attributes as usual.
+
 ```razor
 <sa-textarea />
 ```
@@ -20,7 +22,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ### Model binding
 
-The `sa-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
+The `sa-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/textarea-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -69,7 +71,7 @@ When using model binding, validation errors from [Model state](https://learn.mic
     </Tabs>
 </Demo>
 
-### With Field
+### With field
 
 If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your text area inside a field.
 
@@ -77,7 +79,7 @@ If you are not using model binding, you can use the various [Field](field) Tag H
   <include>./_include/textarea-field-explicit.mdx</include>
 </Demo>
 
-### Implicit Field
+### Implicit field
 
 You can also implicitly wrap the text area inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
 
@@ -85,7 +87,7 @@ You can also implicitly wrap the text area inside a [Field](field) using the sho
   <include>./_include/textarea-field-implicit.mdx</include>
 </Demo>
 
-### Manual Validation
+### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the text area.
 
@@ -106,12 +108,8 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### `<sa-textarea>`
 
-The `<sa-textarea>` tag helper renders a `<textarea>` element. In addition to
-the attributes below, it forwards any standard [`<textarea>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
-(such as `rows`, `placeholder`, or `aria-invalid`) to the rendered element.
-The `asp-for` attribute provides the same model binding as the built-in
-[Textarea Tag
+The `<sa-textarea>` tag helper renders a `<textarea>` element. The `asp-for`
+attribute provides the same model binding as the built-in [Textarea Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-textarea-tag-helper).
 
 <TypeTable

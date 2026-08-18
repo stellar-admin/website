@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Wrap the text in an `<sa-badge>` and pick a `variant`.
+
 ```razor
 <sa-badge variant="...">...</sa-badge>
 ```
@@ -27,11 +29,15 @@ Use variants to communicate different types of information categories.
 
 ### Icon on the left
 
+Place an `<sa-icon>` before the text to show an icon on the left.
+
 <Demo src="/demo/tag-helpers/badge-icon-left.html">
   <include>./_include/badge-icon-left.mdx</include>
 </Demo>
 
 ### Icon on the right
+
+Place the `<sa-icon>` after the text to show it on the right.
 
 <Demo src="/demo/tag-helpers/badge-icon-right.html">
   <include>./_include/badge-icon-right.mdx</include>
@@ -39,17 +45,23 @@ Use variants to communicate different types of information categories.
 
 ### With spinner
 
+An `<sa-spinner>` inside a badge indicates an in-progress state.
+
 <Demo src="/demo/tag-helpers/badge-spinner.html">
   <include>./_include/badge-spinner.mdx</include>
 </Demo>
 
-### Long Text
+### Long text
+
+Long text wraps inside the badge rather than being truncated.
 
 <Demo src="/demo/tag-helpers/badge-long-text.html">
   <include>./_include/badge-long-text.mdx</include>
 </Demo>
 
 ### Custom colors
+
+Override the colors with your own utility classes on `class`. Include `dark:` variants so the badge holds up in dark mode.
 
 <Demo src="/demo/tag-helpers/badge-custom-colors.html">
   <include>./_include/badge-custom-colors.mdx</include>
@@ -59,10 +71,7 @@ Use variants to communicate different types of information categories.
 
 ### `<sa-badge>`
 
-The `<sa-badge>` tag helper renders a `<span>` element. In addition to the
-attribute below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id`, `class`, or `title`) to the rendered element.
+The `<sa-badge>` tag helper renders a `<span>` element.
 
 <TypeTable
   type={{

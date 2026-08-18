@@ -118,18 +118,12 @@ Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `sa-dia
 The `<sa-sidebar-wrapper>` tag helper renders a `<sel-sidebar>` web component
 that wraps the sidebar and page content and owns the open/collapsed state.
 Nested `<sa-sidebar-trigger>` elements toggle it through the Invoker Commands
-API; it honours a user-supplied `id` and generates one otherwise. It forwards
-any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+API. It honours a user-supplied `id` and generates one otherwise.
 
 ### `<sa-sidebar>`
 
 The `<sa-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
-(including the mobile drawer and its backdrop). It forwards any standard
-[global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+(including the mobile drawer and its backdrop).
 
 <TypeTable
   type={{
@@ -159,69 +153,61 @@ to the rendered element.
 ### `<sa-sidebar-trigger>`
 
 The `<sa-sidebar-trigger>` tag helper renders a `<button>` that toggles the
-sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting
-the wrapper). It shows a default panel icon unless you supply child content,
-and forwards any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting the
+wrapper). It shows a default panel icon unless you supply child content.
 
 ### `<sa-sidebar-header>`
 
-The `<sa-sidebar-header>` tag helper renders a `<div>` for content pinned to
-the top of the sidebar. It has no attributes of its own.
+The `<sa-sidebar-header>` tag helper renders a `<div>` for content pinned to the
+top of the sidebar.
 
 ### `<sa-sidebar-content>`
 
 The `<sa-sidebar-content>` tag helper renders a `<div>` holding the scrollable
-body of the sidebar. It has no attributes of its own.
+body of the sidebar.
 
 ### `<sa-sidebar-footer>`
 
-The `<sa-sidebar-footer>` tag helper renders a `<div>` for content pinned to
-the bottom of the sidebar. It has no attributes of its own.
+The `<sa-sidebar-footer>` tag helper renders a `<div>` for content pinned to the
+bottom of the sidebar.
 
 ### `<sa-sidebar-inset>`
 
-The `<sa-sidebar-inset>` tag helper renders a `<main>` element holding the
-page content next to the sidebar. It has no attributes of its own.
+The `<sa-sidebar-inset>` tag helper renders a `<main>` element holding the page
+content next to the sidebar.
 
 ### `<sa-sidebar-separator>`
 
 The `<sa-sidebar-separator>` tag helper renders a horizontal `<div
-role="separator">` inside the sidebar. It has no attributes of its own.
+role="separator">` inside the sidebar.
 
 ### `<sa-sidebar-group>`
 
 The `<sa-sidebar-group>` tag helper renders a `<div>` for a section of the
-sidebar. It has no attributes of its own.
+sidebar.
 
 ### `<sa-sidebar-group-label>`
 
-The `<sa-sidebar-group-label>` tag helper renders a `<div>` heading for a
-group. It has no attributes of its own.
+The `<sa-sidebar-group-label>` tag helper renders a `<div>` heading for a group.
 
 ### `<sa-sidebar-group-content>`
 
-The `<sa-sidebar-group-content>` tag helper renders a `<div>` holding a
-group's content. It has no attributes of its own.
+The `<sa-sidebar-group-content>` tag helper renders a `<div>` holding a group's
+content.
 
 ### `<sa-sidebar-menu>`
 
-The `<sa-sidebar-menu>` tag helper renders a `<ul>` containing menu items. It
-has no attributes of its own.
+The `<sa-sidebar-menu>` tag helper renders a `<ul>` containing menu items.
 
 ### `<sa-sidebar-menu-item>`
 
 The `<sa-sidebar-menu-item>` tag helper renders an `<li>` for a single menu
-entry. It has no attributes of its own.
+entry.
 
 ### `<sa-sidebar-menu-button>`
 
-The `<sa-sidebar-menu-button>` tag helper renders a `<button>` styled as a
-menu entry — typically paired with `<sa-collapsible>` for expandable items. In
-addition to the attributes below, it forwards any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+The `<sa-sidebar-menu-button>` tag helper renders a `<button>` styled as a menu
+entry — typically paired with `<sa-collapsible>` for expandable items.
 
 <TypeTable
   type={{
@@ -334,25 +320,22 @@ both.
 ### `<sa-sidebar-menu-badge>`
 
 The `<sa-sidebar-menu-badge>` tag helper renders a `<div>` badge (such as a
-count) alongside a menu entry. It has no attributes of its own.
+count) alongside a menu entry.
 
 ### `<sa-sidebar-menu-sub>`
 
 The `<sa-sidebar-menu-sub>` tag helper renders a `<ul>` containing nested
-sub-items. It has no attributes of its own.
+sub-items.
 
 ### `<sa-sidebar-menu-sub-item>`
 
 The `<sa-sidebar-menu-sub-item>` tag helper renders an `<li>` for a single
-sub-entry. It has no attributes of its own.
+sub-entry.
 
 ### `<sa-sidebar-menu-sub-button>`
 
 The `<sa-sidebar-menu-sub-button>` tag helper renders a `<button>` styled as a
-sub-entry. In addition to the attributes below, it forwards any standard
-[`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-to the rendered element.
+sub-entry.
 
 <TypeTable
   type={{

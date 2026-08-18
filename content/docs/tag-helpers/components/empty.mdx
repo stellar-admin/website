@@ -28,29 +28,39 @@ import { Demo } from "@/components/demo";
 
 ### Basic
 
+The plain empty state has no border or background. The content area holds the primary and secondary actions.
+
 <Demo src="/demo/tag-helpers/empty-basic.html">
   <include>./_include/empty-basic.mdx</include>
 </Demo>
 
-### With Muted Background
+### With muted background
+
+Add `bg-muted` to set the empty state on a subtle background.
 
 <Demo src="/demo/tag-helpers/empty-with-muted-background.html">
   <include>./_include/empty-with-muted-background.mdx</include>
 </Demo>
 
-### With Border
+### With border
+
+Add `border` to outline the empty state. Here the content is a search input group.
 
 <Demo src="/demo/tag-helpers/empty-with-border.html">
   <include>./_include/empty-with-border.mdx</include>
 </Demo>
 
-### With Icon
+### With icon
+
+Use `<sa-empty-media variant="EmptyMediaVariant.Icon">` to show an icon above the title.
 
 <Demo src="/demo/tag-helpers/empty-with-icon.html">
   <include>./_include/empty-with-icon.mdx</include>
 </Demo>
 
-### With Muted Background Alt
+### With muted background alt
+
+Use an opacity modifier such as `bg-muted/50` for an even lighter background.
 
 <Demo src="/demo/tag-helpers/empty-with-muted-background-alt.html">
   <include>./_include/empty-with-muted-background-alt.mdx</include>
@@ -61,15 +71,12 @@ import { Demo } from "@/components/demo";
 ### `<sa-empty>`
 
 The `<sa-empty>` tag helper renders a `<div>` element that centers the empty
-state content. It has no attributes of its own, but forwards any standard
-[global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `class`) to the rendered element.
+state content.
 
 ### `<sa-empty-header>`
 
-The `<sa-empty-header>` tag helper renders a `<div>` element grouping the
-media, title, and description. It has no attributes of its own.
+The `<sa-empty-header>` tag helper renders a `<div>` element grouping the media,
+title, and description.
 
 ### `<sa-empty-media>`
 
@@ -90,14 +97,14 @@ icon, image, or avatar.
 ### `<sa-empty-title>`
 
 The `<sa-empty-title>` tag helper renders a `<div>` element containing the
-title. It has no attributes of its own.
+title.
 
 ### `<sa-empty-description>`
 
-The `<sa-empty-description>` tag helper renders a `<div>` element containing
-the description. It has no attributes of its own.
+The `<sa-empty-description>` tag helper renders a `<div>` element containing the
+description.
 
 ### `<sa-empty-content>`
 
-The `<sa-empty-content>` tag helper renders a `<div>` element for actions
-such as buttons or links. It has no attributes of its own.
+The `<sa-empty-content>` tag helper renders a `<div>` element for actions such
+as buttons or links.

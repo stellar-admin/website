@@ -11,13 +11,15 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Wrap the label in an `<sa-button>`. It renders a native `<button>`, so `type`, `form` and the other button attributes work as usual.
+
 ```razor
 <sa-button>Proceed</sa-button>
 ```
 
 ## Examples
 
-### Sizes and Variants
+### Sizes and variants
 
 Specify the size and variant using the `size` and `variant` attribute.
 
@@ -25,19 +27,25 @@ Specify the size and variant using the `size` and `variant` attribute.
   <include>./_include/button-sizes-variants.mdx</include>
 </Demo>
 
-### Icon Right
+### Icon right
+
+Place an `<sa-icon>` after the label to show it on the right.
 
 <Demo src="/demo/tag-helpers/button-icon-right.html">
   <include>./_include/button-icon-right.mdx</include>
 </Demo>
 
-### Icon Left
+### Icon left
+
+Place the `<sa-icon>` before the label to show it on the left.
 
 <Demo src="/demo/tag-helpers/button-icon-left.html">
   <include>./_include/button-icon-left.mdx</include>
 </Demo>
 
-### Icon Only
+### Icon only
+
+Use one of the `Icon*` sizes for a square icon-only button, and give it an accessible name with `aria-label` or visually hidden text.
 
 <Demo src="/demo/tag-helpers/button-icon-only.html">
   <include>./_include/button-icon-only.mdx</include>
@@ -51,7 +59,7 @@ Indicate that the system is busy with a spinner.
   <include>./_include/button-spinner.mdx</include>
 </Demo>
 
-### Invalid States
+### Invalid states
 
 Indicate an invalid state using the `aria-invalid` attribute.
 
@@ -72,10 +80,7 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 
 ### `<sa-button>`
 
-The `<sa-button>` tag helper renders a `<button>` element. In addition to the
-attributes below, it forwards any standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-(such as `type`, `disabled`, or `aria-invalid`) to the rendered element.
+The `<sa-button>` tag helper renders a `<button>` element.
 
 <TypeTable
   type={{

@@ -26,25 +26,33 @@ import { Demo } from "@/components/demo";
 
 ## Examples
 
-### Default Size
+### Default size
+
+The default size gives the header, content and footer their standard padding.
 
 <Demo src="/demo/tag-helpers/card-default.html">
   <include>./_include/card-default.mdx</include>
 </Demo>
 
-### Small Size
+### Small size
+
+Set `size="CardSize.Small"` for tighter padding and smaller text, useful in dense layouts.
 
 <Demo src="/demo/tag-helpers/card-small.html">
   <include>./_include/card-small.mdx</include>
 </Demo>
 
-### Header with Border
+### Header with border
+
+Add `border-b` to `<sa-card-header>` to separate the header from the content.
 
 <Demo src="/demo/tag-helpers/card-header-with-border.html">
   <include>./_include/card-header-with-border.mdx</include>
 </Demo>
 
-### Footer with Border
+### Footer with border
+
+Add `border-t` to `<sa-card-footer>` to separate the footer from the content.
 
 <Demo src="/demo/tag-helpers/card-footer-with-border.html">
   <include>./_include/card-footer-with-border.mdx</include>
@@ -52,17 +60,23 @@ import { Demo } from "@/components/demo";
 
 ### Image
 
+Place an `<img>` as the first child and remove the top padding with `pt-0` for an edge-to-edge image.
+
 <Demo src="/demo/tag-helpers/card-with-image.html">
   <include>./_include/card-with-image.mdx</include>
 </Demo>
 
 ### Login
 
+Cards compose with [Field](/docs/tag-helpers/components/field) and [Button](/docs/tag-helpers/components/button) to build complete forms.
+
 <Demo src="/demo/tag-helpers/card-login.html">
   <include>./_include/card-login.mdx</include>
 </Demo>
 
 ### Trip notes
+
+Use `<sa-card-action>` in the header for an action such as a dropdown menu, and put any content in the footer.
 
 <Demo src="/demo/tag-helpers/card-meeting-notes.html">
   <include>./_include/card-meeting-notes.mdx</include>
@@ -72,10 +86,7 @@ import { Demo } from "@/components/demo";
 
 ### `<sa-card>`
 
-The `<sa-card>` tag helper renders a `<div>` element. In addition to the
-attributes below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `class`) to the rendered element.
+The `<sa-card>` tag helper renders a `<div>` element.
 
 <TypeTable
   type={{
@@ -90,31 +101,29 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 
 ### `<sa-card-header>`
 
-The `<sa-card-header>` tag helper renders a `<div>` element grouping the
-title, description, and optional action. It has no attributes of its own.
+The `<sa-card-header>` tag helper renders a `<div>` element grouping the title,
+description, and optional action.
 
 ### `<sa-card-title>`
 
-The `<sa-card-title>` tag helper renders a `<div>` element containing the
-title. It has no attributes of its own.
+The `<sa-card-title>` tag helper renders a `<div>` element containing the title.
 
 ### `<sa-card-description>`
 
-The `<sa-card-description>` tag helper renders a `<div>` element containing
-the description. It has no attributes of its own.
+The `<sa-card-description>` tag helper renders a `<div>` element containing the
+description.
 
 ### `<sa-card-action>`
 
 The `<sa-card-action>` tag helper renders a `<div>` element positioned in the
-top-right corner of the header, for actions such as buttons. It has no
-attributes of its own.
+top-right corner of the header, for actions such as buttons.
 
 ### `<sa-card-content>`
 
-The `<sa-card-content>` tag helper renders a `<div>` element containing the
-main content. It has no attributes of its own.
+The `<sa-card-content>` tag helper renders a `<div>` element containing the main
+content.
 
 ### `<sa-card-footer>`
 
 The `<sa-card-footer>` tag helper renders a `<div>` element containing the
-footer content. It has no attributes of its own.
+footer content.

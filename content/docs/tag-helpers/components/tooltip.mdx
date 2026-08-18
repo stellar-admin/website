@@ -32,7 +32,7 @@ The `<sa-tooltip>` Tag Helper uses the [Interest Invokers](https://developer.moz
 ### Limitations
 
 1. The Interest Invokers API is [not supported across all browsers](https://caniuse.com/wf-interest-invokers) yet. StellarAdmin includes the [mfreed7/interestfor](https://github.com/mfreed7/interestfor) polyfill to ensure it works across all browsers. Make sure you have included the StellarAdmin JavaScript file in your pages.
-2. Not all elements can be used as an invoker element (i.e. the element that triggers the tooltip). Officially, the `<a>`, `<button>` and `<area>` elements are supported, but in our tests it also works with `<input>` elements. As such you can use it with any of these, as well as the `<sa-button>`, `<sa-linkbutton>`, `<sa-input>`, `<sa-select>`, and `<sa-textarea>` Tag Helpers.
+2. Not all elements can be used as an invoker element (the element that triggers the tooltip). Officially, the `<a>`, `<button>` and `<area>` elements are supported, but in our tests it also works with `<input>` elements. See [Supported Tag Helpers](#supported-tag-helpers) below for the Tag Helpers you can use.
 
 We strongly recommend you [read about the Interest Invokers API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers#creating_an_interest_invoker) to familiarise yourself with its use and limitations.
 
@@ -100,7 +100,7 @@ When using the JavaScript API, you also need to make sure you specify the `sourc
   <include>./_include/tooltip-js-api.mdx</include>
 </Demo>
 
-### JavaScript Events
+### JavaScript events
 
 The [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers) API fires the `interest` and `loseinterest` events on the `<sa-tooltip>` whenever it is shown or hidden respectively.
 
@@ -114,10 +114,7 @@ The [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover
 
 The `<sa-tooltip>` tag helper renders a `<div>` element with `popover="hint"`
 (which you can override by supplying your own `popover` attribute), shown by an
-invoker element whose `interestfor` attribute references the tooltip's `id`. In
-addition to the attribute below, it forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-(such as `id`, `class`, or `title`) to the rendered element.
+invoker element whose `interestfor` attribute references the tooltip's `id`.
 
 <TypeTable
   type={{

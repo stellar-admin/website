@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Put the input (or textarea) and one or more addons inside `<sa-input-group>`. The `align` of each addon decides where it sits.
+
 ```razor
 <sa-input-group>
     <!-- 1. Add inputs -->
@@ -77,7 +79,7 @@ Add labels within input groups to improve accessibility.
   <include>./_include/input-group-label.mdx</include>
 </Demo>
 
-### Button Group
+### Button group
 
 Wrap input groups with button groups to create prefixes and suffixes.
 
@@ -90,18 +92,12 @@ Wrap input groups with button groups to create prefixes and suffixes.
 ### `<sa-input-group>`
 
 The `<sa-input-group>` tag helper renders a `<div>` element with `role="group"`
-that wraps the input and its add-ons. It has no attributes of its own, but
-forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+that wraps the input and its add-ons.
 
 ### `<sa-input-group-input>`
 
 The `<sa-input-group-input>` tag helper renders an `<input>` element styled for
-use inside an input group. In addition to the attributes below, it forwards any
-standard [`<input>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes)
-(such as `placeholder` or `disabled`) to the rendered element.
+use inside an input group.
 
 <TypeTable
   type={{
@@ -131,11 +127,8 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 
 ### `<sa-input-group-textarea>`
 
-The `<sa-input-group-textarea>` tag helper renders a `<textarea>` element
-styled for use inside an input group. In addition to the attribute below, it
-forwards any standard [`<textarea>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#attributes)
-(such as `rows` or `placeholder`) to the rendered element.
+The `<sa-input-group-textarea>` tag helper renders a `<textarea>` element styled
+for use inside an input group.
 
 <TypeTable
   type={{
@@ -149,10 +142,7 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 ### `<sa-input-group-addon>`
 
 The `<sa-input-group-addon>` tag helper renders a `<div>` element with
-`role="group"` that holds text, icons, or buttons alongside the input. It
-forwards any standard [global
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes)
-to the rendered element.
+`role="group"` that holds text, icons, or buttons alongside the input.
 
 <TypeTable
   type={{
@@ -168,16 +158,13 @@ to the rendered element.
 
 ### `<sa-input-group-text>`
 
-The `<sa-input-group-text>` tag helper renders a `<span>` element for
-displaying text inside an add-on. It has no attributes of its own.
+The `<sa-input-group-text>` tag helper renders a `<span>` element for displaying
+text inside an add-on.
 
 ### `<sa-input-group-button>`
 
 The `<sa-input-group-button>` tag helper renders a `<button>` element sized for
-use inside an add-on. In addition to the attributes below, it forwards any
-standard [`<button>`
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes)
-(such as `type` or `disabled`) to the rendered element.
+use inside an add-on.
 
 <TypeTable
   type={{
