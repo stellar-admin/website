@@ -94,55 +94,7 @@ Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/buil
 for generating the `href`. Supply either an `href` or these attributes — not
 both.
 
-<TypeTable
-  type={{
-    "asp-action": {
-      description:
-        "The name of the action method. Must be null if asp-route or asp-page is set.",
-      type: "string",
-    },
-    "asp-controller": {
-      description:
-        "The name of the controller. Must be null if asp-route or asp-page is set.",
-      type: "string",
-    },
-    "asp-area": {
-      description: "The name of the area. Must be null if asp-route is set.",
-      type: "string",
-    },
-    "asp-page": {
-      description:
-        "The name of the Razor page. Must be null if asp-route, asp-action, or asp-controller is set.",
-      type: "string",
-    },
-    "asp-page-handler": {
-      description: "The name of the Razor page handler.",
-      type: "string",
-    },
-    "asp-route": {
-      description:
-        "The name of the route. Must be null if asp-action, asp-controller, asp-area, or asp-page is set.",
-      type: "string",
-    },
-    "asp-route-*": {
-      description:
-        "Additional route parameters, e.g. asp-route-id. Bound into the route values dictionary.",
-      type: "string",
-    },
-    "asp-protocol": {
-      description: 'The URL protocol, such as "http" or "https".',
-      type: "string",
-    },
-    "asp-host": {
-      description: "The host name for the URL.",
-      type: "string",
-    },
-    "asp-fragment": {
-      description: "The URL fragment (the part after #).",
-      type: "string",
-    },
-  }}
-/>
+<include>./_shared/routing-attributes.mdx</include>
 
 ### `<sa-breadcrumb-page>`
 
