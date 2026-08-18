@@ -26,6 +26,7 @@ The `confirmed` property will be false under the following conditions:
 
 - The dialog was light-dismissed
 - The dialog was dismissed using the `Esc` key
+- The dialog was closed without a `returnValue` (for example by a `command="close"` button or a sheet's close button)
 - The form's `returnValue` is set to `cancel`.
 
 <Demo src="/demo/tag-helpers/js-dialog-intro.html">
