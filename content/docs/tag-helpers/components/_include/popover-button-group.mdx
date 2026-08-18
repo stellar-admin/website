@@ -2,7 +2,7 @@
 <sa-button-group>
     <sa-button variant="ButtonVariant.Outline">
         <sa-icon name="bot"/>
-        Copilot
+        Trip Assistant
     </sa-button>
     <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Icon" popovertarget="--popover-button-group">
         <sa-icon name="chevron-down"/>
@@ -11,21 +11,21 @@
 <sa-popover id="--popover-button-group" position="PositionArea.BottomSpanLeft">
     <sa-stack gap="StackGap.Small">
         <sa-popover-header>
-            <sa-popover-title>Start a new task with Copilot</sa-popover-title>
+            <sa-popover-title>Ask the trip assistant</sa-popover-title>
             <sa-popover-description>
-                Describe your task in natural language.
+                Describe what you need in plain language.
             </sa-popover-description>
         </sa-popover-header>
         <sa-field>
             <sa-field-label for="--popopver-button-group-task" class="sr-only">
-                Task Description
+                Request
             </sa-field-label>
             <sa-textarea
                 id="--popopver-button-group-task"
                 placeholder="I need to..."
                 class="resize-none"/>
             <sa-field-description>
-                Copilot will open a pull request for review.
+                The assistant will draft an itinerary for you to review.
             </sa-field-description>
         </sa-field>
     </sa-stack>

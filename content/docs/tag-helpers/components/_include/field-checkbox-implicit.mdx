@@ -2,19 +2,19 @@
 <sa-field-group>
     <sa-field-set>
         <sa-field-legend variant="FieldLegendVariant.Label">
-            Show these items on the desktop
+            Show on the destination map
         </sa-field-legend>
         <sa-field-description>
-            Select the items you want to show on the desktop.
+            Select the places you want to see on the destination map.
         </sa-field-description>
         <sa-field-group class="gap-3">
-            <sa-input asp-for="MustDisplayHardDisks"/>
-            <sa-input asp-for="MustDisplayExternalDisks"/>
-            <sa-input asp-for="MustDisplayCdDvd"/>
-            <sa-input asp-for="MustDisplayConnectedServers"/>
+            <sa-input asp-for="ShowLandmarks"/>
+            <sa-input asp-for="ShowRestaurants"/>
+            <sa-input asp-for="ShowTransitStations"/>
+            <sa-input asp-for="ShowTourGuides"/>
         </sa-field-group>
     </sa-field-set>
     <sa-field-separator/>
-    <sa-input asp-for="MustSyncDesktopFolders"/>
+    <sa-input asp-for="SyncMapWithItinerary"/>
 </sa-field-group>
 ```

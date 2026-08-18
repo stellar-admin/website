@@ -74,15 +74,15 @@
     <!-- code begin -->
     <div data-slot="field-group" class="sa-field-group group/field-group">
         <fieldset data-slot="field-set" class="sa-field-set">
-            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Responses</label>
+            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Booking updates</label>
             <p data-slot="field-description" class="sa-field-description">
-                Get notified when ChatGPT responds to requests that take time, like
-                research or image generation.
+                Get notified when a booking you manage is confirmed, changed, or
+                cancelled.
             </p>
             <div data-slot="checkbox-group" class="sa-field-group group/field-group">
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="push" checked disabled data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-width="2" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" height="24" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
-                    <label for="push" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="push-bookings" checked disabled data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" width="24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <label for="push-bookings" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
                         Push notifications
                     </label>
                 </div>
@@ -90,20 +90,20 @@
         </fieldset>
         <div data-slot="field-separator" data-content="false" class="sa-field-separator"><div class="sa-separator sa-separator-horizontal sa-field-separator-line" role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal"></div></div>
         <fieldset data-slot="field-set" class="sa-field-set">
-            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Tasks</label>
+            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Flight alerts</label>
             <p data-slot="field-description" class="sa-field-description">
-                Get notified when tasks you&apos;ve created have updates. <a href="#">Manage tasks</a>
+                Get notified about gate changes and delays for upcoming flights. <a href="#">Manage flights</a>
             </p>
             <div data-slot="checkbox-group" class="sa-field-group group/field-group">
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="push-tasks" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-width="2" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" height="24" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
-                    <label for="push-tasks" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="push-flights" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" width="24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <label for="push-flights" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
                         Push notifications
                     </label>
                 </div>
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="email-tasks" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-width="2" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" height="24" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
-                    <label for="email-tasks" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="email-flights" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" width="24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <label for="email-flights" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
                         Email notifications
                     </label>
                 </div>

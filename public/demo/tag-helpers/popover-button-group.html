@@ -75,28 +75,28 @@
         <!-- code begin -->
         <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
             <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
-                <svg fill="none" stroke-width="2" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" height="24" viewBox="0 0 24 24" width="24"><path d="M12 8V4H8"></path><rect height="12" rx="2" width="16" x="4" y="8"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
-                Copilot
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" width="24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M12 8V4H8"></path><rect height="12" rx="2" width="16" x="4" y="8"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+                Trip Assistant
             </button>
             <button popovertarget="--popover-button-group" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-icon">
-                <svg fill="none" stroke-width="2" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" height="24" viewBox="0 0 24 24" width="24"><path d="m6 9 6 6 6-6"></path></svg>
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" width="24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
         </div>
         <div id="--popover-button-group" popover="" data-slot="popover-content" data-anchor-side="bottom" class="sa-popover-content anchored-bottom-span-left">
             <div class="sa-stack sa-stack-align-stretch sa-stack-gap-sm sa-stack-justify-start">
                 <div data-slot="popover-header" class="sa-popover-header">
-                    <h2 data-slot="popover-title" class="sa-popover-title sa-font-heading">Start a new task with Copilot</h2>
+                    <h2 data-slot="popover-title" class="sa-popover-title sa-font-heading">Ask the trip assistant</h2>
                     <p data-slot="popover-description" class="sa-popover-description">
-                        Describe your task in natural language.
+                        Describe what you need in plain language.
                     </p>
                 </div>
                 <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
                     <label for="--popopver-button-group-task" class="sa-label sa-field-label group/field-label peer/field-label sr-only" data-slot="field-label">
-                        Task Description
+                        Request
                     </label>
                     <textarea id="--popopver-button-group-task" placeholder="I need to..." class="sa-textarea resize-none" data-slot="textarea"></textarea>
                     <p data-slot="field-description" class="sa-field-description">
-                        Copilot will open a pull request for review.
+                        The assistant will draft an itinerary for you to review.
                     </p>
                 </div>
             </div>
