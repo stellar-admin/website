@@ -28,6 +28,16 @@ import { Demo } from "@/components/demo";
   <include>./_include/collapsible-settings.mdx</include>
 </Demo>
 
+### Expanded by default
+
+A collapsible is open unless it carries the `hidden` attribute. Leave `hidden`
+off to render the content expanded on page load; the trigger's `aria-expanded`
+state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
+
+<Demo src="/demo/tag-helpers/collapsible-expanded.html">
+  <include>./_include/collapsible-expanded.mdx</include>
+</Demo>
+
 ## API Reference
 
 ### `<sa-collapsible>`

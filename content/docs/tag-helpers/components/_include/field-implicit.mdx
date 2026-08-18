@@ -1,7 +1,7 @@
 ```razor
 @{
     var months = Enumerable.Range(1, 12).Select(i => $"{i:00}").Select(i => new SelectListItem(i, i));
-    var years = Enumerable.Range(2024, 2029).Select(i => new SelectListItem(i.ToString(), i.ToString()));
+    var years = Enumerable.Range(2024, 6).Select(i => new SelectListItem(i.ToString(), i.ToString()));
 }
 
 <sa-field-group>

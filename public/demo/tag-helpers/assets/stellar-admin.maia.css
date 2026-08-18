@@ -6,7 +6,6 @@
     --font-sans: "Geist", sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-neutral-100: oklch(97% 0 0);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -1072,10 +1071,7 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
-    color: var(--color-neutral-100);
-    &:is(.dark *) {
-      color: var(--color-black);
-    }
+    color: var(--primary-foreground);
   }
   .sa-data-grid {
     gap: calc(var(--spacing) * 0);
@@ -1237,6 +1233,9 @@
   }
   .sa-dropdown-menu-item-indicator {
     pointer-events: none;
+    :where(*[data-state="unchecked"]) & {
+      display: none;
+    }
   }
   .sa-dropdown-menu-radio-item {
     position: relative;
@@ -1313,6 +1312,9 @@
     }
     & svg {
       flex-shrink: 0;
+    }
+    &>svg:last-child {
+      margin-left: auto;
     }
   }
   .sa-empty {
