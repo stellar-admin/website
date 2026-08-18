@@ -128,6 +128,10 @@ Add `disabled` to the select to prevent interaction.
   <include>./_include/select-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-select>` renders a native `<select>`, so keyboard navigation and screen reader support are the browser's own. The chevron is decorative and hidden from assistive technology. With `asp-for` or the `label` attribute the label is wired to the select for you. Set `aria-invalid="true"` on a select that is not model bound to expose its error state.
+
 ## API Reference
 
 ### `<sa-select>`

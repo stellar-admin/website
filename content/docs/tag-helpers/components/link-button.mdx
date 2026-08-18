@@ -79,6 +79,12 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
   <include>./_include/link-button-additional-attributes.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-linkbutton>` renders an `<a>` element, so it is announced as a link and activated with Enter. Use it for navigation and use [Button](/docs/tag-helpers/components/button) for actions. A link cannot be disabled, so render a button, or omit the link, when the destination is not available.
+
+An icon-only link button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`.
+
 ## API Reference
 
 ### `<sa-linkbutton>`

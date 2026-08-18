@@ -62,6 +62,10 @@ Add the `disabled` attribute to prevent the user from interacting with the switc
   <include>./_include/switch-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-switch>` renders a native `<input type="checkbox">` with `role="switch"`, so it is announced as a switch, focused with Tab and toggled with Space. With `asp-for` or the `label` attribute the label is wired to the input for you. When you write the label yourself, set its `for` attribute to the switch's `id`.
+
 ## API Reference
 
 ### `<sa-switch>`

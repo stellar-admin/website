@@ -131,6 +131,12 @@ When using model binding, StellarAdmin will automatically wrap the group inside 
   </Tabs>
 </Demo>
 
+## Accessibility
+
+`<sa-toggle-group>` renders a `<div role="group">` and each item renders a `<label>` wrapping a visually hidden native input. A single-selection group uses radio inputs sharing a name, so it is one Tab stop and the arrow keys move the selection. A multiple-selection group uses checkboxes, so each item is a Tab stop and Space toggles it. Attributes you put on an item, including `aria-label`, are placed on its input.
+
+Give the group a name with `aria-label`, and give every icon-only item an `aria-label`.
+
 ## API Reference
 
 ### `<sa-toggle-group>`

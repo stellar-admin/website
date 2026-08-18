@@ -107,6 +107,12 @@ The dialog fires `beforetoggle` and `toggle` events as it opens and closes, a `c
   <include>./_include/dialog-js-events.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-dialog>` renders a native `<dialog>` element that is opened with `showModal()`, so the browser provides the modal behaviour. Focus is trapped inside the dialog, the rest of the page is inert, Escape closes it and focus returns to the trigger when it closes.
+
+The tag helper does not link the title to the dialog. Give `<sa-dialog-title>` an `id` and reference it from `aria-labelledby` on `<sa-dialog>` so assistive technology announces the dialog by its title, and do the same with `aria-describedby` and `<sa-dialog-description>` when there is one. Add `autofocus` to the control that should receive focus when the dialog opens, and always include a visible way to close the dialog, since no close button is rendered for you.
+
 ## API Reference
 
 ### `<sa-dialog>`

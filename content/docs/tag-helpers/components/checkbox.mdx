@@ -147,6 +147,12 @@ Group related checkboxes in an `<sa-field-set>` with one `<sa-field>` per checkb
   </Tabs>
 </Demo>
 
+## Accessibility
+
+A checkbox renders a native `<input type="checkbox">`, so it is focused with Tab, toggled with Space and announced with its checked state. The visible indicator is decorative. With `asp-for` or the `label` attribute the label is wired to the input for you.
+
+Group related checkboxes in an `<sa-field-set>` with an `<sa-field-legend>` so the group has a name. Set `aria-invalid="true"` on a checkbox that is not model bound to expose its error state.
+
 ## API Reference
 
 ### `<sa-input>`

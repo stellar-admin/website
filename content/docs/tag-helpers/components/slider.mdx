@@ -113,6 +113,10 @@ Set `disabled="true"` to prevent the user from interacting with the slider.
   <include>./_include/slider-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+Each thumb renders with `role="slider"` and `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-orientation`, and `aria-valuenow` is updated as the value changes. A thumb is focused with Tab. Left and Down arrows decrease the value by one step, Right and Up arrows increase it, Page Down and Page Up move ten steps, and Home and End jump to the minimum and maximum. The value is posted through hidden inputs, so the slider takes part in forms without extra work.
+
 ## API Reference
 
 ### `<sa-slider>`

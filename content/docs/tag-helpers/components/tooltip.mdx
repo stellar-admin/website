@@ -108,6 +108,12 @@ The [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover
   <include>./_include/tooltip-js-events.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-tooltip>` renders a hint popover that the trigger shows through its `interestfor` attribute. The browser, or the bundled polyfill, shows it when the trigger is hovered or receives keyboard focus and hides it on Escape, so the tooltip is reachable without a mouse as long as the trigger itself is focusable.
+
+Keep the tooltip text supplemental. It does not become the trigger's accessible name, so an icon-only trigger still needs its own `aria-label`.
+
 ## API Reference
 
 ### `<sa-tooltip>`

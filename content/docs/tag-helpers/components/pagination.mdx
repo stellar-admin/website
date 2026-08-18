@@ -59,6 +59,12 @@ You can change the default content of the first, previous, next, last, and ellip
   <include>./_include/pagination-custom-content.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-pagination>` renders a `<nav>` landmark labelled "pagination". Set `is-active` on the link for the current page so it renders `aria-current="page"`. The First, Previous, Next and Last links render a text label next to their icon, and `<sa-pagination-ellipsis>` is decorative and hidden from assistive technology.
+
+If you replace the content of the First, Previous, Next or Last links, keep a text label. When the replacement is only an icon, add the text in a `<span class="sr-only">`.
+
 ## API Reference
 
 ### `<sa-pagination>`

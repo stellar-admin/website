@@ -63,6 +63,12 @@ Use the Icon Tag Helper and custom CSS to display icons next to navigation items
   <include>./_include/breadcrumb-icons.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-breadcrumb>` renders a `<nav>` landmark labelled "breadcrumb". Use `<sa-breadcrumb-page>` for the current page so it renders `aria-current="page"`, and use `<sa-breadcrumb-link>` for every other item. Separators and the ellipsis are decorative and hidden from assistive technology.
+
+When the ellipsis opens a menu of collapsed items, give its trigger an accessible name, for example `aria-label="More pages"`.
+
 ## API Reference
 
 ### `<sa-breadcrumb>`

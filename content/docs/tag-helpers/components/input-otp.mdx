@@ -163,6 +163,12 @@ Set `disabled="true"` to prevent the user from interacting with the input.
   <include>./_include/input-otp-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-input-otp>` renders a single native `<input>` behind the visible slots, so typing, Backspace, the arrow keys and pasting behave like a normal text input. It sets `inputmode="numeric"` by default so mobile keyboards show digits, and `autocomplete="one-time-code"` so browsers can offer a code they received. With `asp-for` or the `label` attribute the label is wired to the input for you.
+
+When the field has a model state error, or when you set `aria-invalid="true"`, the input and every slot render `aria-invalid="true"`.
+
 ## API Reference
 
 ### `<sa-input-otp>`

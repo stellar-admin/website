@@ -76,6 +76,12 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
   <include>./_include/button-additional-attributes.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-button>` renders a native `<button>` element, so focus and keyboard activation with Enter and Space are the browser's own. Add `disabled` to disable it.
+
+An icon-only button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`. The tag helper does not set a `type`, so a button inside a form submits the form unless you set `type="button"`.
+
 ## API Reference
 
 ### `<sa-button>`

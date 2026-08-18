@@ -320,6 +320,12 @@ Stack `sa-field` components with `sa-field-group`. Add `sa-field-separator` to d
   </Tabs>
 </Demo>
 
+## Accessibility
+
+`<sa-field-label>` renders a real `<label>`. With `asp-for`, or with the `label` attribute on an input, the label's `for` attribute is wired to the input's `id` for you. When you write the label yourself without `asp-for`, set `for` to the input's `id`. `<sa-field-set>` and `<sa-field-legend>` render a native `<fieldset>` and `<legend>`, which is the right way to name a group of related inputs such as radio buttons.
+
+`<sa-field-error>` renders with `role="alert"`. The description and error are not linked to the input automatically. If you want them announced together with the input, give them an `id` and reference it from `aria-describedby` on the input. Set `aria-invalid="true"` on an input that is not model bound to expose its error state.
+
 ## API Reference
 
 ### `<sa-field>`

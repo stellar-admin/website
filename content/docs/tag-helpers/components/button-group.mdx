@@ -158,6 +158,10 @@ Vertical groups can be nested too, giving a stacked toolbar with a gap between t
   <include>./_include/button-group-vertical-nested.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-button-group>` renders a `<div role="group">`. Give it an `aria-label` that describes the set of actions, and give every icon-only button inside it an accessible name with `aria-label` or a `<span class="sr-only">`. The buttons themselves keep their native focus and keyboard behaviour.
+
 ## API Reference
 
 ### `<sa-button-group>`

@@ -82,6 +82,12 @@ Disable a tab using the `disabled` attribute.
   <include>./_include/tabs-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+Tabs are links. Each `<sa-tab-link>` renders an `<a role="tab">` with `aria-selected` reflecting the active state, and following it navigates to its URL. Because they are links, each tab is a separate Tab stop and the arrow keys are not used to move between them.
+
+A disabled tab renders `aria-disabled="true"` and has its `href` removed so it cannot be followed. Give every tab visible text.
+
 ## API Reference
 
 ### `<sa-tab-list>`

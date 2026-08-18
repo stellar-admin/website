@@ -86,6 +86,12 @@ For the common "await a confirmation before acting" flow, use the `window.stella
   <include>./_include/alert-dialog-js-api.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-alert-dialog>` renders a native `<dialog>` element that is opened with `showModal()`, so focus is trapped inside it, the rest of the page is inert and focus returns to the trigger when it closes. The `closedby` attribute defaults to `closerequest`, so Escape closes the dialog without confirming but clicking outside it does nothing. The user has to choose an action explicitly.
+
+Give `<sa-alert-dialog-title>` an `id` and reference it from `aria-labelledby` on `<sa-alert-dialog>` so the dialog is announced by its title, and do the same with `aria-describedby` and `<sa-alert-dialog-description>`. Add `autofocus` to `<sa-alert-dialog-cancel>` when the action is destructive so that pressing Enter by reflex does not confirm it.
+
 ## API Reference
 
 ### `<sa-alert-dialog>`

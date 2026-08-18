@@ -93,6 +93,12 @@ The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `ca
   <include>./_include/sheet-js-events.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-sheet>` renders a native `<dialog>` element that is opened with `showModal()`, so focus is trapped inside it, the rest of the page is inert, Escape closes it and focus returns to the trigger when it closes. The built-in close button has a screen-reader-only "Close" label.
+
+The tag helper does not link the title to the sheet. Give `<sa-sheet-title>` an `id` and reference it from `aria-labelledby` on `<sa-sheet>` so the sheet is announced by its title, and do the same with `aria-describedby` and `<sa-sheet-description>` when there is one.
+
 ## API Reference
 
 ### `<sa-sheet>`

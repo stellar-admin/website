@@ -117,6 +117,14 @@ Radio items report selection through a bubbling `valuechange` event. Listen on t
   <include>./_include/dropdown-menu-radio-events.mdx</include>
 </Demo>
 
+## Accessibility
+
+The dropdown menu renders the menu pattern for you. The trigger gets `aria-haspopup="menu"`, the content is `role="menu"` and every item is a `menuitem`, `menuitemcheckbox` or `menuitemradio` with `aria-checked` kept in sync. Groups, radio groups and separators carry their roles, and a disabled item renders `aria-disabled="true"` and is skipped by keyboard navigation.
+
+When the menu opens, focus moves to the first enabled item. Up and Down arrows move between items and wrap around, Home and End jump to the first and last item, Right arrow opens a submenu, Left arrow and Escape close the current submenu and return focus to its trigger, Enter and Space activate the focused item, and typing a letter jumps to the next item starting with it.
+
+Give the trigger visible text or an `aria-label` when it only contains an icon.
+
 ## API Reference
 
 ### `<sa-dropdown-menu>`

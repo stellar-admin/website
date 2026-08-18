@@ -90,6 +90,12 @@ The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/U
   <include>./_include/popover-js-events.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-popover>` uses the native Popover API. Opening it from a button with `popovertarget` gives you light dismiss, so clicking outside the popover or pressing Escape closes it, and the browser exposes the open state on the trigger button. Focus stays on the trigger when the popover opens unless an element inside it has `autofocus`.
+
+Give the popover an accessible name when it contains more than a short message: put an `id` on `<sa-popover-title>` and reference it from `aria-labelledby` on `<sa-popover>`. Interactive content inside the popover is reached with Tab as usual.
+
 ## API Reference
 
 ### `<sa-popover>`

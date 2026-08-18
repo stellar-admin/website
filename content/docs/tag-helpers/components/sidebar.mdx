@@ -111,6 +111,12 @@ Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `sa-dia
   <include>./_include/sidebar-sidebar-in-dialog.mdx</include>
 </Demo>
 
+## Accessibility
+
+`<sa-sidebar-trigger>` renders a button labelled "Toggle Sidebar" whose `aria-expanded` state is kept in sync with the sidebar, and the mobile backdrop is a button labelled "Close sidebar". `<sa-sidebar-inset>` renders the page content in a `<main>` element.
+
+The active menu link is only marked visually. Add `aria-current="page"` to the link for the current page so assistive technology announces it as well, and give a menu an `aria-label` when the page has more than one navigation region.
+
 ## API Reference
 
 ### `<sa-sidebar-wrapper>`

@@ -82,6 +82,12 @@ Because a toggle is self-labelling, this example opts out of the automatic [Fiel
   </Tabs>
 </Demo>
 
+## Accessibility
+
+`<sa-toggle>` renders a `<label>` wrapping a visually hidden native `<input type="checkbox">`, so it is focused with Tab, toggled with Space and announced as a checkbox with its checked state. The visible button shows the focus ring of the input inside it. Attributes you put on `<sa-toggle>`, including `aria-label`, are placed on the input.
+
+An icon-only toggle has no accessible name. Give it one with `aria-label`.
+
 ## API Reference
 
 ### `<sa-toggle>`

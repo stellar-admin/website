@@ -107,6 +107,12 @@ Add `disabled` to a radio to prevent it from being selected.
   <include>./_include/radio-disabled.mdx</include>
 </Demo>
 
+## Accessibility
+
+A radio button renders a native `<input type="radio">`, so a group of radios sharing a `name` is one Tab stop and the arrow keys move the selection between them. The visible indicator is decorative. With `asp-for` or the `label` attribute the label is wired to each radio for you.
+
+Wrap a radio group in an `<sa-field-set>` with an `<sa-field-legend>` so the group has a name, and display validation errors once for the group with a single `<sa-field-error>` rather than on each radio. Set `aria-invalid="true"` on radios that are not model bound to expose their error state.
+
 ## API Reference
 
 ### `<sa-input>`
