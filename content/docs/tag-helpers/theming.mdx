@@ -1,0 +1,151 @@
+---
+title: Theming & Dark Mode
+description: Pick a theme, customize its colors and radius, enable dark mode, and use the design tokens in your own markup
+---
+
+## Theme stylesheets
+
+StellarAdmin ships with the following themes:  `vega`, `nova`, `luma`, `lyra`, `maia`, `mira`, `rhea`, and `sera`. When adding the StellarAdmin stylesheet to your application, you must add the stylesheet for the theme you want to use. For example, you can link the Nova theme as follows:
+
+```razor
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+```
+
+Every component page on this documentation website has a theme selector above the demos, so you can preview the themes with real components before deciding.
+
+<Callout type="idea">
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. Their "Style" selector on the left-side of the _Create_ page corresponds with the StellarAdmin themes.
+</Callout>
+
+## Customizing a theme
+
+Every color and radius in a theme stylesheet is a CSS custom property, and the theme CSS files reference these properties. To customize a theme, redeclare the properties you want to change in your own stylesheet, loaded after the theme stylesheet. No build tooling is required.
+
+```css
+:root {
+  --primary: oklch(0.55 0.2 260);
+  --primary-foreground: oklch(0.985 0 0);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --primary: oklch(0.7 0.18 260);
+}
+```
+
+The properties you can override are:
+
+| Family | Properties |
+|--------|------------|
+| Page | `--background`, `--foreground` |
+| Surfaces | `--card`, `--card-foreground`, `--popover`, `--popover-foreground` |
+| Actions | `--primary`, `--primary-foreground`, `--secondary`, `--secondary-foreground`, `--accent`, `--accent-foreground`, `--destructive` |
+| Muted text | `--muted`, `--muted-foreground` |
+| Borders and focus | `--border`, `--input`, `--ring` |
+| Sidebar | `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border`, `--sidebar-ring` |
+| Charts | `--chart-1` to `--chart-5` |
+| Shape | `--radius` (the other radii are derived from it) |
+| Type | `--font-sans` |
+
+Declare light values on `:root` and dark values on `.dark`, as the theme stylesheets do.
+
+## Dark mode
+
+Dark mode is applied by adding the `dark` CSS class on an ancestor element - usually the `<html>` or `<body>` element. Every descendant then reads the dark values.
+
+```razor
+<html lang="en" class="dark">
+```
+
+Adding the `dark` class is up to your application. You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
+
+```html
+<script>
+    (function () {
+        var saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (e) { }
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = saved === "dark" || (saved !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    })();
+</script>
+```
+
+Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
+
+You do not need to write any dark-mode CSS for the components. If you customize a theme, supply a `.dark` value for each property you override (see above).
+
+## Using the design tokens in your own markup
+
+The theme stylesheet styles the `<sa-*>` Tag Helpers. If you also write your own markup with Tailwind CSS utilities such as `bg-primary`, `text-muted-foreground`, or `dark:...`, and your application runs its own Tailwind v4 build, you can make those utilities resolve to the same design tokens the components use.
+
+Copy [`theme-tokens.css`](https://github.com/stellar-admin/stellar-admin/blob/master/src/StellarAdmin.TagHelpers/Client/css/theme-tokens.css) into your project and import it from your Tailwind entry stylesheet:
+
+```css
+@import "tailwindcss";
+@import "./theme-tokens.css";
+```
+
+The file contains only the token *vocabulary*: it maps Tailwind color and radius names onto the CSS custom properties, and defines the `dark:` variant as the `.dark` class. The utilities it enables compile to `var(--...)` references whose values come from the linked theme stylesheet at runtime, so keep the theme `<link>` in place. It does not duplicate any component styling.
+
+Prefer the semantic tokens over hard-coded palette colors so your own markup follows the theme and dark mode automatically:
+
+| Use | Utilities |
+|-----|-----------|
+| Primary action | `bg-primary` / `text-primary-foreground` |
+| Surfaces | `bg-card` / `text-card-foreground`, `bg-popover` / `text-popover-foreground` |
+| Muted or secondary | `text-muted-foreground`, `bg-secondary`, `bg-muted` |
+| Accent (hover, active) | `bg-accent` / `text-accent-foreground` |
+| Danger | `text-destructive` |
+| Borders, inputs, focus | `border-border`, `bg-input`, `ring-ring` |
+
+The `sidebar-*` and `chart-*` families and the `rounded-*` radii are available in the same way.
+
+```razor
+<!-- Follows the theme and dark mode -->
+<div class="rounded-lg border bg-card text-card-foreground p-4">...</div>
+
+<!-- Fixed palette colors do not -->
+<div class="rounded-lg border border-gray-200 bg-white text-gray-900 p-4">...</div>
+```
+
+## Menu surfaces
+
+Floating menus (currently the [Dropdown Menu](/docs/tag-helpers/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddUI()`:
+
+```cs
+builder.Services.AddStellarAdmin()
+    .AddUI()
+    .ConfigureMenu(menu =>
+    {
+        menu.Color = MenuColor.Inverted;
+        menu.Appearance = MenuAppearance.Translucent;
+        menu.Accent = MenuAccent.Bold;
+    });
+```
+
+<TypeTable
+  type={{
+    Color: {
+      description:
+        "The color scheme of the menu surface. Default renders the menu in the page's current scheme; Inverted renders it in the dark scheme regardless of the page.",
+      type: "MenuColor",
+      default: "MenuColor.Default",
+    },
+    Appearance: {
+      description:
+        "The surface treatment. Solid is an opaque popover surface; Translucent is a frosted surface with a backdrop blur.",
+      type: "MenuAppearance",
+      default: "MenuAppearance.Solid",
+    },
+    Accent: {
+      description:
+        "The highlight applied to the focused or hovered item. Subtle uses the muted accent color; Bold uses a solid primary highlight.",
+      type: "MenuAccent",
+      default: "MenuAccent.Subtle",
+    },
+  }}
+/>
+
+The defaults apply without calling `ConfigureMenu`; call it only to change them.

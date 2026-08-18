@@ -1,0 +1,186 @@
+---
+title: Icons
+description: Use the built-in Lucide icons, add your own icons, or register a whole icon pack
+---
+
+import { Demo } from "@/components/demo";
+
+## Built-in icons
+
+StellarAdmin ships the [Lucide](https://lucide.dev/) icon set. It is registered by `AddUI()`, so every Lucide icon is available from the [`<sa-icon>`](/docs/tag-helpers/components/icon) tag helper by name, without further setup:
+
+```razor
+<sa-icon name="plane"/>
+```
+
+To find an icon's name, search the [Lucide icons page](https://lucide.dev/icons/) and use the name shown when you hover over an icon. Names are matched case-insensitively. When no icon matches, `<sa-icon>` renders a placeholder "not found" icon rather than nothing, so a typo is visible in the page.
+
+Icons render as inline `<svg>` elements that use `currentColor`, so they take the color and size of their surroundings; see the [Icon](/docs/tag-helpers/components/icon) page for sizing, color and stroke width.
+
+## Adding your own icons
+
+Custom icons are registered on the builder returned by `AddUI()` in `Program.cs`, and are then used exactly like the built-in ones. An icon is an `IconDefinition`: the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) drawn inside it.
+
+### A single icon
+
+Use `AddIcon` to register one icon under a new name:
+
+```cs
+using System.Collections.Immutable;
+using StellarAdmin.TagHelpers.Icons;
+
+builder.Services.AddStellarAdmin()
+    .AddUI()
+    .AddIcon("voyager-suitcase", new IconDefinition(
+        new Dictionary<string, string>
+        {
+            ["xmlns"] = "http://www.w3.org/2000/svg",
+            ["width"] = "24",
+            ["height"] = "24",
+            ["viewBox"] = "0 0 24 24",
+            ["fill"] = "none",
+            ["stroke"] = "currentColor",
+            ["stroke-width"] = "2",
+            ["stroke-linecap"] = "round",
+            ["stroke-linejoin"] = "round",
+        },
+        [
+            new SvgShape("rect", new Dictionary<string, string>
+            {
+                ["x"] = "3", ["y"] = "7", ["width"] = "18", ["height"] = "13", ["rx"] = "2",
+            }.ToImmutableDictionary()),
+            new SvgShape("path", new Dictionary<string, string>
+            {
+                ["d"] = "M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+            }.ToImmutableDictionary()),
+            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M8 7v13" }.ToImmutableDictionary()),
+            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M16 7v13" }.ToImmutableDictionary()),
+        ]));
+```
+
+```razor
+<sa-icon name="voyager-suitcase"/>
+```
+
+The `<svg>` attributes above are the ones Lucide uses. Drawing your icons on the same 24 x 24 grid with a 2 px `currentColor` stroke keeps them visually consistent with the built-in set, and any attribute you place on `<sa-icon>` (such as `class` or `stroke-width`) still takes precedence over the definition's attributes.
+
+`AddIcon` registers *new* names only: it throws if the name is already taken, including by a built-in icon. To replace a built-in icon, register a pack.
+
+### An icon pack
+
+For more than a handful of icons, or to override built-in ones, implement `IIconPack` and register it with `AddIconPack<T>()`. A pack returns a dictionary of icon names to definitions. When a pack contains a name that is already registered, the pack's icon replaces the existing one, which is how you can override individual Lucide icons.
+
+```cs
+using System.Collections.Immutable;
+using StellarAdmin.TagHelpers.Icons;
+
+public class VoyagerIconPack : IIconPack
+{
+    private static readonly Dictionary<string, string> SvgAttributes = new()
+    {
+        ["xmlns"] = "http://www.w3.org/2000/svg",
+        ["width"] = "24",
+        ["height"] = "24",
+        ["viewBox"] = "0 0 24 24",
+        ["fill"] = "none",
+        ["stroke"] = "currentColor",
+        ["stroke-width"] = "2",
+        ["stroke-linecap"] = "round",
+        ["stroke-linejoin"] = "round",
+    };
+
+    public IDictionary<string, IconDefinition> GetIcons()
+    {
+        return new Dictionary<string, IconDefinition>
+        {
+            ["voyager-suitcase"] = new IconDefinition(SvgAttributes,
+            [
+                Shape("rect", ("x", "3"), ("y", "7"), ("width", "18"), ("height", "13"), ("rx", "2")),
+                Shape("path", ("d", "M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2")),
+                Shape("path", ("d", "M8 7v13")),
+                Shape("path", ("d", "M16 7v13")),
+            ]),
+            ["voyager-compass"] = new IconDefinition(SvgAttributes,
+            [
+                Shape("circle", ("cx", "12"), ("cy", "12"), ("r", "9")),
+                Shape("path", ("d", "m15.5 8.5-2 5-5 2 2-5z")),
+                Shape("path", ("d", "M12 3v2")),
+                Shape("path", ("d", "M12 19v2")),
+                Shape("path", ("d", "M3 12h2")),
+                Shape("path", ("d", "M19 12h2")),
+            ]),
+        };
+    }
+
+    private static SvgShape Shape(string name, params (string Name, string Value)[] attributes)
+    {
+        return new SvgShape(name, attributes.ToImmutableDictionary(a => a.Name, a => a.Value));
+    }
+}
+```
+
+```cs
+builder.Services.AddStellarAdmin()
+    .AddUI()
+    .AddIconPack<VoyagerIconPack>();
+```
+
+The two custom icons then render alongside the built-in ones:
+
+<Demo src="/demo/tag-helpers/icon-custom.html">
+  <include>./components/_include/icon-custom.mdx</include>
+</Demo>
+
+Icon packs are read once, when they are registered, and their icons are held in memory for the lifetime of the application.
+
+## API Reference
+
+### `AddIcon(name, iconDefinition)`
+
+Registers a single icon under a new name. Throws when the name is already registered.
+
+### `AddIconPack<TIconPack>()`
+
+Creates an instance of `TIconPack` (which must have a parameterless constructor) and registers every icon it returns. Icons with the same name as an existing icon replace it.
+
+### `IIconPack`
+
+<TypeTable
+  type={{
+    GetIcons: {
+      description: "Returns the icons in the pack, keyed by name.",
+      type: "IDictionary<string, IconDefinition>",
+    },
+  }}
+/>
+
+### `IconDefinition`
+
+<TypeTable
+  type={{
+    Attributes: {
+      description:
+        "The attributes rendered on the <svg> element, such as viewBox, fill and stroke. Attributes supplied on <sa-icon> take precedence.",
+      type: "IDictionary<string, string>",
+    },
+    Shapes: {
+      description: "The shapes rendered inside the <svg> element, in order.",
+      type: "List<SvgShape>",
+    },
+  }}
+/>
+
+### `SvgShape`
+
+<TypeTable
+  type={{
+    Name: {
+      description: "The SVG element name, such as path, circle, rect, line or polyline.",
+      type: "string",
+    },
+    Attributes: {
+      description: "The attributes rendered on the shape element, such as d, cx, cy or r.",
+      type: "IImmutableDictionary<string, string>",
+    },
+  }}
+/>

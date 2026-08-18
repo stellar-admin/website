@@ -1,0 +1,54 @@
+---
+title: Label
+description: Renders an accessible caption for a form control
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/label-intro.html">
+  <include>./_include/label-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-label for="...">...</sa-label>
+```
+
+`<sa-label>` renders a styled `<label>` element. Associate it with a control by setting `for` to the control's `id`, or nest the control inside the label. Clicking the label then focuses or toggles the control, and assistive technology announces the label as the control's name.
+
+Most of the time you will not write labels by hand: every StellarAdmin input control (such as `sa-input`, `sa-select` or `sa-textarea`) renders its own label when you give it a `label` attribute or bind it with `asp-for`, and inside a [Field](/docs/tag-helpers/components/field) you should use `sa-field-label`, which participates in the field's layout. Use `<sa-label>` for the remaining cases: a standalone control that does not use those mechanisms, or a caption for something that is not a form control.
+
+## Examples
+
+### Model binding
+
+With `asp-for`, the label text is taken from the bound property: the `[Display(Name = ...)]` attribute when present, otherwise the property name. The `for` attribute is generated to match the id the framework assigns to the bound input. Any child content you supply replaces the generated text.
+
+<Demo src="/demo/tag-helpers/label-model-binding.html">
+  <include>./_include/label-model-binding.mdx</include>
+</Demo>
+
+### With field
+
+Inside a `<sa-field>`, use `<sa-field-label>` rather than `<sa-label>`. It renders the same `<label>` element but is marked as the field's label, so horizontal and other field layouts can position it correctly.
+
+<Demo src="/demo/tag-helpers/label-with-field.html">
+  <include>./_include/label-with-field.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-label>`
+
+The `<sa-label>` tag helper renders a [`<label>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label). Any standard `<label>` attributes you supply (such as `for` or `class`) are forwarded to the rendered element.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "A model expression to bind the label to. The label text and for attribute are generated from the bound property; child content, when present, replaces the generated text.",
+      type: "ModelExpression",
+    },
+  }}
+/>
