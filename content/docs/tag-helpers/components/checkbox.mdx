@@ -147,6 +147,14 @@ Group related checkboxes in an `<sa-field-set>` with one `<sa-field>` per checkb
   </Tabs>
 </Demo>
 
+### Choice cards
+
+Wrap each option's `sa-field` inside its `sa-field-label` to turn the whole field into a clickable card. Because the label wraps the field, clicking anywhere on the card toggles the checkbox, checked cards are highlighted, and keyboard focus outlines the card rather than the checkbox itself. Use `sa-field-title` for the option title, since the field label is now the wrapping element.
+
+<Demo src="/demo/tag-helpers/checkbox-choice-cards.html">
+  <include>./_include/checkbox-choice-cards.mdx</include>
+</Demo>
+
 ## Accessibility
 
 A checkbox renders a native `<input type="checkbox">`, so it is focused with Tab, toggled with Space and announced with its checked state. The visible indicator is decorative. With `asp-for` or the `label` attribute the label is wired to the input for you.

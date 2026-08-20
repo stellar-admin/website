@@ -84,6 +84,14 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
   <include>./_include/radio-field-implicit.mdx</include>
 </Demo>
 
+### Choice cards
+
+Wrap each option's `sa-field` inside its `sa-field-label` to turn the whole field into a clickable card. Because the label wraps the field, clicking anywhere on the card selects the radio, the selected card is highlighted, and keyboard focus outlines the card rather than the radio itself. Use `sa-field-title` for the option title, since the field label is now the wrapping element.
+
+<Demo src="/demo/tag-helpers/radio-choice-cards.html">
+  <include>./_include/radio-choice-cards.mdx</include>
+</Demo>
+
 ### Manual validation
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input. The error message can be displayed using either a `sa-field-error` Tag Helper.

@@ -70,36 +70,48 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="w-full max-w-md">
-    <!-- code begin -->
-    <fieldset data-slot="field-set" class="sa-field-set">
-        <legend data-slot="field-legend" data-variant="label" class="sa-field-legend">Travel insurance</legend>
-        <p data-slot="field-description" class="sa-field-description">
-            Annual cover works out cheaper if you take more than two trips a year.
-        </p>
-        <div data-slot="radio-group" class="sa-field-group group/field-group">
+    <fieldset class="sa-field-set w-full max-w-md" data-slot="field-set">
+    <legend data-slot="field-legend" data-variant="legend" class="sa-field-legend">Fare Type</legend>
+    <p data-slot="field-description" class="sa-field-description">
+        Choose the fare that fits your travel plans.
+    </p>
+    <div data-slot="radio-group" class="sa-field-group group/field-group">
+        <label for="fare-saver" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="single" id="cover-single" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-single" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Single trip ($29.99)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Economy Saver</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Lowest fare, no changes or refunds
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="saver" id="fare-saver" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
+        </label>
+        <label for="fare-flex" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="annual" id="cover-annual" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-annual" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Annual multi-trip ($89.99/year)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Economy Flex</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Free date changes up to 24 hours before departure
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="flex" id="fare-flex" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
+        </label>
+        <label for="fare-business" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="family" id="cover-family" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-family" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Annual family ($149.99/year)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Business</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Priority boarding, lounge access, and full refunds
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="business" id="fare-business" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
-        </div>
-    </fieldset>
-    <!-- code end -->
-</div>
+        </label>
+    </div>
+</fieldset>
+
 
 </div>
 

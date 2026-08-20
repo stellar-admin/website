@@ -2057,6 +2057,7 @@
   }
   .sa-radiobutton-indicator-icon {
     pointer-events: none;
+    stroke: none;
   }
   .sa-sheet-body {
     display: flex;
@@ -4061,6 +4062,15 @@
     &:is(:where(.group\/field):has(*:disabled) *) {
       opacity: 50%;
     }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:not(*:checked) {
+        border-color: var(--input);
+      }
+    }
     &:checked {
       border-color: var(--primary);
     }
@@ -4069,6 +4079,11 @@
     }
     &:checked {
       color: var(--primary-foreground);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:checked {
+        border-color: var(--primary);
+      }
     }
     &:focus-visible {
       border-color: var(--ring);
@@ -5616,13 +5631,13 @@
     &:is(:where(.group\/field)[data-disabled="true"] *) {
       opacity: 50%;
     }
-    &:has(*:where([data-state="checked"]), *:where([data-checked]:not([data-checked="false"]))) {
+    &:has(*:is(:checked)) {
       border-color: var(--primary);
       @supports (color: color-mix(in lab, red, red)) {
         border-color: color-mix(in oklab, var(--primary) 30%, transparent);
       }
     }
-    &:has(*:where([data-state="checked"]), *:where([data-checked]:not([data-checked="false"]))) {
+    &:has(*:is(:checked)) {
       background-color: var(--primary);
       @supports (color: color-mix(in lab, red, red)) {
         background-color: color-mix(in oklab, var(--primary) 5%, transparent);
@@ -5635,13 +5650,39 @@
       border-style: var(--tw-border-style);
       border-width: 1px;
     }
+    &:has(>[data-slot=field]) {
+      &:not(*:has(*:is(:disabled,[data-disabled]))) {
+        &:hover {
+          @media (hover: hover) {
+            background-color: var(--muted);
+            @supports (color: color-mix(in lab, red, red)) {
+              background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+            }
+          }
+        }
+      }
+    }
+    &:has(>[data-slot=field]) {
+      &:has(*:is(:focus-visible)) {
+        --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+    &:has(>[data-slot=field]) {
+      &:has(*:is(:focus-visible)) {
+        --tw-ring-color: var(--ring);
+        @supports (color: color-mix(in lab, red, red)) {
+          --tw-ring-color: color-mix(in oklab, var(--ring) 30%, transparent);
+        }
+      }
+    }
     :is(& > *) {
       &[data-slot="field"] {
         padding: calc(var(--spacing) * 4);
       }
     }
     &:is(.dark *) {
-      &:has(*:where([data-state="checked"]), *:where([data-checked]:not([data-checked="false"]))) {
+      &:has(*:is(:checked)) {
         border-color: var(--primary);
         @supports (color: color-mix(in lab, red, red)) {
           border-color: color-mix(in oklab, var(--primary) 20%, transparent);
@@ -5649,7 +5690,7 @@
       }
     }
     &:is(.dark *) {
-      &:has(*:where([data-state="checked"]), *:where([data-checked]:not([data-checked="false"]))) {
+      &:has(*:is(:checked)) {
         background-color: var(--primary);
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--primary) 10%, transparent);
@@ -6992,8 +7033,22 @@
     border-width: 1px;
     border-color: var(--input);
     background-color: transparent;
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:not(*:checked) {
+        border-color: var(--input);
+      }
+    }
     &:checked {
       border-color: var(--foreground);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:checked {
+        border-color: var(--foreground);
+      }
     }
     &:focus-visible {
       border-color: var(--ring);
@@ -8034,6 +8089,16 @@
       border-color: color-mix(in oklab, var(--input) 50%, transparent);
     }
     background-color: var(--input);
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      border-color: var(--input);
+      @supports (color: color-mix(in lab, red, red)) {
+        border-color: color-mix(in oklab, var(--input) 50%, transparent);
+      }
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
     &:is(:where(.group\/switch)[data-size="default"] *) {
       height: calc(var(--spacing) * 4.5);
     }
@@ -8051,6 +8116,11 @@
     }
     &:checked {
       background-color: var(--primary);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:checked {
+        border-color: var(--primary);
+      }
     }
     &:focus-visible {
       border-color: var(--ring);
@@ -9452,6 +9522,227 @@
       }
     }
   }
+  .sa-questionnaire {
+    gap: calc(var(--spacing) * 6);
+  }
+  .sa-questionnaire-progress {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+  .sa-questionnaire-item {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 5);
+  }
+  .sa-questionnaire-title {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    &:not(:has(~[data-slot=questionnaire-description])) {
+      margin-bottom: calc(var(--spacing) * 5);
+    }
+  }
+  .sa-questionnaire-description {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    --tw-tracking: var(--tracking-normal);
+    letter-spacing: var(--tracking-normal);
+    text-transform: none;
+  }
+  .sa-questionnaire-choices {
+    gap: calc(var(--spacing) * 3);
+  }
+  .sa-questionnaire-choice {
+    gap: calc(var(--spacing) * 3);
+    border-radius: 0;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--input);
+    background-color: transparent;
+    padding-inline: calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 4);
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--muted);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+        }
+      }
+    }
+    &:has(>input:focus-visible) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &:has(>input:focus-visible) {
+      --tw-ring-color: var(--ring);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--ring) 30%, transparent);
+      }
+    }
+    &[data-invalid] {
+      border-color: var(--destructive);
+    }
+    &:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])) {
+      border-color: var(--primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        border-color: color-mix(in oklab, var(--primary) 30%, transparent);
+      }
+    }
+    &:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])) {
+      background-color: var(--primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+      }
+    }
+    &:is(.dark *) {
+      &:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])) {
+        border-color: var(--primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-color: color-mix(in oklab, var(--primary) 20%, transparent);
+        }
+      }
+    }
+    &:is(.dark *) {
+      &:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])) {
+        background-color: var(--primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+        }
+      }
+    }
+  }
+  .sa-questionnaire-choice-indicator {
+    width: calc(var(--spacing) * 4.5);
+    height: calc(var(--spacing) * 4.5);
+    --tw-translate-y: calc(var(--spacing) * 0.45);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+    border-color: var(--input);
+    &:is(:where(.group\/questionnaire-choice):has(*[data-slot="questionnaire-choice-description"]) *) {
+      --tw-translate-y: calc(var(--spacing) * 0.5);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    &:is(:is(:where(.group\/questionnaire-choice):where([data-state="checked"]), :where(.group\/questionnaire-choice):where([data-checked]:not([data-checked="false"]))) *) {
+      border-color: var(--foreground);
+    }
+    &:is(:where(.group\/questionnaire-choice)[data-type="checkbox"] *) {
+      &:is(:is(:where(.group\/questionnaire-choice):where([data-state="checked"]), :where(.group\/questionnaire-choice):where([data-checked]:not([data-checked="false"]))) *) {
+        border-color: var(--primary);
+      }
+    }
+    &:is(:where(.group\/questionnaire-choice)[data-type="checkbox"] *) {
+      &:is(:is(:where(.group\/questionnaire-choice):where([data-state="checked"]), :where(.group\/questionnaire-choice):where([data-checked]:not([data-checked="false"]))) *) {
+        background-color: var(--primary);
+      }
+    }
+    &:is(:where(.group\/questionnaire-choice)[data-type="checkbox"] *) {
+      &:is(:is(:where(.group\/questionnaire-choice):where([data-state="checked"]), :where(.group\/questionnaire-choice):where([data-checked]:not([data-checked="false"]))) *) {
+        color: var(--primary-foreground);
+      }
+    }
+  }
+  .sa-questionnaire-choice-indicator-dot {
+    width: calc(var(--spacing) * 2);
+    height: calc(var(--spacing) * 2);
+    background-color: var(--foreground);
+  }
+  .sa-questionnaire-choice-indicator-check {
+    width: calc(var(--spacing) * 3.5);
+    height: calc(var(--spacing) * 3.5);
+  }
+  .sa-questionnaire-choice-content {
+    gap: calc(var(--spacing) * 1);
+  }
+  .sa-questionnaire-choice-description {
+    color: var(--muted-foreground);
+  }
+  .sa-questionnaire-shortcut {
+    width: calc(var(--spacing) * 5);
+    height: calc(var(--spacing) * 5);
+    --tw-translate-y: calc(var(--spacing) * 0.45);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--input);
+    background-color: var(--background);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    --tw-leading: 1;
+    line-height: 1;
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+    color: var(--muted-foreground);
+    &:is(:where(.group\/questionnaire-choice):has(*[data-slot="questionnaire-choice-description"]) *) {
+      --tw-translate-y: calc(var(--spacing) * 0.5);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+  }
+  .sa-questionnaire-input-wrapper {
+    width: 100%;
+  }
+  .sa-questionnaire-input {
+    height: calc(var(--spacing) * 10);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: transparent;
+    border-bottom-color: var(--input);
+    background-color: transparent;
+    padding-inline: calc(var(--spacing) * 0);
+    padding-block: calc(var(--spacing) * 1);
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+    &:focus-visible {
+      border-bottom-color: var(--ring);
+    }
+    &[aria-invalid="true"] {
+      border-bottom-color: var(--destructive);
+    }
+    @media (width >= 48rem) {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
+    &:is(.dark *) {
+      &[aria-invalid="true"] {
+        border-bottom-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-bottom-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        }
+      }
+    }
+    &.input-validation-error {
+      border-bottom-color: var(--destructive);
+    }
+    &:is(.dark *) {
+      &.input-validation-error {
+        border-bottom-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-bottom-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        }
+      }
+    }
+  }
+  .sa-questionnaire-error {
+    margin-top: calc(var(--spacing) * 2);
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .sa-questionnaire-actions {
+    gap: calc(var(--spacing) * 2);
+    @media (width >= 40rem) {
+      min-height: calc(var(--spacing) * 10);
+    }
+  }
   .sa-message-scroller-content {
     gap: calc(var(--spacing) * 8);
   }
@@ -9517,8 +9808,22 @@
     border-width: 1px;
     border-color: var(--input);
     background-color: transparent;
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:not(*:checked) {
+        border-color: var(--input);
+      }
+    }
     &:checked {
       border-color: var(--foreground);
+    }
+    &:is(:where(.group\/field-label):has(*:is(:focus-visible)) *) {
+      &:checked {
+        border-color: var(--foreground);
+      }
     }
     &:focus-visible {
       border-color: var(--ring);

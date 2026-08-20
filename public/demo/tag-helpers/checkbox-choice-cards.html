@@ -70,36 +70,48 @@
 </script>
 <div class="preview flex w-full justify-center px-10 py-10">
     
-    <div class="w-full max-w-md">
-    <!-- code begin -->
-    <fieldset data-slot="field-set" class="sa-field-set">
-        <legend data-slot="field-legend" data-variant="label" class="sa-field-legend">Travel insurance</legend>
-        <p data-slot="field-description" class="sa-field-description">
-            Annual cover works out cheaper if you take more than two trips a year.
-        </p>
-        <div data-slot="radio-group" class="sa-field-group group/field-group">
+    <fieldset class="sa-field-set w-full max-w-md" data-slot="field-set">
+    <legend data-slot="field-legend" data-variant="legend" class="sa-field-legend">Trip Add-ons</legend>
+    <p data-slot="field-description" class="sa-field-description">
+        Enhance your trip with optional extras.
+    </p>
+    <div data-slot="checkbox-group" class="sa-field-group group/field-group">
+        <label for="addon-insurance" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="single" id="cover-single" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-single" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Single trip ($29.99)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Travel Insurance</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Covers cancellations, medical costs, and lost luggage
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="insurance" id="addon-insurance" checked data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
+        </label>
+        <label for="addon-transfer" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="annual" id="cover-annual" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-annual" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Annual multi-trip ($89.99/year)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Airport Transfer</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Private pickup from the airport to your hotel
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="transfer" id="addon-transfer" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
+        </label>
+        <label for="addon-excursions" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
             <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                <span class="sa-input-control-wrapper"><input type="radio" name="cover" value="family" id="cover-family" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
-                <label for="cover-family" class="sa-label sa-field-label group/field-label peer/field-label font-normal" data-slot="field-label">
-                    Annual family ($149.99/year)
-                </label>
+                <div data-slot="field-content" class="sa-field-content group/field-content">
+                    <div data-slot="field-label" class="sa-field-title">Guided Excursions</div>
+                    <p data-slot="field-description" class="sa-field-description">
+                        Local guided tours at your destination
+                    </p>
+                </div>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="excursions" id="addon-excursions" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
-        </div>
-    </fieldset>
-    <!-- code end -->
-</div>
+        </label>
+    </div>
+</fieldset>
+
 
 </div>
 
