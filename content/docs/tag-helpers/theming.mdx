@@ -112,11 +112,11 @@ The `sidebar-*` and `chart-*` families and the `rounded-*` radii are available i
 
 ## Menu surfaces
 
-Floating menus (currently the [Dropdown Menu](/docs/tag-helpers/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddUI()`:
+Floating menus (currently the [Dropdown Menu](/docs/tag-helpers/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddTagHelpers()`:
 
 ```cs
 builder.Services.AddStellarAdmin()
-    .AddUI()
+    .AddTagHelpers()
     .ConfigureMenu(menu =>
     {
         menu.Color = MenuColor.Inverted;

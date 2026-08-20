@@ -7,7 +7,7 @@ import { Demo } from "@/components/demo";
 
 ## Built-in icons
 
-StellarAdmin ships the [Lucide](https://lucide.dev/) icon set. It is registered by `AddUI()`, so every Lucide icon is available from the [`<sa-icon>`](/docs/tag-helpers/components/icon) tag helper by name, without further setup:
+StellarAdmin ships the [Lucide](https://lucide.dev/) icon set. It is registered by `AddTagHelpers()`, so every Lucide icon is available from the [`<sa-icon>`](/docs/tag-helpers/components/icon) tag helper by name, without further setup:
 
 ```razor
 <sa-icon name="plane"/>
@@ -19,7 +19,7 @@ Icons render as inline `<svg>` elements that use `currentColor`, so they take th
 
 ## Adding your own icons
 
-Custom icons are registered on the builder returned by `AddUI()` in `Program.cs`, and are then used exactly like the built-in ones. An icon is an `IconDefinition`: the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) drawn inside it.
+Custom icons are registered on the builder returned by `AddTagHelpers()` in `Program.cs`, and are then used exactly like the built-in ones. An icon is an `IconDefinition`: the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) drawn inside it.
 
 ### A single icon
 
@@ -30,7 +30,7 @@ using System.Collections.Immutable;
 using StellarAdmin.TagHelpers.Icons;
 
 builder.Services.AddStellarAdmin()
-    .AddUI()
+    .AddTagHelpers()
     .AddIcon("voyager-suitcase", new IconDefinition(
         new Dictionary<string, string>
         {
@@ -121,7 +121,7 @@ public class VoyagerIconPack : IIconPack
 
 ```cs
 builder.Services.AddStellarAdmin()
-    .AddUI()
+    .AddTagHelpers()
     .AddIconPack<VoyagerIconPack>();
 ```
 
