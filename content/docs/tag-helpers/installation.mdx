@@ -54,7 +54,11 @@ The following installation instructions assume you are adding StellarAdmin to an
     <Step>
         ### Add stylesheet and JavaScript file
 
-        StellarAdmin ships one stylesheet per theme (`vega`, `nova`, `luma`, `lyra`, `maia`, `mira`, `rhea`, and `sera`). Add exactly one theme stylesheet (`/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css`) and the JavaScript file (`/_content/StellarAdmin.TagHelpers/stellar-admin.js`) to your Razor layout. The example below uses the `nova` theme. Switching themes is simply a matter of linking a different stylesheet (see [Theming & Dark Mode](/docs/tag-helpers/theming) for customizing a theme and enabling dark mode, and [JavaScript & Interactivity](/docs/tag-helpers/javascript) for what the script provides).
+        StellarAdmin Tag Helpers comes with the same themes as shadcn/ui, namely Vega, Nova, Maia, Lyra, Mira, Luma, Sera, and Rhea. You must add the stylesheet for the theme you want to use to your Razor layout. The URL for the theme is in the format (`/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css`). 
+
+        StellarAdmin TagHelpers also comes with minimal JavaScript which adds interactivity to some of the Tag Helpers via Web Components. To enable this, you must also include the `stellar-admin.js` script in your layout.
+
+        The example below demonstrates how to include the script and the stylesheet for the **Nova** theme.
 
         ```razor
         <!DOCTYPE html>
@@ -69,13 +73,12 @@ The following installation instructions assume you are adding StellarAdmin to an
         </body>
         </html>
         ```
-    </Step>
-    <Step>
-        ### (Optional) Remove 3rd party stylesheets
 
-        Using StellarAdmin along with 3rd party CSS libraries like Bootstrap will almost certainly result in incorrect rendering of the StellarAdmin components, since these libraries apply their own styling which may override the styling applied by StellarAdmin.
+        <Callout type="idea">
+            All the Tag Helper examples in the rest of this documentation allows you to preview the examples in each of the different themes. Just select the _Theme_ picker above any of the examples.
 
-        As such, we **strongly recommend** that you remove 3rd party stylesheets and only depend on the CSS styling applied by StellarAdmin.
+            You can also go the [shadcn/ui Create page](https://ui.shadcn.com/create) and use their _Style_ picker, which correspond with the StellarAdmin themes. This will give you a good idea of the look-and-feel of each of the themes. 
+        </Callout>
     </Step>
     <Step>
         ### Start using the Tag Helpers
