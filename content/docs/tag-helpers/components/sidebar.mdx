@@ -121,15 +121,15 @@ The active menu link is only marked visually. Add `aria-current="page"` to the l
 
 ### `<sa-sidebar-wrapper>`
 
-The `<sa-sidebar-wrapper>` Tag Helper renders a `<sel-sidebar>` web component
-that wraps the sidebar and page content and owns the open/collapsed state.
-Nested `<sa-sidebar-trigger>` elements toggle it through the Invoker Commands
-API. It honours a user-supplied `id` and generates one otherwise.
+Renders a `<sel-sidebar>` web component that wraps the sidebar and page content
+and owns the open/collapsed state. Nested `<sa-sidebar-trigger>` elements toggle
+it through the Invoker Commands API. It honours a user-supplied `id` and
+generates one otherwise.
 
 ### `<sa-sidebar>`
 
-The `<sa-sidebar>` Tag Helper renders the sidebar panel itself as a `<div>`
-(including the mobile drawer and its backdrop).
+Renders the sidebar panel itself as a `<div>` (including the mobile drawer and
+its backdrop).
 
 <TypeTable
   type={{
@@ -158,62 +158,54 @@ The `<sa-sidebar>` Tag Helper renders the sidebar panel itself as a `<div>`
 
 ### `<sa-sidebar-trigger>`
 
-The `<sa-sidebar-trigger>` Tag Helper renders a `<button>` that toggles the
-sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting the
-wrapper). It shows a default panel icon unless you supply child content.
+Renders a `<button>` that toggles the sidebar via the Invoker Commands API
+(`command="--toggle-sidebar"` targeting the wrapper). It shows a default panel
+icon unless you supply child content.
 
 ### `<sa-sidebar-header>`
 
-The `<sa-sidebar-header>` Tag Helper renders a `<div>` for content pinned to the
-top of the sidebar.
+Renders a `<div>` for content pinned to the top of the sidebar.
 
 ### `<sa-sidebar-content>`
 
-The `<sa-sidebar-content>` Tag Helper renders a `<div>` holding the scrollable
-body of the sidebar.
+Renders a `<div>` holding the scrollable body of the sidebar.
 
 ### `<sa-sidebar-footer>`
 
-The `<sa-sidebar-footer>` Tag Helper renders a `<div>` for content pinned to the
-bottom of the sidebar.
+Renders a `<div>` for content pinned to the bottom of the sidebar.
 
 ### `<sa-sidebar-inset>`
 
-The `<sa-sidebar-inset>` Tag Helper renders a `<main>` element holding the page
-content next to the sidebar.
+Renders a `<main>` element holding the page content next to the sidebar.
 
 ### `<sa-sidebar-separator>`
 
-The `<sa-sidebar-separator>` Tag Helper renders a horizontal `<div
-role="separator">` inside the sidebar.
+Renders a horizontal `<div role="separator">` inside the sidebar.
 
 ### `<sa-sidebar-group>`
 
-The `<sa-sidebar-group>` Tag Helper renders a `<div>` for a section of the
-sidebar.
+Renders a `<div>` for a section of the sidebar.
 
 ### `<sa-sidebar-group-label>`
 
-The `<sa-sidebar-group-label>` Tag Helper renders a `<div>` heading for a group.
+Renders a `<div>` heading for a group.
 
 ### `<sa-sidebar-group-content>`
 
-The `<sa-sidebar-group-content>` Tag Helper renders a `<div>` holding a group's
-content.
+Renders a `<div>` holding a group's content.
 
 ### `<sa-sidebar-menu>`
 
-The `<sa-sidebar-menu>` Tag Helper renders a `<ul>` containing menu items.
+Renders a `<ul>` containing menu items.
 
 ### `<sa-sidebar-menu-item>`
 
-The `<sa-sidebar-menu-item>` Tag Helper renders an `<li>` for a single menu
-entry.
+Renders an `<li>` for a single menu entry.
 
 ### `<sa-sidebar-menu-button>`
 
-The `<sa-sidebar-menu-button>` Tag Helper renders a `<button>` styled as a menu
-entry — typically paired with `<sa-collapsible>` for expandable items.
+Renders a `<button>` styled as a menu entry — typically paired with
+`<sa-collapsible>` for expandable items.
 
 <TypeTable
   type={{
@@ -241,7 +233,7 @@ entry — typically paired with `<sa-collapsible>` for expandable items.
 
 ### `<sa-sidebar-menu-link>`
 
-The `<sa-sidebar-menu-link>` Tag Helper renders an
+Renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a menu entry. It is marked active automatically when its
 routing attributes match the current route.
@@ -277,23 +269,19 @@ both.
 
 ### `<sa-sidebar-menu-badge>`
 
-The `<sa-sidebar-menu-badge>` Tag Helper renders a `<div>` badge (such as a
-count) alongside a menu entry.
+Renders a `<div>` badge (such as a count) alongside a menu entry.
 
 ### `<sa-sidebar-menu-sub>`
 
-The `<sa-sidebar-menu-sub>` Tag Helper renders a `<ul>` containing nested
-sub-items.
+Renders a `<ul>` containing nested sub-items.
 
 ### `<sa-sidebar-menu-sub-item>`
 
-The `<sa-sidebar-menu-sub-item>` Tag Helper renders an `<li>` for a single
-sub-entry.
+Renders an `<li>` for a single sub-entry.
 
 ### `<sa-sidebar-menu-sub-button>`
 
-The `<sa-sidebar-menu-sub-button>` Tag Helper renders a `<button>` styled as a
-sub-entry.
+Renders a `<button>` styled as a sub-entry.
 
 <TypeTable
   type={{
@@ -314,7 +302,7 @@ sub-entry.
 
 ### `<sa-sidebar-menu-sub-link>`
 
-The `<sa-sidebar-menu-sub-link>` Tag Helper renders an
+Renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a sub-entry, marked active automatically when its route
 matches. It accepts the same routing attributes as `<sa-sidebar-menu-link>`

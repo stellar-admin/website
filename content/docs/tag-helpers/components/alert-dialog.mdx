@@ -96,11 +96,12 @@ Give `<sa-alert-dialog-title>` an `id` and reference it from `aria-labelledby` o
 
 ### `<sa-alert-dialog>`
 
-The `<sa-alert-dialog>` Tag Helper renders a native [`<dialog>`
+Renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 which is opened and closed via the Invoker Commands API (`command="show-modal"`
 / `command="close"` on a button whose `commandfor` targets the dialog's `id`).
-The `closedby` attribute defaults to `closerequest`, so the dialog is not light-dismissable.
+The `closedby` attribute defaults to `closerequest`, so the dialog is not
+light-dismissable.
 
 The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/tag-helpers/javascript).
 
@@ -117,34 +118,29 @@ The dialog is wrapped in a `<sel-dialog>` web component that locks page scrollin
 
 ### `<sa-alert-dialog-header>`
 
-The `<sa-alert-dialog-header>` Tag Helper renders a `<div>` element that groups
-the media, title, and description.
+Renders a `<div>` element that groups the media, title, and description.
 
 ### `<sa-alert-dialog-media>`
 
-The `<sa-alert-dialog-media>` Tag Helper renders a `<div>` element for showing
-an icon or image above the title.
+Renders a `<div>` element for showing an icon or image above the title.
 
 ### `<sa-alert-dialog-title>`
 
-The `<sa-alert-dialog-title>` Tag Helper renders an `<h2>` element containing
-the dialog's title.
+Renders an `<h2>` element containing the dialog's title.
 
 ### `<sa-alert-dialog-description>`
 
-The `<sa-alert-dialog-description>` Tag Helper renders a `<p>` element
-containing the dialog's description.
+Renders a `<p>` element containing the dialog's description.
 
 ### `<sa-alert-dialog-footer>`
 
-The `<sa-alert-dialog-footer>` Tag Helper renders a `<div>` element that lays
-out the cancel and action buttons.
+Renders a `<div>` element that lays out the cancel and action buttons.
 
 ### `<sa-alert-dialog-cancel>`
 
-The `<sa-alert-dialog-cancel>` Tag Helper renders a `<button type="submit">`
-with `value="cancel"` (unless you supply your own `value`), so a wrapping `<form
-method="dialog">` closes the dialog with that `returnValue`.
+Renders a `<button type="submit">` with `value="cancel"` (unless you supply your
+own `value`), so a wrapping `<form method="dialog">` closes the dialog with
+that `returnValue`.
 
 <TypeTable
   type={{
@@ -160,9 +156,9 @@ method="dialog">` closes the dialog with that `returnValue`.
 
 ### `<sa-alert-dialog-action>`
 
-The `<sa-alert-dialog-action>` Tag Helper renders a `<button type="submit">`
-with `value="confirm"` (unless you supply your own `value`), so a wrapping
-`<form method="dialog">` closes the dialog with that `returnValue`.
+Renders a `<button type="submit">` with `value="confirm"` (unless you supply
+your own `value`), so a wrapping `<form method="dialog">` closes the dialog
+with that `returnValue`.
 
 <TypeTable
   type={{

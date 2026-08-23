@@ -173,10 +173,10 @@ When the field has a model state error, or when you set `aria-invalid="true"`, t
 
 ### `<sa-input-otp>`
 
-The `<sa-input-otp>` Tag Helper renders a `<sel-input-otp>` web component
-containing the slot cells and a single transparent `<input>` element that holds
-the whole code and posts it as one form value. When `asp-for` is set, it
-delegates to the built-in [ASP.NET Core Input Tag
+Renders a `<sel-input-otp>` web component containing the slot cells and a single
+transparent `<input>` element that holds the whole code and posts it as one form
+value. When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input
+Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)
 to resolve the input's name, value, and validation attributes.
 
@@ -251,13 +251,12 @@ to resolve the input's name, value, and validation attributes.
 
 ### `<sa-input-otp-group>`
 
-The `<sa-input-otp-group>` Tag Helper renders a `<div>` element that groups a
-run of slots.
+Renders a `<div>` element that groups a run of slots.
 
 ### `<sa-input-otp-slot>`
 
-The `<sa-input-otp-slot>` Tag Helper renders a `<div>` element that displays one
-character of the code and the active caret.
+Renders a `<div>` element that displays one character of the code and the active
+caret.
 
 <TypeTable
   type={{
@@ -271,6 +270,5 @@ character of the code and the active caret.
 
 ### `<sa-input-otp-separator>`
 
-The `<sa-input-otp-separator>` Tag Helper renders a `<div>` element with
-`role="separator"`, containing a minus icon by default — supply child content to
-override it.
+Renders a `<div>` element with `role="separator"`, containing a minus icon by
+default — supply child content to override it.
