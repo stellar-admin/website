@@ -34,13 +34,13 @@ Wrap related fields with `sa-field-group`, and use `sa-field-set` with `sa-field
 
 The usage examples demonstrated so far require a lot of boilerplate when creating fields by specifying `sa-field`, `sa-field-label`, `sa-field-description`, etc. To improve the developer experience, all the StellarAdmin input controls such as `sa-input`, `sa-select`, `sa-textarea`, etc. can implicitly create fields using one of the following two techniques.
 
-1. When using data binding (with the `asp-for` attribute), StellarAdmin will implicitly wrap the input inside a `sa-field` with the corresponding `sa-field-label` and `sa-field-description` inferred from data annotations. If your model contains errors related to the bound property, a `sa-field-error` component with the error message will also be added.
+1. When using model binding (with the `asp-for` attribute), StellarAdmin will implicitly wrap the input inside a `sa-field` with the corresponding `sa-field-label` and `sa-field-description` inferred from data annotations. If your model contains errors related to the bound property, a `sa-field-error` component with the error message will also be added.
 
    ```razor
    <sa-input asp-for="Model.Name"/>
    ```
 
-2. If you are not using data binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `sa-field` with the corresponding `sa-field-label`, `sa-field-description`, and `sa-field-error` automatically added.
+2. If you are not using model binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `sa-field` with the corresponding `sa-field-label`, `sa-field-description`, and `sa-field-error` automatically added.
 
    ```razor
    <sa-input label="First Name"

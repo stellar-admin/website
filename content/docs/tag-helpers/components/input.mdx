@@ -18,13 +18,13 @@ The Input Tag Helper generates an [HTML Input Element](https://developer.mozilla
 <sa-input/>
 ```
 
-The same rules as for the built-in Tag Helper apply to things like data binding and resolving input types from data annotation attributes.
+The same rules as for the built-in Tag Helper apply to things like model binding and resolving input types from data annotation attributes.
 
 ## Examples
 
 ### Model binding
 
-The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+`<sa-input>` has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wraps the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/input-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -133,7 +133,7 @@ When you use model binding, the input type will be inferred from the underlying 
           [DataType(DataType.Date)]
           public DateTime? Date { get; set; }
 
-public IFormFile? File { get; set; }
+          public IFormFile? File { get; set; }
 
           [Display(Prompt = "123")]
           public int? Number { get; set; }
@@ -149,7 +149,7 @@ public IFormFile? File { get; set; }
           [Display(Prompt = "+66 (12) 345 6789")]
           public string? Tel { get; set; }
 
-public string? Text { get; set; }
+          public string? Text { get; set; }
 
           [DataType(DataType.Time)]
           public string? Time { get; set; }

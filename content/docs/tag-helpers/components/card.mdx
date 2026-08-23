@@ -11,6 +11,8 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
+Use cards to group related content and actions inside a bordered container.
+
 ```razor
 <sa-card>
     <sa-card-header>
@@ -36,7 +38,7 @@ The default size gives the header, content and footer their standard padding.
 
 ### Small size
 
-Set `size="CardSize.Small"` for tighter padding and smaller text, useful in dense layouts.
+Use `size="CardSize.Small"` for tighter padding and smaller text, useful in dense layouts.
 
 <Demo src="/demo/tag-helpers/card-small.html">
   <include>./_include/card-small.mdx</include>
@@ -66,7 +68,7 @@ Place an `<img>` as the first child and remove the top padding with `pt-0` for a
   <include>./_include/card-with-image.mdx</include>
 </Demo>
 
-### Login
+### Forms
 
 Cards compose with [Field](/docs/tag-helpers/components/field) and [Button](/docs/tag-helpers/components/button) to build complete forms.
 
@@ -74,7 +76,7 @@ Cards compose with [Field](/docs/tag-helpers/components/field) and [Button](/doc
   <include>./_include/card-login.mdx</include>
 </Demo>
 
-### Trip notes
+### Card actions
 
 Use `<sa-card-action>` in the header for an action such as a dropdown menu, and put any content in the footer.
 

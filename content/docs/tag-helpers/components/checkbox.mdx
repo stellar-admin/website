@@ -12,7 +12,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-StellarAdmin does not have a specific Checkbox Tag Helper, but uses the normal `sa-input` Tag Helper with the `type` attribute specified as `checkbox`. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations.
+Use the `sa-input` Tag Helper with the `type` attribute specified as `checkbox` to display a checkbox to the user. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations when using model binding.
 
 ```razor
 <sa-input type="checkbox"/>
@@ -22,9 +22,7 @@ StellarAdmin does not have a specific Checkbox Tag Helper, but uses the normal `
 
 ### Model binding
 
-The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `sa-input` to a model with a `bool` data type, StellarAdmin will render a checkbox.
-
-When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+The `sa-input` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `sa-input` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/checkbox-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -49,7 +47,7 @@ When using model binding, StellarAdmin will automatically wrap the input inside 
 
 ### Model binding validation
 
-When using model binding, validation errors from [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
+When using model binding, validation errors from the [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
 
 <Demo src="/demo/tag-helpers/checkbox-validation.html">
     <Tabs items={["Razor", "Model"]}>
@@ -90,9 +88,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
 
 ### Manual validation
 
-If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
-
-The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input. The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/checkbox-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -107,7 +103,7 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### Disabled
 
-Add the `disabled` attribute to prevent interaction. The label and description are dimmed with it.
+Add the `disabled` attribute to prevent user interaction.
 
 <Demo src="/demo/tag-helpers/checkbox-disabled.html">
   <include>./_include/checkbox-disabled.mdx</include>
@@ -115,7 +111,7 @@ Add the `disabled` attribute to prevent interaction. The label and description a
 
 ### Group
 
-Group related checkboxes in an `<sa-field-set>` with one `<sa-field>` per checkbox. With model binding, each checkbox binds to its own `bool` property.
+Group related checkboxes using `<sa-field-set>` and `<sa-field-group>`.
 
 <Demo src="/demo/tag-helpers/checkbox-group.html">
   <Tabs items={["Using Explicit Field", "Using Model Binding", "Model"]}>
@@ -165,10 +161,7 @@ Group related checkboxes in an `<sa-field-set>` with an `<sa-field-legend>` so t
 
 ### `<sa-input>`
 
-The `<sa-input>` tag helper with `type="checkbox"` renders an `<input
-type="checkbox">` element, wrapped in a `<span>` together with the check
-indicator icon. The `type` can also be inferred from a bound `bool` model
-property.
+The `<sa-input>` tag helper with `type="checkbox"` renders an `<input type="checkbox">` element, wrapped in a `<span>` together with the check indicator icon. The `type` can also be inferred from a bound `bool` model property.
 
 <TypeTable
   type={{
