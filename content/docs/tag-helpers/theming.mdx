@@ -1,63 +1,20 @@
 ---
 title: Theming & Dark Mode
-description: Pick a theme, customize its colors and radius, enable dark mode, and use the design tokens in your own markup
+description: Using themes and applying dark mode
 ---
 
-## Theme stylesheets
+import { Demo } from "@/components/demo";
 
-StellarAdmin ships with the following themes:  `vega`, `nova`, `luma`, `lyra`, `maia`, `mira`, `rhea`, and `sera`. When adding the StellarAdmin stylesheet to your application, you must add the stylesheet for the theme you want to use. For example, you can link the Nova theme as follows:
-
-```razor
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
-```
-
-Every component page on this documentation website has a theme selector above the demos, so you can preview the themes with real components before deciding.
-
-<Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. Their "Style" selector on the left-side of the _Create_ page corresponds with the StellarAdmin themes.
-</Callout>
-
-## Customizing a theme
-
-Every color and radius in a theme stylesheet is a CSS custom property, and the theme CSS files reference these properties. To customize a theme, redeclare the properties you want to change in your own stylesheet, loaded after the theme stylesheet. No build tooling is required.
-
-```css
-:root {
-  --primary: oklch(0.55 0.2 260);
-  --primary-foreground: oklch(0.985 0 0);
-  --radius: 0.5rem;
-}
-
-.dark {
-  --primary: oklch(0.7 0.18 260);
-}
-```
-
-The properties you can override are:
-
-| Family | Properties |
-|--------|------------|
-| Page | `--background`, `--foreground` |
-| Surfaces | `--card`, `--card-foreground`, `--popover`, `--popover-foreground` |
-| Actions | `--primary`, `--primary-foreground`, `--secondary`, `--secondary-foreground`, `--accent`, `--accent-foreground`, `--destructive` |
-| Muted text | `--muted`, `--muted-foreground` |
-| Borders and focus | `--border`, `--input`, `--ring` |
-| Sidebar | `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border`, `--sidebar-ring` |
-| Charts | `--chart-1` to `--chart-5` |
-| Shape | `--radius` (the other radii are derived from it) |
-| Type | `--font-sans` |
-
-Declare light values on `:root` and dark values on `.dark`, as the theme stylesheets do.
 
 ## Dark mode
 
-Dark mode is applied by adding the `dark` CSS class on an ancestor element - usually the `<html>` or `<body>` element. Every descendant then reads the dark values.
+Dark mode is applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode.
 
 ```razor
 <html lang="en" class="dark">
 ```
 
-Adding the `dark` class is up to your application. You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
+How the `dark` class gets added is completely up to you. You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
 
 ```html
 <script>
@@ -74,45 +31,178 @@ Adding the `dark` class is up to your application. You can render it server-side
 
 Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
 
-You do not need to write any dark-mode CSS for the components. If you customize a theme, supply a `.dark` value for each property you override (see above).
+## Theme stylesheets
 
-## Using the design tokens in your own markup
+StellarAdmin ships with the same themes as shadcn/ui, namely Vega, Nova, Luma, Lyra, Maia, Myra, Rhea, Sera. These themes typically control things like border radius, spacing, and tints for things like the background and border colors. All the Tag Helper examples in this documentation contains a picker that allows you to switch between themes, allowing you to find the theme you like.
 
-The theme stylesheet styles the `<sa-*>` Tag Helpers. If you also write your own markup with Tailwind CSS utilities such as `bg-primary`, `text-muted-foreground`, or `dark:...`, and your application runs its own Tailwind v4 build, you can make those utilities resolve to the same design tokens the components use.
+When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the them. The snippet below demonstrates how to include the Nova theme.
 
-Copy [`theme-tokens.css`](https://github.com/stellar-admin/stellar-admin/blob/master/src/StellarAdmin.TagHelpers/Client/css/theme-tokens.css) into your project and import it from your Tailwind entry stylesheet:
+```razor
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+```
+
+<Callout type="idea">
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the StellarAdmin themes.
+</Callout>
+
+## Customizing a theme
+
+Colors and radius in theme stylesheets are controlled with CSS variables. To customize one of the existing themes, you can override these variables. Consider the card example below.
+
+<Demo src="/demo/tag-helpers/theme-override-standard.html">
+</Demo>
+
+By updating the variables to change the font and colors, we can achieve a completely different look.
+
+
+<Demo src="/demo/tag-helpers/theme-override.html">
+</Demo>
+
+The theme customization above was achieved by overriding the variables after importing the theme stylesheet.
+
+```html
+ <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      ...
+      <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+      <!-- Import additional font used by the style override -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+      <!-- override the variable after importing the StellarAdmin stylesheet -->
+      <style>
+        :root {
+            --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+            --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+            --background: oklch(0.9784 0.0042 92);
+            --foreground: oklch(0.24 0.008 85);
+            --card: oklch(0.992 0.003 92);
+            --card-foreground: oklch(0.24 0.008 85);
+            --popover: oklch(0.992 0.003 92);
+            --popover-foreground: oklch(0.24 0.008 85);
+            --primary: oklch(0.6725 0.1362 42);
+            --primary-foreground: oklch(0.988 0.004 92);
+            --secondary: oklch(0.9451 0.0089 92);
+            --secondary-foreground: oklch(0.30 0.009 85);
+            --muted: oklch(0.9451 0.0089 92);
+            --muted-foreground: oklch(0.52 0.012 88);
+            --accent: oklch(0.925 0.018 80);
+            --accent-foreground: oklch(0.30 0.009 85);
+            --destructive: oklch(0.55 0.19 27);
+            --destructive-foreground: oklch(0.988 0.004 92);
+            --border: oklch(0.89 0.015 92);
+            --input: oklch(0.865 0.019 92);
+            --ring: oklch(0.6725 0.1362 42);
+
+            --chart-1: oklch(0.6725 0.1362 42);
+            --chart-2: oklch(0.63 0.07 130);
+            --chart-3: oklch(0.75 0.10 82);
+            --chart-4: oklch(0.51 0.07 55);
+            --chart-5: oklch(0.70 0.025 90);
+
+            --sidebar: oklch(0.9451 0.0089 92);
+            --sidebar-foreground: oklch(0.24 0.008 85);
+            --sidebar-primary: oklch(0.6725 0.1362 42);
+            --sidebar-primary-foreground: oklch(0.988 0.004 92);
+            --sidebar-accent: oklch(0.9784 0.0042 92);
+            --sidebar-accent-foreground: oklch(0.30 0.009 85);
+            --sidebar-border: oklch(0.88 0.016 92);
+            --sidebar-ring: oklch(0.6725 0.1362 42);
+        }
+
+        .dark {
+            --background: oklch(0.19 0.005 85);
+            --foreground: oklch(0.93 0.008 92);
+            --card: oklch(0.235 0.005 85);
+            --card-foreground: oklch(0.93 0.008 92);
+            --popover: oklch(0.235 0.005 85);
+            --popover-foreground: oklch(0.93 0.008 92);
+            --primary: oklch(0.705 0.13 42);
+            --primary-foreground: oklch(0.19 0.005 85);
+            --secondary: oklch(0.27 0.006 85);
+            --secondary-foreground: oklch(0.93 0.008 92);
+            --muted: oklch(0.27 0.006 85);
+            --muted-foreground: oklch(0.70 0.010 90);
+            --accent: oklch(0.31 0.012 70);
+            --accent-foreground: oklch(0.93 0.008 92);
+            --destructive: oklch(0.64 0.19 25);
+            --destructive-foreground: oklch(0.98 0.004 92);
+            --border: oklch(0.31 0.006 85);
+            --input: oklch(0.34 0.007 85);
+            --ring: oklch(0.705 0.13 42);
+
+            --chart-1: oklch(0.705 0.13 42);
+            --chart-2: oklch(0.68 0.075 130);
+            --chart-3: oklch(0.79 0.10 82);
+            --chart-4: oklch(0.58 0.075 55);
+            --chart-5: oklch(0.66 0.025 90);
+
+            --sidebar: oklch(0.22 0.005 85);
+            --sidebar-foreground: oklch(0.93 0.008 92);
+            --sidebar-primary: oklch(0.705 0.13 42);
+            --sidebar-primary-foreground: oklch(0.19 0.005 85);
+            --sidebar-accent: oklch(0.27 0.006 85);
+            --sidebar-accent-foreground: oklch(0.93 0.008 92);
+            --sidebar-border: oklch(0.31 0.006 85);
+            --sidebar-ring: oklch(0.705 0.13 42);
+        }
+    </style>
+  </head>
+  <body>
+      ...
+  </body>
+  </html>
+
+```
+
+The CSS variables you can override are listed in the table below.
+
+| Variable | Description |
+|----------|-------------|
+| `--background` / `--foreground` | Sets the base surface and text color of the application, which the page shell, page sections, and body text all inherit. |
+| `--card` / `--card-foreground` | Colors raised surfaces such as the Card component, dashboard panels, and settings panels, along with the content inside them. |
+| `--popover` / `--popover-foreground` | Colors overlay surfaces and their content, including Popover, DropdownMenu, ContextMenu, and similar floating components. |
+| `--primary` / `--primary-foreground` | Carries the brand color through prominent elements such as the default Button, selected states, badges, and active accents. |
+| `--secondary` / `--secondary-foreground` | Colors filled but quieter elements, such as secondary buttons and badges, that support the primary action without competing with it. |
+| `--muted` / `--muted-foreground` | Tones down surfaces and text that should recede, such as descriptions, placeholders, helper text, and empty states. |
+| `--accent` / `--accent-foreground` | Highlights elements as the user interacts with them, covering ghost buttons, hovered rows, highlighted menu entries, and selected items. |
+| `--destructive` | Signals danger and error, and is applied to destructive buttons, invalid form states, and destructive menu items. |
+| `--border` | Draws the borders and separators that divide cards, menus, tables, and page layout. |
+| `--input` | Styles the borders and surfaces of form controls such as Input, Textarea, Select, and other outline-style controls. |
+| `--ring` | Draws the focus ring that appears around buttons, inputs, checkboxes, menus, and any other focusable control. |
+| `--chart-1` ... `--chart-5` | Provides the default series palette used by charts and chart-driven dashboard blocks. |
+| `--sidebar` / `--sidebar-foreground` | Sets the surface and default text color of the Sidebar component and everything rendered inside it. |
+| `--sidebar-primary` / `--sidebar-primary-foreground` | Emphasizes the sidebar's most prominent elements, such as active items, icon tiles, badges, and calls to action. |
+| `--sidebar-accent` / `--sidebar-accent-foreground` | Marks hovered and selected sidebar elements, including menu entries, expanded items, and interactive rows. |
+| `--sidebar-border` | Draws the borders and separators inside the sidebar, such as those around headers and between groups. |
+| `--sidebar-ring` | Draws the focus ring around controls inside the sidebar. |
+| `--radius` | Defines the base corner radius from which the `radius-*` variables are derived, shaping cards, inputs, buttons, and popovers. |
+
+
+## Using the design tokens in your own app
+
+StellarAdmin Tag Helpers apply the theme styles to all the Tag Helpers. However, sometime you may also want to use the same colors in other parts of your application. For example, you may want to use the primary background color on an element. Your first thought may be to simply use the Tailwind CSS `bg-primary` token. 
+
+```html
+<div class="bg-primary">...</div>
+```
+
+The above will likely not work because your own Tailwind configuration has not declared the correct [theme variables](https://tailwindcss.com/docs/theme).
+
+To fix this, you can copy the [`theme-tokens.css`](https://github.com/stellar-admin/stellar-admin/blob/master/src/StellarAdmin.TagHelpers/Client/css/theme-tokens.css) file from StellarAdmin Tag Helpers into your project and import it from your Tailwind entry stylesheet:
 
 ```css
 @import "tailwindcss";
 @import "./theme-tokens.css";
 ```
 
-The file contains only the token *vocabulary*: it maps Tailwind color and radius names onto the CSS custom properties, and defines the `dark:` variant as the `.dark` class. The utilities it enables compile to `var(--...)` references whose values come from the linked theme stylesheet at runtime, so keep the theme `<link>` in place. It does not duplicate any component styling.
-
-Prefer the semantic tokens over hard-coded palette colors so your own markup follows the theme and dark mode automatically:
-
-| Use | Utilities |
-|-----|-----------|
-| Primary action | `bg-primary` / `text-primary-foreground` |
-| Surfaces | `bg-card` / `text-card-foreground`, `bg-popover` / `text-popover-foreground` |
-| Muted or secondary | `text-muted-foreground`, `bg-secondary`, `bg-muted` |
-| Accent (hover, active) | `bg-accent` / `text-accent-foreground` |
-| Danger | `text-destructive` |
-| Borders, inputs, focus | `border-border`, `bg-input`, `ring-ring` |
-
-The `sidebar-*` and `chart-*` families and the `rounded-*` radii are available in the same way.
-
-```razor
-<!-- Follows the theme and dark mode -->
-<div class="rounded-lg border bg-card text-card-foreground p-4">...</div>
-
-<!-- Fixed palette colors do not -->
-<div class="rounded-lg border border-gray-200 bg-white text-gray-900 p-4">...</div>
-```
+Once you do this, those design tokens will be used in your own Tailwind CSS configuration and you will have utility classes such as `bg-primary`, `bg-secondary`, `text-primary-foreground`, `bg-card`, etc. available to use in your own application. This will also ensure that your own application code will adapt to StellarAdmin theme changes and customizations.
 
 ## Menu surfaces
 
-Floating menus (currently the [Dropdown Menu](/docs/tag-helpers/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddTagHelpers()`:
+Floating menus (such as the [Dropdown Menu](/docs/tag-helpers/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddTagHelpers()`:
 
 ```cs
 builder.Services.AddStellarAdmin()

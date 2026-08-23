@@ -5,14 +5,14 @@ description: Build your own tag helpers whose markup can be overridden, and pass
 
 import { Demo } from "@/components/demo";
 
-StellarAdmin gives your own tag helpers the same customization story its built-in components use, through two mechanisms:
+Writing Tag Helpers in ASP.NET Core is very powerful, but you have to generate the rendered HTML in C# code. This can make it cumbersome as most developers are used to working with Razor Pages and Partials. StellarAdmin Tag Helpers adds a few helpers to make it easier for you to create your own Tag Helpers while still using the power of the Razor rendering engine.
 
-- **Templated tag helpers** keep their markup in a Razor view instead of C#, so the consuming application can swap the markup — per instance, or globally — without touching the tag helper.
-- **Named slots** let a caller pass content into specific spots of a tag helper's output with `<sa-slot-content>`, which the markup renders through `<sa-slot-outlet>`.
+- **Templated tag helpers** allow you to use Razor Views from your own Tag Helpers, drastically simplifying the process of developing your own Tag Helpers.
+- **Named slots** allows you to easily pass content to a specific section of a Tag Helpers. A caller can pass content into specific spots of a tag helper's output with `<sa-slot-content>`, which the markup renders through `<sa-slot-outlet>`.
 
 ## Templated tag helpers
 
-A tag helper whose markup should be overridable derives from `StellarAdminTemplatedTagHelperBase` instead of `StellarAdminTagHelperBase`. It names a view (`ViewName`) that resolves like a partial view, and supplies the view's model from `GetViewModel()`.
+If you want to create your own Tag Helpers while using Razor partials to design the layout, you can inherit your Tag Helper from `StellarAdminTemplatedTagHelperBase` and return the name of the partial in the `ViewName` property.
 
 ```cs
 [HtmlTargetElement("docs-trip-card")]
@@ -33,7 +33,8 @@ public class TripCardTagHelper : StellarAdminTemplatedTagHelperBase
 }
 ```
 
-The markup lives in `Pages/Shared/_TripCard.cshtml`, freely composing the built-in tag helpers:
+The markup lives in `Pages/Shared/_TripCard.cshtml`.
+
 
 ```razor
 @model DocsSamples.Booking
@@ -60,19 +61,15 @@ Using the tag helper is then a single element:
 
 ### Swapping the view per instance
 
-Every templated tag helper accepts a `view` attribute that overrides `ViewName` for that instance, so the same tag helper can render through a different view where needed.
+Every templated tag helper accepts a `view` attribute that allows you to overrides the view for that instance, so the same tag helper can render through a different view where needed.
 
 <Demo src="/demo/tag-helpers/templated-tag-helper-view-override.html">
   <include>./components/_include/templated-tag-helper-view-override.mdx</include>
 </Demo>
 
-### Overriding the view globally
-
-Because the view resolves through normal view discovery, an application can override a templated tag helper's markup everywhere by supplying its own view with the same name — no subclassing or configuration involved. This is the same mechanism ASP.NET Core uses for overriding views from Razor class libraries.
-
 ## Slot outlets
 
-A templated tag helper's view can hand spots of its markup over to the caller. The view renders `<sa-slot-outlet name="...">` where caller content should go. The outlet's own children are the fallback used when the caller does not fill the slot.
+A templated tag helper's view can declare slots that allows the user to specify the content for a slot when using the tag helper. The view renders `<sa-slot-outlet name="...">` where content should go.  The child content of `<sa-slot-outlet>` is used as fallback content when the caller does not supply content for the slot.
 
 ```razor
 <sa-card-footer>
@@ -82,7 +79,7 @@ A templated tag helper's view can hand spots of its markup over to the caller. T
 </sa-card-footer>
 ```
 
-The caller fills the slot by placing `<sa-slot-content>` with the matching name among the tag helper's children:
+The caller fills the slot by placing `<sa-slot-content>` with the matching name among the tag helper's children.
 
 <Demo src="/demo/tag-helpers/slot-outlet-intro.html">
   <include>./components/_include/slot-outlet-intro.mdx</include>
@@ -98,7 +95,7 @@ When the caller leaves the slot unfilled, the outlet renders its fallback childr
 
 ## Named slots in any tag helper
 
-Named slots are not limited to templated views — any StellarAdmin tag helper can host them. The host executes its child content (which registers the `<sa-slot-content>` children with the host) and reads slots back with `TryGetNamedSlot`, rendering them wherever it chooses:
+Named slots are not limited to templated tag helpers - any StellarAdmin tag helper can host them. The host executes its child content (which registers the `<sa-slot-content>` children with the host) and reads slots back with `TryGetNamedSlot`, rendering them wherever it chooses:
 
 ```cs
 [HtmlTargetElement("docs-booking-summary")]
@@ -130,8 +127,6 @@ The caller mixes slot content and regular children freely — the `<sa-slot-cont
 <Demo src="/demo/tag-helpers/slot-content-intro.html">
   <include>./components/_include/slot-content-intro.mdx</include>
 </Demo>
-
-A filled slot that the host never reads renders nothing.
 
 ## API Reference
 

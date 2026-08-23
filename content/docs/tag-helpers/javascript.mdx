@@ -1,25 +1,23 @@
 ---
 title: JavaScript & Interactivity
-description: What the stellar-admin.js bundle contains, how components are driven with Invoker Commands, and what the window.stellarAdmin helpers do
+description: How StellarAdmin Tag Helpers enhances components using JavaScript
 ---
 
-StellarAdmin is server-rendered: the tag helpers emit complete HTML, and most components need no script at all. Where interactivity is required, it comes from one small bundle and from the browser's own APIs. This page explains what that bundle contains and how the pieces fit together.
+StellarAdmin Tag Helpers attempts to be as lightweight as possible by making using of standard web platform features as much as possible. However, this is not always possible and in some cases we need to enhance certain components using JavaScript. Specifically, some of the Tag Helpers will make use of thin [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) to add additional interactivity.
 
 ## The `stellar-admin.js` bundle
 
-The [Installation](/docs/tag-helpers/installation) steps add a single script to your layout:
+The [Installation steps](/docs/tag-helpers/installation) requires you to add a single script to your layout:
 
 ```razor
 <script defer src="/_content/StellarAdmin.TagHelpers/stellar-admin.js" asp-append-version="true"></script>
 ```
 
-It has no dependencies on other scripts and contains three things:
+This JavaScript file contains the following:
 
-- the **web components** some tag helpers render into (see below),
-- the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement interest invokers, and
+- the **web components** some Tag Helpers use,
+- the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement, and
 - the **`window.stellarAdmin`** object with the `dialog()` and `alertDialog()` helpers.
-
-It does not contain [htmx](https://htmx.org/), Alpine, jQuery, or a Tailwind runtime. StellarAdmin composes well with htmx, but if you want it, you add it yourself.
 
 ## Web components
 
@@ -28,20 +26,20 @@ A handful of tag helpers render a custom element (`<sel-*>`) around or in place 
 | Tag helper | Element | What the script adds |
 |------------|---------|----------------------|
 | `<sa-collapsible>` | `<sel-collapsible>` | Handles the `--toggle`, `--show` and `--hide` commands and keeps `aria-expanded` on the trigger buttons in sync. |
-| `<sa-dialog>`, `<sa-alert-dialog>` (and `<sa-sheet>`) | `<sel-dialog>` | Locks page scrolling while a modal dialog is open (compensating for the scrollbar width) and mirrors the dialog's open state as `data-open`. |
-| `<sa-dropdown-menu-content>`, `<sa-dropdown-menu-sub-content>` | `<sel-dropdown-menu>` | Menu semantics on top of a native popover: roving focus with the arrow keys, Home/End and type-ahead, Enter/Space activation, close-on-select, checkbox and radio items that toggle in place, and sub-menu open/close. |
-| `<sa-input-otp>` | `<sel-input-otp>` | Keeps the visual slot cells in sync with the single real `<input>` behind them, shows the active cell and caret, and enforces the input pattern. |
+| `<sa-dialog>`, `<sa-alert-dialog>` (and `<sa-sheet>`) | `<sel-dialog>` | Locks page scrolling while a modal dialog is open and mirrors the dialog's open state in the `data-open` attribute. |
+| `<sa-dropdown-menu-content>`, `<sa-dropdown-menu-sub-content>` | `<sel-dropdown-menu>` | Menu semantics on top of a native popover such as roving focus with the arrow keys, Home/End and type-ahead, Enter/Space activation, close-on-select, checkbox and radio items that toggle in place, and sub-menu open/close. |
+| `<sa-input-otp>` | `<sel-input-otp>` | Keeps the visual slot cells in sync with the `<input>` that contains the value, shows the active cell and caret, and enforces the input pattern. |
 | `<sa-sidebar-wrapper>` | `<sel-sidebar>` | Tracks the expanded/collapsed state on desktop and the open/closed drawer state on mobile, and handles the `--toggle-sidebar`, `--open-mobile` and `--close-mobile` commands. |
 | `<sa-slider>` | `<sel-slider>` | Pointer and keyboard interaction for the thumbs, and keeps the range fill, `aria-valuenow` and the hidden form inputs in sync. |
 | `<sa-table-selection>` | `<sel-table-selection>` | Select-all/indeterminate handling and the `data-state="selected"` row highlight for a table with row checkboxes. |
 
-All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does: a `<sa-table-selection>` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
+All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table-selection>` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
 
 Custom elements are upgraded when the script runs, which with `defer` is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a `<sel-table-selection>`), wait for `customElements.whenDefined("sel-table-selection")` first.
 
 ## Invoker Commands
 
-Buttons drive components through the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a `<button>` carries `commandfor` (the `id` of the target element) and `command` (what to do). No JavaScript is written for the common cases.
+In keeping with the modern features of the Web Platform, StellarAdmin Tag Helpers uses [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to perform actions such as opening or closing dialogs. No JavaScript is required for actions like these.
 
 ```razor
 <sa-button commandfor="booking-dialog" command="show-modal">Edit booking</sa-button>
@@ -52,10 +50,7 @@ Buttons drive components through the [Invoker Commands API](https://developer.mo
 </sa-dialog>
 ```
 
-Two kinds of command are in use:
-
-- **Built-in commands** are handled by the browser: `show-modal`, `show` and `close` for `<dialog>` elements, and `toggle-popover`, `show-popover` and `hide-popover` for popovers.
-- **Custom commands** start with `--` and are handled by a StellarAdmin web component: `--toggle`, `--show` and `--hide` on `<sa-collapsible>`, and `--toggle-sidebar`, `--open-mobile` and `--close-mobile` on `<sa-sidebar-wrapper>`.
+StellarAdmin uses **built-in commands** scuh as `show-modal`, `show` and `close` for `<sa-dialog>`, `<sa-alert-dialog>`, and `<sa-sheet>`. It also adds various **custom commands** such as`--toggle`, `--show` and `--hide` on `<sa-collapsible>`.
 
 Two things to keep in mind:
 
@@ -64,11 +59,11 @@ Two things to keep in mind:
 
 ## Interest invokers
 
-Tooltips and hover-triggered popovers use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers): an `interestfor` attribute on the trigger shows the target popover on hover, focus and long-press. StellarAdmin bundles the `interestfor` polyfill, so this works in current browsers regardless of native support. See [Tooltip](/docs/tag-helpers/components/tooltip) and [Popover](/docs/tag-helpers/components/popover).
+Tooltips and hover-triggered popovers use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers). An `interestfor` attribute on the trigger shows the target popover on hover, focus and long-press. StellarAdmin bundles the `interestfor` polyfill, so this works in current browsers regardless of native support. See [Tooltip](/docs/tag-helpers/components/tooltip) and [Popover](/docs/tag-helpers/components/popover).
 
 ## The `window.stellarAdmin` helpers
 
-The script exposes a small global object with promise-based helpers for opening dialogs from your own code and awaiting the outcome:
+The script also exposes a small global object with promise-based helpers for opening dialogs from your own code and awaiting the outcome:
 
 ```js
 const result = await window.stellarAdmin.dialog("#booking-dialog").showAsync();
@@ -77,7 +72,7 @@ if (result.confirmed) {
 }
 ```
 
-- [`dialog()`](/docs/tag-helpers/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>`, and its `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
+- [`dialog()`](/docs/tag-helpers/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>` and its `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
 - [`alertDialog()`](/docs/tag-helpers/components/js-alert-dialog) does the same for a `<sa-alert-dialog>`.
 
 If your page already defines `window.stellarAdmin`, the bundle logs a console warning and replaces it.
