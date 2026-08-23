@@ -12,19 +12,19 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `sa-field` family of Tag Helpers are designed for composing accessible forms. `sa-field` is the core wrapper for a single field.
+The `<sa-field>` family of Tag Helpers are designed for composing accessible forms. `<sa-field>` is the core wrapper for a single field.
 
 <Demo src="/demo/tag-helpers/field-usage-field.html">
   <include>./_include/field-usage-field.mdx</include>
 </Demo>
 
-`sa-field-content` is a flex column that groups label and description. This component is useful when you use a field in horizontal orientation
+`<sa-field-content>` is a flex column that groups label and description. This component is useful when you use a field in horizontal orientation
 
 <Demo src="/demo/tag-helpers/field-usage-field-content.html">
   <include>./_include/field-usage-field-content.mdx</include>
 </Demo>
 
-Wrap related fields with `sa-field-group`, and use `sa-field-set` with `sa-field-legend` for semantic grouping.
+Wrap related fields with `<sa-field-group>`, and use `<sa-field-set>` with `<sa-field-legend>` for semantic grouping.
 
 <Demo src="/demo/tag-helpers/field-usage-field-group.html">
   <include>./_include/field-usage-field-group.mdx</include>
@@ -32,15 +32,15 @@ Wrap related fields with `sa-field-group`, and use `sa-field-set` with `sa-field
 
 ## Explicit and implicit fields
 
-The usage examples demonstrated so far require a lot of boilerplate when creating fields by specifying `sa-field`, `sa-field-label`, `sa-field-description`, etc. To improve the developer experience, all the StellarAdmin input controls such as `sa-input`, `sa-select`, `sa-textarea`, etc. can implicitly create fields using one of the following two techniques.
+The usage examples demonstrated so far require a lot of boilerplate when creating fields by specifying `<sa-field>`, `<sa-field-label>`, `<sa-field-description>`, etc. To improve the developer experience, all the StellarAdmin input controls such as `<sa-input>`, `<sa-select>`, `<sa-textarea>`, etc. can implicitly create fields using one of the following two techniques.
 
-1. When using model binding (with the `asp-for` attribute), StellarAdmin will implicitly wrap the input inside a `sa-field` with the corresponding `sa-field-label` and `sa-field-description` inferred from data annotations. If your model contains errors related to the bound property, a `sa-field-error` component with the error message will also be added.
+1. When using model binding (with the `asp-for` attribute), StellarAdmin will implicitly wrap the input inside a `<sa-field>` with the corresponding `<sa-field-label>` and `<sa-field-description>` inferred from data annotations. If your model contains errors related to the bound property, a `<sa-field-error>` component with the error message will also be added.
 
    ```razor
    <sa-input asp-for="Model.Name"/>
    ```
 
-2. If you are not using model binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `sa-field` with the corresponding `sa-field-label`, `sa-field-description`, and `sa-field-error` automatically added.
+2. If you are not using model binding, you can also opt in to implicit fields by specifying any combination of the `label`, `description`, and `error` attributes. When doing this, your input will be wrapped inside a `<sa-field>` with the corresponding `<sa-field-label>`, `<sa-field-description>`, and `<sa-field-error>` automatically added.
 
    ```razor
    <sa-input label="First Name"
@@ -60,7 +60,7 @@ Most of the examples in this document demonstrate both explicit and implicit mod
 
 ### Implicit fields
 
-Whenever you use any of the various field input Tag Helpers (such as `sa-input`, `sa-textarea`, `sa-select` etc.) along with data binding, StellarAdmin will implicitly create a field with a label, description, and placeholder for you. You can see this demonstrated in the example below which implements the same form as above, but using data binding.
+Whenever you use any of the various field input Tag Helpers (such as `<sa-input>`, `<sa-textarea>`, `<sa-select>` etc.) along with data binding, StellarAdmin will implicitly create a field with a label, description, and placeholder for you. You can see this demonstrated in the example below which implements the same form as above, but using data binding.
 
 <Demo src="/demo/tag-helpers/field-implicit.html">
 <Tabs items={["Razor", "Model"]}>
@@ -291,7 +291,7 @@ Use `<sa-field-set>` with an `<sa-field-legend>` to group related fields under a
 
 ### Field group
 
-Stack `sa-field` components with `sa-field-group`. Add `sa-field-separator` to divide them. When grouping checkboxes or radio buttons, you can add `data-slot="checkbox-group"` or `data-slot="radio-group"` to tighten up spacing between the individual inputs.
+Stack `<sa-field>` components with `<sa-field-group>`. Add `<sa-field-separator>` to divide them. When grouping checkboxes or radio buttons, you can add `data-slot="checkbox-group"` or `data-slot="radio-group"` to tighten up spacing between the individual inputs.
 
 <Demo src="/demo/tag-helpers/field-field-group.html">
   <Tabs items={["Using Explicit Fields", "Using Implicit Fields", "Model"]}>
@@ -330,7 +330,7 @@ Stack `sa-field` components with `sa-field-group`. Add `sa-field-separator` to d
 
 ### `<sa-field>`
 
-The `<sa-field>` tag helper renders a `<div>` element that wraps a single form
+The `<sa-field>` Tag Helper renders a `<div>` element that wraps a single form
 field.
 
 <TypeTable
@@ -347,7 +347,7 @@ field.
 
 ### `<sa-field-label>`
 
-The `<sa-field-label>` tag helper renders a `<label>` element.
+The `<sa-field-label>` Tag Helper renders a `<label>` element.
 
 <TypeTable
   type={{
@@ -361,7 +361,7 @@ The `<sa-field-label>` tag helper renders a `<label>` element.
 
 ### `<sa-field-description>`
 
-The `<sa-field-description>` tag helper renders a `<p>` element with help text
+The `<sa-field-description>` Tag Helper renders a `<p>` element with help text
 for a field, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
@@ -377,7 +377,7 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_a
 
 ### `<sa-field-error>`
 
-The `<sa-field-error>` tag helper renders a `<div>` element with
+The `<sa-field-error>` Tag Helper renders a `<div>` element with
 `role="alert"` that displays a validation message, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 It is hidden unless a validation error is present.
@@ -394,35 +394,35 @@ It is hidden unless a validation error is present.
 
 ### `<sa-field-title>`
 
-The `<sa-field-title>` tag helper renders a `<div>` element for a
+The `<sa-field-title>` Tag Helper renders a `<div>` element for a
 non-`<label>` field title, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
 ### `<sa-field-content>`
 
-The `<sa-field-content>` tag helper renders a `<div>` element that groups the
+The `<sa-field-content>` Tag Helper renders a `<div>` element that groups the
 label and description of a horizontal field, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
 ### `<sa-field-group>`
 
-The `<sa-field-group>` tag helper renders a `<div>` element that stacks
+The `<sa-field-group>` Tag Helper renders a `<div>` element that stacks
 related fields, forwarding any [global
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
 ### `<sa-field-separator>`
 
-The `<sa-field-separator>` tag helper renders a `<div>` element containing a
+The `<sa-field-separator>` Tag Helper renders a `<div>` element containing a
 horizontal separator, with any child content rendered as text on top of the
 line.
 
 ### `<sa-field-set>`
 
-The `<sa-field-set>` tag helper renders a `<fieldset>` element.
+The `<sa-field-set>` Tag Helper renders a `<fieldset>` element.
 
 ### `<sa-field-legend>`
 
-The `<sa-field-legend>` tag helper renders a `<legend>` element for a
+The `<sa-field-legend>` Tag Helper renders a `<legend>` element for a
 `<sa-field-set>`.
 
 <TypeTable

@@ -97,13 +97,13 @@ The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `ca
 
 `<sa-sheet>` renders a native `<dialog>` element that is opened with `showModal()`, so focus is trapped inside it, the rest of the page is inert, Escape closes it and focus returns to the trigger when it closes. The built-in close button has a screen-reader-only "Close" label.
 
-The tag helper does not link the title to the sheet. Give `<sa-sheet-title>` an `id` and reference it from `aria-labelledby` on `<sa-sheet>` so the sheet is announced by its title, and do the same with `aria-describedby` and `<sa-sheet-description>` when there is one.
+The Tag Helper does not link the title to the sheet. Give `<sa-sheet-title>` an `id` and reference it from `aria-labelledby` on `<sa-sheet>` so the sheet is announced by its title, and do the same with `aria-describedby` and `<sa-sheet-description>` when there is one.
 
 ## API Reference
 
 ### `<sa-sheet>`
 
-The `<sa-sheet>` tag helper renders a native [`<dialog>`
+The `<sa-sheet>` Tag Helper renders a native [`<dialog>`
 element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 styled to slide in from the edge of the screen. The sheet is opened and closed
 via the [Invoker Commands
@@ -135,18 +135,18 @@ The sheet is wrapped in a `<sel-dialog>` web component that locks page scrolling
 
 ### `<sa-sheet-header>`
 
-The `<sa-sheet-header>` tag helper renders a `<div>` element that groups the
+The `<sa-sheet-header>` Tag Helper renders a `<div>` element that groups the
 sheet's title and description.
 
 ### `<sa-sheet-title>`
 
-The `<sa-sheet-title>` tag helper renders an `<h2>` element.
+The `<sa-sheet-title>` Tag Helper renders an `<h2>` element.
 
 ### `<sa-sheet-description>`
 
-The `<sa-sheet-description>` tag helper renders a `<p>` element.
+The `<sa-sheet-description>` Tag Helper renders a `<p>` element.
 
 ### `<sa-sheet-footer>`
 
-The `<sa-sheet-footer>` tag helper renders a `<div>` element pinned to the
+The `<sa-sheet-footer>` Tag Helper renders a `<div>` element pinned to the
 bottom of the sheet that hosts the sheet's action buttons.

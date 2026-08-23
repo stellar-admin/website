@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Wrap the sidebar and your page content in a `sa-sidebar-wrapper`. The `sa-sidebar` holds the navigation — composed of `sa-sidebar-header`, `sa-sidebar-content` and `sa-sidebar-footer` — while `sa-sidebar-inset` holds the main page content. Navigation is built up from `sa-sidebar-group`, `sa-sidebar-menu`, `sa-sidebar-menu-item` and `sa-sidebar-menu-link`. Use `sa-sidebar-trigger` to toggle the sidebar.
+Wrap the sidebar and your page content in a `<sa-sidebar-wrapper>`. The `<sa-sidebar>` holds the navigation — composed of `<sa-sidebar-header>`, `<sa-sidebar-content>` and `<sa-sidebar-footer>` — while `<sa-sidebar-inset>` holds the main page content. Navigation is built up from `<sa-sidebar-group>`, `<sa-sidebar-menu>`, `<sa-sidebar-menu-item>` and `<sa-sidebar-menu-link>`. Use `<sa-sidebar-trigger>` to toggle the sidebar.
 
 ```razor
 <sa-sidebar-wrapper>
@@ -65,7 +65,7 @@ Set `variant="SidebarVariant.Floating"` to detach the sidebar from the edge of t
 
 ### Alternate trigger icon
 
-Provide child content to `sa-sidebar-trigger` to override the default icon. Use the `in-aria-expanded` and `not-in-aria-expanded` variants to swap the icon based on whether the sidebar is open or closed.
+Provide child content to `<sa-sidebar-trigger>` to override the default icon. Use the `in-aria-expanded` and `not-in-aria-expanded` variants to swap the icon based on whether the sidebar is open or closed.
 
 <Demo src="/demo/tag-helpers/sidebar-alternate-trigger-icon.html" mode="fullscreen">
   <include>./_include/sidebar-alternate-trigger-icon.mdx</include>
@@ -89,7 +89,7 @@ Set `collapsible="SidebarCollapsible.Icon"` to collapse the sidebar down to icon
 
 ### Collapsible groups
 
-Wrap a `sa-sidebar-group` in a `sa-collapsible` to let an entire section of the sidebar collapse and expand together.
+Wrap a `<sa-sidebar-group>` in a `<sa-collapsible>` to let an entire section of the sidebar collapse and expand together.
 
 <Demo src="/demo/tag-helpers/sidebar-collapsible-groups.html" mode="fullscreen">
   <include>./_include/sidebar-collapsible-groups.mdx</include>
@@ -97,7 +97,7 @@ Wrap a `sa-sidebar-group` in a `sa-collapsible` to let an entire section of the 
 
 ### Collapsible items
 
-Use `sa-sidebar-menu-button` together with `sa-collapsible` to create a menu item that expands to reveal nested sub-items.
+Use `<sa-sidebar-menu-button>` together with `<sa-collapsible>` to create a menu item that expands to reveal nested sub-items.
 
 <Demo src="/demo/tag-helpers/sidebar-collapsible-items.html" mode="fullscreen">
   <include>./_include/sidebar-collapsible-items.mdx</include>
@@ -105,7 +105,7 @@ Use `sa-sidebar-menu-button` together with `sa-collapsible` to create a menu ite
 
 ### Sidebar in a dialog
 
-Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `sa-dialog`, for example as part of a settings screen.
+Set `collapsible="SidebarCollapsible.None"` to render a sidebar inside a `<sa-dialog>`, for example as part of a settings screen.
 
 <Demo src="/demo/tag-helpers/sidebar-sidebar-in-dialog.html" mode="fullscreen">
   <include>./_include/sidebar-sidebar-in-dialog.mdx</include>
@@ -121,14 +121,14 @@ The active menu link is only marked visually. Add `aria-current="page"` to the l
 
 ### `<sa-sidebar-wrapper>`
 
-The `<sa-sidebar-wrapper>` tag helper renders a `<sel-sidebar>` web component
+The `<sa-sidebar-wrapper>` Tag Helper renders a `<sel-sidebar>` web component
 that wraps the sidebar and page content and owns the open/collapsed state.
 Nested `<sa-sidebar-trigger>` elements toggle it through the Invoker Commands
 API. It honours a user-supplied `id` and generates one otherwise.
 
 ### `<sa-sidebar>`
 
-The `<sa-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
+The `<sa-sidebar>` Tag Helper renders the sidebar panel itself as a `<div>`
 (including the mobile drawer and its backdrop).
 
 <TypeTable
@@ -158,61 +158,61 @@ The `<sa-sidebar>` tag helper renders the sidebar panel itself as a `<div>`
 
 ### `<sa-sidebar-trigger>`
 
-The `<sa-sidebar-trigger>` tag helper renders a `<button>` that toggles the
+The `<sa-sidebar-trigger>` Tag Helper renders a `<button>` that toggles the
 sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting the
 wrapper). It shows a default panel icon unless you supply child content.
 
 ### `<sa-sidebar-header>`
 
-The `<sa-sidebar-header>` tag helper renders a `<div>` for content pinned to the
+The `<sa-sidebar-header>` Tag Helper renders a `<div>` for content pinned to the
 top of the sidebar.
 
 ### `<sa-sidebar-content>`
 
-The `<sa-sidebar-content>` tag helper renders a `<div>` holding the scrollable
+The `<sa-sidebar-content>` Tag Helper renders a `<div>` holding the scrollable
 body of the sidebar.
 
 ### `<sa-sidebar-footer>`
 
-The `<sa-sidebar-footer>` tag helper renders a `<div>` for content pinned to the
+The `<sa-sidebar-footer>` Tag Helper renders a `<div>` for content pinned to the
 bottom of the sidebar.
 
 ### `<sa-sidebar-inset>`
 
-The `<sa-sidebar-inset>` tag helper renders a `<main>` element holding the page
+The `<sa-sidebar-inset>` Tag Helper renders a `<main>` element holding the page
 content next to the sidebar.
 
 ### `<sa-sidebar-separator>`
 
-The `<sa-sidebar-separator>` tag helper renders a horizontal `<div
+The `<sa-sidebar-separator>` Tag Helper renders a horizontal `<div
 role="separator">` inside the sidebar.
 
 ### `<sa-sidebar-group>`
 
-The `<sa-sidebar-group>` tag helper renders a `<div>` for a section of the
+The `<sa-sidebar-group>` Tag Helper renders a `<div>` for a section of the
 sidebar.
 
 ### `<sa-sidebar-group-label>`
 
-The `<sa-sidebar-group-label>` tag helper renders a `<div>` heading for a group.
+The `<sa-sidebar-group-label>` Tag Helper renders a `<div>` heading for a group.
 
 ### `<sa-sidebar-group-content>`
 
-The `<sa-sidebar-group-content>` tag helper renders a `<div>` holding a group's
+The `<sa-sidebar-group-content>` Tag Helper renders a `<div>` holding a group's
 content.
 
 ### `<sa-sidebar-menu>`
 
-The `<sa-sidebar-menu>` tag helper renders a `<ul>` containing menu items.
+The `<sa-sidebar-menu>` Tag Helper renders a `<ul>` containing menu items.
 
 ### `<sa-sidebar-menu-item>`
 
-The `<sa-sidebar-menu-item>` tag helper renders an `<li>` for a single menu
+The `<sa-sidebar-menu-item>` Tag Helper renders an `<li>` for a single menu
 entry.
 
 ### `<sa-sidebar-menu-button>`
 
-The `<sa-sidebar-menu-button>` tag helper renders a `<button>` styled as a menu
+The `<sa-sidebar-menu-button>` Tag Helper renders a `<button>` styled as a menu
 entry — typically paired with `<sa-collapsible>` for expandable items.
 
 <TypeTable
@@ -241,7 +241,7 @@ entry — typically paired with `<sa-collapsible>` for expandable items.
 
 ### `<sa-sidebar-menu-link>`
 
-The `<sa-sidebar-menu-link>` tag helper renders an
+The `<sa-sidebar-menu-link>` Tag Helper renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a menu entry. It is marked active automatically when its
 routing attributes match the current route.
@@ -277,22 +277,22 @@ both.
 
 ### `<sa-sidebar-menu-badge>`
 
-The `<sa-sidebar-menu-badge>` tag helper renders a `<div>` badge (such as a
+The `<sa-sidebar-menu-badge>` Tag Helper renders a `<div>` badge (such as a
 count) alongside a menu entry.
 
 ### `<sa-sidebar-menu-sub>`
 
-The `<sa-sidebar-menu-sub>` tag helper renders a `<ul>` containing nested
+The `<sa-sidebar-menu-sub>` Tag Helper renders a `<ul>` containing nested
 sub-items.
 
 ### `<sa-sidebar-menu-sub-item>`
 
-The `<sa-sidebar-menu-sub-item>` tag helper renders an `<li>` for a single
+The `<sa-sidebar-menu-sub-item>` Tag Helper renders an `<li>` for a single
 sub-entry.
 
 ### `<sa-sidebar-menu-sub-button>`
 
-The `<sa-sidebar-menu-sub-button>` tag helper renders a `<button>` styled as a
+The `<sa-sidebar-menu-sub-button>` Tag Helper renders a `<button>` styled as a
 sub-entry.
 
 <TypeTable
@@ -314,7 +314,7 @@ sub-entry.
 
 ### `<sa-sidebar-menu-sub-link>`
 
-The `<sa-sidebar-menu-sub-link>` tag helper renders an
+The `<sa-sidebar-menu-sub-link>` Tag Helper renders an
 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
 element styled as a sub-entry, marked active automatically when its route
 matches. It accepts the same routing attributes as `<sa-sidebar-menu-link>`

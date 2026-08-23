@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `sa-toggle-group` Tag Helper groups a set of related toggles. Each option is a `sa-toggle-group-item` with a `value`.
+The `<sa-toggle-group>` Tag Helper groups a set of related toggles. Each option is a `<sa-toggle-group-item>` with a `value`.
 
 Use the `type` attribute to choose how many items can be selected:
 
@@ -87,7 +87,7 @@ Use the `orientation` attribute to lay the group out vertically. It accepts `Tog
 
 ### Model binding
 
-The `sa-toggle-group` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection. The items whose `value` matches the bound value(s) are rendered as selected.
+The `<sa-toggle-group>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind a single-select group to a scalar property and a multiple-select group to a collection. The items whose `value` matches the bound value(s) are rendered as selected.
 
 When using model binding, StellarAdmin will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
@@ -141,7 +141,7 @@ Give the group a name with `aria-label`, and give every icon-only item an `aria-
 
 ### `<sa-toggle-group>`
 
-The `<sa-toggle-group>` tag helper renders a `<div role="group">` element
+The `<sa-toggle-group>` Tag Helper renders a `<div role="group">` element
 containing the items. When `asp-for` is set, the group model-binds and is
 wrapped in an implicit [Field](field).
 
@@ -211,7 +211,7 @@ wrapped in an implicit [Field](field).
 
 ### `<sa-toggle-group-item>`
 
-The `<sa-toggle-group-item>` tag helper renders a `<label>` element wrapping a
+The `<sa-toggle-group-item>` Tag Helper renders a `<label>` element wrapping a
 visually hidden native `<input type="radio">` or `<input type="checkbox">`,
 depending on the group's `type`.
 

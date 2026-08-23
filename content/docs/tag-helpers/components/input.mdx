@@ -96,7 +96,7 @@ You can also implicitly wrap the input inside a [Field](field) using the shortha
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input.
 
-The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `<sa-field-error>` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/input-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -168,7 +168,7 @@ When you use model binding, the input type will be inferred from the underlying 
 
 ### `<sa-input>`
 
-The `<sa-input>` tag helper renders an `<input>` element (checkbox and radio
+The `<sa-input>` Tag Helper renders an `<input>` element (checkbox and radio
 inputs are additionally wrapped in a `<span>` that hosts the indicator icon).
 When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper)

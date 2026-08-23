@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `sa-input-otp` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
+The `<sa-input-otp>` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
 
 Use the `max-length` attribute to control how many characters the code has.
 
@@ -56,7 +56,7 @@ A separator is rendered automatically between groups. Supply more than two group
 
 ### Custom separator
 
-Compose the slots by hand and supply child content to the `sa-input-otp-separator` Tag Helper to replace the default separator glyph. Any content works — here a `sa-icon` renders a different icon between the groups.
+Compose the slots by hand and supply child content to the `<sa-input-otp-separator>` Tag Helper to replace the default separator glyph. Any content works — here a `<sa-icon>` renders a different icon between the groups.
 
 <Demo src="/demo/tag-helpers/input-otp-custom-separator.html">
   <include>./_include/input-otp-custom-separator.mdx</include>
@@ -80,7 +80,7 @@ Use the `pattern` attribute to constrain the allowed characters with a regular e
 
 ### Composition
 
-For full control over the layout, compose the slots by hand with the `sa-input-otp-group`, `sa-input-otp-slot`, and `sa-input-otp-separator` Tag Helpers instead of letting `groups` generate them. Slots take their position automatically in document order.
+For full control over the layout, compose the slots by hand with the `<sa-input-otp-group>`, `<sa-input-otp-slot>`, and `<sa-input-otp-separator>` Tag Helpers instead of letting `groups` generate them. Slots take their position automatically in document order.
 
 <Demo src="/demo/tag-helpers/input-otp-composition.html">
   <include>./_include/input-otp-composition.mdx</include>
@@ -88,7 +88,7 @@ For full control over the layout, compose the slots by hand with the `sa-input-o
 
 ### Model binding
 
-The `sa-input-otp` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `string` and the whole code posts straight back to the property.
+The `<sa-input-otp>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `string` and the whole code posts straight back to the property.
 
 When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
@@ -142,7 +142,7 @@ Validation works like any other model-bound field. Add validation attributes to 
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This applies the destructive styling to the slots.
 
-The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `<sa-field-error>` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/input-otp-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -173,7 +173,7 @@ When the field has a model state error, or when you set `aria-invalid="true"`, t
 
 ### `<sa-input-otp>`
 
-The `<sa-input-otp>` tag helper renders a `<sel-input-otp>` web component
+The `<sa-input-otp>` Tag Helper renders a `<sel-input-otp>` web component
 containing the slot cells and a single transparent `<input>` element that holds
 the whole code and posts it as one form value. When `asp-for` is set, it
 delegates to the built-in [ASP.NET Core Input Tag
@@ -251,12 +251,12 @@ to resolve the input's name, value, and validation attributes.
 
 ### `<sa-input-otp-group>`
 
-The `<sa-input-otp-group>` tag helper renders a `<div>` element that groups a
+The `<sa-input-otp-group>` Tag Helper renders a `<div>` element that groups a
 run of slots.
 
 ### `<sa-input-otp-slot>`
 
-The `<sa-input-otp-slot>` tag helper renders a `<div>` element that displays one
+The `<sa-input-otp-slot>` Tag Helper renders a `<div>` element that displays one
 character of the code and the active caret.
 
 <TypeTable
@@ -271,6 +271,6 @@ character of the code and the active caret.
 
 ### `<sa-input-otp-separator>`
 
-The `<sa-input-otp-separator>` tag helper renders a `<div>` element with
+The `<sa-input-otp-separator>` Tag Helper renders a `<div>` element with
 `role="separator"`, containing a minus icon by default — supply child content to
 override it.

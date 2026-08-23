@@ -17,7 +17,7 @@ import { Demo } from "@/components/demo";
 
 `<sa-label>` renders a styled `<label>` element. Associate it with a control by setting `for` to the control's `id`, or nest the control inside the label. Clicking the label then focuses or toggles the control, and assistive technology announces the label as the control's name.
 
-Most of the time you will not write labels by hand: every StellarAdmin input control (such as `sa-input`, `sa-select` or `sa-textarea`) renders its own label when you give it a `label` attribute or bind it with `asp-for`, and inside a [Field](/docs/tag-helpers/components/field) you should use `sa-field-label`, which participates in the field's layout. Use `<sa-label>` for the remaining cases: a standalone control that does not use those mechanisms, or a caption for something that is not a form control.
+Most of the time you will not write labels by hand: every StellarAdmin input control (such as `<sa-input>`, `<sa-select>` or `<sa-textarea>`) renders its own label when you give it a `label` attribute or bind it with `asp-for`, and inside a [Field](/docs/tag-helpers/components/field) you should use `<sa-field-label>`, which participates in the field's layout. Use `<sa-label>` for the remaining cases: a standalone control that does not use those mechanisms, or a caption for something that is not a form control.
 
 ## Examples
 
@@ -41,7 +41,7 @@ Inside a `<sa-field>`, use `<sa-field-label>` rather than `<sa-label>`. It rende
 
 ### `<sa-label>`
 
-The `<sa-label>` tag helper renders a [`<label>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label).
+The `<sa-label>` Tag Helper renders a [`<label>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label).
 
 <TypeTable
   type={{

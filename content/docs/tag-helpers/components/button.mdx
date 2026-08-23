@@ -69,7 +69,7 @@ Indicate an invalid state using the `aria-invalid` attribute.
 
 ### Additional attributes
 
-Since `sa-button` is a wrapper around the HTML Button (`<button>`) element, you can use any of the [Button element
+Since `<sa-button>` is a wrapper around the HTML Button (`<button>`) element, you can use any of the [Button element
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#attributes).
 
 <Demo src="/demo/tag-helpers/button-additional-attributes.html">
@@ -80,13 +80,13 @@ attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 
 `<sa-button>` renders a native `<button>` element, so focus and keyboard activation with Enter and Space are the browser's own. Add `disabled` to disable it.
 
-An icon-only button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`. The tag helper does not set a `type`, so a button inside a form submits the form unless you set `type="button"`.
+An icon-only button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`. The Tag Helper does not set a `type`, so a button inside a form submits the form unless you set `type="button"`.
 
 ## API Reference
 
 ### `<sa-button>`
 
-The `<sa-button>` tag helper renders a `<button>` element.
+The `<sa-button>` Tag Helper renders a `<button>` element.
 
 <TypeTable
   type={{

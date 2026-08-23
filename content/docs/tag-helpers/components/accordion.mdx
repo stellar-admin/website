@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `sa-accordion` to wrap a collection of accordion items. Individual items are created using the `sa-accordion-item` element containing `sa-accordion-item-title` and `sa-accordion-item-content` which contains the title and content respectively.
+Use `<sa-accordion>` to wrap a collection of accordion items. Individual items are created using the `<sa-accordion-item>` element containing `<sa-accordion-item-title>` and `<sa-accordion-item-content>` which contains the title and content respectively.
 
 ```razor
 <sa-accordion>
@@ -33,9 +33,9 @@ Use `sa-accordion` to wrap a collection of accordion items. Individual items are
 
 ### Single open item
 
-The `name` attribute of `sa-accordion-item` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
+The `name` attribute of `<sa-accordion-item>` allows you to link multiple accordion items to a single group. When they are connected in this manner, only a single item can be opened at a time.
 
-This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `sa-accordion-item` uses.
+This behavior [is managed by the `<details>` HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details#name), which `<sa-accordion-item>` uses.
 
 <Demo src="/demo/tag-helpers/accordion-single.html">
   <include>./_include/accordion-single.mdx</include>
@@ -61,21 +61,21 @@ Disable accordion items using the `disabled` attribute.
 
 ### `<sa-accordion>`
 
-The `<sa-accordion>` tag helper renders a `<div>` element that wraps the
+The `<sa-accordion>` Tag Helper renders a `<div>` element that wraps the
 accordion items.
 
 ### `<sa-accordion-item>`
 
-The `<sa-accordion-item>` tag helper renders a `<details>` element. Native
+The `<sa-accordion-item>` Tag Helper renders a `<details>` element. Native
 `<details>` attributes such as `name` and `open` work as usual, and adding
 `disabled` renders the item as disabled.
 
 ### `<sa-accordion-item-title>`
 
-The `<sa-accordion-item-title>` tag helper renders a `<summary>` element and
+The `<sa-accordion-item-title>` Tag Helper renders a `<summary>` element and
 appends a chevron indicator icon after the title content.
 
 ### `<sa-accordion-item-content>`
 
-The `<sa-accordion-item-content>` tag helper renders a `<div>` element
+The `<sa-accordion-item-content>` Tag Helper renders a `<div>` element
 containing an inner content wrapper.

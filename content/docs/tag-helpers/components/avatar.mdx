@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `sa-avatar` to display a single avatar. Display a group of avatars using `sa-avatar-group`.
+Use `<sa-avatar>` to display a single avatar. Display a group of avatars using `<sa-avatar-group>`.
 
 ```razor
 <!-- Display a single avatar -->
@@ -60,7 +60,7 @@ The badge can hold an icon instead of a plain dot.
 
 ### Group
 
-Add a group of avatars using `sa-avatar-group`.
+Add a group of avatars using `<sa-avatar-group>`.
 
 <Demo src="/demo/tag-helpers/avatar-group.html">
   <include>./_include/avatar-group.mdx</include>
@@ -94,7 +94,7 @@ Avatars and avatar groups can serve as the media of an [Empty](/docs/tag-helpers
 
 ### `<sa-avatar>`
 
-The `<sa-avatar>` tag helper renders a `<span>` element containing either an
+The `<sa-avatar>` Tag Helper renders a `<span>` element containing either an
 `<img>` (when `src` is set) or a fallback `<span>` with the initials.
 
 <TypeTable
@@ -124,15 +124,15 @@ The `<sa-avatar>` tag helper renders a `<span>` element containing either an
 
 ### `<sa-avatar-badge>`
 
-The `<sa-avatar-badge>` tag helper renders a `<span>` element positioned in the
+The `<sa-avatar-badge>` Tag Helper renders a `<span>` element positioned in the
 bottom-right corner of the parent avatar, sized to match the avatar's `size`.
 
 ### `<sa-avatar-group>`
 
-The `<sa-avatar-group>` tag helper renders a `<div>` element that overlaps its
+The `<sa-avatar-group>` Tag Helper renders a `<div>` element that overlaps its
 child avatars.
 
 ### `<sa-avatar-group-count>`
 
-The `<sa-avatar-group-count>` tag helper renders a `<div>` element displaying
+The `<sa-avatar-group-count>` Tag Helper renders a `<div>` element displaying
 its child content (such as `+3`) at the end of an avatar group.

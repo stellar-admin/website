@@ -21,9 +21,9 @@ This JavaScript file contains the following:
 
 ## Web components
 
-A handful of tag helpers render a custom element (`<sel-*>`) around or in place of their markup. The script registers these elements and adds behavior on top of the server-rendered HTML: state that must be tracked in the browser, keyboard handling, and ARIA attributes that reflect that state.
+A handful of Tag Helpers render a custom element (`<sel-*>`) around or in place of their markup. The script registers these elements and adds behavior on top of the server-rendered HTML: state that must be tracked in the browser, keyboard handling, and ARIA attributes that reflect that state.
 
-| Tag helper | Element | What the script adds |
+| Tag Helper | Element | What the script adds |
 |------------|---------|----------------------|
 | `<sa-collapsible>` | `<sel-collapsible>` | Handles the `--toggle`, `--show` and `--hide` commands and keeps `aria-expanded` on the trigger buttons in sync. |
 | `<sa-dialog>`, `<sa-alert-dialog>` (and `<sa-sheet>`) | `<sel-dialog>` | Locks page scrolling while a modal dialog is open and mirrors the dialog's open state in the `data-open` attribute. |

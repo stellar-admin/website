@@ -22,7 +22,7 @@ Renders a styled `<textarea>`. Use `rows` and the other native attributes as usu
 
 ### Model binding
 
-The `sa-textarea` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+The `<sa-textarea>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the textarea inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/textarea-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -91,7 +91,7 @@ You can also implicitly wrap the text area inside a [Field](field) using the sho
 
 If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the text area.
 
-The error message can be displayed using either a `sa-field-error` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+The error message can be displayed using either a `<sa-field-error>` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
 
 <Demo src="/demo/tag-helpers/textarea-manual-validation-explicit.html">
   <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
@@ -108,7 +108,7 @@ The error message can be displayed using either a `sa-field-error` Tag Helper (w
 
 ### `<sa-textarea>`
 
-The `<sa-textarea>` tag helper renders a `<textarea>` element. The `asp-for`
+The `<sa-textarea>` Tag Helper renders a `<textarea>` element. The `asp-for`
 attribute provides the same model binding as the built-in [Textarea Tag
 Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-textarea-tag-helper).
 
