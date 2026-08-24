@@ -7,7 +7,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
 
 StellarAdmin ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with StellarAdmin — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<sa-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
 
-The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). The StellarAdmin GitHub repository doubles as the marketplace, so installing them is two commands.
+The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). They live in their own [stellar-admin/skills](https://github.com/stellar-admin/skills) repository, which doubles as the marketplace, so installing them is two commands.
 
 ## Installation
 
@@ -15,19 +15,19 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     <Step>
         ### Add the marketplace
 
-        From within Claude Code, register the StellarAdmin repository as a plugin marketplace.
+        From within Claude Code, register the StellarAdmin skills repository as a plugin marketplace.
 
         ```text
-        /plugin marketplace add dune-ui/dune-ui
+        /plugin marketplace add stellar-admin/skills
         ```
     </Step>
     <Step>
         ### Install the plugin
 
-        Install the `duneui` plugin from the marketplace.
+        Install the `stellar-admin` plugin from the marketplace.
 
         ```text
-        /plugin install duneui@dune-ui
+        /plugin install stellar-admin@stellar-admin
         ```
     </Step>
     <Step>
@@ -42,9 +42,8 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
 </Steps>
 
 <Callout type="info">
-    The skills are versioned with the repository, independent of the StellarAdmin
-    NuGet package — you can install them into any project, whether or not it
-    already references StellarAdmin.
+    The skills are versioned independently of the StellarAdmin NuGet package — you can
+    install them into any project, whether or not it already references StellarAdmin.
 </Callout>
 
 ## What's included
@@ -53,13 +52,17 @@ Installing the plugin adds four skills:
 
 | Skill | What it does |
 |-------|--------------|
-| `duneui` | The anchor skill. Covers setup, the full component catalog, and the library's conventions. **Auto-activates** when you edit `.cshtml` or `.razor` files. |
-| `duneui-forms` | Building forms — fields, validation, model binding, and input groups. |
-| `duneui-layout` | Page shells — sidebars, dashboards, and layout composition. |
-| `duneui-theming` | Theming, dark mode, and menu color / appearance / accent configuration. |
+| `stellar-admin:tag-helpers` | The anchor skill. Covers setup, the full component catalog, the library's conventions, icons, the JavaScript API, and templated views. **Auto-activates** when you edit `.cshtml` or `.razor` files. |
+| `stellar-admin:forms` | Building forms — fields, validation, model binding, input groups, and choice cards. |
+| `stellar-admin:layout` | Page structure — the sidebar shell, app header, page header, spacing primitives, and cards. |
+| `stellar-admin:theming` | Theme stylesheets, dark mode, design tokens, and menu color / appearance / accent configuration. |
 
 ## Using the skills
 
-The `duneui` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
+The `tag-helpers` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
 
-The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the version you have installed.
+The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the components that ship in the package.
+
+<Callout type="info">
+    A `stellar-admin-pro` plugin covering the paid tier will ship from the same marketplace.
+</Callout>
