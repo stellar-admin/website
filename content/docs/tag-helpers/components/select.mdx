@@ -24,7 +24,7 @@ Put native `<option>` elements inside `<sa-select>`. It renders a styled `<selec
 
 ### Model binding
 
-The `<sa-select>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` and `asp-items` attributes. When using model binding, StellarAdmin will automatically wrap the select inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
+Supports ASP.NET Core model binding via `asp-for` and `asp-items`. When using model binding, StellarAdmin will automatically wrap the select inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`
 
 <Demo src="/demo/tag-helpers/select-model-binding.html">
   <Tabs items={["Razor", "Model"]}>

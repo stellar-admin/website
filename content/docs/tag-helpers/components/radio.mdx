@@ -22,7 +22,7 @@ StellarAdmin does not have a specific Radio button Tag Helper, but uses the norm
 
 ### Model binding
 
-The `<sa-input>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+Supports ASP.NET Core model binding via `asp-for`. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/radio-model-binding.html">
 <Tabs items={["Razor", "Model"]}>

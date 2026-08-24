@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `<sa-input-otp>` Tag Helper renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
+`<sa-input-otp>` renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
 
 Use the `max-length` attribute to control how many characters the code has.
 
@@ -56,7 +56,7 @@ A separator is rendered automatically between groups. Supply more than two group
 
 ### Custom separator
 
-Compose the slots by hand and supply child content to the `<sa-input-otp-separator>` Tag Helper to replace the default separator glyph. Any content works — here a `<sa-icon>` renders a different icon between the groups.
+Compose the slots by hand and supply child content to `<sa-input-otp-separator>` to replace the default separator glyph. The example below uses `<sa-icon>` to render a different icon between the groups.
 
 <Demo src="/demo/tag-helpers/input-otp-custom-separator.html">
   <include>./_include/input-otp-custom-separator.mdx</include>
@@ -88,7 +88,7 @@ For full control over the layout, compose the slots by hand with the `<sa-input-
 
 ### Model binding
 
-The `<sa-input-otp>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `string` and the whole code posts straight back to the property.
+Supports ASP.NET Core model binding via `asp-for`. Bind it to a `string` and the whole code posts straight back to the property.
 
 When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
 

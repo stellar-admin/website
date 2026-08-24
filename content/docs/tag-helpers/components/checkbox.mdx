@@ -12,7 +12,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use the `<sa-input>` Tag Helper with the `type` attribute specified as `checkbox` to display a checkbox to the user. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations when using model binding.
+Use `<sa-input>` with the `type` attribute specified as `checkbox` to display a checkbox to the user. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations when using model binding.
 
 ```razor
 <sa-input type="checkbox"/>
@@ -22,7 +22,7 @@ Use the `<sa-input>` Tag Helper with the `type` attribute specified as `checkbox
 
 ### Model binding
 
-The `<sa-input>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. When you bind a `<sa-input>` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `render-field` attribute to `false`.
+Supports ASP.NET Core model binding via `asp-for`. When you bind a `<sa-input>` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `render-field` attribute to `false`.
 
 <Demo src="/demo/tag-helpers/checkbox-model-binding.html">
 <Tabs items={["Razor", "Model"]}>

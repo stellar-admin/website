@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-The `<sa-toggle>` Tag Helper renders a two-state button — useful for things like formatting toggles or filters. It is backed by a native checkbox, so it posts its value back and model-binds like any other `bool`, while the pressed appearance is driven entirely by CSS — no JavaScript is required.
+`<sa-toggle>` renders a two-state button — useful for things like formatting toggles or filters. It is backed by a native checkbox, so it posts its value back and model-binds like any other `bool`, while the pressed appearance is driven entirely by CSS — no JavaScript is required.
 
 Place an icon and/or text inside the Tag Helper to label the toggle.
 
@@ -58,7 +58,7 @@ Add the `disabled` attribute to prevent the user from interacting with the toggl
 
 ### Model binding
 
-The `<sa-toggle>` Tag Helper has full support for ASP.NET Core model binding using the `asp-for` attribute. Bind it to a `bool` property and an un-pressed toggle will post `false`.
+Supports ASP.NET Core model binding via `asp-for`. Bind it to a `bool` property and an un-pressed toggle will post `false`.
 
 Because a toggle is self-labelling, this example opts out of the automatic [Field](field) wrapper by setting the `render-field` attribute to `false`.
 
