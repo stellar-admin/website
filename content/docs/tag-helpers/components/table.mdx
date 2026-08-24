@@ -64,54 +64,36 @@ Wrap the table in `<sa-table-selection>` to add row selection. A checkbox in the
 
 ### `<sa-table>`
 
-Renders a [`<table>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table)
-wrapped in a scrollable `<div>` container. The `class` attribute is applied to
-the `<table>` element, and other attributes are applied to the container.
+Renders a [`<table>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table) wrapped in a scrollable `<div>` container. The `class` attribute is applied to the `<table>` element, and other attributes are applied to the container.
 
 ### `<sa-table-caption>`
 
-Renders a [`<caption>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption).
+Renders a [`<caption>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption).
 
 ### `<sa-table-header>`
 
-Renders a [`<thead>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/thead).
+Renders a [`<thead>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/thead).
 
 ### `<sa-table-body>`
 
-Renders a [`<tbody>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tbody).
+Renders a [`<tbody>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tbody).
 
 ### `<sa-table-footer>`
 
-Renders a [`<tfoot>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tfoot).
+Renders a [`<tfoot>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tfoot).
 
 ### `<sa-table-row>`
 
-Renders a [`<tr>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tr).
+Renders a [`<tr>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tr).
 
 ### `<sa-table-head>`
 
-Renders a [`<th>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th),
-and forwards standard `<th>` attributes such as `colspan` and `scope`.
+Renders a [`<th>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th), and forwards standard `<th>` attributes such as `colspan` and `scope`.
 
 ### `<sa-table-cell>`
 
-Renders a [`<td>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td),
-and forwards standard `<td>` attributes such as `colspan`.
+Renders a [`<td>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td), and forwards standard `<td>` attributes such as `colspan`.
 
 ### `<sa-table-selection>`
 
-Adds row selection to the table it wraps, rendered as a `sel-table-selection`
-web component. The checkbox in the table's header row acts as the select-all,
-and a checkbox in a body row selects that row. Selected rows get
-`data-state="selected"`, the select-all reflects the checked/indeterminate
-state, and the selection posts as ordinary checkbox form data. From JavaScript,
-read the current selection from the element's `selectedValues` property, or
-listen for its bubbling `selection-change` event.
+Adds row selection to the table it wraps, rendered as a `sel-table-selection` web component. The checkbox in the table's header row acts as the select-all, and a checkbox in a body row selects that row. Selected rows get `data-state="selected"`, the select-all reflects the checked/indeterminate state, and the selection posts as ordinary checkbox form data. From JavaScript, read the current selection from the element's `selectedValues` property, or listen for its bubbling `selection-change` event.

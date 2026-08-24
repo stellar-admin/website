@@ -31,11 +31,7 @@ The URL of a link button can be specified a couple of ways:
 </Demo>
 
 <Callout type="warn">
-  The same rules as for the `AnchorTagHelper` are applicable in that you cannot
-  specify overlapping URL-related attributes. For example, if you specify an
-  `href` attribute along with any of the `asp-*` attributes, an exception will
-  be thrown. Likewise, if you specify an `asp-controller` attribute, as well as
-  an `asp-page` attribute, an exception will be thrown.
+  The same rules as for the `AnchorTagHelper` are applicable in that you cannot specify overlapping URL-related attributes. For example, if you specify an `href` attribute along with any of the `asp-*` attributes, an exception will be thrown. Likewise, if you specify an `asp-controller` attribute, as well as an `asp-page` attribute, an exception will be thrown.
 </Callout>
 
 ### Sizes and variants
@@ -72,8 +68,7 @@ Use one of the `Icon*` sizes for a square icon-only link, and give it an accessi
 
 ### Additional attributes
 
-Since the Link Button Tag Helper is a wrapper around the HTML Anchor (`<a>`) element, you can use any of the [Anchor element
-attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes).
+Since the Link Button Tag Helper is a wrapper around the HTML Anchor (`<a>`) element, you can use any of the [Anchor element attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes).
 
 <Demo src="/demo/tag-helpers/link-button-additional-attributes.html">
   <include>./_include/link-button-additional-attributes.mdx</include>
@@ -112,10 +107,6 @@ Renders an `<a>` element styled as a button.
 
 #### Routing attributes
 
-The link button also accepts the same routing attributes as the ASP.NET Core
-[Anchor Tag
-Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
-for generating the `href`. Supply either an `href` or these attributes — not
-both.
+The link button also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
 
 <include>./_shared/routing-attributes.mdx</include>

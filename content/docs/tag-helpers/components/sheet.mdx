@@ -68,9 +68,7 @@ By default the sheet renders a close button in the top-right corner. Set `show-c
 Add submit buttons to a `form` with `method="dialog"` and set a `value` on each button. Check [`returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue) to determine which button was clicked, then use `FormData` in the `close` event handler to read the submitted values.
 
 <Callout type="tip">
-  If you want to return a result from the sheet, we strongly recommend using
-  the [`dialog()` helper](js-dialog) which allows you to use sheets in an
-  async/await style
+  If you want to return a result from the sheet, we strongly recommend using the [`dialog()` helper](js-dialog) which allows you to use sheets in an async/await style
 </Callout>
 
 <Demo src="/demo/tag-helpers/sheet-return-form-value.html">
@@ -103,14 +101,7 @@ The Tag Helper does not link the title to the sheet. Give `<sa-sheet-title>` an 
 
 ### `<sa-sheet>`
 
-Renders a native [`<dialog>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
-styled to slide in from the edge of the screen. The sheet is opened and closed
-via the [Invoker Commands
-API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a
-button with `command="show-modal"` or `command="close"` and a `commandfor`
-attribute referencing the sheet's `id` (auto-generated when you don't supply
-one).
+Renders a native [`<dialog>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog) styled to slide in from the edge of the screen. The sheet is opened and closed via the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a button with `command="show-modal"` or `command="close"` and a `commandfor` attribute referencing the sheet's `id` (auto-generated when you don't supply one).
 
 The sheet is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/tag-helpers/javascript).
 
@@ -147,5 +138,4 @@ Renders a `<p>` element.
 
 ### `<sa-sheet-footer>`
 
-Renders a `<div>` element pinned to the bottom of the sheet that hosts the
-sheet's action buttons.
+Renders a `<div>` element pinned to the bottom of the sheet that hosts the sheet's action buttons.

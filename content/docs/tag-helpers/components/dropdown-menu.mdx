@@ -37,10 +37,7 @@ Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelli
 Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by the `sel-dropdown-menu` web component, so no additional JavaScript is required.
 
 <Callout type="tip">
-  Control where the menu opens relative to its trigger with the `position`
-  attribute on `<sa-dropdown-menu-content>`. It accepts the same `PositionArea`
-  values as the [Popover](popover) Tag Helper and defaults to opening below the
-  trigger.
+  Control where the menu opens relative to its trigger with the `position` attribute on `<sa-dropdown-menu-content>`. It accepts the same `PositionArea` values as the [Popover](popover) Tag Helper and defaults to opening below the trigger.
 </Callout>
 
 ## Examples
@@ -129,16 +126,13 @@ Give the trigger visible text or an `aria-label` when it only contains an icon.
 
 ### `<sa-dropdown-menu>`
 
-Groups a trigger and its menu content. It renders no element of its own — it
-only generates the shared id (honouring a user-supplied `id`) that connects the
-trigger to the menu.
+Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honouring a user-supplied `id`) that connects the trigger to the menu.
 
 The menu's color, appearance and item highlight are configured application-wide with `ConfigureMenu`. See [Theming & Dark Mode](/docs/tag-helpers/theming#menu-surfaces).
 
 ### `<sa-dropdown-menu-trigger>`
 
-Renders a `<button>` styled as a `<sa-button>` that opens the menu via the
-native `popovertarget` attribute.
+Renders a `<button>` styled as a `<sa-button>` that opens the menu via the native `popovertarget` attribute.
 
 <TypeTable
   type={{
@@ -161,10 +155,7 @@ native `popovertarget` attribute.
 
 ### `<sa-dropdown-menu-content>`
 
-Renders the menu itself as a `<sel-dropdown-menu>` web component with the
-[`popover`
-attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover),
-anchored to the trigger.
+Renders the menu itself as a `<sel-dropdown-menu>` web component with the [`popover` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover), anchored to the trigger.
 
 <TypeTable
   type={{
@@ -180,9 +171,7 @@ anchored to the trigger.
 
 ### `<sa-dropdown-menu-item>`
 
-Renders a `<div role="menuitem">`, or an [`<a
-role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-when an `href` or any routing attribute is supplied.
+Renders a `<div role="menuitem">`, or an [`<a role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) when an `href` or any routing attribute is supplied.
 
 <TypeTable
   type={{
@@ -219,18 +208,13 @@ when an `href` or any routing attribute is supplied.
 
 #### Routing attributes
 
-The item also accepts the same routing attributes as the ASP.NET Core [Anchor
-Tag
-Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
-for generating the `href`. Supply either an `href` or these attributes — not
-both.
+The item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
 
 <include>./_shared/routing-attributes.mdx</include>
 
 ### `<sa-dropdown-menu-checkbox-item>`
 
-Renders a `<div role="menuitemcheckbox">` with a leading check indicator.
-Toggling it raises a bubbling `checkedchange` event.
+Renders a `<div role="menuitemcheckbox">` with a leading check indicator. Toggling it raises a bubbling `checkedchange` event.
 
 <TypeTable
   type={{
@@ -260,8 +244,7 @@ Toggling it raises a bubbling `checkedchange` event.
 
 ### `<sa-dropdown-menu-radio-group>`
 
-Renders a `<div role="group">` that enforces single selection among its radio
-items and raises a bubbling `valuechange` event when the selection changes.
+Renders a `<div role="group">` that enforces single selection among its radio items and raises a bubbling `valuechange` event when the selection changes.
 
 <TypeTable
   type={{
@@ -274,8 +257,7 @@ items and raises a bubbling `valuechange` event when the selection changes.
 
 ### `<sa-dropdown-menu-radio-item>`
 
-Renders a `<div role="menuitemradio">` with a leading check indicator, checked
-when its `value` matches the group's `value`.
+Renders a `<div role="menuitemradio">` with a leading check indicator, checked when its `value` matches the group's `value`.
 
 <TypeTable
   type={{
@@ -325,13 +307,11 @@ Renders a `<div role="group">` for grouping related items.
 
 ### `<sa-dropdown-menu-sub>`
 
-Groups a sub-trigger and its submenu. Like `<sa-dropdown-menu>`, it renders no
-element of its own and only generates the shared id connecting the two.
+Groups a sub-trigger and its submenu. Like `<sa-dropdown-menu>`, it renders no element of its own and only generates the shared id connecting the two.
 
 ### `<sa-dropdown-menu-sub-trigger>`
 
-Renders a `<div role="menuitem">` with a trailing chevron that opens its submenu
-on hover or with the `→` key.
+Renders a `<div role="menuitem">` with a trailing chevron that opens its submenu on hover or with the `→` key.
 
 <TypeTable
   type={{
@@ -346,9 +326,7 @@ on hover or with the `→` key.
 
 ### `<sa-dropdown-menu-sub-content>`
 
-Renders a submenu as a `<sel-dropdown-menu>` popover anchored to its
-sub-trigger, accepting the same `position` values as
-`<sa-dropdown-menu-content>`.
+Renders a submenu as a `<sel-dropdown-menu>` popover anchored to its sub-trigger, accepting the same `position` values as `<sa-dropdown-menu-content>`.
 
 <TypeTable
   type={{

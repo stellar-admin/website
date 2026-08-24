@@ -132,9 +132,7 @@ The caller mixes slot content and regular children freely — the `<sa-slot-cont
 
 ### `<sa-slot-content>`
 
-Assigns its child content to a named slot on the nearest StellarAdmin ancestor
-Tag Helper and renders nothing in place. Assigning the same slot name twice on
-the same host is an error.
+Assigns its child content to a named slot on the nearest StellarAdmin ancestor Tag Helper and renders nothing in place. Assigning the same slot name twice on the same host is an error.
 
 <TypeTable
   type={{
@@ -148,10 +146,7 @@ the same host is an error.
 
 ### `<sa-slot-outlet>`
 
-Renders the content of the named slot on the hosting Tag Helper. When the slot
-is unfilled — or the view renders as a plain partial, outside a templated Tag
-Helper — it renders its own child content as the fallback instead. It renders no
-element of its own.
+Renders the content of the named slot on the hosting Tag Helper. When the slot is unfilled — or the view renders as a plain partial, outside a templated Tag Helper — it renders its own child content as the fallback instead. It renders no element of its own.
 
 <TypeTable
   type={{

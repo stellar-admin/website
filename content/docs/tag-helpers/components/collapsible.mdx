@@ -34,9 +34,7 @@ A collapsible inside a card, where the first row of fields is always visible and
 
 ### Expanded by default
 
-A collapsible is open unless it carries the `hidden` attribute. Leave `hidden`
-off to render the content expanded on page load. The trigger's `aria-expanded`
-state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
+A collapsible is open unless it carries the `hidden` attribute. Leave `hidden` off to render the content expanded on page load. The trigger's `aria-expanded` state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
 
 <Demo src="/demo/tag-helpers/collapsible-expanded.html">
   <include>./_include/collapsible-expanded.mdx</include>
@@ -46,7 +44,4 @@ state is set accordingly, so any `in-aria-expanded:` icon swaps still work.
 
 ### `<sa-collapsible>`
 
-Renders a `<sel-collapsible>` custom element. Give it an `id` (and the `hidden`
-attribute to start collapsed), and toggle it via the native Invoker Commands API
-using a button with `command="--toggle"` and `commandfor` referencing that `id`
-.
+Renders a `<sel-collapsible>` custom element. Give it an `id` (and the `hidden` attribute to start collapsed), and toggle it via the native Invoker Commands API using a button with `command="--toggle"` and `commandfor` referencing that `id` .

@@ -76,10 +76,7 @@ Combine `size="AlertDialogSize.Small"` with `<sa-alert-dialog-media>` for a comp
 For the common "await a confirmation before acting" flow, use the `window.stellarAdmin.alertDialog()` helper. Its `confirmAsync()` method resolves to `true` when the user activates the action button and `false` on cancel or `Esc`.
 
 <Callout type="tip">
-  `alertDialog()` is built on the same primitive as the [`dialog()`
-  helper](js-dialog). Use it whenever you want to drive a confirmation in an
-  async/await style. See the [`alertDialog()` documentation](js-alert-dialog)
-  for the full API.
+  `alertDialog()` is built on the same primitive as the [`dialog()` helper](js-dialog). Use it whenever you want to drive a confirmation in an async/await style. See the [`alertDialog()` documentation](js-alert-dialog) for the full API.
 </Callout>
 
 <Demo src="/demo/tag-helpers/alert-dialog-js-api.html">
@@ -96,12 +93,7 @@ Give `<sa-alert-dialog-title>` an `id` and reference it from `aria-labelledby` o
 
 ### `<sa-alert-dialog>`
 
-Renders a native [`<dialog>`
-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
-which is opened and closed via the Invoker Commands API (`command="show-modal"`
-/ `command="close"` on a button whose `commandfor` targets the dialog's `id`).
-The `closedby` attribute defaults to `closerequest`, so the dialog is not
-light-dismissable.
+Renders a native [`<dialog>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog) which is opened and closed via the Invoker Commands API (`command="show-modal"` / `command="close"` on a button whose `commandfor` targets the dialog's `id`). The `closedby` attribute defaults to `closerequest`, so the dialog is not light-dismissable.
 
 The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/tag-helpers/javascript).
 
@@ -138,9 +130,7 @@ Renders a `<div>` element that lays out the cancel and action buttons.
 
 ### `<sa-alert-dialog-cancel>`
 
-Renders a `<button type="submit">` with `value="cancel"` (unless you supply your
-own `value`), so a wrapping `<form method="dialog">` closes the dialog with
-that `returnValue`.
+Renders a `<button type="submit">` with `value="cancel"` (unless you supply your own `value`), so a wrapping `<form method="dialog">` closes the dialog with that `returnValue`.
 
 <TypeTable
   type={{
@@ -156,9 +146,7 @@ that `returnValue`.
 
 ### `<sa-alert-dialog-action>`
 
-Renders a `<button type="submit">` with `value="confirm"` (unless you supply
-your own `value`), so a wrapping `<form method="dialog">` closes the dialog
-with that `returnValue`.
+Renders a `<button type="submit">` with `value="confirm"` (unless you supply your own `value`), so a wrapping `<form method="dialog">` closes the dialog with that `returnValue`.
 
 <TypeTable
   type={{

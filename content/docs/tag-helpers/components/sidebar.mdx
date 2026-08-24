@@ -121,15 +121,11 @@ The active menu link is only marked visually. Add `aria-current="page"` to the l
 
 ### `<sa-sidebar-wrapper>`
 
-Renders a `<sel-sidebar>` web component that wraps the sidebar and page content
-and owns the open/collapsed state. Nested `<sa-sidebar-trigger>` elements toggle
-it through the Invoker Commands API. It honours a user-supplied `id` and
-generates one otherwise.
+Renders a `<sel-sidebar>` web component that wraps the sidebar and page content and owns the open/collapsed state. Nested `<sa-sidebar-trigger>` elements toggle it through the Invoker Commands API. It honours a user-supplied `id` and generates one otherwise.
 
 ### `<sa-sidebar>`
 
-Renders the sidebar panel itself as a `<div>` (including the mobile drawer and
-its backdrop).
+Renders the sidebar panel itself as a `<div>` (including the mobile drawer and its backdrop).
 
 <TypeTable
   type={{
@@ -158,9 +154,7 @@ its backdrop).
 
 ### `<sa-sidebar-trigger>`
 
-Renders a `<button>` that toggles the sidebar via the Invoker Commands API
-(`command="--toggle-sidebar"` targeting the wrapper). It shows a default panel
-icon unless you supply child content.
+Renders a `<button>` that toggles the sidebar via the Invoker Commands API (`command="--toggle-sidebar"` targeting the wrapper). It shows a default panel icon unless you supply child content.
 
 ### `<sa-sidebar-header>`
 
@@ -204,8 +198,7 @@ Renders an `<li>` for a single menu entry.
 
 ### `<sa-sidebar-menu-button>`
 
-Renders a `<button>` styled as a menu entry — typically paired with
-`<sa-collapsible>` for expandable items.
+Renders a `<button>` styled as a menu entry — typically paired with `<sa-collapsible>` for expandable items.
 
 <TypeTable
   type={{
@@ -233,10 +226,7 @@ Renders a `<button>` styled as a menu entry — typically paired with
 
 ### `<sa-sidebar-menu-link>`
 
-Renders an
-[`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-element styled as a menu entry. It is marked active automatically when its
-routing attributes match the current route.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) element styled as a menu entry. It is marked active automatically when its routing attributes match the current route.
 
 <TypeTable
   type={{
@@ -259,11 +249,7 @@ routing attributes match the current route.
 
 #### Routing attributes
 
-The menu link also accepts the same routing attributes as the ASP.NET Core
-[Anchor Tag
-Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper)
-for generating the `href`. Supply either an `href` or these attributes — not
-both.
+The menu link also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
 
 <include>./_shared/routing-attributes.mdx</include>
 
@@ -302,11 +288,7 @@ Renders a `<button>` styled as a sub-entry.
 
 ### `<sa-sidebar-menu-sub-link>`
 
-Renders an
-[`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes)
-element styled as a sub-entry, marked active automatically when its route
-matches. It accepts the same routing attributes as `<sa-sidebar-menu-link>`
-above.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) element styled as a sub-entry, marked active automatically when its route matches. It accepts the same routing attributes as `<sa-sidebar-menu-link>` above.
 
 <TypeTable
   type={{
