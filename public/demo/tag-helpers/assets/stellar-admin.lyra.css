@@ -831,6 +831,41 @@
     align-items: center;
     overflow-wrap: break-word;
   }
+  .sa-bubble {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    min-width: calc(var(--spacing) * 0);
+    flex-direction: column;
+  }
+  .sa-bubble-content {
+    width: fit-content;
+    max-width: 100%;
+    min-width: calc(var(--spacing) * 0);
+    overflow: hidden;
+    overflow-wrap: break-word;
+    &:is(button) {
+      text-align: left;
+    }
+    &:is(button,a) {
+      transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+      transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+      transition-duration: var(--tw-duration, var(--default-transition-duration));
+    }
+  }
+  .sa-bubble-group {
+    display: flex;
+    min-width: calc(var(--spacing) * 0);
+    flex-direction: column;
+  }
+  .sa-bubble-reactions {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+  }
   .sa-button {
     display: inline-flex;
     flex-shrink: 0;

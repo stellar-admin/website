@@ -1,0 +1,161 @@
+---
+title: Bubble
+description: Displays framed conversational content, such as the messages in a chat thread
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/bubble-intro.html">
+  <include>./_include/bubble-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A bubble is composed of `<sa-bubble>` wrapping a single `<sa-bubble-content>`, optionally with a `<sa-bubble-reactions>` row. Stack bubbles inside a `<sa-bubble-group>`.
+
+```razor
+<sa-bubble-group>
+    <sa-bubble variant="..." align="...">
+        <sa-bubble-content>
+            ...
+        </sa-bubble-content>
+        <sa-bubble-reactions side="..." align="...">
+            ...
+        </sa-bubble-reactions>
+    </sa-bubble>
+</sa-bubble-group>
+```
+
+A bubble sizes itself to its content, up to 80% of the width of its container. The `Ghost` variant is the exception: it takes the full width, since it is not meant to read as a framed message.
+
+The variant styling is applied to the `<sa-bubble-content>` inside the bubble rather than to `<sa-bubble>` itself, so `<sa-bubble>` stays a transparent positioning wrapper that the reactions row can be anchored to.
+
+## Examples
+
+### Variant
+
+Set `variant` to pick the visual treatment. `Default` is the strongly emphasized bubble you would use for the current user's own messages, `Secondary` the neutral one for everyone else. `Muted` and `Tinted` step the emphasis down for supporting content, `Outline` drops the fill, `Ghost` removes the frame entirely, and `Destructive` marks an error or a failed action.
+
+<Demo src="/demo/tag-helpers/bubble-variants.html">
+  <include>./_include/bubble-variants.mdx</include>
+</Demo>
+
+Do not rely on the `Destructive` colour on its own to communicate that something went wrong — say so in the message text too.
+
+### Align
+
+Set `align` to `BubbleAlign.End` to move a bubble to the far side of the conversation, which is the usual way to distinguish outgoing messages from incoming ones. This works by aligning the bubble within its parent, so the bubbles need a `<sa-bubble-group>` (or another column-flex container) around them.
+
+<Demo src="/demo/tag-helpers/bubble-align.html">
+  <include>./_include/bubble-align.mdx</include>
+</Demo>
+
+### Group
+
+`<sa-bubble-group>` stacks bubbles in a column with a tighter gap than you would normally put between separate messages, which is what makes a run of consecutive bubbles read as coming from one sender.
+
+<Demo src="/demo/tag-helpers/bubble-group.html">
+  <include>./_include/bubble-group.mdx</include>
+</Demo>
+
+### Reactions
+
+`<sa-bubble-reactions>` renders a small pill that overlaps the edge of the bubble. Use `side` to put it on the top or bottom edge, and `align` to anchor it to the leading or trailing end.
+
+<Demo src="/demo/tag-helpers/bubble-reactions.html">
+  <include>./_include/bubble-reactions.mdx</include>
+</Demo>
+
+Emoji on their own are announced inconsistently by screen readers, so give the reactions row a `role="img"` and an `aria-label` describing what the reactions are.
+
+### Link content
+
+Use `<sa-bubble-link-content>` instead of `<sa-bubble-content>` to render the bubble surface as an `<a>`, making the whole bubble a link. It picks up the hover and focus styling of the bubble's variant. A run of them reads as a list of things the reader can open — documents, bookings, further reading.
+
+<Demo src="/demo/tag-helpers/bubble-link.html">
+  <include>./_include/bubble-link.mdx</include>
+</Demo>
+
+The URL can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+### Button content
+
+Use `<sa-bubble-button-content>` to render the bubble surface as a `<button>`, for a bubble that acts rather than reads. Its most common job is offering the reader a set of replies to pick from, but it also covers the affordances around a thread — retrying a message that failed to send, pulling in the earlier part of the conversation.
+
+<Demo src="/demo/tag-helpers/bubble-button.html">
+  <include>./_include/bubble-button.mdx</include>
+</Demo>
+
+Prefer these over attaching a click handler to a plain `<sa-bubble-content>`: rendering a real `<a>` or `<button>` is what makes the bubble reachable by keyboard and announced as interactive.
+
+## API Reference
+
+### `<sa-bubble>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    align: {
+      description: "The side of the conversation the bubble sits on.",
+      type: "BubbleAlign",
+      typeDescription: "BubbleAlign.Start | BubbleAlign.End",
+      default: "BubbleAlign.Start",
+    },
+    variant: {
+      description: "The visual style of the bubble.",
+      type: "BubbleVariant",
+      typeDescription:
+        "BubbleVariant.Default | BubbleVariant.Secondary | BubbleVariant.Muted | BubbleVariant.Tinted | BubbleVariant.Outline | BubbleVariant.Ghost | BubbleVariant.Destructive",
+      default: "BubbleVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-bubble-content>`
+
+Renders a `<div>` element holding the message content, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-bubble-link-content>`
+
+Renders an `<a>` element in place of `<sa-bubble-content>`, making the whole bubble a link.
+
+#### Routing attributes
+
+The link bubble content also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-bubble-button-content>`
+
+Renders a `<button>` element in place of `<sa-bubble-content>`, making the whole bubble activatable. The `type` defaults to `button` so a bubble inside a form does not submit it; set `type` explicitly to override that.
+
+### `<sa-bubble-reactions>`
+
+Renders a `<div>` element anchored to an edge of the bubble, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        "The horizontal edge of the bubble the reactions row is anchored to.",
+      type: "BubbleReactionsAlign",
+      typeDescription: "BubbleReactionsAlign.Start | BubbleReactionsAlign.End",
+      default: "BubbleReactionsAlign.End",
+    },
+    side: {
+      description:
+        "The vertical edge of the bubble the reactions row is anchored to.",
+      type: "BubbleReactionsSide",
+      typeDescription: "BubbleReactionsSide.Top | BubbleReactionsSide.Bottom",
+      default: "BubbleReactionsSide.Bottom",
+    },
+  }}
+/>
+
+### `<sa-bubble-group>`
+
+Renders a `<div>` element that stacks bubbles in a column, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

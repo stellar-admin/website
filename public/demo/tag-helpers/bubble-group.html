@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.dut8bg9zqu.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.0frsvhd7es.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="flex w-full flex-col gap-6">
+    <!-- code begin -->
+    <div data-slot="bubble-group" class="sa-bubble-group">
+        <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+            <div data-slot="bubble-content" class="sa-bubble-content">Your e-tickets are attached to the itinerary.</div>
+        </div>
+        <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+            <div data-slot="bubble-content" class="sa-bubble-content">Check-in opens 24 hours before departure.</div>
+        </div>
+        <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+            <div data-slot="bubble-content" class="sa-bubble-content">Let me know if you'd like seats together.</div>
+        </div>
+    </div>
+    <div data-slot="bubble-group" class="sa-bubble-group">
+        <div data-slot="bubble" data-variant="default" data-align="end" class="sa-bubble group/bubble sa-bubble-variant-default">
+            <div data-slot="bubble-content" class="sa-bubble-content">Yes please — two seats by the window.</div>
+        </div>
+        <div data-slot="bubble" data-variant="default" data-align="end" class="sa-bubble group/bubble sa-bubble-variant-default">
+            <div data-slot="bubble-content" class="sa-bubble-content">And a vegetarian meal for both of us.</div>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
