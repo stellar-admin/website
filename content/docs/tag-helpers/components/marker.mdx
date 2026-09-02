@@ -1,0 +1,150 @@
+---
+title: Marker
+description: Displays an inline note in a conversation, such as a status update, a system message or a labeled divider
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/marker-intro.html">
+  <include>./_include/marker-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A marker is composed of `<sa-marker>` wrapping an optional `<sa-marker-icon>` and a `<sa-marker-content>`.
+
+```razor
+<sa-marker variant="...">
+    <sa-marker-icon>
+        ...
+    </sa-marker-icon>
+    <sa-marker-content>
+        ...
+    </sa-marker-content>
+</sa-marker>
+```
+
+A marker takes the full width of its container and reads as a quieter, smaller line than the messages around it. That is what lets it sit between the messages in a thread — a delivery receipt, a system note, the date the conversation moved on to — without competing with them.
+
+## Examples
+
+### Variant
+
+Set `variant` to pick the layout. `Default` is the plain inline marker for a status update or a note, `Border` adds a rule under the row to separate it from what follows, and `Separator` centres the content with a divider line running out to each side.
+
+<Demo src="/demo/tag-helpers/marker-variants.html">
+  <include>./_include/marker-variants.mdx</include>
+</Demo>
+
+### Icon
+
+Put an icon in `<sa-marker-icon>` to say at a glance what kind of note the marker is. The icon is decorative — it renders with `aria-hidden` — so the meaning has to be carried by the `<sa-marker-content>` text next to it. For a marker that is only an icon, give the `<sa-marker>` an `aria-label` so it is not announced as empty.
+
+<Demo src="/demo/tag-helpers/marker-icon.html">
+  <include>./_include/marker-icon.mdx</include>
+</Demo>
+
+### Separator
+
+The `Separator` variant is the labeled divider you would use for a date or a section break in a thread.
+
+<Demo src="/demo/tag-helpers/marker-separator.html">
+  <include>./_include/marker-separator.mdx</include>
+</Demo>
+
+Do not add `role="separator"` to a labeled divider. A separator takes its accessible name from `aria-label` rather than from its content, and its contents are treated as presentational, so the visible label would not be announced. The divider lines here are decorative CSS pseudo-elements and the label is ordinary text, so the marker needs no role at all.
+
+### Status
+
+For a marker that reports something in progress, set `role="status"` so assistive technology announces it when it appears and again when the text changes. Pair it with a `<sa-spinner>` in the icon slot.
+
+<Demo src="/demo/tag-helpers/marker-status.html">
+  <include>./_include/marker-status.mdx</include>
+</Demo>
+
+### Link
+
+Use `<sa-marker-link>` instead of `<sa-marker>` to render the marker as an `<a>`, making the whole row a link. This is the marker for a note that points somewhere — an attached document, a booking, a route on a map. Its accessible name comes from the marker text.
+
+<Demo src="/demo/tag-helpers/marker-link.html">
+  <include>./_include/marker-link.mdx</include>
+</Demo>
+
+The URL can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+### Button
+
+Use `<sa-marker-button>` to render the marker as a `<button>`, for a marker that acts rather than reads — retrying a message that failed to send, loading the earlier part of a conversation.
+
+<Demo src="/demo/tag-helpers/marker-button.html">
+  <include>./_include/marker-button.mdx</include>
+</Demo>
+
+Prefer these over attaching a click handler to a plain `<sa-marker>`: rendering a real `<a>` or `<button>` is what makes the marker reachable by keyboard and announced as interactive.
+
+## API Reference
+
+### `<sa-marker>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The layout of the marker.",
+      type: "MarkerVariant",
+      typeDescription:
+        "MarkerVariant.Default | MarkerVariant.Border | MarkerVariant.Separator",
+      default: "MarkerVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-marker-icon>`
+
+Renders a `<span>` element holding a decorative icon, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It is hidden from assistive technology with `aria-hidden`.
+
+### `<sa-marker-content>`
+
+Renders a `<span>` element holding the marker text, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-marker-link>`
+
+Renders an `<a>` element in place of `<sa-marker>`, making the whole marker a link.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The layout of the marker.",
+      type: "MarkerVariant",
+      typeDescription:
+        "MarkerVariant.Default | MarkerVariant.Border | MarkerVariant.Separator",
+      default: "MarkerVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The link marker also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-marker-button>`
+
+Renders a `<button>` element in place of `<sa-marker>`, making the whole marker activatable. The `type` defaults to `button` so a marker inside a form does not submit it; set `type` explicitly to override that.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The layout of the marker.",
+      type: "MarkerVariant",
+      typeDescription:
+        "MarkerVariant.Default | MarkerVariant.Border | MarkerVariant.Separator",
+      default: "MarkerVariant.Default",
+    },
+  }}
+/>

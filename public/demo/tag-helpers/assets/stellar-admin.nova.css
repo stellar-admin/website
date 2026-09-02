@@ -1852,6 +1852,19 @@
       cursor: not-allowed;
     }
   }
+  .sa-marker {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+  .sa-marker-content {
+    min-width: calc(var(--spacing) * 0);
+    overflow-wrap: break-word;
+  }
+  .sa-marker-icon {
+    flex-shrink: 0;
+  }
   .sa-message {
     position: relative;
     display: flex;
