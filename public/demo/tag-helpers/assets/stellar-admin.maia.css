@@ -1856,6 +1856,53 @@
       cursor: not-allowed;
     }
   }
+  .sa-message {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: calc(var(--spacing) * 0);
+    &[data-align="end"] {
+      flex-direction: row-reverse;
+    }
+  }
+  .sa-message-avatar {
+    display: flex;
+    width: fit-content;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    overflow: hidden;
+    border-radius: calc(infinity * 1px);
+    background-color: var(--muted);
+  }
+  .sa-message-content {
+    display: flex;
+    width: 100%;
+    min-width: calc(var(--spacing) * 0);
+    flex-direction: column;
+    overflow-wrap: break-word;
+  }
+  .sa-message-footer {
+    display: flex;
+    max-width: 100%;
+    min-width: calc(var(--spacing) * 0);
+    align-items: center;
+    &:is(:where(.group\/message)[data-align="end"] *) {
+      justify-content: flex-end;
+    }
+  }
+  .sa-message-group {
+    display: flex;
+    min-width: calc(var(--spacing) * 0);
+    flex-direction: column;
+  }
+  .sa-message-header {
+    display: flex;
+    max-width: 100%;
+    min-width: calc(var(--spacing) * 0);
+    align-items: center;
+  }
   .sa-native-select {
     --tw-outline-style: none;
     outline-style: none;

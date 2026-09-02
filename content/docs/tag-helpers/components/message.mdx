@@ -1,0 +1,131 @@
+---
+title: Message
+description: Lays out a single message in a conversation, with its avatar, sender name, and status
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/message-intro.html">
+  <include>./_include/message-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A message is composed of `<sa-message>` wrapping a `<sa-message-avatar>` and a `<sa-message-content>`. The content column holds an optional `<sa-message-header>`, the visible message surface, and an optional `<sa-message-footer>`.
+
+```razor
+<sa-message align="...">
+    <sa-message-avatar>
+        ...
+    </sa-message-avatar>
+    <sa-message-content>
+        <sa-message-header>...</sa-message-header>
+        <sa-bubble>
+            <sa-bubble-content>
+                ...
+            </sa-bubble-content>
+        </sa-bubble>
+        <sa-message-footer>...</sa-message-footer>
+    </sa-message-content>
+</sa-message>
+```
+
+`<sa-message>` owns the row — the avatar, the alignment, and the space above and below the message. It does not draw the message itself. Render the visible surface inside `<sa-message-content>` with [Bubble](/docs/tag-helpers/components/bubble), which is what gives the message its frame and colour.
+
+A message fills the width of its container and does not space itself against its neighbours, so put the conversation in a column-flex container that sets the gap between messages:
+
+```razor
+<div class="flex w-full flex-col gap-6">
+    <sa-message>...</sa-message>
+    <sa-message align="MessageAlign.End">...</sa-message>
+</div>
+```
+
+Within that container, use `<sa-message-group>` to stack a run of consecutive messages from a *single* sender at a tighter gap. It is not the container for the conversation as a whole — messages from different senders should be siblings in the outer container, not group-mates.
+
+## Examples
+
+### Align
+
+Set `align` to `MessageAlign.End` to move a message to the far side of the conversation, which is the usual way to distinguish the current user's own messages from everyone else's. The row reverses, so the avatar moves to the trailing edge.
+
+Alignment cascades to everything in the row. The bubbles, the header, and the footer all follow the side you set on `<sa-message>`, so do not also set `align` on the bubbles inside — a `<sa-bubble>` within an end-aligned message is already aligned correctly.
+
+<Demo src="/demo/tag-helpers/message-avatar.html">
+  <include>./_include/message-avatar.mdx</include>
+</Demo>
+
+### Avatar
+
+`<sa-message-avatar>` renders the avatar slot beside the message. It is a container rather than an avatar itself, so put an [Avatar](/docs/tag-helpers/components/avatar) inside it.
+
+The avatar sits at the bottom of the row rather than the top, so a message that runs to several lines, or a content column holding more than one bubble, keeps the avatar next to the last thing the sender said. When the message has a `<sa-message-footer>`, the avatar shifts up to stay level with the message surface instead of dropping to the footer.
+
+### Group
+
+`<sa-message-group>` stacks consecutive messages from the same sender with a tighter gap than the space between separate messages, which is what makes a run of them read as one turn in the conversation. Use one group per sender — a group holding messages from more than one person defeats the point, since the tighter spacing is the signal that the sender has not changed.
+
+Only the last message in a run normally shows an avatar. Render an empty `<sa-message-avatar>` on the earlier messages so they stay indented to the same place — the slot holds its width whether or not it has an avatar in it.
+
+<Demo src="/demo/tag-helpers/message-group.html">
+  <include>./_include/message-group.mdx</include>
+</Demo>
+
+### Header and footer
+
+Use `<sa-message-header>` for the sender's name and `<sa-message-footer>` for metadata such as a timestamp or a delivery status. Both are muted and set in a smaller size than the message, so they read as annotations rather than content.
+
+<Demo src="/demo/tag-helpers/message-header-footer.html">
+  <include>./_include/message-header-footer.mdx</include>
+</Demo>
+
+The header and footer are indented to line up with the text inside a framed bubble. When the message surface is a `Ghost` bubble, which has no frame, they drop that indent automatically so they stay aligned with the unframed text.
+
+### Actions
+
+Message-level actions such as copy, pin, or retry belong in `<sa-message-footer>`, alongside or in place of the status text.
+
+<Demo src="/demo/tag-helpers/message-actions.html">
+  <include>./_include/message-actions.mdx</include>
+</Demo>
+
+These buttons are usually icon-only, which leaves them with no accessible name, so give each one an `aria-label` describing what it does. Where the footer reports a state that also carries a colour, such as a message that failed to send, say so in the text as well rather than relying on the colour alone.
+
+For a message that is still in progress, put `role="status"` on the element holding the placeholder so assistive technology announces it when it appears.
+
+## API Reference
+
+### `<sa-message>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    align: {
+      description: "The side of the conversation the message sits on.",
+      type: "MessageAlign",
+      typeDescription: "MessageAlign.Start | MessageAlign.End",
+      default: "MessageAlign.Start",
+    },
+  }}
+/>
+
+### `<sa-message-avatar>`
+
+Renders a `<div>` element holding the avatar, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). Leave it empty to reserve the space without showing an avatar.
+
+### `<sa-message-content>`
+
+Renders a `<div>` element holding the header, the message surface, and the footer, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-message-header>`
+
+Renders a `<div>` element above the message surface, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-message-footer>`
+
+Renders a `<div>` element below the message surface, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-message-group>`
+
+Renders a `<div>` element that stacks messages in a column, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
