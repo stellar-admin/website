@@ -432,6 +432,9 @@
   .min-h-\[360px\] {
     min-height: 360px;
   }
+  .min-h-\[420px\] {
+    min-height: 420px;
+  }
   .min-h-\[450px\] {
     min-height: 450px;
   }
@@ -524,6 +527,9 @@
   }
   .max-w-5xl {
     max-width: var(--container-5xl);
+  }
+  .max-w-96 {
+    max-width: calc(var(--spacing) * 96);
   }
   .max-w-\[300px\] {
     max-width: 300px;

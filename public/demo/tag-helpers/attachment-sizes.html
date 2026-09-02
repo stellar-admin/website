@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.0wexyvhui1.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.0frsvhd7es.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-sm">
+    <!-- code begin -->
+    <div class="flex flex-col gap-3">
+        <div data-slot="attachment" data-state="done" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">kyoto-itinerary.pdf</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">PDF · 2.4 MB</span>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="done" data-size="sm" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-sm sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">kyoto-itinerary.pdf</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">PDF · 2.4 MB</span>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="done" data-size="xs" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-xs sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">kyoto-itinerary.pdf</span>
+            </div>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

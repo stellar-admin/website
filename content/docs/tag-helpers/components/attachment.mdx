@@ -1,0 +1,196 @@
+---
+title: Attachment
+description: Displays a file or image with its media, metadata, upload state and actions
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/attachment-intro.html">
+  <include>./_include/attachment-intro.mdx</include>
+</Demo>
+
+## Usage
+
+An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` to make the whole card activatable, and put several attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
+
+```razor
+<sa-attachment-group>
+    <sa-attachment state="..." size="..." orientation="...">
+        <sa-attachment-media variant="...">
+            ...
+        </sa-attachment-media>
+        <sa-attachment-content>
+            <sa-attachment-title>...</sa-attachment-title>
+            <sa-attachment-description>...</sa-attachment-description>
+        </sa-attachment-content>
+        <sa-attachment-actions>
+            <sa-attachment-action>...</sa-attachment-action>
+        </sa-attachment-actions>
+        <sa-attachment-button-trigger/>
+    </sa-attachment>
+</sa-attachment-group>
+```
+
+Every part is optional. An attachment with only a media region is a bare thumbnail; one with only content is a filename chip. The padding follows what is present, so an attachment stays correctly spaced whichever parts you leave out.
+
+## Examples
+
+### State
+
+Set `state` to say where the file is in its upload lifecycle. `Idle` draws a dashed border, for a card standing in as a drop target before anything has been attached. `Uploading` and `Processing` shimmer the title. `Error` turns the border and the description red, and `Done` — the default — is the finished, settled file.
+
+<Demo src="/demo/tag-helpers/attachment-states.html">
+  <include>./_include/attachment-states.mdx</include>
+</Demo>
+
+Do not rely on the `Error` colouring on its own to communicate that something went wrong: put the reason in the `<sa-attachment-description>`, as the demo above does, so it is available to anyone who does not perceive the colour.
+
+### Size
+
+Set `size` to `AttachmentSize.Small` or `AttachmentSize.ExtraSmall` to step the media, padding and text down together. The smaller sizes suit a dense list or the row of pending files above a message composer, where the attachment is supporting content rather than the subject of the screen.
+
+At those sizes the description often earns its space less than the filename does. Leave `<sa-attachment-description>` out — as the extra-small attachment below does — and the card closes up around the title on its own.
+
+<Demo src="/demo/tag-helpers/attachment-sizes.html">
+  <include>./_include/attachment-sizes.mdx</include>
+</Demo>
+
+### Image
+
+Set `variant` on `<sa-attachment-media>` to `AttachmentMediaVariant.Image` and put an `<img>` inside it to show a preview of the file itself instead of an icon standing in for its type. The image is cropped to a square and fills the media region, so it needs no sizing classes of its own.
+
+Pair it with `orientation="AttachmentOrientation.Vertical"` to stack the preview above the filename as a card. Vertical attachments move the actions row on top of the media, in the top corner.
+
+<Demo src="/demo/tag-helpers/attachment-image.html">
+  <include>./_include/attachment-image.mdx</include>
+</Demo>
+
+### Group
+
+`<sa-attachment-group>` lays attachments out in a horizontally scrolling row that snaps each one into place and fades the content at the edges as it scrolls, which is how a set of files attached to a single message usually reads.
+
+<Demo src="/demo/tag-helpers/attachment-group.html">
+  <include>./_include/attachment-group.mdx</include>
+</Demo>
+
+Attachments scrolled out of view are still reachable by keyboard when they contain a link, a button or an action. When they do not — as in the group above, where the cards are purely presentational — give the group `tabindex="0"`, `role="group"` and an `aria-label`, so a keyboard user can focus the row and scroll it.
+
+### Trigger
+
+A trigger covers the whole attachment with a control that activates it, while leaving the buttons in `<sa-attachment-actions>` clickable in their own right. Use it for the primary thing the card does — opening a preview, downloading the file — and keep the actions row for everything else.
+
+Pick the tag by what activating the card should do. `<sa-attachment-button-trigger>` renders a `<button>`, for a card that acts — opening a preview dialog, expanding the file in place. `<sa-attachment-link-trigger>` renders an `<a>`, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
+
+<Demo src="/demo/tag-helpers/attachment-trigger.html">
+  <include>./_include/attachment-trigger.mdx</include>
+</Demo>
+
+The trigger has no visible label of its own, so give it an `aria-label` that says what activating the card will do, and name the file in it. Do the same for each icon-only `<sa-attachment-action>`, since "Remove" on its own does not say which file is being removed.
+
+## API Reference
+
+### `<sa-attachment>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "How the attachment arranges its media and content.",
+      type: "AttachmentOrientation",
+      typeDescription:
+        "AttachmentOrientation.Horizontal | AttachmentOrientation.Vertical",
+      default: "AttachmentOrientation.Horizontal",
+    },
+    size: {
+      description:
+        "The size of the attachment, controlling its padding and spacing.",
+      type: "AttachmentSize",
+      typeDescription:
+        "AttachmentSize.Default | AttachmentSize.Small | AttachmentSize.ExtraSmall",
+      default: "AttachmentSize.Default",
+    },
+    state: {
+      description:
+        "The point the attachment has reached in its upload lifecycle.",
+      type: "AttachmentState",
+      typeDescription:
+        "AttachmentState.Idle | AttachmentState.Uploading | AttachmentState.Processing | AttachmentState.Error | AttachmentState.Done",
+      default: "AttachmentState.Done",
+    },
+  }}
+/>
+
+### `<sa-attachment-media>`
+
+Renders a `<div>` element holding a file-type icon or a thumbnail preview, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    variant: {
+      description:
+        "The kind of media the region contains, which controls its sizing and styling.",
+      type: "AttachmentMediaVariant",
+      typeDescription:
+        "AttachmentMediaVariant.Icon | AttachmentMediaVariant.Image",
+      default: "AttachmentMediaVariant.Icon",
+    },
+  }}
+/>
+
+### `<sa-attachment-content>`
+
+Renders a `<div>` element holding the title and description, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-attachment-title>`
+
+Renders a `<span>` element holding the name of the attachment, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). The text is truncated to fit, and shimmers while the attachment is uploading or processing.
+
+### `<sa-attachment-description>`
+
+Renders a `<span>` element holding the supporting text of the attachment, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-attachment-actions>`
+
+Renders a `<div>` element holding the attachment's action controls, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It sits above the trigger, so its controls stay clickable when the whole card is activatable.
+
+### `<sa-attachment-action>`
+
+Renders a `<button>` element styled as a button, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). The `type` defaults to `button` so an action inside a form does not submit it; set `type` explicitly to override that.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the action button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.IconExtraSmall",
+    },
+    variant: {
+      description: "The visual style of the action button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Ghost",
+    },
+  }}
+/>
+
+### `<sa-attachment-button-trigger>`
+
+Renders a `<button>` element covering the whole attachment, making it activatable, and forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). The `type` defaults to `button` so a trigger inside a form does not submit it; set `type` explicitly to override that.
+
+### `<sa-attachment-link-trigger>`
+
+Renders an `<a>` element in place of `<sa-attachment-button-trigger>`, making the whole attachment a link.
+
+#### Routing attributes
+
+The link trigger also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-attachment-group>`
+
+Renders a `<div>` element that lays attachments out in a horizontally scrolling, snapping row, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

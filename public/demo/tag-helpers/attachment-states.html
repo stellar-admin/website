@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.0wexyvhui1.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.0frsvhd7es.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-sm">
+    <!-- code begin -->
+    <div class="flex flex-col gap-3">
+        <div data-slot="attachment" data-state="idle" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">Attach a travel document</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">PDF, JPG or PNG up to 10 MB</span>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="uploading" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none" role="status" aria-label="Loading" class="sa-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">flight-confirmation.pdf</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">Uploading · 64%</span>
+            </div>
+            <div data-slot="attachment-actions" class="sa-attachment-actions">
+                <button aria-label="Cancel uploading flight-confirmation.pdf" type="button" data-slot="attachment-action" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-xs">
+                    <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="processing" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none" role="status" aria-label="Loading" class="sa-spinner"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">passport-priya.jpg</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">Checking the expiry date</span>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="error" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">hotel-invoice.pdf</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">Upload failed — the file is over 10 MB</span>
+            </div>
+            <div data-slot="attachment-actions" class="sa-attachment-actions">
+                <button aria-label="Retry uploading hotel-invoice.pdf" type="button" data-slot="attachment-action" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-xs">
+                    <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div data-slot="attachment" data-state="done" data-size="default" data-orientation="horizontal" class="sa-attachment group/attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
+            <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+                <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            </div>
+            <div data-slot="attachment-content" class="sa-attachment-content">
+                <span data-slot="attachment-title" class="sa-attachment-title">kyoto-itinerary.pdf</span>
+                <span data-slot="attachment-description" class="sa-attachment-description">PDF · 2.4 MB</span>
+            </div>
+            <div data-slot="attachment-actions" class="sa-attachment-actions">
+                <button aria-label="Remove kyoto-itinerary.pdf" type="button" data-slot="attachment-action" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-xs">
+                    <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" stroke-linecap="round" width="24" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
