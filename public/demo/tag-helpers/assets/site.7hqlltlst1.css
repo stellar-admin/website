@@ -384,6 +384,15 @@
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
+  .h-80 {
+    height: calc(var(--spacing) * 80);
+  }
+  .h-\[26rem\] {
+    height: 26rem;
+  }
+  .h-\[28rem\] {
+    height: 28rem;
+  }
   .h-\[40px\] {
     height: 40px;
   }

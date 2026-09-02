@@ -39,6 +39,7 @@
     "bubble",
     "marker",
     "message",
+    "message-scroller",
     "---Feedback---",
     "alert",
     "progress",

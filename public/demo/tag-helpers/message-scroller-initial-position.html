@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.7hqlltlst1.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.3rckxfux58.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <!-- code begin -->
+<div class="h-80 w-full">
+    <sel-message-scroller id="--sa-message-scroller-584a22c041c1047892b25dc18998bd5b37204830b1fa922582d232b1aad0b2147512" data-slot="message-scroller" auto-scroll="false" initial-position="start" class="sa-message-scroller group/message-scroller">
+        <div aria-label="Booking history" data-slot="message-scroller-viewport" role="region" tabindex="0" class="sa-message-scroller-viewport">
+            <div class="sa-message-scroller-content px-1 py-2" data-slot="message-scroller-content" role="log" aria-relevant="additions">
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="marker" data-variant="separator" class="sa-marker group/marker sa-marker-variant-separator">
+                        <span data-slot="marker-content" class="sa-marker-content">Where this booking started</span>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="start" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Priya Raman" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    We are two travellers looking at Kyoto in April, ideally during the blossom.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="end" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Mika Tanaka" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="default" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-default">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    The second week of April is the safest bet. Shall I hold two seats on NH212?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="start" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Priya Raman" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    Please do. We can confirm the ryokan once the flights are held.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="marker" data-variant="default" class="sa-marker group/marker sa-marker-variant-default">
+                        <span data-slot="marker-icon" aria-hidden="true" class="sa-marker-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M2 22h20"></path><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"></path></svg>
+                        </span>
+                        <span data-slot="marker-content" class="sa-marker-content">Seats held on NH212, London to Tokyo</span>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="end" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Mika Tanaka" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="default" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-default">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    Held until Friday. The Kanra Kyoto has a garden room free for the same nights.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="start" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Priya Raman" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-1.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="secondary" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-secondary">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    Take it. We would rather be near the river than close to the station.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="marker" data-variant="default" class="sa-marker group/marker sa-marker-variant-default">
+                        <span data-slot="marker-icon" aria-hidden="true" class="sa-marker-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 22v-6.57"></path><path d="M12 11h.01"></path><path d="M12 7h.01"></path><path d="M14 15.43V22"></path><path d="M15 16a5 5 0 0 0-6 0"></path><path d="M16 11h.01"></path><path d="M16 7h.01"></path><path d="M8 11h.01"></path><path d="M8 7h.01"></path><rect height="20" rx="2" width="16" x="4" y="2"></rect></svg>
+                        </span>
+                        <span data-slot="marker-content" class="sa-marker-content">Garden room confirmed, 12 to 14 April</span>
+                    </div>
+                </div>
+                <div data-slot="message-scroller-item" class="sa-message-scroller-item">
+                    <div data-slot="message" data-align="end" class="sa-message group/message">
+                        <div data-slot="message-avatar" class="sa-message-avatar">
+                            <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><img alt="Mika Tanaka" class="sa-avatar-image" data-slot="avatar-image" src="/demo/tag-helpers/assets/avatar-2.jpg"></img></span>
+                        </div>
+                        <div data-slot="message-content" class="sa-message-content">
+                            <div data-slot="bubble" data-variant="default" data-align="start" class="sa-bubble group/bubble sa-bubble-variant-default">
+                                <div data-slot="bubble-content" class="sa-bubble-content">
+                                    That is the whole trip booked. I will send the itinerary tomorrow morning.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" data-slot="message-scroller-button" data-direction="end" data-active="false" command="--scroll-to-end" commandfor="--sa-message-scroller-584a22c041c1047892b25dc18998bd5b37204830b1fa922582d232b1aad0b2147512" class="sa-message-scroller-button sa-button group/button sa-button-variant-secondary sa-button-size-icon-sm"><svg xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span class="sr-only">Scroll to end</span></button>
+    </sel-message-scroller>
+</div>
+<!-- code end -->
+
+
+</div>
+
+
+
+</body>
+</html>

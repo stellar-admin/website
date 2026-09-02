@@ -1,0 +1,138 @@
+---
+title: Message Scroller
+description: Displays a scrolling conversation that stays on the newest message as it arrives
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/message-scroller-intro.html">
+  <include>./_include/message-scroller-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A message scroller is composed of `<sa-message-scroller>` wrapping a `<sa-message-scroller-viewport>`, a `<sa-message-scroller-content>` holding one `<sa-message-scroller-item>` per row, and any `<sa-message-scroller-button>` controls.
+
+```razor
+<sa-message-scroller>
+    <sa-message-scroller-viewport>
+        <sa-message-scroller-content>
+            <sa-message-scroller-item>
+                ...
+            </sa-message-scroller-item>
+        </sa-message-scroller-content>
+    </sa-message-scroller-viewport>
+    <sa-message-scroller-button/>
+</sa-message-scroller>
+```
+
+The scroller fills its container rather than sizing itself, so give it a parent with a height — a fixed height, or a flex child with `min-h-0`. Without one it has nothing to scroll inside.
+
+The transcript opens on the newest message and stays there as messages arrive. As soon as the reader scrolls away it stops following, so nothing is pulled out from under them while they read back; returning to the newest message takes following up again.
+
+New messages are picked up from the DOM rather than from any particular transport, so it behaves the same whether they arrive from an htmx swap, server-sent events, SignalR or your own `fetch`. Append them to the `<sa-message-scroller-content>` element and the scroller does the rest.
+
+### What it does not do
+
+The scroller deliberately stops short of the behaviour a dedicated chat client needs. It does not anchor each new turn to the top of the viewport, it does not preserve the reader's position when older history is prepended above them, and it does not restore the position a reader left off at. If you need those, drive the scroll position yourself with `scrollToStart()` and `scrollToEnd()`.
+
+## Examples
+
+### Initial position
+
+Set `initial-position` to `Start` to open on the oldest message instead of the newest — the right choice when the reader is coming to read a thread from the beginning rather than to catch up on it. Pair it with `auto-scroll="false"` so a message arriving mid-read does not pull them to the bottom.
+
+<Demo src="/demo/tag-helpers/message-scroller-initial-position.html">
+  <include>./_include/message-scroller-initial-position.mdx</include>
+</Demo>
+
+### Scroll directions
+
+A `<sa-message-scroller-button>` defaults to scrolling to the end. Set `direction` to `Start` for one that scrolls back to the top, and include both where a transcript is long enough to get lost in. Each button fades out and stops taking clicks when there is nothing left to scroll to in its direction.
+
+The buttons carry an `sr-only` label describing where they scroll to, so they are announced even though they render as icons.
+
+<Demo src="/demo/tag-helpers/message-scroller-directions.html">
+  <include>./_include/message-scroller-directions.mdx</include>
+</Demo>
+
+### New messages
+
+Appending to the content element is all that is needed for the transcript to follow along. The viewport is a labelled `region` that a keyboard user can focus and scroll, and the content is a `log` with `aria-relevant="additions"`, so a screen reader announces messages as they arrive without re-reading the transcript already on screen. Give the viewport an `aria-label` naming the conversation when a page holds more than one.
+
+<Demo src="/demo/tag-helpers/message-scroller-new-messages.html">
+  <include>./_include/message-scroller-new-messages.mdx</include>
+</Demo>
+
+## Without JavaScript
+
+The scroller is progressively enhanced. Without `stellar-admin.js` the transcript still lays out and scrolls normally; it opens on the oldest message rather than the newest, does not follow new content, and the buttons stay hidden and unclickable rather than appearing and doing nothing.
+
+## API Reference
+
+### `<sa-message-scroller>`
+
+Renders a `<sel-message-scroller>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). An `id` is generated when you do not supply one, so the buttons inside it can target it.
+
+<TypeTable
+  type={{
+    "auto-scroll": {
+      description:
+        "Whether the transcript follows new content while the reader is at the newest message.",
+      type: "bool",
+      typeDescription: "true | false",
+      default: "true",
+    },
+    "initial-position": {
+      description: "Where the transcript is scrolled to when it first appears.",
+      type: "MessageScrollerPosition",
+      typeDescription:
+        "MessageScrollerPosition.Start | MessageScrollerPosition.End",
+      default: "MessageScrollerPosition.End",
+    },
+  }}
+/>
+
+The rendered element exposes `scrollToStart()` and `scrollToEnd()` methods, and a `following` property reporting whether the transcript is currently following new content.
+
+### `<sa-message-scroller-viewport>`
+
+Renders the scrolling `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It is a focusable `region` labelled `Messages`; set `aria-label` or `aria-labelledby` to name the conversation yourself.
+
+### `<sa-message-scroller-content>`
+
+Renders a `<div>` element holding the transcript, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It is a `log` with `aria-relevant="additions"` unless you set `role` or `aria-relevant` yourself. Append new messages here.
+
+### `<sa-message-scroller-item>`
+
+Renders a `<div>` element wrapping one row of the transcript, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). Rows outside the viewport are skipped during rendering, which is what keeps a long transcript cheap, so wrap every row rather than only some.
+
+### `<sa-message-scroller-button>`
+
+Renders a `<button>` element that scrolls the transcript, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It defaults to an arrow icon and an `sr-only` label; supply your own content to replace both. The `type` defaults to `button` so a button inside a form does not submit it.
+
+<TypeTable
+  type={{
+    direction: {
+      description: "The end of the transcript the button scrolls to.",
+      type: "MessageScrollerDirection",
+      typeDescription:
+        "MessageScrollerDirection.Start | MessageScrollerDirection.End",
+      default: "MessageScrollerDirection.End",
+    },
+    size: {
+      description: "The size of the button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.IconSmall",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Secondary",
+    },
+  }}
+/>
