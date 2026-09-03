@@ -59,7 +59,11 @@ Set `multiple` on the item to let the reader pick more than one answer. Its choi
 
 Always give it an accessible name with a visible label, `aria-label` or `aria-labelledby`. A placeholder is not a name: it disappears as soon as the reader types.
 
-Typing into it clears the choice a single-answer question holds, since the answer is either one of the choices or the reader's own — not both. A question with `multiple` keeps its checked choices, because free text there adds to the answer rather than replacing it. This needs `stellar-admin.js`; without it both stand and your handler decides between them.
+A question that takes one answer takes it from one place, so the free text and the choices stand in for each other: typing here clears the selected choice, and selecting a choice takes the typed answer back out of the form. Only one of the two ever posts, and what the reader typed is never thrown away — it stays on the page to come back to, out of the form until it is the answer again. An empty free-text answer is out of the form too, so an untouched one binds as `null` rather than an empty string.
+
+Set `replaces-choices="false"` to turn that off and let both answers stand and post together. It is off already on a `multiple` question, where free text adds to the answer rather than replacing it.
+
+All of this needs `stellar-admin.js`. Without it both answers post and your handler decides between them.
 
 <Demo src="/demo/tag-helpers/questionnaire-freeform.html">
   <include>./_include/questionnaire-freeform.mdx</include>
@@ -133,7 +137,7 @@ Several questions can share one questionnaire and post together, which suits a p
 
 ### `<sa-questionnaire>`
 
-Renders a `<sel-questionnaire>` custom element holding the questions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It handles the shortcut keys assigned by `<sa-questionnaire-choices>`, the arrow keys that move between a question's answers, and a free-text answer replacing the choice a single-answer question holds — all of which needs `stellar-admin.js`.
+Renders a `<sel-questionnaire>` custom element holding the questions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It handles the shortcut keys assigned by `<sa-questionnaire-choices>`, the arrow keys that move between a question's answers, and keeping a free-text answer and the choices from both posting — all of which needs `stellar-admin.js`.
 
 ### `<sa-questionnaire-progress>`
 
@@ -265,6 +269,12 @@ Renders a free-text `<input>` alongside the question's fixed choices, forwarding
         "Whether to render this answer's validation message after the input. The message reports the property this input is bound to, which is not the one the question's choices post.",
       type: "bool",
       default: "true",
+    },
+    "replaces-choices": {
+      description:
+        "Whether this answer and the item's choices replace one another, so that only one of the two posts: typing here clears the selected choice, and selecting a choice takes this answer out of the form. Set it to false to let both stand and post together.",
+      type: "bool",
+      default: "true, or false on a multiple item",
     },
     type: {
       description: "The type of the HTML input.",
