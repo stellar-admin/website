@@ -59,6 +59,8 @@ Set `multiple` on the item to let the reader pick more than one answer. Its choi
 
 Always give it an accessible name with a visible label, `aria-label` or `aria-labelledby`. A placeholder is not a name: it disappears as soon as the reader types.
 
+Typing into it clears the choice a single-answer question holds, since the answer is either one of the choices or the reader's own — not both. A question with `multiple` keeps its checked choices, because free text there adds to the answer rather than replacing it. This needs `stellar-admin.js`; without it both stand and your handler decides between them.
+
 <Demo src="/demo/tag-helpers/questionnaire-freeform.html">
   <include>./_include/questionnaire-freeform.mdx</include>
 </Demo>
@@ -88,6 +90,8 @@ The keys need `stellar-admin.js`. Without it the badges still render, but pressi
 They apply once focus is inside the question, which clicking anywhere in it does — its title, its description, the space around the choices. This is what keeps a questionnaire from swallowing keystrokes meant for the rest of the page, and it is why a questionnaire with several questions applies a key to the question it came from rather than guessing between them. Keys are ignored entirely while a text answer has focus, so typing into `<sa-questionnaire-input>` types.
 
 The badge is decorative and hidden from assistive technology; the key is announced from the control it operates, through `aria-keyshortcuts` on the input.
+
+The arrow keys move between a question's answers and wrap around at either end, taking in `<sa-questionnaire-input>` along with the choices — the browser on its own only walks a radio group, which strands the checkboxes of a `multiple` question and any free-text answer. Arriving at a radio button selects it, the way the browser's own arrow keys do; arriving at a checkbox only focuses it, since one checkbox is not the whole answer. An empty free-text answer hands the arrows on to the next answer, and one with something typed into it keeps them for its own caret.
 
 ### Steps
 
@@ -129,7 +133,7 @@ Several questions can share one questionnaire and post together, which suits a p
 
 ### `<sa-questionnaire>`
 
-Renders a `<sel-questionnaire>` custom element holding the questions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It handles the shortcut keys assigned by `<sa-questionnaire-choices>`, which needs `stellar-admin.js`.
+Renders a `<sel-questionnaire>` custom element holding the questions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It handles the shortcut keys assigned by `<sa-questionnaire-choices>`, the arrow keys that move between a question's answers, and a free-text answer replacing the choice a single-answer question holds — all of which needs `stellar-admin.js`.
 
 ### `<sa-questionnaire-progress>`
 
