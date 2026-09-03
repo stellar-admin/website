@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-A bubble is composed of `<sa-bubble>` wrapping a single `<sa-bubble-content>`, optionally with a `<sa-bubble-reactions>` row. Stack bubbles inside a `<sa-bubble-group>`.
+A bubble is composed of `<sa-bubble>` wrapping a single `<sa-bubble-content>`, optionally with a `<sa-bubble-reactions>` row. Stack bubbles inside a `<sa-bubble-group>`. Bubbles can also tbe used with [Message](message) inside of `<sa-message-content>`.
 
 ```razor
 <sa-bubble-group>
@@ -39,8 +39,6 @@ Set `variant` to pick the visual treatment. `Default` is the strongly emphasized
 <Demo src="/demo/tag-helpers/bubble-variants.html">
   <include>./_include/bubble-variants.mdx</include>
 </Demo>
-
-Do not rely on the `Destructive` colour on its own to communicate that something went wrong — say so in the message text too.
 
 ### Align
 

@@ -1,35 +1,120 @@
-System.InvalidOperationException: The model item passed into the ViewDataDictionary is of type 'DocsSamples.Pages.DocsStatic', but this ViewDataDictionary instance requires a model item of type 'DocsSamples.Pages.Questionnaire.Index+CustomProgressModel'.
-   at lambda_method1062(Closure, ViewDataDictionary)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorPagePropertyActivator.Activate(Object page, ViewContext context)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
-   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.RenderPartialViewAsync(TextWriter writer, Object model, IView view)
-   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
-   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
-   at DocsSamples.Pages.Pages_DocsStatic.ExecuteAsync() in /home/jerriep/projects/stellar-admin/workspace/stellar-admin/docs/DocsSamples/Pages/DocsStatic.cshtml:line 9
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
-   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
-   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
-   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
---- End of stack trace from previous location ---
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
---- End of stack trace from previous location ---
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
-   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
 
-HEADERS
-=======
-Cookie: .AspNetCore.Antiforgery.M2OFHWriLok=CfDJ8HCsSoi_s-lAiM769jmp5Y_b4ymho5Ri_C0WDpRi6q-_AsHI1E7LiAOQsIF8okZuhEN8jWXB8HU2fhcqFQgk_29XoR8cG9ZVWk7R3S1Ngv5SyLYmvoiJ3BeXZ9thdLwCBMgBf30ekB3mbxZz71wmTMc
-Host: localhost
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.4b9ro4f5fa.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <div aria-valuetext="Step 2 of 4" class="sa-questionnaire-progress flex w-full flex-col gap-2" data-slot="questionnaire-progress" data-current="2" data-total="4" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="4" aria-label="Questionnaire progress">
+                <span class="flex gap-1.5" aria-hidden="true">
+                        <span class="h-1.5 flex-1 rounded-full bg-primary"></span>
+                        <span class="h-1.5 flex-1 rounded-full bg-primary"></span>
+                        <span class="h-1.5 flex-1 rounded-full bg-muted"></span>
+                        <span class="h-1.5 flex-1 rounded-full bg-muted"></span>
+                </span>
+                <span>Step 2 of 4</span>
+            </div>
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Who is travelling?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    We hold seats together wherever the airline allows it.
+                </div>
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_solo" name="PartialModel.Travellers" type="radio" value="solo" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_solo">
+                        Just me
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_couple" name="PartialModel.Travellers" type="radio" value="couple" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_couple">
+                        Two of us
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_family" name="PartialModel.Travellers" type="radio" value="family" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_family">
+                        A family
+                    </label></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Travellers" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+            <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
+                <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button group/button sa-button-variant-outline sa-button-size-default">Previous</button>
+                <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
+            </div>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y9D4BposRTuTjoOr7_wK6mGax2BsVZCLZMPTKUUecog6x4QTcWUTUHyXDjbKSRZkcYPFRFKPy9lUDSyrRRr7WIxfIE8xRot6LxeFm499GdRD-GMjTPKTklrdGl_U2aW6f8" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

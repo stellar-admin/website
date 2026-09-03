@@ -37,7 +37,7 @@ A questionnaire is `<sa-questionnaire>` wrapping one or more `<sa-questionnaire-
 </form>
 ```
 
-`<sa-questionnaire>` does not render a `<form>` — put it inside your own, so that the method, the antiforgery token and the handler stay yours. Each `<sa-questionnaire-item>` renders a `<fieldset>` with its title as the `<legend>`, and each choice is a real radio button or checkbox, so a questionnaire posts and validates like any other form.
+Each `<sa-questionnaire-item>` renders a `<fieldset>` with its title as the `<legend>`, and each choice is a real radio button or checkbox, so a questionnaire posts and validates like any other form.
 
 **Bind the question, not its choices.** `asp-for` goes on `<sa-questionnaire-item>`, and everything inside it follows from there: the choices take their name and selected state from it, and its validation message reports it. Each choice supplies only the `value` it posts. A question with no binding works too — put a `name` on the item instead, and the choices post under that.
 
@@ -83,19 +83,13 @@ Place `<sa-questionnaire-error>` yourself when you want the message somewhere ot
 
 ### Shortcut keys
 
-Set `shortcuts` on `<sa-questionnaire-choices>` to label each choice with a key that selects it. `QuestionnaireShortcuts.Letters` runs A through Z and `QuestionnaireShortcuts.Numbers` runs 1 through 9; keys are handed out in order over the choices that can be picked, skipping disabled ones, and a choice can name its own key with `shortcut`.
+Set `shortcuts` on `<sa-questionnaire-choices>` to label each choice with a key that selects it. `QuestionnaireShortcuts.Letters` uses A through Z and `QuestionnaireShortcuts.Numbers` 1 through 9. A choice can override the key with `shortcut`.
 
 <Demo src="/demo/tag-helpers/questionnaire-shortcuts.html">
   <include>./_include/questionnaire-shortcuts.mdx</include>
 </Demo>
 
-The keys need `stellar-admin.js`. Without it the badges still render, but pressing a key does nothing.
-
-They apply once focus is inside the question, which clicking anywhere in it does — its title, its description, the space around the choices. This is what keeps a questionnaire from swallowing keystrokes meant for the rest of the page, and it is why a questionnaire with several questions applies a key to the question it came from rather than guessing between them. Keys are ignored entirely while a text answer has focus, so typing into `<sa-questionnaire-input>` types.
-
 The badge is decorative and hidden from assistive technology; the key is announced from the control it operates, through `aria-keyshortcuts` on the input.
-
-The arrow keys move between a question's answers and wrap around at either end, taking in `<sa-questionnaire-input>` along with the choices — the browser on its own only walks a radio group, which strands the checkboxes of a `multiple` question and any free-text answer. Arriving at a radio button selects it, the way the browser's own arrow keys do; arriving at a checkbox only focuses it, since one checkbox is not the whole answer. An empty free-text answer hands the arrows on to the next answer, and one with something typed into it keeps them for its own caret.
 
 ### Steps
 
@@ -105,13 +99,11 @@ Pair `<sa-questionnaire-progress>` with an actions row to present one question a
   <include>./_include/questionnaire-steps.mdx</include>
 </Demo>
 
-The actions all render submit buttons, so which one the reader pressed arrives in the post. Give them a shared `name` and distinct `value` attributes and your handler can tell them apart.
+The actions render submit buttons. Give them a shared `name` and distinct `value` attributes to identify which one was clicked on the server.
 
 ### Custom progress
 
-Give `<sa-questionnaire-progress>` content of your own to replace the default wording — a row of segments, a step label, whatever suits the flow.
-
-Keep `current` and `total` on it so it still reports as a progress bar, and set `aria-valuetext` to match what you have written. Without that, the reader hears the default wording rather than what is on the screen.
+Give `<sa-questionnaire-progress>` content of your own to replace the default wording — a row of segments, a step label, whatever suits the flow. Keep `current` and `total` on it so it still reports as a progress bar, and set `aria-valuetext` to match your custom text.
 
 <Demo src="/demo/tag-helpers/questionnaire-custom-progress.html">
   <include>./_include/questionnaire-custom-progress.mdx</include>

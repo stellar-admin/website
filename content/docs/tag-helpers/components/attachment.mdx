@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` to make the whole card activatable, and put several attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
+An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` or `<sa-attachment-link-trigger>` to make the whole card clickable. Place attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
 
 ```razor
 <sa-attachment-group>
@@ -37,19 +37,15 @@ Every part is optional. An attachment with only a media region is a bare thumbna
 
 ### State
 
-Set `state` to say where the file is in its upload lifecycle. `Idle` draws a dashed border, for a card standing in as a drop target before anything has been attached. `Uploading` and `Processing` shimmer the title. `Error` turns the border and the description red, and `Done` — the default — is the finished, settled file.
+Set `state` to indicate the upload or processing state. `Idle` draws a dashed border, for a card standing in as a drop target before anything has been attached. `Uploading` and `Processing` shimmer the title. `Error` turns the border and the description red, and `Done` — the default — is a completed, uploaded file.
 
 <Demo src="/demo/tag-helpers/attachment-states.html">
   <include>./_include/attachment-states.mdx</include>
 </Demo>
 
-Do not rely on the `Error` colouring on its own to communicate that something went wrong: put the reason in the `<sa-attachment-description>`, as the demo above does, so it is available to anyone who does not perceive the colour.
-
 ### Size
 
-Set `size` to `AttachmentSize.Small` or `AttachmentSize.ExtraSmall` to step the media, padding and text down together. The smaller sizes suit a dense list or the row of pending files above a message composer, where the attachment is supporting content rather than the subject of the screen.
-
-At those sizes the description often earns its space less than the filename does. Leave `<sa-attachment-description>` out — as the extra-small attachment below does — and the card closes up around the title on its own.
+Set `size` to `AttachmentSize.Small` or `AttachmentSize.ExtraSmall` to compact the attachment card. The smaller sizes suit a dense list or the row of pending files above a message composer, where the attachment is supporting content rather than the subject of the screen. Consider leaving `<sa-attachment-description>` out at smaller sizes.
 
 <Demo src="/demo/tag-helpers/attachment-sizes.html">
   <include>./_include/attachment-sizes.mdx</include>
@@ -57,9 +53,9 @@ At those sizes the description often earns its space less than the filename does
 
 ### Image
 
-Set `variant` on `<sa-attachment-media>` to `AttachmentMediaVariant.Image` and put an `<img>` inside it to show a preview of the file itself instead of an icon standing in for its type. The image is cropped to a square and fills the media region, so it needs no sizing classes of its own.
+Set `variant` on `<sa-attachment-media>` to `AttachmentMediaVariant.Image` and add an `<img>` inside it to show a preview of the file itself instead of an icon standing in for its type. The image is cropped to a square and fills the media region, so it needs no sizing classes of its own.
 
-Pair it with `orientation="AttachmentOrientation.Vertical"` to stack the preview above the filename as a card. Vertical attachments move the actions row on top of the media, in the top corner.
+When using `orientation="AttachmentOrientation.Vertical"` the preview is stacked above the filename as a card. Vertical attachments move the actions row on top of the media, in the top corner.
 
 <Demo src="/demo/tag-helpers/attachment-image.html">
   <include>./_include/attachment-image.mdx</include>
@@ -77,9 +73,9 @@ Attachments scrolled out of view are still reachable by keyboard when they conta
 
 ### Trigger
 
-A trigger covers the whole attachment with a control that activates it, while leaving the buttons in `<sa-attachment-actions>` clickable in their own right. Use it for the primary thing the card does — opening a preview, downloading the file — and keep the actions row for everything else.
+A trigger covers the whole attachment with a control that activates it, while leaving the buttons in `<sa-attachment-actions>` clickable. Use it for the primary thing the card does — opening a preview, downloading the file — and keep the actions row for everything else.
 
-Pick the tag by what activating the card should do. `<sa-attachment-button-trigger>` renders a `<button>`, for a card that acts — opening a preview dialog, expanding the file in place. `<sa-attachment-link-trigger>` renders an `<a>`, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
+`<sa-attachment-button-trigger>` renders a `<button>` element, for a card that acts — opening a preview dialog or expanding the file in place. `<sa-attachment-link-trigger>` renders an `<a>` element, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
 
 <Demo src="/demo/tag-helpers/attachment-trigger.html">
   <include>./_include/attachment-trigger.mdx</include>
