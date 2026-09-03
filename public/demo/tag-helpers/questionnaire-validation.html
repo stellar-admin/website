@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.38kbtezm0j.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Which cabin class should we book?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    Fares are held for 20 minutes once you continue.
+                </div>
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="input-validation-error sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" data-val="true" data-val-required="Choose a cabin class to continue." id="PartialModel_CabinClass_economy" name="PartialModel.CabinClass" type="radio" value="economy" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_CabinClass_economy">
+                        Economy
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="input-validation-error sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_CabinClass_premium" name="PartialModel.CabinClass" type="radio" value="premium" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_CabinClass_premium">
+                        Premium economy
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="input-validation-error sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_CabinClass_business" name="PartialModel.CabinClass" type="radio" value="business" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_CabinClass_business">
+                        Business
+                    </label></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-error" data-valmsg-for="PartialModel.CabinClass" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error">Choose a cabin class to continue.</div></fieldset>
+            <fieldset data-slot="questionnaire-item" tabindex="-1" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">What is the trip built around?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    We time the itinerary around whatever you are travelling for.
+                </div>
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Occasion_festival" name="PartialModel.Occasion" type="radio" value="festival" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Occasion_festival">
+                        A festival or event
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Occasion_wedding" name="PartialModel.Occasion" type="radio" value="wedding" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Occasion_wedding">
+                        A wedding
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Occasion_birthday" name="PartialModel.Occasion" type="radio" value="birthday" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Occasion_birthday">
+                        A big birthday
+                    </label></div>
+                    <div data-slot="questionnaire-input-wrapper" class="sa-questionnaire-input-wrapper group/questionnaire-input"><input aria-label="Something else" placeholder="Something else..." type="text" data-val="true" data-val-minlength="Tell us a little more about the occasion." data-val-minlength-min="15" id="PartialModel_OtherOccasion" name="PartialModel.OtherOccasion" value="eclipse" data-slot="questionnaire-input" class="sa-questionnaire-input"></div><div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.OtherOccasion" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Occasion" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y_7SQaBpKQpY7THHfYOB1DdZGfDRbgVlSaPgorPyYdoCTvtqtK7JdMdZ3XkyoLHdf7t6Fdb0WP1QOubyb69f1h2gQGmC0T87_EBGYop3bG02ZxhtkGIQ0hql8vPhIzukbI" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

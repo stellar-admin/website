@@ -1,0 +1,318 @@
+---
+title: Questionnaire
+description: Asks the reader a question and collects the answer as a set of large, tappable choices
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/questionnaire-intro.html">
+  <include>./_include/questionnaire-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A questionnaire is `<sa-questionnaire>` wrapping one or more `<sa-questionnaire-item>`, each of which is a single question: a title, an optional description, and a set of `<sa-questionnaire-choice>` inside `<sa-questionnaire-choices>`.
+
+```razor
+<form method="post">
+    <sa-questionnaire>
+        <sa-questionnaire-progress current="..." total="..."/>
+        <sa-questionnaire-item asp-for="..." required="..." multiple="...">
+            <sa-questionnaire-title>...</sa-questionnaire-title>
+            <sa-questionnaire-description>...</sa-questionnaire-description>
+            <sa-questionnaire-choices shortcuts="...">
+                <sa-questionnaire-choice value="...">
+                    ...
+                    <sa-questionnaire-choice-description>...</sa-questionnaire-choice-description>
+                </sa-questionnaire-choice>
+                <sa-questionnaire-input asp-for="..."/>
+            </sa-questionnaire-choices>
+        </sa-questionnaire-item>
+        <sa-questionnaire-actions>
+            <sa-questionnaire-previous/>
+            <sa-questionnaire-skip/>
+            <sa-questionnaire-next/>
+        </sa-questionnaire-actions>
+    </sa-questionnaire>
+</form>
+```
+
+`<sa-questionnaire>` does not render a `<form>` — put it inside your own, so that the method, the antiforgery token and the handler stay yours. Each `<sa-questionnaire-item>` renders a `<fieldset>` with its title as the `<legend>`, and each choice is a real radio button or checkbox, so a questionnaire posts and validates like any other form.
+
+**Bind the question, not its choices.** `asp-for` goes on `<sa-questionnaire-item>`, and everything inside it follows from there: the choices take their name and selected state from it, and its validation message reports it. Each choice supplies only the `value` it posts. A question with no binding works too — put a `name` on the item instead, and the choices post under that.
+
+The component holds no client-side state. It renders whatever the page model gives it and posts back on submit, so a multi-step questionnaire is a sequence of requests that your page model drives, not a wizard running in the browser.
+
+## Examples
+
+### Multiple answers
+
+Set `multiple` on the item to let the reader pick more than one answer. Its choices render as checkboxes rather than radio buttons, so bind the item to a collection property.
+
+<Demo src="/demo/tag-helpers/questionnaire-multiple.html">
+  <include>./_include/questionnaire-multiple.mdx</include>
+</Demo>
+
+### Free-text answer
+
+`<sa-questionnaire-input>` adds a free-text answer alongside the fixed choices, for the reader whose answer is not on the list. It binds to a property of its own — it is a different answer from the one the choices post — so give it its own `asp-for`.
+
+Always give it an accessible name with a visible label, `aria-label` or `aria-labelledby`. A placeholder is not a name: it disappears as soon as the reader types.
+
+<Demo src="/demo/tag-helpers/questionnaire-freeform.html">
+  <include>./_include/questionnaire-freeform.mdx</include>
+</Demo>
+
+### Validation
+
+A bound question renders its own validation message, so there is nothing to remember: bind the item and an invalid answer reports itself. The message is rendered even while the answer is valid — hidden until it says something — which is what lets client-side validation write into it without the layout shifting.
+
+A free-text answer reports separately, next to the input, because it is bound to its own property. In the example below the choices are fine and the typed answer is too short, so only the input's message shows.
+
+<Demo src="/demo/tag-helpers/questionnaire-validation.html">
+  <include>./_include/questionnaire-validation.mdx</include>
+</Demo>
+
+Place `<sa-questionnaire-error>` yourself when you want the message somewhere other than the end of the question, or want to write your own text. Doing so replaces the automatic message rather than adding a second one. To leave the message out altogether, set `render-error="false"` on the item.
+
+### Shortcut keys
+
+Set `shortcuts` on `<sa-questionnaire-choices>` to label each choice with a key that selects it. `QuestionnaireShortcuts.Letters` runs A through Z and `QuestionnaireShortcuts.Numbers` runs 1 through 9; keys are handed out in order over the choices that can be picked, skipping disabled ones, and a choice can name its own key with `shortcut`.
+
+<Demo src="/demo/tag-helpers/questionnaire-shortcuts.html">
+  <include>./_include/questionnaire-shortcuts.mdx</include>
+</Demo>
+
+The keys need `stellar-admin.js`. Without it the badges still render, but pressing a key does nothing.
+
+They apply once focus is inside the question, which clicking anywhere in it does — its title, its description, the space around the choices. This is what keeps a questionnaire from swallowing keystrokes meant for the rest of the page, and it is why a questionnaire with several questions applies a key to the question it came from rather than guessing between them. Keys are ignored entirely while a text answer has focus, so typing into `<sa-questionnaire-input>` types.
+
+The badge is decorative and hidden from assistive technology; the key is announced from the control it operates, through `aria-keyshortcuts` on the input.
+
+### Steps
+
+Pair `<sa-questionnaire-progress>` with an actions row to present one question at a time. Give the progress bar `current` and `total` and it reports position both visually and to assistive technology; supply your own content instead to replace the wording.
+
+<Demo src="/demo/tag-helpers/questionnaire-steps.html">
+  <include>./_include/questionnaire-steps.mdx</include>
+</Demo>
+
+The actions all render submit buttons, so which one the reader pressed arrives in the post. Give them a shared `name` and distinct `value` attributes and your handler can tell them apart.
+
+### Custom progress
+
+Give `<sa-questionnaire-progress>` content of your own to replace the default wording — a row of segments, a step label, whatever suits the flow.
+
+Keep `current` and `total` on it so it still reports as a progress bar, and set `aria-valuetext` to match what you have written. Without that, the reader hears the default wording rather than what is on the screen.
+
+<Demo src="/demo/tag-helpers/questionnaire-custom-progress.html">
+  <include>./_include/questionnaire-custom-progress.mdx</include>
+</Demo>
+
+### In a card
+
+A questionnaire drops into `<sa-card-content>` unchanged, which is the usual way to present a step of a longer flow.
+
+<Demo src="/demo/tag-helpers/questionnaire-card.html">
+  <include>./_include/questionnaire-card.mdx</include>
+</Demo>
+
+### Long form
+
+Several questions can share one questionnaire and post together, which suits a preferences page better than stepping through them one at a time. Each question restarts its own shortcut keys, and a key answers the question it was pressed in.
+
+<Demo src="/demo/tag-helpers/questionnaire-long-form.html">
+  <include>./_include/questionnaire-long-form.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-questionnaire>`
+
+Renders a `<sel-questionnaire>` custom element holding the questions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It handles the shortcut keys assigned by `<sa-questionnaire-choices>`, which needs `stellar-admin.js`.
+
+### `<sa-questionnaire-progress>`
+
+Renders a `<div>` showing how far through the questionnaire the reader is. Supply both `current` and `total` to render a progress bar, or supply your own content to replace the default wording.
+
+<TypeTable
+  type={{
+    current: {
+      description: "The one-based position of the question being shown.",
+      type: "int",
+    },
+    total: {
+      description: "The total number of questions.",
+      type: "int",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-item>`
+
+Renders a `<fieldset>` holding one question, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model, naming the answer to this question. Its choices take their name and selected state from it, and its validation message reports it.",
+      type: "ModelExpression",
+    },
+    multiple: {
+      description:
+        "Whether the question accepts more than one answer, rendering its choices as checkboxes instead of radio buttons.",
+      type: "bool",
+      default: "false",
+    },
+    name: {
+      description:
+        "The name the answer posts under. Set automatically when bound with asp-for.",
+      type: "string",
+    },
+    "render-error": {
+      description:
+        "Whether to render the answer's validation message at the end of the question. A bound question renders one unless a sa-questionnaire-error inside it already does.",
+      type: "bool",
+      default: "true",
+    },
+    required: {
+      description: "Whether the question must be answered.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-title>`
+
+Renders the item's `<legend>`, naming the question the item asks.
+
+### `<sa-questionnaire-description>`
+
+Renders a `<div>` holding supporting text for the question.
+
+### `<sa-questionnaire-choices>`
+
+Renders a `<div>` holding the question's answers, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    shortcuts: {
+      description:
+        "Assigns a shortcut key to each choice that does not set one itself, selecting the choice when pressed. Keys are assigned in order over the choices that can be picked, skipping any that are disabled.",
+      type: "QuestionnaireShortcuts",
+      typeDescription:
+        "QuestionnaireShortcuts.Letters | QuestionnaireShortcuts.Numbers",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-choice>`
+
+Renders a `<div>` wrapping a native radio button — or a checkbox when the question accepts multiple answers — together with its label.
+
+<TypeTable
+  type={{
+    checked: {
+      description:
+        "Whether the choice is selected. Ignored when the question is bound with asp-for, which takes its state from the model.",
+      type: "bool",
+    },
+    disabled: {
+      description: "Whether the choice can be selected.",
+      type: "bool",
+      default: "false",
+    },
+    shortcut: {
+      description:
+        "The shortcut key shown beside the choice, which selects it when pressed. Overrides the key the choices container would assign. Use a single character, since the key is matched against one key press.",
+      type: "string",
+    },
+    value: {
+      description: "The value the answer posts when the choice is selected.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-choice-description>`
+
+Renders a `<span>` holding supporting text for a single choice.
+
+### `<sa-questionnaire-input>`
+
+Renders a free-text `<input>` alongside the question's fixed choices, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It binds to a property of its own rather than the one the choices post.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format string used to format the value bound via asp-for.",
+      type: "string",
+    },
+    "render-error": {
+      description:
+        "Whether to render this answer's validation message after the input. The message reports the property this input is bound to, which is not the one the question's choices post.",
+      type: "bool",
+      default: "true",
+    },
+    type: {
+      description: "The type of the HTML input.",
+      type: "string",
+      default: "text",
+    },
+    value: {
+      description: "The value of the input.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-error>`
+
+Renders a `<div>` holding the answer's validation message. A bound question renders one automatically, so place this only to position the message yourself or to write your own text — an explicit one replaces the automatic message rather than adding to it.
+
+### `<sa-questionnaire-actions>`
+
+Renders a `<div>` holding the questionnaire's navigation buttons.
+
+### `<sa-questionnaire-previous>`
+
+Renders a submit `<button>` that moves back to the previous question.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+    variant: {
+      description: "The button variant.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Outline",
+    },
+  }}
+/>
+
+### `<sa-questionnaire-skip>`
+
+Renders a submit `<button>` that leaves the current question unanswered and moves on. Takes the same `size` and `variant` attributes as `<sa-questionnaire-previous>`, and defaults to `ButtonVariant.Outline`.
+
+### `<sa-questionnaire-next>`
+
+Renders a submit `<button>` that moves on to the next question. Takes the same `size` and `variant` attributes as `<sa-questionnaire-previous>`, and defaults to `ButtonVariant.Default`.
+
+### `<sa-questionnaire-submit>`
+
+Renders a submit `<button>` that completes the questionnaire. Takes the same `size` and `variant` attributes as `<sa-questionnaire-previous>`, and defaults to `ButtonVariant.Default`.

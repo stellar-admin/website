@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.38kbtezm0j.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <div data-slot="card" data-size="default" class="sa-card group/card">
+        <div data-slot="card-content" class="sa-card-content">
+            <form method="post">
+                <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+                    <div data-slot="questionnaire-progress" class="sa-questionnaire-progress" data-current="3" data-total="5" role="progressbar" aria-valuenow="3" aria-valuemin="1" aria-valuemax="5" aria-valuetext="Question 3 of 5" aria-label="Questionnaire progress">Question 3 of 5</div>
+                    <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                        <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Where would you like to sit?</legend>
+                        <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                            We will request this seat on every flight in your itinerary.
+                        </div>
+                        <div data-slot="questionnaire-choices" data-shortcuts="numbers" class="sa-questionnaire-choices group/questionnaire-choices">
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="1" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="1" checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_window" name="PartialModel.SeatPreference" type="radio" value="window" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_window">
+                                Window
+                            </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">1</span></div>
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="2" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="2" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_aisle" name="PartialModel.SeatPreference" type="radio" value="aisle" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_aisle">
+                                Aisle
+                            </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">2</span></div>
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="3" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="3" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_any" name="PartialModel.SeatPreference" type="radio" value="any" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_any">
+                                No preference
+                            </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">3</span></div>
+                        </div>
+                    <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.SeatPreference" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+                    <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
+                        <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button group/button sa-button-variant-outline sa-button-size-default">Previous</button>
+                        <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
+                    </div>
+                </sel-questionnaire>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y90UqzN0FRTmhhxSR4C9sw6yvPbNhRYhxtfaOOsTCoNmXUxO8zcnDpcde492GPrioZvW-BSrLIV5QCTEeJ7nm2EBTykFk5elvWFlitnjO8V6eGR8TgRWbPr070nJO8OmfU" /></form>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

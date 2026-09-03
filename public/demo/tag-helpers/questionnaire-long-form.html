@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.38kbtezm0j.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">What is your budget per person?</legend>
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Budget_under-2000" name="PartialModel.Budget" type="radio" value="under-2000" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Budget_under-2000">
+                        Under $2,000
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Budget_2000-5000" name="PartialModel.Budget" type="radio" value="2000-5000" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Budget_2000-5000">
+                        $2,000 to $5,000
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Budget_over-5000" name="PartialModel.Budget" type="radio" value="over-5000" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Budget_over-5000">
+                        Over $5,000
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Budget" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Where would you like to stay?</legend>
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Accommodation_hotel" name="PartialModel.Accommodation" type="radio" value="hotel" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Accommodation_hotel">
+                        International hotels
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="B" checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Accommodation_boutique" name="PartialModel.Accommodation" type="radio" value="boutique" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Accommodation_boutique">
+                        Boutique guesthouses
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Accommodation_apartment" name="PartialModel.Accommodation" type="radio" value="apartment" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Accommodation_apartment">
+                        Self-catering apartments
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
+                    <div data-slot="questionnaire-input-wrapper" class="sa-questionnaire-input-wrapper group/questionnaire-input"><input aria-label="Something else" placeholder="Something else..." type="text" id="PartialModel_OtherAccommodation" name="PartialModel.OtherAccommodation" value="" data-slot="questionnaire-input" class="sa-questionnaire-input"></div><div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.OtherAccommodation" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Accommodation" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-multiple="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">What would you like to build the trip around?</legend>
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="checkbox" data-shortcut="A" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="A" checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Interests_food" name="PartialModel.Interests" type="checkbox" value="food" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Interests_food">
+                        Food and markets
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
+                    <div data-slot="questionnaire-choice" data-type="checkbox" data-shortcut="B" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Interests_history" name="PartialModel.Interests" type="checkbox" value="history" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Interests_history">
+                        History and museums
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
+                    <div data-slot="questionnaire-choice" data-type="checkbox" data-shortcut="C" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Interests_outdoors" name="PartialModel.Interests" type="checkbox" value="outdoors" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Interests_outdoors">
+                        Hiking and the outdoors
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Interests" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+            <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
+                <button data-slot="questionnaire-submit" type="submit" class="sa-questionnaire-submit sa-button group/button sa-button-variant-default sa-button-size-default">Save preferences</button>
+            </div>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-jXS1w-kk0BrzEhwbjv456bgbQB6QhF0PMoRLCwrOjk20zqaGrOkZjtnzoM_n_vUOehzcEQpdn8oiaOlZ9gEl5CLbO6m2jJp293Ktw6tTmLm6McZNiIAO3HazJdTHjchM" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

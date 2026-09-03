@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.38kbtezm0j.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">When would you like to depart?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    Departure dates change the fare more than anything else.
+                </div>
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_asap" name="PartialModel.Departure" type="radio" value="asap" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_asap">
+                        As soon as possible
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_shoulder" name="PartialModel.Departure" type="radio" value="shoulder" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_shoulder">
+                        Shoulder season
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_flexible" name="PartialModel.Departure" type="radio" value="flexible" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_flexible">
+                        I am flexible
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Departure" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y9Azim-6nTBNQuTLGe64Vmrr3FHNBc0LeIRfnIL-p0Ny3wAOTj3rrIwaxcay6wSqJFbl09gNk9MgGdd6J7FVlQJM42xB1j_LB5qL6aI3bcinDj6wrWBR2tsdJtbRudjcM0" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

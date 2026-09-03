@@ -1,0 +1,43 @@
+```razor
+<form method="post">
+    <sa-questionnaire>
+        <sa-questionnaire-item asp-for="CabinClass" required="true">
+            <sa-questionnaire-title>Which cabin class should we book?</sa-questionnaire-title>
+            <sa-questionnaire-description>
+                Fares are held for 20 minutes once you continue.
+            </sa-questionnaire-description>
+            <sa-questionnaire-choices>
+                <sa-questionnaire-choice value="economy">
+                    Economy
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="premium">
+                    Premium economy
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="business">
+                    Business
+                </sa-questionnaire-choice>
+            </sa-questionnaire-choices>
+        </sa-questionnaire-item>
+        <sa-questionnaire-item asp-for="Occasion">
+            <sa-questionnaire-title>What is the trip built around?</sa-questionnaire-title>
+            <sa-questionnaire-description>
+                We time the itinerary around whatever you are travelling for.
+            </sa-questionnaire-description>
+            <sa-questionnaire-choices>
+                <sa-questionnaire-choice value="festival">
+                    A festival or event
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="wedding">
+                    A wedding
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="birthday">
+                    A big birthday
+                </sa-questionnaire-choice>
+                <sa-questionnaire-input asp-for="OtherOccasion"
+                                        aria-label="Something else"
+                                        placeholder="Something else..."/>
+            </sa-questionnaire-choices>
+        </sa-questionnaire-item>
+    </sa-questionnaire>
+</form>
+```

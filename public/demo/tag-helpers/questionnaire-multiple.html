@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.cbmh65v0kf.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.38kbtezm0j.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-multiple="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">What should we add to your booking?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    Select everything you would like included. You can remove extras later.
+                </div>
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="checkbox" class="sa-questionnaire-choice group/questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Extras_transfers" name="PartialModel.Extras" type="checkbox" value="transfers" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Extras_transfers">
+                        Airport transfers
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="checkbox" class="sa-questionnaire-choice group/questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Extras_insurance" name="PartialModel.Extras" type="checkbox" value="insurance" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Extras_insurance">
+                        Travel insurance
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="checkbox" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Extras_tours" name="PartialModel.Extras" type="checkbox" value="tours" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Extras_tours">
+                        Guided day tours
+                    </label></div>
+                    <div data-slot="questionnaire-choice" data-type="checkbox" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Extras_lounge" name="PartialModel.Extras" type="checkbox" value="lounge" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><svg class="sa-questionnaire-choice-indicator-check" data-slot="questionnaire-choice-indicator-check" stroke-width="2" viewBox="0 0 24 24" height="24" width="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M20 6 9 17l-5-5"></path></svg></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Extras_lounge">
+                        Airport lounge access
+                    </label></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Extras" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HCsSoi_s-lAiM769jmp5Y-oKGlAOFOaqBP0WRvJkHJ5puXCN1SjV0Yf1HDbqRjIM-OxJPozNOPGHR8fv2zEjWvTf3p0VG1ye4np7fJhiGmeJitXW_mvVt2ajhFZ3sMPKc-pKJWJqoOYZqZTKxnYXqo" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

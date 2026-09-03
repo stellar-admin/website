@@ -1,0 +1,23 @@
+```razor
+<form method="post">
+    <sa-questionnaire>
+        <sa-questionnaire-item asp-for="Departure" required="true">
+            <sa-questionnaire-title>When would you like to depart?</sa-questionnaire-title>
+            <sa-questionnaire-description>
+                Departure dates change the fare more than anything else.
+            </sa-questionnaire-description>
+            <sa-questionnaire-choices shortcuts="QuestionnaireShortcuts.Letters">
+                <sa-questionnaire-choice value="asap">
+                    As soon as possible
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="shoulder">
+                    Shoulder season
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="flexible">
+                    I am flexible
+                </sa-questionnaire-choice>
+            </sa-questionnaire-choices>
+        </sa-questionnaire-item>
+    </sa-questionnaire>
+</form>
+```

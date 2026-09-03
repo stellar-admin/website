@@ -1,0 +1,26 @@
+```razor
+<form method="post">
+    <sa-questionnaire>
+        <sa-questionnaire-item asp-for="Extras" multiple="true">
+            <sa-questionnaire-title>What should we add to your booking?</sa-questionnaire-title>
+            <sa-questionnaire-description>
+                Select everything you would like included. You can remove extras later.
+            </sa-questionnaire-description>
+            <sa-questionnaire-choices>
+                <sa-questionnaire-choice value="transfers">
+                    Airport transfers
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="insurance">
+                    Travel insurance
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="tours">
+                    Guided day tours
+                </sa-questionnaire-choice>
+                <sa-questionnaire-choice value="lounge">
+                    Airport lounge access
+                </sa-questionnaire-choice>
+            </sa-questionnaire-choices>
+        </sa-questionnaire-item>
+    </sa-questionnaire>
+</form>
+```
