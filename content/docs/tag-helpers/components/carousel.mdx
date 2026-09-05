@@ -1,0 +1,95 @@
+---
+title: Carousel
+description: Browse slides with native scrolling, snapping, and lightweight navigation controls
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/carousel-intro.html">
+  <include>./_include/carousel-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Compose a carousel with `<sa-carousel>`, one `<sa-carousel-content>`, and its direct `<sa-carousel-item>` children. Add previous and next buttons as siblings of the content. Give the carousel a descriptive `aria-label`, or use `aria-labelledby` to reference a visible heading, and name each slide with `aria-label` or `aria-labelledby`.
+
+```razor
+<div class="px-12">
+    <sa-carousel aria-label="Featured destinations">
+        <sa-carousel-content>
+            <sa-carousel-item aria-label="Kyoto">...</sa-carousel-item>
+            <sa-carousel-item aria-label="Lisbon">...</sa-carousel-item>
+        </sa-carousel-content>
+        <sa-carousel-previous/>
+        <sa-carousel-next/>
+    </sa-carousel>
+</div>
+```
+
+The buttons sit outside the viewport, so reserve space around the carousel, as in the wrapper above. Keep the viewport free of decorative borders and padding; put those on slide content or an outer wrapper. Set `--carousel-spacing` on the carousel to change the gap between slides.
+
+CSS handles layout and scroll snapping. A small web component connects the buttons to the scroll container and updates their disabled state. Touch and trackpad scrolling remain native. When the viewport itself is focused, arrow keys follow the carousel's orientation and text direction; Home and End reach the first and last positions. Keys inside links, inputs, and other slide content retain their normal behavior. Navigation leaves keyboard focus on the control that was activated.
+
+With both navigation buttons present and initialized, the native scrollbar is hidden. Without JavaScript, the content remains scrollable with its native scrollbar and the navigation controls are hidden. Controls require the browser's Invoker Commands API; browsers without it also retain the native scroller. The component does not depend on experimental CSS scroll buttons or scroll markers.
+
+## Examples
+
+### Responsive sizes
+
+Items fill the viewport by default. Override their flex basis to show multiple items, accounting for the gap. This example shows two items from the medium breakpoint. Navigation advances to the next distinct item start, clamped at the end of the viewport; the final position may contain several items.
+
+<Demo src="/demo/tag-helpers/carousel-sizes.html">
+  <include>./_include/carousel-sizes.mdx</include>
+</Demo>
+
+### Indicators
+
+Add `<sa-carousel-indicators>` to generate one button for each distinct scroll position. Positions are recalculated when the viewport or item sizes change and when items are added or removed. The current position uses `aria-current`; these are navigation buttons, not tabs. Indicator names come from the corresponding slide's accessible label, falling back to its position number. Supply descriptive slide names and translate the indicator group's `aria-label` when localizing.
+
+<Demo src="/demo/tag-helpers/carousel-indicators.html">
+  <include>./_include/carousel-indicators.mdx</include>
+</Demo>
+
+All slide content remains available to assistive technology and keyboard navigation. Off-screen links and buttons scroll into view when focused. Smooth button navigation respects the reduced-motion preference. There is no automatic rotation or live announcement of every scroll movement.
+
+### Vertical
+
+Set `orientation="CarouselOrientation.Vertical"`, give the content a definite height, and reserve space above and below for the navigation buttons.
+
+<Demo src="/demo/tag-helpers/carousel-vertical.html">
+  <include>./_include/carousel-vertical.mdx</include>
+</Demo>
+
+This carousel uses native scrolling rather than Embla. Infinite looping, autoplay, mouse grab-and-drag, plugins, and Embla's programmatic API are not supported.
+
+## API Reference
+
+### `<sa-carousel>`
+
+Renders a `<sel-carousel>` element and forwards global attributes. A unique ID is generated unless you supply one. The default role is `region`; use `role="group"` when the carousel should not be a landmark. The default `aria-roledescription` is `carousel`.
+
+<TypeTable type={{ orientation: { description: "The direction in which items scroll.", type: "CarouselOrientation", typeDescription: "CarouselOrientation.Horizontal | CarouselOrientation.Vertical", default: "CarouselOrientation.Horizontal" } }} />
+
+### `<sa-carousel-content>`
+
+Renders a focusable `<div>` containing the slides. Its `tabindex` defaults to `0`. Supply a height for vertical carousels. This is the single scroll viewport in a carousel.
+
+### `<sa-carousel-item>`
+
+Renders a `<div>` with `role="group"` and `aria-roledescription="slide"`. Use `aria-label` or `aria-labelledby` to name it. Items must be direct children of the content and can contain arbitrary HTML or Tag Helpers.
+
+### `<sa-carousel-previous>`
+
+Renders a `<button>` targeting the enclosing carousel. Defaults to a left chevron and the accessible label “Previous slide”. Set `aria-label` to translate the label or supply child content to replace the icon. The `type` defaults to `button`.
+
+<TypeTable type={{ size: { description: "The button size.", type: "ButtonSize", default: "ButtonSize.IconSmall" }, variant: { description: "The button appearance.", type: "ButtonVariant", default: "ButtonVariant.Outline" } }} />
+
+### `<sa-carousel-next>`
+
+Renders a `<button>` targeting the enclosing carousel. Defaults to a right chevron and the accessible label “Next slide”. Supports the same customization as the previous button.
+
+<TypeTable type={{ size: { description: "The button size.", type: "ButtonSize", default: "ButtonSize.IconSmall" }, variant: { description: "The button appearance.", type: "ButtonVariant", default: "ButtonVariant.Outline" } }} />
+
+### `<sa-carousel-indicators>`
+
+Renders an empty `<div role="group">` that the component fills with position buttons. Do not supply child content. The default `aria-label` is “Choose a slide”. Use the `.sa-carousel-indicator` class and `[aria-current="true"]` selector to customize the generated buttons.

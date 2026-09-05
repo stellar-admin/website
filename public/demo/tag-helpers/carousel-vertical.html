@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.s1inkvl50f.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <!-- code begin -->
+<div class="mx-auto w-full max-w-xl px-12 py-12">
+    <sel-carousel aria-label="Voyager destinations" id="carousel-50c611f5dc0641f7a2d6edbe38539faf" data-slot="carousel" data-orientation="vertical" role="region" aria-roledescription="carousel" class="sa-carousel">
+        <div class="sa-carousel-content h-72" data-slot="carousel-content" tabindex="0" data-orientation="vertical">
+            <div aria-label="Kyoto" data-slot="carousel-item" role="group" aria-roledescription="slide" class="sa-carousel-item">
+                <figure class="relative h-full overflow-hidden rounded-xl bg-muted">
+                    <img src="/demo/tag-helpers/assets/kyoto.jpg" alt="Kiyomizu-dera above red autumn foliage in Kyoto" width="1200" height="800" class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/60 to-transparent px-5 pt-16 pb-5 text-white">
+                        <p class="text-2xl font-semibold tracking-tight">Kyoto</p>
+                        <p class="mt-1 text-sm text-white/90">Japan</p>
+                        <p class="mt-3 text-xs text-white/90">Photo by <a href="https://unsplash.com/photos/oP50BOGpyj0" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Bhanu Singh</a> on Unsplash</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div aria-label="Lisbon" data-slot="carousel-item" role="group" aria-roledescription="slide" class="sa-carousel-item">
+                <figure class="relative h-full overflow-hidden rounded-xl bg-muted">
+                    <img src="/demo/tag-helpers/assets/lisbon.jpg" alt="Terracotta rooftops and historic churches in Lisbon" width="1200" height="800" class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/60 to-transparent px-5 pt-16 pb-5 text-white">
+                        <p class="text-2xl font-semibold tracking-tight">Lisbon</p>
+                        <p class="mt-1 text-sm text-white/90">Portugal</p>
+                        <p class="mt-3 text-xs text-white/90">Photo by <a href="https://unsplash.com/photos/alj8EUjeIj4" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">João Reguengos</a> on Unsplash</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div aria-label="Cape Town" data-slot="carousel-item" role="group" aria-roledescription="slide" class="sa-carousel-item">
+                <figure class="relative h-full overflow-hidden rounded-xl bg-muted">
+                    <img src="/demo/tag-helpers/assets/cape-town.jpg" alt="Waves breaking along the coast with Table Mountain beyond" width="1200" height="675" class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/60 to-transparent px-5 pt-16 pb-5 text-white">
+                        <p class="text-2xl font-semibold tracking-tight">Cape Town</p>
+                        <p class="mt-1 text-sm text-white/90">South Africa</p>
+                        <p class="mt-3 text-xs text-white/90">Photo by <a href="https://unsplash.com/photos/JiGoRzghR3E" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Matthys Pienaar</a> on Unsplash</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div aria-label="Chiang Mai" data-slot="carousel-item" role="group" aria-roledescription="slide" class="sa-carousel-item">
+                <figure class="relative h-full overflow-hidden rounded-xl bg-muted">
+                    <img src="/demo/tag-helpers/assets/chiang-mai.jpg" alt="The ancient brick chedi of Wat Chedi Luang in Chiang Mai" width="1200" height="675" class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/60 to-transparent px-5 pt-16 pb-5 text-white">
+                        <p class="text-2xl font-semibold tracking-tight">Chiang Mai</p>
+                        <p class="mt-1 text-sm text-white/90">Thailand</p>
+                        <p class="mt-3 text-xs text-white/90">Photo by <a href="https://unsplash.com/photos/QMGGhIkljKo" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">YingChu Chen</a> on Unsplash</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <button type="button" data-slot="carousel-previous" aria-label="Previous slide" command="--carousel-previous" commandfor="carousel-50c611f5dc0641f7a2d6edbe38539faf" disabled="disabled" data-orientation="vertical" class="sa-button group/button sa-button-variant-outline sa-button-size-icon-sm sa-carousel-previous"><svg class="size-4" viewBox="0 0 24 24" height="24" stroke="currentColor" stroke-linejoin="round" stroke-width="2" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <button type="button" data-slot="carousel-next" aria-label="Next slide" command="--carousel-next" commandfor="carousel-50c611f5dc0641f7a2d6edbe38539faf" disabled="disabled" data-orientation="vertical" class="sa-button group/button sa-button-variant-outline sa-button-size-icon-sm sa-carousel-next"><svg class="size-4" viewBox="0 0 24 24" height="24" stroke="currentColor" stroke-linejoin="round" stroke-width="2" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+    </sel-carousel>
+</div>
+<!-- code end -->
+
+
+</div>
+
+
+
+</body>
+</html>
