@@ -7,7 +7,7 @@ Documentation site for the [StellarAdmin](https://www.stellaradmin.com/) compone
 - **TanStack Start** (Vite) — app framework, static prerendering (SSG)
 - **Fumadocs** (`fumadocs-core` / `fumadocs-ui` / `fumadocs-mdx`) — docs engine + MDX content
 - **Tailwind CSS v4** + **shadcn/ui** (base-ui, `base-vega` style) with the **Fumadocs shadcn theme**
-- **Biome** — lint & format
+- **oxlint / oxfmt** — lint & format
 
 ## Requirements
 
@@ -23,8 +23,8 @@ pnpm install
 pnpm dev          # start the dev server (http://localhost:3000)
 pnpm build        # build + static prerender to .vercel/output
 pnpm preview      # preview the production build
-pnpm lint         # Biome lint + format check
-pnpm format       # Biome format (write)
+pnpm lint         # oxlint + oxfmt check
+pnpm format       # oxfmt (write)
 pnpm types:check  # regenerate .source types + tsc --noEmit
 ```
 
