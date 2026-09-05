@@ -76,15 +76,19 @@
     <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
         <label for="amount" data-slot="label" class="sa-label">Amount</label>
         <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
-            <div data-slot="native-select-wrapper" data-size="default" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="default" class="sa-native-select">
-                <option>$</option>
-                <option>€</option>
-                <option>£</option>
-            </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" stroke="currentColor" stroke-width="2" width="24" stroke-linejoin="round" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24"><path d="m6 9 6 6 6-6"></path></svg></div>
-            <input id="amount" placeholder="Enter deposit amount" data-slot="input" class="sa-input">
-            <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
-                <svg stroke="currentColor" stroke-width="2" width="24" stroke-linejoin="round" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </button>
+            <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
+                <div data-slot="native-select-wrapper" data-size="default" class="sa-native-select-wrapper group/native-select"><select data-slot="native-select" data-size="default" class="sa-native-select">
+                    <option>$</option>
+                    <option>€</option>
+                    <option>£</option>
+                </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" xmlns="http://www.w3.org/2000/svg" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" stroke-linejoin="round" width="24"><path d="m6 9 6 6 6-6"></path></svg></div>
+                <input id="amount" placeholder="Enter deposit amount" data-slot="input" class="sa-input">
+            </div>
+            <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
+                <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" stroke-linejoin="round" width="24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+            </div>
         </div>
     </div>
     <!-- code end -->
