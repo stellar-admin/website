@@ -169,19 +169,59 @@ When the field has a model state error, or when you set `aria-invalid="true"`, t
 
 Pass an `InputOtpClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input-otp>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new InputOtpClassNames
-    {
-        Slot = "travel-input-otp-slot"
-    };
-}
+<Demo src="/demo/tag-helpers/input-otp-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/input-otp-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-input-otp name="verificationCode" label="Verification code" max-length="6"
-              class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-input-otp-control {
+          gap: 0.75rem;
+      }
+
+      .travel-input-otp-group {
+          gap: 0.25rem;
+      }
+
+      .travel-input-otp-slot {
+          border: 2px solid var(--travel-accent);
+          border-radius: 0.5rem;
+          color: var(--travel-accent);
+      }
+
+      .travel-input-otp-separator {
+          color: var(--travel-accent);
+          padding-inline: 0.25rem;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |
@@ -191,16 +231,13 @@ Define the custom class in your stylesheet.
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The `<sel-input-otp>` container. |
-| `Input` | The transparent native input over the slots that receives the code. |
 | `Group` | Every group of character slots. |
 | `Slot` | Every character slot. |
 | `Separator` | Every separator between groups. |
-| `Caret` | The active slot's caret container. |
-| `CaretLine` | The line inside the active caret. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
-Group, Slot, and Separator apply to both automatically generated parts and child Tag Helpers you compose inside the OTP input. Classes on individual child elements are added alongside these shared classes. Caret and CaretLine apply when the active caret is rendered.
+Group, Slot, and Separator apply to both automatically generated parts and child Tag Helpers you compose inside the OTP input. Classes on individual child elements are added alongside these shared classes.
 
 ## API Reference
 

@@ -70,18 +70,52 @@ Add the `disabled` attribute to prevent the user from interacting with the switc
 
 Pass a `SwitchClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-switch>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new SwitchClassNames
-    {
-        Thumb = "travel-switch-thumb"
-    };
-}
+<Demo src="/demo/tag-helpers/switch-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/switch-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-switch label="Trip reminders" class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-switch-control {
+          --primary: var(--travel-accent);
+          --primary-foreground: var(--background);
+          outline: 2px solid var(--travel-accent);
+          outline-offset: 4px;
+          border-radius: 999px;
+      }
+
+      .travel-switch-control .sa-switch:checked {
+          background-color: var(--primary);
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |
@@ -91,8 +125,6 @@ Define the custom class in your stylesheet.
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The container around the checkbox input and thumb. |
-| `Input` | The native checkbox input with role="switch". |
-| `Thumb` | The moving thumb inside the switch. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 

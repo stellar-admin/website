@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.u1f7uf3wnr.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-md">
+    <!-- code begin -->
+
+    <fieldset data-slot="field-set" class="sa-field-set">
+        <legend data-slot="field-legend" data-variant="legend" class="sa-field-legend">Bed preference</legend>
+        <div data-slot="field-group" class="sa-field-group group/field-group">
+            <div class="sa-field group/field sa-field-orientation-horizontal travel-field" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper travel-radio-control"><input type="radio" name="classes-bed" id="classes-king" value="king" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" fill="none" height="24" width="24" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label for="classes-king" class="sa-label sa-field-label group/field-label peer/field-label travel-label" data-slot="field-label">King bed</label><p class="sa-field-description travel-help" data-slot="field-description">A spacious bed for two.</p></div></div>
+            <div class="sa-field group/field sa-field-orientation-horizontal travel-field" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper travel-radio-control"><input type="radio" name="classes-bed" id="classes-twin" value="twin" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" fill="none" height="24" width="24" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label for="classes-twin" class="sa-label sa-field-label group/field-label peer/field-label travel-label" data-slot="field-label">Twin beds</label><p class="sa-field-description travel-help" data-slot="field-description">Separate beds for traveling friends.</p></div></div>
+        </div>
+    </fieldset>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -168,18 +168,45 @@ When you use model binding, the input type will be inferred from the underlying 
 
 Pass an `InputClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new InputClassNames
-    {
-        Input = "travel-input-input"
-    };
-}
+<Demo src="/demo/tag-helpers/input-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/input-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-input label="Destination" class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-input-control {
+          border: 2px solid var(--travel-accent);
+          border-radius: 0.75rem;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |
@@ -188,10 +215,7 @@ Define the custom class in your stylesheet.
 | `Description` | The generated help text, when rendered. |
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
-| `Input` | The native `<input>` element. |
-| `Control` | The container around a checkbox or radio input and its indicator; unused for other input types. |
-| `Indicator` | The visual checkbox or radio indicator; unused for other input types. |
-| `Icon` | The SVG checkmark or radio dot inside the indicator; unused for other input types. |
+| `Control` | The native input, or the visible wrapper for checkbox and radio inputs. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 

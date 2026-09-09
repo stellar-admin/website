@@ -117,19 +117,59 @@ Each thumb renders with `role="slider"` and `aria-valuemin`, `aria-valuemax`, `a
 
 Pass a `SliderClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-slider>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new SliderClassNames
-    {
-        Track = "travel-slider-track"
-    };
-}
+<Demo src="/demo/tag-helpers/slider-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/slider-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-slider label="Trip length" min="1" max="30" value="7"
-           class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-slider-control {
+          padding-block: 0.75rem;
+      }
+
+      .travel-slider-track {
+          height: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 20%, transparent);
+      }
+
+      .travel-slider-range {
+          background: var(--travel-accent);
+      }
+
+      .travel-slider-thumb {
+          width: 1.5rem;
+          height: 1.5rem;
+          border: 3px solid var(--travel-accent);
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |

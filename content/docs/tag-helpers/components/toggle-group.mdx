@@ -141,21 +141,55 @@ Give the group a name with `aria-label`, and give every icon-only item an `aria-
 
 Pass a `ToggleGroupClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-toggle-group>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new ToggleGroupClassNames
-    {
-        Item = "travel-toggle-group-item"
-    };
-}
+<Demo src="/demo/tag-helpers/toggle-group-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/toggle-group-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-toggle-group label="Travel style" class-names="@partClasses">
-    <sa-toggle-group-item value="guided">Guided tour</sa-toggle-group-item>
-    <sa-toggle-group-item value="independent">Independent travel</sa-toggle-group-item>
-</sa-toggle-group>
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-toggle-group-control {
+          gap: 0.5rem;
+      }
+
+      .travel-toggle-group-item {
+          border: 2px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          color: var(--travel-accent);
+      }
+
+      .travel-toggle-group-item:has(input:checked) {
+          background: var(--travel-accent);
+          color: var(--background);
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |

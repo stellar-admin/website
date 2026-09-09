@@ -108,18 +108,46 @@ The error message can be displayed using either a `<sa-field-error>` Tag Helper 
 
 Pass a `TextareaClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-textarea>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new TextareaClassNames
-    {
-        Input = "travel-textarea-input"
-    };
-}
+<Demo src="/demo/tag-helpers/textarea-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/textarea-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-textarea label="Travel notes" class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-textarea-control {
+          min-height: 8rem;
+          border: 2px solid var(--travel-accent);
+          border-radius: 0.75rem;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |
@@ -128,7 +156,7 @@ Define the custom class in your stylesheet.
 | `Description` | The generated help text, when rendered. |
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
-| `Input` | The native `<textarea>` element. |
+| `Control` | The native `<textarea>` element. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 

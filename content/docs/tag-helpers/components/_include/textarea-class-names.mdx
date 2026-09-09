@@ -1,0 +1,13 @@
+```razor
+@{
+    var partClasses = new TextareaClassNames
+    {
+        Root = "travel-field",
+        Label = "travel-label",
+        Description = "travel-help",
+        Control = "travel-textarea-control",
+    };
+}
+
+<sa-textarea id="classes-requests" label="Special requests" description="Tell us how we can make your stay comfortable." class-names="@partClasses" />
+```

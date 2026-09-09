@@ -125,19 +125,48 @@ Wrap a radio group in an `<sa-field-set>` with an `<sa-field-legend>` so the gro
 
 Pass an `InputClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
 
-```razor
-@{
-    var partClasses = new InputClassNames
-    {
-        Indicator = "travel-radio-indicator"
-    };
-}
+<Demo src="/demo/tag-helpers/radio-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/radio-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
 
-<sa-input type="radio" name="travelStyle" value="guided" label="Guided tour"
-          class-names="@partClasses" />
-```
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
 
-Define the custom class in your stylesheet.
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-radio-control {
+          --primary: var(--travel-accent);
+          --primary-foreground: var(--background);
+          outline: 2px solid var(--travel-accent);
+          outline-offset: 4px;
+          border-radius: 50%;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
 
 | Property | Target |
 | --- | --- |
@@ -147,9 +176,6 @@ Define the custom class in your stylesheet.
 | `Error` | The generated validation message element for an unbound radio. Model-bound radios omit this element; put `class` directly on the group's explicit `<sa-field-error>`. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The container around the radio input and its indicator. |
-| `Input` | The native `<input type="radio">` element. |
-| `Indicator` | The visual radio indicator. |
-| `Icon` | The SVG dot inside the indicator. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
