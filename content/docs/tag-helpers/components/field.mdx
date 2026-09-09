@@ -326,6 +326,68 @@ Stack `<sa-field>` components with `<sa-field-group>`. Add `<sa-field-separator>
 
 `<sa-field-error>` renders with `role="alert"`. The description and error are not linked to the input automatically. If you want them announced together with the input, give them an `id` and reference it from `aria-describedby` on the input. Set `aria-invalid="true"` on an input that is not model bound to expose its error state.
 
+## Part classes
+
+Use the input's `class-names` attribute to style individual parts of an implicit field. Each input has its own options type in the `StellarAdmin.TagHelpers` namespace, such as `InputClassNames` for `<sa-input>`. These types inherit the shared field parts from `FieldClassNames`.
+
+The example gives the field wrapper a tinted background, outlines the input, changes the label to uppercase, and italicizes the help text. It shows both an implicit field and an explicitly composed field using the same classes.
+
+<Demo src="/demo/tag-helpers/field-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/field-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .account-field {
+          --account-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--account-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--account-accent) 8%, transparent);
+      }
+
+      .dark .account-field {
+          --account-accent: #5eead4;
+      }
+
+      .account-input {
+          border: 2px solid var(--account-accent);
+          border-radius: 0.5rem;
+          background: var(--background);
+      }
+
+      .account-label {
+          color: var(--account-accent);
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+      }
+
+      .account-help {
+          color: var(--account-accent);
+          font-size: 0.8125rem;
+          font-style: italic;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+All properties below are optional strings containing space-separated CSS classes. Classes are added to the component's existing classes.
+
+| Property | Target | When applied |
+| --- | --- | --- |
+| `Root` | The generated `<sa-field>` wrapper. | When the input renders an implicit field. |
+| `Label` | The generated `<sa-field-label>`. | When a label is rendered. |
+| `Description` | The generated `<sa-field-description>` help text. | When a description is rendered. |
+| `Error` | The generated `<sa-field-error>` validation message. | When a validation message element is rendered. |
+| `Content` | The generated `<sa-field-content>` container around the label and help text. | When the implicit field uses horizontal orientation. |
+
+Input-specific properties target the control itself. For example, `InputClassNames.Input` styles the native `<input>` in this example.
+
+With `render-field="false"`, the shared field parts have no generated elements to style; input-specific parts still apply. For explicitly composed fields, put `class` directly on `<sa-field>`, `<sa-field-label>`, and the other elements you write, as shown above. The input's `class-names` options do not style parent or sibling elements.
+
 ## API Reference
 
 ### `<sa-field>`

@@ -137,6 +137,40 @@ When using model binding, StellarAdmin will automatically wrap the group inside 
 
 Give the group a name with `aria-label`, and give every icon-only item an `aria-label`.
 
+## Part classes
+
+Pass a `ToggleGroupClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-toggle-group>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new ToggleGroupClassNames
+    {
+        Item = "travel-toggle-group-item"
+    };
+}
+
+<sa-toggle-group label="Travel style" class-names="@partClasses">
+    <sa-toggle-group-item value="guided">Guided tour</sa-toggle-group-item>
+    <sa-toggle-group-item value="independent">Independent travel</sa-toggle-group-item>
+</sa-toggle-group>
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The toggle group container. |
+| `Item` | Every toggle item in the group. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+Item classes are added alongside any class specified on an individual `<sa-toggle-group-item>`.
+
 ## API Reference
 
 ### `<sa-toggle-group>`
@@ -145,6 +179,10 @@ Renders a `<div role="group">` element containing the items. When `asp-for` is s
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "ToggleGroupClassNames",
+    },
     "asp-for": {
       description: "An expression to be evaluated against the current model.",
       type: "ModelExpression",

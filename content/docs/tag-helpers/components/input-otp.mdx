@@ -165,6 +165,43 @@ Set `disabled="true"` to prevent the user from interacting with the input.
 
 When the field has a model state error, or when you set `aria-invalid="true"`, the input and every slot render `aria-invalid="true"`.
 
+## Part classes
+
+Pass an `InputOtpClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input-otp>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new InputOtpClassNames
+    {
+        Slot = "travel-input-otp-slot"
+    };
+}
+
+<sa-input-otp name="verificationCode" label="Verification code" max-length="6"
+              class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The `<sel-input-otp>` container. |
+| `Input` | The transparent native input over the slots that receives the code. |
+| `Group` | Every group of character slots. |
+| `Slot` | Every character slot. |
+| `Separator` | Every separator between groups. |
+| `Caret` | The active slot's caret container. |
+| `CaretLine` | The line inside the active caret. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+Group, Slot, and Separator apply to both automatically generated parts and child Tag Helpers you compose inside the OTP input. Classes on individual child elements are added alongside these shared classes. Caret and CaretLine apply when the active caret is rendered.
+
 ## API Reference
 
 ### `<sa-input-otp>`
@@ -173,6 +210,10 @@ Renders a `<sel-input-otp>` web component containing the slot cells and a single
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "InputOtpClassNames",
+    },
     "aria-invalid": {
       description:
         "Forces the invalid (error) styling. Set to true for manual validation when not model binding. Otherwise the invalid state is derived from the bound field's ModelState.",

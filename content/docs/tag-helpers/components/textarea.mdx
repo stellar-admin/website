@@ -104,6 +104,34 @@ The error message can be displayed using either a `<sa-field-error>` Tag Helper 
   </Tabs>
 </Demo>
 
+## Part classes
+
+Pass a `TextareaClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-textarea>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new TextareaClassNames
+    {
+        Input = "travel-textarea-input"
+    };
+}
+
+<sa-textarea label="Travel notes" class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Input` | The native `<textarea>` element. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
 ## API Reference
 
 ### `<sa-textarea>`
@@ -112,6 +140,10 @@ Renders a `<textarea>` element. The `asp-for` attribute provides the same model 
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "TextareaClassNames",
+    },
     "asp-for": {
       description: "An expression to be evaluated against the current model.",
       type: "ModelExpression",

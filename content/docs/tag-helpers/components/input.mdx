@@ -164,6 +164,37 @@ When you use model binding, the input type will be inferred from the underlying 
   </Tabs>
 </Demo>
 
+## Part classes
+
+Pass an `InputClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new InputClassNames
+    {
+        Input = "travel-input-input"
+    };
+}
+
+<sa-input label="Destination" class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Input` | The native `<input>` element. |
+| `Control` | The container around a checkbox or radio input and its indicator; unused for other input types. |
+| `Indicator` | The visual checkbox or radio indicator; unused for other input types. |
+| `Icon` | The SVG checkmark or radio dot inside the indicator; unused for other input types. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
 ## API Reference
 
 ### `<sa-input>`
@@ -172,6 +203,10 @@ Renders an `<input>` element. When `asp-for` is set, it delegates to the built-i
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "InputClassNames",
+    },
     "asp-for": {
       description: "An expression to be evaluated against the current model.",
       type: "ModelExpression",

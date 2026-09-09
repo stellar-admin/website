@@ -66,6 +66,36 @@ Add the `disabled` attribute to prevent the user from interacting with the switc
 
 `<sa-switch>` renders a native `<input type="checkbox">` with `role="switch"`, so it is announced as a switch, focused with Tab and toggled with Space. With `asp-for` or the `label` attribute the label is wired to the input for you. When you write the label yourself, set its `for` attribute to the switch's `id`.
 
+## Part classes
+
+Pass a `SwitchClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-switch>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new SwitchClassNames
+    {
+        Thumb = "travel-switch-thumb"
+    };
+}
+
+<sa-switch label="Trip reminders" class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The container around the checkbox input and thumb. |
+| `Input` | The native checkbox input with role="switch". |
+| `Thumb` | The moving thumb inside the switch. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
 ## API Reference
 
 ### `<sa-switch>`
@@ -74,6 +104,10 @@ Renders a native `<input type="checkbox" role="switch">` wrapped in a `<span>` t
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "SwitchClassNames",
+    },
     "asp-for": {
       description: "An expression to be evaluated against the current model.",
       type: "ModelExpression",

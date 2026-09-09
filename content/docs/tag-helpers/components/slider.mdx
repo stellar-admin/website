@@ -113,6 +113,40 @@ Set `disabled="true"` to prevent the user from interacting with the slider.
 
 Each thumb renders with `role="slider"` and `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-orientation`, and `aria-valuenow` is updated as the value changes. A thumb is focused with Tab. Left and Down arrows decrease the value by one step, Right and Up arrows increase it, Page Down and Page Up move ten steps, and Home and End jump to the minimum and maximum. The value is posted through hidden inputs, so the slider takes part in forms without extra work.
 
+## Part classes
+
+Pass a `SliderClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-slider>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new SliderClassNames
+    {
+        Track = "travel-slider-track"
+    };
+}
+
+<sa-slider label="Trip length" min="1" max="30" value="7"
+           class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The `<sel-slider>` container. |
+| `Track` | The full slider track. |
+| `Range` | The filled portion of the track. |
+| `Thumb` | Every slider thumb, including both thumbs of a range slider. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+The slider has no Input part option. Use Track, Range, and Thumb to style its visible controls.
+
 ## API Reference
 
 ### `<sa-slider>`
@@ -121,6 +155,10 @@ Renders a `<sel-slider>` web component containing the track, a thumb per value, 
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "SliderClassNames",
+    },
     "asp-for": {
       description:
         "An expression to be evaluated against the current model. Bind to an int for a single thumb, or a collection of int for multiple thumbs.",

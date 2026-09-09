@@ -121,6 +121,40 @@ A radio button renders a native `<input type="radio">`, so a group of radios sha
 
 Wrap a radio group in an `<sa-field-set>` with an `<sa-field-legend>` so the group has a name, and display validation errors once for the group with a single `<sa-field-error>` rather than on each radio. Set `aria-invalid="true"` on radios that are not model bound to expose their error state.
 
+## Part classes
+
+Pass an `InputClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new InputClassNames
+    {
+        Indicator = "travel-radio-indicator"
+    };
+}
+
+<sa-input type="radio" name="travelStyle" value="guided" label="Guided tour"
+          class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element for an unbound radio. Model-bound radios omit this element; put `class` directly on the group's explicit `<sa-field-error>`. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The container around the radio input and its indicator. |
+| `Input` | The native `<input type="radio">` element. |
+| `Indicator` | The visual radio indicator. |
+| `Icon` | The SVG dot inside the indicator. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+For a choice card built with explicit fields, apply classes directly to the card's field and label. These input options only style the radio and any field elements it generates.
+
 ## API Reference
 
 ### `<sa-input>`
@@ -129,6 +163,10 @@ Wrap a radio group in an `<sa-field-set>` with an `<sa-field-legend>` so the gro
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "InputClassNames",
+    },
     "asp-for": {
       description:
         "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",

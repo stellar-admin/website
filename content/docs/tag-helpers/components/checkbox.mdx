@@ -157,6 +157,37 @@ A checkbox renders a native `<input type="checkbox">`, so it is focused with Tab
 
 Group related checkboxes in an `<sa-field-set>` with an `<sa-field-legend>` so the group has a name. Set `aria-invalid="true"` on a checkbox that is not model bound to expose its error state.
 
+## Part classes
+
+Pass an `InputClassNames` instance from the `StellarAdmin.TagHelpers` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+```razor
+@{
+    var partClasses = new InputClassNames
+    {
+        Indicator = "travel-checkbox-indicator"
+    };
+}
+
+<sa-input type="checkbox" label="Include transfers" class-names="@partClasses" />
+```
+
+Define the custom class in your stylesheet.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The container around the checkbox input and its indicator. |
+| `Input` | The native `<input type="checkbox">` element. |
+| `Indicator` | The visual checkbox indicator. |
+| `Icon` | The SVG checkmark inside the indicator. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
 ## API Reference
 
 ### `<sa-input>`
@@ -165,6 +196,10 @@ Group related checkboxes in an `<sa-field-set>` with an `<sa-field-legend>` so t
 
 <TypeTable
   type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "InputClassNames",
+    },
     "asp-for": {
       description:
         "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",
