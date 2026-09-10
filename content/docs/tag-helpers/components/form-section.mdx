@@ -1,0 +1,124 @@
+---
+title: Form Section
+description: Group form content with a title and description using split, stacked, or card layouts
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/form-section-intro.html" mode="fullscreen">
+  <include>./_include/form-section-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use `<sa-form-section>` to group related fields under a title and optional description. Place fields, [form rows](./form-row), or other Razor content inside it.
+
+```razor
+<sa-form-section title="Traveler details"
+                 description="The lead contact for this booking.">
+    <sa-form-row>
+        <sa-input asp-for="FirstName" />
+        <sa-input asp-for="LastName" />
+    </sa-form-row>
+</sa-form-section>
+```
+
+The default layout is `FormSectionLayout.Split`. The title and description sit beside the content when the section is at least 48rem wide and above it in narrower containers. Open the full preview to see how the layout changes as you resize the window.
+
+## Layouts
+
+### Split
+
+Select `Split` explicitly to use side headings regardless of the app default. Heading placement responds to the section's available width, rather than the viewport width.
+
+```razor
+<sa-form-section title="Traveler details" layout="FormSectionLayout.Split">
+    ...
+</sa-form-section>
+```
+
+### Stacked
+
+`Stacked` keeps the title and description above the content at every width. Adjacent plain sections are separated by a line and spacing.
+
+<Demo src="/demo/tag-helpers/form-section-stacked.html" mode="fullscreen">
+  <include>./_include/form-section-stacked.mdx</include>
+</Demo>
+
+### Card
+
+`Card` places each section inside a bordered surface, with a divider between its header and content. Card headings always appear above the fields.
+
+<Demo src="/demo/tag-helpers/form-section-card.html" mode="fullscreen">
+  <include>./_include/form-section-card.mdx</include>
+</Demo>
+
+## Examples
+
+### Narrow container
+
+A split section stacks its heading above the fields when placed inside a narrow panel.
+
+<Demo src="/demo/tag-helpers/form-section-narrow.html">
+  <include>./_include/form-section-narrow.mdx</include>
+</Demo>
+
+### Without a description
+
+Omit `description` when the title provides enough context.
+
+<Demo src="/demo/tag-helpers/form-section-without-description.html">
+  <include>./_include/form-section-without-description.mdx</include>
+</Demo>
+
+## App default
+
+Configure the default layout through `AddStellarAdmin`. Sections with no `layout` attribute inherit this setting. Without configuration, the default is `Split`.
+
+```csharp
+using StellarAdmin;
+using StellarAdmin.TagHelpers;
+
+builder.Services.AddStellarAdmin(stellar =>
+{
+    stellar.ConfigureForms(forms =>
+    {
+        forms.SectionLayout = FormSectionLayout.Card;
+    });
+
+    stellar.AddTagHelpers();
+});
+```
+
+An explicit `layout` overrides the app default for that section, including when you select `Stacked` or `Split`.
+
+## Accessibility
+
+Each section renders a `<section>` with an `<h2>` title and an automatically associated accessible label. An explicit `aria-label` or `aria-labelledby` is preserved. The title and description are plain text. Use [Field](./field) labels for individual inputs and `<sa-field-set>` when controls need a shared legend.
+
+## API Reference
+
+### `<sa-form-section>`
+
+<TypeTable
+  type={{
+    title: {
+      description: "The section title; must contain non-whitespace text.",
+      type: "string",
+      required: true,
+    },
+    description: {
+      description: "Supporting text displayed below the title.",
+      type: "string",
+    },
+    layout: {
+      description: "The section layout; inherits the app default when omitted.",
+      type: "FormSectionLayout",
+      typeDescription:
+        "FormSectionLayout.Stacked | FormSectionLayout.Split | FormSectionLayout.Card",
+      default: "App default (Split unless configured)",
+    },
+  }}
+/>
+
+Standard HTML attributes and `class` apply to the outer section. The component does not render a `<form>` or change how its child fields bind and validate.

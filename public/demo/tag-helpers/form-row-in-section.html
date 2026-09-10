@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.3qzjze16s0.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.nova.css" /><script>saThemeInit();</script>
+    
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+
+    <div data-slot="page-container" data-width="large" class="sa-page-container sa-page-container-width-large">
+    <div class="w-full">
+        <!-- code begin -->
+        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-0b3c182559d642dca548f7b61eb4fc07" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-0b3c182559d642dca548f7b61eb4fc07">Traveler details</h2><p class="sa-form-section-description" data-slot="form-section-description">The lead contact for your Voyager booking.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+            <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
+                <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                    <label for="insection-FirstName" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">First name</label>
+                    <input id="insection-FirstName" name="FirstName" data-slot="input" class="sa-input">
+                    <p data-slot="field-description" class="sa-field-description">Use the name on your travel document.</p>
+                </div>
+                <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                    <label for="insection-LastName" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Last name</label>
+                    <input id="insection-LastName" name="LastName" data-slot="input" class="sa-input">
+                </div>
+            </div></div>
+        </div></div></section>
+        <!-- code end -->
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

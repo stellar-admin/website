@@ -1,0 +1,76 @@
+---
+title: Form Row
+description: Arrange related fields in equal-width columns that stack in narrow containers
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/form-row-intro.html">
+  <include>./_include/form-row-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap related fields in `<sa-form-row>`. Each direct child occupies one equal-width column when the row has at least 40rem of available width. Below that width, the fields stack in a single column. The layout responds to the row's container, so a narrow panel stacks its fields even on a wide screen.
+
+```razor
+<sa-form-row>
+    <sa-input asp-for="FirstName" />
+    <sa-input asp-for="LastName" />
+</sa-form-row>
+```
+
+Use [model-bound inputs](./input#model-binding) or explicit [fields](./field) as children. No column count or special child tag is required. Children align at the top, so helper text below one input does not move a neighboring input down.
+
+## Examples
+
+### Three columns
+
+Add a third child to create three equal-width columns. Rows switch between a single line of columns and a vertical stack; they do not wrap into intermediate rows.
+
+<Demo src="/demo/tag-helpers/form-row-three-columns.html">
+  <include>./_include/form-row-three-columns.mdx</include>
+</Demo>
+
+### Inside a section
+
+Combine a row with a [Form Section](./form-section) to group fields under a title and description. In a split section, the width available to the fields determines whether the row stacks. Open the full preview to compare the layouts as you resize the window.
+
+<Demo src="/demo/tag-helpers/form-row-in-section.html" mode="fullscreen">
+  <include>./_include/form-row-in-section.mdx</include>
+</Demo>
+
+### Narrow container
+
+The same row stacks automatically inside a narrow container.
+
+<Demo src="/demo/tag-helpers/form-row-narrow.html">
+  <include>./_include/form-row-narrow.mdx</include>
+</Demo>
+
+### Single field
+
+A row with one child uses the full available width.
+
+<Demo src="/demo/tag-helpers/form-row-single-field.html">
+  <include>./_include/form-row-single-field.mdx</include>
+</Demo>
+
+### Spacing
+
+Rows use the active theme's medium gap. Override it with a utility class from your application's stylesheet:
+
+```razor
+<sa-form-row class="gap-6">
+    <sa-input asp-for="FirstName" />
+    <sa-input asp-for="LastName" />
+</sa-form-row>
+```
+
+## API Reference
+
+### `<sa-form-row>`
+
+Renders a `<div>` with an inner grid. It has no component-specific attributes. Standard HTML attributes and `class` apply to the outer element.
+
+Each direct child should represent one field or another unit of form content. A row provides visual layout; it does not render a `<form>` or `<fieldset>`.
