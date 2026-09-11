@@ -39,7 +39,6 @@
     --color-purple-600: oklch(55.8% 0.288 302.321);
     --color-purple-700: oklch(49.6% 0.265 301.924);
     --color-purple-950: oklch(29.1% 0.149 302.717);
-    --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -774,8 +773,14 @@
     --tw-border-style: dashed;
     border-style: dashed;
   }
+  .border-border {
+    border-color: var(--border);
+  }
   .border-red-500 {
     border-color: var(--color-red-500);
+  }
+  .border-sidebar-border {
+    border-color: var(--sidebar-border);
   }
   .bg-background {
     background-color: var(--background);
@@ -785,9 +790,6 @@
   }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
-  }
-  .bg-gray-50 {
-    background-color: var(--color-gray-50);
   }
   .bg-green-50 {
     background-color: var(--color-green-50);
@@ -868,9 +870,6 @@
   }
   .p-0 {
     padding: calc(var(--spacing) * 0);
-  }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
   }
   .p-3 {
     padding: calc(var(--spacing) * 3);
