@@ -13,6 +13,14 @@ Use a segmented control to choose one value from a short list of options.
 
 Place `<sa-segmented-control-item>` elements inside `<sa-segmented-control>`. Each item requires a `value`; its content provides the label. For unbound controls, supply a unique field `name` and an optional initial `value` on the parent. With no matching value, no option is selected.
 
+### Icons
+
+Place an `<sa-icon>` alongside each option’s text. The icon is decorative; the text supplies the accessible label.
+
+<Demo src="/demo/tag-helpers/segmented-control-icons.html">
+  <include>./_include/segmented-control-icons.mdx</include>
+</Demo>
+
 ### Model binding
 
 Set `asp-for` on the parent. It supplies the radio group name and selected value, taking precedence over `name` and `value`. String, enum, and nullable properties use normal ASP.NET Core model binding. Submitted values are preserved when redisplaying a form with validation errors, including nested field prefixes.
