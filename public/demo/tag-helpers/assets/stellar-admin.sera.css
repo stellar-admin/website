@@ -3728,7 +3728,7 @@
     }
     &::after {
       content: var(--tw-content);
-      background-color: var(--foreground);
+      background-color: var(--sa-tabs-indicator-background,var(--foreground));
     }
     &::after {
       content: var(--tw-content);
@@ -3909,7 +3909,7 @@
     user-select: none;
     &:hover {
       @media (hover: hover) {
-        background-color: var(--muted);
+        background-color: var(--sa-toggle-hover-background,var(--muted));
       }
     }
     &:has(*:is(:disabled)) {

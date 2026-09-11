@@ -573,9 +573,6 @@
   .w-lg {
     width: var(--container-lg);
   }
-  .w-md {
-    width: var(--container-md);
-  }
   .max-w-3xl {
     max-width: var(--container-3xl);
   }

@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships nine themes: Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Ledger is an independently designed theme with its own palette, typography, and raised controls.
+StellarAdmin ships ten themes: Concourse, Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse and Ledger are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,9 +42,22 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Ledger is available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse and Ledger are available through the demo picker on this site.
 </Callout>
 
+
+### Concourse
+
+Concourse uses cool grey surfaces, a blue accent, compact controls, and small corners. Hover and pressed states change colour without moving the controls. Load **Source Sans 3** (UI text, weights 400, 500, 600, and 700) and **IBM Plex Mono** (identifiers and values, weights 400 and 500) from your application layout:
+
+```razor
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.concourse.css" asp-append-version="true"/>
+```
+
+Replace your existing theme link with this bundle. You can self-host the fonts; the stylesheet does not fetch them. The existing tag helpers and `dark` class work unchanged. Default controls are 34px high; applications can increase touch targets through their own responsive layout.
 
 ### Ledger
 
