@@ -1455,13 +1455,13 @@
     }
     &::before {
       content: var(--tw-content);
-      background-color: var(--primary-foreground);
+      background-color: var(--sa-checkbox-checked-foreground,var(--primary-foreground));
     }
     &:indeterminate {
       border-color: var(--primary);
     }
     &:indeterminate {
-      background-color: var(--primary);
+      background-color: var(--sa-checkbox-checked-background,var(--primary));
     }
     &:indeterminate {
       &::before {
@@ -1484,7 +1484,7 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
-    color: var(--primary-foreground);
+    color: var(--sa-checkbox-checked-foreground,var(--primary-foreground));
   }
   .sa-data-grid {
     gap: calc(var(--spacing) * 0);
@@ -3599,7 +3599,7 @@
       background-color: var(--sa-segmented-control-active-background,var(--background));
     }
     &:has(*:is(:checked)) {
-      color: var(--foreground);
+      color: var(--sa-segmented-control-active-foreground,var(--foreground));
     }
     &:has(*:is(:disabled)) {
       pointer-events: none;
@@ -3642,7 +3642,7 @@
     }
     &:is(.dark *) {
       &:has(*:is(:checked)) {
-        border-color: var(--input);
+        border-color: var(--sa-segmented-control-active-border,var(--input));
       }
     }
     &:is(.dark *) {
@@ -3655,7 +3655,7 @@
     }
     &:is(.dark *) {
       &:has(*:is(:checked)) {
-        color: var(--foreground);
+        color: var(--sa-segmented-control-active-foreground,var(--foreground));
       }
     }
     & svg {
@@ -3742,7 +3742,7 @@
     &:is(:where(.group\/tabs)[data-orientation="horizontal"] *) {
       &::after {
         content: var(--tw-content);
-        bottom: -5px;
+        bottom: var(--sa-tabs-indicator-bottom,-5px);
       }
     }
     &:is(:where(.group\/tabs)[data-orientation="horizontal"] *) {
@@ -3760,7 +3760,7 @@
     &:is(:where(.group\/tabs)[data-orientation="vertical"] *) {
       &::after {
         content: var(--tw-content);
-        right: calc(var(--spacing) * -1);
+        right: var(--sa-tabs-indicator-right,calc(var(--spacing) * -1));
       }
     }
     &:is(:where(.group\/tabs)[data-orientation="vertical"] *) {
@@ -3817,7 +3817,7 @@
       background-color: var(--sa-tabs-active-background,var(--background));
     }
     &:where([data-state="active"]), &:where([data-active]:not([data-active="false"])) {
-      color: var(--foreground);
+      color: var(--sa-tabs-active-foreground,var(--foreground));
     }
     &:is(:where(.group\/tabs-list)[data-variant="line"] *) {
       &:where([data-state="active"]), &:where([data-active]:not([data-active="false"])) {
@@ -3834,7 +3834,7 @@
     }
     &:is(.dark *) {
       &:where([data-state="active"]), &:where([data-active]:not([data-active="false"])) {
-        border-color: var(--input);
+        border-color: var(--sa-tabs-active-border,var(--input));
       }
     }
     &:is(.dark *) {
@@ -3847,7 +3847,7 @@
     }
     &:is(.dark *) {
       &:where([data-state="active"]), &:where([data-active]:not([data-active="false"])) {
-        color: var(--foreground);
+        color: var(--sa-tabs-active-foreground,var(--foreground));
       }
     }
     &:is(.dark *) {

@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships ten themes: Concourse, Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse and Ledger are independently designed themes with their own palettes, typography, and control treatments.
+StellarAdmin ships eleven themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, and Ledger are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,7 +42,7 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse and Ledger are available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, and Ledger are available through the demo picker on this site.
 </Callout>
 
 
@@ -73,6 +73,19 @@ Add these links to the `<head>` of your shared Razor layout, replacing your exis
 ```
 
 You can also self-host the fonts instead of using Google Fonts. No font-family override is needed, and the same `dark` class works as with other themes.
+
+## Ice
+
+Ice is a compact theme for operational screens: square corners, hairline borders, no elevation shadows, and blue interaction accents. Default controls are 28px high with 12.5px UI text. It uses IBM Plex Sans for labels and prose, and JetBrains Mono for data, badges, and keyboard hints.
+
+Load its fonts and select its single stylesheet in your Razor layout:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ice.css" asp-append-version="true"/>
+```
+
+You can self-host the fonts instead. The stylesheet does not download fonts, and the normal `dark` class switches colour modes. Use the existing tag helpers; no Ice-specific markup is required. For numeric content in your own markup, use a monospace font with tabular figures. Choose larger controls where your app needs more generous touch targets.
 
 ## Customizing a theme
 

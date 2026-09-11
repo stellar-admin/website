@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 // public/demo/tag-helpers/assets/ (derived there from the library's theme sources).
 export const demoThemes = [
   "concourse",
+  "ice",
   "ledger",
   "luma",
   "lyra",
