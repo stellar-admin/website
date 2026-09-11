@@ -35,7 +35,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 StellarAdmin ships nine themes: Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Ledger is an independently designed theme with its own palette, typography, and raised controls.
 
-When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the them. The snippet below demonstrates how to include the Nova theme.
+When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
 ```razor
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
@@ -46,20 +46,20 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 </Callout>
 
 
-## Ledger
+### Ledger
 
-Ledger pairs warm paper surfaces in light mode with blue-tinted charcoal in dark mode, an indigo primary colour, and 6px corners. Primary, secondary, outline, and destructive buttons have visible borders and a raised edge; pressed buttons sink by 1px, and keyboard focus retains their elevation. Ghost and link actions stay flat.
+Ledger uses warm paper surfaces in light mode, blue-tinted charcoal in dark mode, and raised controls. It is designed for **Lexend** (UI text, weights 300–700) and **JetBrains Mono** (monospaced content, weights 400–500). The theme sets the font families, but your application must load the fonts.
 
-Link the Ledger bundle and load Lexend for UI text and JetBrains Mono for identifiers and shortcuts. Fonts are supplied by your application; the bundle does not download them. You can self-host them or use a font provider:
+Add these links to the `<head>` of your shared Razor layout, replacing your existing theme stylesheet:
 
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" />
+```razor
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" asp-append-version="true"/>
 ```
 
-Use the same tag helpers and dark-mode class as other themes. Ledger also styles the shared components used by StellarAdmin Pro, including the card and table surfaces used by the data grid. Standard semantic colour variables remain customisable. Variables beginning with `--sa-ledger-` implement Ledger-specific treatments and are not a shared cross-theme token contract.
-
-Ledger's primary and destructive buttons use dedicated hover and border colours. If you replace those brand colours, also adjust `--sa-ledger-primary-hover`, `--sa-ledger-primary-border`, `--sa-ledger-destructive-hover`, `--sa-ledger-destructive-border`, and `--sa-ledger-destructive-foreground` in each colour mode so the raised treatment remains coherent.
+You can also self-host the fonts instead of using Google Fonts. No font-family override is needed, and the same `dark` class works as with other themes.
 
 ## Customizing a theme
 
