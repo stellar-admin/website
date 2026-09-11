@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 // Keep in sync with the theme bundles the DocsSamplesGenerator exports into
 // public/demo/tag-helpers/assets/ (derived there from the library's theme sources).
 export const demoThemes = [
+  "ledger",
   "luma",
   "lyra",
   "maia",

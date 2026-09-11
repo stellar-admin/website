@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var themes = ['ledger', 'luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -60,7 +61,7 @@
     <div data-slot="page-container" data-width="large" class="sa-page-container sa-page-container-width-large">
     <div class="w-full">
         <!-- code begin -->
-        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-9829be14d5b64ee08b5ee29a04ca7b00" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-9829be14d5b64ee08b5ee29a04ca7b00">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-ceb7933b81874928aceff04a3841cb7f" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-ceb7933b81874928aceff04a3841cb7f">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
                     <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
@@ -80,14 +81,14 @@
                 </div>
             </div>
         </div></div></section>
-        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-f88faf6901ad41829e0eed7c2931bfdd" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-f88faf6901ad41829e0eed7c2931bfdd">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-0b285e5ac6e644f48b11117c72aa011b" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-0b285e5ac6e644f48b11117c72aa011b">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
                     <label for="split-places" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Available places</label>
                     <input id="split-places" name="AvailablePlaces" type="number" min="0" value="12" data-slot="input" class="sa-input">
                 </div>
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="split-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" viewBox="0 0 24 24" width="24" stroke="currentColor" stroke-width="2" height="24" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="split-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-width="2" fill="none" height="24" stroke-linejoin="round" stroke="currentColor" viewBox="0 0 24 24" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     <div data-slot="field-content" class="sa-field-content group/field-content">
                         <label for="split-waitlist" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Allow waitlist</label>
                         <p data-slot="field-description" class="sa-field-description">Accept requests when the trip is full.</p>
