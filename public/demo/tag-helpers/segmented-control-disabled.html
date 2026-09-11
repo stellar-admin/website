@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
+    <script>
+        (function () {
+            var themes = ['ledger', 'luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.3qzjze16s0.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="sa-stack sa-stack-align-stretch sa-stack-gap-md sa-stack-justify-start">
+    <div aria-label="Available travel" role="radiogroup" data-slot="segmented-control" class="sa-segmented-control">
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db6244-1" data-slot="segmented-control-item" class="sa-segmented-control-item"><input checked="checked" class="sa-segmented-control-input" data-slot="segmented-control-input" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db6244-1" name="available-travel" type="radio" value="Flights" />Flights</label>
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db7573-2" data-slot="segmented-control-item" class="sa-segmented-control-item"><input class="sa-segmented-control-input" data-slot="segmented-control-input" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db7573-2" name="available-travel" type="radio" value="Stays" />Stays</label>
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db8900-3" data-slot="segmented-control-item" class="sa-segmented-control-item"><input class="sa-segmented-control-input" data-slot="segmented-control-input" disabled="disabled" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db8900-3" name="available-travel" type="radio" value="Cars" />Cars</label>
+    </div>
+    <div aria-label="Locked travel" role="radiogroup" data-slot="segmented-control" class="sa-segmented-control">
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db12308-4" data-slot="segmented-control-item" class="sa-segmented-control-item"><input class="sa-segmented-control-input" data-slot="segmented-control-input" disabled="disabled" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db12308-4" name="locked-travel" type="radio" value="Flights" />Flights</label>
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db13638-5" data-slot="segmented-control-item" class="sa-segmented-control-item"><input checked="checked" class="sa-segmented-control-input" data-slot="segmented-control-input" disabled="disabled" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db13638-5" name="locked-travel" type="radio" value="Stays" />Stays</label>
+        <label for="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db14966-6" data-slot="segmented-control-item" class="sa-segmented-control-item"><input class="sa-segmented-control-input" data-slot="segmented-control-input" disabled="disabled" id="sa-segmented-control-d2763a90c57e36d372c5cc064d83ca3dd136b443b939c10ab9efaa73005e66db14966-6" name="locked-travel" type="radio" value="Cars" />Cars</label>
+    </div>
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

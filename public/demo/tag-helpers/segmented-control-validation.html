@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
+    <script>
+        (function () {
+            var themes = ['ledger', 'luma', 'lyra', 'maia', 'mira', 'nova', 'rhea', 'sera', 'vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function themeHref() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'nova';
+                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.3qzjze16s0.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label for="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331474787-1" class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label">Cabin class</label><div role="radiogroup" data-slot="segmented-control" aria-label="Cabin class" aria-invalid="true" class="sa-segmented-control">
+    <label for="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331474787-1" data-slot="segmented-control-item" class="sa-segmented-control-item"><input aria-invalid="true" class="input-validation-error sa-segmented-control-input" data-slot="segmented-control-input" data-val="true" data-val-required="Choose a cabin class." id="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331474787-1" name="PartialModel.Cabin" required="required" type="radio" value="Economy" />Economy</label>
+    <label for="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331476048-2" data-slot="segmented-control-item" class="sa-segmented-control-item"><input aria-invalid="true" class="input-validation-error sa-segmented-control-input" data-slot="segmented-control-input" id="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331476048-2" name="PartialModel.Cabin" required="required" type="radio" value="Business" />Business</label>
+    <label for="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331477310-3" data-slot="segmented-control-item" class="sa-segmented-control-item"><input aria-invalid="true" class="input-validation-error sa-segmented-control-input" data-slot="segmented-control-input" id="sa-segmented-control-84ace4b42cb7700073298b6e01d7e14684d2755e192a0bef17f715a68d3331477310-3" name="PartialModel.Cabin" required="required" type="radio" value="First" />First</label>
+</div><div class="sa-field-error field-validation-error" data-valmsg-for="PartialModel.Cabin" data-valmsg-replace="true" role="alert" data-slot="field-error">Choose a cabin class.</div><p class="sa-field-description" data-slot="field-description">Choose a cabin for your next flight.</p></div>
+
+
+</div>
+
+
+
+</body>
+</html>

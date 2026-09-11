@@ -1,0 +1,80 @@
+---
+title: Segmented Control
+description: A single-choice control with the appearance of default tabs and native radio behavior.
+---
+
+Use a segmented control to choose one value from a short list of options.
+
+<Demo src="/demo/tag-helpers/segmented-control-intro.html">
+  <include>./_include/segmented-control-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Place `<sa-segmented-control-item>` elements inside `<sa-segmented-control>`. Each item requires a `value`; its content provides the label. For unbound controls, supply a unique field `name` and an optional initial `value` on the parent. With no matching value, no option is selected.
+
+### Model binding
+
+Set `asp-for` on the parent. It supplies the radio group name and selected value, taking precedence over `name` and `value`. String, enum, and nullable properties use normal ASP.NET Core model binding. Submitted values are preserved when redisplaying a form with validation errors, including nested field prefixes.
+
+<Demo src="/demo/tag-helpers/segmented-control-model-binding.html">
+  <include>./_include/segmented-control-model-binding.mdx</include>
+</Demo>
+
+Binding automatically renders the standard field wrapper with its label, description, and validation message. Use `label`, `description`, and `error` to provide explicit field text. Set `render-field="false"` to render only the control, or compose it inside `<sa-field>` with `<sa-field-label>`, `<sa-field-description>`, and `<sa-field-error>`; nesting inside a field suppresses the automatic wrapper. For custom help and error elements, `aria-describedby` on the control is also applied to its radios. Model metadata supplies the accessible group name and required state; `aria-label` or `aria-labelledby` overrides the name, and `required` overrides the required state. Form submission sends the selected enabled radio's value. An unselected group sends no value.
+
+<Demo src="/demo/tag-helpers/segmented-control-validation.html">
+  <include>./_include/segmented-control-validation.mdx</include>
+</Demo>
+
+### Change event
+
+Attach the standard `onchange` handler to the outer component, or use `addEventListener("change", handler)` on its rendered element. The native event bubbles from the selected radio: `event.target.value` contains the new value and `event.currentTarget` is the outer control.
+
+<Demo src="/demo/tag-helpers/segmented-control-change-event.html">
+  <include>./_include/segmented-control-change-event.mdx</include>
+</Demo>
+
+Selecting a different option fires one change event. Initialization, selecting the current option again, form reset, and assigning a radio's `checked` property do not fire a change event. Programmatic callers can explicitly dispatch a bubbling `change` event when they need to notify listeners. Selection styling and form behavior work without StellarAdmin JavaScript.
+
+### Disabled
+
+Set `disabled="true"` on an item or the entire control. Disabled radios cannot be selected and are excluded from form submission.
+
+<Demo src="/demo/tag-helpers/segmented-control-disabled.html">
+  <include>./_include/segmented-control-disabled.mdx</include>
+</Demo>
+
+## Accessibility
+
+The outer element is a `div` with `role="radiogroup"`. Each item renders a label containing a visually hidden native radio. Supply `aria-label` or `aria-labelledby` for unbound groups without a `label`, and visible text for every item. Label content may include decorative icons, but should not contain links, buttons, or other interactive controls.
+
+Tab enters and leaves the group; arrow keys move between enabled options using the browser's native radio behavior. Space selects a focused option. The visible segment displays keyboard focus, and form reset restores the initial selection.
+
+## API reference
+
+### `<sa-segmented-control>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `asp-for` | `ModelExpression` | Model property containing the selected value. |
+| `name` | `string` | Required field name when `asp-for` is absent. |
+| `value` | `string` | Initial selected value when `asp-for` is absent. |
+| `disabled` | `bool?` | Disables all options; defaults to false. |
+| `required` | `bool?` | Requires a selection; defaults to model metadata, or false when unbound. |
+| `label` | `string` | Field label; defaults to model metadata when bound. |
+| `description` | `string` | Supporting field text; defaults to model metadata. |
+| `error` | `string` | Explicit validation message and invalid state. |
+| `render-field` | `bool?` | Controls the automatic field wrapper; inferred from binding or field text unless already inside a field. |
+| `onchange` | JavaScript | Standard bubbling radio change handler. |
+
+Standard `id`, `class`, `aria-*`, and `data-*` attributes apply to the outer group. The component has one horizontal appearance matching the default tabs variant in the selected theme.
+
+### `<sa-segmented-control-item>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `value` | `string` | Required value submitted when selected. Use distinct values within a group. |
+| `disabled` | `bool?` | Disables this option; defaults to false. |
+
+Standard `id` and `class` attributes apply to the visible label. Each radio receives its own generated ID.
