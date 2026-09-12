@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'mira', 'nova', 'observatory', 'rhea', 'sera', 'vega'];
+            var themes = ['concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'rhea', 'sera', 'vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
@@ -64,7 +65,7 @@
     <div data-slot="page-container" data-width="medium" class="sa-page-container sa-page-container-width-medium">
     <div class="w-full">
         <!-- code begin -->
-        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-893783e1dd5f4c0e8981cd4d265a3e70" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-893783e1dd5f4c0e8981cd4d265a3e70">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-403d595f44384aae9c8b9b611d049032" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-403d595f44384aae9c8b9b611d049032">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
                     <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
@@ -84,14 +85,14 @@
                 </div>
             </div>
         </div></div></section>
-        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-a5398f68c31b418ab24d722b5909623d" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-a5398f68c31b418ab24d722b5909623d">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-e0848d01cafe44dabd916ba1932c5952" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-e0848d01cafe44dabd916ba1932c5952">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
                     <label for="stacked-places" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Available places</label>
                     <input id="stacked-places" name="AvailablePlaces" type="number" min="0" value="12" data-slot="input" class="sa-input">
                 </div>
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="stacked-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" stroke="currentColor" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" stroke-linecap="round" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="stacked-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-linecap="round" width="24" fill="none" stroke="currentColor" height="24" stroke-width="2" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     <div data-slot="field-content" class="sa-field-content group/field-content">
                         <label for="stacked-waitlist" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Allow waitlist</label>
                         <p data-slot="field-description" class="sa-field-description">Accept requests when the trip is full.</p>

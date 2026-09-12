@@ -9,6 +9,7 @@ export const demoThemes = [
   "luma",
   "lyra",
   "maia",
+  "meridian",
   "mira",
   "nova",
   "observatory",

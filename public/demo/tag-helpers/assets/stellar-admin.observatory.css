@@ -6722,9 +6722,6 @@
       background: transparent;
     }
   }
-  .sa-tabs-list-variant-line {
-    border-bottom: 1px solid var(--border);
-  }
   .sa-tabs-list-variant-line .sa-tabs-trigger {
     --sa-tabs-active-foreground: var(--primary);
     padding: 0 0 8px;

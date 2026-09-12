@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships twelve themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, Ledger, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
+StellarAdmin ships thirteen themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, Ledger, Meridian, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,7 +42,7 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, Ledger, and Observatory are available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, Ledger, Meridian, and Observatory are available through the demo picker on this site.
 </Callout>
 
 
@@ -99,6 +99,19 @@ Load the fonts and replace your current theme link in the shared Razor layout:
 ```
 
 You can self-host the fonts. The stylesheet does not fetch them, and the usual `dark` class switches colour modes. Use `font-mono tabular-nums` for numbers and identifiers in your own markup. Compact spacing is built in; no density setting is required. Choose larger controls where your app needs more generous touch targets.
+
+### Meridian
+
+Meridian uses warm paper surfaces in light mode, deep umber in dark mode, brass accents, and 2px corners. Its typography combines **Instrument Sans** (display headings, weight 600), **Work Sans** (UI text, weights 400/500/600), and **JetBrains Mono** (data and shortcuts, weights 400/500).
+
+Load its fonts and replace your current theme link in the shared Razor layout:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.meridian.css" asp-append-version="true"/>
+```
+
+You can self-host the fonts. The stylesheet does not fetch them, and the usual `dark` class switches modes. Default controls are 32px high, with 26px small and 40px large variants. Tables use 11px vertical cell padding. Use `font-mono tabular-nums` for numbers and identifiers in your own markup. Choose larger controls where your app needs more generous touch targets. Dropdown checkbox and radio selections use checkmarks to the right of the text; resting selected rows have no persistent colour fill.
 
 ## Customizing a theme
 
