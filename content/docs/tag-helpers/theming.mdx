@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships thirteen themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, Ledger, Meridian, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
+StellarAdmin ships fourteen themes: Aurora, Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Aurora, Concourse, Ice, Ledger, Meridian, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,9 +42,22 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, Ledger, Meridian, and Observatory are available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Aurora, Concourse, Ice, Ledger, Meridian, and Observatory are available through the demo picker on this site.
 </Callout>
 
+
+### Aurora
+
+Aurora uses cool grey-green surfaces, deep teal accents in light mode and bright teal in dark mode, square corners, and flat bordered cards. Sliders have square tracks and thumbs; switches, radio controls, avatars and status dots stay round. Dark inputs use a recessed surface.
+
+Load Archivo (headings and UI, normal 400/500/600) and IBM Plex Mono (numbers, identifiers and shortcuts, normal 400/500) from your application layout, then link the Aurora bundle:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.aurora.css" asp-append-version="true"/>
+```
+
+The fonts can be self-hosted. The stylesheet does not fetch them; use the usual `dark` class to switch modes. Default controls are 30px high, small controls 24px, and large controls 38px. Tables use 9px vertical cell padding. Use `font-mono tabular-nums` for numbers and identifiers in your own markup, and provide larger touch targets in mobile layouts. Dropdown checkbox and radio items use trailing checkmarks without a persistent selected row fill. Default tabs match segmented controls; horizontal line tabs show only the active underline.
 
 ### Concourse
 
