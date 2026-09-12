@@ -779,9 +779,6 @@
   .border-sidebar-border {
     border-color: var(--sidebar-border);
   }
-  .bg-background {
-    background-color: var(--background);
-  }
   .bg-blue-50 {
     background-color: var(--color-blue-50);
   }

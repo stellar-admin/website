@@ -11,6 +11,7 @@ export const demoThemes = [
   "maia",
   "mira",
   "nova",
+  "observatory",
   "rhea",
   "sera",
   "vega",

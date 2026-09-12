@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships eleven themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Mira, Nova, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, and Ledger are independently designed themes with their own palettes, typography, and control treatments.
+StellarAdmin ships twelve themes: Concourse, Ice, Ledger, Luma, Lyra, Maia, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Concourse, Ice, Ledger, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,7 +42,7 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, and Ledger are available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Concourse, Ice, Ledger, and Observatory are available through the demo picker on this site.
 </Callout>
 
 
@@ -86,6 +86,19 @@ Load its fonts and select its single stylesheet in your Razor layout:
 ```
 
 You can self-host the fonts instead. The stylesheet does not download fonts, and the normal `dark` class switches colour modes. Use the existing tag helpers; no Ice-specific markup is required. For numeric content in your own markup, use a monospace font with tabular figures. Choose larger controls where your app needs more generous touch targets.
+
+### Observatory
+
+Observatory is a compact operations theme with cool neutral surfaces, blue accents in light mode and cyan accents in dark mode, 4px corners, and shadowless dark cards. Default controls are 32px high and table cells use 7px vertical padding. It uses **IBM Plex Sans** (UI text, weights 400/500/600) and **IBM Plex Mono** (data and shortcuts, weights 400/500).
+
+Load the fonts and replace your current theme link in the shared Razor layout:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true"/>
+```
+
+You can self-host the fonts. The stylesheet does not fetch them, and the usual `dark` class switches colour modes. Use `font-mono tabular-nums` for numbers and identifiers in your own markup. Compact spacing is built in; no density setting is required. Choose larger controls where your app needs more generous touch targets.
 
 ## Customizing a theme
 
