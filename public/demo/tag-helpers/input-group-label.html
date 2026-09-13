@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -94,7 +94,7 @@
                     Email
                 </label>
                 <button aria-label="Help" class="sa-button group/button sa-button-variant-ghost sa-button-size-default sa-input-group-button sa-input-group-button-size-icon-xs ml-auto rounded-full" type="button" data-size="icon-xs" data-slot="button">
-                    <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                 </button>
             </div>
         </div>

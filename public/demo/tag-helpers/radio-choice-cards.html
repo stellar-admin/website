@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -92,7 +92,7 @@
                         Lowest fare, no changes or refunds
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="saver" id="fare-saver" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="saver" id="fare-saver" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
         </label>
         <label for="fare-flex" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
@@ -103,7 +103,7 @@
                         Free date changes up to 24 hours before departure
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="flex" id="fare-flex" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="flex" id="fare-flex" checked data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
         </label>
         <label for="fare-business" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
@@ -114,7 +114,7 @@
                         Priority boarding, lounge access, and full refunds
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="business" id="fare-business" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="radio" name="fare-type" value="business" id="fare-business" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><circle cx="12" cy="12" r="10"></circle></svg></span></span>
             </div>
         </label>
     </div>

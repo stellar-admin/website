@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -100,11 +100,11 @@
             </div>
             <div class="flex gap-2">
                 <button class="sa-button group/button sa-button-variant-secondary sa-button-size-default flex-1" data-slot="button">
-                    <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg>
+                    <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg>
                     Following
                 </button>
                 <button class="sa-button group/button sa-button-variant-default sa-button-size-default flex-1" data-slot="button">
-                    <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect height="16" rx="2" width="20" x="2" y="4"></rect></svg>
+                    <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect height="16" rx="2" width="20" x="2" y="4"></rect></svg>
                     Message
                 </button>
             </div>

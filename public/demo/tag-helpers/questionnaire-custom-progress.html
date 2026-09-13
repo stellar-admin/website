@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -114,7 +114,7 @@
                 <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
             </div>
         </sel-questionnaire>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxtBoNCG52pz6ikKy2z0RMmEWNJTKvbTY9kLNGtobGs6rJvENJY0CX4AgmPNYw2LPuTx2WEiUXbrvXsEHNX2tKFlnoTdZjm1pzVXIaQgE0qpLHTtTGbmyB8GX_pI_rFrgPE" /></form>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsb48GJbHgmKEtzLhhKc96-RjP6ILbOX3CWn_TcMfxzuS9QrPhA9FkEnNmyD-dBtEZTmJ7E7ZOY07Py4RpSKd7jN1xVkc1Lm75XNFUsBShoI68S4HPm66FOpngZquq1mQc" /></form>
     <!-- code end -->
 </div>
 

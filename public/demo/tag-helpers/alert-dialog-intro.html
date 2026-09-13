@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -97,7 +97,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep editing</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-default sa-button-size-default sa-alert-dialog-action">Continue</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsG39m3zkL2rT47M2ZmtbMmtS0fhktgw0-Xw8x4mngF4kzyVj5dZiUOu1d-3iVO_YlnSzcsWEYy5eog20l-dorwjAeUma88dO3857ghMD8Lf6ZZfQ_EozWJFBrPGiTjBDY" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxuQNr3ZBJvgLmaOCefVsDgkvNf7zOaSQGGwPreejVHsP4r7CRqPtPj-Bzaj0t6LRwWssDLJbPOl8sfrjMBmxHHuHH574uNuHRL736pDBLc9Zbl0Lixy_hLeIvQD9DGFluA" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

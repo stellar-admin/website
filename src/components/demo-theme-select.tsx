@@ -9,7 +9,9 @@ import { demoThemes, useDemoTheme } from "@/lib/demo-theme";
 
 const themeItems = demoThemes.map((theme) => ({
   value: theme,
-  label: theme[0].toUpperCase() + theme.slice(1),
+  label: theme.startsWith("shadcn.")
+    ? `Shadcn ${theme[7].toUpperCase()}${theme.slice(8)}`
+    : theme[0].toUpperCase() + theme.slice(1),
 }));
 
 export function DemoThemeSelect() {

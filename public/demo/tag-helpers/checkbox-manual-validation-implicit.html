@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -80,7 +80,7 @@
     
     <div class="w-full max-w-md">
     <!-- code begin -->
-    <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input aria-invalid="true" id="intro-terms" type="checkbox" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label for="intro-terms" class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label">Accept terms and conditions</label><p class="sa-field-description" data-slot="field-description">By clicking this checkbox, you agree to the terms and conditions.</p><div class="sa-field-error field-validation-error" role="alert" data-slot="field-error">You must accept the terms and conditions</div></div></div>
+    <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input aria-invalid="true" id="intro-terms" type="checkbox" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label for="intro-terms" class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label">Accept terms and conditions</label><p class="sa-field-description" data-slot="field-description">By clicking this checkbox, you agree to the terms and conditions.</p><div class="sa-field-error field-validation-error" role="alert" data-slot="field-error">You must accept the terms and conditions</div></div></div>
     <!-- code end -->
 </div>
 

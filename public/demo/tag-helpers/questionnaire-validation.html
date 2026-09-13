@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -119,7 +119,7 @@
                 </div>
             <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Occasion" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
         </sel-questionnaire>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsUvat2jcAuwZbGg04IUvqRmhwk5qSmKe_J7Oi94tOBestVtzpSVhS1uRK040iA-kTrdryPw_bJD3yL4Ua1htCLnaoFyzgxWcpBPvLE2GoXEAWGbRgqzJU9uhCg29YVu6U" /></form>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsLTu3ghK227QvwTAro5moVlMKT25z5DOcnyUvUOcYGvoz4MRgJSZqePdQ2l-eIwn3btjoIj2sZqyL9F_qKXtySSfaTVDzynUGjROQ6KtV32Qg9qi4RhzxQCVO28VhqPGQ" /></form>
     <!-- code end -->
 </div>
 

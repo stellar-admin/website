@@ -7,22 +7,22 @@ export const demoThemes = [
   "concourse",
   "ice",
   "ledger",
-  "luma",
-  "lyra",
-  "maia",
+  "shadcn.luma",
+  "shadcn.lyra",
+  "shadcn.maia",
   "meridian",
-  "mira",
-  "nova",
+  "shadcn.mira",
+  "shadcn.nova",
   "observatory",
   "parallax",
-  "rhea",
-  "sera",
-  "vega",
+  "shadcn.rhea",
+  "shadcn.sera",
+  "shadcn.vega",
 ] as const;
 
 export type DemoTheme = (typeof demoThemes)[number];
 
-const defaultTheme: DemoTheme = "nova";
+const defaultTheme: DemoTheme = "shadcn.nova";
 const storageKey = "demo-theme";
 const changeEvent = "demo-theme-change";
 

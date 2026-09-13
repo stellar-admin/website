@@ -33,12 +33,16 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
+Shadcn-derived theme identifiers are `shadcn.luma`, `shadcn.lyra`, `shadcn.maia`, `shadcn.mira`, `shadcn.nova`, `shadcn.rhea`, `shadcn.sera`, and `shadcn.vega`. Independent themes use their unprefixed names, such as `ledger`. The `shadcn.` namespace is reserved for upstream-derived themes.
+
+When upgrading from unprefixed shadcn bundles, update your stylesheet link: for example, `stellar-admin.nova.css` becomes `stellar-admin.shadcn.nova.css`. The old filenames are no longer shipped; the theme styling is unchanged.
+
 StellarAdmin ships fifteen themes: Aurora, Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Parallax, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Aurora, Concourse, Ice, Ledger, Meridian, Observatory, and Parallax are independently designed themes with their own palettes, typography, and control treatments.
 
-When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
+When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the theme identifier, including the `shadcn.` prefix for upstream-derived themes. The snippet below demonstrates how to include the Nova theme.
 
 ```razor
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.nova.css" asp-append-version="true"/>
 ```
 
 <Callout type="idea">
@@ -161,7 +165,7 @@ The theme customization above was achieved by overriding the variables after imp
   <html lang="en">
   <head>
       ...
-      <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.nova.css" asp-append-version="true"/>
+      <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.nova.css" asp-append-version="true"/>
       <!-- Import additional font used by the style override -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

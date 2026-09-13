@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -100,7 +100,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Cancel</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Delete</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxum1_tAqddJ3wBkXN2q5eNlFbK-xoOVW4XRqAxag-pCc9LIlskxNs0x4dueBEnJxPFdnHkspZK8CRUFz2yEWRmXOpTMFHEzu2yvry6X7Xe8O4qa0k7VNb4InwgGiLJK9l8" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsQ77s7FhnipIZeeUdgSq9a4F5At0ET6UajSmnzRn9Dzg0plUc_a4V8AC5JuONjNkct_dKs7i0iKMskc42MC4aNnmya443Ym9IjPyezU1vpzJ1siJodU41YyJ2ZazqEZ8w" /></form>
     </dialog></sel-dialog>
     <sel-dialog><dialog id="--alert-dialog-size-sm" data-slot="alert-dialog-content" data-size="sm" closedby="closerequest" class="sa-alert-dialog-content group/alert-dialog-content">
         <div data-slot="alert-dialog-header" class="sa-alert-dialog-header">
@@ -114,7 +114,7 @@
                 <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button group/button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Cancel</button>
                 <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button group/button sa-button-variant-destructive sa-button-size-default sa-alert-dialog-action">Delete</button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxum1_tAqddJ3wBkXN2q5eNlFbK-xoOVW4XRqAxag-pCc9LIlskxNs0x4dueBEnJxPFdnHkspZK8CRUFz2yEWRmXOpTMFHEzu2yvry6X7Xe8O4qa0k7VNb4InwgGiLJK9l8" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsQ77s7FhnipIZeeUdgSq9a4F5At0ET6UajSmnzRn9Dzg0plUc_a4V8AC5JuONjNkct_dKs7i0iKMskc42MC4aNnmya443Ym9IjPyezU1vpzJ1siJodU41YyJ2ZazqEZ8w" /></form>
     </dialog></sel-dialog>
     <!-- code end -->
 </div>

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -84,13 +84,13 @@
         <span class="text-sm font-medium">Bookings</span>
         <div data-slot="app-header-actions" class="sa-app-header-actions">
             <button aria-label="Search" data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-sm">
-                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
             </button>
             <button aria-label="Notifications" data-slot="button" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-sm">
-                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
             </button>
             <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
-                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
                 New booking
             </button>
             <span data-slot="avatar" data-size="default" class="sa-avatar group/avatar"><span class="sa-avatar-fallback" data-slot="avatar-fallback">AH</span></span>

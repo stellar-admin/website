@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -101,7 +101,7 @@
                     Continue
                 </button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsa1m4KxSxJ_-rOez7UPCXrN8dmHewdBBj-CWwcwiwdZiyDckZMzhihuo1oTJyzHRVheXAFboWT0tPQ-ydJdh1j22KobeazwHvOu0HMzYHFUctZ5d7Y-F5dcl535zpQOQI" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsLqBml13eLFwUygu1382LrE6D3XxdM0W5G-XM8OJFHhITimlYXSpQznJKgopQlZrgXHPwZsAv265SHGYZfkVwwdWKpMwdD8HoizltvZ9IuMiviKKKxsDYV-bHwAioUdPA" /></form>
     </dialog></sel-dialog>
     <script>
         (function() {

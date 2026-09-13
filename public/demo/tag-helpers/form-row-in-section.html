@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'luma', 'lyra', 'maia', 'meridian', 'mira', 'nova', 'observatory', 'parallax', 'rhea', 'sera', 'vega'];
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -16,7 +16,7 @@
             function themeHref() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'nova';
+                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
                 return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
             }
             window.saThemeInit = function () {
@@ -67,7 +67,7 @@
     <div data-slot="page-container" data-width="large" class="sa-page-container sa-page-container-width-large">
     <div class="w-full">
         <!-- code begin -->
-        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-0efbadba33a84287b212ea4f4a4fcd0a" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-0efbadba33a84287b212ea4f4a4fcd0a">Traveler details</h2><p class="sa-form-section-description" data-slot="form-section-description">The lead contact for your Voyager booking.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="split" aria-labelledby="sa-form-section-d4cae3bb0e1b4b5f85488852b78ff584" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-d4cae3bb0e1b4b5f85488852b78ff584">Traveler details</h2><p class="sa-form-section-description" data-slot="form-section-description">The lead contact for your Voyager booking.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
                 <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
                     <label for="insection-FirstName" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">First name</label>
