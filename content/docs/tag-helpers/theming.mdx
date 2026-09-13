@@ -33,7 +33,7 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Theme stylesheets
 
-StellarAdmin ships fourteen themes: Aurora, Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Aurora, Concourse, Ice, Ledger, Meridian, and Observatory are independently designed themes with their own palettes, typography, and control treatments.
+StellarAdmin ships fifteen themes: Aurora, Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Parallax, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Aurora, Concourse, Ice, Ledger, Meridian, Observatory, and Parallax are independently designed themes with their own palettes, typography, and control treatments.
 
 When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the lowercase name of the theme. The snippet below demonstrates how to include the Nova theme.
 
@@ -42,9 +42,24 @@ When installing StellarAdmin Tag Helpers, you **must** include a theme styleshee
 ```
 
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Aurora, Concourse, Ice, Ledger, Meridian, and Observatory are available through the demo picker on this site.
+    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Aurora, Concourse, Ice, Ledger, Meridian, Observatory, and Parallax are available through the demo picker on this site.
 </Callout>
 
+
+### Parallax
+
+Parallax uses cool blue-grey surfaces, a red-orange action accent, nested 6px and 4px corners, and elevated cards and overlays in both modes. Dark inputs recess below their cards. Space Grotesk sets headings and UI; JetBrains Mono sets explicitly marked numbers, identifiers and shortcuts.
+
+Load Space Grotesk (normal 400/500/600) and JetBrains Mono (normal 400/500) from your application layout, then link the Parallax bundle:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.parallax.css" asp-append-version="true"/>
+```
+
+Fonts can be self-hosted; the stylesheet does not fetch them. Use the usual `dark` class for dark mode. Default controls are 32px high, small controls 26px, and large controls 40px. Table cells use 10px vertical padding. Use `font-mono tabular-nums` for data in your own markup. Menus use trailing checkmarks without a persistent selected fill, and horizontal line tabs show only the active underline.
+
+Parallax separates accent fills (`--primary`) from accent text (`--sa-parallax-accent-ink`) so small orange labels remain legible in light mode. Coordinate the theme-private hover, active and tint values when customizing the accent. Chart colors use neutral and status roles.
 
 ### Aurora
 
