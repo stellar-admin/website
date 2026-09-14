@@ -10,6 +10,7 @@
     "public/",
     "content/",
     "src/routeTree.gen.ts",
+    "src/components/inline-example/generated/",
     "pnpm-lock.yaml"
   ]
 }

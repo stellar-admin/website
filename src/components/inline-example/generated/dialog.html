@@ -1,0 +1,32 @@
+
+    <!-- code begin -->
+    <div class="flex justify-center">
+        <button commandfor="__INSTANCE__---dialog-intro" command="show-modal" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
+            Open
+        </button>
+    </div>
+    <sel-dialog><dialog id="__INSTANCE__---dialog-intro" data-slot="dialog-content" class="sa-dialog-content">
+        <div data-slot="dialog-header" class="sa-dialog-header">
+            <h2 data-slot="dialog-title" class="sa-dialog-title sa-font-heading font-heading">Edit traveller</h2>
+            <p data-slot="dialog-description" class="sa-dialog-description">Update the traveller's details here. Click save when you're done.</p>
+        </div>
+        <div data-slot="field-group" class="sa-field-group group/field-group">
+            <div class="sa-field group/field sa-field-orientation-vertical [&amp;>*]:w-full [&amp;>.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                <label for="__INSTANCE__---dialog-intro-name" data-slot="label" class="sa-label">Name</label>
+                <input id="__INSTANCE__---dialog-intro-name" name="name" value="Ibn Battuta" data-slot="input" class="sa-input">
+            </div>
+            <div class="sa-field group/field sa-field-orientation-vertical [&amp;>*]:w-full [&amp;>.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
+                <label for="__INSTANCE__---dialog-intro-username" data-slot="label" class="sa-label">Username</label>
+                <input id="__INSTANCE__---dialog-intro-username" name="username" value="@ibnbattuta" data-slot="input" class="sa-input">
+            </div>
+        </div>
+        <div data-slot="dialog-footer" class="sa-dialog-footer">
+            <button commandfor="__INSTANCE__---dialog-intro" command="close" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
+                Cancel
+            </button>
+            <button commandfor="__INSTANCE__---dialog-intro" command="close" data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-default">
+                Save Changes
+            </button>
+        </div>
+    </dialog></sel-dialog>
+    <!-- code end -->

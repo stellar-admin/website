@@ -1,0 +1,44 @@
+
+    <!-- code begin -->
+    <div class="flex w-full flex-col gap-2 group/collapsible">
+        <div class="flex items-center justify-between gap-4">
+            <h4 class="text-sm font-semibold">
+                @ibnbattuta has 3 bookings
+            </h4>
+            <button commandfor="__INSTANCE__-my-collapsible" command="--toggle" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon size-8" data-slot="button">
+                <svg class="in-aria-expanded:hidden" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+                <svg class="not-in-aria-expanded:hidden" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="m7 20 5-5 5 5"></path><path d="m7 4 5 5 5-5"></path></svg>
+                <span class="sr-only">Toggle</span>
+            </button>
+        </div>
+        <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item group/item sa-item-size-sm sa-item-variant-outline">
+            <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                <img class="object-cover size-12 rounded" src="/demo/tag-helpers/assets/kyoto.jpg">
+            </div>
+            <div data-slot="item-content" class="sa-item-content">
+                <div data-slot="item-title" class="sa-item-title">Non-stop to NYC (JFK)</div>
+                <p data-slot="item-description" class="sa-item-description">Departure 8AM - Dec 24, 2025</p>
+            </div>
+        </div>
+        <sel-collapsible id="__INSTANCE__-my-collapsible" hidden="" class="flex flex-col gap-2" data-slot="collapsible">
+            <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item group/item sa-item-size-sm sa-item-variant-outline">
+                <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                    <img class="object-cover size-12 rounded" src="/demo/tag-helpers/assets/kyoto.jpg">
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div data-slot="item-title" class="sa-item-title">The Grand Resort &amp; Spa</div>
+                    <p data-slot="item-description" class="sa-item-description">Check-in Dec 25 | 7 Nights</p>
+                </div>
+            </div>
+            <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item group/item sa-item-size-sm sa-item-variant-outline">
+                <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                    <img class="object-cover size-12 rounded" src="/demo/tag-helpers/assets/kyoto.jpg">
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div data-slot="item-title" class="sa-item-title">Westminster Abbey Tour</div>
+                    <p data-slot="item-description" class="sa-item-description">Dec 26, 11:00 AM Slot | 2 Adult Tickets</p>
+                </div>
+            </div>
+        </sel-collapsible>
+    </div>
+    <!-- code end -->
