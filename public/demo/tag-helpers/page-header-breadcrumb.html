@@ -15,7 +15,7 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
                 return theme;
             }
             function themeHref() {
@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.48ffa2y2xh.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
     
     <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
 </head>
@@ -70,11 +70,11 @@
                 <li data-slot="breadcrumb-item" class="sa-breadcrumb-item">
                     <a href="#" data-slot="breadcrumb-link" class="sa-breadcrumb-link">Operations</a>
                 </li>
-                <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="sa-breadcrumb-separator"><svg class="size-4" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></li>
+                <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="sa-breadcrumb-separator"><svg class="size-4" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="m9 18 6-6-6-6"></path></svg></li>
                 <li data-slot="breadcrumb-item" class="sa-breadcrumb-item">
                     <a href="#" data-slot="breadcrumb-link" class="sa-breadcrumb-link">Flights</a>
                 </li>
-                <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="sa-breadcrumb-separator"><svg class="size-4" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></li>
+                <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="sa-breadcrumb-separator"><svg class="size-4" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="m9 18 6-6-6-6"></path></svg></li>
                 <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" class="sa-breadcrumb-page">Flight Reservations</span>
             </ol>
         </nav>
@@ -84,7 +84,7 @@
         </p>
         <div data-slot="page-header-actions" class="sa-page-header-actions">
             <button data-slot="button" class="sa-button group/button sa-button-variant-default sa-button-size-default">
-                <svg fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                <svg viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
                 New reservation
             </button>
         </div>

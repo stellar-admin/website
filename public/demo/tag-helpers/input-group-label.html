@@ -15,7 +15,7 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
                 return theme;
             }
             function themeHref() {
@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.48ffa2y2xh.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -92,7 +92,7 @@
                     Email
                 </label>
                 <button aria-label="Help" class="sa-button group/button sa-button-variant-ghost sa-button-size-default sa-input-group-button sa-input-group-button-size-icon-xs ml-auto rounded-full" type="button" data-size="icon-xs" data-slot="button">
-                    <svg fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                 </button>
             </div>
         </div>

@@ -22,7 +22,7 @@ export const demoThemes = [
 
 export type DemoTheme = (typeof demoThemes)[number];
 
-const defaultTheme: DemoTheme = "shadcn.nova";
+const defaultTheme: DemoTheme = "observatory";
 const storageKey = "demo-theme";
 const changeEvent = "demo-theme-change";
 

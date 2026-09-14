@@ -15,7 +15,7 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
                 return theme;
             }
             function themeHref() {
@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.48ffa2y2xh.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -90,7 +90,7 @@
                         Covers cancellations, medical costs, and lost luggage
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="insurance" id="addon-insurance" checked data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="insurance" id="addon-insurance" checked data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
         </label>
         <label for="addon-transfer" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
@@ -101,7 +101,7 @@
                         Private pickup from the airport to your hotel
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="transfer" id="addon-transfer" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="transfer" id="addon-transfer" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
         </label>
         <label for="addon-excursions" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">
@@ -112,7 +112,7 @@
                         Local guided tours at your destination
                     </p>
                 </div>
-                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="excursions" id="addon-excursions" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <span class="sa-input-control-wrapper"><input type="checkbox" name="addons" value="excursions" id="addon-excursions" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
             </div>
         </label>
     </div>

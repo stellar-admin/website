@@ -15,7 +15,7 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
                 return theme;
             }
             function themeHref() {
@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
     <link rel="stylesheet" href="/demo/tag-helpers/assets/site.48ffa2y2xh.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -81,7 +81,7 @@
     <div class="sa-stack sa-stack-align-center sa-stack-gap-sm sa-stack-justify-start">
         
             <button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" popovertarget="--sa-dropdown-menu-f7876ccdb444e4bc958537b7bdb641fdd883502a2dd0af7d80d680e42fe943f25948" class="sa-button group/button sa-button-variant-outline sa-button-size-default">
-                <svg class="text-muted-foreground" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M10 5H3"></path><path d="M12 19H3"></path><path d="M14 3v4"></path><path d="M16 17v4"></path><path d="M21 12h-9"></path><path d="M21 19h-5"></path><path d="M21 5h-7"></path><path d="M8 10v4"></path><path d="M8 12H3"></path></svg>
+                <svg class="text-muted-foreground" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M10 5H3"></path><path d="M12 19H3"></path><path d="M14 3v4"></path><path d="M16 17v4"></path><path d="M21 12h-9"></path><path d="M21 19h-5"></path><path d="M21 5h-7"></path><path d="M8 10v4"></path><path d="M8 12H3"></path></svg>
                 Trip Filters
             </button>
             <sel-dropdown-menu class="sa-dropdown-menu-content sa-dropdown-menu-content-logical anchored-bottom-span-right w-56" id="--sa-dropdown-menu-f7876ccdb444e4bc958537b7bdb641fdd883502a2dd0af7d80d680e42fe943f25948" popover="" role="menu" data-slot="dropdown-menu-content" data-anchor-side="bottom" data-side="bottom">
@@ -89,9 +89,9 @@
                 <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
                 <!-- One "checkedchange" listener on the group catches every item (the event bubbles) -->
                 <div id="--trip-filters" role="group" data-slot="dropdown-menu-group">
-                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-checkbox-item" data-state="checked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Flights</div>
-                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-checkbox-item" data-state="checked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Accommodation</div>
-                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-checkbox-item" data-state="unchecked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" fill="none" height="24" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Car Rental</div>
+                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-checkbox-item" data-state="checked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Flights</div>
+                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-checkbox-item" data-state="checked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Accommodation</div>
+                    <div role="menuitemcheckbox" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-checkbox-item" data-state="unchecked" class="sa-dropdown-menu-checkbox-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-checkbox-item-indicator"><svg class="size-4" viewBox="0 0 24 24" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" stroke="currentColor" stroke-linejoin="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Car Rental</div>
                 </div>
             </sel-dropdown-menu>
         

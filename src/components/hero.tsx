@@ -36,7 +36,7 @@ export default function Hero() {
             className={cn(
               buttonVariants({
                 size: "lg",
-                className: "rounded-full text-base",
+                className: "text-base",
               }),
             )}
           >
@@ -49,7 +49,7 @@ export default function Hero() {
               buttonVariants({
                 variant: "outline",
                 size: "lg",
-                className: "rounded-full text-base shadow-none",
+                className: "text-base shadow-none",
               }),
             )}
           >

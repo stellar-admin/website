@@ -1,0 +1,71 @@
+/* Observatory colour palette. Source: StellarAdmin Client/css/themes/observatory.css.
+   Keep these values aligned with its public colour mappings in both modes.
+   Website typography, geometry and component recipes are maintained separately. */
+
+:root {
+  --background: #f4f6f9;
+  --foreground: #0d1620;
+  --card: #ffffff;
+  --card-foreground: #0d1620;
+  --popover: #ffffff;
+  --popover-foreground: #0d1620;
+  --primary: #0a6ed1;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f8;
+  --secondary-foreground: #0d1620;
+  --muted: #eef2f8;
+  --muted-foreground: #5a6b7d;
+  --accent: #e8f1fb;
+  --accent-foreground: #0d1620;
+  --destructive: #c23b32;
+  --border: #dde3ec;
+  --input: #c7d1e0;
+  --ring: #0a6ed1;
+  --sidebar: #f7f9fc;
+  --sidebar-foreground: #5a6b7d;
+  --sidebar-primary: #0a6ed1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8f1fb;
+  --sidebar-accent-foreground: #0a6ed1;
+  --sidebar-border: #dde3ec;
+  --sidebar-ring: #0a6ed1;
+  --chart-1: #0a6ed1;
+  --chart-2: #0f8a5f;
+  --chart-3: #a9741a;
+  --chart-4: #c23b32;
+  --chart-5: #5a6b7d;
+}
+
+.dark {
+  --background: #07090d;
+  --foreground: #e4ecf5;
+  --card: #0d1117;
+  --card-foreground: #e4ecf5;
+  --popover: #121a24;
+  --popover-foreground: #e4ecf5;
+  --primary: #4cc2ff;
+  --primary-foreground: #04121b;
+  --secondary: #18222e;
+  --secondary-foreground: #e4ecf5;
+  --muted: #18222e;
+  --muted-foreground: #7d8fa3;
+  --accent: #12293a;
+  --accent-foreground: #e4ecf5;
+  --destructive: #ff6b6b;
+  --border: #1e2833;
+  --input: #2b3846;
+  --ring: #4cc2ff;
+  --sidebar: #121a24;
+  --sidebar-foreground: #7d8fa3;
+  --sidebar-primary: #4cc2ff;
+  --sidebar-primary-foreground: #04121b;
+  --sidebar-accent: #12293a;
+  --sidebar-accent-foreground: #4cc2ff;
+  --sidebar-border: #1e2833;
+  --sidebar-ring: #4cc2ff;
+  --chart-1: #4cc2ff;
+  --chart-2: #35d39a;
+  --chart-3: #f5b942;
+  --chart-4: #ff6b6b;
+  --chart-5: #7d8fa3;
+}
