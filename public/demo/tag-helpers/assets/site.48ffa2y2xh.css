@@ -1384,16 +1384,6 @@
       }
     }
   }
-  .min-\[900px\]\:grid-cols-3 {
-    @media (width >= 900px) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  .min-\[1100px\]\:grid-cols-\[120px_minmax\(0\,1fr\)\] {
-    @media (width >= 1100px) {
-      grid-template-columns: 120px minmax(0,1fr);
-    }
-  }
   .sm\:max-w-none {
     @media (width >= 40rem) {
       max-width: none;
@@ -1592,6 +1582,21 @@
       }
     }
   }
+  .\[\&\>\.sa-tabs-list\]\:h-auto {
+    &>.sa-tabs-list {
+      height: auto;
+    }
+  }
+  .\[\&\>\.sa-tabs-list\]\:max-w-full {
+    &>.sa-tabs-list {
+      max-width: 100%;
+    }
+  }
+  .\[\&\>\.sa-tabs-list\]\:flex-wrap {
+    &>.sa-tabs-list {
+      flex-wrap: wrap;
+    }
+  }
 }
 .account-field {
   --account-accent: #0f766e;
@@ -1740,6 +1745,32 @@
   break-inside: avoid;
   vertical-align: top;
   overflow-wrap: anywhere;
+}
+.showcase-spectrum {
+  container-type: inline-size;
+}
+.showcase-spectrum-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
+}
+.showcase-spectrum-tile {
+  flex: 1 1 220px;
+  min-width: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.showcase-spectrum-tile-medium {
+  flex: 1.2 1 280px;
+}
+.showcase-spectrum-tile-wide {
+  flex: 1.5 1 340px;
+}
+@container (max-width: 400px) {
+  .showcase-spectrum-tiles {
+    gap: 20px;
+  }
 }
 @property --tw-space-y-reverse {
   syntax: "*";
