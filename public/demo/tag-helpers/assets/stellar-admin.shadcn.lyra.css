@@ -10979,6 +10979,10 @@
     --accent-foreground: var(--primary-foreground);
     --accent: var(--primary);
   }
+  :root {
+    --font-sans: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+  }
 }
 @property --tw-border-style {
   syntax: "*";

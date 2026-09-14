@@ -134,18 +134,105 @@ The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/
 
 ### Shadcn themes
 
-The shadcn themes are the same ones as included in shadcn, but use a `shadcn.` prefix in the name. You can see a list of the themes and the name of the stylesheet to include in the table below.
+The shadcn themes use a `shadcn.` prefix in the name. We picked optional fonts that work well with each theme to give it a bit of character and stand out from the other shadcn themes. These fonts are completely optional and the themes will fall back to system fonts if you do not load them.
 
-| Theme | Stylesheet |
-| ----- | --------------- |
-| Luma  | `stellar-admin.shadcn.luma.css` |
-| Lyra | `stellar-admin.shadcn.lyra.css` |
-| Maia | `stellar-admin.shadcn.maia.css` |
-| Mira | `stellar-admin.shadcn.mira.css` |
-| Nova | `stellar-admin.shadcn.nova.css` |
-| Rhea | `stellar-admin.shadcn.rhea.css` |
-| Sera | `stellar-admin.shadcn.sera.css` |
-| Vega | `stellar-admin.shadcn.vega.css` |
+| Theme | Stylesheet | Optional fonts |
+| --- | --- | --- |
+| Luma | `stellar-admin.shadcn.luma.css` | Inter (400–700) |
+| Lyra | `stellar-admin.shadcn.lyra.css` | JetBrains Mono (400–700) |
+| Maia | `stellar-admin.shadcn.maia.css` | Figtree (400–700) |
+| Mira | `stellar-admin.shadcn.mira.css` | Inter (400–700) |
+| Nova | `stellar-admin.shadcn.nova.css` | Geist (400–700) |
+| Rhea | `stellar-admin.shadcn.rhea.css` | Inter (400–700) |
+| Sera | `stellar-admin.shadcn.sera.css` | Noto Sans (body, 400–700) and Playfair Display (headings, 400–700) |
+| Vega | `stellar-admin.shadcn.vega.css` | Inter (400–700) |
+
+<Callout type="idea">
+The fonts are optional. Feel free to exclude it if you want to improve performance and avoid potential layout shift.
+</Callout>
+
+<Tabs items={['Luma', 'Lyra', 'Maia', 'Mira', 'Nova', 'Rhea', 'Sera', 'Vega']}>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.luma.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.lyra.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.maia.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.mira.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.nova.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.rhea.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..700&family=Playfair+Display:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.sera.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.vega.css" asp-append-version="true">
+```
+  </Tab>
+</Tabs>
 
 ## Customizing a theme
 
@@ -280,6 +367,8 @@ The CSS variables you can override are listed in the table below.
 | `--sidebar-accent` / `--sidebar-accent-foreground` | Marks hovered and selected sidebar elements, including menu entries, expanded items, and interactive rows. |
 | `--sidebar-border` | Draws the borders and separators inside the sidebar, such as those around headers and between groups. |
 | `--sidebar-ring` | Draws the focus ring around controls inside the sidebar. |
+| `--font-sans` / `--font-mono` | Sets the body and monospace font stacks. |
+| `--sa-sera-font-display` | Sets Sera’s heading font stack. |
 | `--radius` | Defines the base corner radius from which the `radius-*` variables are derived, shaping cards, inputs, buttons, and popovers. |
 
 
