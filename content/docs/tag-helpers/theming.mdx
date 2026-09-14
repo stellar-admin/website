@@ -1,149 +1,131 @@
 ---
-title: Theming & Dark Mode
-description: Using themes and applying dark mode
+title: Theming
+description: Explore themes, customize their styles, and use design tokens
 ---
 
 import { Demo } from "@/components/demo";
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
+## Using a theme
 
-## Dark mode
+StellarAdmin includes all the standard shadcn themes, as well as 7 custom themes designed exclusively for StellarAdmin. Include a theme in your application by adding a reference to the theme's stylesheet in following format.
 
-Dark mode is applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode.
+<Callout type="warn">
+  When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. None of the Tag Helpers will render correctly without one.
+</Callout>
 
 ```razor
-<html lang="en" class="dark">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/<theme-stylesheet>" asp-append-version="true"/>
 ```
 
-How the `dark` class gets added is completely up to you. You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
-
-```html
-<script>
-    (function () {
-        var saved = null;
-        try { saved = localStorage.getItem("theme"); } catch (e) { }
-        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        var dark = saved === "dark" || (saved !== "light" && prefersDark);
-        document.documentElement.classList.toggle("dark", dark);
-        document.documentElement.style.colorScheme = dark ? "dark" : "light";
-    })();
-</script>
-```
-
-Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
-
-## Theme stylesheets
-
-Shadcn-derived theme identifiers are `shadcn.luma`, `shadcn.lyra`, `shadcn.maia`, `shadcn.mira`, `shadcn.nova`, `shadcn.rhea`, `shadcn.sera`, and `shadcn.vega`. Independent themes use their unprefixed names, such as `ledger`. The `shadcn.` namespace is reserved for upstream-derived themes.
-
-When upgrading from unprefixed shadcn bundles, update your stylesheet link: for example, `stellar-admin.nova.css` becomes `stellar-admin.shadcn.nova.css`. The old filenames are no longer shipped; the theme styling is unchanged.
-
-StellarAdmin ships fifteen themes: Aurora, Concourse, Ice, Ledger, Luma, Lyra, Maia, Meridian, Mira, Nova, Observatory, Parallax, Rhea, Sera, and Vega. Use the picker above any component example to compare them. The eight shadcn-derived themes share a base palette and differ in shape, spacing, and component styling. Aurora, Concourse, Ice, Ledger, Meridian, Observatory, and Parallax are independently designed themes with their own palettes, typography, and control treatments.
-
-When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. The URL for the stylesheet will be in the format `/_content/StellarAdmin.TagHelpers/stellar-admin.<theme>.css` - where `<theme>` is the theme identifier, including the `shadcn.` prefix for upstream-derived themes. The snippet below demonstrates how to include the Nova theme.
+For example, to include the shadcn Nova theme, you can use the following:
 
 ```razor
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.nova.css" asp-append-version="true"/>
 ```
 
+## Available themes
+
+You can preview all the available themes in the example below, which has a good cross-section of the various Tag Helpers. All of the Tag Helper examples also allow you to select a theme in the preview.
+
+<Demo src="/demo/tag-helpers/showcase-theme-showcase.html">
+</Demo>
+
+### StellarAdmin themes
+
+The following themes were designed specifically for StellarAdmin. All of the themes were designed with specific font sets in mind which complements the look-and-feel of the theme. The font names and weights used are also listed in the table.
+
+
+| Theme  | Stylesheet | Fonts |
+| ------ | ---------- | --- |
+| Aurora | `stellar-admin.aurora.css` | Archivo (400/500/600) and IBM Plex Mono (400/500) |
+| Concourse | `stellar-admin.concourse.css` | Source Sans 3 (400/500/600/700) and IBM Plex Mono (400/500) |
+| Ice | `stellar-admin.ice.css` | IBM Plex Sans (400/500/600) and JetBrains Mono (400/500/700) |
+| Ledger | `stellar-admin.ledger.css` | Lexend (300/400/500/600/700) and JetBrains Mono (400/500) |
+| Meridian | `stellar-admin.meridian.css` | Instrument Sans (600), Work Sans (400/500/600), and JetBrains Mono (400/500) |
+| Observatory | `stellar-admin.observatory.css` | IBM Plex Sans (400/500/600) and IBM Plex Mono (400/500) |
+| Parallax | `stellar-admin.parallax.css` | Space Grotesk (400/500/600) and JetBrains Mono (400/500) |
+
+Below are complete installation code snippets for each of the themes. Copy and paste it into your application.
+
+
+<Tabs items={['Aurora', 'Concourse', 'Ice', 'Ledger', 'Meridian', 'Observatory', 'Parallax']}>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.aurora.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.concourse.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ice.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.meridian.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true">
+```
+  </Tab>
+  <Tab>
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.parallax.css" asp-append-version="true">
+```
+  </Tab>
+</Tabs>
+
 <Callout type="idea">
-    Since the StellarAdmin Tag Helpers are based on shadcn/ui, you can also use their [Create page](https://ui.shadcn.com/create) to browse the different themes. The *Style* selector on the left-side of the _Create_ page corresponds with the eight upstream-derived StellarAdmin themes. Aurora, Concourse, Ice, Ledger, Meridian, Observatory, and Parallax are available through the demo picker on this site.
+You can self-host the fonts. For more information, refer to the Google Fonts documentation on [self-hosting web fonts](https://fonts.google.com/knowledge/using_type/self_hosting_web_fonts).
 </Callout>
 
+### Shadcn themes
 
-### Parallax
+The shadcn themes are the same ones as included in shadcn, but use a `shadcn.` prefix in the name. You can see a list of the themes and the name of the stylesheet to include in the table below.
 
-Parallax uses cool blue-grey surfaces, a red-orange action accent, nested 6px and 4px corners, and elevated cards and overlays in both modes. Dark inputs recess below their cards. Space Grotesk sets headings and UI; JetBrains Mono sets explicitly marked numbers, identifiers and shortcuts.
-
-Load Space Grotesk (normal 400/500/600) and JetBrains Mono (normal 400/500) from your application layout, then link the Parallax bundle:
-
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.parallax.css" asp-append-version="true"/>
-```
-
-Fonts can be self-hosted; the stylesheet does not fetch them. Use the usual `dark` class for dark mode. Default controls are 32px high, small controls 26px, and large controls 40px. Table cells use 10px vertical padding. Use `font-mono tabular-nums` for data in your own markup. Menus use trailing checkmarks without a persistent selected fill, and horizontal line tabs show only the active underline.
-
-Parallax separates accent fills (`--primary`) from accent text (`--sa-parallax-accent-ink`) so small orange labels remain legible in light mode. Coordinate the theme-private hover, active and tint values when customizing the accent. Chart colors use neutral and status roles.
-
-### Aurora
-
-Aurora uses cool grey-green surfaces, deep teal accents in light mode and bright teal in dark mode, square corners, and flat bordered cards. Sliders have square tracks and thumbs; switches, radio controls, avatars and status dots stay round. Dark inputs use a recessed surface.
-
-Load Archivo (headings and UI, normal 400/500/600) and IBM Plex Mono (numbers, identifiers and shortcuts, normal 400/500) from your application layout, then link the Aurora bundle:
-
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.aurora.css" asp-append-version="true"/>
-```
-
-The fonts can be self-hosted. The stylesheet does not fetch them; use the usual `dark` class to switch modes. Default controls are 30px high, small controls 24px, and large controls 38px. Tables use 9px vertical cell padding. Use `font-mono tabular-nums` for numbers and identifiers in your own markup, and provide larger touch targets in mobile layouts. Dropdown checkbox and radio items use trailing checkmarks without a persistent selected row fill. Default tabs match segmented controls; horizontal line tabs show only the active underline.
-
-### Concourse
-
-Concourse uses cool grey surfaces, a blue accent, compact controls, and small corners. Hover and pressed states change colour without moving the controls. Load **Source Sans 3** (UI text, weights 400, 500, 600, and 700) and **IBM Plex Mono** (identifiers and values, weights 400 and 500) from your application layout:
-
-```razor
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.concourse.css" asp-append-version="true"/>
-```
-
-Replace your existing theme link with this bundle. You can self-host the fonts; the stylesheet does not fetch them. The existing tag helpers and `dark` class work unchanged. Default controls are 34px high; applications can increase touch targets through their own responsive layout.
-
-### Ledger
-
-Ledger uses warm paper surfaces in light mode, blue-tinted charcoal in dark mode, and raised controls. It is designed for **Lexend** (UI text, weights 300–700) and **JetBrains Mono** (monospaced content, weights 400–500). The theme sets the font families, but your application must load the fonts.
-
-Add these links to the `<head>` of your shared Razor layout, replacing your existing theme stylesheet:
-
-```razor
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" asp-append-version="true"/>
-```
-
-You can also self-host the fonts instead of using Google Fonts. No font-family override is needed, and the same `dark` class works as with other themes.
-
-### Ice
-
-Ice is a compact theme for operational screens: square corners, hairline borders, no elevation shadows, and blue interaction accents. Default controls are 28px high with 12.5px UI text. It uses IBM Plex Sans for labels and prose, and JetBrains Mono for data, badges, and keyboard hints.
-
-Load its fonts and select its single stylesheet in your Razor layout:
-
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ice.css" asp-append-version="true"/>
-```
-
-You can self-host the fonts instead. The stylesheet does not download fonts, and the normal `dark` class switches colour modes. Use the existing tag helpers; no Ice-specific markup is required. For numeric content in your own markup, use a monospace font with tabular figures. Choose larger controls where your app needs more generous touch targets.
-
-### Observatory
-
-Observatory is a compact operations theme with cool neutral surfaces, blue accents in light mode and cyan accents in dark mode, 4px corners, and shadowless dark cards. Default controls are 32px high and table cells use 7px vertical padding. It uses **IBM Plex Sans** (UI text, weights 400/500/600) and **IBM Plex Mono** (data and shortcuts, weights 400/500).
-
-Load the fonts and replace your current theme link in the shared Razor layout:
-
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true"/>
-```
-
-You can self-host the fonts. The stylesheet does not fetch them, and the usual `dark` class switches colour modes. Use `font-mono tabular-nums` for numbers and identifiers in your own markup. Compact spacing is built in; no density setting is required. Choose larger controls where your app needs more generous touch targets.
-
-### Meridian
-
-Meridian uses warm paper surfaces in light mode, deep umber in dark mode, brass accents, and 2px corners. Its typography combines **Instrument Sans** (display headings, weight 600), **Work Sans** (UI text, weights 400/500/600), and **JetBrains Mono** (data and shortcuts, weights 400/500).
-
-Load its fonts and replace your current theme link in the shared Razor layout:
-
-```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.meridian.css" asp-append-version="true"/>
-```
-
-You can self-host the fonts. The stylesheet does not fetch them, and the usual `dark` class switches modes. Default controls are 32px high, with 26px small and 40px large variants. Tables use 11px vertical cell padding. Use `font-mono tabular-nums` for numbers and identifiers in your own markup. Choose larger controls where your app needs more generous touch targets. Dropdown checkbox and radio selections use checkmarks to the right of the text; resting selected rows have no persistent colour fill.
+| Theme | Stylesheet |
+| ----- | --------------- |
+| Luma  | `stellar-admin.shadcn.luma.css` |
+| Lyra | `stellar-admin.shadcn.lyra.css` |
+| Maia | `stellar-admin.shadcn.maia.css` |
+| Mira | `stellar-admin.shadcn.mira.css` |
+| Nova | `stellar-admin.shadcn.nova.css` |
+| Rhea | `stellar-admin.shadcn.rhea.css` |
+| Sera | `stellar-admin.shadcn.sera.css` |
+| Vega | `stellar-admin.shadcn.vega.css` |
 
 ## Customizing a theme
 

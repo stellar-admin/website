@@ -1,0 +1,27 @@
+---
+title: Dark Mode
+description: Apply dark mode and respect saved or system appearance preferences
+---
+
+StellarAdmin supports dark mode, which can be applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode.
+
+```razor
+<html lang="en" class="dark">
+```
+
+You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
+
+```html
+<script>
+    (function () {
+        var saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (e) { }
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = saved === "dark" || (saved !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    })();
+</script>
+```
+
+Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
