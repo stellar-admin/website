@@ -4056,8 +4056,8 @@
   @supports (color: color-mix(in lab, red, red)) {
     --sa-concourse-focus-field: 0 0 0 2px color-mix(in oklch, var(--ring) 30%, transparent);
   }
-  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
   --sa-concourse-text-display: 2.375rem;
   --sa-concourse-text-h1: 1.75rem;
   --sa-concourse-text-h2: 1.375rem;

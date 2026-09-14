@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
             var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
@@ -13,17 +12,22 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function themeHref() {
+            function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
                 if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
-                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
             }
             window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
                 if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
             };
             function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
                 if (!current || current.getAttribute('href') === themeHref()) return;
@@ -50,14 +54,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
+    <script src="/demo/tag-helpers/assets/theme-fonts.61ybom1nq9.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yv3o8gerfs.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
     <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
@@ -71,7 +69,7 @@
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
                     <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="lg" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-lg sa-sidebar-menu-button-variant-default">
                         <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                            <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                            <svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path><circle cx="12" cy="12" r="10"></circle></svg>
                         </div>
                         <div class="grid flex-1 text-left text-sm leading-tight">
                             <span class="truncate font-semibold">Voyager Travel</span>
@@ -88,19 +86,19 @@
                     <ul data-slot="sidebar-menu" data-sidebar="menu" class="sa-sidebar-menu">
                         <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
                             <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
-                                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><rect height="9" rx="1" width="7" x="3" y="3"></rect><rect height="5" rx="1" width="7" x="14" y="3"></rect><rect height="9" rx="1" width="7" x="14" y="12"></rect><rect height="5" rx="1" width="7" x="3" y="16"></rect></svg>
+                                <svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><rect height="9" rx="1" width="7" x="3" y="3"></rect><rect height="5" rx="1" width="7" x="14" y="3"></rect><rect height="9" rx="1" width="7" x="14" y="12"></rect><rect height="5" rx="1" width="7" x="3" y="16"></rect></svg>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
                             <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
-                                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+                                <svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
                                 <span>Bookings</span>
                             </a>
                         </li>
                         <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="sa-sidebar-menu-item group/menu-item">
                             <a href="#" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" class="sa-sidebar-menu-button peer/menu-button group/menu-button sa-sidebar-menu-button-size-default sa-sidebar-menu-button-variant-default">
-                                <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0"></path><circle cx="12" cy="8" r="2"></circle><path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712"></path></svg>
+                                <svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0"></path><circle cx="12" cy="8" r="2"></circle><path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712"></path></svg>
                                 <span>Destinations</span>
                             </a>
                         </li>
@@ -113,8 +111,8 @@
     <main data-slot="sidebar-inset" class="sa-sidebar-inset">
         <header data-slot="app-header" class="sa-app-header">
             <button type="button" data-slot="sidebar-trigger" aria-label="Toggle Sidebar" command="--toggle-sidebar" commandfor="--sa-sidebar-85e309d277d4e67985813f62c60d177063ad5f44e0ca53d079e547767a538e267491" class="sa-button group/button sa-button-variant-ghost sa-button-size-icon-sm">
-                <svg class="not-in-aria-expanded:hidden" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path></svg>
-                <svg class="in-aria-expanded:hidden" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="m14 9 3 3-3 3"></path></svg>
+                <svg class="not-in-aria-expanded:hidden" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path></svg>
+                <svg class="in-aria-expanded:hidden" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M9 3v18"></path><path d="m14 9 3 3-3 3"></path></svg>
             </button>
             <span class="text-sm text-muted-foreground">The trigger icon swaps with the sidebar state</span>
         </header>

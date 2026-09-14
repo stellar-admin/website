@@ -33,10 +33,9 @@ You can preview all the available themes in the example below, which has a good 
 
 ### StellarAdmin themes
 
-The following themes were designed specifically for StellarAdmin. All of the themes were designed with specific font sets in mind which complements the look-and-feel of the theme. The font names and weights used are also listed in the table.
+The following themes were designed specifically for StellarAdmin. Each theme prefers the fonts listed below to give it its original character, and includes native font fallbacks. You will find code examples to include each theme below the table.
 
-
-| Theme  | Stylesheet | Fonts |
+| Theme  | Stylesheet | Optional fonts |
 | ------ | ---------- | --- |
 | Aurora | `stellar-admin.aurora.css` | Archivo (400/500/600) and IBM Plex Mono (400/500) |
 | Concourse | `stellar-admin.concourse.css` | Source Sans 3 (400/500/600/700) and IBM Plex Mono (400/500) |
@@ -46,71 +45,92 @@ The following themes were designed specifically for StellarAdmin. All of the the
 | Observatory | `stellar-admin.observatory.css` | IBM Plex Sans (400/500/600) and IBM Plex Mono (400/500) |
 | Parallax | `stellar-admin.parallax.css` | Space Grotesk (400/500/600) and JetBrains Mono (400/500) |
 
-Below are complete installation code snippets for each of the themes. Copy and paste it into your application.
-
+<Callout type="idea">
+The fonts are optional. Feel free to exclude it if you want to improve performance and avoid potential layout shift.
+</Callout>
 
 <Tabs items={['Aurora', 'Concourse', 'Ice', 'Ledger', 'Meridian', 'Observatory', 'Parallax']}>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.aurora.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.concourse.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ice.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.meridian.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true">
 ```
   </Tab>
   <Tab>
 ```html
+<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<!-- Required StellarAdmin theme stylesheet -->
 <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.parallax.css" asp-append-version="true">
 ```
   </Tab>
 </Tabs>
 
-<Callout type="idea">
-You can self-host the fonts. For more information, refer to the Google Fonts documentation on [self-hosting web fonts](https://fonts.google.com/knowledge/using_type/self_hosting_web_fonts).
-</Callout>
+The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/css2#use_font-display) controls how text appears while fonts load.
+
+| Parameter | What your app's users experience |
+| --- | --- |
+| `display=auto` | Their browser decides whether text appears immediately or waits for fonts. Use an explicit option below for more predictable behaviour. |
+| `display=block` | Button labels, navigation and table text may briefly be invisible while fonts load. Usually a poor choice for StellarAdmin apps because users must wait to read the interface. |
+| `display=swap` | Users can read the interface immediately; it switches to the theme's preferred fonts when loaded. Used by our demos, but labels and table content may shift as fonts change. |
+| `display=fallback` | Users see readable text after a very brief wait, with only a short window for a font change. Choose this to limit shifts while users work; slow connections may keep native fonts for that page view. |
+| `display=optional` | Users get native fonts unless the preferred fonts are ready almost immediately, avoiding a later font change. Choose this when keeping forms and tables stable matters more than matching the theme's typography. |
 
 ### Shadcn themes
 

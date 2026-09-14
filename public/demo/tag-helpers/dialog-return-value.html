@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
             var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
@@ -13,17 +12,22 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function themeHref() {
+            function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
                 if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
-                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
             }
             window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
                 if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
             };
             function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
                 if (!current || current.getAttribute('href') === themeHref()) return;
@@ -50,14 +54,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
+    <script src="/demo/tag-helpers/assets/theme-fonts.61ybom1nq9.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yv3o8gerfs.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
     <style>
@@ -101,7 +99,7 @@
                     Continue
                 </button>
             </div>
-        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsLqBml13eLFwUygu1382LrE6D3XxdM0W5G-XM8OJFHhITimlYXSpQznJKgopQlZrgXHPwZsAv265SHGYZfkVwwdWKpMwdD8HoizltvZ9IuMiviKKKxsDYV-bHwAioUdPA" /></form>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxtxnx1wdTNx4Ffse0aBXCHojMTmaCiALMNc7161U11MwJaL6n-CmsFG3Sc2PGeNXt_ThYdeuBKHbi6zyhRWjgpXowFHPA2ud13Q45TsPdxMJIZ29mu4iy02Bh2pC45ZQns" /></form>
     </dialog></sel-dialog>
     <script>
         (function() {

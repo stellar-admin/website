@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
             var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
@@ -13,17 +12,22 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function themeHref() {
+            function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
                 if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
-                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
             }
             window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
                 if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
             };
             function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
                 if (!current || current.getAttribute('href') === themeHref()) return;
@@ -50,14 +54,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
+    <script src="/demo/tag-helpers/assets/theme-fonts.61ybom1nq9.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yv3o8gerfs.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
     <style>
@@ -90,9 +88,9 @@
                 <div data-slot="dropdown-menu-label" class="sa-dropdown-menu-label">Filter by Status</div>
                 <div role="separator" aria-orientation="horizontal" data-slot="dropdown-menu-separator" class="sa-dropdown-menu-separator"></div>
                 <div role="group" data-slot="dropdown-menu-radio-group" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468">
-                    <div role="menuitemradio" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-radio-item" data-state="checked" data-value="confirmed" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Confirmed</div>
-                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="pending" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Pending</div>
-                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="cancelled" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg></span>Cancelled</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="true" data-slot="dropdown-menu-radio-item" data-state="checked" data-value="confirmed" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Confirmed</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="pending" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Pending</div>
+                    <div role="menuitemradio" tabindex="-1" aria-checked="false" data-slot="dropdown-menu-radio-item" data-state="unchecked" data-value="cancelled" data-radio-group="--sa-dropdown-menu-radio-a1ad7c0046d9a16ab6a7a25f0568e8f8271f8b53c429d3e8cd4b1e2398ed2f5912468" class="sa-dropdown-menu-radio-item"><span class="sa-dropdown-menu-item-indicator" data-slot="dropdown-menu-radio-item-indicator"><svg class="size-4" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>Cancelled</div>
                 </div>
             </sel-dropdown-menu>
         

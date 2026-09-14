@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
             var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
@@ -13,17 +12,22 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function themeHref() {
+            function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
                 if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
-                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
             }
             window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
                 if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
             };
             function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
                 if (!current || current.getAttribute('href') === themeHref()) return;
@@ -50,14 +54,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
+    <script src="/demo/tag-helpers/assets/theme-fonts.61ybom1nq9.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yv3o8gerfs.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
     <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
@@ -67,7 +65,7 @@
     <div data-slot="page-container" data-width="medium" class="sa-page-container sa-page-container-width-medium">
     <div class="w-full">
         <!-- code begin -->
-        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-da453950dccc45078005532927fb2bed" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-da453950dccc45078005532927fb2bed">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-43ef7f34476a4e28b52993b6bff55f08" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-43ef7f34476a4e28b52993b6bff55f08">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
                     <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
@@ -87,14 +85,14 @@
                 </div>
             </div>
         </div></div></section>
-        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-cdd67602e3d34a2195c24bfd897008dc" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-cdd67602e3d34a2195c24bfd897008dc">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <section data-slot="form-section" data-layout="stacked" aria-labelledby="sa-form-section-6438fe220119429a8040e5685b899d03" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title sa-font-heading font-heading" data-slot="form-section-title" id="sa-form-section-6438fe220119429a8040e5685b899d03">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
             <div data-slot="field-group" class="sa-field-group group/field-group">
                 <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field">
                     <label for="stacked-places" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Available places</label>
                     <input id="stacked-places" name="AvailablePlaces" type="number" min="0" value="12" data-slot="input" class="sa-input">
                 </div>
                 <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
-                    <span class="sa-input-control-wrapper"><input type="checkbox" id="stacked-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="stacked-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
                     <div data-slot="field-content" class="sa-field-content group/field-content">
                         <label for="stacked-waitlist" data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Allow waitlist</label>
                         <p data-slot="field-description" class="sa-field-description">Accept requests when the trip is full.</p>

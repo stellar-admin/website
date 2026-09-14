@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
     <script>
         (function () {
             var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
@@ -13,17 +12,22 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function themeHref() {
+            function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
                 if (themes.indexOf(theme) < 0) theme = 'shadcn.nova';
-                return '/demo/tag-helpers/assets/stellar-admin.' + theme + '.css';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
             }
             window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
                 if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
             };
             function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
                 if (!current || current.getAttribute('href') === themeHref()) return;
@@ -50,14 +54,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"/>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.opsthpdi9s.css" />
+    <script src="/demo/tag-helpers/assets/theme-fonts.61ybom1nq9.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.yv3o8gerfs.css" />
     <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.ledger.css" /><script>saThemeInit();</script>
     
     <style>
@@ -114,12 +112,12 @@
                     </div>
                 </div>
             </div>
-            <button type="button" data-slot="message-scroller-button" data-direction="end" data-active="false" command="--scroll-to-end" commandfor="--sa-message-scroller-e30a3d0e17eff115a2c4092ed2ba38f360dae9d674b2126d053694cdc77f7cad7770" class="sa-message-scroller-button sa-button group/button sa-button-variant-secondary sa-button-size-icon-sm"><svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span class="sr-only">Scroll to end</span></button>
+            <button type="button" data-slot="message-scroller-button" data-direction="end" data-active="false" command="--scroll-to-end" commandfor="--sa-message-scroller-e30a3d0e17eff115a2c4092ed2ba38f360dae9d674b2126d053694cdc77f7cad7770" class="sa-message-scroller-button sa-button group/button sa-button-variant-secondary sa-button-size-icon-sm"><svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span class="sr-only">Scroll to end</span></button>
         </sel-message-scroller>
     </div>
     <div class="flex justify-center">
         <button id="--message-scroller-receive" data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-sm">
-            <svg fill="none" stroke-linecap="round" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" width="24" height="24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
+            <svg width="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
             Receive a message
         </button>
     </div>
