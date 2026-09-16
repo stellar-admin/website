@@ -135,7 +135,7 @@ The two custom icons then render alongside the built-in ones:
 
 Icon packs are read when icon options are first resolved. Each service provider has its own icon options; configure icons before building the application.
 
-Icon registration uses `IconOptions` in `StellarAdmin.Icons`. You can also configure its `Icons` dictionary with `services.Configure<IconOptions>(...)`, for example to remove built-in icons. Tag helpers read the configured options directly. Treat the icon dictionary and definitions as read-only after startup.
+Icon registration uses `IconOptions` in `StellarAdmin.Icons`. Configure it through `services.Configure<IconOptions>(...)` using `AddIcon`, `AddIconPack<TIconPack>`, `RemoveIcon`, and `ClearIcons`. Use `GetIconNames` to list registered names and `TryGetIcon` to look up a definition. Tag helpers read the configured options directly. Treat the options and icon definitions as read-only after startup.
 
 ## API Reference
 
