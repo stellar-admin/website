@@ -7,7 +7,7 @@ import { Demo } from "@/components/demo";
 
 ## Built-in icons
 
-StellarAdmin Tag Helpers ships the [Lucide](https://lucide.dev/) icon set. It is registered by `AddTagHelpers()`, so every Lucide icon is available from the [`<sa-icon>`](/docs/tag-helpers/components/icon) Tag Helper by name, without further setup:
+StellarAdmin Tag Helpers ships the [Lucide](https://lucide.dev/) icon set. It is registered by `AddStellarAdmin()`, so every Lucide icon is available from the [`<sa-icon>`](/docs/tag-helpers/components/icon) Tag Helper by name, without further setup:
 
 ```razor
 <sa-icon name="plane"/>
@@ -137,6 +137,64 @@ Icon packs are read when icon options are first resolved. Each service provider 
 
 Icon registration uses `IconOptions` in `StellarAdmin.Icons`. Configure it through `services.Configure<IconOptions>(...)` using `AddIcon`, `AddIconPack<TIconPack>`, `RemoveIcon`, and `ClearIcons`. Use `GetIconNames` to list registered names and `TryGetIcon` to look up a definition. Tag helpers read the configured options directly. Treat the options and icon definitions as read-only after startup.
 
+## Semantic component icons
+
+Built-in components request icons by purpose, such as `PaginationEllipsis` or `DropdownIndicator`. Icon packs can supply these mappings by implementing `GetSemanticIconMappings()` alongside `GetIcons()`:
+
+```csharp
+public IReadOnlyDictionary<SemanticIconRole, string> GetSemanticIconMappings()
+{
+    return new Dictionary<SemanticIconRole, string>
+    {
+        [SemanticIconRole.PaginationEllipsis] = "my-dots",
+        [SemanticIconRole.DropdownIndicator] = "my-caret-down",
+    };
+}
+```
+
+Each mapped name must exist in the icons supplied by that same pack, even if an icon with that name is already registered; otherwise registration throws `ArgumentException`. Later packs replace mappings for the roles they supply and preserve other mappings. Existing packs can omit this method, which defaults to an empty mapping.
+
+Override a role using an already registered icon:
+
+```csharp
+builder.Services.Configure<IconOptions>(icons =>
+{
+    icons.MapSemanticIcon(SemanticIconRole.PaginationEllipsis, "ellipsis-vertical");
+});
+```
+
+To replace Lucide completely, configure `IconOptions` with `ClearIcons()` followed by `AddIconPack<MyIconPack>()`. Clearing removes both icons and mappings. A replacement pack should map all the roles below; missing roles render the existing missing-icon placeholder. Partial mappings are allowed. `RemoveIcon(name)` also removes mappings targeting that name, case-insensitively. Replacing a named definition updates every role that refers to it.
+
+`GetSemanticIconName(role)` returns the mapped name, or `null` when unmapped. `<sa-icon>` continues to accept only an explicit icon name; it has no semantic role attribute. Existing component child-content overrides remain supported.
+
+| Role | Default icon |
+| --- | --- |
+| `DropdownIndicator` | `chevron-down` |
+| `SubmenuIndicator` | `chevron-right` |
+| `BreadcrumbSeparator` | `chevron-right` |
+| `BreadcrumbEllipsis` | `ellipsis` |
+| `PaginationEllipsis` | `ellipsis` |
+| `PaginationPrevious` | `chevron-left` |
+| `PaginationNext` | `chevron-right` |
+| `PaginationFirst` | `chevron-first` |
+| `PaginationLast` | `chevron-last` |
+| `CarouselPrevious` | `chevron-left` |
+| `CarouselNext` | `chevron-right` |
+| `Close` | `x` |
+| `Loading` | `loader-circle` |
+| `CheckboxSelected` | `check` |
+| `RadioSelected` | `circle` |
+| `MenuItemSelected` | `check` |
+| `ChoiceSelected` | `check` |
+| `SortAscending` | `arrow-up` |
+| `SortDescending` | `arrow-down` |
+| `SortUnsorted` | `chevrons-up-down` |
+| `ToggleSidebar` | `panel-left` |
+| `ScrollToEnd` | `arrow-down` |
+| `OtpSeparator` | `minus` |
+
+Supply glyphs compatible with component styling: loading icons rotate continuously, carousel navigation adapts to orientation and text direction, and `ScrollToEnd` rotates for scrolling to the start. Inline SVGs such as the accordion indicator, dashboard view icons, and application-selected icon names are outside this semantic mapping.
+
 ## API Reference
 
 ### `AddIcon(name, iconDefinition)`
@@ -145,12 +203,16 @@ Registers a single icon under a new name. Duplicate names throw when icon option
 
 ### `AddIconPack<TIconPack>()`
 
-Creates an instance of `TIconPack` (which must have a parameterless constructor) and registers every icon it returns. Icons with the same name as an existing icon replace it.
+Creates an instance of `TIconPack` (which must have a parameterless constructor) and registers its icons and semantic mappings. Icons with the same name as an existing icon replace it.
 
 ### `IIconPack`
 
 <TypeTable
   type={{
+    GetSemanticIconMappings: {
+      description: "Returns semantic roles mapped to icon names supplied by this pack; defaults to an empty mapping.",
+      type: "IReadOnlyDictionary<SemanticIconRole, string>",
+    },
     GetIcons: {
       description: "Returns the icons in the pack, keyed by name.",
       type: "IDictionary<string, IconDefinition>",
