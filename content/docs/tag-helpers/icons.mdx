@@ -19,7 +19,7 @@ Icons render as inline `<svg>` elements that use `currentColor`, so they take th
 
 ## Adding your own icons
 
-Custom icons are registered on the builder returned by `AddTagHelpers()` in `Program.cs`, and are then used exactly like the built-in ones. An icon is an `IconDefinition`: the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) drawn inside it.
+Custom icons are registered on the builder returned by `AddStellarAdmin()` in `Program.cs`, and are then used exactly like the built-in ones. An icon is an `IconDefinition`: the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) drawn inside it.
 
 ### A single icon
 
@@ -27,10 +27,9 @@ Use `AddIcon` to register one icon under a new name:
 
 ```cs
 using System.Collections.Immutable;
-using StellarAdmin.TagHelpers.Icons;
+using StellarAdmin.Icons;
 
 builder.Services.AddStellarAdmin()
-    .AddTagHelpers()
     .AddIcon("voyager-suitcase", new IconDefinition(
         new Dictionary<string, string>
         {
@@ -55,7 +54,8 @@ builder.Services.AddStellarAdmin()
             }.ToImmutableDictionary()),
             new SvgShape("path", new Dictionary<string, string> { ["d"] = "M8 7v13" }.ToImmutableDictionary()),
             new SvgShape("path", new Dictionary<string, string> { ["d"] = "M16 7v13" }.ToImmutableDictionary()),
-        ]));
+        ]))
+    .AddTagHelpers();
 ```
 
 ```razor
@@ -74,7 +74,7 @@ For more than a handful of icons, or to override built-in ones, implement `IIcon
 
 ```cs
 using System.Collections.Immutable;
-using StellarAdmin.TagHelpers.Icons;
+using StellarAdmin.Icons;
 
 public class VoyagerIconPack : IIconPack
 {
@@ -123,8 +123,8 @@ public class VoyagerIconPack : IIconPack
 
 ```cs
 builder.Services.AddStellarAdmin()
-    .AddTagHelpers()
-    .AddIconPack<VoyagerIconPack>();
+    .AddIconPack<VoyagerIconPack>()
+    .AddTagHelpers();
 ```
 
 The two custom icons then render alongside the built-in ones:
