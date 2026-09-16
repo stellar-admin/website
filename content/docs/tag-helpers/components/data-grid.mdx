@@ -5,25 +5,22 @@ description: Display typed data with columns, sorting, selection, and pagination
 
 import { Demo } from "@/components/demo";
 
-The data grid lives in the MIT-licensed `StellarAdmin.Pro` project. The project name is retained during repository consolidation; there is no paid tier. It is currently available from source, with NuGet publication handled separately.
+The data grid is part of `StellarAdmin.TagHelpers` and uses the standard tag helper setup, theme stylesheet, and JavaScript bundle.
 
 ## Setup
 
-Reference `StellarAdmin.Pro`, import `StellarAdmin.Pro` in startup, and register it alongside the tag helpers:
+Register the tag helpers alongside your application's MVC or Razor Pages services:
 
 ```csharp
 builder.Services.AddStellarAdmin().AddTagHelpers();
-builder.Services.AddStellarAdmin().AddPro();
 ```
 
 Add these directives to `_ViewImports.cshtml`:
 
 ```razor
-@using StellarAdmin.Pro.TagHelpers
-@addTagHelper *, StellarAdmin.Pro
+@using StellarAdmin.TagHelpers
+@addTagHelper *, StellarAdmin.TagHelpers
 ```
-
-Keep the standard StellarAdmin theme stylesheet and JavaScript bundle in your layout.
 
 ## Example
 
