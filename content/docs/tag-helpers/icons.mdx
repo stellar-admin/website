@@ -65,7 +65,7 @@ builder.Services.AddStellarAdmin()
 The `<svg>` attributes above are the ones Lucide uses. Drawing your icons on the same 24 x 24 grid with a 2 px `currentColor` stroke keeps them visually consistent with the built-in set, and any attribute you place on `<sa-icon>` (such as `class` or `stroke-width`) still takes precedence over the definition's attributes.
 
 <Callout type="warn">
-  `AddIcon` will throw an exception if the name is already taken, including by a built-in icon. To replace a built-in icon, register a pack.
+  Duplicate names, including built-in icon names, cause an exception when icon options are resolved. To replace a built-in icon, register a pack.
 </Callout>
 
 ### An icon pack
@@ -133,13 +133,15 @@ The two custom icons then render alongside the built-in ones:
   <include>./components/_include/icon-custom.mdx</include>
 </Demo>
 
-Icon packs are read once, when they are registered, and their icons are held in memory for the lifetime of the application.
+Icon packs are read when icon options are first resolved. Each service provider has its own icon options; configure icons before building the application.
+
+Icon registration uses `IconOptions` in `StellarAdmin.Icons`. You can also configure its `Icons` dictionary with `services.Configure<IconOptions>(...)`, for example to remove built-in icons. Tag helpers read the configured options directly. Treat the icon dictionary and definitions as read-only after startup.
 
 ## API Reference
 
 ### `AddIcon(name, iconDefinition)`
 
-Registers a single icon under a new name. Throws when the name is already registered.
+Registers a single icon under a new name. Duplicate names throw when icon options are resolved.
 
 ### `AddIconPack<TIconPack>()`
 
