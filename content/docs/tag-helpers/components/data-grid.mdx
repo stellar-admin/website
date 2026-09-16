@@ -1,0 +1,34 @@
+---
+title: Data Grid
+description: Display typed data with columns, sorting, selection, and pagination.
+---
+
+import { Demo } from "@/components/demo";
+
+The data grid lives in the MIT-licensed `StellarAdmin.Pro` project. The project name is retained during repository consolidation; there is no paid tier. It is currently available from source, with NuGet publication handled separately.
+
+## Setup
+
+Reference `StellarAdmin.Pro`, import `StellarAdmin.Pro` in startup, and register it alongside the tag helpers:
+
+```csharp
+builder.Services.AddStellarAdmin().AddTagHelpers();
+builder.Services.AddStellarAdmin().AddPro();
+```
+
+Add these directives to `_ViewImports.cshtml`:
+
+```razor
+@using StellarAdmin.Pro.TagHelpers
+@addTagHelper *, StellarAdmin.Pro
+```
+
+Keep the standard StellarAdmin theme stylesheet and JavaScript bundle in your layout.
+
+## Example
+
+<Demo src="/demo/tag-helpers/data-grid-intro.html">
+  <include>./_include/data-grid-intro.mdx</include>
+</Demo>
+
+Selection works in this static preview. Sorting and pagination are disabled in the static preview and require the running DocsSamples app at `/DataGrid`; the sample reads query parameters and applies sorting and paging on the server. Supply the current page of items to `sa-data-grid`, define columns with `sa-data-grid-column`, and provide sorting and pagination state through the corresponding child tags.
