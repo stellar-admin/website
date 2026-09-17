@@ -1,79 +1,66 @@
 ---
 title: Agent Skills
-description: Teach an AI coding agent how to build UIs with StellarAdmin
+description: Teach your coding agent to build UIs with StellarAdmin Tag Helpers
 ---
 
-import { Step, Steps } from "fumadocs-ui/components/steps";
+StellarAdmin provides a **stellar-admin-tag-helpers** skill for agents such as Claude Code and Codex. It includes setup instructions, component references, and guidance for forms, layouts, and theming in ASP.NET Core MVC and Razor Pages `.cshtml` files.
 
-StellarAdmin ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with StellarAdmin — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<sa-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
-
-The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). They live alongside the product in [stellar-admin/stellar-admin](https://github.com/stellar-admin/stellar-admin/tree/master/plugins/stellar-admin), which also hosts the marketplace.
+Install it with [Vercel's skills installer](https://github.com/vercel-labs/skills). The skill and its references live in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills/stellar-admin-tag-helpers).
 
 ## Installation
 
-<Steps>
-    <Step>
-        ### Add the marketplace
+With Node.js/npm and Git installed, open a terminal in your application's project directory and run:
 
-        From within Claude Code, register the StellarAdmin product repository as a plugin marketplace.
-
-        ```text
-        /plugin marketplace add stellar-admin/stellar-admin
-        ```
-    </Step>
-    <Step>
-        ### Install the plugin
-
-        Install the `stellar-admin` plugin from the marketplace.
-
-        ```text
-        /plugin install stellar-admin@stellar-admin
-        ```
-    </Step>
-    <Step>
-        ### Refresh your skills
-
-        Newly installed skills may not appear straight away. Run `/reload-plugins` (or restart Claude Code) so it picks up the StellarAdmin skills.
-
-        ```text
-        /reload-plugins
-        ```
-    </Step>
-</Steps>
-
-<Callout type="info">
-    The skills are versioned independently of the StellarAdmin NuGet package — you can install them into any project, whether or not it already references StellarAdmin.
-</Callout>
-
-## Existing installations
-
-If you installed from `stellar-admin/skills`, keep that marketplace registered and update it to follow the product repository:
-
-```text
-/plugin marketplace update stellar-admin
-/plugin update stellar-admin@stellar-admin
-/reload-plugins
+```bash
+npx skills add stellar-admin/stellar-admin --skill stellar-admin-tag-helpers
 ```
 
-The old marketplace address forwards to the product's plugin subdirectory. Plugin and marketplace names stay `stellar-admin`. This forwarding was tested with Claude Code 2.1.251; if your client rejects the `git-subdir` source, update Claude Code or replace the old marketplace registration with the product address above. For manually copied skills or local symlinks, use the four sibling folders under `plugins/stellar-admin/skills/` in the product checkout.
+Choose your agent in the installer. Installation is project-scoped by default. Keep the explicit `--skill stellar-admin-tag-helpers` selection: the repository also contains internal product-development skills.
+
+To select an agent directly, use one of these commands:
+
+```bash title="Claude Code"
+npx skills add stellar-admin/stellar-admin --skill stellar-admin-tag-helpers --agent claude-code
+```
+
+```bash title="Codex"
+npx skills add stellar-admin/stellar-admin --skill stellar-admin-tag-helpers --agent codex
+```
+
+Other agents supported by the installer can use the same skill. Add `--global` if you want it available across projects. Start a fresh agent session in your application after installation.
+
+<Callout type="info">
+    This installs agent guidance and bundled references. It does not install the StellarAdmin NuGet package or change your application. Ask your agent to set up StellarAdmin, or follow the [installation guide](/docs/tag-helpers/installation).
+</Callout>
+
+## Setting up your application
+
+Ask your agent:
+
+> Use the stellar-admin-tag-helpers skill to install StellarAdmin in this application.
+
+The skill asks you to choose a setup scope unless you already specified one:
+
+- **Basic installation:** install the package, register services and tag helpers, and add CSS and JavaScript references. Preserve the current layout structure and Bootstrap.
+- **Installation with layout conversion:** also adapt the default layout to StellarAdmin and remove Bootstrap where it is no longer needed. Check remaining dependencies before removing shared assets.
+
+The agent should offer a picker when its interface supports one, or ask a text question otherwise. Keeping Bootstrap can cause styling conflicts; basic installation does not guarantee that adding the StellarAdmin stylesheet leaves every existing element's appearance unchanged.
 
 ## What's included
 
-Installing the plugin adds four skills:
+One skill includes these references, which the agent reads as needed:
 
-| Skill | What it does |
-|-------|--------------|
-| `stellar-admin:tag-helpers` | The anchor skill. Covers setup, the full component catalog, the library's conventions, icons, the JavaScript API, and templated views. Use when editing StellarAdmin Razor markup; automatic selection depends on the agent. |
-| `stellar-admin:forms` | Building forms — fields, validation, model binding, input groups, and choice cards. |
-| `stellar-admin:layout` | Page structure — the sidebar shell, app header, page header, spacing primitives, and cards. |
-| `stellar-admin:theming` | Theme stylesheets, dark mode, design tokens, and menu color / appearance / accent configuration. |
+| Area | Guidance |
+| --- | --- |
+| Setup and components | Package setup, tag names, attributes, enum values, composition rules, icons, JavaScript, and templated views. |
+| Forms | Fields, validation, model binding, input groups, and choice cards. |
+| Layout | Sidebars, app headers, page headers, spacing, and cards. |
+| Theming | Theme stylesheets, dark mode, design tokens, and menu appearance. |
 
-## Using the skills
+For later tasks, ask the agent to use `stellar-admin-tag-helpers` to build a form, add navigation, or customize a theme. Automatic skill selection depends on the agent and task.
 
-The agent can select the `tag-helpers` skill when its description matches your task. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
+## Compatibility and updates
 
-The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the components that ship in the package.
+The skill is maintained alongside StellarAdmin. Its references follow the repository's default branch and may include changes newer than your installed NuGet package. The agent should check your installed version before applying API examples. Installing or updating the skill does not update your NuGet packages.
 
-<Callout type="info">
-    All StellarAdmin components share the `stellar-admin` plugin.
-</Callout>
+StellarAdmin Dashboard is a separate product still in development and does not yet have an installable skill. This skill covers the Tag Helpers UI library, not Dashboard configuration or resource workflows.
