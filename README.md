@@ -32,8 +32,12 @@ pnpm types:check  # regenerate .source types + tsc --noEmit
 
 - **Docs** live in `content/docs` (the `tag-helpers` section). Navigation is driven by `meta.json` files. MDX partials under `_include/` are pulled in with `<include>` and are not standalone pages.
 - **Blog** posts live in `content/blog`.
-- Static component demos are served from `public/demo` and embedded via the `<Demo>` component. They are exported by `DocsSamplesGenerator` in the stellar-admin-pro repo, which injects a script into every page so demos follow the site's light/dark mode (the next-themes `theme` localStorage key) and the `<Demo>` toolbar's theme selector (`demo-theme`) — same-origin localStorage plus storage events, no iframe messaging. All theme bundles ship under stable names in `public/demo/tag-helpers/assets/`.
+- Static component demos are served from `public/demo` and embedded via the `<Demo>` component. They are exported by `DocsSamplesGenerator` in the separate stellar-admin product repo, which injects a script into every page so demos follow the site's light/dark mode (the next-themes `theme` localStorage key) and the `<Demo>` toolbar's theme selector (`demo-theme`) — same-origin localStorage plus storage events, no iframe messaging. All theme bundles ship under stable names in `public/demo/tag-helpers/assets/`.
 
 ## Notes
 
 - OG image generation (the old Next.js `/og/docs/...` route) is not yet ported; it needs a satori/takumi-based renderer on TanStack Start and is tracked as a follow-up.
+
+## Contributing
+
+Read [contributor guidance](AGENTS.md) for verification, generated-content ownership, and cross-repository work. This website builds independently; a product checkout is needed only when changing or regenerating product samples.
