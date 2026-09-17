@@ -7,7 +7,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
 
 StellarAdmin ships a set of [Claude Code](https://claude.com/claude-code) **skills** that teach an AI coding agent how to build UIs with StellarAdmin — the component catalog, the library's conventions, and task workflows for forms, layout, and theming. With the skills installed, an agent knows the `<sa-*>` tag names, their attributes and enum values, and the composition rules — so it writes correct markup instead of guessing.
 
-The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). They live in their own [stellar-admin/skills](https://github.com/stellar-admin/skills) repository, which doubles as the marketplace, so installing them is two commands.
+The skills are distributed through a [plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins). They live alongside the product in [stellar-admin/stellar-admin](https://github.com/stellar-admin/stellar-admin/tree/master/plugins/stellar-admin), which also hosts the marketplace.
 
 ## Installation
 
@@ -15,10 +15,10 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     <Step>
         ### Add the marketplace
 
-        From within Claude Code, register the StellarAdmin skills repository as a plugin marketplace.
+        From within Claude Code, register the StellarAdmin product repository as a plugin marketplace.
 
         ```text
-        /plugin marketplace add stellar-admin/skills
+        /plugin marketplace add stellar-admin/stellar-admin
         ```
     </Step>
     <Step>
@@ -33,10 +33,10 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     <Step>
         ### Refresh your skills
 
-        Newly installed skills may not appear straight away. Run `/reload-skills` (or restart Claude Code) so it picks up the StellarAdmin skills.
+        Newly installed skills may not appear straight away. Run `/reload-plugins` (or restart Claude Code) so it picks up the StellarAdmin skills.
 
         ```text
-        /reload-skills
+        /reload-plugins
         ```
     </Step>
 </Steps>
@@ -45,20 +45,32 @@ The skills are distributed through a [plugin marketplace](https://docs.claude.co
     The skills are versioned independently of the StellarAdmin NuGet package — you can install them into any project, whether or not it already references StellarAdmin.
 </Callout>
 
+## Existing installations
+
+If you installed from `stellar-admin/skills`, keep that marketplace registered and update it to follow the product repository:
+
+```text
+/plugin marketplace update stellar-admin
+/plugin update stellar-admin@stellar-admin
+/reload-plugins
+```
+
+The old marketplace address forwards to the product's plugin subdirectory. Plugin and marketplace names stay `stellar-admin`. This forwarding was tested with Claude Code 2.1.251; if your client rejects the `git-subdir` source, update Claude Code or replace the old marketplace registration with the product address above. For manually copied skills or local symlinks, use the four sibling folders under `plugins/stellar-admin/skills/` in the product checkout.
+
 ## What's included
 
 Installing the plugin adds four skills:
 
 | Skill | What it does |
 |-------|--------------|
-| `stellar-admin:tag-helpers` | The anchor skill. Covers setup, the full component catalog, the library's conventions, icons, the JavaScript API, and templated views. **Auto-activates** when you edit `.cshtml` or `.razor` files. |
+| `stellar-admin:tag-helpers` | The anchor skill. Covers setup, the full component catalog, the library's conventions, icons, the JavaScript API, and templated views. Use when editing StellarAdmin Razor markup; automatic selection depends on the agent. |
 | `stellar-admin:forms` | Building forms — fields, validation, model binding, input groups, and choice cards. |
 | `stellar-admin:layout` | Page structure — the sidebar shell, app header, page header, spacing primitives, and cards. |
 | `stellar-admin:theming` | Theme stylesheets, dark mode, design tokens, and menu color / appearance / accent configuration. |
 
 ## Using the skills
 
-The `tag-helpers` skill activates automatically whenever you edit a Razor view, so most of the time you don't need to do anything. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
+The agent can select the `tag-helpers` skill when its description matches your task. You can also invoke a skill explicitly — for example, ask the agent to *"build a login form with StellarAdmin"* or *"add a sidebar dashboard shell"* — and it will pull in the relevant task skill.
 
 The component catalog is generated directly from the library sources, so the tag names, attributes, and enum values the agent sees always match the components that ship in the package.
 
