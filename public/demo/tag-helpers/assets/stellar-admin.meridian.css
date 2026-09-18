@@ -270,6 +270,12 @@
   .anchored-top-span-right {
     position-area: top span-right;
   }
+  .\[\&_\[data-slot\=field-label\]\]\:font-normal {
+    & [data-slot=field-label] {
+      --tw-font-weight: var(--font-weight-normal);
+      font-weight: var(--font-weight-normal);
+    }
+  }
   .\[\&\>\*\]\:w-full {
     &>* {
       width: 100%;
@@ -6874,6 +6880,10 @@
     font-variant-numeric: tabular-nums;
   }
 }
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -7034,10 +7044,6 @@
   syntax: "*";
   inherits: false;
 }
-@property --tw-font-weight {
-  syntax: "*";
-  inherits: false;
-}
 @property --tw-ease {
   syntax: "*";
   inherits: false;
@@ -7154,6 +7160,7 @@
       --shimmer-angle: 20deg;
     }
     *, ::before, ::after, ::backdrop {
+      --tw-font-weight: initial;
       --tw-animation-delay: 0s;
       --tw-animation-direction: normal;
       --tw-animation-duration: initial;
@@ -7214,7 +7221,6 @@
       --tw-numeric-figure: initial;
       --tw-numeric-spacing: initial;
       --tw-numeric-fraction: initial;
-      --tw-font-weight: initial;
       --tw-ease: initial;
       --tw-leading: initial;
       --tw-scale-x: 1;

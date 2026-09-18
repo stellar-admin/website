@@ -1,0 +1,115 @@
+---
+title: Radio group
+description: Select one option bound to a single property
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/radio-group-intro.html">
+  <include>./_include/radio-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Prefer a radio group when related options share one bound property, label, and validation message. Use [normal radio inputs](radio) when you need to compose the fields and layout yourself.
+
+Use `<sa-radio-group>` with `<sa-radio-group-item>` children to render a labeled group. Each item uses its content as the label and accepts an optional `description`. Both display variants use the existing Field and Input markup.
+
+Use `asp-for` for model binding, or `name` and `value` for a group without model binding. Option `value` attributes are strings, including values such as `value="1"` that bind to numeric properties. MVC converts submitted values to the model type. Values must be unique within the group.
+
+## Examples
+
+### Model binding
+
+Bind to a scalar `string`, enum, `Guid`, `bool`, or numeric primitive, including nullable value types. Use a nullable property with `[Required]` to require a selection.
+
+Labels and descriptions are derived from `[Display]` metadata. Submitted ModelState values take precedence when redisplaying the form. Do not combine `asp-for` with `name` or `value`. Date/time and complex model types are not supported.
+
+<Demo src="/demo/tag-helpers/radio-group-model-binding.html">
+  <include>./_include/radio-group-model-binding.mdx</include>
+</Demo>
+
+The example binds to this model property:
+
+```csharp
+[Display(Name = "Delivery method", Description = "Choose how we deliver your order.")]
+[Required(ErrorMessage = "Choose a delivery method.")]
+public Delivery? DeliveryMethod { get; set; } = Delivery.Standard;
+
+public enum Delivery
+{
+    Standard,
+    Express,
+}
+```
+
+In a Razor Page, expose the containing model with `[BindProperty]` to receive form submissions. These exported previews demonstrate the rendered state; the DocsSamples application contains the working POST form.
+
+### Choice cards
+
+Set `variant="RadioGroupVariant.ChoiceCard"` to make each option a clickable card. The default is `RadioGroupVariant.Default`.
+
+<Demo src="/demo/tag-helpers/radio-group-choice-cards.html">
+  <include>./_include/radio-group-choice-cards.mdx</include>
+</Demo>
+
+### Items
+
+Use `asp-items` with `SelectListItem` objects as an alternative to child tags. `Selected` sets the initial selection for an unbound group when `value` is not supplied. `Disabled` disables an individual option. Do not combine `asp-items` with child items; `SelectListGroup` is not supported.
+
+<Demo src="/demo/tag-helpers/radio-group-items.html">
+  <include>./_include/radio-group-items.mdx</include>
+</Demo>
+
+### Validation
+
+The group displays one ModelState error and marks its inputs invalid. StellarAdmin does not provide client-side validation; use server-side validation or add your own client validation.
+
+<Demo src="/demo/tag-helpers/radio-group-validation.html">
+  <include>./_include/radio-group-validation.mdx</include>
+</Demo>
+
+Use validation attributes on the bound property:
+
+```csharp
+[Required(ErrorMessage = "Choose a delivery method.")]
+public Delivery? DeliveryMethod { get; set; }
+```
+
+This preview is rendered with an empty selection and a seeded ModelState error. Its partial is rendered with the `PartialModel` prefix, so the error uses the full field name:
+
+```csharp
+ModelState.AddModelError("PartialModel.DeliveryMethod", "Choose a delivery method.");
+```
+
+For an unbound group, use `error` to display a group error.
+
+## Accessibility
+
+The group renders a fieldset and legend with native radio inputs and associated labels. Descriptions and validation messages are associated with the inputs. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels.
+
+## API Reference
+
+### `<sa-radio-group>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `asp-for` | `ModelExpression` | Model property bound to the group. |
+| `asp-items` | `IEnumerable<SelectListItem>` | Options supplied instead of child tags. |
+| `name` | `string` | Submitted field name for an unbound group. |
+| `value` | `string` | Selected value for an unbound group. |
+| `variant` | `RadioGroupVariant` | `Default` or `ChoiceCard`. Defaults to `Default`. |
+| `label` | `string` | Group legend; overrides model metadata. |
+| `description` | `string` | Supporting text; overrides model metadata. |
+| `error` | `string` | Explicit group error message. |
+| `disabled` | `bool` | Disables the group. |
+| `class` | `string` | Additional classes for the fieldset. |
+
+### `<sa-radio-group-item>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `value` | `string` | Required submitted option value. |
+| `description` | `string` | Supporting text below the option label. |
+| `disabled` | `bool` | Disables this option. |
+| `class` | `string` | Additional classes for the field, or the outer label in `ChoiceCard`. |

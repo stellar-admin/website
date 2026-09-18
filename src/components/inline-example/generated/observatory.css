@@ -271,6 +271,12 @@
   :where(.sa-inline-example) .anchored-top-span-right {
     position-area: top span-right;
   }
+  :where(.sa-inline-example) .\[\&_\[data-slot\=field-label\]\]\:font-normal {
+    & [data-slot=field-label] {
+      --sa-inline-tw-font-weight: var(--font-weight-normal);
+      font-weight: var(--font-weight-normal);
+    }
+  }
   :where(.sa-inline-example) .\[\&\>\*\]\:w-full {
     &>* {
       width: 100%;
@@ -6853,6 +6859,10 @@
     flex-wrap: wrap;
   }
 }
+@property --sa-inline-tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
 @property --sa-inline-tw-border-style {
   syntax: "*";
   inherits: false;
@@ -7013,10 +7023,6 @@
   syntax: "*";
   inherits: false;
 }
-@property --sa-inline-tw-font-weight {
-  syntax: "*";
-  inherits: false;
-}
 @property --sa-inline-tw-ease {
   syntax: "*";
   inherits: false;
@@ -7133,6 +7139,7 @@
       --shimmer-angle: 20deg;
     }
     :where(.sa-inline-example) *, :where(.sa-inline-example) ::before, :where(.sa-inline-example) ::after, :where(.sa-inline-example) ::backdrop {
+      --sa-inline-tw-font-weight: initial;
       --sa-inline-tw-animation-delay: 0s;
       --sa-inline-tw-animation-direction: normal;
       --sa-inline-tw-animation-duration: initial;
@@ -7193,7 +7200,6 @@
       --sa-inline-tw-numeric-figure: initial;
       --sa-inline-tw-numeric-spacing: initial;
       --sa-inline-tw-numeric-fraction: initial;
-      --sa-inline-tw-font-weight: initial;
       --sa-inline-tw-ease: initial;
       --sa-inline-tw-leading: initial;
       --sa-inline-tw-scale-x: 1;

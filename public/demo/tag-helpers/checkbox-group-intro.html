@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function selectedTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.4wjgzsyt7f.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-md">
+    <!-- code begin -->
+    <fieldset id="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1" data-slot="field-set" class="sa-field-set"><legend class="sa-field-legend" data-slot="field-legend" data-variant="legend">Extras</legend><div class="sa-field-group group/field-group [&amp;_[data-slot=field-label]]:font-normal" data-slot="checkbox-group">
+        <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="intro-checkbox" id="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-1" value="insurance" checked="checked" aria-describedby="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-1-description" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" height="24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-field-label group/field-label peer/field-label" data-slot="field-label" for="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-1">Insurance</label><p class="sa-field-description" data-slot="field-description" id="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-1-description">Protection for your parcel</p></div></div>
+        <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="intro-checkbox" id="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-2" value="gift" aria-describedby="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-2-description" data-slot="input" class="sa-checkbox peer"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" height="24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-field-label group/field-label peer/field-label" data-slot="field-label" for="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-2">Gift packaging</label><p class="sa-field-description" data-slot="field-description" id="sa-choice-ff6e7f84fc0e2efb082df91d88b397f89568e0af7673f23a78ba64fd89aa89fb5175-1-2-description">A reusable gift box</p></div></div>
+    </div><input name="__sa_checkbox_group.intro-checkbox" type="hidden" value="true" /></fieldset>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

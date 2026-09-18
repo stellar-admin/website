@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function selectedTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                return theme;
+            }
+            function themeHref() {
+                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
+                var link = document.querySelector('link[data-sa-theme]');
+                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+            };
+            function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                if (!current || current.getAttribute('href') === themeHref()) return;
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = themeHref();
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.4wjgzsyt7f.css" />
+    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.i42n1x9nlz.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <fieldset id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1" data-slot="field-set" class="sa-field-set" aria-invalid="true" aria-describedby="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-description sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-error"><legend class="sa-field-legend" data-slot="field-legend" data-variant="legend">Delivery method</legend><p class="sa-field-description" data-slot="field-description" id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-description">Choose how we deliver your order.</p><div class="sa-field-group group/field-group" data-slot="radio-group">
+        <div class="sa-field group/field sa-field-orientation-horizontal" data-invalid="true" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="PartialModel.DeliveryMethod" id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-1" value="Standard" aria-invalid="true" aria-describedby="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-description sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-error sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-1-description" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" height="24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-field-label group/field-label peer/field-label" data-slot="field-label" for="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-1">Standard</label><p class="sa-field-description" data-slot="field-description" id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-1-description">Arrives in five days</p></div></div>
+        <div class="sa-field group/field sa-field-orientation-horizontal" data-invalid="true" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="PartialModel.DeliveryMethod" id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-2" value="Express" aria-invalid="true" aria-describedby="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-description sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-error sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-2-description" data-slot="input" class="sa-radiobutton peer"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" height="24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" width="24"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-field-label group/field-label peer/field-label" data-slot="field-label" for="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-2">Express</label><p class="sa-field-description" data-slot="field-description" id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-2-description">Arrives tomorrow</p></div></div>
+    </div><div id="sa-choice-4ab78f0fcbccdb804d3f8524ef0199750b13e17bcc7adc081999ad42efab77d14774-1-error" class="sa-field-error field-validation-error" data-valmsg-for="PartialModel.DeliveryMethod" data-valmsg-replace="true" role="alert" data-slot="field-error">Choose a delivery method.</div></fieldset>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
