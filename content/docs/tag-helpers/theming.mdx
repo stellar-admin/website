@@ -385,9 +385,19 @@ The above will likely not work because your own Tailwind configuration has not d
 To fix this, you can copy the [`theme-tokens.css`](https://github.com/stellar-admin/stellar-admin/blob/master/src/StellarAdmin.TagHelpers/Client/css/theme-tokens.css) file from StellarAdmin Tag Helpers into your project and import it from your Tailwind entry stylesheet:
 
 ```css
-@import "tailwindcss";
-@import "./theme-tokens.css";
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme) theme(inline reference);
+@import "./theme-tokens.css" theme(reference);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme reference {
+  --font-sans: sans-serif;
+  --font-mono: monospace;
+}
 ```
+
+The StellarAdmin theme stylesheet already includes Tailwind's preflight styles, the theme variables, and all the component styles, so your own build only needs to generate utility classes. A plain `@import "tailwindcss"` would output preflight and Tailwind's default theme variables again, such as `--font-sans`, and these override the theme's values whenever your stylesheet is linked after the StellarAdmin theme stylesheet. Importing the theme files as references avoids this, so the order of the stylesheet links no longer matters. The `@theme reference` block ensures `font-sans` and `font-mono` use the theme's fonts rather than Tailwind's defaults.
 
 Once you do this, those design tokens will be used in your own Tailwind CSS configuration and you will have utility classes such as `bg-primary`, `bg-secondary`, `text-primary-foreground`, `bg-card`, etc. available to use in your own application. This will also ensure that your own application code will adapt to StellarAdmin theme changes and customizations.
 
