@@ -1,0 +1,263 @@
+---
+title: Command
+description: A searchable menu of commands or options, navigated with the keyboard from a single search input
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/command-intro.html">
+  <include>./_include/command-intro.mdx</include>
+</Demo>
+
+## Usage
+
+A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and a `<sa-command-list>`. The list holds `<sa-command-item>` entries, optionally organised into `<sa-command-group>` sections divided by `<sa-command-separator>`, and a `<sa-command-empty>` message shown when nothing matches. Add a trailing keyboard hint to an item with `<sa-command-shortcut>`.
+
+```razor
+<sa-command label="...">
+    <sa-command-input placeholder="..." />
+    <sa-command-list>
+        <sa-command-empty>No results found.</sa-command-empty>
+        <sa-command-group heading="...">
+            <sa-command-item>...</sa-command-item>
+            <sa-command-item>
+                ...
+                <sa-command-shortcut>...</sa-command-shortcut>
+            </sa-command-item>
+        </sa-command-group>
+        <sa-command-separator />
+        <sa-command-group heading="...">
+            <sa-command-link-item href="...">...</sa-command-link-item>
+        </sa-command-group>
+    </sa-command-list>
+</sa-command>
+```
+
+As the user types, items are fuzzy-matched against their text and ranked within their group, so the best match in each group rises to the top while the groups themselves keep their order. Groups with no matches are hidden, and the empty message appears when no item matches at all. Set `value` on an item to match against something other than its text, and `keywords` to add extra search terms, such as synonyms.
+
+The menu is driven by the `sel-command` web component, so filtering and keyboard navigation need no additional JavaScript.
+
+## Examples
+
+### Dialog
+
+Wrap the command menu in `<sa-command-dialog>` to present it as a command palette. It is a [Dialog](dialog), so open it the same ways: an invoker button with `commandfor` and `command="show-modal"`, as below, or `showModal()` from script. The search input is focused when the dialog opens, and the search is cleared when it closes.
+
+<Demo src="/demo/tag-helpers/command-dialog.html">
+  <include>./_include/command-dialog.mdx</include>
+</Demo>
+
+The dialog carries a visually hidden title and description for assistive technology, defaulting to "Command Palette" and "Search for a command to run...". Override them with `title` and `description` when the palette has a more specific purpose.
+
+### Keyboard shortcut
+
+Command palettes are usually opened with a keyboard shortcut. The Tag Helper does not bind one for you, so pick the shortcut that suits your application and toggle the dialog from a `keydown` listener. This example uses ⌘K on macOS and Ctrl+K elsewhere, and closes the palette once an item is chosen.
+
+<Demo src="/demo/tag-helpers/command-keyboard-shortcut.html">
+  <include>./_include/command-keyboard-shortcut.mdx</include>
+</Demo>
+
+Inside the menu, Ctrl+K moves to the previous item, and the command menu marks that key press as handled. Checking `event.defaultPrevented` keeps the shortcut from also closing the palette.
+
+### Checked items
+
+Set `checked="true"` to show a check mark at the end of an item, for example to mark the current choice. Listen for the bubbling `itemselect` event to react when an item is chosen: `event.detail.value` holds the item's value and `event.target` is the item itself, so this example moves the check mark to the chosen currency.
+
+<Demo src="/demo/tag-helpers/command-checked.html">
+  <include>./_include/command-checked.mdx</include>
+</Demo>
+
+The check mark is hidden on items that have a shortcut.
+
+### Scrollable
+
+The list has a maximum height and scrolls when there are more items than fit. The highlighted item is kept in view as the user moves through the list, without scrolling the rest of the page.
+
+<Demo src="/demo/tag-helpers/command-scrollable.html">
+  <include>./_include/command-scrollable.mdx</include>
+</Demo>
+
+### Links
+
+Use `<sa-command-link-item>` to render an item as an `<a>` that navigates when chosen, with either the mouse or Enter. The [Dialog](#dialog) example above uses link items for its Bookings group.
+
+The URL can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+### Server-side search
+
+When the items come from a large or remote data set, set `filter="CommandFilter.None"` and search on the server instead. The command menu then never hides or ranks items itself. Attributes that `<sa-command-input>` does not recognise are rendered on the `<input>`, so a library such as [htmx](https://htmx.org) can send the search as the user types and replace the contents of the list with the results.
+
+```razor
+<sa-command id="trip-search" filter="CommandFilter.None" label="Search trips">
+    <sa-command-input name="q"
+                      placeholder="Search destinations and bookings..."
+                      hx-get="?handler=Search"
+                      hx-trigger="input changed delay:200ms"
+                      hx-target="#trip-search-list"
+                      hx-sync="this:replace" />
+    <sa-command-list>
+        <partial name="_TripResults" model="Model.Results" />
+    </sa-command-list>
+</sa-command>
+```
+
+The list's `id` is the command's `id` followed by `-list`. The handler renders the results as a partial view:
+
+```razor
+@model TripResults
+
+<sa-command-empty>No trips match "@Model.Query".</sa-command-empty>
+
+@if (Model.Destinations.Count > 0)
+{
+    <sa-command-group heading="Destinations">
+        @foreach (var destination in Model.Destinations)
+        {
+            <sa-command-item value="@destination.Slug">@destination.City</sa-command-item>
+        }
+    </sa-command-group>
+}
+```
+
+The command menu notices when its items change. It prepares the new items, shows the empty message when there are none, and highlights the first result, so the keyboard keeps working without any extra script. Because the swap replaces everything inside the list, the partial must include `<sa-command-empty>` itself.
+
+## Accessibility
+
+The command menu renders the combobox pattern for you. The search input is a `combobox` that controls the `listbox` list, and every item is an `option`. Focus stays in the input while the Up and Down arrows move the highlighted item, which is announced through `aria-activedescendant`. Home and End jump to the first and last item, Ctrl+N or Ctrl+J move down and Ctrl+P or Ctrl+K move up, and Enter chooses the highlighted item. Disabled items render `aria-disabled="true"` and are skipped. Set `loop="true"` on `<sa-command>` to wrap from the last item back to the first.
+
+Give the menu an accessible name with `label`, which renders a visually hidden label for the search input. A placeholder is not a label.
+
+## API Reference
+
+### `<sa-command>`
+
+Renders the `<sel-command>` web component that filters the items and handles keyboard navigation, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    filter: {
+      description: "How items are narrowed as the user types. Use `CommandFilter.None` when the application supplies matching items itself.",
+      type: "CommandFilter",
+      typeDescription: "CommandFilter.Client | CommandFilter.None",
+      default: "CommandFilter.Client",
+    },
+    label: {
+      description: "A visually hidden label that names the search input for assistive technology.",
+      type: "string",
+    },
+    loop: {
+      description: "Whether keyboard navigation wraps from the last item to the first and back.",
+      type: "bool?",
+      default: "false",
+    },
+  }}
+/>
+
+When an item is chosen, with a click or Enter, the item dispatches a bubbling `itemselect` event whose `detail.value` is the item's value.
+
+### `<sa-command-dialog>`
+
+Renders a modal `<dialog>` that presents a command menu as a command palette. Place a `<sa-command>` inside it.
+
+<TypeTable
+  type={{
+    description: {
+      description: "The dialog's visually hidden description for assistive technology.",
+      type: "string",
+      default: '"Search for a command to run..."',
+    },
+    "show-close-button": {
+      description: "Whether the dialog shows a close button in its corner. Pressing Escape always closes the dialog.",
+      type: "bool?",
+      default: "false",
+    },
+    title: {
+      description: "The dialog's visually hidden title for assistive technology.",
+      type: "string",
+      default: '"Command Palette"',
+    },
+  }}
+/>
+
+### `<sa-command-input>`
+
+Renders the search `<input>` with a search icon. Attributes the tag does not recognise, such as `name`, `placeholder`, or request attributes for server-side search, are rendered on the `<input>`.
+
+### `<sa-command-list>`
+
+Renders a `<div role="listbox">` holding the items. This is the element to target when replacing the items with server-rendered results.
+
+### `<sa-command-empty>`
+
+Renders a `<div>` shown only when no item is present or matches the search.
+
+### `<sa-command-group>`
+
+Renders a `<div>` grouping related items under an optional heading. The group is hidden when none of its items match the search.
+
+<TypeTable
+  type={{
+    heading: {
+      description: "The heading shown above the group's items.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-command-item>`
+
+Renders a `<div role="option">`, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the item shows a check mark, for example to mark the current choice. The check mark is hidden when the item has a shortcut.",
+      type: "bool?",
+      default: "false",
+    },
+    disabled: {
+      description: "Whether the item is disabled. Disabled items cannot be highlighted or chosen.",
+      type: "bool?",
+      default: "false",
+    },
+    keywords: {
+      description: "Additional text that the search matches, such as synonyms.",
+      type: "string",
+    },
+    value: {
+      description: "The value reported when the item is chosen and matched by the search.",
+      type: "string",
+      default: "The item's text",
+    },
+  }}
+/>
+
+### `<sa-command-link-item>`
+
+Renders an [`<a role="option">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) that navigates to its target when chosen. It accepts the same `checked`, `disabled`, `keywords` and `value` attributes as `<sa-command-item>`.
+
+<TypeTable
+  type={{
+    href: {
+      description: "A raw URL to navigate to when the item is chosen.",
+      type: "string",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-command-separator>`
+
+Renders a `<div role="separator">` between groups. Separators are hidden while a search is active.
+
+### `<sa-command-shortcut>`
+
+Renders a `<span>` holding a keyboard hint at the end of an item. Its text is not matched by the search.

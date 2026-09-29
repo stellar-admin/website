@@ -65,6 +65,7 @@
     "accordion",
     "breadcrumb",
     "collapsible",
+    "command",
     "pagination",
     "sidebar",
     "tabs",
