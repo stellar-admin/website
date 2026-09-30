@@ -1,0 +1,9 @@
+```razor
+<sa-button variant="ButtonVariant.Outline" id="--toast-intro-button">Save itinerary</sa-button>
+<!-- Add the toaster once, in your layout -->
+<sa-toaster />
+<script type="module">
+    document.getElementById("--toast-intro-button").addEventListener("click", () =>
+        window.stellarAdmin.toast.success("Itinerary saved", "Your Lisbon trip is ready to share."));
+</script>
+```

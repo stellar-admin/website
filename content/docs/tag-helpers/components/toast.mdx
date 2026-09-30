@@ -1,0 +1,296 @@
+---
+title: Toast
+description: A short, non-interrupting notification about the result of an action, shown from the server or from JavaScript.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/toast-intro.html">
+  <include>./_include/toast-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Add `<sa-toaster>` once to your layout. Place it outside any region that htmx or another AJAX library swaps, so the toaster and its open toasts survive the swap.
+
+```razor
+<!-- _Layout.cshtml -->
+<body>
+    @RenderBody()
+    <sa-toaster />
+</body>
+```
+
+`AddTagHelpers()` registers everything else, so there is no separate setup call and no middleware.
+
+Show a toast from a controller action or Razor Pages handler by injecting `IToastNotifier`:
+
+```cs
+public class BookingsController(IToastNotifier toasts) : Controller
+{
+    [HttpPost]
+    public IActionResult Confirm(int id)
+    {
+        // ...
+        toasts.Success("Booking confirmed", "Your trip to Lisbon departs 14 October.");
+
+        return RedirectToAction(nameof(Details), new { id });
+    }
+}
+```
+
+Or show one from JavaScript with `window.stellarAdmin.toast`:
+
+```js
+window.stellarAdmin.toast.success("Copied to clipboard");
+```
+
+Toasts close on their own after 5 seconds. Hovering over or focusing the toaster pauses the timers, as does switching to another tab or window. Every toast has a close button, can be swiped away, and closes with `Esc` when focused. `F6` moves focus to the toaster, so keyboard users can reach a toast before it closes. Toasts are announced politely to screen readers, and error toasts are also announced assertively.
+
+## Examples
+
+### Types
+
+Each type shows its own icon. Loading toasts show a spinner and stay open until they are updated or closed, unless you give them a `duration`.
+
+<Demo src="/demo/tag-helpers/toast-types.html">
+  <include>./_include/toast-types.mdx</include>
+</Demo>
+
+### Action
+
+Add a link to the toast with `action`. Actions are links rather than buttons, so they work the same whether the toast came from the server or from JavaScript. Use them to take the reader somewhere, such as the record they just changed.
+
+<Demo src="/demo/tag-helpers/toast-action.html">
+  <include>./_include/toast-action.mdx</include>
+</Demo>
+
+From the server, create the action with `ToastAction.Link`:
+
+```cs
+toasts.Add(new Toast
+{
+    Title = "Hotel booked",
+    Description = "Casa do Mar, Lisbon. 3 nights from 14 October.",
+    Type = ToastType.Success,
+    Action = ToastAction.Link("View", Url.Action("Details", new { id = booking.Id })!),
+});
+```
+
+### Promise
+
+`promise()` shows a loading toast until a promise settles, then turns it into a success or error toast. The messages can be strings or functions that receive the result or the error. It returns the original promise, so you can still await it.
+
+<Demo src="/demo/tag-helpers/toast-promise.html">
+  <include>./_include/toast-promise.mdx</include>
+</Demo>
+
+To update a toast yourself, keep the id that `add()` returns:
+
+```js
+const id = window.stellarAdmin.toast.add({ title: "Uploading documents...", type: "loading" });
+
+// Later
+window.stellarAdmin.toast.update(id, { title: "Documents uploaded", type: "success", duration: 5000 });
+```
+
+### Position
+
+Set where toasts appear with the `position` attribute. The default is `ToasterPosition.BottomRight`. Toasts can be swiped towards the nearest edges of their position.
+
+```razor
+<sa-toaster position="ToasterPosition.TopCenter" />
+```
+
+### Duration and limit
+
+`duration` sets how long toasts stay open when they don't set their own, and `limit` sets how many are visible at once. Older toasts are hidden until newer ones close.
+
+```razor
+<sa-toaster duration="TimeSpan.FromSeconds(8)" limit="5" />
+```
+
+A toast can set its own duration, in milliseconds from JavaScript or as a `TimeSpan` on the server. A duration of zero keeps the toast open until it is closed.
+
+```js
+window.stellarAdmin.toast.error("Payment declined", { description: "Your card ending 4242 was declined.", duration: 0 });
+```
+
+## Toasts from the server
+
+`IToastNotifier` queues toasts in TempData. The library then decides how each response delivers them:
+
+| Response | Where the toast appears |
+| --- | --- |
+| A full page load | On that page, rendered by `<sa-toaster>`. |
+| A redirect | On the page the browser is redirected to. |
+| An AJAX request (`fetch`, `XMLHttpRequest`, htmx) | In the `SA-Toasts` response header, which your script passes to `fromResponse()`. |
+
+The browser marks AJAX requests with the `Sec-Fetch-Mode` header, so no configuration is needed. If a request has no `Sec-Fetch-Mode` header, it is treated as a page load and the toast appears on the next page instead.
+
+Add toasts in actions and handlers, not in views. Toasts added while a view renders miss the current response's header and appear on the next response instead.
+
+The header holds up to about 4 KB of toasts. Any that don't fit stay queued for the next response.
+
+### Showing toasts after AJAX requests
+
+The library doesn't intercept AJAX requests. Instead, pass the response to `window.stellarAdmin.toast.fromResponse()`, which shows the toasts in the `SA-Toasts` header. It accepts a `Response`, its `Headers`, an `XMLHttpRequest`, or the header's value, and does nothing when the header is missing.
+
+For htmx 4, add a listener once in your layout:
+
+```js
+document.addEventListener("htmx:after:request", (e) =>
+  window.stellarAdmin.toast.fromResponse(e.detail.ctx.response.headers));
+```
+
+For htmx 2:
+
+```js
+document.addEventListener("htmx:afterRequest", (e) =>
+  window.stellarAdmin.toast.fromResponse(e.detail.xhr));
+```
+
+For `fetch`, call it after each request, usually in your app's own fetch helper:
+
+```js
+const response = await fetch(url, options);
+window.stellarAdmin.toast.fromResponse(response);
+```
+
+`fetch` follows redirects, so a toast added before a redirect arrives in the header of the redirected response.
+
+### Limitations
+
+- htmx's `HX-Redirect` and `HX-Location` headers are sent with a 200 response, so the toast goes into the header and is lost when the page navigates away. Use a normal redirect when a toast must survive navigation.
+- With `hx-boost` or any other swap of the whole body, keep `<sa-toaster>` outside the swapped region.
+- Only link actions can be sent from the server.
+
+## API Reference
+
+### `<sa-toaster>`
+
+Renders the region that shows toasts. Classes set on it apply to the viewport that positions the toasts.
+
+<TypeTable
+  type={{
+    position: {
+      description: "Where on the screen toasts appear.",
+      type: "ToasterPosition",
+      typeDescription:
+        "ToasterPosition.TopLeft | ToasterPosition.TopCenter | ToasterPosition.TopRight | ToasterPosition.BottomLeft | ToasterPosition.BottomCenter | ToasterPosition.BottomRight",
+      default: "ToasterPosition.BottomRight",
+    },
+    duration: {
+      description: "How long a toast stays open when it doesn't set its own duration. TimeSpan.Zero keeps toasts open until they are closed.",
+      type: "TimeSpan",
+      default: "TimeSpan.FromSeconds(5)",
+    },
+    limit: {
+      description: "The maximum number of toasts visible at once. Must be at least 1.",
+      type: "int",
+      default: "3",
+    },
+  }}
+/>
+
+### `IToastNotifier`
+
+Inject it into controllers, page models and services. `Add(Toast)` queues a toast. The `Success`, `Info`, `Warning` and `Error` extension methods take a title and an optional description.
+
+#### `Toast`
+
+<TypeTable
+  type={{
+    Title: {
+      description: "The toast title.",
+      type: "string",
+      required: true,
+    },
+    Description: {
+      description: "Optional text shown below the title.",
+      type: "string?",
+    },
+    Type: {
+      description: "The kind of message, which sets the icon.",
+      type: "ToastType",
+      typeDescription:
+        "ToastType.Default | ToastType.Success | ToastType.Info | ToastType.Warning | ToastType.Error",
+      default: "ToastType.Default",
+    },
+    Duration: {
+      description: "How long the toast stays open. Defaults to the toaster's duration. TimeSpan.Zero keeps it open until it is closed.",
+      type: "TimeSpan?",
+    },
+    Action: {
+      description: "An optional link, created with ToastAction.Link(label, href).",
+      type: "ToastAction?",
+    },
+  }}
+/>
+
+### `window.stellarAdmin.toast`
+
+Every method throws if the page has no `<sa-toaster>`.
+
+<TypeTable
+  type={{
+    add: {
+      description: "Shows a toast and returns its id.",
+      type: "(options: ToastOptions) => string",
+    },
+    success: {
+      description: "Shows a success toast. The second argument is a description or the remaining options. info, warning and error work the same way.",
+      type: "(title: string, details?: string | ToastOptions) => string",
+    },
+    update: {
+      description: "Changes an open toast. Options you leave out keep their current values.",
+      type: "(id: string, options: Partial<ToastOptions>) => void",
+    },
+    close: {
+      description: "Closes a toast. Resolves once its exit animation has finished.",
+      type: "(id: string) => Promise<void>",
+    },
+    promise: {
+      description: "Shows a loading toast until the promise settles, then a success or error toast. Returns the original promise.",
+      type: "(promise: Promise<T>, messages: { loading: string; success: string | ((value: T) => string); error: string | ((error) => string) }) => Promise<T>",
+    },
+    fromResponse: {
+      description: "Shows the toasts in a response's SA-Toasts header and returns their ids.",
+      type: "(source: Response | Headers | XMLHttpRequest | string | null) => string[]",
+    },
+  }}
+/>
+
+#### `ToastOptions`
+
+<TypeTable
+  type={{
+    title: {
+      description: "The toast title.",
+      type: "string",
+      required: true,
+    },
+    description: {
+      description: "Optional text shown below the title.",
+      type: "string",
+    },
+    type: {
+      description: "The kind of message, which sets the icon.",
+      type: '"default" | "success" | "info" | "warning" | "error" | "loading"',
+      default: '"default"',
+    },
+    duration: {
+      description: "How long the toast stays open, in milliseconds. 0 keeps it open until it is closed. Loading toasts stay open by default.",
+      type: "number",
+      default: "The toaster's duration",
+    },
+    action: {
+      description: "An optional link shown on the toast.",
+      type: "{ label: string; href: string }",
+    },
+    id: {
+      description: "An id for the toast. One is generated when you leave it out.",
+      type: "string",
+    },
+  }}
+/>

@@ -17,7 +17,7 @@ This JavaScript file contains the following:
 
 - the **web components** some Tag Helpers use,
 - the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement, and
-- the **`window.stellarAdmin`** object with the `dialog()` and `alertDialog()` helpers.
+- the **`window.stellarAdmin`** object with the `dialog()` and `alertDialog()` helpers and the `toast` API.
 
 ## Web components
 
@@ -33,6 +33,7 @@ A handful of Tag Helpers render a custom element (`<sel-*>`) around or in place 
 | `<sa-sidebar-wrapper>` | `<sel-sidebar>` | Tracks the expanded/collapsed state on desktop and the open/closed drawer state on mobile, and handles the `--toggle-sidebar`, `--open-mobile` and `--close-mobile` commands. |
 | `<sa-slider>` | `<sel-slider>` | Pointer and keyboard interaction for the thumbs, and keeps the range fill, `aria-valuenow` and the hidden form inputs in sync. |
 | `<sa-table-selection>` | `<sel-table-selection>` | Select-all/indeterminate handling and the `data-state="selected"` row highlight for a table with row checkboxes. |
+| `<sa-toaster>` | `<sel-toaster>` | Shows, stacks and closes toasts, pauses their timers on hover and focus, and renders the toasts queued on the server for the page. |
 
 All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table-selection>` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
 
@@ -75,5 +76,6 @@ if (result.confirmed) {
 
 - [`dialog()`](/docs/tag-helpers/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>` and its `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
 - [`alertDialog()`](/docs/tag-helpers/components/js-alert-dialog) does the same for a `<sa-alert-dialog>`.
+- [`toast`](/docs/tag-helpers/components/toast#windowstellaradmintoast) shows toasts, and its `fromResponse()` shows the toasts the server sent with an AJAX response.
 
 If your page already defines `window.stellarAdmin`, the bundle logs a console warning and replaces it.
