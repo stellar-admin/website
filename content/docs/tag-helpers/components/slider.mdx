@@ -77,6 +77,48 @@ When using model binding, StellarAdmin will automatically wrap the slider inside
   </Tabs>
 </Demo>
 
+### Value
+
+Add `<sa-slider-value/>` to show the slider's current value. Inside a field it shows the value of that field's slider, so you can place it wherever the design needs it, such as beside the label or within the description. The value updates as the thumb moves. A range slider shows its values separated by a dash; set `index` to show a single thumb's value.
+
+Use `value-format` to format each value, with `{0}` standing for the number, such as `${0}` or `{0} km`. Numbers are formatted in the current culture without decimals. Use `thumb-labels` to give each thumb of a range slider its own accessible name.
+
+<Demo src="/demo/tag-helpers/slider-value.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/slider-value.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ValueModel
+    {
+        [Display(Name = "Price per night", Description = "Nightly rate before taxes and fees.")]
+        public int[] PricePerNight { get; set; } = [200, 800];
+
+        [Display(Name = "Distance from center")]
+        public int MaximumDistanceFromCenter { get; set; } = 15;
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Marks
+
+Add `<sa-slider-marks>` inside the slider to draw marks along the track. It generates a mark every `interval`, which defaults to the slider's `step`, plus one at the maximum. Set `labels` to `SliderMarkLabels.Ends` to label the minimum and maximum, or `SliderMarkLabels.All` to label every mark; labels use the slider's `value-format`. Set `show-ticks="false"` to show only the labels. Marks between the thumbs are styled as in range.
+
+<Demo src="/demo/tag-helpers/slider-marks.html">
+  <include>./_include/slider-marks.mdx</include>
+</Demo>
+
+### Custom marks
+
+Place `<sa-slider-mark>` elements inside `<sa-slider-marks>` to choose the marks yourself. Each mark's content becomes its label, and a mark without content draws only a tick. Outside a field, give the slider an `id` and point `<sa-slider-value>` at it with `for`.
+
+<Demo src="/demo/tag-helpers/slider-custom-marks.html">
+  <include>./_include/slider-custom-marks.mdx</include>
+</Demo>
+
 ### Steps
 
 Use the `step` attribute to control the increment the slider snaps to as it moves.
@@ -111,7 +153,7 @@ Set `disabled="true"` to prevent the user from interacting with the slider.
 
 ## Accessibility
 
-Each thumb renders with `role="slider"` and `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-orientation`, and `aria-valuenow` is updated as the value changes. A thumb is focused with Tab. Left and Down arrows decrease the value by one step, Right and Up arrows increase it, Page Down and Page Up move ten steps, and Home and End jump to the minimum and maximum. The value is posted through hidden inputs, so the slider takes part in forms without extra work.
+Each thumb renders with `role="slider"` and `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-orientation`, and `aria-valuenow` is updated as the value changes. With `value-format` set, each thumb also renders `aria-valuetext`, so screen readers announce the formatted value. Thumbs are named by the field label; `thumb-labels` gives each thumb of a range slider its own name instead. `<sa-slider-value>` renders an `<output>` with `aria-live="off"`, because the focused thumb already announces each change, and the marks are hidden from assistive technology. A thumb is focused with Tab. Left and Down arrows decrease the value by one step, Right and Up arrows increase it, Page Down and Page Up move ten steps, and Home and End jump to the minimum and maximum. The value is posted through hidden inputs, so the slider takes part in forms without extra work.
 
 ## Part classes
 
@@ -182,10 +224,13 @@ Pass a `SliderClassNames` instance from the `StellarAdmin.TagHelpers` namespace 
 | `Track` | The full slider track. |
 | `Range` | The filled portion of the track. |
 | `Thumb` | Every slider thumb, including both thumbs of a range slider. |
+| `Marks` | The container that holds the marks. |
+| `Mark` | Every mark. |
+| `MarkLabel` | Every mark label. |
 
 Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
-The slider has no Input part option. Use Track, Range, and Thumb to style its visible controls.
+The slider has no Input part option. Use Track, Range, and Thumb to style its visible controls. Style `<sa-slider-value>` with its own `class` attribute.
 
 ## API Reference
 
@@ -272,10 +317,79 @@ Renders a `<sel-slider>` web component containing the track, a thumb per value, 
         "SliderThumbAlignment.Center | SliderThumbAlignment.Edge",
       default: "SliderThumbAlignment.Edge",
     },
+    "thumb-labels": {
+      description:
+        "Comma-separated accessible names for the thumbs of a range slider, in order, such as Minimum price,Maximum price. Without them, every thumb is named by the field label.",
+      type: "string",
+    },
     value: {
       description:
         "The value(s) of the slider when not bound via asp-for. A single number renders one thumb, and a comma-separated list (e.g. 20,80) renders a thumb per value.",
       type: "string",
+    },
+    "value-format": {
+      description:
+        "A template with a {0} placeholder for each displayed value, such as ${0} or {0} km. It applies to <sa-slider-value>, generated mark labels, and the value announced for each thumb.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-slider-value>`
+
+Renders an `<output>` that shows the current value of a slider and updates as it moves.
+
+<TypeTable
+  type={{
+    for: {
+      description:
+        "The id of the slider whose value is shown. Needed only outside a field, or when a field holds more than one slider.",
+      type: "string",
+    },
+    index: {
+      description:
+        "The zero-based thumb whose value is shown. When omitted, every value is shown, with a range's two values separated by a dash.",
+      type: "int?",
+    },
+  }}
+/>
+
+### `<sa-slider-marks>`
+
+Renders the marks along a slider. Place it inside `<sa-slider>`. It contains `<sa-slider-mark>` elements, or generates marks when it has none.
+
+<TypeTable
+  type={{
+    interval: {
+      description:
+        "The distance between generated marks, starting from the slider's minimum. A mark is always generated at the maximum. Defaults to the slider's step.",
+      type: "int?",
+    },
+    labels: {
+      description: "Which generated marks show their formatted value.",
+      type: "SliderMarkLabels",
+      typeDescription:
+        "SliderMarkLabels.None | SliderMarkLabels.Ends | SliderMarkLabels.All",
+      default: "SliderMarkLabels.None",
+    },
+    "show-ticks": {
+      description: "Whether each mark draws a tick on the track.",
+      type: "bool?",
+      default: "true",
+    },
+  }}
+/>
+
+### `<sa-slider-mark>`
+
+Renders a mark at one value. Place it inside `<sa-slider-marks>`. Its content becomes the mark's label.
+
+<TypeTable
+  type={{
+    value: {
+      description:
+        "The value the mark is placed at, between the slider's minimum and maximum.",
+      type: "int",
     },
   }}
 />

@@ -3509,6 +3509,92 @@
     &:where([data-orientation="vertical"]) {
       flex-direction: column;
     }
+    &:where([data-orientation="horizontal"]) {
+      &:has(*[data-slot="slider-mark-label"]) {
+        margin-bottom: calc(var(--sa-slider-thumb-size,1rem) / 2 + 1.25rem);
+      }
+    }
+    &:where([data-orientation="vertical"]) {
+      &:has(*[data-slot="slider-mark-label"]) {
+        margin-inline-end: calc(var(--sa-slider-thumb-size,1rem) / 2 + 3rem);
+      }
+    }
+  }
+  .sa-slider-mark {
+    position: absolute;
+    width: calc(var(--spacing) * 0);
+    height: calc(var(--spacing) * 0);
+    &:where([data-orientation="horizontal"]) {
+      top: calc(1 / 2 * 100%);
+    }
+    &:where([data-orientation="vertical"]) {
+      left: calc(1 / 2 * 100%);
+    }
+  }
+  .sa-slider-mark-label {
+    position: absolute;
+    white-space: nowrap;
+    [data-orientation=horizontal]>& {
+      top: calc(var(--sa-slider-thumb-size,1rem) / 2 + 0.25rem);
+    }
+    [data-orientation=horizontal]>& {
+      --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    [data-orientation=vertical]>& {
+      left: calc(var(--sa-slider-thumb-size,1rem) / 2 + 0.5rem);
+    }
+    [data-orientation=vertical]>& {
+      --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    [data-orientation=horizontal][data-bound=max]>& {
+      --tw-translate-x: -100%;
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    [data-orientation=horizontal][data-bound=min]>& {
+      --tw-translate-x: calc(var(--spacing) * 0);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    [data-orientation=vertical][data-bound=max]>& {
+      --tw-translate-y: calc(var(--spacing) * 0);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    [data-orientation=vertical][data-bound=min]>& {
+      --tw-translate-y: -100%;
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    :where(*[data-thumb-alignment="edge"]) & {
+      [data-orientation=horizontal][data-bound=max]>& {
+        margin-inline-start: calc(var(--sa-slider-thumb-size,1rem) / 2);
+      }
+    }
+    :where(*[data-thumb-alignment="edge"]) & {
+      [data-orientation=horizontal][data-bound=min]>& {
+        margin-inline-start: calc(calc(var(--sa-slider-thumb-size,1rem) / 2) * -1);
+      }
+    }
+    :where(*[data-thumb-alignment="edge"]) & {
+      [data-orientation=vertical][data-bound=max]>& {
+        margin-top: calc(calc(var(--sa-slider-thumb-size,1rem) / 2) * -1);
+      }
+    }
+    :where(*[data-thumb-alignment="edge"]) & {
+      [data-orientation=vertical][data-bound=min]>& {
+        margin-top: calc(var(--sa-slider-thumb-size,1rem) / 2);
+      }
+    }
+  }
+  .sa-slider-mark-tick {
+    position: absolute;
+    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
+    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .sa-slider-marks {
+    pointer-events: none;
+    position: absolute;
+    inset: calc(var(--spacing) * 0);
   }
   .sa-slider-range {
     position: absolute;
@@ -3534,6 +3620,16 @@
     overflow: hidden;
     -webkit-user-select: none;
     user-select: none;
+  }
+  .sa-slider-value {
+    --tw-numeric-spacing: tabular-nums;
+    font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+  }
+  :where(p, [data-slot="field-description"]) .sa-slider-value {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
   }
   .sa-spinner {
     width: calc(var(--spacing) * 4);
@@ -11498,6 +11594,39 @@
   :root {
     --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+  }
+  .sa-slider-value {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    color: var(--muted-foreground);
+  }
+  .sa-slider-mark-tick {
+    height: calc(var(--spacing) * 2.5);
+    width: calc(var(--spacing) * 0.5);
+    border-radius: calc(infinity * 1px);
+    background-color: var(--muted-foreground);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--muted-foreground) 35%, transparent);
+    }
+    [data-orientation=vertical]>& {
+      height: calc(var(--spacing) * 0.5);
+    }
+    [data-orientation=vertical]>& {
+      width: calc(var(--spacing) * 2.5);
+    }
+    [data-state=in-range]>& {
+      background-color: var(--primary-foreground);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--primary-foreground) 70%, transparent);
+      }
+    }
+  }
+  .sa-slider-mark-label {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+    color: var(--muted-foreground);
+    --tw-numeric-spacing: tabular-nums;
+    font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
   }
 }
 @property --tw-font-weight {
