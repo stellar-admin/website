@@ -55,6 +55,14 @@ Use `asp-items` with `SelectListItem` objects as an alternative to child tags. `
   <include>./_include/checkbox-group-items.mdx</include>
 </Demo>
 
+### Media
+
+Put a `<sa-checkbox-group-item-media>` inside an item to show an icon, avatar, image or other media with the option. The media sits before the option's text, or leads the card in the choice card variant. Size the media with classes on its content. Use one media tag per item; options supplied with `asp-items` have no media. This example adds icons to plain options.
+
+<Demo src="/demo/tag-helpers/checkbox-group-media.html">
+  <include>./_include/checkbox-group-media.mdx</include>
+</Demo>
+
 ### Validation
 
 The group displays one ModelState error and marks its inputs invalid. StellarAdmin does not provide client-side validation; use server-side validation or add your own client validation.
@@ -80,7 +88,7 @@ For an unbound group, use `error` to display a group error.
 
 ## Accessibility
 
-The group renders a fieldset and legend with native checkbox inputs and associated labels. Descriptions and validation messages are associated with the inputs. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels.
+The group renders a fieldset and legend with native checkbox inputs and associated labels. Descriptions and validation messages are associated with the inputs. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels. Media sits inside the label, so keep it decorative: an avatar without a `name` and an image with an empty `alt` leave the option text as its name.
 
 ## API Reference
 
@@ -107,3 +115,7 @@ The group renders a fieldset and legend with native checkbox inputs and associat
 | `description` | `string` | Supporting text below the option label. |
 | `disabled` | `bool` | Disables this option. |
 | `class` | `string` | Additional classes for the field, or the outer label in `ChoiceCard`. |
+
+### `<sa-checkbox-group-item-media>`
+
+Media shown with an option, placed inside `<sa-checkbox-group-item>`. It renders no element of its own and takes no attributes; its content is placed in the option.
