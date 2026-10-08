@@ -1,0 +1,115 @@
+---
+title: Chip
+description: A compact token for a selected or entered value, with optional media and a remove button.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/chip-intro.html">
+  <include>./_include/chip-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Put chips in an `<sa-chip-group>`. Each `<sa-chip>` holds optional media, its label and an optional `<sa-chip-remove>`, in that order. Set `appearance` to `ChipGroupAppearance.Input` to show the chips in a box styled like an input; a button placed directly in the group, such as Add, takes the chips' size.
+
+```razor
+<sa-chip-group appearance="ChipGroupAppearance.Input" aria-labelledby="...">
+    <sa-chip>
+        ...
+        <sa-chip-remove aria-label="Remove ..." />
+    </sa-chip>
+    <sa-button variant="ButtonVariant.Ghost" size="ButtonSize.ExtraSmall">...</sa-button>
+</sa-chip-group>
+```
+
+Chips have no script of their own. `<sa-chip-remove>` renders a button, and removing the chip and updating the value is up to your page. Only the remove buttons are focusable, so name the group with `aria-labelledby` and give every remove button an `aria-label` that names its chip.
+
+## Examples
+
+### Media
+
+Place media directly in the chip, before the label. An `<sa-icon>`, an `<sa-avatar>` with a photo or initials, an `<img>` and a `<code>` element are each sized to fit the chip, and their corners follow the chip's shape in every theme. An image beside the label is decorative, so give it an empty `alt`.
+
+<Demo src="/demo/tag-helpers/chip-media.html">
+  <include>./_include/chip-media.mdx</include>
+</Demo>
+
+### Removable
+
+Chips with remove buttons work on the page's own background too, without the input box. Here they show the filters applied to a list, with a Clear all button beside them.
+
+<Demo src="/demo/tag-helpers/chip-removable.html">
+  <include>./_include/chip-removable.mdx</include>
+</Demo>
+
+### Read-only
+
+Leave out `<sa-chip-remove>` to show a fixed set of values. Add `role="list"` to the group and `role="listitem"` to each chip so screen readers announce the set and its size. The input-styled group usually also holds a button, which a list does not allow, so the group sets no role by default.
+
+<Demo src="/demo/tag-helpers/chip-read-only.html">
+  <include>./_include/chip-read-only.mdx</include>
+</Demo>
+
+### Disabled
+
+Set `disabled` on the group to disable every chip's remove button, or on a single `<sa-chip>` to disable just that one. Disabled chips are dimmed.
+
+<Demo src="/demo/tag-helpers/chip-disabled.html">
+  <include>./_include/chip-disabled.mdx</include>
+</Demo>
+
+### Invalid
+
+Set `invalid` on the group to show the input box's invalid ring. It sets `aria-invalid="true"` on the group; point `aria-describedby` at the error message.
+
+<Demo src="/demo/tag-helpers/chip-invalid.html">
+  <include>./_include/chip-invalid.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-chip-group>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    appearance: {
+      description: "The appearance of the group.",
+      type: "ChipGroupAppearance",
+      typeDescription: "ChipGroupAppearance.Plain | ChipGroupAppearance.Input",
+      default: "ChipGroupAppearance.Plain",
+    },
+    disabled: {
+      description: "Whether the chips' remove buttons are disabled.",
+      type: "bool",
+      default: "false",
+    },
+    invalid: {
+      description:
+        "Whether the group's value is invalid, which shows the invalid ring on an input-styled group.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-chip>`
+
+Renders a `<span>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    disabled: {
+      description:
+        "Whether the chip is disabled, which dims it and disables its remove button.",
+      type: "bool",
+      default: "The containing group's setting",
+    },
+  }}
+/>
+
+### `<sa-chip-remove>`
+
+Renders a `<button>` element styled as a ghost icon button, with a close icon when it has no content. The `type` defaults to `button` so a chip inside a form does not submit it. An `aria-label` is required, and rendering fails without one.

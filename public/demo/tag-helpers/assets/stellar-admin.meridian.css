@@ -1489,6 +1489,115 @@
     translate: var(--tw-translate-x) var(--tw-translate-y);
     color: var(--sa-checkbox-checked-foreground,var(--primary-foreground));
   }
+  .sa-chip {
+    --chip-inset: var(--sa-chip-inset, 2px);
+    --chip-media: calc(var(--sa-chip-h) - 2px - 2 * var(--chip-inset));
+    --chip-media-radius: max(0px, calc(var(--sa-chip-radius) - 1px - var(--chip-inset)));
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    height: var(--sa-chip-h);
+    padding-inline: var(--sa-chip-px);
+    border: 1px solid var(--sa-chip-border);
+    border-radius: var(--sa-chip-radius);
+    background: var(--sa-chip-bg);
+    color: var(--sa-chip-fg);
+    font-size: var(--sa-chip-font-size);
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    &[data-disabled], &:has(> .sa-chip-remove:disabled) {
+      opacity: 0.5;
+    }
+  }
+  .sa-chip > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+  .sa-chip > :is([data-slot="avatar"], img, code) {
+    flex-shrink: 0;
+    margin-inline-start: calc(var(--chip-inset) - var(--sa-chip-px));
+    border-radius: var(--chip-media-radius);
+  }
+  .sa-chip > :is([data-slot="avatar"], img) {
+    width: var(--chip-media);
+    height: var(--chip-media);
+    object-fit: cover;
+  }
+  .sa-chip > [data-slot="avatar"] > *, .sa-chip > [data-slot="avatar"]::after {
+    border-radius: inherit;
+  }
+  .sa-chip > [data-slot="avatar"] > [data-slot="avatar-fallback"] {
+    font-size: 0.5rem;
+  }
+  .sa-chip > code {
+    display: inline-block;
+    padding: calc((var(--chip-media) - 1cap) / 2) 0.25rem;
+    background: currentColor;
+    @supports (color: color-mix(in lab, red, red)) {
+      background: color-mix(in oklab, currentColor 12%, transparent);
+    }
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    line-height: 1;
+    text-box: trim-both cap alphabetic;
+  }
+  .sa-chip > .sa-chip-remove {
+    width: var(--chip-media);
+    min-width: 0;
+    height: var(--chip-media);
+    margin-inline: -0.125rem calc(var(--chip-inset) - var(--sa-chip-px));
+    padding: 0;
+    border: 0;
+    border-radius: var(--chip-media-radius);
+    background: transparent;
+    color: var(--sa-chip-remove-fg);
+    opacity: 1;
+    &:not(:focus-visible) {
+      box-shadow: none;
+    }
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+    &:hover {
+      background: var(--sa-chip-fg);
+      @supports (color: color-mix(in lab, red, red)) {
+        background: color-mix(in oklab, var(--sa-chip-fg) 12%, transparent);
+      }
+      color: var(--sa-chip-fg);
+    }
+  }
+  .sa-chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.375rem;
+    &[data-appearance="input"] {
+      gap: 0.25rem;
+    }
+  }
+  .sa-chip-group[data-appearance="input"] > .sa-chip {
+    --sa-chip-bg: var(--sa-chip-input-bg);
+    --sa-chip-border: var(--sa-chip-input-border);
+  }
+  .sa-chip-group > [data-slot="button"] {
+    gap: 0.25rem;
+    height: var(--sa-chip-h);
+    min-height: 0;
+    padding-block: 0;
+    padding-inline: var(--sa-chip-px);
+    border-radius: var(--sa-chip-radius);
+    font-size: var(--sa-chip-font-size);
+    line-height: 1;
+    & svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
   .sa-command {
     display: flex;
     width: 100%;
@@ -7384,6 +7493,40 @@
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--muted-foreground);
+  }
+}
+@layer components.theme {
+  .sa-chip, .sa-chip-group {
+    --sa-chip-h: 21px;
+    --sa-chip-px: 6px;
+    --sa-chip-radius: 999px;
+    --sa-chip-font-size: 12px;
+    --sa-chip-bg: var(--muted);
+    --sa-chip-fg: var(--foreground);
+    --sa-chip-border: var(--border);
+    --sa-chip-remove-fg: var(--muted-foreground);
+    --sa-chip-input-bg: var(--muted);
+    --sa-chip-input-border: var(--border);
+  }
+  .sa-chip-group[data-appearance="input"] {
+    min-height: 32px;
+    padding: max(2px, calc((32px - 2px - var(--sa-chip-h)) / 2));
+    border: 1px solid var(--input);
+    border-radius: var(--radius);
+    background: var(--sa-meridian-surface-input);
+    box-shadow: 0 0 #0000;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    &:has(:focus-visible) {
+      border-color: var(--ring);
+      box-shadow: 0 0 #0000, var(--sa-meridian-focus-ring);
+    }
+    &[aria-invalid="true"] {
+      border-color: var(--destructive);
+      box-shadow: 0 0 #0000;
+      &:focus-within {
+        box-shadow: var(--sa-meridian-focus-ring-danger);
+      }
+    }
   }
 }
 @property --tw-font-weight {

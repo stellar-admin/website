@@ -1498,6 +1498,115 @@
     translate: var(--tw-translate-x) var(--tw-translate-y);
     color: var(--sa-checkbox-checked-foreground,var(--primary-foreground));
   }
+  .sa-chip {
+    --chip-inset: var(--sa-chip-inset, 2px);
+    --chip-media: calc(var(--sa-chip-h) - 2px - 2 * var(--chip-inset));
+    --chip-media-radius: max(0px, calc(var(--sa-chip-radius) - 1px - var(--chip-inset)));
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    height: var(--sa-chip-h);
+    padding-inline: var(--sa-chip-px);
+    border: 1px solid var(--sa-chip-border);
+    border-radius: var(--sa-chip-radius);
+    background: var(--sa-chip-bg);
+    color: var(--sa-chip-fg);
+    font-size: var(--sa-chip-font-size);
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    &[data-disabled], &:has(> .sa-chip-remove:disabled) {
+      opacity: 0.5;
+    }
+  }
+  .sa-chip > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+  .sa-chip > :is([data-slot="avatar"], img, code) {
+    flex-shrink: 0;
+    margin-inline-start: calc(var(--chip-inset) - var(--sa-chip-px));
+    border-radius: var(--chip-media-radius);
+  }
+  .sa-chip > :is([data-slot="avatar"], img) {
+    width: var(--chip-media);
+    height: var(--chip-media);
+    object-fit: cover;
+  }
+  .sa-chip > [data-slot="avatar"] > *, .sa-chip > [data-slot="avatar"]::after {
+    border-radius: inherit;
+  }
+  .sa-chip > [data-slot="avatar"] > [data-slot="avatar-fallback"] {
+    font-size: 0.5rem;
+  }
+  .sa-chip > code {
+    display: inline-block;
+    padding: calc((var(--chip-media) - 1cap) / 2) 0.25rem;
+    background: currentColor;
+    @supports (color: color-mix(in lab, red, red)) {
+      background: color-mix(in oklab, currentColor 12%, transparent);
+    }
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    line-height: 1;
+    text-box: trim-both cap alphabetic;
+  }
+  .sa-chip > .sa-chip-remove {
+    width: var(--chip-media);
+    min-width: 0;
+    height: var(--chip-media);
+    margin-inline: -0.125rem calc(var(--chip-inset) - var(--sa-chip-px));
+    padding: 0;
+    border: 0;
+    border-radius: var(--chip-media-radius);
+    background: transparent;
+    color: var(--sa-chip-remove-fg);
+    opacity: 1;
+    &:not(:focus-visible) {
+      box-shadow: none;
+    }
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+    &:hover {
+      background: var(--sa-chip-fg);
+      @supports (color: color-mix(in lab, red, red)) {
+        background: color-mix(in oklab, var(--sa-chip-fg) 12%, transparent);
+      }
+      color: var(--sa-chip-fg);
+    }
+  }
+  .sa-chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.375rem;
+    &[data-appearance="input"] {
+      gap: 0.25rem;
+    }
+  }
+  .sa-chip-group[data-appearance="input"] > .sa-chip {
+    --sa-chip-bg: var(--sa-chip-input-bg);
+    --sa-chip-border: var(--sa-chip-input-border);
+  }
+  .sa-chip-group > [data-slot="button"] {
+    gap: 0.25rem;
+    height: var(--sa-chip-h);
+    min-height: 0;
+    padding-block: 0;
+    padding-inline: var(--sa-chip-px);
+    border-radius: var(--sa-chip-radius);
+    font-size: var(--sa-chip-font-size);
+    line-height: 1;
+    & svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
   .sa-command {
     display: flex;
     width: 100%;
@@ -11468,6 +11577,85 @@
     color: var(--muted-foreground);
     --tw-numeric-spacing: tabular-nums;
     font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+  }
+  .sa-chip, .sa-chip-group {
+    --sa-chip-h: calc(var(--spacing) * 5.5);
+    --sa-chip-px: calc(var(--spacing) * 2);
+    --sa-chip-radius: calc(var(--radius) + 16px);
+    --sa-chip-font-size: var(--text-xs);
+    --sa-chip-bg: var(--muted);
+    --sa-chip-fg: var(--foreground);
+    --sa-chip-border: transparent;
+    --sa-chip-remove-fg: var(--muted-foreground);
+    --sa-chip-input-bg: var(--muted-foreground);
+    @supports (color: color-mix(in lab, red, red)) {
+      --sa-chip-input-bg: color-mix(in oklab, var(--muted-foreground) 10%, transparent);
+    }
+    --sa-chip-input-border: transparent;
+  }
+  .sa-chip-group[data-appearance="input"] {
+    min-height: calc(var(--spacing) * 9);
+    border-radius: calc(var(--radius) + 16px);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--input);
+    background-color: var(--input);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+    }
+    background-clip: padding-box;
+    padding-inline: calc(var(--spacing) * 2.5);
+    padding-block: calc(var(--spacing) * 1.5);
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    &:focus-within {
+      border-color: var(--ring);
+    }
+    &:focus-within {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &:focus-within {
+      --tw-ring-color: var(--ring);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+      }
+    }
+    &:has(*[data-slot="chip"]) {
+      padding-inline: calc(var(--spacing) * 1.5);
+    }
+    &[aria-invalid="true"] {
+      border-color: var(--destructive);
+    }
+    &[aria-invalid="true"] {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    &[aria-invalid="true"] {
+      --tw-ring-color: var(--destructive);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+      }
+    }
+    &:is(.dark *) {
+      &[aria-invalid="true"] {
+        border-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        }
+      }
+    }
+    &:is(.dark *) {
+      &[aria-invalid="true"] {
+        --tw-ring-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          --tw-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+        }
+      }
+    }
   }
 }
 @property --tw-font-weight {
