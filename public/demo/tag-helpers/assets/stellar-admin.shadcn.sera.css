@@ -1590,7 +1590,7 @@
       gap: 0.25rem;
     }
   }
-  .sa-chip-group[data-appearance="input"] > .sa-chip {
+  .sa-chip-group[data-appearance="input"] .sa-chip {
     --sa-chip-bg: var(--sa-chip-input-bg);
     --sa-chip-border: var(--sa-chip-input-border);
   }
@@ -11543,7 +11543,7 @@
     --tw-numeric-spacing: tabular-nums;
     font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
   }
-  .sa-chip, .sa-chip-group {
+  :root, .sa-chip, .sa-chip-group {
     --sa-chip-h: calc(var(--spacing) * 5.5);
     --sa-chip-px: calc(var(--spacing) * 2);
     --sa-chip-radius: 0px;

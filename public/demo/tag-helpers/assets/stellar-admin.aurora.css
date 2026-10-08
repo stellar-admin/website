@@ -1580,7 +1580,7 @@
       gap: 0.25rem;
     }
   }
-  .sa-chip-group[data-appearance="input"] > .sa-chip {
+  .sa-chip-group[data-appearance="input"] .sa-chip {
     --sa-chip-bg: var(--sa-chip-input-bg);
     --sa-chip-border: var(--sa-chip-input-border);
   }
@@ -7577,7 +7577,7 @@
   }
 }
 @layer components.theme {
-  .sa-chip, .sa-chip-group {
+  :root, .sa-chip, .sa-chip-group {
     --sa-chip-h: 21px;
     --sa-chip-px: 6px;
     --sa-chip-radius: 0;
