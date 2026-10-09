@@ -60,6 +60,40 @@ Wrap the table in `<sa-table-selection>` to add row selection. A checkbox in the
   <include>./_include/table-row-selection.mdx</include>
 </Demo>
 
+### Row details
+
+Wrap the table in `<sa-table-row-details>` to let rows expand and show more information below them. Place an `<sa-table-row-detail>` after each expandable row, holding whatever the row should reveal, and an `<sa-table-row-detail-toggle>` in a cell of that row. A toggle with `all="true"` in a header cell expands and collapses every row. Set `expanded="true"` on a detail row to render it open, as the second booking here is.
+
+Each toggle is a button with `aria-expanded` kept in sync, so screen readers announce the state. Give each one an `aria-label` that names its row, such as "Show details for TRP-4822".
+
+<Demo src="/demo/tag-helpers/table-row-details.html">
+  <include>./_include/table-row-details.mdx</include>
+</Demo>
+
+### Row details with row click
+
+Set `row-click="true"` to let a click anywhere in a row toggle its details. Links, buttons and form controls in the row keep their own behavior, so the edit button here still works. A toggle can sit in any cell, such as an actions column beside the edit button. This example also opens one row at a time with `expand-mode`, marks the expanded row with a rail instead of a band, and starts the details at the table's edge with `inset`.
+
+<Demo src="/demo/tag-helpers/table-row-details-row-click.html">
+  <include>./_include/table-row-details-row-click.mdx</include>
+</Demo>
+
+### Loading row details with htmx
+
+Expanding a row raises a bubbling `row-detail-expand` event on its `<sa-table-row-detail>` once the details are visible, and collapsing it raises `row-detail-collapse`. The event's `detail` holds the expandable `row` and the `detailRow`. To load a row's details from the server the first time it expands, put the htmx attributes on the detail row itself, where the event fires, and target its content. The placeholder shows until the response arrives.
+
+```razor
+<sa-table-row-detail hx-get="/bookings/TRP-4822/details"
+                     hx-trigger="row-detail-expand once"
+                     hx-target="find [data-slot=table-row-detail-content]">
+    <sa-skeleton class="h-4 w-2/3"/>
+</sa-table-row-detail>
+```
+
+Drop `once` to reload the details every time the row expands. A row rendered with `expanded="true"` raises no event, so render its content directly. Rows that htmx swaps in or appends work without any further setup.
+
+In htmx 2, `hx-target` is inherited by htmx elements inside the details. To avoid that, put the attributes on an element inside the detail row instead and listen for the event on the row: `hx-trigger="row-detail-expand from:closest tr once"` in htmx 2, or `hx-trigger="row-detail-expand from:<closest tr/> once"` in htmx 4.
+
 ## API Reference
 
 ### `<sa-table>`
@@ -97,3 +131,80 @@ Renders a [`<td>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Ref
 ### `<sa-table-selection>`
 
 Adds row selection to the table it wraps, rendered as a `sel-table-selection` web component. The checkbox in the table's header row acts as the select-all, and a checkbox in a body row selects that row. Selected rows get `data-state="selected"`, the select-all reflects the checked/indeterminate state, and the selection posts as ordinary checkbox form data. From JavaScript, read the current selection from the element's `selectedValues` property, or listen for its bubbling `selection-change` event.
+
+### `<sa-table-row-details>`
+
+Lets the rows of the table it wraps expand to show details, rendered as a `sel-table-row-details` web component. It raises the bubbling `row-detail-expand` and `row-detail-collapse` events on each detail row as it opens or closes. From JavaScript, call `expand(detailRow)`, `collapse(detailRow)`, `toggle(detailRow)`, `expandAll()` or `collapseAll()` on the element.
+
+<TypeTable
+  type={{
+    "row-click": {
+      description:
+        "Whether clicking anywhere in a row toggles its details. Clicks on links, buttons and form controls keep their own behavior.",
+      type: "bool",
+      default: "false",
+    },
+    "expand-mode": {
+      description: "How many rows can be expanded at once.",
+      type: "TableRowDetailExpandMode",
+      typeDescription: "TableRowDetailExpandMode.Multiple | TableRowDetailExpandMode.Single",
+      default: "TableRowDetailExpandMode.Multiple",
+    },
+    emphasis: {
+      description:
+        "How an expanded row and its details are set apart from the rows around them: no treatment, a tinted band, or an accent rail along the left edge.",
+      type: "TableRowDetailEmphasis",
+      typeDescription:
+        "TableRowDetailEmphasis.None | TableRowDetailEmphasis.Band | TableRowDetailEmphasis.Rail",
+      default: "TableRowDetailEmphasis.Band",
+    },
+    inset: {
+      description:
+        "Where the details content starts: in line with the column after the toggle's column, or at the table's edge.",
+      type: "TableRowDetailInset",
+      typeDescription: "TableRowDetailInset.Aligned | TableRowDetailInset.Bleed",
+      default: "TableRowDetailInset.Aligned",
+    },
+    animate: {
+      description:
+        "Whether details animate open and closed. Animation is always off when the user prefers reduced motion.",
+      type: "bool",
+      default: "true",
+    },
+  }}
+/>
+
+### `<sa-table-row-detail>`
+
+Renders a `<tr>` element with one cell spanning every column, holding the details of the row before it. It renders with `hidden` until its row expands. The details content stays in view when the table scrolls sideways.
+
+<TypeTable
+  type={{
+    expanded: {
+      description:
+        "Whether the details render expanded. A row rendered expanded raises no `row-detail-expand` event.",
+      type: "bool",
+      default: "false",
+    },
+    colspan: {
+      description: "The number of columns the details span.",
+      type: "int",
+      default: "Every column of the table's header row",
+    },
+  }}
+/>
+
+### `<sa-table-row-detail-toggle>`
+
+Renders a `<button>` element styled as a ghost icon button, with a chevron that turns when its row expands. It controls the `<sa-table-row-detail>` after its own row, or the detail row named by an `aria-controls` attribute. The `aria-label` defaults to "Toggle row details", or "Toggle all row details" with `all`.
+
+<TypeTable
+  type={{
+    all: {
+      description:
+        "Whether the button expands and collapses every row's details, typically placed in a header cell. It is hidden when only one row can be expanded.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>

@@ -29,3 +29,68 @@ Add these directives to `_ViewImports.cshtml`:
 </Demo>
 
 Selection works in this static preview. Sorting and pagination are disabled in the static preview and require the running DocsSamples app at `/DataGrid`; the sample reads query parameters and applies sorting and paging on the server. Supply the current page of items to `sa-data-grid`, define columns with `sa-data-grid-column`, and provide sorting and pagination state through the corresponding child tags.
+
+## Row details
+
+Add an `<sa-data-grid-row-detail>` to let rows expand and show more information below them. Its content is a row template like a column's `<sa-data-grid-item-template>`: it renders once per row, with the row's item available through `Html.GridItem<T>()`, so the details can show more fields of the same item or rows from another source, such as the itinerary in a nested grid here. The grid adds a column of toggles, with an expand-all toggle in its header. To render rows expanded, set `key-field` to the property that identifies a row and `expanded-keys` to the keys of the rows to open.
+
+<Demo src="/demo/tag-helpers/data-grid-row-details.html">
+  <include>./_include/data-grid-row-details.mdx</include>
+</Demo>
+
+The details use the same behavior and events as [table row details](/docs/tag-helpers/components/table#row-details), including loading them with htmx. To place the toggle yourself, such as in an actions column beside an edit button, set `toggle="DataGridRowDetailToggle.None"` and add an `<sa-table-row-detail-toggle>` to that column's `<sa-data-grid-item-template>`.
+
+### `<sa-data-grid-row-detail>`
+
+<TypeTable
+  type={{
+    toggle: {
+      description:
+        "Where the grid places the buttons that expand and collapse rows. With None, place an `<sa-table-row-detail-toggle>` in a column's item template.",
+      type: "DataGridRowDetailToggle",
+      typeDescription:
+        "DataGridRowDetailToggle.Leading | DataGridRowDetailToggle.Trailing | DataGridRowDetailToggle.None",
+      default: "DataGridRowDetailToggle.Leading",
+    },
+    "row-click": {
+      description:
+        "Whether clicking anywhere in a row toggles its details. Clicks on links, buttons and form controls keep their own behavior.",
+      type: "bool",
+      default: "false",
+    },
+    "expand-mode": {
+      description: "How many rows can be expanded at once.",
+      type: "TableRowDetailExpandMode",
+      typeDescription: "TableRowDetailExpandMode.Multiple | TableRowDetailExpandMode.Single",
+      default: "TableRowDetailExpandMode.Multiple",
+    },
+    emphasis: {
+      description: "How an expanded row and its details are set apart from the rows around them.",
+      type: "TableRowDetailEmphasis",
+      typeDescription:
+        "TableRowDetailEmphasis.None | TableRowDetailEmphasis.Band | TableRowDetailEmphasis.Rail",
+      default: "TableRowDetailEmphasis.Band",
+    },
+    inset: {
+      description: "Where the details content starts.",
+      type: "TableRowDetailInset",
+      typeDescription: "TableRowDetailInset.Aligned | TableRowDetailInset.Bleed",
+      default: "TableRowDetailInset.Aligned",
+    },
+    animate: {
+      description:
+        "Whether details animate open and closed. Animation is always off when the user prefers reduced motion.",
+      type: "bool",
+      default: "true",
+    },
+    "key-field": {
+      description:
+        "The name of a public property on the row item that identifies it, compared against `expanded-keys`. Required when `expanded-keys` is set.",
+      type: "string",
+    },
+    "expanded-keys": {
+      description: "The keys of the rows to render expanded.",
+      type: "IEnumerable",
+    },
+  }}
+/>
