@@ -1,28 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
-// Keep in sync with the theme bundles the DocsSamplesGenerator exports into
-// public/demo/tag-helpers/assets/ (derived there from the library's theme sources).
-export const demoThemes = [
-  "aurora",
-  "concourse",
-  "ice",
-  "ledger",
-  "shadcn.luma",
-  "shadcn.lyra",
-  "shadcn.maia",
-  "meridian",
-  "shadcn.mira",
-  "shadcn.nova",
-  "observatory",
-  "parallax",
-  "shadcn.rhea",
-  "shadcn.sera",
-  "shadcn.vega",
-] as const;
+// Keep in sync with the presets the DocsSamplesGenerator exports into
+// public/demo/tag-helpers/assets/presets/ (taken there from the library's presets).
+// "default" is the library's stylesheet alone, with no preset.
+export const demoThemes = ["default", "ledger", "ops", "soft"] as const;
 
 export type DemoTheme = (typeof demoThemes)[number];
 
-const defaultTheme: DemoTheme = "observatory";
+const defaultTheme: DemoTheme = "default";
 const storageKey = "demo-theme";
 const changeEvent = "demo-theme-change";
 

@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -79,34 +89,34 @@
     
 <div class="w-full max-w-md">
     <!-- code begin -->
-    <div data-slot="card" data-size="default" class="sa-card group/card">
+    <div data-slot="card" data-size="default" class="sa-card">
         <div data-slot="card-content" class="sa-card-content">
             <form method="post">
                 <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
                     <div data-slot="questionnaire-progress" class="sa-questionnaire-progress" data-current="3" data-total="5" role="progressbar" aria-valuenow="3" aria-valuemin="1" aria-valuemax="5" aria-valuetext="Question 3 of 5" aria-label="Questionnaire progress">Question 3 of 5</div>
                     <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
-                        <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Where would you like to sit?</legend>
+                        <legend data-slot="questionnaire-title" class="sa-questionnaire-title">Where would you like to sit?</legend>
                         <div data-slot="questionnaire-description" class="sa-questionnaire-description">
                             We will request this seat on every flight in your itinerary.
                         </div>
-                        <div data-slot="questionnaire-choices" data-shortcuts="numbers" class="sa-questionnaire-choices group/questionnaire-choices">
-                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="1" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="1" checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_window" name="PartialModel.SeatPreference" type="radio" value="window" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_window">
+                        <div data-slot="questionnaire-choices" data-shortcuts="numbers" class="sa-questionnaire-choices">
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="1" class="sa-questionnaire-choice"><input aria-keyshortcuts="1" checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_window" name="PartialModel.SeatPreference" type="radio" value="window" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_window">
                                 Window
                             </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">1</span></div>
-                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="2" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="2" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_aisle" name="PartialModel.SeatPreference" type="radio" value="aisle" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_aisle">
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="2" class="sa-questionnaire-choice"><input aria-keyshortcuts="2" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_aisle" name="PartialModel.SeatPreference" type="radio" value="aisle" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_aisle">
                                 Aisle
                             </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">2</span></div>
-                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="3" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="3" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_any" name="PartialModel.SeatPreference" type="radio" value="any" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_any">
+                            <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="3" class="sa-questionnaire-choice"><input aria-keyshortcuts="3" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_SeatPreference_any" name="PartialModel.SeatPreference" type="radio" value="any" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_SeatPreference_any">
                                 No preference
                             </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">3</span></div>
                         </div>
                     <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.SeatPreference" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
                     <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
-                        <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button group/button sa-button-variant-outline sa-button-size-default">Previous</button>
-                        <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
+                        <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button sa-button-variant-outline sa-button-size-default">Previous</button>
+                        <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button sa-button-variant-default sa-button-size-default">Next</button>
                     </div>
                 </sel-questionnaire>
-            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxv6iNFPpaqLb1qMYuxsGcacIBiX56qpWplKLNo4Y0H8cSWnOHaS7jGNagqzi248EfKP5qgaQVz5VCsC-o5tNs1pKb6-rc21zDe3p801-4FVnrb2B8Jwj8mE6RH7O7wUkpA" /></form>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxu_ZkIEBxxVopObDcPdwpscz3UxLKZncy9WqNVN8tZXCC9jj4aKuvKRgF5hWv1X-OlLvuZls8yPs0hcXQeL9_wkoZI5o9DEy25D07Iaz_ffhsgJQ_ktE4Q7txlwiKf-jjg" /></form>
         </div>
     </div>
     <!-- code end -->

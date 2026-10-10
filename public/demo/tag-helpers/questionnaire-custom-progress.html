@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -91,28 +101,28 @@
                 <span>Step 2 of 4</span>
             </div>
             <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
-                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">Who is travelling?</legend>
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title">Who is travelling?</legend>
                 <div data-slot="questionnaire-description" class="sa-questionnaire-description">
                     We hold seats together wherever the airline allows it.
                 </div>
-                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_solo" name="PartialModel.Travellers" type="radio" value="solo" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_solo">
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_solo" name="PartialModel.Travellers" type="radio" value="solo" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_solo">
                         Just me
                     </label></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_couple" name="PartialModel.Travellers" type="radio" value="couple" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_couple">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_couple" name="PartialModel.Travellers" type="radio" value="couple" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_couple">
                         Two of us
                     </label></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_family" name="PartialModel.Travellers" type="radio" value="family" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_family">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Travellers_family" name="PartialModel.Travellers" type="radio" value="family" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Travellers_family">
                         A family
                     </label></div>
                 </div>
             <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Travellers" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
             <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
-                <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button group/button sa-button-variant-outline sa-button-size-default">Previous</button>
-                <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
+                <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button sa-button-variant-outline sa-button-size-default">Previous</button>
+                <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button sa-button-variant-default sa-button-size-default">Next</button>
             </div>
         </sel-questionnaire>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxtloRQWv9r-ZkLS_NC3FOyjIyLnQxoSLCDyUAmxVMTx0DAEXCfJu_7TAIw59Wu7mVz8lk0lhB3TLxu6362hCrhnNgu2G20i74gDsay5w7RIGWcR_rVdXnVpZS8EJNL5Wgs" /></form>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxs2LgIs67Z-lz1yK44fcInU6Sdr36AqTse1SsvWuVHez6BU8c4O-ib1oJsJoqN_GRsag5VG3hMzS3HGKZcXGrdMwieAwEyv9v7DeSyhHtf9fSi-TkydIB3IrQSMQ4TpGMI" /></form>
     <!-- code end -->
 </div>
 

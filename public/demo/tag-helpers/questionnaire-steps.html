@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -83,24 +93,24 @@
         <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
             <div data-slot="questionnaire-progress" class="sa-questionnaire-progress" data-current="2" data-total="4" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="4" aria-valuetext="Question 2 of 4" aria-label="Questionnaire progress">Question 2 of 4</div>
             <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
-                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">What pace suits this trip?</legend>
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title">What pace suits this trip?</legend>
                 <div data-slot="questionnaire-description" class="sa-questionnaire-description">
                     You can still adjust individual days once the itinerary is drafted.
                 </div>
-                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices group/questionnaire-choices">
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_relaxed" name="PartialModel.Pace" type="radio" value="relaxed" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_relaxed">
+                <div data-slot="questionnaire-choices" class="sa-questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input checked="checked" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_relaxed" name="PartialModel.Pace" type="radio" value="relaxed" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_relaxed">
                         Relaxed
                         <span data-slot="questionnaire-choice-description" class="sa-questionnaire-choice-description">
                             Two or three plans a day, with time to wander.
                         </span>
                     </label></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_balanced" name="PartialModel.Pace" type="radio" value="balanced" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_balanced">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_balanced" name="PartialModel.Pace" type="radio" value="balanced" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_balanced">
                         Balanced
                         <span data-slot="questionnaire-choice-description" class="sa-questionnaire-choice-description">
                             A full morning and afternoon, evenings left open.
                         </span>
                     </label></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice group/questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_packed" name="PartialModel.Pace" type="radio" value="packed" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_packed">
+                    <div data-slot="questionnaire-choice" data-type="radio" class="sa-questionnaire-choice"><input class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Pace_packed" name="PartialModel.Pace" type="radio" value="packed" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Pace_packed">
                         Packed
                         <span data-slot="questionnaire-choice-description" class="sa-questionnaire-choice-description">
                             See as much as possible, early starts included.
@@ -109,12 +119,12 @@
                 </div>
             <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Pace" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
             <div data-slot="questionnaire-actions" class="sa-questionnaire-actions">
-                <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button group/button sa-button-variant-outline sa-button-size-default">Previous</button>
-                <button name="step" value="skip" data-slot="questionnaire-skip" type="submit" class="sa-questionnaire-skip sa-button group/button sa-button-variant-outline sa-button-size-default">Skip</button>
-                <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button group/button sa-button-variant-default sa-button-size-default">Next</button>
+                <button name="step" value="back" data-slot="questionnaire-previous" type="submit" class="sa-questionnaire-previous sa-button sa-button-variant-outline sa-button-size-default">Previous</button>
+                <button name="step" value="skip" data-slot="questionnaire-skip" type="submit" class="sa-questionnaire-skip sa-button sa-button-variant-outline sa-button-size-default">Skip</button>
+                <button name="step" value="next" data-slot="questionnaire-next" type="submit" class="sa-questionnaire-next sa-button sa-button-variant-default sa-button-size-default">Next</button>
             </div>
         </sel-questionnaire>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxtKOTDFVveXPSMwfz2UrNdn7CSILaRzxyQhqaQ5kVGdNGKkvThq9o-a4_b_zcYvy6CLV9yoYgM0KVniMfwQVCJpUOl_pD4snycbJA8Sz0lwng0a2c6KsFj_hKsbRdL1Bpk" /></form>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxsoBxxcLoC07v_2-EYo7N4HMLbfA0eKZ0hV5rkNwRVyfwNJTforRdrQERrYG6tNlQDKlXo9SXLClfIRINYUyo8X-sXPYWOXIHerZwmlASsAEABh2tlH83sEF0JVZhYnFM4" /></form>
     <!-- code end -->
 </div>
 

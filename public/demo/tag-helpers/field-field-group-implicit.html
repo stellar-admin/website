@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -79,26 +89,26 @@
     
 <div class="w-full max-w-md">
     <!-- code begin -->
-    <div data-slot="field-group" class="sa-field-group group/field-group">
+    <div data-slot="field-group" class="sa-field-group">
         <fieldset data-slot="field-set" class="sa-field-set">
-            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Booking updates</label>
+            <label data-slot="field-label" class="sa-label sa-field-label">Booking updates</label>
             <p data-slot="field-description" class="sa-field-description">
                 Get notified when a booking you manage is confirmed, changed, or
                 cancelled.
             </p>
-            <div data-slot="checkbox-group" class="sa-field-group group/field-group">
-                <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input disabled type="checkbox" checked="checked" data-val="true" data-val-required="The Push notifications field is required." id="PartialModel_EnableBookingPushNotifications" name="PartialModel.EnableBookingPushNotifications" value="true" data-slot="input" class="sa-checkbox peer" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b807747601-error"><input name="PartialModel.EnableBookingPushNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" height="24" width="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_EnableBookingPushNotifications">Push notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b807747601-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableBookingPushNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
+            <div data-slot="checkbox-group" class="sa-field-group">
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input disabled type="checkbox" checked="checked" data-val="true" data-val-required="The Push notifications field is required." id="PartialModel_EnableBookingPushNotifications" name="PartialModel.EnableBookingPushNotifications" value="true" data-slot="input" class="sa-checkbox" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b807747601-error"><input name="PartialModel.EnableBookingPushNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" stroke-linecap="round" viewBox="0 0 24 24" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content" data-slot="field-content"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_EnableBookingPushNotifications">Push notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b807747601-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableBookingPushNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
             </div>
         </fieldset>
         <div data-slot="field-separator" data-content="false" class="sa-field-separator"><div class="sa-separator sa-separator-horizontal sa-field-separator-line" role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal"></div></div>
         <fieldset data-slot="field-set" class="sa-field-set">
-            <label data-slot="field-label" class="sa-label sa-field-label group/field-label peer/field-label">Flight alerts</label>
+            <label data-slot="field-label" class="sa-label sa-field-label">Flight alerts</label>
             <p data-slot="field-description" class="sa-field-description">
                 Get notified about gate changes and delays for upcoming flights. <a href="#">Manage flights</a>
             </p>
-            <div data-slot="checkbox-group" class="sa-field-group group/field-group">
-                <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" data-val="true" data-val-required="The Push notifications field is required." id="PartialModel_EnableFlightPushNotifications" name="PartialModel.EnableFlightPushNotifications" value="true" data-slot="input" class="sa-checkbox peer" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077415085-error"><input name="PartialModel.EnableFlightPushNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" height="24" width="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_EnableFlightPushNotifications">Push notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077415085-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableFlightPushNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
-                <div class="sa-field group/field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" data-val="true" data-val-required="The Email notifications field is required." id="PartialModel_EnableFlightEmailNotifications" name="PartialModel.EnableFlightEmailNotifications" value="true" data-slot="input" class="sa-checkbox peer" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077416756-error"><input name="PartialModel.EnableFlightEmailNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" height="24" width="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content group/field-content" data-slot="field-content"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_EnableFlightEmailNotifications">Email notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077416756-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableFlightEmailNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
+            <div data-slot="checkbox-group" class="sa-field-group">
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" data-val="true" data-val-required="The Push notifications field is required." id="PartialModel_EnableFlightPushNotifications" name="PartialModel.EnableFlightPushNotifications" value="true" data-slot="input" class="sa-checkbox" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077415085-error"><input name="PartialModel.EnableFlightPushNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" stroke-linecap="round" viewBox="0 0 24 24" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content" data-slot="field-content"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_EnableFlightPushNotifications">Push notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077415085-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableFlightPushNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" data-val="true" data-val-required="The Email notifications field is required." id="PartialModel_EnableFlightEmailNotifications" name="PartialModel.EnableFlightEmailNotifications" value="true" data-slot="input" class="sa-checkbox" aria-describedby="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077416756-error"><input name="PartialModel.EnableFlightEmailNotifications" type="hidden" value="false"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" width="24" stroke-linecap="round" viewBox="0 0 24 24" height="24" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span><div class="sa-field-content" data-slot="field-content"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_EnableFlightEmailNotifications">Email notifications</label><div id="sa-363be89929affca18c33e08cd3dac05d13c7828cc917f4fdcd371a5098b8077416756-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.EnableFlightEmailNotifications" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div></div>
             </div>
         </fieldset>
     </div>

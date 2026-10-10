@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -79,15 +89,15 @@
     
 <div  class="w-full max-w-md flex flex-col gap-y-4">
     <!-- code begin -->
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Text">Text</label><input type="text" id="PartialModel_Text" name="PartialModel.Text" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d193807-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d193807-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Text" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Password">Password</label><input type="password" id="PartialModel_Password" name="PartialModel.Password" placeholder="Password" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d195250-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d195250-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Password" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Tel">Tel</label><input type="tel" id="PartialModel_Tel" name="PartialModel.Tel" placeholder="&#x2B;66 (12) 345 6789" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d196697-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d196697-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Tel" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Url">Url</label><input type="url" id="PartialModel_Url" name="PartialModel.Url" placeholder="https://www.example.com" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d198139-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d198139-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Url" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Search">Search</label><input type="search" id="PartialModel_Search" name="PartialModel.Search" placeholder="Enter a search term..." value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d199581-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d199581-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Search" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Number">Number</label><input type="number" id="PartialModel_Number" name="PartialModel.Number" placeholder="123" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1911220-error"><input name="__Invariant" type="hidden" value="PartialModel.Number" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1911220-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Number" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Date">Date</label><input type="date" id="PartialModel_Date" name="PartialModel.Date" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1912668-error"><input name="__Invariant" type="hidden" value="PartialModel.Date" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1912668-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Date" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_Time">Time</label><input type="time" id="PartialModel_Time" name="PartialModel.Time" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1914114-error"><input name="__Invariant" type="hidden" value="PartialModel.Time" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1914114-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Time" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label group/field-label peer/field-label" data-slot="field-label" for="PartialModel_File">File</label><input type="file" id="PartialModel_File" name="PartialModel.File" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1915560-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1915560-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.File" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Text">Text</label><input type="text" id="PartialModel_Text" name="PartialModel.Text" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d193807-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d193807-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Text" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Password">Password</label><input type="password" id="PartialModel_Password" name="PartialModel.Password" placeholder="Password" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d195250-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d195250-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Password" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Tel">Tel</label><input type="tel" id="PartialModel_Tel" name="PartialModel.Tel" placeholder="&#x2B;66 (12) 345 6789" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d196697-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d196697-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Tel" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Url">Url</label><input type="url" id="PartialModel_Url" name="PartialModel.Url" placeholder="https://www.example.com" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d198139-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d198139-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Url" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Search">Search</label><input type="search" id="PartialModel_Search" name="PartialModel.Search" placeholder="Enter a search term..." value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d199581-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d199581-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Search" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Number">Number</label><input type="number" id="PartialModel_Number" name="PartialModel.Number" placeholder="123" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1911220-error"><input name="__Invariant" type="hidden" value="PartialModel.Number" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1911220-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Number" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Date">Date</label><input type="date" id="PartialModel_Date" name="PartialModel.Date" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1912668-error"><input name="__Invariant" type="hidden" value="PartialModel.Date" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1912668-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Date" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_Time">Time</label><input type="time" id="PartialModel_Time" name="PartialModel.Time" value="" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1914114-error"><input name="__Invariant" type="hidden" value="PartialModel.Time" /><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1914114-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Time" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label class="sa-label sa-field-label" data-slot="field-label" for="PartialModel_File">File</label><input type="file" id="PartialModel_File" name="PartialModel.File" data-slot="input" class="sa-input" aria-describedby="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1915560-error"><div id="sa-34df4bec15afa615e78d618550a59913d71a8c16e041d362733c990a93a02d1915560-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.File" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
     <!-- code end -->
 </div>
 

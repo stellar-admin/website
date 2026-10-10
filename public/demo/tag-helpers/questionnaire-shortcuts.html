@@ -3,7 +3,7 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
+            var themes = ['default', 'ledger', 'ops', 'soft'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -15,26 +15,35 @@
             function selectedTheme() {
                 var theme = null;
                 try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
+                if (themes.indexOf(theme) < 0) theme = 'default';
                 return theme;
             }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
             }
             window.saThemeInit = function () {
                 window.saLoadThemeFonts(selectedTheme());
                 var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
             };
             function swapTheme() {
                 window.saLoadThemeFonts(selectedTheme());
                 var links = document.querySelectorAll('link[data-sa-theme]');
                 var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
                 var next = document.createElement('link');
                 next.rel = 'stylesheet';
                 next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
+                next.href = href;
                 next.addEventListener('load', function () {
                     if (!next.isConnected) return;
                     var all = document.querySelectorAll('link[data-sa-theme]');
@@ -54,9 +63,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.k336l3yscl.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +76,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -82,24 +92,24 @@
     <form method="post">
         <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
             <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
-                <legend data-slot="questionnaire-title" class="sa-questionnaire-title sa-font-heading font-heading">When would you like to depart?</legend>
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title">When would you like to depart?</legend>
                 <div data-slot="questionnaire-description" class="sa-questionnaire-description">
                     Departure dates change the fare more than anything else.
                 </div>
-                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices group/questionnaire-choices">
-                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_asap" name="PartialModel.Departure" type="radio" value="asap" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_asap">
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_asap" name="PartialModel.Departure" type="radio" value="asap" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_asap">
                         As soon as possible
                     </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_shoulder" name="PartialModel.Departure" type="radio" value="shoulder" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_shoulder">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_shoulder" name="PartialModel.Departure" type="radio" value="shoulder" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_shoulder">
                         Shoulder season
                     </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
-                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice group/questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_flexible" name="PartialModel.Departure" type="radio" value="flexible" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_flexible">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_flexible" name="PartialModel.Departure" type="radio" value="flexible" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_flexible">
                         I am flexible
                     </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
                 </div>
             <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Departure" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
         </sel-questionnaire>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxu5d-i2H2WQYAOpk2LstzkHSGKk7tb6fDoiI8FfEhBYbpA1aRWI-wCEgIQFLT-GLdMzTDbzgNlMpRF1yJD13QsB6yGt_mdttWhSBY8-a7_wNvDcpVztZxt_nm4hxrTuuag" /></form>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxtf_PjDY_HhPJiyx69Uq2aX07zqcKvxq8BKVF7GaVeNtSKRFlDu5U-HYi6UZFhMf3sqNg5q65Joq5w6dcGcVFPFulFXGX7q974r54_4ClqDVmJTQjpNgOXTf7bjp600rOw" /></form>
     <!-- code end -->
 </div>
 
