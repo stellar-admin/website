@@ -829,6 +829,9 @@
       border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
     }
   }
+  .self-start {
+    align-self: flex-start;
+  }
   .self-stretch {
     align-self: stretch;
   }
@@ -1411,6 +1414,11 @@
         font-size: var(--text-xl);
         line-height: var(--tw-leading, var(--text-xl--line-height));
       }
+    }
+  }
+  .sm\:mr-auto {
+    @media (width >= 40rem) {
+      margin-right: auto;
     }
   }
   .sm\:max-w-none {

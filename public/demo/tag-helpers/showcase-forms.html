@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var themes = ['default', 'ledger', 'ops', 'soft'];
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            function selectedTheme() {
+                var theme = null;
+                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
+                if (themes.indexOf(theme) < 0) theme = 'default';
+                return theme;
+            }
+            function presetHref() {
+                var theme = selectedTheme();
+                return theme === 'default' ? null : '/demo/tag-helpers/assets/presets/' + theme + '.css';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts(selectedTheme());
+                var link = document.querySelector('link[data-sa-theme]');
+                var href = presetHref();
+                if (link && href) link.setAttribute('href', href);
+            };
+            function swapTheme() {
+                window.saLoadThemeFonts(selectedTheme());
+                var links = document.querySelectorAll('link[data-sa-theme]');
+                var current = links[links.length - 1];
+                var href = presetHref();
+                if (!current || current.getAttribute('href') === href) return;
+                for (var i = 0; i < links.length - 1; i++) links[i].remove();
+                if (!href || !current.getAttribute('href')) {
+                    if (href) current.setAttribute('href', href);
+                    else current.removeAttribute('href');
+                    return;
+                }
+                var next = document.createElement('link');
+                next.rel = 'stylesheet';
+                next.setAttribute('data-sa-theme', '');
+                next.href = href;
+                next.addEventListener('load', function () {
+                    if (!next.isConnected) return;
+                    var all = document.querySelectorAll('link[data-sa-theme]');
+                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
+                });
+                current.after(next);
+            }
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+                if (e.key === null || e.key === 'demo-theme') swapTheme();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script src="/demo/tag-helpers/assets/theme-fonts.nlws8l8cv3.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.urffqt6gbo.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.8xkpvcneaa.css" />
+        <link rel="stylesheet" data-sa-theme /><script>saThemeInit();</script>
+    
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
+</head>
+<body>
+
+<div class="w-full min-w-0 p-4 sm:p-6">
+    
+    <div data-slot="page-container" data-width="medium" class="sa-page-container sa-page-container-width-medium">
+    <header data-slot="page-header" class="sa-page-header">
+        <h1 data-slot="page-header-title" class="sa-page-header-title">Trip settings</h1>
+        <p data-slot="page-header-description" class="sa-page-header-description">How the Kyoto week appears in the Voyager catalog, and who can book it.</p>
+        <div data-slot="page-header-actions" class="sa-page-header-actions">
+            <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">Preview</button>
+            <button data-slot="button" class="sa-button sa-button-variant-default sa-button-size-default">Save changes</button>
+        </div>
+    </header>
+
+    <section data-slot="form-section" data-layout="card" aria-labelledby="sa-form-section-34eeae92631c4f6a94b6f3e16779b16f" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title" data-slot="form-section-title" id="sa-form-section-34eeae92631c4f6a94b6f3e16779b16f">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">The name, code and description travelers see.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <div data-slot="field-group" class="sa-field-group">
+            <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-name" data-slot="field-label" class="sa-label sa-field-label">Trip name</label>
+                    <input id="forms-name" value="A week in Kyoto" data-slot="input" class="sa-input">
+                    <p data-slot="field-description" class="sa-field-description">Shown in search results and on the booking page.</p>
+                </div>
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-code" data-slot="field-label" class="sa-label sa-field-label">Booking code</label>
+                    <input id="forms-code" value="KYO-07" disabled data-slot="input" class="sa-input">
+                    <p data-slot="field-description" class="sa-field-description">Set when the trip is created.</p>
+                </div>
+            </div></div>
+            <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-region" data-slot="field-label" class="sa-label sa-field-label">Region</label>
+                    <div data-slot="native-select-wrapper" data-size="default" class="sa-native-select-wrapper"><select id="forms-region" data-slot="native-select" data-size="default" class="sa-native-select">
+                        <option>East Asia</option>
+                        <option>Southeast Asia</option>
+                        <option>Europe</option>
+                    </select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" width="24" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg></div>
+                </div>
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-email" data-slot="field-label" class="sa-label sa-field-label">Host email</label>
+                    <input id="forms-email" type="email" value="kyoto@" aria-invalid="true" data-slot="input" class="sa-input">
+                    <p class="text-xs text-destructive">Please enter a complete email address.</p>
+                </div>
+            </div></div>
+            <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                <label for="forms-description" data-slot="field-label" class="sa-label sa-field-label">Description</label>
+                <textarea id="forms-description" rows="4" class="sa-textarea min-h-28" data-slot="textarea">Explore Kyoto's temples, gardens and local food over seven unhurried days.</textarea>
+            </div>
+        </div>
+    </div></div></section>
+
+    <section data-slot="form-section" data-layout="card" aria-labelledby="sa-form-section-960efb444a0c4011938a0a187eadefc4" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title" data-slot="form-section-title" id="sa-form-section-960efb444a0c4011938a0a187eadefc4">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Places, pricing and the waitlist.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+        <div data-slot="field-group" class="sa-field-group">
+            <div data-slot="form-row" class="sa-form-row"><div class="sa-form-row-content" data-slot="form-row-content">
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-places" data-slot="field-label" class="sa-label sa-field-label">Available places</label>
+                    <input id="forms-places" type="number" min="0" value="12" data-slot="input" class="sa-input">
+                </div>
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="forms-price" data-slot="field-label" class="sa-label sa-field-label">Price per traveler</label>
+                    <div role="group" data-slot="input-group" class="sa-input-group">
+                        <div role="group" data-slot="input-group-addon" data-align="inline-start" onclick="(function(e) {&#xA;  if ((e.target).closest(&#x27;button&#x27;)) {&#xA;    return;&#xA;  }&#xA;  e.currentTarget.parentElement?.querySelector(&#x27;input&#x27;)?.focus();&#xA;})(event);" class="sa-input-group-addon sa-input-group-addon-align-inline-start">$</div>
+                        <input id="forms-price" value="2,480" data-slot="input-group-control" class="sa-input sa-input-group-input">
+                        <div role="group" data-slot="input-group-addon" data-align="inline-end" onclick="(function(e) {&#xA;  if ((e.target).closest(&#x27;button&#x27;)) {&#xA;    return;&#xA;  }&#xA;  e.currentTarget.parentElement?.querySelector(&#x27;input&#x27;)?.focus();&#xA;})(event);" class="sa-input-group-addon sa-input-group-addon-align-inline-end">USD</div>
+                    </div>
+                </div>
+            </div></div>
+            <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-label" class="sa-label sa-field-label" data-slot="field-label">Cancellation</label><div id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121" data-slot="radio-group" role="radiogroup" class="sa-field-group" aria-labelledby="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-label">
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="forms-cancellation" id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-1" value="flexible" checked="checked" aria-describedby="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-1-description" data-slot="input" class="sa-radiobutton"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" width="24" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content" data-slot="field-content"><label class="sa-field-label" data-slot="field-label" for="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-1">Flexible</label><p class="sa-field-description" data-slot="field-description" id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-1-description">Full refund up to 14 days before departure</p></div></div>
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="forms-cancellation" id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-2" value="strict" aria-describedby="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-2-description" data-slot="input" class="sa-radiobutton"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" width="24" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content" data-slot="field-content"><label class="sa-field-label" data-slot="field-label" for="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-2">Strict</label><p class="sa-field-description" data-slot="field-description" id="sa-f107def43122d35c5b67ac19c14d31ef942efb7e095e555d901f0641e489338b75121-2-description">Refunds as travel credit only</p></div></div>
+            </div></div>
+            <button class="sa-button sa-button-variant-link sa-button-size-default self-start px-0" data-slot="button">Read the cancellation policy</button>
+            <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
+                <span class="sa-input-control-wrapper"><input type="checkbox" id="forms-waitlist" checked data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" height="24" stroke-width="2" width="24" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                <div data-slot="field-content" class="sa-field-content">
+                    <label for="forms-waitlist" data-slot="field-label" class="sa-label sa-field-label">Allow waitlist</label>
+                    <p data-slot="field-description" class="sa-field-description">Accept requests when the trip is full.</p>
+                </div>
+            </div>
+            <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
+                <span data-slot="switch" data-size="default" class="sa-switch-wrapper"><input id="forms-alerts" checked type="checkbox" role="switch" data-slot="switch-input" class="sa-switch"><span class="sa-switch-thumb" data-slot="switch-thumb"></span></span>
+                <div data-slot="field-content" class="sa-field-content">
+                    <label for="forms-alerts" data-slot="field-label" class="sa-label sa-field-label">Booking alerts</label>
+                    <p data-slot="field-description" class="sa-field-description">Email the host when someone books.</p>
+                </div>
+            </div>
+        </div>
+    </div></div></section>
+
+    <div data-slot="card" data-size="default" class="sa-card">
+        <div data-slot="card-header" class="sa-card-header">
+            <div data-slot="card-title" class="sa-card-title">Archive this trip</div>
+            <div data-slot="card-description" class="sa-card-description">Travelers can no longer find or book it. Existing bookings are kept.</div>
+        </div>
+        <div class="sa-card-footer justify-end gap-2" data-slot="card-footer">
+            <button data-slot="button" class="sa-button sa-button-variant-ghost sa-button-size-default">Cancel</button>
+            <button data-slot="button" class="sa-button sa-button-variant-destructive sa-button-size-default">Archive trip</button>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+</body>
+</html>

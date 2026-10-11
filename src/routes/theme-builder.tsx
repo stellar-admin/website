@@ -26,7 +26,15 @@ import {
 import { themeSeeds } from "@/lib/theme-builder/seeds";
 import { cn } from "@/lib/utils";
 
-const previewSrc = "/demo/tag-helpers/showcase-theme-showcase.html";
+// Docs exports that together use every knob: the component spectrum, an admin page, a settings
+// form, every overlay open at once, and the component studies.
+const previewPages = [
+  { value: "showcase-theme-showcase", label: "Showcase" },
+  { value: "showcase-admin-shell", label: "Admin page" },
+  { value: "showcase-forms", label: "Forms" },
+  { value: "showcase-overlays", label: "Overlays" },
+  { value: "showcase-masonry", label: "Studies" },
+];
 
 export const Route = createFileRoute("/theme-builder")({
   component: ThemeBuilder,
@@ -59,6 +67,7 @@ function ThemeBuilder() {
   const [seed, setSeed] = useState<string | null>("default");
   const [mode, setMode] = useState<Mode>("light");
   const [view, setViewState] = useState<View>("simple");
+  const [page, setPage] = useState(previewPages[0].value);
 
   // The view is the reader's preference, not part of the theme, so it stays out of the URL.
   useEffect(() => {
@@ -174,6 +183,28 @@ function ThemeBuilder() {
                 onChange={setMode}
               />
             </div>
+            <Select
+              items={previewPages}
+              value={page}
+              onValueChange={(next) => {
+                if (typeof next === "string") setPage(next);
+              }}
+            >
+              <SelectTrigger
+                size="sm"
+                aria-label="Preview page"
+                className="min-w-36 text-sm"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {previewPages.map((p) => (
+                  <SelectItem key={p.value} value={p.value}>
+                    {p.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Segmented
               label="Controls"
               options={["simple", "advanced"] as const}
@@ -244,7 +275,12 @@ function ThemeBuilder() {
           </div>
         </aside>
 
-        <Preview manifest={manifest} theme={theme} mode={mode} />
+        <Preview
+          src={`/demo/tag-helpers/${page}.html`}
+          manifest={manifest}
+          theme={theme}
+          mode={mode}
+        />
       </main>
     </HomeLayout>
   );
@@ -337,13 +373,15 @@ function Segmented<T extends string>({
   );
 }
 
-/** The showcase export, with every knob written onto its root so a preset the reader picked for
- *  the docs demos (the page links it from localStorage) cannot show through. */
+/** A docs export, with every knob written onto its root so a preset the reader picked for the docs
+ *  demos (the page links it from localStorage) cannot show through. */
 function Preview({
+  src,
   manifest,
   theme,
   mode,
 }: {
+  src: string;
   manifest: KnobManifest | null;
   theme: KnobValues;
   mode: Mode;
@@ -405,7 +443,7 @@ function Preview({
     <div className="bg-background sticky top-14 z-10 order-first h-[45dvh] min-w-0 border-b lg:order-none lg:h-[calc(100dvh-3.5rem)] lg:border-b-0">
       <iframe
         ref={iframeRef}
-        src={previewSrc}
+        src={src}
         title="Theme preview"
         className="h-full w-full"
       />
