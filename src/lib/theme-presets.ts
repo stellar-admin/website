@@ -5,9 +5,9 @@ import {
   parseThemeCss,
 } from "@/lib/theme-builder/knobs";
 
-// The themes the docs theme picker and the theme builder offer, exported by the DocsSamplesGenerator
-// from the product's theme fixtures (util/theme-check/presets/): presets.json lists them, default
-// first, and each other theme is a knob file beside it.
+// The theme builder's presets, exported by the DocsSamplesGenerator from the product's theme fixtures
+// (util/theme-check/presets/): presets.json lists them, default first, and each other theme is a knob
+// file beside it.
 const presetsFolder = "/demo/tag-helpers/assets/presets";
 
 export const defaultPreset = "default";
