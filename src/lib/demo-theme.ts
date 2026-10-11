@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
 // Keep in sync with the presets the DocsSamplesGenerator exports into
-// public/demo/tag-helpers/assets/presets/ (taken there from the library's presets).
+// public/demo/tag-helpers/assets/presets/ (taken there from the product's theme fixtures,
+// util/theme-check/presets/, the former library presets).
 // "default" is the library's stylesheet alone, with no preset.
 export const demoThemes = ["default", "ledger", "ops", "soft"] as const;
 

@@ -1,8 +1,8 @@
 import type { KnobValues } from "./knobs";
 
-// Starting points for the builder. The values are copied from the library presets
-// (src/StellarAdmin.TagHelpers/Client/css/presets/ in the product repository), which the library
-// stops shipping once the builder replaces them.
+// Starting points for the builder, the only place the library's former presets live as presets.
+// The product keeps the same values as theme fixtures (util/theme-check/presets/ in the product
+// repository) for its theme checks and the docs theme picker.
 export interface ThemeSeed {
   id: string;
   label: string;
