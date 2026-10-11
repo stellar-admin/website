@@ -24,6 +24,8 @@ export interface Knob {
   label: string;
   meaning: string;
   type: KnobType;
+  /** One of the few knobs shown first (the builder's simple view). */
+  essential?: boolean;
   default?: string;
   optional?: boolean;
   follows?: string;

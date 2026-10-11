@@ -25,10 +25,13 @@ export function KnobControl({
   knob,
   value,
   onChange,
+  compact,
 }: {
   knob: Knob;
   value: string | undefined;
   onChange: (value: string | undefined) => void;
+  /** Leaves out the explanation (still in the label's tooltip). */
+  compact?: boolean;
 }) {
   const id = useId();
   const auto = knob.optional && value === undefined;
@@ -65,10 +68,12 @@ export function KnobControl({
           </button>
         ) : null}
       </div>
-      <p className="text-muted-foreground -mt-1 text-xs">
-        {knob.meaning}
-        {auto && knob.follows ? ` Follows ${knob.follows}.` : ""}
-      </p>
+      {!compact && (
+        <p className="text-muted-foreground -mt-1 text-xs">
+          {knob.meaning}
+          {auto && knob.follows ? ` Follows ${knob.follows}.` : ""}
+        </p>
+      )}
       <Input
         id={id}
         knob={knob}

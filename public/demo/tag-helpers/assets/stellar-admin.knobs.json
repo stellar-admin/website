@@ -35,6 +35,7 @@
     {
       "name": "--sa-accent",
       "group": "colour",
+      "essential": true,
       "label": "Accent",
       "meaning": "Brand colour: primary actions, focus, selection, bold highlights.",
       "type": "color",
@@ -105,6 +106,7 @@
     {
       "name": "--sa-neutral-hue",
       "group": "colour",
+      "essential": true,
       "label": "Neutral hue",
       "meaning": "Hue the greys lean toward.",
       "type": "number",
@@ -116,6 +118,7 @@
     {
       "name": "--sa-neutral-chroma",
       "group": "colour",
+      "essential": true,
       "label": "Neutral tint",
       "meaning": "How much the greys lean (0 is pure grey).",
       "type": "number",
@@ -197,6 +200,7 @@
     {
       "name": "--sa-radius",
       "group": "shape",
+      "essential": true,
       "label": "Radius",
       "meaning": "Control corners.",
       "type": "length",
@@ -229,6 +233,7 @@
     {
       "name": "--sa-pills",
       "group": "shape",
+      "essential": true,
       "label": "Pill tags",
       "meaning": "Tags (badges, chips, the switch) are pills instead of following the radius.",
       "type": "switch",
@@ -245,6 +250,7 @@
     {
       "name": "--sa-relief",
       "group": "shape",
+      "essential": true,
       "label": "Relief",
       "meaning": "Raised adds a shadow under buttons; tactile also adds a bottom edge, a hover lift, a pressed state and recessed fields.",
       "type": "choice",
@@ -287,6 +293,7 @@
     {
       "name": "--sa-elevation",
       "group": "shape",
+      "essential": true,
       "label": "Elevation",
       "meaning": "Shadow strength: 0 flat, 1 soft, 2 or more floating.",
       "type": "number",
@@ -298,6 +305,7 @@
     {
       "name": "--sa-density",
       "group": "type",
+      "essential": true,
       "label": "Density",
       "meaning": "Spacing and control sizes, not type: 0.75 dense to 1.25 roomy.",
       "type": "number",
@@ -320,6 +328,7 @@
     {
       "name": "--sa-font-sans",
       "group": "type",
+      "essential": true,
       "label": "Font",
       "meaning": "Body and control font.",
       "type": "font",
@@ -374,6 +383,7 @@
     {
       "name": "--sa-font-heading",
       "group": "type",
+      "essential": true,
       "label": "Heading font",
       "meaning": "Titles.",
       "type": "font",

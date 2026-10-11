@@ -43,6 +43,9 @@ export const Route = createFileRoute("/theme-builder")({
 });
 
 type Mode = "light" | "dark";
+type View = "simple" | "advanced";
+
+const viewStorageKey = "theme-builder-view";
 
 const seedItems = themeSeeds.map((seed) => ({
   value: seed.id,
@@ -55,6 +58,26 @@ function ThemeBuilder() {
   const [values, setValues] = useState<KnobValues>({});
   const [seed, setSeed] = useState<string | null>("default");
   const [mode, setMode] = useState<Mode>("light");
+  const [view, setViewState] = useState<View>("simple");
+
+  // The view is the reader's preference, not part of the theme, so it stays out of the URL.
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(viewStorageKey) === "advanced")
+        setViewState("advanced");
+    } catch {
+      // Storage unavailable: stay on simple.
+    }
+  }, []);
+
+  const setView = (next: View) => {
+    setViewState(next);
+    try {
+      localStorage.setItem(viewStorageKey, next);
+    } catch {
+      // Not persistable; the view still changes.
+    }
+  };
 
   useEffect(() => {
     loadManifest()
@@ -103,7 +126,10 @@ function ThemeBuilder() {
     const found = themeSeeds.find((s) => s.id === id);
     if (!found) return;
     setSeed(id);
-    setValues({ ...found.values });
+    // Without the values equal to a default, which would show as changed.
+    setValues(
+      manifest ? cleanValues(manifest, found.values) : { ...found.values },
+    );
   };
 
   return (
@@ -141,29 +167,19 @@ function ThemeBuilder() {
                   ))}
                 </SelectContent>
               </Select>
-              <div
-                className="flex rounded-md border"
-                role="group"
-                aria-label="Preview mode"
-              >
-                {(["light", "dark"] as const).map((m) => (
-                  <button
-                    key={m}
-                    type="button"
-                    aria-pressed={mode === m}
-                    className={cn(
-                      "h-8 px-3 text-sm capitalize first:rounded-l-md last:rounded-r-md",
-                      mode === m
-                        ? "bg-secondary text-secondary-foreground"
-                        : "text-muted-foreground",
-                    )}
-                    onClick={() => setMode(m)}
-                  >
-                    {m}
-                  </button>
-                ))}
-              </div>
+              <Segmented
+                label="Preview mode"
+                options={["light", "dark"] as const}
+                value={mode}
+                onChange={setMode}
+              />
             </div>
+            <Segmented
+              label="Controls"
+              options={["simple", "advanced"] as const}
+              value={view}
+              onChange={setView}
+            />
             {seed && (
               <p className="text-muted-foreground text-xs">
                 {themeSeeds.find((s) => s.id === seed)?.description}
@@ -180,29 +196,40 @@ function ThemeBuilder() {
             {!manifest && !error && (
               <p className="text-muted-foreground py-4 text-sm">Loading…</p>
             )}
-            {manifest?.groups.map((group) => (
-              <details
-                key={group.id}
-                open
-                className="border-b py-2 last:border-b-0"
-              >
-                <summary className="cursor-pointer py-1 text-sm font-semibold">
-                  {group.label}
-                </summary>
-                <div className="divide-y">
-                  {manifest.knobs
-                    .filter((knob) => knob.group === group.id)
-                    .map((knob) => (
-                      <KnobControl
-                        key={knob.name}
-                        knob={knob}
-                        value={values[knob.name]}
-                        onChange={(value) => setKnob(knob.name, value)}
-                      />
-                    ))}
-                </div>
-              </details>
-            ))}
+            {manifest && view === "simple" && (
+              <SimpleControls
+                manifest={manifest}
+                values={values}
+                theme={theme}
+                setKnob={setKnob}
+                onShowAll={() => setView("advanced")}
+              />
+            )}
+            {manifest &&
+              view === "advanced" &&
+              manifest.groups.map((group) => (
+                <details
+                  key={group.id}
+                  open
+                  className="border-b py-2 last:border-b-0"
+                >
+                  <summary className="cursor-pointer py-1 text-sm font-semibold">
+                    {group.label}
+                  </summary>
+                  <div className="divide-y">
+                    {manifest.knobs
+                      .filter((knob) => knob.group === group.id)
+                      .map((knob) => (
+                        <KnobControl
+                          key={knob.name}
+                          knob={knob}
+                          value={values[knob.name]}
+                          onChange={(value) => setKnob(knob.name, value)}
+                        />
+                      ))}
+                  </div>
+                </details>
+              ))}
             {manifest && (
               <ExportPanel
                 manifest={manifest}
@@ -220,6 +247,93 @@ function ThemeBuilder() {
         <Preview manifest={manifest} theme={theme} mode={mode} />
       </main>
     </HomeLayout>
+  );
+}
+
+/** The essential knobs only, without their explanations; the preview, link and export still carry
+ *  every knob, and a note says how many changed knobs only the advanced view shows. */
+function SimpleControls({
+  manifest,
+  values,
+  theme,
+  setKnob,
+  onShowAll,
+}: {
+  manifest: KnobManifest;
+  values: KnobValues;
+  theme: KnobValues;
+  setKnob: (name: string, value: string | undefined) => void;
+  onShowAll: () => void;
+}) {
+  const essential = manifest.knobs.filter((knob) => knob.essential);
+  const hidden = Object.keys(theme).filter(
+    (name) => !essential.some((knob) => knob.name === name),
+  ).length;
+
+  return (
+    <div className="py-2">
+      {hidden > 0 && (
+        <p className="bg-muted text-muted-foreground my-2 rounded-md p-2 text-xs">
+          This theme also changes {hidden} {hidden === 1 ? "knob" : "knobs"}{" "}
+          that only the advanced controls show.{" "}
+          <button
+            type="button"
+            className="text-foreground underline"
+            onClick={onShowAll}
+          >
+            Show all
+          </button>
+        </p>
+      )}
+      <div className="divide-y">
+        {essential.map((knob) => (
+          <KnobControl
+            key={knob.name}
+            knob={knob}
+            value={values[knob.name]}
+            onChange={(value) => setKnob(knob.name, value)}
+            compact
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Segmented<T extends string>({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: readonly T[];
+  value: T;
+  onChange: (value: T) => void;
+}) {
+  return (
+    <div
+      className="flex w-fit rounded-md border"
+      role="group"
+      aria-label={label}
+    >
+      {options.map((option) => (
+        <button
+          key={option}
+          type="button"
+          aria-pressed={value === option}
+          className={cn(
+            "h-8 px-3 text-sm capitalize first:rounded-l-md last:rounded-r-md",
+            value === option
+              ? "bg-secondary text-secondary-foreground"
+              : "text-muted-foreground",
+          )}
+          onClick={() => onChange(option)}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
   );
 }
 
