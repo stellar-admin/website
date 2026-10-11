@@ -1,126 +1,104 @@
 ---
 title: Theming
-description: Explore themes, customize their styles, and use design tokens
+description: Use the default theme, or give StellarAdmin your own look by setting a few CSS variables
 ---
 
 import { Demo } from "@/components/demo";
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-## Using a theme
+## The default theme
 
-StellarAdmin includes all the standard shadcn themes, as well as 7 custom themes designed exclusively for StellarAdmin. Include a theme in your application by adding a reference to the theme's stylesheet in following format.
-
-<Callout type="warn">
-  When installing StellarAdmin Tag Helpers, you **must** include a theme stylesheet. None of the Tag Helpers will render correctly without one.
-</Callout>
+The StellarAdmin includes a sensible default theme which is applied when adding the StellarAdmin stylesheet to your application.
 
 ```razor
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/<theme-stylesheet>" asp-append-version="true"/>
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.css" asp-append-version="true"/>
 ```
-
-Observatory is the default used throughout this documentation and a recommended starting point for new applications. It pairs cool neutral surfaces with blue accents in light mode and cyan accents in dark mode. Include it with:
-
-```razor
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true"/>
-```
-
-## Available themes
-
-You can preview all the available themes in the example below, which has a good cross-section of the various Tag Helpers. All of the Tag Helper examples also allow you to select a theme in the preview.
 
 <Demo src="/demo/tag-helpers/showcase-theme-showcase.html">
 </Demo>
 
-### StellarAdmin themes
+## Themes are CSS variables
 
-The following themes were designed specifically for StellarAdmin. Each theme prefers the fonts listed below to give it its original character, and includes native font fallbacks. You will find code examples to include each theme below the table.
+While we provide a beautiful default theme, we wanted to give enough flexibility to allow you to style StellarAdmin according to your own needs. 
 
-| Theme  | Stylesheet | Optional fonts |
-| ------ | ---------- | --- |
-| Aurora | `stellar-admin.aurora.css` | Archivo (400/500/600) and IBM Plex Mono (400/500) |
-| Concourse | `stellar-admin.concourse.css` | Source Sans 3 (400/500/600/700) and IBM Plex Mono (400/500) |
-| Ice | `stellar-admin.ice.css` | IBM Plex Sans (400/500/600) and JetBrains Mono (400/500/700) |
-| Ledger | `stellar-admin.ledger.css` | Lexend (300/400/500/600/700) and JetBrains Mono (400/500) |
-| Meridian | `stellar-admin.meridian.css` | Instrument Sans (600), Work Sans (400/500/600), and JetBrains Mono (400/500) |
-| Observatory | `stellar-admin.observatory.css` | IBM Plex Sans (400/500/600) and IBM Plex Mono (400/500) |
-| Parallax | `stellar-admin.parallax.css` | Space Grotesk (400/500/600) and JetBrains Mono (400/500) |
+To facilitate this, we [expose a set of CSS variables](/docs/tag-helpers/theme-variables) to control things such as the accent colour (`--sa-accent`), corner radius (`--sa-radius`), density (`--sa-density`), and more. Every colour, size and shadow in StellarAdmin is derived from these variables.
 
-<Callout type="idea">
-The fonts are optional. Feel free to exclude it if you want to improve performance and avoid potential layout shift.
-</Callout>
+Consider the card below, in the default theme.
 
-<Tabs items={['Aurora', 'Concourse', 'Ice', 'Ledger', 'Meridian', 'Observatory', 'Parallax']}>
-  <Tab>
+<Demo src="/demo/tag-helpers/theme-override-standard.html">
+</Demo>
+
+Seven variables give it a warm, orange, square, monospaced look:
+
+<Demo src="/demo/tag-helpers/theme-override.html">
+</Demo>
+
+```css title="wwwroot/css/theme.css"
+@layer sa.theme {
+  :root {
+    --sa-accent: oklch(0.6725 0.1362 42);
+    --sa-neutral-hue: 85;
+    --sa-neutral-chroma: 0.012;
+    --sa-radius: 2px;
+    --sa-elevation: 0.3;
+    --sa-font-sans: "JetBrains Mono", ui-monospace, monospace;
+    --sa-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+}
+```
+
+You can link your custom theme file in your application after the StellarAdmin stylesheet:
+
+```razor
+<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.css" asp-append-version="true"/>
+<link rel="stylesheet" href="~/css/theme.css" asp-append-version="true"/>
+```
+
+A few rules keep a theme simple:
+
+- Set the variables on `:root`, inside `@layer sa.theme`. The layer places the theme above the components' own values wherever the file is linked.
+- Set only the variables that differ from the default. Most themes need four to ten.
+- Don't write dark mode values. Dark mode is derived from the same variables; a few `-dark` variables exist for when it should differ.
+- You do not have to check contrast. Text on the accent switches between white and near-black automatically, and the accent's fills and text are adjusted to pass WCAG's 4.5:1.
+
+## Create a theme
+
+### Use the Theme Builder
+
+The [theme builder](/theme-builder) shows real StellarAdmin components while you adjust the variables, and downloads the theme file when you are done. The builder offers a few starting points besides the default:
+
+| Preset | Character |
+| --- | --- |
+| Ledger | Warm paper that turns indigo in dark mode, an indigo accent, roomier controls, uppercase labels on banded table heads, outlined parts and tactile buttons. Uses the Lexend font. |
+| Ops | Dense and sharp, with strong lines, a safety-orange accent, banded table heads and an offset focus ring. Uses the IBM Plex Sans font. |
+| Soft | Pill controls, roomy spacing, floating surfaces and a violet accent. Uses the Figtree font. |
+
+These are starting points, not part of the package: start from one, change what you like, and download your own file.
+
+### Ask your coding agent
+
+The **stellar-admin-theme** [agent skill](/docs/tag-helpers/agent-skills) teaches coding agents such as Claude Code and Codex to write a theme file from a description, brand colours or a reference look. Ask for the look you want:
+
+> Use the stellar-admin-theme skill to give this app a warm, editorial, dense theme with a green accent.
+
+The agent writes the theme file, links it, loads its fonts, and gives you a theme builder link to preview and fine-tune the result.
+
+### Do it by hand
+
+A theme file is plain CSS, so you can also write one yourself from the [theme variable reference](/docs/tag-helpers/theme-variables). Brand colours can be written in any CSS colour syntax; `oklch()` is the easiest to adjust.
+
+## Fonts
+
+StellarAdmin never downloads fonts. Each font variable is a font stack that ends in native fallbacks, so a theme works without loading anything: until a web font loads, or if it never does, the text uses the fallback. The default theme prefers Inter; load it if you want Inter rather than the system font.
+
+To use a web font, load it from your layout before the stylesheets, from Google Fonts or from your own files:
+
 ```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.aurora.css" asp-append-version="true">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
 ```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.concourse.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ice.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.ledger.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.meridian.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.parallax.css" asp-append-version="true">
-```
-  </Tab>
-</Tabs>
+
+A theme file downloaded from the theme builder can instead import its fonts on its first line. That works when the theme file is linked; a remote `@import` inside a stylesheet that is itself imported is dropped by browsers without an error.
 
 The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/css2#use_font-display) controls how text appears while fonts load.
 
@@ -128,278 +106,27 @@ The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/
 | --- | --- |
 | `display=auto` | Their browser decides whether text appears immediately or waits for fonts. Use an explicit option below for more predictable behaviour. |
 | `display=block` | Button labels, navigation and table text may briefly be invisible while fonts load. Usually a poor choice for StellarAdmin apps because users must wait to read the interface. |
-| `display=swap` | Users can read the interface immediately; it switches to the theme's preferred fonts when loaded. Used by our demos, but labels and table content may shift as fonts change. |
+| `display=swap` | Users can read the interface immediately; it switches to the preferred fonts when loaded. Used by our demos, but labels and table content may shift as fonts change. |
 | `display=fallback` | Users see readable text after a very brief wait, with only a short window for a font change. Choose this to limit shifts while users work; slow connections may keep native fonts for that page view. |
 | `display=optional` | Users get native fonts unless the preferred fonts are ready almost immediately, avoiding a later font change. Choose this when keeping forms and tables stable matters more than matching the theme's typography. |
 
-### Shadcn themes
+## Part of a page
 
-The shadcn themes use a `shadcn.` prefix in the name. We picked optional fonts that work well with each theme to give it a bit of character and stand out from the other shadcn themes. These fonts are completely optional and the themes will fall back to system fonts if you do not load them.
+Theme variables re-derive everything inside the element they are set on, so a section of a page can differ from the rest.
 
-| Theme | Stylesheet | Optional fonts |
-| --- | --- | --- |
-| Luma | `stellar-admin.shadcn.luma.css` | Inter (400–700) |
-| Lyra | `stellar-admin.shadcn.lyra.css` | JetBrains Mono (400–700) |
-| Maia | `stellar-admin.shadcn.maia.css` | Figtree (400–700) |
-| Mira | `stellar-admin.shadcn.mira.css` | Inter (400–700) |
-| Nova | `stellar-admin.shadcn.nova.css` | Geist (400–700) |
-| Rhea | `stellar-admin.shadcn.rhea.css` | Inter (400–700) |
-| Sera | `stellar-admin.shadcn.sera.css` | Noto Sans (body, 400–700) and Playfair Display (headings, 400–700) |
-| Vega | `stellar-admin.shadcn.vega.css` | Inter (400–700) |
+- `data-density="compact"` (0.8) or `data-density="comfortable"` (1.2) changes the spacing and control sizes of a section, such as a dense data table on an otherwise roomy page.
+- `data-sa-scope` marks an element that sets its own theme variables, such as a branded panel.
+- The `dark` class switches a section to [dark mode](/docs/tag-helpers/dark-mode).
 
-<Callout type="idea">
-The fonts are optional. Feel free to exclude it if you want to improve performance and avoid potential layout shift.
-</Callout>
+```razor
+<section data-density="compact">
+    <sa-table>...</sa-table>
+</section>
 
-<Tabs items={['Luma', 'Lyra', 'Maia', 'Mira', 'Nova', 'Rhea', 'Sera', 'Vega']}>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.luma.css" asp-append-version="true">
+<section data-sa-scope style="--sa-accent: oklch(0.6 0.15 150); --sa-radius: 9999px;">
+    <sa-button>Book now</sa-button>
+</section>
 ```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.lyra.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.maia.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.mira.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.nova.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.rhea.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400..700&family=Playfair+Display:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.sera.css" asp-append-version="true">
-```
-  </Tab>
-  <Tab>
-```html
-<!-- Optional Google Fonts. Exclude these to improve performance and avoid potential layout shift -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
-<!-- Required StellarAdmin theme stylesheet -->
-<link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.shadcn.vega.css" asp-append-version="true">
-```
-  </Tab>
-</Tabs>
-
-## Customizing a theme
-
-Colors and radius in theme stylesheets are controlled with CSS variables. To customize one of the existing themes, you can override these variables. Consider the card example below.
-
-<Demo src="/demo/tag-helpers/theme-override-standard.html">
-</Demo>
-
-By updating the variables to change the font and colors, we can achieve a completely different look.
-
-
-<Demo src="/demo/tag-helpers/theme-override.html">
-</Demo>
-
-The theme customization above was achieved by overriding the variables after importing the theme stylesheet.
-
-```html
- <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      ...
-      <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true"/>
-      <!-- Import additional font used by the style override -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-      <!-- override the variable after importing the StellarAdmin stylesheet -->
-      <style>
-        :root {
-            --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-            --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-
-            --background: oklch(0.9784 0.0042 92);
-            --foreground: oklch(0.24 0.008 85);
-            --card: oklch(0.992 0.003 92);
-            --card-foreground: oklch(0.24 0.008 85);
-            --popover: oklch(0.992 0.003 92);
-            --popover-foreground: oklch(0.24 0.008 85);
-            --primary: oklch(0.6725 0.1362 42);
-            --primary-foreground: oklch(0.988 0.004 92);
-            --secondary: oklch(0.9451 0.0089 92);
-            --secondary-foreground: oklch(0.30 0.009 85);
-            --muted: oklch(0.9451 0.0089 92);
-            --muted-foreground: oklch(0.52 0.012 88);
-            --accent: oklch(0.925 0.018 80);
-            --accent-foreground: oklch(0.30 0.009 85);
-            --destructive: oklch(0.55 0.19 27);
-            --destructive-foreground: oklch(0.988 0.004 92);
-            --border: oklch(0.89 0.015 92);
-            --input: oklch(0.865 0.019 92);
-            --ring: oklch(0.6725 0.1362 42);
-
-            --chart-1: oklch(0.6725 0.1362 42);
-            --chart-2: oklch(0.63 0.07 130);
-            --chart-3: oklch(0.75 0.10 82);
-            --chart-4: oklch(0.51 0.07 55);
-            --chart-5: oklch(0.70 0.025 90);
-
-            --sidebar: oklch(0.9451 0.0089 92);
-            --sidebar-foreground: oklch(0.24 0.008 85);
-            --sidebar-primary: oklch(0.6725 0.1362 42);
-            --sidebar-primary-foreground: oklch(0.988 0.004 92);
-            --sidebar-accent: oklch(0.9784 0.0042 92);
-            --sidebar-accent-foreground: oklch(0.30 0.009 85);
-            --sidebar-border: oklch(0.88 0.016 92);
-            --sidebar-ring: oklch(0.6725 0.1362 42);
-        }
-
-        .dark {
-            --background: oklch(0.19 0.005 85);
-            --foreground: oklch(0.93 0.008 92);
-            --card: oklch(0.235 0.005 85);
-            --card-foreground: oklch(0.93 0.008 92);
-            --popover: oklch(0.235 0.005 85);
-            --popover-foreground: oklch(0.93 0.008 92);
-            --primary: oklch(0.705 0.13 42);
-            --primary-foreground: oklch(0.19 0.005 85);
-            --secondary: oklch(0.27 0.006 85);
-            --secondary-foreground: oklch(0.93 0.008 92);
-            --muted: oklch(0.27 0.006 85);
-            --muted-foreground: oklch(0.70 0.010 90);
-            --accent: oklch(0.31 0.012 70);
-            --accent-foreground: oklch(0.93 0.008 92);
-            --destructive: oklch(0.64 0.19 25);
-            --destructive-foreground: oklch(0.98 0.004 92);
-            --border: oklch(0.31 0.006 85);
-            --input: oklch(0.34 0.007 85);
-            --ring: oklch(0.705 0.13 42);
-
-            --chart-1: oklch(0.705 0.13 42);
-            --chart-2: oklch(0.68 0.075 130);
-            --chart-3: oklch(0.79 0.10 82);
-            --chart-4: oklch(0.58 0.075 55);
-            --chart-5: oklch(0.66 0.025 90);
-
-            --sidebar: oklch(0.22 0.005 85);
-            --sidebar-foreground: oklch(0.93 0.008 92);
-            --sidebar-primary: oklch(0.705 0.13 42);
-            --sidebar-primary-foreground: oklch(0.19 0.005 85);
-            --sidebar-accent: oklch(0.27 0.006 85);
-            --sidebar-accent-foreground: oklch(0.93 0.008 92);
-            --sidebar-border: oklch(0.31 0.006 85);
-            --sidebar-ring: oklch(0.705 0.13 42);
-        }
-    </style>
-  </head>
-  <body>
-      ...
-  </body>
-  </html>
-
-```
-
-The CSS variables you can override are listed in the table below.
-
-| Variable | Description |
-|----------|-------------|
-| `--background` / `--foreground` | Sets the base surface and text color of the application, which the page shell, page sections, and body text all inherit. |
-| `--card` / `--card-foreground` | Colors raised surfaces such as the Card component, dashboard panels, and settings panels, along with the content inside them. |
-| `--popover` / `--popover-foreground` | Colors overlay surfaces and their content, including Popover, DropdownMenu, ContextMenu, and similar floating components. |
-| `--primary` / `--primary-foreground` | Carries the brand color through prominent elements such as the default Button, selected states, badges, and active accents. |
-| `--secondary` / `--secondary-foreground` | Colors filled but quieter elements, such as secondary buttons and badges, that support the primary action without competing with it. |
-| `--muted` / `--muted-foreground` | Tones down surfaces and text that should recede, such as descriptions, placeholders, helper text, and empty states. |
-| `--accent` / `--accent-foreground` | Highlights elements as the user interacts with them, covering ghost buttons, hovered rows, highlighted menu entries, and selected items. |
-| `--destructive` | Signals danger and error, and is applied to destructive buttons, invalid form states, and destructive menu items. |
-| `--border` | Draws the borders and separators that divide cards, menus, tables, and page layout. |
-| `--input` | Styles the borders and surfaces of form controls such as Input, Textarea, Select, and other outline-style controls. |
-| `--ring` | Draws the focus ring that appears around buttons, inputs, checkboxes, menus, and any other focusable control. |
-| `--chart-1` ... `--chart-5` | Provides the default series palette used by charts and chart-driven dashboard blocks. |
-| `--sidebar` / `--sidebar-foreground` | Sets the surface and default text color of the Sidebar component and everything rendered inside it. |
-| `--sidebar-primary` / `--sidebar-primary-foreground` | Emphasizes the sidebar's most prominent elements, such as active items, icon tiles, badges, and calls to action. |
-| `--sidebar-accent` / `--sidebar-accent-foreground` | Marks hovered and selected sidebar elements, including menu entries, expanded items, and interactive rows. |
-| `--sidebar-border` | Draws the borders and separators inside the sidebar, such as those around headers and between groups. |
-| `--sidebar-ring` | Draws the focus ring around controls inside the sidebar. |
-| `--font-sans` / `--font-mono` | Sets the body and monospace font stacks. |
-| `--sa-sera-font-display` | Sets Sera’s heading font stack. |
-| `--radius` | Defines the base corner radius from which the `radius-*` variables are derived, shaping cards, inputs, buttons, and popovers. |
-
-
-## Using the design tokens in your own app
-
-StellarAdmin Tag Helpers apply the theme styles to all the Tag Helpers. However, sometime you may also want to use the same colors in other parts of your application. For example, you may want to use the primary background color on an element. Your first thought may be to simply use the Tailwind CSS `bg-primary` token.
-
-```html
-<div class="bg-primary">...</div>
-```
-
-The above will likely not work because your own Tailwind configuration has not declared the correct [theme variables](https://tailwindcss.com/docs/theme).
-
-To fix this, you can copy the [`theme-tokens.css`](https://github.com/stellar-admin/stellar-admin/blob/master/src/StellarAdmin.TagHelpers/Client/css/theme-tokens.css) file from StellarAdmin Tag Helpers into your project and import it from your Tailwind entry stylesheet:
-
-```css
-@layer theme, base, components, utilities;
-
-@import "tailwindcss/theme.css" layer(theme) theme(inline reference);
-@import "./theme-tokens.css" theme(reference);
-@import "tailwindcss/utilities.css" layer(utilities);
-
-@theme reference {
-  --font-sans: sans-serif;
-  --font-mono: monospace;
-}
-```
-
-The StellarAdmin theme stylesheet already includes Tailwind's preflight styles, the theme variables, and all the component styles, so your own build only needs to generate utility classes. A plain `@import "tailwindcss"` would output preflight and Tailwind's default theme variables again, such as `--font-sans`, and these override the theme's values whenever your stylesheet is linked after the StellarAdmin theme stylesheet. Importing the theme files as references avoids this, so the order of the stylesheet links no longer matters. The `@theme reference` block ensures `font-sans` and `font-mono` use the theme's fonts rather than Tailwind's defaults.
-
-Once you do this, those design tokens will be used in your own Tailwind CSS configuration and you will have utility classes such as `bg-primary`, `bg-secondary`, `text-primary-foreground`, `bg-card`, etc. available to use in your own application. This will also ensure that your own application code will adapt to StellarAdmin theme changes and customizations.
 
 ## Menu surfaces
 
@@ -440,3 +167,7 @@ builder.Services.AddStellarAdmin()
 />
 
 The defaults apply without calling `ConfigureMenu`. Call it only to change them.
+
+## Browser support
+
+The stylesheet uses CSS relative colour syntax, `color-mix()`, cascade layers, native nesting and `:has()`, without fallbacks. It needs Chrome and Edge 119, Safari 18 or Firefox 128, or later. In older browsers colours fail silently, leaving components unstyled in places.

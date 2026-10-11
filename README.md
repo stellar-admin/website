@@ -32,7 +32,7 @@ pnpm types:check  # regenerate .source types + tsc --noEmit
 
 - **Docs** live in `content/docs` (the `tag-helpers` section). Navigation is driven by `meta.json` files. MDX partials under `_include/` are pulled in with `<include>` and are not standalone pages.
 - **Blog** posts live in `content/blog`.
-- Static component demos are served from `public/demo` and embedded via the `<Demo>` component. They are exported by `DocsSamplesGenerator` in the separate stellar-admin product repo, which injects a script into every page so demos follow the site's light/dark mode (the next-themes `theme` localStorage key) — same-origin localStorage plus storage events, no iframe messaging. The demos use the default theme. The theme builder's presets ship under stable names in `public/demo/tag-helpers/assets/presets/` (one knob file each, listed in `presets.json`, exported from the product's theme fixtures in `util/theme-check/presets/`). The knob manifest for the theme builder is `assets/stellar-admin.knobs.json`.
+- Static component demos are served from `public/demo` and embedded via the `<Demo>` component. They are exported by `DocsSamplesGenerator` in the separate stellar-admin product repo, which injects a script into every page so demos follow the site's light/dark mode (the next-themes `theme` localStorage key) — same-origin localStorage plus storage events, no iframe messaging. The demos use the default theme. The theme builder's presets ship under stable names in `public/demo/tag-helpers/assets/presets/` (one variable file each, listed in `presets.json`, exported from the product's theme fixtures in `util/theme-check/presets/`). The variable manifest for the theme builder is `assets/stellar-admin.theme-variables.json`.
 
 ## Notes
 

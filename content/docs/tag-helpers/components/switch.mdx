@@ -102,15 +102,15 @@ Pass a `SwitchClassNames` instance from the `StellarAdmin.TagHelpers` namespace 
       }
 
       .travel-switch-control {
-          --primary: var(--travel-accent);
-          --primary-foreground: var(--background);
+          --sa-color-accent-fill: var(--travel-accent);
+          --sa-color-on-accent: var(--sa-color-canvas);
           outline: 2px solid var(--travel-accent);
           outline-offset: 4px;
           border-radius: 999px;
       }
 
       .travel-switch-control .sa-switch:checked {
-          background-color: var(--primary);
+          background-color: var(--sa-color-accent-fill);
       }
       ```
     </Tab>

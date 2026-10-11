@@ -1,5 +1,5 @@
 {
-  "$comment": "The theme knobs, for tools such as the website's theme builder. Source of wwwroot/stellar-admin.knobs.json; scripts/build-css.mjs checks it against tokens.css. Meanings follow docs/design/tokens.md.",
+  "$comment": "The theme variables, for tools such as the website's theme builder. Source of wwwroot/stellar-admin.theme-variables.json; scripts/build-css.mjs checks it against tokens.css. Meanings follow docs/design/tokens.md.",
   "version": 1,
   "groups": [
     {
@@ -31,7 +31,7 @@
       "label": "Focus"
     }
   ],
-  "knobs": [
+  "variables": [
     {
       "name": "--sa-accent",
       "group": "colour",

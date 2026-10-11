@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  type KnobManifest,
-  type KnobValues,
+  type ThemeVariableManifest,
+  type ThemeVariableValues,
   parseThemeCss,
-} from "@/lib/theme-builder/knobs";
+} from "@/lib/theme-builder/variables";
 
 // The theme builder's presets, exported by the DocsSamplesGenerator from the product's theme fixtures
-// (util/theme-check/presets/): presets.json lists them, default first, and each other theme is a knob
+// (util/theme-check/presets/): presets.json lists them, default first, and each other theme is a variable
 // file beside it.
 const presetsFolder = "/demo/tag-helpers/assets/presets";
 
@@ -50,11 +50,11 @@ export function usePresets(): ThemePreset[] | null {
   return list;
 }
 
-/** A preset's knob values; the default theme has none. */
+/** A preset's variable values; the default theme has none. */
 export async function loadPresetValues(
-  manifest: KnobManifest,
+  manifest: ThemeVariableManifest,
   name: string,
-): Promise<KnobValues> {
+): Promise<ThemeVariableValues> {
   if (name === defaultPreset) return {};
   const response = await fetch(`${presetsFolder}/${name}.css`);
   if (!response.ok) throw new Error(`${name}.css: ${response.status}`);

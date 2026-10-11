@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { KnobControl } from "@/components/theme-builder/knob-control";
+import { ThemeVariableControl } from "@/components/theme-builder/variable-control";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -16,13 +16,13 @@ import {
   decodeHash,
   encodeHash,
   googleFontsHref,
-  type KnobManifest,
-  type KnobValues,
+  type ThemeVariableManifest,
+  type ThemeVariableValues,
   loadManifest,
   parseThemeCss,
   themeCss,
   webFonts,
-} from "@/lib/theme-builder/knobs";
+} from "@/lib/theme-builder/variables";
 import {
   defaultPreset,
   loadPresetValues,
@@ -30,7 +30,7 @@ import {
 } from "@/lib/theme-presets";
 import { cn } from "@/lib/utils";
 
-// Docs exports that together use every knob: the component spectrum, an admin page, a settings
+// Docs exports that together use every variable: the component spectrum, an admin page, a settings
 // form, every overlay open at once, and the component studies.
 const previewPages = [
   { value: "showcase-theme-showcase", label: "Showcase" },
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/theme-builder")({
       {
         name: "description",
         content:
-          "Start from a preset, adjust the theme knobs against real StellarAdmin components, and download a theme file for your app.",
+          "Start from a preset, adjust the theme's CSS variables against real StellarAdmin components, and download a theme file for your app.",
       },
     ],
   }),
@@ -60,9 +60,9 @@ type View = "simple" | "advanced";
 const viewStorageKey = "theme-builder-view";
 
 function ThemeBuilder() {
-  const [manifest, setManifest] = useState<KnobManifest | null>(null);
+  const [manifest, setManifest] = useState<ThemeVariableManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [values, setValues] = useState<KnobValues>({});
+  const [values, setValues] = useState<ThemeVariableValues>({});
   const [seed, setSeed] = useState<string | null>(defaultPreset);
   const presets = usePresets();
   const seedItems = (presets ?? []).map((preset) => ({
@@ -126,7 +126,7 @@ function ThemeBuilder() {
     );
   }, [manifest, hash]);
 
-  const setKnob = useCallback((name: string, value: string | undefined) => {
+  const setVariable = useCallback((name: string, value: string | undefined) => {
     setValues((current) => {
       const next = { ...current };
       if (value === undefined) delete next[name];
@@ -152,8 +152,8 @@ function ThemeBuilder() {
             <div>
               <h1 className="text-lg font-semibold">Theme builder</h1>
               <p className="text-muted-foreground text-sm">
-                Start from a preset, adjust the knobs, and download a theme file
-                to link after <code>stellar-admin.css</code>.
+                Start from a preset, adjust the CSS variables, and download a
+                theme file to link after <code>stellar-admin.css</code>.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
@@ -224,7 +224,7 @@ function ThemeBuilder() {
           <div className="flex-1 overflow-y-auto px-4">
             {error && (
               <p className="text-destructive py-4 text-sm">
-                Could not load the knobs: {error}
+                Could not load the theme variables: {error}
               </p>
             )}
             {!manifest && !error && (
@@ -235,7 +235,7 @@ function ThemeBuilder() {
                 manifest={manifest}
                 values={values}
                 theme={theme}
-                setKnob={setKnob}
+                setVariable={setVariable}
                 onShowAll={() => setView("advanced")}
               />
             )}
@@ -251,14 +251,16 @@ function ThemeBuilder() {
                     {group.label}
                   </summary>
                   <div className="divide-y">
-                    {manifest.knobs
-                      .filter((knob) => knob.group === group.id)
-                      .map((knob) => (
-                        <KnobControl
-                          key={knob.name}
-                          knob={knob}
-                          value={values[knob.name]}
-                          onChange={(value) => setKnob(knob.name, value)}
+                    {manifest.variables
+                      .filter((variable) => variable.group === group.id)
+                      .map((variable) => (
+                        <ThemeVariableControl
+                          key={variable.name}
+                          variable={variable}
+                          value={values[variable.name]}
+                          onChange={(value) =>
+                            setVariable(variable.name, value)
+                          }
                         />
                       ))}
                   </div>
@@ -289,32 +291,33 @@ function ThemeBuilder() {
   );
 }
 
-/** The essential knobs only, without their explanations; the preview, link and export still carry
- *  every knob, and a note says how many changed knobs only the advanced view shows. */
+/** The essential variables only, without their explanations; the preview, link and export still carry
+ *  every variable, and a note says how many changed variables only the advanced view shows. */
 function SimpleControls({
   manifest,
   values,
   theme,
-  setKnob,
+  setVariable,
   onShowAll,
 }: {
-  manifest: KnobManifest;
-  values: KnobValues;
-  theme: KnobValues;
-  setKnob: (name: string, value: string | undefined) => void;
+  manifest: ThemeVariableManifest;
+  values: ThemeVariableValues;
+  theme: ThemeVariableValues;
+  setVariable: (name: string, value: string | undefined) => void;
   onShowAll: () => void;
 }) {
-  const essential = manifest.knobs.filter((knob) => knob.essential);
+  const essential = manifest.variables.filter((variable) => variable.essential);
   const hidden = Object.keys(theme).filter(
-    (name) => !essential.some((knob) => knob.name === name),
+    (name) => !essential.some((variable) => variable.name === name),
   ).length;
 
   return (
     <div className="py-2">
       {hidden > 0 && (
         <p className="bg-muted text-muted-foreground my-2 rounded-md p-2 text-xs">
-          This theme also changes {hidden} {hidden === 1 ? "knob" : "knobs"}{" "}
-          that only the advanced controls show.{" "}
+          This theme also changes {hidden}{" "}
+          {hidden === 1 ? "variable" : "variables"} that only the advanced
+          controls show.{" "}
           <button
             type="button"
             className="text-foreground underline"
@@ -325,12 +328,12 @@ function SimpleControls({
         </p>
       )}
       <div className="divide-y">
-        {essential.map((knob) => (
-          <KnobControl
-            key={knob.name}
-            knob={knob}
-            value={values[knob.name]}
-            onChange={(value) => setKnob(knob.name, value)}
+        {essential.map((variable) => (
+          <ThemeVariableControl
+            key={variable.name}
+            variable={variable}
+            value={values[variable.name]}
+            onChange={(value) => setVariable(variable.name, value)}
             compact
           />
         ))}
@@ -376,7 +379,7 @@ function Segmented<T extends string>({
   );
 }
 
-/** A docs export, with every knob written onto its root so a preset the reader picked for the docs
+/** A docs export, with every variable written onto its root so a preset the reader picked for the docs
  *  demos (the page links it from localStorage) cannot show through. */
 function Preview({
   src,
@@ -385,8 +388,8 @@ function Preview({
   mode,
 }: {
   src: string;
-  manifest: KnobManifest | null;
-  theme: KnobValues;
+  manifest: ThemeVariableManifest | null;
+  theme: ThemeVariableValues;
   mode: Mode;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -410,11 +413,11 @@ function Preview({
     if (!manifest || !doc || loads === 0) return;
     const root = doc.documentElement;
 
-    for (const knob of manifest.knobs) {
-      // "initial" leaves an optional knob unset: its var() fallback applies.
+    for (const variable of manifest.variables) {
+      // "initial" leaves an optional variable unset: its var() fallback applies.
       root.style.setProperty(
-        knob.name,
-        theme[knob.name] ?? knob.default ?? "initial",
+        variable.name,
+        theme[variable.name] ?? variable.default ?? "initial",
       );
     }
 
@@ -460,10 +463,10 @@ function ExportPanel({
   hash,
   onImport,
 }: {
-  manifest: KnobManifest;
-  theme: KnobValues;
+  manifest: ThemeVariableManifest;
+  theme: ThemeVariableValues;
   hash: string;
-  onImport: (values: KnobValues) => void;
+  onImport: (values: ThemeVariableValues) => void;
 }) {
   const [fontImport, setFontImport] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -499,7 +502,7 @@ function ExportPanel({
         : null;
     const values = imported ?? parseThemeCss(manifest, importText);
     onImport(values);
-    setImportMessage(`Read ${Object.keys(values).length} knobs.`);
+    setImportMessage(`Read ${Object.keys(values).length} variables.`);
   };
 
   return (
@@ -507,7 +510,7 @@ function ExportPanel({
       <div className="flex items-center justify-between gap-2">
         <h2 className="text-sm font-semibold">Your theme</h2>
         <span className="text-muted-foreground text-xs">
-          {count} {count === 1 ? "knob" : "knobs"} changed
+          {count} {count === 1 ? "variable" : "variables"} changed
         </span>
       </div>
       <pre className="bg-muted max-h-64 overflow-auto rounded-md p-3 text-xs">

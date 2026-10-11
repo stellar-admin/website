@@ -8,34 +8,34 @@ import {
 } from "@/components/ui/select";
 import {
   formatNumber,
-  type Knob,
+  type ThemeVariable,
   numericValue,
   toHex,
-} from "@/lib/theme-builder/knobs";
+} from "@/lib/theme-builder/variables";
 import { cn } from "@/lib/utils";
 
 const fieldClass =
   "h-8 min-w-0 rounded-md border border-input bg-transparent px-2 font-mono text-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50 dark:bg-input/30";
 
 /**
- * One knob. `value` is undefined when the knob is at its default (or, for an optional knob, unset);
+ * One variable. `value` is undefined when the variable is at its default (or, for an optional variable, unset);
  * `onChange(undefined)` returns it there.
  */
-export function KnobControl({
-  knob,
+export function ThemeVariableControl({
+  variable,
   value,
   onChange,
   compact,
 }: {
-  knob: Knob;
+  variable: ThemeVariable;
   value: string | undefined;
   onChange: (value: string | undefined) => void;
   /** Leaves out the explanation (still in the label's tooltip). */
   compact?: boolean;
 }) {
   const id = useId();
-  const auto = knob.optional && value === undefined;
-  const effective = value ?? knob.default ?? knob.initial ?? "";
+  const auto = variable.optional && value === undefined;
+  const effective = value ?? variable.default ?? variable.initial ?? "";
 
   return (
     <div className="flex flex-col gap-1.5 py-2">
@@ -43,17 +43,17 @@ export function KnobControl({
         <label
           htmlFor={id}
           className="text-sm font-medium"
-          title={`${knob.name}: ${knob.meaning}`}
+          title={`${variable.name}: ${variable.meaning}`}
         >
-          {knob.label}
+          {variable.label}
         </label>
-        {knob.optional ? (
+        {variable.optional ? (
           <label className="text-muted-foreground flex items-center gap-1.5 text-xs">
             <input
               type="checkbox"
               checked={auto}
               onChange={(e) =>
-                onChange(e.target.checked ? undefined : knob.initial)
+                onChange(e.target.checked ? undefined : variable.initial)
               }
             />
             Auto
@@ -70,13 +70,13 @@ export function KnobControl({
       </div>
       {!compact && (
         <p className="text-muted-foreground -mt-1 text-xs">
-          {knob.meaning}
-          {auto && knob.follows ? ` Follows ${knob.follows}.` : ""}
+          {variable.meaning}
+          {auto && variable.follows ? ` Follows ${variable.follows}.` : ""}
         </p>
       )}
       <Input
         id={id}
-        knob={knob}
+        variable={variable}
         value={effective}
         disabled={auto}
         onChange={onChange}
@@ -87,29 +87,31 @@ export function KnobControl({
 
 function Input({
   id,
-  knob,
+  variable,
   value,
   disabled,
   onChange,
 }: {
   id: string;
-  knob: Knob;
+  variable: ThemeVariable;
   value: string;
   disabled: boolean | undefined;
   onChange: (value: string | undefined) => void;
 }) {
   // A value equal to the default is stored as "no value", so links and exports stay minimal.
   const set = (next: string) =>
-    onChange(!knob.optional && next === knob.default ? undefined : next);
+    onChange(
+      !variable.optional && next === variable.default ? undefined : next,
+    );
 
-  switch (knob.type) {
+  switch (variable.type) {
     case "color": {
       const hex = toHex(value);
       return (
         <div className="flex items-center gap-2">
           <input
             type="color"
-            aria-label={`${knob.label} colour`}
+            aria-label={`${variable.label} colour`}
             className="h-8 w-10 shrink-0 cursor-pointer rounded-md border border-input bg-transparent p-0.5 disabled:opacity-50"
             value={hex ?? "#000000"}
             disabled={disabled}
@@ -129,22 +131,24 @@ function Input({
 
     case "number":
     case "length": {
-      const n = numericValue(knob, value);
-      const named = knob.named?.find((choice) => choice.value === value);
+      const n = numericValue(variable, value);
+      const named = variable.named?.find((choice) => choice.value === value);
       return (
         <div className="flex items-center gap-2">
           <input
             type="range"
-            aria-label={knob.label}
+            aria-label={variable.label}
             className="accent-primary min-w-0 flex-1"
-            min={knob.min}
-            max={knob.max}
-            step={knob.step}
-            value={n ?? knob.min ?? 0}
+            min={variable.min}
+            max={variable.max}
+            step={variable.step}
+            value={n ?? variable.min ?? 0}
             disabled={disabled}
-            onChange={(e) => set(formatNumber(knob, Number(e.target.value)))}
+            onChange={(e) =>
+              set(formatNumber(variable, Number(e.target.value)))
+            }
           />
-          {knob.named?.map((choice) => (
+          {variable.named?.map((choice) => (
             <button
               key={choice.value}
               type="button"
@@ -158,7 +162,7 @@ function Input({
               onClick={() =>
                 set(
                   named === choice
-                    ? (knob.default ?? knob.initial ?? "0")
+                    ? (variable.default ?? variable.initial ?? "0")
                     : choice.value,
                 )
               }
@@ -195,7 +199,7 @@ function Input({
 
     case "choice":
     case "font": {
-      const choices = knob.choices ?? [];
+      const choices = variable.choices ?? [];
       const items = choices.some((choice) => choice.value === value)
         ? choices
         : [...choices, { label: `Custom: ${value}`, value }];
