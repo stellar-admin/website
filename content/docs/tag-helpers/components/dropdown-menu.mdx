@@ -126,7 +126,7 @@ Give the trigger visible text or an `aria-label` when it only contains an icon.
 
 ### `<sa-dropdown-menu>`
 
-Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honouring a user-supplied `id`) that connects the trigger to the menu.
+Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honouring a user-supplied `id`) that connects the trigger to the menu. To choose the id, set `id` here rather than on `<sa-dropdown-menu-content>`; an `id` on the content that differs from it throws, since the trigger could not find the menu.
 
 The menu's color, appearance and item highlight are configured application-wide with `ConfigureMenu`. See [Theming](/docs/tag-helpers/theming#menu-surfaces).
 
@@ -307,7 +307,7 @@ Renders a `<div role="group">` for grouping related items.
 
 ### `<sa-dropdown-menu-sub>`
 
-Groups a sub-trigger and its submenu. Like `<sa-dropdown-menu>`, it renders no element of its own and only generates the shared id connecting the two.
+Groups a sub-trigger and its submenu. Like `<sa-dropdown-menu>`, it renders no element of its own and only generates the shared id connecting the two. Set `id` here rather than on `<sa-dropdown-menu-sub-content>`, for the same reason.
 
 ### `<sa-dropdown-menu-sub-trigger>`
 
