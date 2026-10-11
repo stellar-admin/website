@@ -23,7 +23,11 @@ import {
   themeCss,
   webFonts,
 } from "@/lib/theme-builder/knobs";
-import { themeSeeds } from "@/lib/theme-builder/seeds";
+import {
+  defaultPreset,
+  loadPresetValues,
+  usePresets,
+} from "@/lib/theme-presets";
 import { cn } from "@/lib/utils";
 
 // Docs exports that together use every knob: the component spectrum, an admin page, a settings
@@ -55,16 +59,16 @@ type View = "simple" | "advanced";
 
 const viewStorageKey = "theme-builder-view";
 
-const seedItems = themeSeeds.map((seed) => ({
-  value: seed.id,
-  label: seed.label,
-}));
-
 function ThemeBuilder() {
   const [manifest, setManifest] = useState<KnobManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [values, setValues] = useState<KnobValues>({});
-  const [seed, setSeed] = useState<string | null>("default");
+  const [seed, setSeed] = useState<string | null>(defaultPreset);
+  const presets = usePresets();
+  const seedItems = (presets ?? []).map((preset) => ({
+    value: preset.name,
+    label: preset.label,
+  }));
   const [mode, setMode] = useState<Mode>("light");
   const [view, setViewState] = useState<View>("simple");
   const [page, setPage] = useState(previewPages[0].value);
@@ -131,14 +135,13 @@ function ThemeBuilder() {
     });
   }, []);
 
-  const applySeed = (id: string) => {
-    const found = themeSeeds.find((s) => s.id === id);
-    if (!found) return;
-    setSeed(id);
-    // Without the values equal to a default, which would show as changed.
-    setValues(
-      manifest ? cleanValues(manifest, found.values) : { ...found.values },
-    );
+  const applySeed = (name: string) => {
+    if (!manifest) return;
+    setSeed(name);
+    // Values equal to a default are dropped (parseThemeCss cleans them), so they do not show as changed.
+    loadPresetValues(manifest, name)
+      .then(setValues)
+      .catch((e: unknown) => setError(String(e)));
   };
 
   return (
@@ -169,8 +172,8 @@ function ThemeBuilder() {
                   <SelectValue placeholder="Start from…" />
                 </SelectTrigger>
                 <SelectContent>
-                  {themeSeeds.map((s) => (
-                    <SelectItem key={s.id} value={s.id}>
+                  {seedItems.map((s) => (
+                    <SelectItem key={s.value} value={s.value}>
                       {s.label}
                     </SelectItem>
                   ))}
@@ -213,7 +216,7 @@ function ThemeBuilder() {
             />
             {seed && (
               <p className="text-muted-foreground text-xs">
-                {themeSeeds.find((s) => s.id === seed)?.description}
+                {presets?.find((s) => s.name === seed)?.description}
               </p>
             )}
           </div>

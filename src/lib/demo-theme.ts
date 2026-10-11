@@ -1,22 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
+import { defaultPreset } from "@/lib/theme-presets";
 
-// Keep in sync with the presets the DocsSamplesGenerator exports into
-// public/demo/tag-helpers/assets/presets/ (taken there from the product's theme fixtures,
-// util/theme-check/presets/, the former library presets).
-// "default" is the library's stylesheet alone, with no preset.
-export const demoThemes = ["default", "ledger", "ops", "soft"] as const;
+// A preset name from presets.json (see theme-presets.ts); "default" is the library's stylesheet
+// alone. The demo pages fall back to the default for a name they do not know.
+export type DemoTheme = string;
 
-export type DemoTheme = (typeof demoThemes)[number];
-
-const defaultTheme: DemoTheme = "default";
+const defaultTheme: DemoTheme = defaultPreset;
 const storageKey = "demo-theme";
 const changeEvent = "demo-theme-change";
 
 function readDemoTheme(): DemoTheme {
   try {
-    const stored = localStorage.getItem(storageKey);
-    const known = demoThemes.find((theme) => theme === stored);
-    if (known) return known;
+    return localStorage.getItem(storageKey) ?? defaultTheme;
   } catch {
     // localStorage unavailable — fall through to the default.
   }
