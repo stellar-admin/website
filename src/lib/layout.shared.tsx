@@ -22,4 +22,9 @@ export const homeLinks: LinkItemType[] = [
     text: "Documentation",
     url: "/docs/tag-helpers",
   },
+  {
+    type: "main",
+    text: "Theme builder",
+    url: "/theme-builder",
+  },
 ];
