@@ -1522,92 +1522,92 @@
     }
   }
   .dark\:bg-blue-600 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-blue-600);
     }
   }
   .dark\:bg-blue-950 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-blue-950);
     }
   }
   .dark\:bg-green-600 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-green-600);
     }
   }
   .dark\:bg-green-950 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-green-950);
     }
   }
   .dark\:bg-purple-600 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-purple-600);
     }
   }
   .dark\:bg-purple-950 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-purple-950);
     }
   }
   .dark\:bg-red-950 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-red-950);
     }
   }
   .dark\:bg-sky-600 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-sky-600);
     }
   }
   .dark\:bg-sky-950 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       background-color: var(--color-sky-950);
     }
   }
   .dark\:text-blue-50 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-blue-50);
     }
   }
   .dark\:text-blue-300 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-blue-300);
     }
   }
   .dark\:text-green-50 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-green-50);
     }
   }
   .dark\:text-green-300 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-green-300);
     }
   }
   .dark\:text-purple-50 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-purple-50);
     }
   }
   .dark\:text-purple-300 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-purple-300);
     }
   }
   .dark\:text-red-300 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-red-300);
     }
   }
   .dark\:text-sky-50 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-sky-50);
     }
   }
   .dark\:text-sky-300 {
-    &:is(.dark *) {
+    &:is(.dark *):not(:where(.dark .light *)), &:is(.dark *):where(.dark .light .dark *) {
       color: var(--color-sky-300);
     }
   }

@@ -9,7 +9,7 @@ A theme sets its [theme variables](/docs/tag-helpers/theme-variables) on `:root`
 
 ## Density levels
 
-Add `data-sa-density` to any element to change the spacing and control sizes inside it. `compact` sets the density to 0.8 and `comfortable` to 1.2; text sizes stay the same.
+Add `data-sa-density` to any element to change the spacing and control sizes inside it. `compact` multiplies the theme's density by 0.8 and `comfortable` by 1.2, so they stay tighter or roomier than whatever theme is active; text sizes stay the same.
 
 <Demo src="/demo/tag-helpers/theming-density-levels.html">
   <include>./components/_include/theming-density-levels.mdx</include>
@@ -41,4 +41,4 @@ For a density other than the two named levels, mark the element with `data-sa-sc
 
 Contrast still follows the formulas inside a scope: text on the green accent is picked automatically, as it is for the page's own accent.
 
-A scope's values are absolute. A scope that sets `--sa-density: 1`, or a `data-sa-density` level, replaces the theme's density inside it rather than scaling it.
+A scope's values are absolute: a scope that sets `--sa-density: 1` replaces the theme's density inside it. A `data-sa-density` level is relative: it scales whatever density is in effect, including a scope's.

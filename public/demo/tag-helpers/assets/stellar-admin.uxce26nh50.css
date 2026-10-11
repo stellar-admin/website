@@ -106,7 +106,7 @@
  *
  * Scoping. Custom properties that reference other custom properties resolve where they are declared,
  * and descendants inherit the resolved value. So formulas are declared on every element that can change
- * a theme variable: :root, a .dark scope, a [data-sa-density] scope and a [data-sa-scope] (any element that
+ * a theme variable: :root, a .dark or .light scope, a [data-sa-density] scope and a [data-sa-scope] (any element that
  * sets its own theme variables, e.g. a branded panel). Colour formulas are split by mode; geometry is mode-independent.
  *
  * Modifier rule. A modifier class (a variant, MenuAccent.Bold, …) never redefines a token. It sets a
@@ -191,14 +191,15 @@
     --sa-disabled-opacity: 0.5;
   }
 
-  [data-sa-density="compact"] { --sa-density: 0.8; }
-  [data-sa-density="comfortable"] { --sa-density: 1.2; }
+  /* Relative to the theme's density, so a dense theme's compact section is denser still. */
+  [data-sa-density="compact"] { --_density-step: 0.8; }
+  [data-sa-density="comfortable"] { --_density-step: 1.2; }
 
   /* --- Geometry and type: re-derived wherever density or theme variables change -------------- */
   :root,
   [data-sa-density],
   [data-sa-scope] {
-    --sa-unit: calc(0.25rem * var(--sa-density));
+    --sa-unit: calc(0.25rem * var(--sa-density) * var(--_density-step, 1));
 
     --sa-text-2xs: calc(0.6875rem * var(--sa-type-scale));
     --sa-text-xs: calc(0.75rem * var(--sa-type-scale));
@@ -237,8 +238,11 @@
   }
 
   /* --- Colour ramps: the only mode-specific part ---------------------------------------------- */
+  /* .dark switches a subtree to dark mode and .light switches it back; each stops at the other, so
+     they nest to any depth. */
   :root,
-  [data-sa-scope] {
+  [data-sa-scope],
+  .light {
     --_h: var(--sa-neutral-hue);
     --_c: var(--sa-neutral-chroma);
     --_d: var(--sa-surface-depth);
@@ -278,47 +282,49 @@
     --sa-color-scrim: oklch(0.2 var(--_c) var(--_h) / 0.25);
   }
 
-  .dark,
-  .dark [data-sa-scope] {
-    --_h: var(--sa-neutral-hue-dark, var(--sa-neutral-hue));
-    --_c: var(--sa-neutral-chroma-dark, var(--sa-neutral-chroma));
-    --sa-color-canvas: oklch(0.155 calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface: oklch(calc(0.155 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-subtle: oklch(calc(0.175 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-sunken: oklch(calc(0.24 + 0.06 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-raised: oklch(calc(0.17 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-field: oklch(1 0 0 / 0.04);
-    --sa-color-field-disabled: oklch(1 0 0 / 0.08);
+  @scope (.dark) to (.light) {
+    :scope,
+    [data-sa-scope] {
+      --_h: var(--sa-neutral-hue-dark, var(--sa-neutral-hue));
+      --_c: var(--sa-neutral-chroma-dark, var(--sa-neutral-chroma));
+      --sa-color-canvas: oklch(0.155 calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface: oklch(calc(0.155 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-subtle: oklch(calc(0.175 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-sunken: oklch(calc(0.24 + 0.06 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-raised: oklch(calc(0.17 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-field: oklch(1 0 0 / 0.04);
+      --sa-color-field-disabled: oklch(1 0 0 / 0.08);
 
-    --sa-color-ink: oklch(0.97 calc(var(--_c) * 0.5) var(--_h));
-    --sa-color-ink-muted: oklch(0.71 var(--_c) var(--_h));
-    --sa-color-ink-placeholder: oklch(0.6 var(--_c) var(--_h));
+      --sa-color-ink: oklch(0.97 calc(var(--_c) * 0.5) var(--_h));
+      --sa-color-ink-muted: oklch(0.71 var(--_c) var(--_h));
+      --sa-color-ink-placeholder: oklch(0.6 var(--_c) var(--_h));
 
-    --sa-color-line: oklch(0.9 var(--_c) var(--_h) / calc(0.11 * var(--_s)));
-    --sa-color-line-control: oklch(0.9 var(--_c) var(--_h) / calc(0.16 * var(--_s)));
-    --sa-color-line-control-hover: oklch(0.9 var(--_c) var(--_h) / calc(0.26 * var(--_s)));
-    --sa-color-nav-line: var(--sa-color-line);
+      --sa-color-line: oklch(0.9 var(--_c) var(--_h) / calc(0.11 * var(--_s)));
+      --sa-color-line-control: oklch(0.9 var(--_c) var(--_h) / calc(0.16 * var(--_s)));
+      --sa-color-line-control-hover: oklch(0.9 var(--_c) var(--_h) / calc(0.26 * var(--_s)));
+      --sa-color-nav-line: var(--sa-color-line);
 
-    --sa-color-accent: var(--sa-accent-dark, oklch(from var(--sa-accent) max(l, 0.72) c h));
-    --sa-color-accent-text: oklch(from var(--sa-color-accent) max(l, 0.75) c h);
-    --sa-color-danger: var(--sa-danger-dark, oklch(from var(--sa-danger) max(l, 0.68) c h));
-    --sa-color-danger-text: oklch(from var(--sa-color-danger) max(l, 0.88) c h);   /* 4.5:1 on its hover tint over raised surfaces too */
-    --sa-color-success: oklch(from var(--sa-success) max(l, 0.72) c h);
-    --sa-color-warning: oklch(from var(--sa-warning) max(l, 0.78) c h);
-    --sa-color-info: oklch(from var(--sa-info) max(l, 0.72) c h);
-    --sa-color-danger-soft: color-mix(in oklab, var(--sa-color-danger) 20%, transparent);
-    --sa-color-danger-soft-hover: color-mix(in oklab, var(--sa-color-danger) 30%, transparent);
-    --sa-invalid-ring-color: color-mix(in oklab, var(--sa-color-danger) 40%, transparent);
+      --sa-color-accent: var(--sa-accent-dark, oklch(from var(--sa-accent) max(l, 0.72) c h));
+      --sa-color-accent-text: oklch(from var(--sa-color-accent) max(l, 0.75) c h);
+      --sa-color-danger: var(--sa-danger-dark, oklch(from var(--sa-danger) max(l, 0.68) c h));
+      --sa-color-danger-text: oklch(from var(--sa-color-danger) max(l, 0.88) c h);   /* 4.5:1 on its hover tint over raised surfaces too */
+      --sa-color-success: oklch(from var(--sa-success) max(l, 0.72) c h);
+      --sa-color-warning: oklch(from var(--sa-warning) max(l, 0.78) c h);
+      --sa-color-info: oklch(from var(--sa-info) max(l, 0.72) c h);
+      --sa-color-danger-soft: color-mix(in oklab, var(--sa-color-danger) 20%, transparent);
+      --sa-color-danger-soft-hover: color-mix(in oklab, var(--sa-color-danger) 30%, transparent);
+      --sa-invalid-ring-color: color-mix(in oklab, var(--sa-color-danger) 40%, transparent);
 
-    --_shadow-a: calc(var(--_e) * 2.5);
-    --sa-color-scrim: oklch(0 0 0 / 0.5);
+      --_shadow-a: calc(var(--_e) * 2.5);
+      --sa-color-scrim: oklch(0 0 0 / 0.5);
+    }
   }
 
   /* --- Relations: the same formula in every mode, so declared on every colour scope ---------- */
   :root,
   [data-sa-scope],
   .dark,
-  .dark [data-sa-scope] {
+  .light {
     /* Solid fills (primary buttons, badges, the switch, the current page, bold highlights) and the text on
        them, computed from WCAG luminance (Y, from linear sRGB clipped to the sRGB gamut, as the screen shows it). Text is white on a fill below Y 0.18 and
        near-black above it, whichever contrasts more. A fill between Y 0.18 and 0.37 (about lightness 0.57 to
@@ -369,9 +375,11 @@
 
   /* Dark mode: the hover fill moves away from the text on it (black under light text, white under
      dark text), not toward the light ink, which cost white text its contrast (3.8:1). */
-  .dark,
-  .dark [data-sa-scope] {
-    --sa-color-accent-hover: color-mix(in oklab, var(--sa-color-accent-fill) 88%, oklch(from var(--sa-color-on-accent) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+  @scope (.dark) to (.light) {
+    :scope,
+    [data-sa-scope] {
+      --sa-color-accent-hover: color-mix(in oklab, var(--sa-color-accent-fill) 88%, oklch(from var(--sa-color-on-accent) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+    }
   }
 }
 
@@ -680,9 +688,11 @@
     --_alert-danger-bg: color-mix(in oklab, oklch(from var(--sa-color-danger) min(l, 0.58) c h) 6%, var(--sa-color-surface));
     --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 35%, var(--sa-color-surface));
   }
-  .dark .sa-alert {
-    --_alert-danger-bg: color-mix(in oklab, var(--sa-color-danger) 12%, var(--sa-color-surface));
-    --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 40%, var(--sa-color-surface));
+  @scope (.dark) to (.light) {
+    :scope .sa-alert {
+      --_alert-danger-bg: color-mix(in oklab, var(--sa-color-danger) 12%, var(--sa-color-surface));
+      --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 40%, var(--sa-color-surface));
+    }
   }
 }
 
@@ -953,7 +963,9 @@
       -webkit-text-fill-color: transparent;
       animation: sa-attachment-shimmer 2s linear infinite;
     }
-    .dark :is([data-state="processing"], [data-state="uploading"]) > .sa-attachment-content > & {
+  }
+  @scope (.dark) to (.light) {
+    :scope :is([data-state="processing"], [data-state="uploading"]) > .sa-attachment-content > .sa-attachment-title {
       --_highlight: oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4));
     }
   }
@@ -1110,8 +1122,10 @@
       --_badge: calc(3 * var(--sa-unit));
     }
   }
-  .dark .sa-avatar::after {
-    mix-blend-mode: lighten;
+  @scope (.dark) to (.light) {
+    :scope .sa-avatar::after {
+      mix-blend-mode: lighten;
+    }
   }
   .sa-avatar-image {
     width: 100%;
@@ -1206,10 +1220,12 @@
   .sa-badge {
     --_badge-danger-fg: var(--sa-color-danger-text);
   }
-  .dark .sa-badge {
-    /* Lighter than danger text: the soft tint is translucent, and on a tinted row (a selected or
-       hovered data grid row) it keeps 4.5:1 only with more room. */
-    --_badge-danger-fg: oklch(from var(--sa-color-danger) max(l, 0.82) min(c, 0.12) h);
+  @scope (.dark) to (.light) {
+    :scope .sa-badge {
+      /* Lighter than danger text: the soft tint is translucent, and on a tinted row (a selected or
+         hovered data grid row) it keeps 4.5:1 only with more room. */
+      --_badge-danger-fg: oklch(from var(--sa-color-danger) max(l, 0.82) min(c, 0.12) h);
+    }
   }
 }
 
@@ -1362,9 +1378,11 @@
     --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.92 calc(c * 0.4) h);
     --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.87 calc(c * 0.5) h);
   }
-  .dark :is(.sa-bubble, .sa-bubble-group) {
-    --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.3 calc(c * 0.4) h);
-    --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.35 calc(c * 0.5) h);
+  @scope (.dark) to (.light) {
+    :scope :is(.sa-bubble, .sa-bubble-group) {
+      --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.3 calc(c * 0.4) h);
+      --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.35 calc(c * 0.5) h);
+    }
   }
 }
 
@@ -1654,16 +1672,18 @@
     --_button-outline-border: var(--sa-color-line);
     --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, var(--sa-color-ink));
   }
-  .dark .sa-button {
-    --_relief-k: 1.45;
-    --_relief-k-drop: 2.5;
-    --_sheen-k: 0.7;
-    --_secondary-lit: 0;
-    --_secondary-sheen: 0.6;
-    --_button-outline-bg: var(--sa-color-field);
-    --_button-outline-border: var(--sa-color-line-control);
-    /* Away from the label, as --sa-color-accent-hover in dark mode. */
-    --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, oklch(from var(--sa-color-on-danger) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+  @scope (.dark) to (.light) {
+    :scope .sa-button {
+      --_relief-k: 1.45;
+      --_relief-k-drop: 2.5;
+      --_sheen-k: 0.7;
+      --_secondary-lit: 0;
+      --_secondary-sheen: 0.6;
+      --_button-outline-bg: var(--sa-color-field);
+      --_button-outline-border: var(--sa-color-line-control);
+      /* Away from the label, as --sa-color-accent-hover in dark mode. */
+      --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, oklch(from var(--sa-color-on-danger) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+    }
   }
 }
 
@@ -2063,8 +2083,10 @@
     --_checkbox-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark .sa-input-control-wrapper {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-input-control-wrapper {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -2202,8 +2224,10 @@
     --_input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark .sa-chip-group[data-appearance="input"] {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-chip-group[data-appearance="input"] {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -2907,8 +2931,10 @@
     /* Choice cards: the selected card's accent wash. */
     --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 6%, var(--sa-color-field));
   }
-  .dark .sa-field-label {
-    --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 12%, var(--sa-color-field));
+  @scope (.dark) to (.light) {
+    :scope .sa-field-label {
+      --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 12%, var(--sa-color-field));
+    }
   }
 }
 
@@ -3602,8 +3628,10 @@
     --_input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark :is(.sa-input, .sa-input-group) {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope :is(.sa-input, .sa-input-group) {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -4436,8 +4464,10 @@
     --_questionnaire-input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark .sa-questionnaire {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-questionnaire {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -4731,8 +4761,10 @@
     --_radio-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_radio-press) * var(--_radio-k)));
   }
-  .dark .sa-input-control-wrapper {
-    --_radio-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-input-control-wrapper {
+      --_radio-k: 4;
+    }
   }
 }
 
@@ -4836,10 +4868,12 @@
     --_segmented-control-selected-bg: var(--sa-color-surface);
     --_segmented-control-selected-border: transparent;
   }
-  .dark .sa-segmented-control {
-    --_segmented-control-item-fg: var(--sa-color-ink-muted);
-    --_segmented-control-selected-bg: var(--sa-color-field);
-    --_segmented-control-selected-border: var(--sa-color-line-control);
+  @scope (.dark) to (.light) {
+    :scope .sa-segmented-control {
+      --_segmented-control-item-fg: var(--sa-color-ink-muted);
+      --_segmented-control-selected-bg: var(--sa-color-field);
+      --_segmented-control-selected-border: var(--sa-color-line-control);
+    }
   }
 }
 
@@ -4949,8 +4983,10 @@
     --_select-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark .sa-native-select-wrapper {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-native-select-wrapper {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -5528,8 +5564,10 @@
     --_slider-thumb-size: calc(3 * var(--sa-unit));
     --_slider-thumb-bg: var(--sa-color-surface);
   }
-  .dark :is(.sa-slider, .sa-slider-value) {
-    --_slider-thumb-bg: var(--sa-color-ink);
+  @scope (.dark) to (.light) {
+    :scope :is(.sa-slider, .sa-slider-value) {
+      --_slider-thumb-bg: var(--sa-color-ink);
+    }
   }
 }
 
@@ -5783,12 +5821,14 @@
       var(--sa-color-surface)
     );
   }
-  .dark .sa-switch-wrapper {
-    --_switch-thumb-bg: color-mix(
-      in oklab,
-      var(--sa-color-ink-muted) calc(var(--sa-outlines) * 100%),
-      var(--sa-color-ink)
-    );
+  @scope (.dark) to (.light) {
+    :scope .sa-switch-wrapper {
+      --_switch-thumb-bg: color-mix(
+        in oklab,
+        var(--sa-color-ink-muted) calc(var(--sa-outlines) * 100%),
+        var(--sa-color-ink)
+      );
+    }
   }
 }
 
@@ -6036,10 +6076,12 @@
     --_tabs-selected-bg: var(--sa-color-surface);
     --_tabs-selected-border: transparent;
   }
-  .dark .sa-tabs {
-    --_tabs-trigger-fg: var(--sa-color-ink-muted);
-    --_tabs-selected-bg: var(--sa-color-field);
-    --_tabs-selected-border: var(--sa-color-line-control);
+  @scope (.dark) to (.light) {
+    :scope .sa-tabs {
+      --_tabs-trigger-fg: var(--sa-color-ink-muted);
+      --_tabs-selected-bg: var(--sa-color-field);
+      --_tabs-selected-border: var(--sa-color-line-control);
+    }
   }
 }
 
@@ -6175,8 +6217,10 @@
     --_textarea-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  .dark .sa-textarea {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :scope .sa-textarea {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -6526,10 +6570,12 @@
     --_toggle-outline-border: var(--sa-color-line);
     --_toggle-outline-on-border: var(--sa-color-line-control);
   }
-  .dark .sa-toggle {
-    --_toggle-outline-bg: var(--sa-color-field);
-    --_toggle-outline-border: var(--sa-color-line-control);
-    --_toggle-outline-on-border: var(--sa-color-line-control-hover);
+  @scope (.dark) to (.light) {
+    :scope .sa-toggle {
+      --_toggle-outline-bg: var(--sa-color-field);
+      --_toggle-outline-border: var(--sa-color-line-control);
+      --_toggle-outline-on-border: var(--sa-color-line-control-hover);
+    }
   }
 }
 
@@ -6657,8 +6703,10 @@
   .sa-tooltip-content {
     --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 20%, transparent);
   }
-  .dark .sa-tooltip-content {
-    --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 10%, transparent);
+  @scope (.dark) to (.light) {
+    :scope .sa-tooltip-content {
+      --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 10%, transparent);
+    }
   }
 }
 

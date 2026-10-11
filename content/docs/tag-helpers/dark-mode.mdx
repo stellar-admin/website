@@ -30,7 +30,9 @@ Setting `color-scheme` alongside the class keeps native controls such as scrollb
 
 ## Part of a page
 
-The class also works on part of a page: a `dark` element inside a light page renders its content in dark mode, such as a dark promotion or a dark sidebar beside light content. The section below sets its background with `bg-background` from the [Tailwind adapter](/docs/tag-helpers/design-tokens#with-tailwind-css), which is the page colour in dark mode; without Tailwind CSS, use `background: var(--sa-color-canvas)`. Switch this site to light mode to see the difference.
+The class also works on part of a page: a `dark` element inside a light page renders its content in dark mode, such as a dark promotion or a dark sidebar beside light content. The `light` class does the opposite, switching part of a dark page back to light mode. Each stops at the other, so they nest: a `dark` element inside a `light` one inside a dark page is dark again.
+
+The sections below set their background with `bg-background` from the [Tailwind adapter](/docs/tag-helpers/design-tokens#with-tailwind-css), which is the page colour in that section's mode; without Tailwind CSS, use `background: var(--sa-color-canvas)`. Whichever mode this site is in, one of them stands out.
 
 <Demo src="/demo/tag-helpers/theming-dark-section.html">
   <include>./components/_include/theming-dark-section.mdx</include>
