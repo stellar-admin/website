@@ -110,23 +110,9 @@ The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/
 | `display=fallback` | Users see readable text after a very brief wait, with only a short window for a font change. Choose this to limit shifts while users work; slow connections may keep native fonts for that page view. |
 | `display=optional` | Users get native fonts unless the preferred fonts are ready almost immediately, avoiding a later font change. Choose this when keeping forms and tables stable matters more than matching the theme's typography. |
 
-## Part of a page
+## Theming part of a page
 
-Theme variables re-derive everything inside the element they are set on, so a section of a page can differ from the rest.
-
-- `data-density="compact"` (0.8) or `data-density="comfortable"` (1.2) changes the spacing and control sizes of a section, such as a dense data table on an otherwise roomy page.
-- `data-sa-scope` marks an element that sets its own theme variables, such as a branded panel.
-- The `dark` class switches a section to [dark mode](/docs/tag-helpers/dark-mode).
-
-```razor
-<section data-density="compact">
-    <sa-table>...</sa-table>
-</section>
-
-<section data-sa-scope style="--sa-accent: oklch(0.6 0.15 150); --sa-radius: 9999px;">
-    <sa-button>Book now</sa-button>
-</section>
-```
+Theme variables also work on a single element, so a section of a page can have its own density or its own look, such as a dense data table on an otherwise roomy page or a branded panel. See [Density and Scopes](/docs/tag-helpers/density-and-scopes). The `dark` class switches a section to [dark mode](/docs/tag-helpers/dark-mode#part-of-a-page).
 
 ## Menu surfaces
 

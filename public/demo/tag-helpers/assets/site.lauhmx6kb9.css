@@ -51,6 +51,8 @@
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
@@ -892,6 +894,9 @@
   .border-sidebar-border {
     border-color: var(--sa-color-nav-line);
   }
+  .bg-background {
+    background-color: var(--sa-color-canvas);
+  }
   .bg-blue-50 {
     background-color: var(--color-blue-50);
   }
@@ -986,6 +991,9 @@
   }
   .p-4 {
     padding: calc(var(--sa-unit) * 4);
+  }
+  .p-6 {
+    padding: calc(var(--sa-unit) * 6);
   }
   .p-\[100px\] {
     padding: 100px;
@@ -1109,6 +1117,10 @@
   .text-base {
     font-size: var(--sa-text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
   .text-sm {
     font-size: var(--sa-text-sm);

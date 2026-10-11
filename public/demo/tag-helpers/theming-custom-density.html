@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.lauhmx6kb9.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.ir28d7qbou.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <!-- code begin -->
+<div class="flex w-full flex-col gap-6">
+        <div data-sa-scope style="--sa-density: 0.7;" class="flex flex-wrap items-center gap-2">
+            <span data-slot="badge" class="sa-badge sa-badge-variant-outline">--sa-density: 0.7</span>
+            <input class="sa-input w-56" placeholder="Where to next?" data-slot="input">
+            <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">Flexible dates</button>
+            <button data-slot="button" class="sa-button sa-button-variant-default sa-button-size-default">Search trips</button>
+        </div>
+        <div data-sa-scope style="--sa-density: 1;" class="flex flex-wrap items-center gap-2">
+            <span data-slot="badge" class="sa-badge sa-badge-variant-outline">--sa-density: 1</span>
+            <input class="sa-input w-56" placeholder="Where to next?" data-slot="input">
+            <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">Flexible dates</button>
+            <button data-slot="button" class="sa-button sa-button-variant-default sa-button-size-default">Search trips</button>
+        </div>
+        <div data-sa-scope style="--sa-density: 1.4;" class="flex flex-wrap items-center gap-2">
+            <span data-slot="badge" class="sa-badge sa-badge-variant-outline">--sa-density: 1.4</span>
+            <input class="sa-input w-56" placeholder="Where to next?" data-slot="input">
+            <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">Flexible dates</button>
+            <button data-slot="button" class="sa-button sa-button-variant-default sa-button-size-default">Search trips</button>
+        </div>
+</div>
+<!-- code end -->
+
+
+</div>
+
+
+
+</body>
+</html>
