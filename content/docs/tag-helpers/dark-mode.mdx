@@ -3,13 +3,15 @@ title: Dark Mode
 description: Apply dark mode and respect saved or system appearance preferences
 ---
 
-StellarAdmin supports dark mode, which can be applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode.
+import { Demo } from "@/components/demo";
+
+StellarAdmin supports dark mode, which can be applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode. The StellarAdmin stylesheet carries both modes, and a [theme](/docs/tag-helpers/theming) derives its dark mode from the same CSS variables, so there is nothing else to add.
 
 ```razor
 <html lang="en" class="dark">
 ```
 
-You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the theme stylesheet.
+You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the stylesheets.
 
 ```html
 <script>
@@ -25,3 +27,11 @@ You can render it server-side from a saved user preference, or toggle it on the 
 ```
 
 Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
+
+## Part of a page
+
+The class also works on part of a page: a `dark` element inside a light page renders its content in dark mode, such as a dark promotion or a dark sidebar beside light content. The section below sets its background with `bg-background` from the [Tailwind adapter](/docs/tag-helpers/design-tokens#with-tailwind-css), which is the page colour in dark mode; without Tailwind CSS, use `background: var(--sa-color-canvas)`. Switch this site to light mode to see the difference.
+
+<Demo src="/demo/tag-helpers/theming-dark-section.html">
+  <include>./components/_include/theming-dark-section.mdx</include>
+</Demo>

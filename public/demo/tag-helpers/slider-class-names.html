@@ -3,7 +3,6 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -12,40 +11,12 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function selectedTheme() {
-                var theme = null;
-                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
-                return theme;
-            }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
-            }
             window.saThemeInit = function () {
-                window.saLoadThemeFonts(selectedTheme());
-                var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                window.saLoadThemeFonts('default');
             };
-            function swapTheme() {
-                window.saLoadThemeFonts(selectedTheme());
-                var links = document.querySelectorAll('link[data-sa-theme]');
-                var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
-                var next = document.createElement('link');
-                next.rel = 'stylesheet';
-                next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
-                next.addEventListener('load', function () {
-                    if (!next.isConnected) return;
-                    var all = document.querySelectorAll('link[data-sa-theme]');
-                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
-                });
-                current.after(next);
-            }
             applyDark();
             window.addEventListener('storage', function (e) {
                 if (e.key === null || e.key === 'theme') applyDark();
-                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
             media.addEventListener('change', applyDark);
         })();
@@ -54,9 +25,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.lauhmx6kb9.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.98dnbtli3m.css" />
+        <script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +39,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -79,7 +52,7 @@
     <div class="w-full max-w-md">
     <!-- code begin -->
 
-    <div class="sa-field group/field sa-field-orientation-vertical [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto travel-field" data-orientation="vertical" data-slot="field"><label id="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-label" class="sa-label sa-field-label group/field-label peer/field-label travel-label" data-slot="field-label">Nightly budget</label><sel-slider id="classes-budget" data-slot="slider" data-orientation="horizontal" min="50" max="500" step="10" data-min-distance="0" data-thumb-alignment="edge" data-value-locale="en-US" class="sa-slider travel-slider-control"><span class="sa-slider-track travel-slider-track" data-orientation="horizontal" data-slot="slider-track"><span class="sa-slider-range travel-slider-range" data-orientation="horizontal" data-slot="slider-range" style="left: 0%; right: 77.7778%;"></span></span><span aria-describedby="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-description" aria-labelledby="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-label" aria-orientation="horizontal" aria-valuemax="500" aria-valuemin="50" aria-valuenow="150" class="sa-slider-thumb travel-slider-thumb" data-orientation="horizontal" data-slot="slider-thumb" role="slider" style="left: 22.2222%; transform: translateX(-22.2222%);" tabindex="0"></span></sel-slider><p id="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-description" class="sa-field-description travel-help" data-slot="field-description">Adjust your budget in dollars.</p></div>
+    <div class="sa-field sa-field-orientation-vertical travel-field" data-orientation="vertical" data-slot="field"><label id="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-label" class="sa-label sa-field-label travel-label" data-slot="field-label">Nightly budget</label><sel-slider id="classes-budget" data-slot="slider" data-orientation="horizontal" min="50" max="500" step="10" data-min-distance="0" data-thumb-alignment="edge" data-value-locale="en-US" class="sa-slider travel-slider-control"><span class="sa-slider-track travel-slider-track" data-orientation="horizontal" data-slot="slider-track"><span class="sa-slider-range travel-slider-range" data-orientation="horizontal" data-slot="slider-range" style="left: 0%; right: 77.7778%;"></span></span><span aria-describedby="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-description" aria-labelledby="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-label" aria-orientation="horizontal" aria-valuemax="500" aria-valuemin="50" aria-valuenow="150" class="sa-slider-thumb travel-slider-thumb" data-orientation="horizontal" data-slot="slider-thumb" role="slider" style="left: 22.2222%; transform: translateX(-22.2222%);" tabindex="0"></span></sel-slider><p id="sa-0b5dabbd8fa501a048e45ea2f67cfd84026d09934e2c518b1d00e90349f66c0f5035-description" class="sa-field-description travel-help" data-slot="field-description">Adjust your budget in dollars.</p></div>
     <!-- code end -->
 </div>
 

@@ -3,7 +3,6 @@
 <head>
     <script>
         (function () {
-            var themes = ['aurora', 'concourse', 'ice', 'ledger', 'meridian', 'observatory', 'parallax', 'shadcn.luma', 'shadcn.lyra', 'shadcn.maia', 'shadcn.mira', 'shadcn.nova', 'shadcn.rhea', 'shadcn.sera', 'shadcn.vega'];
             var media = window.matchMedia('(prefers-color-scheme: dark)');
             function applyDark() {
                 var theme = null;
@@ -12,40 +11,12 @@
                 document.documentElement.classList.toggle('dark', dark);
                 document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
             }
-            function selectedTheme() {
-                var theme = null;
-                try { theme = localStorage.getItem('demo-theme'); } catch (e) { }
-                if (themes.indexOf(theme) < 0) theme = 'observatory';
-                return theme;
-            }
-            function themeHref() {
-                return '/demo/tag-helpers/assets/stellar-admin.' + selectedTheme() + '.css';
-            }
             window.saThemeInit = function () {
-                window.saLoadThemeFonts(selectedTheme());
-                var link = document.querySelector('link[data-sa-theme]');
-                if (link && link.getAttribute('href') !== themeHref()) link.setAttribute('href', themeHref());
+                window.saLoadThemeFonts('default');
             };
-            function swapTheme() {
-                window.saLoadThemeFonts(selectedTheme());
-                var links = document.querySelectorAll('link[data-sa-theme]');
-                var current = links[links.length - 1];
-                if (!current || current.getAttribute('href') === themeHref()) return;
-                var next = document.createElement('link');
-                next.rel = 'stylesheet';
-                next.setAttribute('data-sa-theme', '');
-                next.href = themeHref();
-                next.addEventListener('load', function () {
-                    if (!next.isConnected) return;
-                    var all = document.querySelectorAll('link[data-sa-theme]');
-                    for (var i = 0; i < all.length && all[i] !== next; i++) all[i].remove();
-                });
-                current.after(next);
-            }
             applyDark();
             window.addEventListener('storage', function (e) {
                 if (e.key === null || e.key === 'theme') applyDark();
-                if (e.key === null || e.key === 'demo-theme') swapTheme();
             });
             media.addEventListener('change', applyDark);
         })();
@@ -54,9 +25,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <script src="/demo/tag-helpers/assets/theme-fonts.vqsfb4uqta.js"></script>
-    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.hlh5wjijdw.css" />
-    <link rel="stylesheet" data-sa-theme href="/demo/tag-helpers/assets/stellar-admin.observatory.css" /><script>saThemeInit();</script>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.lauhmx6kb9.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.98dnbtli3m.css" />
+        <script>saThemeInit();</script>
     
     <style>
         body {
@@ -66,7 +39,7 @@
     </style>
     
 
-    <script defer src="/demo/tag-helpers/assets/stellar-admin.vhjnnhza0z.js"></script>
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.l1lekyp2hh.js"></script>
 </head>
 <body>
 <script>
@@ -79,7 +52,7 @@
     <div class="flex flex-col gap-4">
     <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
         <div data-slot="button-group-text" class="sa-button-group-text">Sort by</div>
-        <button data-slot="button" class="sa-button group/button sa-button-variant-outline sa-button-size-default">Departure</button>
+        <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">Departure</button>
     </div>
     <div role="group" data-slot="button-group" data-orientation="horizontal" class="sa-button-group sa-button-group-orientation-horizontal">
         <div data-slot="button-group-text" class="sa-button-group-text">

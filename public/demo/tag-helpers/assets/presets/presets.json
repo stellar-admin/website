@@ -1,0 +1,22 @@
+[
+  {
+    "name": "default",
+    "label": "Default",
+    "description": "The library's default theme: stellar-admin.css alone."
+  },
+  {
+    "name": "ledger",
+    "label": "Ledger",
+    "description": "Warm paper that turns indigo in dark mode, an indigo accent, roomier controls, uppercase labels on banded table heads, a soft focus halo, outlined parts and tactile buttons."
+  },
+  {
+    "name": "ops",
+    "label": "Ops",
+    "description": "Dense and sharp, with strong lines, a safety-orange accent, banded table heads and an offset focus ring."
+  },
+  {
+    "name": "soft",
+    "label": "Soft",
+    "description": "Pill controls, roomy spacing, floating surfaces and a violet accent."
+  }
+]

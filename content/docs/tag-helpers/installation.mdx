@@ -54,14 +54,14 @@ The following installation instructions assume you are adding StellarAdmin to an
     <Step>
         ### Add stylesheet and JavaScript file
 
-        You must add the stylesheet for the [theme](/docs/tag-helpers/theming) you want to use, as well as the [StellarAdmin JavaScript file](/docs/tag-helpers/javascript) to your Razor page. The example below demonstrates how to include the script and the stylesheet for the **Observatory** theme.
+        Add the StellarAdmin stylesheet and the [StellarAdmin JavaScript file](/docs/tag-helpers/javascript) to your Razor page. The stylesheet carries every component and the default theme.
 
         ```razor
         <!DOCTYPE html>
         <html lang="en">
         <head>
             ...
-            <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.observatory.css" asp-append-version="true"/>
+            <link rel="stylesheet" href="/_content/StellarAdmin.TagHelpers/stellar-admin.css" asp-append-version="true"/>
             <script defer src="/_content/StellarAdmin.TagHelpers/stellar-admin.js" asp-append-version="true"></script>
         </head>
         <body>
@@ -71,7 +71,7 @@ The following installation instructions assume you are adding StellarAdmin to an
         ```
 
         <Callout type="idea">
-            You can find more information and see the available themes on the [Theming](/docs/tag-helpers/theming) page.
+            For another look, make a theme file in the [theme builder](/theme-builder) and link it after the stylesheet. The [Theming](/docs/tag-helpers/theming) page explains how.
         </Callout>
     </Step>
     <Step>
