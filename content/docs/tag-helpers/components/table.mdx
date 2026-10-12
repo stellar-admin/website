@@ -78,6 +78,14 @@ Set `row-click="true"` to let a click anywhere in a row toggle its details. Link
   <include>./_include/table-row-details-row-click.mdx</include>
 </Demo>
 
+### Row details divider
+
+Set `divider` to choose the line between an expanded row and its details. `Inset`, the default, starts and ends the line where the details content does, so the details read as part of their row. `FullWidth` draws it across the table like the lines between rows, and `None` leaves it out. The `<sa-data-grid-row-detail>` of a data grid takes the same attribute.
+
+<Demo src="/demo/tag-helpers/table-row-details-divider.html">
+  <include>./_include/table-row-details-divider.mdx</include>
+</Demo>
+
 ### Loading row details with htmx
 
 Expanding a row raises a bubbling `row-detail-expand` event on its `<sa-table-row-detail>` once the details are visible, and collapsing it raises `row-detail-collapse`. The event's `detail` holds the expandable `row` and the `detailRow`. To load a row's details from the server the first time it expands, put the htmx attributes on the detail row itself, where the event fires, and target its content. The placeholder shows until the response arrives.
