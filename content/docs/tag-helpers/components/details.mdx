@@ -34,6 +34,14 @@ Set `column-span` on a field to a number of columns, or to `full` to span all of
   <include>./_include/details-columns.mdx</include>
 </Demo>
 
+### Column start
+
+Set `column-start` to the column a field starts at, from 1 to 12, to begin a new row or leave a gap. In this example the dates start a new row and the total sits under the cabin in the last column. `column-start-sm`, `column-start-md` and `column-start-lg` set the start at each width, and `auto` places the field after the one before it again. The start is ignored where the list has one column or the field would extend past the last column. Starts work as they do in a [Grid](./grid#column-start).
+
+<Demo src="/demo/tag-helpers/details-starts.html">
+  <include>./_include/details-starts.mdx</include>
+</Demo>
+
 ### Horizontal
 
 Set `orientation` to `FieldOrientation.Horizontal` to place each label beside its value. Set it on `<sa-details>` for every field, or on a single `<sa-display-field>`.
@@ -228,6 +236,26 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
       description: "The span when the list is at least 56rem wide, from 1 to 12, or full.",
       type: "string",
       default: "The span at 40rem",
+    },
+    "column-start": {
+      description: "The column the field starts at in a <sa-details> list or a <sa-grid>, from 1 to 12, or auto to follow the previous field. Ignored at a width with one column or where the field would extend past the last column.",
+      type: "string",
+      default: "auto",
+    },
+    "column-start-sm": {
+      description: "The start when the list is at least 30rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "column-start",
+    },
+    "column-start-md": {
+      description: "The start when the list is at least 40rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "The start at 30rem",
+    },
+    "column-start-lg": {
+      description: "The start when the list is at least 56rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "The start at 40rem",
     },
     orientation: {
       description: "How the field arranges its label and value.",

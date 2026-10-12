@@ -259,6 +259,9 @@
   .inset-x-0 {
     inset-inline: calc(var(--sa-unit) * 0);
   }
+  .start {
+    inset-inline-start: var(--sa-unit);
+  }
   .end {
     inset-inline-end: var(--sa-unit);
   }

@@ -23,7 +23,7 @@ Wrap fields in `<sa-grid>` and set `columns` to the number of columns. Each fiel
 
 The columns respond to the width of the grid rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the grid is at least 40rem wide, and the grid uses one column below that.
 
-Fields carry their own span: `<sa-field>`, every input that renders its own field, such as `<sa-input asp-for="...">` or `<sa-select asp-for="...">`, and `<sa-display-field>` accept the `column-span` attributes. Wrap anything else, such as a [Form Section](./form-section) or a [Details](./details) list, in `<sa-grid-item>` to give it a span.
+Fields carry their own span: `<sa-field>`, every input that renders its own field, such as `<sa-input asp-for="...">` or `<sa-select asp-for="...">`, and `<sa-display-field>` accept the `column-span` and `column-start` attributes. Wrap anything else, such as a [Form Section](./form-section) or a [Details](./details) list, in `<sa-grid-item>` to give it a span or a start.
 
 ## Examples
 
@@ -35,6 +35,14 @@ Set `column-span` to a number from 1 to 12, or to `full` to span every column. `
 
 <Demo src="/demo/tag-helpers/grid-spans.html">
   <include>./_include/grid-spans.mdx</include>
+</Demo>
+
+### Column start
+
+Set `column-start` to the column a field starts at, from 1 to 12, to begin a new row or leave a gap. In this example the dates start a new row and the phone number leaves the first column empty. `column-start-sm`, `column-start-md` and `column-start-lg` set the start at each width, and `auto` places the field after the one before it again. A width without a start uses the start of the next smaller width. The start is ignored where the grid has one column or the field would extend past the last column, so the fields stack in a narrow grid.
+
+<Demo src="/demo/tag-helpers/grid-starts.html">
+  <include>./_include/grid-starts.mdx</include>
 </Demo>
 
 ### Inputs and display fields
@@ -123,9 +131,29 @@ Renders a `<div>` element, forwarding any [global attributes](https://developer.
       type: "string",
       default: "The span at 40rem",
     },
+    "column-start": {
+      description: "The column the item starts at, from 1 to 12, or auto to follow the previous item. Ignored at a width where the grid has one column or the item would extend past the last column.",
+      type: "string",
+      default: "auto",
+    },
+    "column-start-sm": {
+      description: "The start when the grid is at least 30rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "column-start",
+    },
+    "column-start-md": {
+      description: "The start when the grid is at least 40rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "The start at 30rem",
+    },
+    "column-start-lg": {
+      description: "The start when the grid is at least 56rem wide, from 1 to 12, or auto.",
+      type: "string",
+      default: "The start at 40rem",
+    },
   }}
 />
 
-### Field spans
+### Field spans and starts
 
-`<sa-field>`, every input that renders its own field and `<sa-display-field>` accept the same `column-span`, `column-span-sm`, `column-span-md` and `column-span-lg` attributes. They apply when the field is a direct child of `<sa-grid>` or `<sa-details>` and are ignored elsewhere. An invalid value throws an exception when the page renders.
+`<sa-field>`, every input that renders its own field and `<sa-display-field>` accept the same `column-span`, `column-span-sm`, `column-span-md`, `column-span-lg`, `column-start`, `column-start-sm`, `column-start-md` and `column-start-lg` attributes. They apply when the field is a direct child of `<sa-grid>` or `<sa-details>` and are ignored elsewhere. An invalid value throws an exception when the page renders.

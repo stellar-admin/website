@@ -458,8 +458,9 @@
 }
 
 /* Responsive grids (ResponsiveGrid.cs): the tag helpers and the Dashboard write a grid's column and
-   row counts and each item's span per container breakpoint as inline variables, leaving out values at
-   1. The variables don't inherit, so a nested grid or item never picks up its parent's values. */
+   row counts and each item's span and start per container breakpoint as inline variables, leaving
+   out values at their initial value. The variables don't inherit, so a nested grid or item never
+   picks up its parent's values. */
 @property --sa-cols { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-cols-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-cols-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
@@ -468,6 +469,10 @@
 @property --sa-span-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-span-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-span-lg { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-start { syntax: "auto | <integer>"; inherits: false; initial-value: auto; }
+@property --sa-start-sm { syntax: "auto | <integer>"; inherits: false; initial-value: auto; }
+@property --sa-start-md { syntax: "auto | <integer>"; inherits: false; initial-value: auto; }
+@property --sa-start-lg { syntax: "auto | <integer>"; inherits: false; initial-value: auto; }
 @property --sa-rows { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-rows-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
 @property --sa-rows-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
@@ -3341,9 +3346,9 @@
 /* components/grid.css */
 /* Grid: responsive columns for sa-grid and sa-details. The wrapper is the container the column
    breakpoints query; the content inside is the grid. The tag helpers write the column counts and
-   each item's span per breakpoint as the inline grid variables (structure.css). Fields and display
-   fields placed directly in an sa-grid get their item from their own tag helper. Each item is the
-   field-group container of what it holds, so content that measures its field group, such as the
+   each item's span and start per breakpoint as the inline grid variables (structure.css). Fields
+   and display fields placed directly in an sa-grid get their item from their own tag helper. Each
+   item is the field-group container of what it holds, so content that measures its field group, such as the
    Dashboard's choice columns, measures its own column.
    Replaces: .sa-grid, .sa-grid-content, .sa-grid-item */
 
@@ -3359,7 +3364,7 @@
     display: grid;
     grid-template-columns: repeat(var(--sa-cols), minmax(0, 1fr));
     & > * {
-      grid-column: span var(--sa-span);
+      grid-column: var(--sa-start) / span var(--sa-span);
       min-width: 0;
     }
   }
@@ -3371,7 +3376,7 @@
     :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
       grid-template-columns: repeat(var(--sa-cols-sm), minmax(0, 1fr));
       & > * {
-        grid-column: span var(--sa-span-sm);
+        grid-column: var(--sa-start-sm) / span var(--sa-span-sm);
       }
     }
   }
@@ -3379,7 +3384,7 @@
     :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
       grid-template-columns: repeat(var(--sa-cols-md), minmax(0, 1fr));
       & > * {
-        grid-column: span var(--sa-span-md);
+        grid-column: var(--sa-start-md) / span var(--sa-span-md);
       }
     }
   }
@@ -3387,7 +3392,7 @@
     :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
       grid-template-columns: repeat(var(--sa-cols-lg), minmax(0, 1fr));
       & > * {
-        grid-column: span var(--sa-span-lg);
+        grid-column: var(--sa-start-lg) / span var(--sa-span-lg);
       }
     }
   }
