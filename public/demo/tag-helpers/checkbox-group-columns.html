@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.dmgr2471ca.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-2xl">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-label" class="sa-label sa-field-label" data-slot="field-label">Trip extras</label><div id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036" data-slot="checkbox-group" role="group" class="sa-field-group" data-columns="multiple" data-flow="down" style="--sa-cols-sm:2;--sa-cols-md:2;--sa-cols-lg:3;--sa-rows:7;--sa-rows-sm:4;--sa-rows-md:4;--sa-rows-lg:3" aria-labelledby="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-label">
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-1" value="wifi" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-1">Wi-Fi on board</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-2" value="lounge" checked="checked" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-2">Lounge access</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-3" value="priority" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-3">Priority boarding</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-4" value="baggage" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-4">Extra baggage</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-5" value="seat" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-5">Seat selection</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-6" value="insurance" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-6">Travel insurance</label></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="checkbox" name="columns-checkbox" id="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-7" value="transfer" checked="checked" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" stroke-linecap="round" stroke="currentColor" stroke-linejoin="round" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg></span></span><label class="sa-field-label" data-slot="field-label" for="sa-0cca22767f699e8d7e6271d83133f6d6a6032b89da63935d2d97a4dd44caeae86036-7">Airport transfer</label></div>
+    <input name="__sa_checkbox_group.columns-checkbox" type="hidden" value="true" /></div></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

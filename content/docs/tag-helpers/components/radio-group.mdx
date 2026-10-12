@@ -69,6 +69,14 @@ Put a `<sa-radio-group-item-media>` inside an item to show an icon, avatar, imag
   <include>./_include/radio-group-media.mdx</include>
 </Demo>
 
+### Columns
+
+Set `columns` to show the options in columns once the field is at least 40rem wide; narrower fields use one column. Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width. The widths are measured against the field, so a group in a narrow column of an `<sa-grid>` stays in one column. The options fill each row in turn; set `flow="RadioGroupFlow.Down"` to fill each column from top to bottom before the next.
+
+<Demo src="/demo/tag-helpers/radio-group-columns.html">
+  <include>./_include/radio-group-columns.mdx</include>
+</Demo>
+
 ### Validation
 
 The group displays one ModelState error and marks its inputs invalid. StellarAdmin does not provide client-side validation; use server-side validation or add your own client validation.
@@ -107,6 +115,12 @@ The group renders a fieldset and legend with native radio inputs and associated 
 | `name` | `string` | Submitted field name for an unbound group. |
 | `value` | `string` | Selected value for an unbound group. |
 | `variant` | `RadioGroupVariant` | `Default` or `ChoiceCard`. Defaults to `Default`. |
+| `columns` | `int` | Number of columns once the field is at least 40rem wide, from 1 to 12. Defaults to 1. Set either `columns` or `columns-md`, not both. |
+| `columns-base` | `int` | Number of columns at the smallest width. Defaults to 1. |
+| `columns-sm` | `int` | Number of columns once the field is at least 30rem wide. Defaults to the smaller width's value. |
+| `columns-md` | `int` | Number of columns once the field is at least 40rem wide. Defaults to the smaller width's value. |
+| `columns-lg` | `int` | Number of columns once the field is at least 56rem wide. Defaults to the smaller width's value. |
+| `flow` | `RadioGroupFlow` | `Across` or `Down`: the order in which the options fill the columns. Defaults to `Across`. |
 | `label` | `string` | Group legend; overrides model metadata. |
 | `description` | `string` | Supporting text; overrides model metadata. |
 | `error` | `string` | Explicit group error message. |
