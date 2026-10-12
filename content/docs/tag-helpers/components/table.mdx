@@ -152,11 +152,19 @@ Lets the rows of the table it wraps expand to show details, rendered as a `sel-t
     },
     emphasis: {
       description:
-        "How an expanded row and its details are set apart from the rows around them: no treatment, a tinted band, or an accent rail along the left edge.",
+        "How an expanded row and its details are set apart from the rows around them: no treatment, a lightly tinted band, or an accent rail along the left edge.",
       type: "TableRowDetailEmphasis",
       typeDescription:
         "TableRowDetailEmphasis.None | TableRowDetailEmphasis.Band | TableRowDetailEmphasis.Rail",
       default: "TableRowDetailEmphasis.Band",
+    },
+    divider: {
+      description:
+        "The line between an expanded row and its details: none, a line that starts and ends where the details content does, or a line across the table.",
+      type: "TableRowDetailDivider",
+      typeDescription:
+        "TableRowDetailDivider.None | TableRowDetailDivider.Inset | TableRowDetailDivider.FullWidth",
+      default: "TableRowDetailDivider.Inset",
     },
     inset: {
       description:
