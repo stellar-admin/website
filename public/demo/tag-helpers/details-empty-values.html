@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/tag-helpers/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/site.o5yi1p07td.css" />
+    <link rel="stylesheet" href="/demo/tag-helpers/assets/stellar-admin.ogft26ik2n.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/tag-helpers/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full">
+    <!-- code begin -->
+    <div data-slot="details" data-variant="default" class="sa-details"><dl class="sa-details-list" data-slot="details-list" style="--sa-cols-md:2;--sa-cols-lg:2">
+        <div data-slot="display-field" data-orientation="vertical" class="sa-field sa-display-field"><dt class="sa-display-field-label" data-slot="display-field-label">Promo code</dt><dd class="sa-display-field-value" data-empty="true" data-slot="display-field-value">&#x2014;</dd></div>
+        <div data-slot="display-field" data-orientation="vertical" class="sa-field sa-display-field"><dt class="sa-display-field-label" data-slot="display-field-label">Dietary needs</dt><dd class="sa-display-field-value" data-empty="true" data-slot="display-field-value">None</dd></div>
+        <div data-slot="display-field" data-orientation="vertical" class="sa-field sa-display-field"><dt class="sa-display-field-label" data-slot="display-field-label">Archived</dt><dd class="sa-display-field-value" data-empty="true" data-slot="display-field-value">Not archived</dd></div>
+        <div data-slot="display-field" data-orientation="vertical" class="sa-field sa-display-field"><dt class="sa-display-field-label" data-slot="display-field-label">Infants</dt><dd class="sa-display-field-value" data-kind="number" data-slot="display-field-value">0</dd></div>
+    </dl></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
