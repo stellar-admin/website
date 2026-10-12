@@ -778,6 +778,13 @@
   .gap-10 {
     gap: calc(var(--sa-unit) * 10);
   }
+  .space-y-1 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--sa-unit) * 1) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--sa-unit) * 1) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
   .space-y-2 {
     :where(& > :not(:last-child)) {
       --tw-space-y-reverse: 0;
@@ -1045,6 +1052,9 @@
   }
   .py-14 {
     padding-block: calc(var(--sa-unit) * 14);
+  }
+  .ps-5 {
+    padding-inline-start: calc(var(--sa-unit) * 5);
   }
   .pt-0 {
     padding-top: calc(var(--sa-unit) * 0);
