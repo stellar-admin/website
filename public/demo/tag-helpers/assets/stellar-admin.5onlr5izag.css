@@ -449,13 +449,10 @@
     height: calc(4 * var(--sa-unit));
   }
 
-  /* A vertical or responsive field stretches its children, over their own widths (a toggle group's
-     fit-content); a responsive field stops once its field group is wide enough for a row. */
-  .sa-field.sa-field:is([data-orientation="vertical"], [data-orientation="responsive"]) > :not(.sr-only) {
+  /* A vertical field stretches its children, over their own widths (a toggle group's
+     fit-content). */
+  .sa-field.sa-field[data-orientation="vertical"] > :not(.sr-only) {
     width: 100%;
-  }
-  @container field-group (width >= 28rem) {
-    .sa-field.sa-field[data-orientation="responsive"] > :not(.sr-only) { width: auto; }
   }
 }
 
@@ -2614,9 +2611,8 @@
 }
 
 /* components/details.css */
-/* Details: read-only display fields in a description list. The wrapper is the container its column
-   breakpoints query; the list inside is the grid. The tag helpers write the list's column counts and
-   each field's span per breakpoint as the inline grid variables (structure.css). A display field is
+/* Details: read-only display fields in a description list. Its columns and spans are grid.css's. A
+   display field is
    an sa-field (field.css), so the rules that change its layout name both classes to out-rank
    field.css. Among inputs (outside a details list) a display field takes an input's label style and
    a control's height, so a row of inputs and display fields lines up. In a row detail, labels are
@@ -2625,44 +2621,10 @@
    .sa-display-field-value, .sa-display-field-secondary */
 
 @layer sa.components {
-  /* --- Details list ------------------------------------------------------------------------ */
-  .sa-details {
-    container: details / inline-size;
-    width: 100%;
-    min-width: 0;
-  }
+  /* --- Details list: the columns are grid.css's ------------------------------------------- */
   .sa-details-list {
-    display: grid;
-    grid-template-columns: repeat(var(--sa-cols), minmax(0, 1fr));
     gap: calc(5 * var(--sa-unit)) calc(8 * var(--sa-unit));
     margin: 0;
-    & > * {
-      grid-column: span var(--sa-span);
-    }
-  }
-  @container details (min-width: 30rem) {
-    .sa-details-list {
-      grid-template-columns: repeat(var(--sa-cols-sm), minmax(0, 1fr));
-      & > * {
-        grid-column: span var(--sa-span-sm);
-      }
-    }
-  }
-  @container details (min-width: 40rem) {
-    .sa-details-list {
-      grid-template-columns: repeat(var(--sa-cols-md), minmax(0, 1fr));
-      & > * {
-        grid-column: span var(--sa-span-md);
-      }
-    }
-  }
-  @container details (min-width: 56rem) {
-    .sa-details-list {
-      grid-template-columns: repeat(var(--sa-cols-lg), minmax(0, 1fr));
-      & > * {
-        grid-column: span var(--sa-span-lg);
-      }
-    }
   }
 
   /* Divided: rows separated by rules. */
@@ -2737,21 +2699,12 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     align-items: baseline;
-    gap: calc(4 * var(--sa-unit));
-  }
-  /* Responsive: stacked until the list is wide enough. */
-  @container details (min-width: 32rem) {
-    .sa-field.sa-display-field[data-orientation="responsive"] {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-      align-items: baseline;
-      gap: calc(4 * var(--sa-unit));
-    }
+    column-gap: calc(4 * var(--sa-unit));
   }
 
   /* Among inputs: an input's label, and a value at a control's height. */
   .sa-field.sa-display-field:not(.sa-details-list > *) {
-    gap: calc(2 * var(--sa-unit));
+    row-gap: calc(2 * var(--sa-unit));
     & > .sa-display-field-label {
       color: var(--sa-color-ink);
       font-weight: var(--sa-weight-control);
@@ -2766,7 +2719,7 @@
 
   /* In a row detail: caption labels, regular-weight values. */
   .sa-table-row-detail-content .sa-field.sa-display-field {
-    gap: calc(0.5 * var(--sa-unit));
+    row-gap: calc(0.5 * var(--sa-unit));
     & > .sa-display-field-label {
       font-size: var(--sa-text-xs);
     }
@@ -3097,10 +3050,8 @@
    card variant of CheckboxGroup, RadioGroup and ChoiceGroup, or written by hand). CheckboxGroup and
    RadioGroup render field groups (data-slot checkbox-group or radio-group) with field parts, so they
    are styled here too. Field labels are also labels (label.css).
-   Vertical and responsive fields force their children's widths with utility classes the tag helper
-   emits ([&>*]:w-full, components.css), so a child component's own width cannot win; the responsive
-   field's switch to a row uses the field group's container query, so the group stays a container
-   named field-group.
+   Vertical fields stretch their children over the children's own widths (structure.css). A field
+   group is a container named field-group, which the Dashboard's choice columns query.
    Replaces: .sa-field, .sa-field-content, .sa-field-description, .sa-field-error, .sa-field-group,
    .sa-field-label, .sa-field-legend, .sa-field-separator, .sa-field-separator-content,
    .sa-field-separator-line, .sa-field-set, .sa-field-title */
@@ -3162,21 +3113,6 @@
       flex-direction: column;
     }
     &[data-orientation="horizontal"] {
-      flex-direction: row;
-      align-items: center;
-      & > [data-slot="field-label"] {
-        flex: auto;
-      }
-      &:has(> [data-slot="field-content"]) {
-        align-items: flex-start;
-      }
-    }
-    &[data-orientation="responsive"] {
-      flex-direction: column;
-    }
-  }
-  @container field-group (min-width: 28rem) {
-    .sa-field[data-orientation="responsive"] {
       flex-direction: row;
       align-items: center;
       & > [data-slot="field-label"] {
@@ -3328,35 +3264,6 @@
   }
 }
 
-/* components/form-row.css */
-/* Form row: fields side by side in equal columns once the row is wide enough, stacked below that.
-   Replaces: .sa-form-row, .sa-form-row-content */
-
-@layer sa.components {
-  .sa-form-row {
-    container: form-row / inline-size;
-    width: 100%;
-    min-width: 0;
-    gap: calc(4 * var(--sa-unit));
-  }
-  .sa-form-row-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    gap: inherit;
-    & > * {
-      min-width: 0;
-    }
-  }
-  @container form-row (min-width: 40rem) {
-    .sa-form-row > .sa-form-row-content {
-      grid-template-columns: none;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-    }
-  }
-}
-
 /* components/form-section.css */
 /* Form section: a titled group of fields, stacked, split (header beside the fields once wide enough)
    or in a card. Consecutive plain sections are divided by a rule.
@@ -3427,6 +3334,71 @@
     .sa-form-section[data-layout="split"] > .sa-form-section-inner {
       grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
     }
+  }
+}
+
+/* components/grid.css */
+/* Grid: responsive columns for sa-grid and sa-details. The wrapper is the container the column
+   breakpoints query; the content inside is the grid. The tag helpers write the column counts and
+   each item's span per breakpoint as the inline grid variables (structure.css). Fields and display
+   fields placed directly in an sa-grid get their item from their own tag helper. Each item is the
+   field-group container of what it holds, so content that measures its field group, such as the
+   Dashboard's choice columns, measures its own column.
+   Replaces: .sa-grid, .sa-grid-content, .sa-grid-item */
+
+@layer sa.components {
+  .sa-grid,
+  .sa-details {
+    container: grid / inline-size;
+    width: 100%;
+    min-width: 0;
+  }
+  .sa-grid-content,
+  .sa-details-list {
+    display: grid;
+    grid-template-columns: repeat(var(--sa-cols), minmax(0, 1fr));
+    & > * {
+      grid-column: span var(--sa-span);
+      min-width: 0;
+    }
+  }
+  .sa-grid-content {
+    align-items: start;
+    gap: calc(5 * var(--sa-unit)) calc(4 * var(--sa-unit));
+  }
+  @container grid (min-width: 30rem) {
+    :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-sm), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-sm);
+      }
+    }
+  }
+  @container grid (min-width: 40rem) {
+    :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-md), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-md);
+      }
+    }
+  }
+  @container grid (min-width: 56rem) {
+    :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-lg), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-lg);
+      }
+    }
+  }
+
+  .sa-grid-item {
+    container: field-group / inline-size;
+  }
+  /* Sections side by side are separated by the grid gap, not a rule. */
+  .sa-grid-item + .sa-grid-item > .sa-form-section {
+    margin-top: 0;
+    border-top-width: 0;
+    padding-top: 0;
   }
 }
 

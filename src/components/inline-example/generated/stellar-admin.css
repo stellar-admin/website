@@ -107,7 +107,7 @@
  *
  * Scoping. Custom properties that reference other custom properties resolve where they are declared,
  * and descendants inherit the resolved value. So formulas are declared on every element that can change
- * a theme variable: :root, a .dark scope, a [data-sa-density] scope and a [data-sa-scope] (any element that
+ * a theme variable: :root, a .dark or .light scope, a [data-sa-density] scope and a [data-sa-scope] (any element that
  * sets its own theme variables, e.g. a branded panel). Colour formulas are split by mode; geometry is mode-independent.
  *
  * Modifier rule. A modifier class (a variant, MenuAccent.Bold, …) never redefines a token. It sets a
@@ -192,14 +192,15 @@
     --sa-disabled-opacity: 0.5;
   }
 
-  :where(.sa-inline-example) [data-sa-density="compact"] { --sa-density: 0.8; }
-  :where(.sa-inline-example) [data-sa-density="comfortable"] { --sa-density: 1.2; }
+  /* Relative to the theme's density, so a dense theme's compact section is denser still. */
+  :where(.sa-inline-example) [data-sa-density="compact"] { --_density-step: 0.8; }
+  :where(.sa-inline-example) [data-sa-density="comfortable"] { --_density-step: 1.2; }
 
   /* --- Geometry and type: re-derived wherever density or theme variables change -------------- */
   .sa-inline-example,
   :where(.sa-inline-example) [data-sa-density],
   :where(.sa-inline-example) [data-sa-scope] {
-    --sa-unit: calc(0.25rem * var(--sa-density));
+    --sa-unit: calc(0.25rem * var(--sa-density) * var(--_density-step, 1));
 
     --sa-text-2xs: calc(0.6875rem * var(--sa-type-scale));
     --sa-text-xs: calc(0.75rem * var(--sa-type-scale));
@@ -238,8 +239,11 @@
   }
 
   /* --- Colour ramps: the only mode-specific part ---------------------------------------------- */
+  /* .dark switches a subtree to dark mode and .light switches it back; each stops at the other, so
+     they nest to any depth. */
   .sa-inline-example,
-  :where(.sa-inline-example) [data-sa-scope] {
+  :where(.sa-inline-example) [data-sa-scope],
+  :where(.sa-inline-example) .light {
     --_h: var(--sa-neutral-hue);
     --_c: var(--sa-neutral-chroma);
     --_d: var(--sa-surface-depth);
@@ -279,47 +283,49 @@
     --sa-color-scrim: oklch(0.2 var(--_c) var(--_h) / 0.25);
   }
 
-  :is(.dark .sa-inline-example, .sa-inline-example.dark),
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) [data-sa-scope] {
-    --_h: var(--sa-neutral-hue-dark, var(--sa-neutral-hue));
-    --_c: var(--sa-neutral-chroma-dark, var(--sa-neutral-chroma));
-    --sa-color-canvas: oklch(0.155 calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface: oklch(calc(0.155 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-subtle: oklch(calc(0.175 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-sunken: oklch(calc(0.24 + 0.06 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-surface-raised: oklch(calc(0.17 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
-    --sa-color-field: oklch(1 0 0 / 0.04);
-    --sa-color-field-disabled: oklch(1 0 0 / 0.08);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope,
+    :where(.sa-inline-example) [data-sa-scope] {
+      --_h: var(--sa-neutral-hue-dark, var(--sa-neutral-hue));
+      --_c: var(--sa-neutral-chroma-dark, var(--sa-neutral-chroma));
+      --sa-color-canvas: oklch(0.155 calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface: oklch(calc(0.155 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-subtle: oklch(calc(0.175 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-sunken: oklch(calc(0.24 + 0.06 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-surface-raised: oklch(calc(0.17 + 0.1 * var(--_d)) calc(var(--_c) * 1.2) var(--_h));
+      --sa-color-field: oklch(1 0 0 / 0.04);
+      --sa-color-field-disabled: oklch(1 0 0 / 0.08);
 
-    --sa-color-ink: oklch(0.97 calc(var(--_c) * 0.5) var(--_h));
-    --sa-color-ink-muted: oklch(0.71 var(--_c) var(--_h));
-    --sa-color-ink-placeholder: oklch(0.6 var(--_c) var(--_h));
+      --sa-color-ink: oklch(0.97 calc(var(--_c) * 0.5) var(--_h));
+      --sa-color-ink-muted: oklch(0.71 var(--_c) var(--_h));
+      --sa-color-ink-placeholder: oklch(0.6 var(--_c) var(--_h));
 
-    --sa-color-line: oklch(0.9 var(--_c) var(--_h) / calc(0.11 * var(--_s)));
-    --sa-color-line-control: oklch(0.9 var(--_c) var(--_h) / calc(0.16 * var(--_s)));
-    --sa-color-line-control-hover: oklch(0.9 var(--_c) var(--_h) / calc(0.26 * var(--_s)));
-    --sa-color-nav-line: var(--sa-color-line);
+      --sa-color-line: oklch(0.9 var(--_c) var(--_h) / calc(0.11 * var(--_s)));
+      --sa-color-line-control: oklch(0.9 var(--_c) var(--_h) / calc(0.16 * var(--_s)));
+      --sa-color-line-control-hover: oklch(0.9 var(--_c) var(--_h) / calc(0.26 * var(--_s)));
+      --sa-color-nav-line: var(--sa-color-line);
 
-    --sa-color-accent: var(--sa-accent-dark, oklch(from var(--sa-accent) max(l, 0.72) c h));
-    --sa-color-accent-text: oklch(from var(--sa-color-accent) max(l, 0.75) c h);
-    --sa-color-danger: var(--sa-danger-dark, oklch(from var(--sa-danger) max(l, 0.68) c h));
-    --sa-color-danger-text: oklch(from var(--sa-color-danger) max(l, 0.88) c h);   /* 4.5:1 on its hover tint over raised surfaces too */
-    --sa-color-success: oklch(from var(--sa-success) max(l, 0.72) c h);
-    --sa-color-warning: oklch(from var(--sa-warning) max(l, 0.78) c h);
-    --sa-color-info: oklch(from var(--sa-info) max(l, 0.72) c h);
-    --sa-color-danger-soft: color-mix(in oklab, var(--sa-color-danger) 20%, transparent);
-    --sa-color-danger-soft-hover: color-mix(in oklab, var(--sa-color-danger) 30%, transparent);
-    --sa-invalid-ring-color: color-mix(in oklab, var(--sa-color-danger) 40%, transparent);
+      --sa-color-accent: var(--sa-accent-dark, oklch(from var(--sa-accent) max(l, 0.72) c h));
+      --sa-color-accent-text: oklch(from var(--sa-color-accent) max(l, 0.75) c h);
+      --sa-color-danger: var(--sa-danger-dark, oklch(from var(--sa-danger) max(l, 0.68) c h));
+      --sa-color-danger-text: oklch(from var(--sa-color-danger) max(l, 0.88) c h);   /* 4.5:1 on its hover tint over raised surfaces too */
+      --sa-color-success: oklch(from var(--sa-success) max(l, 0.72) c h);
+      --sa-color-warning: oklch(from var(--sa-warning) max(l, 0.78) c h);
+      --sa-color-info: oklch(from var(--sa-info) max(l, 0.72) c h);
+      --sa-color-danger-soft: color-mix(in oklab, var(--sa-color-danger) 20%, transparent);
+      --sa-color-danger-soft-hover: color-mix(in oklab, var(--sa-color-danger) 30%, transparent);
+      --sa-invalid-ring-color: color-mix(in oklab, var(--sa-color-danger) 40%, transparent);
 
-    --_shadow-a: calc(var(--_e) * 2.5);
-    --sa-color-scrim: oklch(0 0 0 / 0.5);
+      --_shadow-a: calc(var(--_e) * 2.5);
+      --sa-color-scrim: oklch(0 0 0 / 0.5);
+    }
   }
 
   /* --- Relations: the same formula in every mode, so declared on every colour scope ---------- */
   .sa-inline-example,
   :where(.sa-inline-example) [data-sa-scope],
   :is(.dark .sa-inline-example, .sa-inline-example.dark),
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) [data-sa-scope] {
+  :where(.sa-inline-example) .light {
     /* Solid fills (primary buttons, badges, the switch, the current page, bold highlights) and the text on
        them, computed from WCAG luminance (Y, from linear sRGB clipped to the sRGB gamut, as the screen shows it). Text is white on a fill below Y 0.18 and
        near-black above it, whichever contrasts more. A fill between Y 0.18 and 0.37 (about lightness 0.57 to
@@ -370,9 +376,11 @@
 
   /* Dark mode: the hover fill moves away from the text on it (black under light text, white under
      dark text), not toward the light ink, which cost white text its contrast (3.8:1). */
-  :is(.dark .sa-inline-example, .sa-inline-example.dark),
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) [data-sa-scope] {
-    --sa-color-accent-hover: color-mix(in oklab, var(--sa-color-accent-fill) 88%, oklch(from var(--sa-color-on-accent) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope,
+    :where(.sa-inline-example) [data-sa-scope] {
+      --sa-color-accent-hover: color-mix(in oklab, var(--sa-color-accent-fill) 88%, oklch(from var(--sa-color-on-accent) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+    }
   }
 }
 
@@ -442,15 +450,28 @@
     height: calc(4 * var(--sa-unit));
   }
 
-  /* A vertical or responsive field stretches its children, over their own widths (a toggle group's
-     fit-content); a responsive field stops once its field group is wide enough for a row. */
-  :where(.sa-inline-example) .sa-field.sa-field:is([data-orientation="vertical"], [data-orientation="responsive"]) > :not(.sr-only) {
+  /* A vertical field stretches its children, over their own widths (a toggle group's
+     fit-content). */
+  :where(.sa-inline-example) .sa-field.sa-field[data-orientation="vertical"] > :not(.sr-only) {
     width: 100%;
   }
-  @container field-group (width >= 28rem) {
-    :where(.sa-inline-example) .sa-field.sa-field[data-orientation="responsive"] > :not(.sr-only) { width: auto; }
-  }
 }
+
+/* Responsive grids (ResponsiveGrid.cs): the tag helpers and the Dashboard write a grid's column and
+   row counts and each item's span per container breakpoint as inline variables, leaving out values at
+   1. The variables don't inherit, so a nested grid or item never picks up its parent's values. */
+@property --sa-cols { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-cols-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-cols-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-cols-lg { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-span { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-span-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-span-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-span-lg { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-rows { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-rows-sm { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-rows-md { syntax: "<integer>"; inherits: false; initial-value: 1; }
+@property --sa-rows-lg { syntax: "<integer>"; inherits: false; initial-value: 1; }
 
 /* components/accordion.css */
 /* Accordion: <sa-accordion>, a column of <details> items whose summary is the trigger.
@@ -681,9 +702,11 @@
     --_alert-danger-bg: color-mix(in oklab, oklch(from var(--sa-color-danger) min(l, 0.58) c h) 6%, var(--sa-color-surface));
     --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 35%, var(--sa-color-surface));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-alert {
-    --_alert-danger-bg: color-mix(in oklab, var(--sa-color-danger) 12%, var(--sa-color-surface));
-    --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 40%, var(--sa-color-surface));
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-alert {
+      --_alert-danger-bg: color-mix(in oklab, var(--sa-color-danger) 12%, var(--sa-color-surface));
+      --_alert-danger-border: color-mix(in oklab, var(--sa-color-danger) 40%, var(--sa-color-surface));
+    }
   }
 }
 
@@ -954,7 +977,9 @@
       -webkit-text-fill-color: transparent;
       animation: sa-inline-sa-attachment-shimmer 2s linear infinite;
     }
-    .dark :is([data-state="processing"], [data-state="uploading"]) > .sa-attachment-content > & {
+  }
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope :is([data-state="processing"], [data-state="uploading"]) > .sa-attachment-content > .sa-attachment-title {
       --_highlight: oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4));
     }
   }
@@ -1111,8 +1136,10 @@
       --_badge: calc(3 * var(--sa-unit));
     }
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-avatar::after {
-    mix-blend-mode: lighten;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-avatar::after {
+      mix-blend-mode: lighten;
+    }
   }
   :where(.sa-inline-example) .sa-avatar-image {
     width: 100%;
@@ -1207,10 +1234,12 @@
   :where(.sa-inline-example) .sa-badge {
     --_badge-danger-fg: var(--sa-color-danger-text);
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-badge {
-    /* Lighter than danger text: the soft tint is translucent, and on a tinted row (a selected or
-       hovered data grid row) it keeps 4.5:1 only with more room. */
-    --_badge-danger-fg: oklch(from var(--sa-color-danger) max(l, 0.82) min(c, 0.12) h);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-badge {
+      /* Lighter than danger text: the soft tint is translucent, and on a tinted row (a selected or
+         hovered data grid row) it keeps 4.5:1 only with more room. */
+      --_badge-danger-fg: oklch(from var(--sa-color-danger) max(l, 0.82) min(c, 0.12) h);
+    }
   }
 }
 
@@ -1363,9 +1392,11 @@
     --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.92 calc(c * 0.4) h);
     --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.87 calc(c * 0.5) h);
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) :is(.sa-bubble, .sa-bubble-group) {
-    --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.3 calc(c * 0.4) h);
-    --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.35 calc(c * 0.5) h);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope :is(.sa-bubble, .sa-bubble-group) {
+      --_bubble-tinted-bg: oklch(from var(--sa-color-accent) 0.3 calc(c * 0.4) h);
+      --_bubble-tinted-bg-hover: oklch(from var(--sa-color-accent) 0.35 calc(c * 0.5) h);
+    }
   }
 }
 
@@ -1655,16 +1686,18 @@
     --_button-outline-border: var(--sa-color-line);
     --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, var(--sa-color-ink));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-button {
-    --_relief-k: 1.45;
-    --_relief-k-drop: 2.5;
-    --_sheen-k: 0.7;
-    --_secondary-lit: 0;
-    --_secondary-sheen: 0.6;
-    --_button-outline-bg: var(--sa-color-field);
-    --_button-outline-border: var(--sa-color-line-control);
-    /* Away from the label, as --sa-color-accent-hover in dark mode. */
-    --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, oklch(from var(--sa-color-on-danger) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-button {
+      --_relief-k: 1.45;
+      --_relief-k-drop: 2.5;
+      --_sheen-k: 0.7;
+      --_secondary-lit: 0;
+      --_secondary-sheen: 0.6;
+      --_button-outline-bg: var(--sa-color-field);
+      --_button-outline-border: var(--sa-color-line-control);
+      /* Away from the label, as --sa-color-accent-hover in dark mode. */
+      --_danger-hover: color-mix(in oklab, var(--sa-color-danger-fill) 88%, oklch(from var(--sa-color-on-danger) clamp(0, (0.62 - l) * 1000, 1) 0 0));
+    }
   }
 }
 
@@ -2064,8 +2097,10 @@
     --_checkbox-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-input-control-wrapper {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-input-control-wrapper {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -2203,8 +2238,10 @@
     --_input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-chip-group[data-appearance="input"] {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-chip-group[data-appearance="input"] {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -2574,6 +2611,125 @@
   }
 }
 
+/* components/details.css */
+/* Details: read-only display fields in a description list. Its columns and spans are grid.css's. A
+   display field is
+   an sa-field (field.css), so the rules that change its layout name both classes to out-rank
+   field.css. Among inputs (outside a details list) a display field takes an input's label style and
+   a control's height, so a row of inputs and display fields lines up. In a row detail, labels are
+   captions.
+   Replaces: .sa-details, .sa-details-list, .sa-display-field, .sa-display-field-label,
+   .sa-display-field-value, .sa-display-field-secondary */
+
+@layer sa.components {
+  /* --- Details list: the columns are grid.css's ------------------------------------------- */
+  :where(.sa-inline-example) .sa-details-list {
+    gap: calc(5 * var(--sa-unit)) calc(8 * var(--sa-unit));
+    margin: 0;
+  }
+
+  /* Divided: rows separated by rules. */
+  :where(.sa-inline-example) .sa-details[data-variant="divided"] > .sa-details-list {
+    gap: 0;
+    & > .sa-display-field {
+      padding-block: calc(3 * var(--sa-unit));
+    }
+    & > .sa-display-field + .sa-display-field {
+      border-top: var(--sa-border-width) solid var(--sa-color-line);
+    }
+  }
+
+  /* --- Display field ----------------------------------------------------------------------- */
+  :where(.sa-inline-example) .sa-field.sa-display-field {
+    gap: calc(1 * var(--sa-unit));
+    min-width: 0;
+    margin: 0;
+  }
+  :where(.sa-inline-example) .sa-display-field-label {
+    margin: 0;
+    color: var(--sa-color-ink-muted);
+    font-size: var(--sa-text-sm);
+    font-weight: 400;
+    line-height: 1.375;
+  }
+  :where(.sa-inline-example) .sa-display-field-value {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(1.5 * var(--sa-unit));
+    min-width: 0;
+    margin: 0;
+    color: var(--sa-color-ink);
+    font-size: var(--sa-text-sm);
+    font-weight: var(--sa-weight-control);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    &[data-kind="number"] {
+      font-variant-numeric: tabular-nums;
+    }
+    &[data-kind="text"] {
+      display: block;
+      font-weight: 400;
+      white-space: pre-line;
+    }
+    &[data-empty] {
+      color: var(--sa-color-ink-placeholder);
+      font-weight: 400;
+    }
+    &[data-boolean="true"] > svg {
+      color: var(--sa-color-success);
+    }
+    &[data-boolean="false"] > svg {
+      color: var(--sa-color-ink-muted);
+    }
+    & > a {
+      color: var(--sa-color-accent-text);
+      text-underline-offset: 4px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  :where(.sa-inline-example) .sa-display-field-secondary {
+    color: var(--sa-color-ink-muted);
+    font-weight: 400;
+  }
+
+  /* Horizontal: a label column and a value column, the same split in every row. */
+  :where(.sa-inline-example) .sa-field.sa-display-field[data-orientation="horizontal"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: baseline;
+    column-gap: calc(4 * var(--sa-unit));
+  }
+
+  /* Among inputs: an input's label, and a value at a control's height. */
+  :where(.sa-inline-example) .sa-field.sa-display-field:not(.sa-details-list > *) {
+    row-gap: calc(2 * var(--sa-unit));
+    & > .sa-display-field-label {
+      color: var(--sa-color-ink);
+      font-weight: var(--sa-weight-control);
+    }
+    & > .sa-display-field-value {
+      min-height: var(--sa-control-h);
+    }
+    & > .sa-display-field-value:not([data-empty]) {
+      font-weight: 400;
+    }
+  }
+
+  /* In a row detail: caption labels, regular-weight values. */
+  :where(.sa-inline-example) .sa-table-row-detail-content .sa-field.sa-display-field {
+    row-gap: calc(0.5 * var(--sa-unit));
+    & > .sa-display-field-label {
+      font-size: var(--sa-text-xs);
+    }
+    & > .sa-display-field-value:not([data-empty]) {
+      font-weight: 400;
+    }
+  }
+}
+
 /* components/dialog.css */
 /* Dialog: a modal window over a native <dialog>, with a header, title, description and footer.
    Replaces: .sa-dialog-content, .sa-dialog-overlay, .sa-dialog-close, .sa-dialog-header,
@@ -2895,10 +3051,8 @@
    card variant of CheckboxGroup, RadioGroup and ChoiceGroup, or written by hand). CheckboxGroup and
    RadioGroup render field groups (data-slot checkbox-group or radio-group) with field parts, so they
    are styled here too. Field labels are also labels (label.css).
-   Vertical and responsive fields force their children's widths with utility classes the tag helper
-   emits ([&>*]:w-full, components.css), so a child component's own width cannot win; the responsive
-   field's switch to a row uses the field group's container query, so the group stays a container
-   named field-group.
+   Vertical fields stretch their children over the children's own widths (structure.css). A field
+   group is a container named field-group, which the Dashboard's choice columns query.
    Replaces: .sa-field, .sa-field-content, .sa-field-description, .sa-field-error, .sa-field-group,
    .sa-field-label, .sa-field-legend, .sa-field-separator, .sa-field-separator-content,
    .sa-field-separator-line, .sa-field-set, .sa-field-title */
@@ -2908,8 +3062,10 @@
     /* Choice cards: the selected card's accent wash. */
     --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 6%, var(--sa-color-field));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-field-label {
-    --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 12%, var(--sa-color-field));
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-field-label {
+      --_field-card-selected-bg: color-mix(in oklab, var(--sa-color-accent) 12%, var(--sa-color-field));
+    }
   }
 }
 
@@ -2958,21 +3114,6 @@
       flex-direction: column;
     }
     &[data-orientation="horizontal"] {
-      flex-direction: row;
-      align-items: center;
-      & > [data-slot="field-label"] {
-        flex: auto;
-      }
-      &:has(> [data-slot="field-content"]) {
-        align-items: flex-start;
-      }
-    }
-    &[data-orientation="responsive"] {
-      flex-direction: column;
-    }
-  }
-  @container field-group (min-width: 28rem) {
-    :where(.sa-inline-example) .sa-field[data-orientation="responsive"] {
       flex-direction: row;
       align-items: center;
       & > [data-slot="field-label"] {
@@ -3124,35 +3265,6 @@
   }
 }
 
-/* components/form-row.css */
-/* Form row: fields side by side in equal columns once the row is wide enough, stacked below that.
-   Replaces: .sa-form-row, .sa-form-row-content */
-
-@layer sa.components {
-  :where(.sa-inline-example) .sa-form-row {
-    container: form-row / inline-size;
-    width: 100%;
-    min-width: 0;
-    gap: calc(4 * var(--sa-unit));
-  }
-  :where(.sa-inline-example) .sa-form-row-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    gap: inherit;
-    & > * {
-      min-width: 0;
-    }
-  }
-  @container form-row (min-width: 40rem) {
-    :where(.sa-inline-example) .sa-form-row > .sa-form-row-content {
-      grid-template-columns: none;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-    }
-  }
-}
-
 /* components/form-section.css */
 /* Form section: a titled group of fields, stacked, split (header beside the fields once wide enough)
    or in a card. Consecutive plain sections are divided by a rule.
@@ -3223,6 +3335,71 @@
     :where(.sa-inline-example) .sa-form-section[data-layout="split"] > .sa-form-section-inner {
       grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
     }
+  }
+}
+
+/* components/grid.css */
+/* Grid: responsive columns for sa-grid and sa-details. The wrapper is the container the column
+   breakpoints query; the content inside is the grid. The tag helpers write the column counts and
+   each item's span per breakpoint as the inline grid variables (structure.css). Fields and display
+   fields placed directly in an sa-grid get their item from their own tag helper. Each item is the
+   field-group container of what it holds, so content that measures its field group, such as the
+   Dashboard's choice columns, measures its own column.
+   Replaces: .sa-grid, .sa-grid-content, .sa-grid-item */
+
+@layer sa.components {
+  :where(.sa-inline-example) .sa-grid,
+  :where(.sa-inline-example) .sa-details {
+    container: grid / inline-size;
+    width: 100%;
+    min-width: 0;
+  }
+  :where(.sa-inline-example) .sa-grid-content,
+  :where(.sa-inline-example) .sa-details-list {
+    display: grid;
+    grid-template-columns: repeat(var(--sa-cols), minmax(0, 1fr));
+    & > * {
+      grid-column: span var(--sa-span);
+      min-width: 0;
+    }
+  }
+  :where(.sa-inline-example) .sa-grid-content {
+    align-items: start;
+    gap: calc(5 * var(--sa-unit)) calc(4 * var(--sa-unit));
+  }
+  @container grid (min-width: 30rem) {
+    :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-sm), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-sm);
+      }
+    }
+  }
+  @container grid (min-width: 40rem) {
+    :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-md), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-md);
+      }
+    }
+  }
+  @container grid (min-width: 56rem) {
+    :where(.sa-inline-example) :is(.sa-grid-content, .sa-details-list) {
+      grid-template-columns: repeat(var(--sa-cols-lg), minmax(0, 1fr));
+      & > * {
+        grid-column: span var(--sa-span-lg);
+      }
+    }
+  }
+
+  :where(.sa-inline-example) .sa-grid-item {
+    container: field-group / inline-size;
+  }
+  /* Sections side by side are separated by the grid gap, not a rule. */
+  :where(.sa-inline-example) .sa-grid-item + .sa-grid-item > .sa-form-section {
+    margin-top: 0;
+    border-top-width: 0;
+    padding-top: 0;
   }
 }
 
@@ -3603,8 +3780,10 @@
     --_input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) :is(.sa-input, .sa-input-group) {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope :is(.sa-input, .sa-input-group) {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -4437,8 +4616,10 @@
     --_questionnaire-input-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-questionnaire {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-questionnaire {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -4732,8 +4913,10 @@
     --_radio-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_radio-press) * var(--_radio-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-input-control-wrapper {
-    --_radio-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-input-control-wrapper {
+      --_radio-k: 4;
+    }
   }
 }
 
@@ -4837,10 +5020,12 @@
     --_segmented-control-selected-bg: var(--sa-color-surface);
     --_segmented-control-selected-border: transparent;
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-segmented-control {
-    --_segmented-control-item-fg: var(--sa-color-ink-muted);
-    --_segmented-control-selected-bg: var(--sa-color-field);
-    --_segmented-control-selected-border: var(--sa-color-line-control);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-segmented-control {
+      --_segmented-control-item-fg: var(--sa-color-ink-muted);
+      --_segmented-control-selected-bg: var(--sa-color-field);
+      --_segmented-control-selected-border: var(--sa-color-line-control);
+    }
   }
 }
 
@@ -4950,8 +5135,10 @@
     --_select-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-native-select-wrapper {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-native-select-wrapper {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -5529,8 +5716,10 @@
     --_slider-thumb-size: calc(3 * var(--sa-unit));
     --_slider-thumb-bg: var(--sa-color-surface);
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) :is(.sa-slider, .sa-slider-value) {
-    --_slider-thumb-bg: var(--sa-color-ink);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope :is(.sa-slider, .sa-slider-value) {
+      --_slider-thumb-bg: var(--sa-color-ink);
+    }
   }
 }
 
@@ -5784,12 +5973,14 @@
       var(--sa-color-surface)
     );
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-switch-wrapper {
-    --_switch-thumb-bg: color-mix(
-      in oklab,
-      var(--sa-color-ink-muted) calc(var(--sa-outlines) * 100%),
-      var(--sa-color-ink)
-    );
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-switch-wrapper {
+      --_switch-thumb-bg: color-mix(
+        in oklab,
+        var(--sa-color-ink-muted) calc(var(--sa-outlines) * 100%),
+        var(--sa-color-ink)
+      );
+    }
   }
 }
 
@@ -5972,7 +6163,12 @@
       cursor: pointer;
     }
     &[data-emphasis="band"] :is(tr:has(+ .sa-table-row-detail[data-state="open"]), .sa-table-row-detail) {
-      background: var(--sa-color-surface-sunken);
+      /* Lighter than the column heads, so an expanded row does not read as a heading. */
+      background: var(--sa-color-surface-subtle);
+    }
+    /* The full-width divider is the row's own line, kept. */
+    &[data-divider="full-width"] tr:has(+ .sa-table-row-detail[data-state="open"]) {
+      border-bottom-color: var(--sa-color-line);
     }
     &[data-emphasis="rail"] :is(
       tr:has(+ .sa-table-row-detail[data-state="open"]) > :first-child,
@@ -5991,6 +6187,9 @@
        including content that htmx swaps in after the row opens. */
     display: grid;
     grid-template-rows: 0fr;
+    /* The cell spans the table, so the details never set its width. Without this, the content's
+       pinned width would hold the table, and the page, at their width when the viewport narrows. */
+    contain: inline-size;
     transition: grid-template-rows calc(var(--sa-motion-fast) * 4 / 3) ease-out;
 
     .sa-table-row-detail[data-state="open"] > .sa-table-row-detail-cell > & { grid-template-rows: 1fr; }
@@ -6012,6 +6211,24 @@
     padding-inline: var(--sa-table-row-detail-inset-start, var(--sa-space-cell-x))
       var(--sa-table-row-detail-inset-end, var(--sa-space-cell-x));
     white-space: normal;
+
+    .sa-table-row-details[data-divider="full-width"] & { padding-top: calc(3 * var(--sa-unit)); }
+    /* The inset divider spans the content box, so it starts and ends where the content does. */
+    .sa-table-row-details[data-divider="inset"] & {
+      padding-top: 0;
+      &::before {
+        content: "";
+        display: block;
+        margin-bottom: calc(3 * var(--sa-unit));
+        border-top: var(--sa-border-width) solid var(--sa-color-line);
+      }
+    }
+
+    /* Line tabs pad their triggers inside the list's inset, so the first label would start that far
+       in from the content; pulling the list back lines the label up, and the indicator overhangs. */
+    & .sa-tabs[data-orientation="horizontal"] > .sa-tabs-list-variant-line {
+      margin-inline-start: calc(-1 * (1.5 * var(--sa-unit) + max(var(--sa-border-width), 3px)));
+    }
   }
   /* The toggle is a ghost button (button.css); these out-rank its rules by selector. */
   :where(.sa-inline-example) .sa-button.sa-table-row-detail-toggle {
@@ -6027,9 +6244,10 @@
 }
 
 /* components/tabs.css */
-/* Tabs: <sa-tab-list> (a tab list of links, default or line variant, horizontal or vertical).
+/* Tabs: <sa-tab-list> (a tab list of links, default or line variant, horizontal or vertical), and
+   <sa-tabs> (sel-tabs), which adds panels the list's <sa-tab>s switch between.
    Replaces: .sa-tabs, .sa-tabs-list, .sa-tabs-list-variant-default, .sa-tabs-list-variant-line,
-   .sa-tabs-trigger */
+   .sa-tabs-trigger, .sa-tabs-container, .sa-tab-panel */
 
 @layer sa.tokens {
   :where(.sa-inline-example) .sa-tabs {
@@ -6037,14 +6255,32 @@
     --_tabs-selected-bg: var(--sa-color-surface);
     --_tabs-selected-border: transparent;
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-tabs {
-    --_tabs-trigger-fg: var(--sa-color-ink-muted);
-    --_tabs-selected-bg: var(--sa-color-field);
-    --_tabs-selected-border: var(--sa-color-line-control);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-tabs {
+      --_tabs-trigger-fg: var(--sa-color-ink-muted);
+      --_tabs-selected-bg: var(--sa-color-field);
+      --_tabs-selected-border: var(--sa-color-line-control);
+    }
   }
 }
 
 @layer sa.components {
+  /* The panels sit below the list, or beside a vertical one, at the list's own gap. */
+  :where(.sa-inline-example) .sa-tabs-container {
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--sa-unit));
+    &:has(> .sa-tabs[data-orientation="vertical"]) { flex-direction: row; }
+  }
+  :where(.sa-inline-example) .sa-tab-panel {
+    flex: 1;
+    min-width: 0;
+    border-radius: var(--sa-radius-control);
+    outline: none;
+    &[hidden] { display: none; }
+    &:focus-visible { box-shadow: var(--sa-focus-shadow); }
+  }
+
   :where(.sa-inline-example) .sa-tabs {
     display: flex;
     gap: calc(2 * var(--sa-unit));
@@ -6176,8 +6412,10 @@
     --_textarea-shadow: var(--sa-shadow-control),
       inset 0 1px 1px rgb(0 0 0 / calc(0.05 * var(--_relief-press) * var(--_relief-k)));
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-textarea {
-    --_relief-k: 4;
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-textarea {
+      --_relief-k: 4;
+    }
   }
 }
 
@@ -6527,10 +6765,12 @@
     --_toggle-outline-border: var(--sa-color-line);
     --_toggle-outline-on-border: var(--sa-color-line-control);
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-toggle {
-    --_toggle-outline-bg: var(--sa-color-field);
-    --_toggle-outline-border: var(--sa-color-line-control);
-    --_toggle-outline-on-border: var(--sa-color-line-control-hover);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-toggle {
+      --_toggle-outline-bg: var(--sa-color-field);
+      --_toggle-outline-border: var(--sa-color-line-control);
+      --_toggle-outline-on-border: var(--sa-color-line-control-hover);
+    }
   }
 }
 
@@ -6658,8 +6898,10 @@
   :where(.sa-inline-example) .sa-tooltip-content {
     --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 20%, transparent);
   }
-  :is(.dark .sa-inline-example, .sa-inline-example.dark) .sa-tooltip-content {
-    --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 10%, transparent);
+  @scope (.dark) to (.light) {
+    :where(.sa-inline-example) :scope .sa-tooltip-content {
+      --_tooltip-kbd-bg: color-mix(in oklab, var(--sa-color-surface) 10%, transparent);
+    }
   }
 }
 

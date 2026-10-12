@@ -26,9 +26,9 @@ Inside `<sa-details>` the fields render as a description list, with each label i
 
 ### Columns and spans
 
-Set `columns` to lay the fields out in a grid. The columns respond to the width of the list rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the list is at least 40rem wide, and the list uses one column below that. Use `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width.
+Set `columns` to lay the fields out in a grid. The columns respond to the width of the list rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the list is at least 40rem wide, and the list uses one column below that. Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width. The columns work as they do in a [Grid](./grid).
 
-Set `column-span` on a field to span several columns, or `column-span-full` to span all of them. `column-span-sm`, `column-span-md` and `column-span-lg` set the span at each width in the same way, and a span is limited to the number of columns at each width.
+Set `column-span` on a field to a number of columns, or to `full` to span all of them. `column-span-sm`, `column-span-md` and `column-span-lg` set the span at each width in the same way, and a span is limited to the number of columns at each width.
 
 <Demo src="/demo/tag-helpers/details-columns.html">
   <include>./_include/details-columns.mdx</include>
@@ -48,14 +48,6 @@ Set `variant` to `DetailsVariant.Divided` to separate the fields with rules. It 
 
 <Demo src="/demo/tag-helpers/details-divided.html">
   <include>./_include/details-divided.mdx</include>
-</Demo>
-
-### Responsive
-
-Set `orientation` to `FieldOrientation.Responsive` to stack each label above its value in a narrow list, and place it beside the value once the list is at least 32rem wide.
-
-<Demo src="/demo/tag-helpers/details-responsive.html">
-  <include>./_include/details-responsive.mdx</include>
 </Demo>
 
 ### Empty values
@@ -109,7 +101,7 @@ The status template in this example is a `DisplayTemplates/BookingStatus.cshtml`
 
 ### Among form inputs
 
-Place a `<sa-display-field>` among the inputs of a form to show a value that cannot be edited. Outside `<sa-details>` it takes the label style of an input and the height of a control, so a row of inputs and display fields lines up. A `<sa-details>` in its own [Form Section](form-section) shows information about the record, such as its audit history, below the inputs.
+Place a `<sa-display-field>` among the inputs of a form, for example in a [Grid](./grid), to show a value that cannot be edited. Outside `<sa-details>` it takes the label style of an input and the height of a control, so a row of inputs and display fields lines up. A `<sa-details>` in its own [Form Section](form-section) shows information about the record, such as its audit history, below the inputs.
 
 <Demo src="/demo/tag-helpers/details-in-form.html">
   <include>./_include/details-in-form.mdx</include>
@@ -140,14 +132,19 @@ Renders a `<div>` element around a `<dl>` element, forwarding any [global attrib
 <TypeTable
   type={{
     columns: {
-      description: "The number of columns when the list is at least 40rem wide, from 1 to 12. Narrower lists use one column, unless columns-sm is set. Set either columns or columns-md, not both.",
+      description: "The number of columns when the list is at least 40rem wide, from 1 to 12. Narrower lists use one column, unless columns-base or columns-sm is set. Set either columns or columns-md, not both.",
+      type: "int",
+      default: "1",
+    },
+    "columns-base": {
+      description: "The number of columns at the smallest width, from 1 to 12.",
       type: "int",
       default: "1",
     },
     "columns-sm": {
       description: "The number of columns when the list is at least 30rem wide, from 1 to 12.",
       type: "int",
-      default: "1",
+      default: "The number of columns at the smallest width",
     },
     "columns-md": {
       description: "The number of columns when the list is at least 40rem wide, from 1 to 12.",
@@ -162,7 +159,7 @@ Renders a `<div>` element around a `<dl>` element, forwarding any [global attrib
     orientation: {
       description: "How each field arranges its label and value, unless the field sets its own.",
       type: "FieldOrientation",
-      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal | FieldOrientation.Responsive",
+      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
       default: "FieldOrientation.Vertical",
     },
     variant: {
@@ -213,34 +210,29 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
       type: "string",
     },
     "column-span": {
-      description: "The number of columns the field spans in a <sa-details> list, from 1 to 12, limited to the list's column count at each width. Set either column-span or column-span-full, not both.",
-      type: "int",
+      description: "The number of columns the field spans in a <sa-details> list or a <sa-grid>, from 1 to 12, or full for every column. Limited to the column count at each width.",
+      type: "string",
       default: "1",
     },
     "column-span-sm": {
-      description: "The number of columns the field spans when the list is at least 30rem wide, from 1 to 12.",
-      type: "int",
+      description: "The span when the list is at least 30rem wide, from 1 to 12, or full.",
+      type: "string",
       default: "column-span",
     },
     "column-span-md": {
-      description: "The number of columns the field spans when the list is at least 40rem wide, from 1 to 12.",
-      type: "int",
+      description: "The span when the list is at least 40rem wide, from 1 to 12, or full.",
+      type: "string",
       default: "The span at 30rem",
     },
     "column-span-lg": {
-      description: "The number of columns the field spans when the list is at least 56rem wide, from 1 to 12.",
-      type: "int",
+      description: "The span when the list is at least 56rem wide, from 1 to 12, or full.",
+      type: "string",
       default: "The span at 40rem",
-    },
-    "column-span-full": {
-      description: "Whether the field spans every column of a <sa-details> list. The spans for each width still apply from their widths.",
-      type: "bool",
-      default: "false",
     },
     orientation: {
       description: "How the field arranges its label and value.",
       type: "FieldOrientation",
-      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal | FieldOrientation.Responsive",
+      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
       default: "The orientation of the enclosing <sa-details>, otherwise FieldOrientation.Vertical",
     },
   }}

@@ -11,15 +11,15 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Use `<sa-form-section>` to group related fields under a title and optional description. Place fields, [form rows](./form-row), or other Razor content inside it.
+Use `<sa-form-section>` to group related fields under a title and optional description. Place fields, a [Grid](./grid), or other Razor content inside it.
 
 ```razor
 <sa-form-section title="Traveler details"
                  description="The lead contact for this booking.">
-    <sa-form-row>
+    <sa-grid columns="2">
         <sa-input asp-for="FirstName" />
         <sa-input asp-for="LastName" />
-    </sa-form-row>
+    </sa-grid>
 </sa-form-section>
 ```
 

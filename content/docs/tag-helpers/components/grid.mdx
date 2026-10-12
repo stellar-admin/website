@@ -1,0 +1,131 @@
+---
+title: Grid
+description: Lay out form fields and other content in responsive columns
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/tag-helpers/grid-intro.html">
+  <include>./_include/grid-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap fields in `<sa-grid>` and set `columns` to the number of columns. Each field takes one column unless it sets its own span with `column-span`.
+
+```razor
+<sa-grid columns="2">
+    <sa-input asp-for="FirstName" />
+    <sa-input asp-for="LastName" />
+    <sa-input asp-for="Email" column-span="full" />
+</sa-grid>
+```
+
+The columns respond to the width of the grid rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the grid is at least 40rem wide, and the grid uses one column below that.
+
+Fields carry their own span: `<sa-field>`, every input that renders its own field, such as `<sa-input asp-for="...">` or `<sa-select asp-for="...">`, and `<sa-display-field>` accept the `column-span` attributes. Wrap anything else, such as a [Form Section](./form-section) or a [Details](./details) list, in `<sa-grid-item>` to give it a span.
+
+## Examples
+
+### Columns and spans
+
+Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width.
+
+Set `column-span` to a number from 1 to 12, or to `full` to span every column. `column-span-sm`, `column-span-md` and `column-span-lg` set the span at each width in the same way. A width without a span uses the span of the next smaller width, and a span is limited to the number of columns at each width.
+
+<Demo src="/demo/tag-helpers/grid-spans.html">
+  <include>./_include/grid-spans.mdx</include>
+</Demo>
+
+### Inputs and display fields
+
+Mix inputs, explicit [fields](./field) and [display fields](./details#among-form-inputs) in one grid. Each sets its own span, and display fields line up with the inputs beside them.
+
+<Demo src="/demo/tag-helpers/grid-display-fields.html">
+  <include>./_include/grid-display-fields.mdx</include>
+</Demo>
+
+### Grid items
+
+Use `<sa-grid-item>` to place other content in the grid with its own span. In this example an audit section spans two of three columns at 56rem and beside it a payment section takes the third. A `<sa-grid-item>` must be a direct child of `<sa-grid>`.
+
+<Demo src="/demo/tag-helpers/grid-grid-items.html">
+  <include>./_include/grid-grid-items.mdx</include>
+</Demo>
+
+### Narrow container
+
+The same grid stacks its fields inside a narrow container.
+
+<Demo src="/demo/tag-helpers/grid-narrow.html">
+  <include>./_include/grid-narrow.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-grid>`
+
+Renders a `<div>` element around the grid, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes) to the outer element. Fields and display fields placed directly in the grid are each wrapped in a grid item.
+
+<TypeTable
+  type={{
+    columns: {
+      description: "The number of columns when the grid is at least 40rem wide, from 1 to 12. Narrower grids use one column, unless columns-base or columns-sm is set. Set either columns or columns-md, not both.",
+      type: "int",
+      default: "1",
+    },
+    "columns-base": {
+      description: "The number of columns at the smallest width, from 1 to 12.",
+      type: "int",
+      default: "1",
+    },
+    "columns-sm": {
+      description: "The number of columns when the grid is at least 30rem wide, from 1 to 12.",
+      type: "int",
+      default: "The number of columns at the smallest width",
+    },
+    "columns-md": {
+      description: "The number of columns when the grid is at least 40rem wide, from 1 to 12.",
+      type: "int",
+      default: "columns, otherwise the number of columns at 30rem",
+    },
+    "columns-lg": {
+      description: "The number of columns when the grid is at least 56rem wide, from 1 to 12.",
+      type: "int",
+      default: "The number of columns at 40rem",
+    },
+  }}
+/>
+
+### `<sa-grid-item>`
+
+Renders a `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It must be a direct child of `<sa-grid>`.
+
+<TypeTable
+  type={{
+    "column-span": {
+      description: "The number of columns the item spans, from 1 to 12, or full for every column. Limited to the grid's column count at each width.",
+      type: "string",
+      default: "1",
+    },
+    "column-span-sm": {
+      description: "The span when the grid is at least 30rem wide, from 1 to 12, or full.",
+      type: "string",
+      default: "column-span",
+    },
+    "column-span-md": {
+      description: "The span when the grid is at least 40rem wide, from 1 to 12, or full.",
+      type: "string",
+      default: "The span at 30rem",
+    },
+    "column-span-lg": {
+      description: "The span when the grid is at least 56rem wide, from 1 to 12, or full.",
+      type: "string",
+      default: "The span at 40rem",
+    },
+  }}
+/>
+
+### Field spans
+
+`<sa-field>`, every input that renders its own field and `<sa-display-field>` accept the same `column-span`, `column-span-sm`, `column-span-md` and `column-span-lg` attributes. They apply when the field is a direct child of `<sa-grid>` or `<sa-details>` and are ignored elsewhere. An invalid value throws an exception when the page renders.

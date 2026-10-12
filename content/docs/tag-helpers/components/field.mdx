@@ -399,9 +399,13 @@ Renders a `<div>` element that wraps a single form field.
     orientation: {
       description: "The layout direction of the field.",
       type: "FieldOrientation",
-      typeDescription:
-        "FieldOrientation.Vertical | FieldOrientation.Horizontal | FieldOrientation.Responsive",
+      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
       default: "FieldOrientation.Vertical",
+    },
+    "column-span": {
+      description: "The number of columns the field spans in a <sa-grid>, from 1 to 12, or full for every column. column-span-sm, column-span-md and column-span-lg set the span at 30rem, 40rem and 56rem. See Grid.",
+      type: "string",
+      default: "1",
     },
   }}
 />
