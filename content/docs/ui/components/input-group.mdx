@@ -1,0 +1,180 @@
+---
+title: Input Group
+description: Display additional information or actions to an input or textarea
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/input-group-intro.html">
+  <include>./_include/input-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Put the input (or textarea) and one or more addons inside `<sa-input-group>`. The `align` of each addon decides where it sits.
+
+```razor
+<sa-input-group>
+    <!-- 1. Add inputs -->
+    <sa-input-group-input/>
+    <!-- or -->
+    <sa-input-group-textarea/>
+    <!-- 2. Add addons -->
+    <sa-input-group-addon align="...">
+        <!-- you can add text inside the addon... -->
+        <sa-input-group-text>...</sa-input-group-text>
+        <!-- ...or buttons -->
+        <sa-input-group-button>...</sa-input-group-button>
+    </sa-input-group-addon>
+</sa-input-group>
+```
+
+## Examples
+
+### Icons
+
+Display icons inside inputs.
+
+<Demo src="/demo/ui/input-group-icons.html">
+  <include>./_include/input-group-icons.mdx</include>
+</Demo>
+
+### Text
+
+Display additional text information alongside inputs.
+
+<Demo src="/demo/ui/input-group-text.html">
+  <include>./_include/input-group-text.mdx</include>
+</Demo>
+
+### Textarea
+
+Input groups also work with textarea components. Use `InputGroupAddOnVariantAlignment.BlockStart` or `InputGroupAddOnVariantAlignment.BlockEnd` for alignment.
+
+<Demo src="/demo/ui/input-group-textarea.html">
+  <include>./_include/input-group-textarea.mdx</include>
+</Demo>
+
+### Buttons
+
+Add buttons to perform actions within the input group.
+
+<Demo src="/demo/ui/input-group-buttons.html">
+  <include>./_include/input-group-buttons.mdx</include>
+</Demo>
+
+### Spinner
+
+Show loading indicators while processing input.
+
+<Demo src="/demo/ui/input-group-spinner.html">
+  <include>./_include/input-group-spinner.mdx</include>
+</Demo>
+
+### Label
+
+Add labels within input groups to improve accessibility.
+
+<Demo src="/demo/ui/input-group-label.html">
+  <include>./_include/input-group-label.mdx</include>
+</Demo>
+
+### Button group
+
+Wrap input groups with button groups to create prefixes and suffixes.
+
+<Demo src="/demo/ui/input-group-button-group.html">
+  <include>./_include/input-group-button-group.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-input-group>`
+
+Renders a `<div>` element with `role="group"` that wraps the input and its add-ons.
+
+### `<sa-input-group-input>`
+
+Renders an `<input>` element styled for use inside an input group.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format string applied to the asp-for value when rendering it.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the form element the input is associated with.",
+      type: "string",
+    },
+    type: {
+      description: "The type of the rendered input element.",
+      type: "string",
+    },
+    value: {
+      description: "The value of the rendered input element.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-input-group-textarea>`
+
+Renders a `<textarea>` element styled for use inside an input group.
+
+<TypeTable
+  type={{
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+  }}
+/>
+
+### `<sa-input-group-addon>`
+
+Renders a `<div>` element with `role="group"` that holds text, icons, or buttons alongside the input.
+
+<TypeTable
+  type={{
+    align: {
+      description: "The alignment of the add-on relative to the input.",
+      type: "InputGroupAddOnVariantAlignment",
+      typeDescription:
+        "InputGroupAddOnVariantAlignment.InlineStart | InputGroupAddOnVariantAlignment.InlineEnd | InputGroupAddOnVariantAlignment.BlockStart | InputGroupAddOnVariantAlignment.BlockEnd",
+      default: "InputGroupAddOnVariantAlignment.InlineStart",
+    },
+  }}
+/>
+
+### `<sa-input-group-text>`
+
+Renders a `<span>` element for displaying text inside an add-on.
+
+### `<sa-input-group-button>`
+
+Renders a `<button>` element sized for use inside an add-on.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "InputGroupButtonSize",
+      typeDescription:
+        "InputGroupButtonSize.ExtraSmall | InputGroupButtonSize.Small | InputGroupButtonSize.IconExtraSmall | InputGroupButtonSize.IconSmall",
+      default: "InputGroupButtonSize.ExtraSmall",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Ghost",
+    },
+  }}
+/>

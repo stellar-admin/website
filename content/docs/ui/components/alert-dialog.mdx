@@ -1,0 +1,161 @@
+---
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a confirm or cancel response.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/alert-dialog-intro.html">
+  <include>./_include/alert-dialog-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-alert-dialog>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog), styled as a centered confirmation modal. Open it with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) by adding `commandfor` and `command="show-modal"` to a `<sa-button>`.
+
+Unlike `<sa-dialog>`, an alert dialog is **not** light-dismissable: pressing `Esc` cancels it, but clicking the backdrop does nothing (`closedby="closerequest"` by default). Wrap the footer in a `<form method="dialog">` and use `<sa-alert-dialog-action>` / `<sa-alert-dialog-cancel>` so the dialog closes with the correct `returnValue`.
+
+```razor
+<sa-button commandfor="--confirm" command="show-modal">
+    Show Dialog
+</sa-button>
+<sa-alert-dialog id="--confirm">
+    <sa-alert-dialog-header>
+        <sa-alert-dialog-title>Cancel this booking?</sa-alert-dialog-title>
+        <sa-alert-dialog-description>
+            This action cannot be undone.
+        </sa-alert-dialog-description>
+    </sa-alert-dialog-header>
+    <form method="dialog">
+        <sa-alert-dialog-footer>
+            <sa-alert-dialog-cancel>Keep booking</sa-alert-dialog-cancel>
+            <sa-alert-dialog-action>Continue</sa-alert-dialog-action>
+        </sa-alert-dialog-footer>
+    </form>
+</sa-alert-dialog>
+```
+
+`<sa-alert-dialog-cancel>` renders a submit button with `value="cancel"` and `<sa-alert-dialog-action>` one with `value="confirm"`, so the wrapping `method="dialog"` form closes the dialog and sets `returnValue` accordingly.
+
+## Examples
+
+### Destructive action
+
+Pass `variant="ButtonVariant.Destructive"` to `<sa-alert-dialog-action>` for irreversible operations such as deleting data.
+
+<Demo src="/demo/ui/alert-dialog-destructive.html">
+  <include>./_include/alert-dialog-destructive.mdx</include>
+</Demo>
+
+### Size
+
+Use the `size` attribute (`AlertDialogSize.Default` or `AlertDialogSize.Small`) to switch between the wider, left-aligned default layout and the compact, centered small layout.
+
+<Demo src="/demo/ui/alert-dialog-size.html">
+  <include>./_include/alert-dialog-size.mdx</include>
+</Demo>
+
+### Media
+
+Add a `<sa-alert-dialog-media>` slot to the header to show a media element such as an icon or image above the title.
+
+<Demo src="/demo/ui/alert-dialog-media.html">
+  <include>./_include/alert-dialog-media.mdx</include>
+</Demo>
+
+### Small with media
+
+Combine `size="AlertDialogSize.Small"` with `<sa-alert-dialog-media>` for a compact, centered dialog that still leads with an icon.
+
+<Demo src="/demo/ui/alert-dialog-small-media.html">
+  <include>./_include/alert-dialog-small-media.mdx</include>
+</Demo>
+
+### JavaScript API
+
+For the common "await a confirmation before acting" flow, use the `window.stellarAdmin.alertDialog()` helper. Its `confirmAsync()` method resolves to `true` when the user activates the action button and `false` on cancel or `Esc`.
+
+<Callout type="tip">
+  `alertDialog()` is built on the same primitive as the [`dialog()` helper](js-dialog). Use it whenever you want to drive a confirmation in an async/await style. See the [`alertDialog()` documentation](js-alert-dialog) for the full API.
+</Callout>
+
+<Demo src="/demo/ui/alert-dialog-js-api.html">
+  <include>./_include/alert-dialog-js-api.mdx</include>
+</Demo>
+
+## Accessibility
+
+`<sa-alert-dialog>` renders a native `<dialog>` element that is opened with `showModal()`, so focus is trapped inside it, the rest of the page is inert and focus returns to the trigger when it closes. The `closedby` attribute defaults to `closerequest`, so Escape closes the dialog without confirming but clicking outside it does nothing. The user has to choose an action explicitly.
+
+Give `<sa-alert-dialog-title>` an `id` and reference it from `aria-labelledby` on `<sa-alert-dialog>` so the dialog is announced by its title, and do the same with `aria-describedby` and `<sa-alert-dialog-description>`. Add `autofocus` to `<sa-alert-dialog-cancel>` when the action is destructive so that pressing Enter by reflex does not confirm it.
+
+## API Reference
+
+### `<sa-alert-dialog>`
+
+Renders a native [`<dialog>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog) which is opened and closed via the Invoker Commands API (`command="show-modal"` / `command="close"` on a button whose `commandfor` targets the dialog's `id`). The `closedby` attribute defaults to `closerequest`, so the dialog is not light-dismissable.
+
+The dialog is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/ui/javascript).
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the alert dialog.",
+      type: "AlertDialogSize",
+      typeDescription: "AlertDialogSize.Default | AlertDialogSize.Small",
+      default: "AlertDialogSize.Default",
+    },
+  }}
+/>
+
+### `<sa-alert-dialog-header>`
+
+Renders a `<div>` element that groups the media, title, and description.
+
+### `<sa-alert-dialog-media>`
+
+Renders a `<div>` element for showing an icon or image above the title.
+
+### `<sa-alert-dialog-title>`
+
+Renders an `<h2>` element containing the dialog's title.
+
+### `<sa-alert-dialog-description>`
+
+Renders a `<p>` element containing the dialog's description.
+
+### `<sa-alert-dialog-footer>`
+
+Renders a `<div>` element that lays out the cancel and action buttons.
+
+### `<sa-alert-dialog-cancel>`
+
+Renders a `<button type="submit">` with `value="cancel"` (unless you supply your own `value`), so a wrapping `<form method="dialog">` closes the dialog with that `returnValue`.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Outline",
+    },
+  }}
+/>
+
+### `<sa-alert-dialog-action>`
+
+Renders a `<button type="submit">` with `value="confirm"` (unless you supply your own `value`), so a wrapping `<form method="dialog">` closes the dialog with that `returnValue`.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Default",
+    },
+  }}
+/>

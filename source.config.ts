@@ -18,7 +18,7 @@ export const docs = defineDocs({
     // fumadocs-mdx's Vite codegen mangles `!` negation patterns (it prepends
     // "./", breaking import.meta.glob negation), so we exclude the partials with
     // positive, depth-scoped globs instead. Real docs live at
-    // `tag-helpers/*.mdx` and `tag-helpers/components/*.mdx`; the `_include`
+    // `ui/*.mdx` and `ui/components/*.mdx`; the `_include`
     // partials sit one level deeper and are therefore never matched.
     files: ["*/*.{md,mdx}", "*/*/*.{md,mdx}"],
   },

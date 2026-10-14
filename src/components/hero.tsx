@@ -9,7 +9,7 @@ export default function Hero() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center max-w-3xl">
         <a
-          href="https://www.nuget.org/packages/StellarAdmin.TagHelpers/"
+          href="https://www.nuget.org/packages/StellarAdmin.UI/"
           target="_blank"
           className={cn(
             badgeVariants({
@@ -32,7 +32,7 @@ export default function Hero() {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/docs/$"
-            params={{ _splat: "tag-helpers" }}
+            params={{ _splat: "ui" }}
             className={cn(
               buttonVariants({
                 size: "lg",
@@ -44,7 +44,7 @@ export default function Hero() {
           </Link>
           <Link
             to="/docs/$"
-            params={{ _splat: "tag-helpers/components/card" }}
+            params={{ _splat: "ui/components/card" }}
             className={cn(
               buttonVariants({
                 variant: "outline",

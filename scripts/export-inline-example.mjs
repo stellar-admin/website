@@ -15,7 +15,7 @@ function visit(node, callback) {
 }
 
 for (const name of ["collapsible", "dialog"]) {
-  const source = new URL(`public/demo/tag-helpers/${name}-intro.html`, root);
+  const source = new URL(`public/demo/ui/${name}-intro.html`, root);
   const document = parse(await readFile(source, "utf8"));
   let preview;
   visit(document, (node) => {
@@ -59,15 +59,13 @@ for (const name of ["collapsible", "dialog"]) {
         attr.value = attr.value.replace("w-[350px]", "w-full");
       }
       if (node.tagName === "img" && attr.name === "src")
-        attr.value = "/demo/tag-helpers/assets/kyoto.jpg";
+        attr.value = "/demo/ui/assets/kyoto.jpg";
     }
   });
   await writeFile(new URL(`${name}.html`, output), serialize(container));
 }
 
-const assetNames = await readdir(
-  new URL("public/demo/tag-helpers/assets/", root),
-);
+const assetNames = await readdir(new URL("public/demo/ui/assets/", root));
 const runtime = assetNames.filter((name) =>
   /^stellar-admin\..*\.js$/.test(name),
 );
@@ -79,11 +77,7 @@ if (stylesheet.length !== 1)
   throw new Error("Expected one exported stylesheet");
 await writeFile(
   new URL("assets.json", output),
-  JSON.stringify(
-    { runtime: `/demo/tag-helpers/assets/${runtime[0]}` },
-    null,
-    2,
-  ) + "\n",
+  JSON.stringify({ runtime: `/demo/ui/assets/${runtime[0]}` }, null, 2) + "\n",
 );
 
 // Parse the library stylesheet (the default theme). Scope top-level selectors; nested selectors retain
@@ -91,7 +85,7 @@ await writeFile(
 // their document-global registrations cannot change the website's own utilities.
 const css = parseCss(
   await readFile(
-    new URL(`public/demo/tag-helpers/assets/${stylesheet[0]}`, root),
+    new URL(`public/demo/ui/assets/${stylesheet[0]}`, root),
     "utf8",
   ),
 );

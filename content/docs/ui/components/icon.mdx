@@ -1,0 +1,65 @@
+---
+title: Icon
+description: Displays an SVG icon from the Lucide icon toolkit
+---
+
+import { Demo } from "@/components/demo";
+import Lucide from "./images/lucide.png";
+
+<Demo src="/demo/ui/icon-intro.html">
+  <include>./_include/icon-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-icon name="..."/>
+```
+
+To find the `name` of an icon, go to the [Lucide icons page](https://lucide.dev/icons/) and search for the icon you want to use. When you hover over the icon, the name is displayed in a tooltip.
+
+<img src={Lucide.src} />
+
+Lucide is the built-in icon set. To add your own icons, or register a whole icon pack, see [Icons](/docs/ui/icons).
+
+## Examples
+
+### Size
+
+The default width and height of an icon is 24px. You can change the size of an icon using the Tailwind size classes.
+
+<Demo src="/demo/ui/icon-size.html">
+  <include>./_include/icon-size.mdx</include>
+</Demo>
+
+### Color
+
+Change the color of an icon by setting the font color.
+
+<Demo src="/demo/ui/icon-color.html">
+  <include>./_include/icon-color.mdx</include>
+</Demo>
+
+### Stroke width
+
+By default, icons use a stroke width of 2 px. The stroke width can be changed using the `stroke-width` attribute.
+
+<Demo src="/demo/ui/icon-stroke-width.html">
+  <include>./_include/icon-stroke-width.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-icon>`
+
+Renders an inline [`<svg>` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg). Any `<svg>` attributes you supply take precedence over the icon's default attributes.
+
+<TypeTable
+  type={{
+    name: {
+      description:
+        "The name of the icon to render. When the icon is not found, a fallback placeholder icon is rendered instead.",
+      type: "string",
+    },
+  }}
+/>

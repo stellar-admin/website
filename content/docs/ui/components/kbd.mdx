@@ -1,0 +1,94 @@
+---
+title: Kbd
+description: Displays keystrokes or keyboard shortcuts
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/kbd-intro.html">
+  <include>./_include/kbd-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap a key name in `<sa-kbd>`. Use `<sa-kbd-group>` for combinations.
+
+```razor
+<sa-kbd>...</sa-kbd>
+```
+
+## Examples
+
+### Basic
+
+Single keys, and combinations either inside one `<sa-kbd>` or as separate keys.
+
+<Demo src="/demo/ui/kbd-basic.html">
+  <include>./_include/kbd-basic.mdx</include>
+</Demo>
+
+### Modifier keys
+
+Modifier symbols such as ⌘ render like any other key.
+
+<Demo src="/demo/ui/kbd-modifier-keys.html">
+  <include>./_include/kbd-modifier-keys.mdx</include>
+</Demo>
+
+### Group
+
+Use `<sa-kbd-group>` to group keyboard keys together.
+
+<Demo src="/demo/ui/kbd-kbd-group.html">
+  <include>./_include/kbd-kbd-group.mdx</include>
+</Demo>
+
+### Arrow keys
+
+Arrow symbols work the same way.
+
+<Demo src="/demo/ui/kbd-arrow-keys.html">
+  <include>./_include/kbd-arrow-keys.mdx</include>
+</Demo>
+
+### With icons
+
+An `<sa-icon>` can stand in for a key symbol.
+
+<Demo src="/demo/ui/kbd-with-icons.html">
+  <include>./_include/kbd-with-icons.mdx</include>
+</Demo>
+
+### With icons and text
+
+Icons and text can be combined in one key.
+
+<Demo src="/demo/ui/kbd-with-icon-and-text.html">
+  <include>./_include/kbd-with-icon-and-text.mdx</include>
+</Demo>
+
+### Input group
+
+Show a shortcut hint inside an [Input Group](/docs/ui/components/input-group) addon.
+
+<Demo src="/demo/ui/kbd-input-group.html">
+  <include>./_include/kbd-input-group.mdx</include>
+</Demo>
+
+### Tooltip
+
+Show the shortcut for an action inside its [Tooltip](/docs/ui/components/tooltip).
+
+<Demo src="/demo/ui/kbd-tooltip.html">
+  <include>./_include/kbd-tooltip.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-kbd>`
+
+Renders a `<kbd>` element representing a single key.
+
+### `<sa-kbd-group>`
+
+Renders a `<kbd>` element that groups multiple keys together.

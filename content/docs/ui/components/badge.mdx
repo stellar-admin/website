@@ -1,0 +1,86 @@
+---
+title: Badge
+description: Badges can be used to highlight information such as status, category, and count.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/badge-intro.html">
+  <include>./_include/badge-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap the text in an `<sa-badge>` and pick a `variant`.
+
+```razor
+<sa-badge variant="...">...</sa-badge>
+```
+
+## Examples
+
+### Variants
+
+Use variants to communicate different types of information categories.
+
+<Demo src="/demo/ui/badge-variants.html">
+  <include>./_include/badge-variants.mdx</include>
+</Demo>
+
+### Icon on the left
+
+Place an `<sa-icon>` before the text to show an icon on the left.
+
+<Demo src="/demo/ui/badge-icon-left.html">
+  <include>./_include/badge-icon-left.mdx</include>
+</Demo>
+
+### Icon on the right
+
+Place the `<sa-icon>` after the text to show it on the right.
+
+<Demo src="/demo/ui/badge-icon-right.html">
+  <include>./_include/badge-icon-right.mdx</include>
+</Demo>
+
+### With spinner
+
+An `<sa-spinner>` inside a badge indicates an in-progress state.
+
+<Demo src="/demo/ui/badge-spinner.html">
+  <include>./_include/badge-spinner.mdx</include>
+</Demo>
+
+### Long text
+
+Long text wraps inside the badge rather than being truncated.
+
+<Demo src="/demo/ui/badge-long-text.html">
+  <include>./_include/badge-long-text.mdx</include>
+</Demo>
+
+### Custom colors
+
+Override the colors with your own utility classes on `class`. Include `dark:` variants so the badge holds up in dark mode.
+
+<Demo src="/demo/ui/badge-custom-colors.html">
+  <include>./_include/badge-custom-colors.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-badge>`
+
+Renders a `<span>` element.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the badge.",
+      type: "BadgeVariant",
+      typeDescription:
+        "BadgeVariant.Default | BadgeVariant.Secondary | BadgeVariant.Destructive | BadgeVariant.Outline | BadgeVariant.Ghost | BadgeVariant.Link",
+      default: "BadgeVariant.Default",
+    },
+  }}
+/>

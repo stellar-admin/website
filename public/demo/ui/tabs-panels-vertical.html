@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <sel-tabs class="sa-tabs-container w-full max-w-lg" id="--sa-tabs-2ed0cc1f7c6f187231036f186ee11aa6a5fa50af82e4cd4eec0357d5c399b48e5701" data-slot="tabs-container">
+    <div data-slot="tabs" data-orientation="vertical" class="sa-tabs"><div aria-orientation="vertical" class="sa-tabs-list sa-tabs-list-variant-default" data-slot="tabs-list" data-variant="default" role="tablist">
+        <button type="button" id="tabs-vertical-profile-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2ed0cc1f7c6f187231036f186ee11aa6a5fa50af82e4cd4eec0357d5c399b48e5701" aria-controls="tabs-vertical-profile" aria-selected="true" tabindex="0" data-slot="tabs-trigger" data-active="" class="sa-tabs-trigger">Profile</button>
+        <button type="button" id="tabs-vertical-preferences-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2ed0cc1f7c6f187231036f186ee11aa6a5fa50af82e4cd4eec0357d5c399b48e5701" aria-controls="tabs-vertical-preferences" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Preferences</button>
+        <button type="button" id="tabs-vertical-loyalty-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2ed0cc1f7c6f187231036f186ee11aa6a5fa50af82e4cd4eec0357d5c399b48e5701" aria-controls="tabs-vertical-loyalty" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Loyalty</button>
+    </div></div>
+    <div id="tabs-vertical-profile" role="tabpanel" aria-labelledby="tabs-vertical-profile-tab" tabindex="0" data-slot="tabs-content" class="sa-tab-panel">
+        <p class="font-medium">Priya Raman</p>
+        <p class="text-muted-foreground text-sm">priya.raman@voyager.travel, travelling from Lisbon.</p>
+    </div>
+    <div id="tabs-vertical-preferences" role="tabpanel" aria-labelledby="tabs-vertical-preferences-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <p class="text-muted-foreground text-sm">Window seat, vegetarian meals, quiet rooms on a high floor.</p>
+    </div>
+    <div id="tabs-vertical-loyalty" role="tabpanel" aria-labelledby="tabs-vertical-loyalty-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <p class="text-muted-foreground text-sm">Voyager Gold, 18,400 points. Next tier at 25,000 points.</p>
+    </div>
+</sel-tabs>
+
+
+</div>
+
+
+
+</body>
+</html>

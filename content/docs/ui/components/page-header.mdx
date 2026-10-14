@@ -1,0 +1,90 @@
+---
+title: Page Header
+description: A header section at the top of a page's content with a title, description, actions, breadcrumb, and navigation
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/page-header-intro.html" mode="fullscreen">
+  <include>./_include/page-header-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Sits at the top of a page's content to display a page title, actions, as well as navigation.
+
+```razor
+<sa-page-header>
+    <sa-breadcrumb>...</sa-breadcrumb>
+    <sa-page-header-title>Bookings</sa-page-header-title>
+    <sa-page-header-description>All bookings across destinations.</sa-page-header-description>
+    <sa-page-header-actions>
+        <sa-button>...</sa-button>
+    </sa-page-header-actions>
+    <sa-page-header-nav>...</sa-page-header-nav>
+</sa-page-header>
+```
+
+## Examples
+
+### Title and actions
+
+The actions area is aligned to the end of the title row on regular viewports and moves below the title and description on narrow viewports.
+
+<Demo src="/demo/ui/page-header-title-only.html" mode="fullscreen">
+  <include>./_include/page-header-title-only.mdx</include>
+</Demo>
+
+### With breadcrumb
+
+Place an [`<sa-breadcrumb>`](./breadcrumb) before the title to show the page's location in the application.
+
+<Demo src="/demo/ui/page-header-breadcrumb.html" mode="fullscreen">
+  <include>./_include/page-header-breadcrumb.mdx</include>
+</Demo>
+
+### With navigation
+
+Use `<sa-page-header-nav>` for a full-width navigation area at the bottom of the header — typically an [`<sa-tab-list>`](./tabs).
+
+<Demo src="/demo/ui/page-header-nav.html" mode="fullscreen">
+  <include>./_include/page-header-nav.mdx</include>
+</Demo>
+
+### Title badge
+
+Inline trailing content such as an [`<sa-badge>`](./badge) can be placed directly after the title text.
+
+<Demo src="/demo/ui/page-header-badge.html" mode="fullscreen">
+  <include>./_include/page-header-badge.mdx</include>
+</Demo>
+
+### Full page
+
+A page header composed with a sidebar, app header, and page container into a complete page layout.
+
+<Demo src="/demo/ui/page-header-full-page.html" mode="fullscreen">
+  <include>./_include/page-header-full-page.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-page-header>`
+
+Renders a `<header>` element at the top of a page's content.
+
+### `<sa-page-header-title>`
+
+Renders the page title as the page's `<h1>` element.
+
+### `<sa-page-header-description>`
+
+Renders a short description below the title as a `<p>` element.
+
+### `<sa-page-header-actions>`
+
+Renders a `<div>` element for content such as buttons, aligned to the end of the title row on regular viewports and placed below the title and description on narrow viewports.
+
+### `<sa-page-header-nav>`
+
+Renders a full-width `<nav>` element at the bottom of the header. It positions whatever navigation the page provides without imposing any styling of its own.

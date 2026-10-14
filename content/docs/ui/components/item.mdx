@@ -1,0 +1,220 @@
+---
+title: Item
+description: A versatile component that can be used to display any content
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/item-intro.html">
+  <include>./_include/item-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-item variant="...">
+    <sa-item-header>
+        ...
+    </sa-item-header>
+    <sa-item-media>
+        ...
+    </sa-item-media>
+    <sa-item-content>
+        <sa-item-title>...</sa-item-title>
+        <sa-item-description>...</sa-item-description>
+    </sa-item-content>
+    <sa-item-actions>
+        ...
+    </sa-item-actions>
+    <sa-item-footer>
+        ...
+    </sa-item-footer>
+</sa-item>
+```
+
+## Examples
+
+### Elements
+
+The following demo demonstrates all the various elements you can use.
+
+<Demo src="/demo/ui/item-components.html">
+  <include>./_include/item-components.mdx</include>
+</Demo>
+
+### Variant
+
+Set `variant` to `ItemVariant.Outline` or `ItemVariant.Muted`. The default has a subtle background.
+
+<Demo src="/demo/ui/item-variants.html">
+  <include>./_include/item-variants.mdx</include>
+</Demo>
+
+### Size
+
+The Item Tag Helper has different sizes for different use cases. For example, you can use the `Small` size for a compact item or the default size for a standard item.
+
+<Demo src="/demo/ui/item-sizes.html">
+  <include>./_include/item-sizes.mdx</include>
+</Demo>
+
+### Clickable items
+
+If you want to make the entire item clickable, use `<sa-item-link>` instead of `<sa-item>`.
+
+<Demo src="/demo/ui/item-link.html">
+  <include>./_include/item-link.mdx</include>
+</Demo>
+
+The URL can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+### Group
+
+Wrap items in `<sa-item-group>` container to group them together.
+
+<Demo src="/demo/ui/item-group.html">
+  <include>./_include/item-group.mdx</include>
+</Demo>
+
+### Separator
+
+Items can be separated with `<sa-item-separator>`.
+
+<Demo src="/demo/ui/item-separator.html">
+  <include>./_include/item-separator.mdx</include>
+</Demo>
+
+### Header
+
+Add an `<sa-item-header>` above the content for a category or eyebrow.
+
+<Demo src="/demo/ui/item-header.html">
+  <include>./_include/item-header.mdx</include>
+</Demo>
+
+### Footer
+
+Add an `<sa-item-footer>` below the content for metadata.
+
+<Demo src="/demo/ui/item-footer.html">
+  <include>./_include/item-footer.mdx</include>
+</Demo>
+
+### Header and footer
+
+Header and footer can be combined on the same item.
+
+<Demo src="/demo/ui/item-header-and-footer.html">
+  <include>./_include/item-header-and-footer.mdx</include>
+</Demo>
+
+### Image
+
+Use `<sa-item-media variant="ItemMediaVariant.Image">` to show a thumbnail.
+
+<Demo src="/demo/ui/item-image.html">
+  <include>./_include/item-image.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-item>`
+
+Renders a `<div>` element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the item.",
+      type: "ItemSize",
+      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      default: "ItemSize.Default",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "ItemVariant",
+      typeDescription:
+        "ItemVariant.Default | ItemVariant.Outline | ItemVariant.Muted",
+      default: "ItemVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-item-link>`
+
+Renders an `<a>` element styled as an item, making the entire item clickable.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the item.",
+      type: "ItemSize",
+      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      default: "ItemSize.Default",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "ItemVariant",
+      typeDescription:
+        "ItemVariant.Default | ItemVariant.Outline | ItemVariant.Muted",
+      default: "ItemVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The link item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-item-group>`
+
+Renders a `<div>` element with `role="list"` that groups items together, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-header>`
+
+Renders a `<div>` element for the item header, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-media>`
+
+Renders a `<div>` element that hosts an icon, image, or avatar.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The type of media the element contains.",
+      type: "ItemMediaVariant",
+      typeDescription:
+        "ItemMediaVariant.Default | ItemMediaVariant.Icon | ItemMediaVariant.Image",
+      default: "ItemMediaVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-item-content>`
+
+Renders a `<div>` element that groups the item title and description, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-title>`
+
+Renders a `<div>` element for the item title, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-description>`
+
+Renders a `<p>` element for the item description, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-actions>`
+
+Renders a `<div>` element that hosts buttons or other actions, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-footer>`
+
+Renders a `<div>` element for the item footer, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-item-separator>`
+
+Renders a horizontal separator (a `<div>` with `role="separator"`) between items, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

@@ -1,0 +1,134 @@
+---
+title: Avatar
+description: An image element or initials representing the user.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/avatar-intro.html">
+  <include>./_include/avatar-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use `<sa-avatar>` to display a single avatar. Display a group of avatars using `<sa-avatar-group>`.
+
+```razor
+<!-- Display a single avatar -->
+<sa-avatar src="..." />
+
+<!-- Display a group of avatars -->
+<sa-avatar-group>
+    <sa-avatar src="..." />
+    <sa-avatar src="..." />
+</sa-avatar-group>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `AvatarSize.Small` or `AvatarSize.Large`. The sizes apply to image and initials avatars alike.
+
+<Demo src="/demo/ui/avatar-sizes.html">
+  <include>./_include/avatar-sizes.mdx</include>
+</Demo>
+
+### Name or initials
+
+Display the initials of a user using the `initials` attribute. You can specify the `name` attribute instead, and the initials will be automatically determined.
+
+<Demo src="/demo/ui/avatar-name-or-initials.html">
+  <include>./_include/avatar-name-or-initials.mdx</include>
+</Demo>
+
+### Badge
+
+Nest an `<sa-avatar-badge>` inside the avatar to show a status dot that scales with the avatar size.
+
+<Demo src="/demo/ui/avatar-badge.html">
+  <include>./_include/avatar-badge.mdx</include>
+</Demo>
+
+### Badge with icon
+
+The badge can hold an icon instead of a plain dot.
+
+<Demo src="/demo/ui/avatar-badge-with-icon.html">
+  <include>./_include/avatar-badge-with-icon.mdx</include>
+</Demo>
+
+### Group
+
+Add a group of avatars using `<sa-avatar-group>`.
+
+<Demo src="/demo/ui/avatar-group.html">
+  <include>./_include/avatar-group.mdx</include>
+</Demo>
+
+### Group with count
+
+Add an `<sa-avatar-group-count>` as the last child of the group to show how many more people are not pictured.
+
+<Demo src="/demo/ui/avatar-group-with-count.html">
+  <include>./_include/avatar-group-with-count.mdx</include>
+</Demo>
+
+### Group with icon count
+
+The count element accepts any content, such as an icon for an "add" affordance.
+
+<Demo src="/demo/ui/avatar-group-with-icon-count.html">
+  <include>./_include/avatar-group-with-icon-count.mdx</include>
+</Demo>
+
+### In an empty state
+
+Avatars and avatar groups can serve as the media of an [Empty](/docs/ui/components/empty) state.
+
+<Demo src="/demo/ui/avatar-in-empty.html">
+  <include>./_include/avatar-in-empty.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-avatar>`
+
+Renders a `<span>` element containing either an `<img>` (when `src` is set) or a fallback `<span>` with the initials.
+
+<TypeTable
+  type={{
+    initials: {
+      description:
+        "The initials to display when no image source is set. Takes precedence over initials derived from name.",
+      type: "string",
+    },
+    name: {
+      description:
+        "The name of the user. Used as the image's alt text and to automatically derive the initials.",
+      type: "string",
+    },
+    size: {
+      description: "The size of the avatar.",
+      type: "AvatarSize",
+      typeDescription: "AvatarSize.Default | AvatarSize.Small | AvatarSize.Large",
+      default: "AvatarSize.Default",
+    },
+    src: {
+      description: "The source URL of the avatar image.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-avatar-badge>`
+
+Renders a `<span>` element positioned in the bottom-right corner of the parent avatar, sized to match the avatar's `size`.
+
+### `<sa-avatar-group>`
+
+Renders a `<div>` element that overlaps its child avatars.
+
+### `<sa-avatar-group-count>`
+
+Renders a `<div>` element displaying its child content (such as `+3`) at the end of an avatar group.

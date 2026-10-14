@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="flex w-full flex-col max-w-md">
+    <!-- code begin -->
+    <div role="list" data-slot="item-group" class="sa-item-group">
+            <div class="sa-item sa-item-size-xs sa-item-variant-default px-0" data-slot="item" data-variant="default" data-size="xs">
+                <div data-slot="item-media" data-variant="icon" class="sa-item-media sa-item-media-variant-icon">
+                    <svg stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path></svg>
+                </div>
+                <div class="sa-item-content inline-block truncate" data-slot="item-content">
+                    <div class="sa-item-title inline" data-slot="item-title">passport-scan.pdf</div>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div class="sa-progress-root w-40" data-slot="progress"><div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 45%;"></div></div></div>
+                </div>
+                <div class="sa-item-actions w-16 justify-end" data-slot="item-actions">
+                <span class="text-muted-foreground text-sm">
+                    2m 30s
+                </span>
+                </div>
+            </div>
+            <div class="sa-item sa-item-size-xs sa-item-variant-default px-0" data-slot="item" data-variant="default" data-size="xs">
+                <div data-slot="item-media" data-variant="icon" class="sa-item-media sa-item-media-variant-icon">
+                    <svg stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path></svg>
+                </div>
+                <div class="sa-item-content inline-block truncate" data-slot="item-content">
+                    <div class="sa-item-title inline" data-slot="item-title">visa-application.pdf</div>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div class="sa-progress-root w-40" data-slot="progress"><div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 78%;"></div></div></div>
+                </div>
+                <div class="sa-item-actions w-16 justify-end" data-slot="item-actions">
+                <span class="text-muted-foreground text-sm">
+                    45s
+                </span>
+                </div>
+            </div>
+            <div class="sa-item sa-item-size-xs sa-item-variant-default px-0" data-slot="item" data-variant="default" data-size="xs">
+                <div data-slot="item-media" data-variant="icon" class="sa-item-media sa-item-media-variant-icon">
+                    <svg stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path></svg>
+                </div>
+                <div class="sa-item-content inline-block truncate" data-slot="item-content">
+                    <div class="sa-item-title inline" data-slot="item-title">itinerary-draft.docx</div>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div class="sa-progress-root w-40" data-slot="progress"><div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 12%;"></div></div></div>
+                </div>
+                <div class="sa-item-actions w-16 justify-end" data-slot="item-actions">
+                <span class="text-muted-foreground text-sm">
+                    5m 12s
+                </span>
+                </div>
+            </div>
+            <div class="sa-item sa-item-size-xs sa-item-variant-default px-0" data-slot="item" data-variant="default" data-size="xs">
+                <div data-slot="item-media" data-variant="icon" class="sa-item-media sa-item-media-variant-icon">
+                    <svg stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path></svg>
+                </div>
+                <div class="sa-item-content inline-block truncate" data-slot="item-content">
+                    <div class="sa-item-title inline" data-slot="item-title">hotel-voucher.jpg</div>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div class="sa-progress-root w-40" data-slot="progress"><div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 100%;"></div></div></div>
+                </div>
+                <div class="sa-item-actions w-16 justify-end" data-slot="item-actions">
+                <span class="text-muted-foreground text-sm">
+                    complete
+                </span>
+                </div>
+            </div>
+    </div>
+    <!-- code end -->
+</div>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+---
+title: Spinner
+description: Indicates a loading or busy state
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/spinner-intro.html">
+  <include>./_include/spinner-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Renders an animated loading indicator. Its size and color follow the surrounding text unless overridden with utility classes.
+
+```razor
+<sa-spinner/>
+```
+
+## Examples
+
+### Size
+
+Control the size with the Tailwind size utilities.
+
+<Demo src="/demo/ui/spinner-size.html">
+  <include>./_include/spinner-size.mdx</include>
+</Demo>
+
+### Color
+
+Control the color with the Tailwind text color utilities.
+
+<Demo src="/demo/ui/spinner-color.html">
+  <include>./_include/spinner-color.mdx</include>
+</Demo>
+
+### In buttons
+
+Place an `<sa-spinner>` inside a button to show a pending action.
+
+<Demo src="/demo/ui/spinner-in-buttons.html">
+  <include>./_include/spinner-in-buttons.mdx</include>
+</Demo>
+
+### In badges
+
+A spinner inside a badge, in each variant.
+
+<Demo src="/demo/ui/spinner-in-badges.html">
+  <include>./_include/spinner-in-badges.mdx</include>
+</Demo>
+
+### In an input group
+
+A spinner in an input group addon shows that the field is busy.
+
+<Demo src="/demo/ui/spinner-in-input-group.html">
+  <include>./_include/spinner-in-input-group.mdx</include>
+</Demo>
+
+### In an empty state
+
+A spinner as the media of an empty state while content loads.
+
+<Demo src="/demo/ui/spinner-in-empty.html">
+  <include>./_include/spinner-in-empty.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-spinner>`
+
+Renders an `<svg>` element containing a spinner icon, with `role="status"` and `aria-label="Loading"` applied.

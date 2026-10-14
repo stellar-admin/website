@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <form method="post">
+        <sel-questionnaire data-slot="questionnaire" class="sa-questionnaire">
+            <fieldset data-slot="questionnaire-item" tabindex="-1" data-required="" class="sa-questionnaire-item">
+                <legend data-slot="questionnaire-title" class="sa-questionnaire-title">When would you like to depart?</legend>
+                <div data-slot="questionnaire-description" class="sa-questionnaire-description">
+                    Departure dates change the fare more than anything else.
+                </div>
+                <div data-slot="questionnaire-choices" data-shortcuts="letters" class="sa-questionnaire-choices">
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="A" class="sa-questionnaire-choice"><input aria-keyshortcuts="A" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_asap" name="PartialModel.Departure" type="radio" value="asap" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_asap">
+                        As soon as possible
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">A</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="B" class="sa-questionnaire-choice"><input aria-keyshortcuts="B" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_shoulder" name="PartialModel.Departure" type="radio" value="shoulder" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_shoulder">
+                        Shoulder season
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">B</span></div>
+                    <div data-slot="questionnaire-choice" data-type="radio" data-shortcut="C" class="sa-questionnaire-choice"><input aria-keyshortcuts="C" class="sa-questionnaire-choice-input" data-slot="questionnaire-choice-input" id="PartialModel_Departure_flexible" name="PartialModel.Departure" type="radio" value="flexible" /><span aria-hidden="true" class="sa-questionnaire-choice-indicator" data-slot="questionnaire-choice-indicator"><span class="sa-questionnaire-choice-indicator-dot" data-slot="questionnaire-choice-indicator-dot"></span></span><label class="sa-questionnaire-choice-label sa-questionnaire-choice-content" data-slot="questionnaire-choice-label" for="PartialModel_Departure_flexible">
+                        I am flexible
+                    </label><span aria-hidden="true" class="sa-questionnaire-choice-shortcut sa-questionnaire-shortcut" data-slot="questionnaire-choice-shortcut">C</span></div>
+                </div>
+            <div class="sa-questionnaire-error field-validation-valid" data-valmsg-for="PartialModel.Departure" data-valmsg-replace="true" role="alert" data-slot="questionnaire-error"></div></fieldset>
+        </sel-questionnaire>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxs6yyZoOIftyvzHixEWKwbWkwZu3cyL6LfDa__X0PIyKlN7kl10NnBL4THbCvU6gK774CdNgnl7mhxkVLrnHaCrayq64SOMMGwsC3LdPOZOOEYBGG2kRfAHDivG3JJMP94" /></form>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

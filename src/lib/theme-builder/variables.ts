@@ -1,8 +1,7 @@
 // The variable manifest the DocsSamplesGenerator exports with the demos (from the library's
 // Client/css/variables.json), and the theme file format the builder reads and writes.
 
-export const manifestUrl =
-  "/demo/tag-helpers/assets/stellar-admin.theme-variables.json";
+export const manifestUrl = "/demo/ui/assets/stellar-admin.theme-variables.json";
 
 export type ThemeVariableType =
   | "color"

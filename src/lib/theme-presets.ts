@@ -8,7 +8,7 @@ import {
 // The theme builder's presets, exported by the DocsSamplesGenerator from the product's theme fixtures
 // (util/theme-check/presets/): presets.json lists them, default first, and each other theme is a variable
 // file beside it.
-const presetsFolder = "/demo/tag-helpers/assets/presets";
+const presetsFolder = "/demo/ui/assets/presets";
 
 export const defaultPreset = "default";
 

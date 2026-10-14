@@ -1,0 +1,141 @@
+---
+title: Sheet
+description: A sheet slides in from the edge of the screen to display supplementary content or actions without leaving the current page.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/sheet-intro.html">
+  <include>./_include/sheet-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-sheet>` renders a standard [HTML `dialog` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) styled to slide in from the edge of the screen. Use the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close it by adding `commandfor` and `command` attributes to a `<sa-button>` element.
+
+```razor
+<sa-button commandfor="--custom-sheet" command="show-modal">
+    Sheet Trigger
+</sa-button>
+<sa-sheet id="--custom-sheet">
+    <sa-sheet-header>
+        <sa-sheet-title>...</sa-sheet-title>
+        <sa-sheet-description>...</sa-sheet-description>
+    </sa-sheet-header>
+    <!-- Sheet content goes here -->
+    <sa-sheet-footer>
+        <sa-button variant="ButtonVariant.Outline" commandfor="--custom-sheet" command="close">
+            Close
+        </sa-button>
+    </sa-sheet-footer>
+</sa-sheet>
+```
+
+Because the sheet renders a native `dialog` element, the same JavaScript API and events documented for the [Dialog](dialog) component apply here too. For more information, you can review the following MDN documentation:
+
+- [&lt;dialog&gt;: The Dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- [HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) (documents the JS API)
+- [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API)
+
+## Examples
+
+### Sides
+
+Use the `side` attribute to control which edge of the screen the sheet slides in from. It accepts `SheetSide.Top`, `SheetSide.Right` (the default), `SheetSide.Bottom`, and `SheetSide.Left`.
+
+<Demo src="/demo/ui/sheet-sides.html">
+  <include>./_include/sheet-sides.mdx</include>
+</Demo>
+
+### Dismissing the sheet
+
+Control how the sheet can be dismissed using the [`closedby` attribute](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy). The default behavior allows closing via the `Esc` key or a close button. Set `closedby="any"` to also allow clicking the backdrop (light dismiss), or `closedby="none"` to require explicit dismissal via a close button only.
+
+<Demo src="/demo/ui/sheet-dismissing.html">
+  <include>./_include/sheet-dismissing.mdx</include>
+</Demo>
+
+### Without a close button
+
+By default the sheet renders a close button in the top-right corner. Set `show-close-button="false"` to hide it.
+
+<Demo src="/demo/ui/sheet-no-close-button.html">
+  <include>./_include/sheet-no-close-button.mdx</include>
+</Demo>
+
+### Get form content depending on return value
+
+Add submit buttons to a `form` with `method="dialog"` and set a `value` on each button. Check [`returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue) to determine which button was clicked, then use `FormData` in the `close` event handler to read the submitted values.
+
+<Callout type="tip">
+  If you want to return a result from the sheet, we strongly recommend using the [`dialog()` helper](js-dialog) which allows you to use sheets in an async/await style
+</Callout>
+
+<Demo src="/demo/ui/sheet-return-form-value.html">
+  <include>./_include/sheet-return-form-value.mdx</include>
+</Demo>
+
+### JavaScript API
+
+Since `<sa-sheet>` renders a native `dialog` element, you can control it directly via JavaScript using the [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal), [`show()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/show), and [`close()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close).
+
+<Demo src="/demo/ui/sheet-js-api.html">
+  <include>./_include/sheet-js-api.mdx</include>
+</Demo>
+
+### JavaScript events
+
+The sheet fires `beforetoggle` and `toggle` events as it opens and closes, a `cancel` event when the user attempts to close via `Esc` or `request-close`, and a `close` event once closed. Call `preventDefault()` in `beforetoggle` to prevent opening, or in `cancel` to prevent closing.
+
+<Demo src="/demo/ui/sheet-js-events.html">
+  <include>./_include/sheet-js-events.mdx</include>
+</Demo>
+
+## Accessibility
+
+`<sa-sheet>` renders a native `<dialog>` element that is opened with `showModal()`, so focus is trapped inside it, the rest of the page is inert, Escape closes it and focus returns to the trigger when it closes. The built-in close button has a screen-reader-only "Close" label.
+
+The Tag Helper does not link the title to the sheet. Give `<sa-sheet-title>` an `id` and reference it from `aria-labelledby` on `<sa-sheet>` so the sheet is announced by its title, and do the same with `aria-describedby` and `<sa-sheet-description>` when there is one.
+
+## API Reference
+
+### `<sa-sheet>`
+
+Renders a native [`<dialog>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog) styled to slide in from the edge of the screen. The sheet is opened and closed via the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API): a button with `command="show-modal"` or `command="close"` and a `commandfor` attribute referencing the sheet's `id` (auto-generated when you don't supply one).
+
+The sheet is wrapped in a `<sel-dialog>` web component that locks page scrolling while it is open. See [JavaScript & Interactivity](/docs/ui/javascript).
+
+<TypeTable
+  type={{
+    "show-close-button": {
+      description:
+        "Whether to render the close button in the top-right corner of the sheet.",
+      type: "bool",
+      default: "true",
+    },
+    side: {
+      description:
+        "The edge of the screen the sheet slides in from.",
+      type: "SheetSide",
+      typeDescription:
+        "SheetSide.Top | SheetSide.Right | SheetSide.Bottom | SheetSide.Left",
+      default: "SheetSide.Right",
+    },
+  }}
+/>
+
+### `<sa-sheet-header>`
+
+Renders a `<div>` element that groups the sheet's title and description.
+
+### `<sa-sheet-title>`
+
+Renders an `<h2>` element.
+
+### `<sa-sheet-description>`
+
+Renders a `<p>` element.
+
+### `<sa-sheet-footer>`
+
+Renders a `<div>` element pinned to the bottom of the sheet that hosts the sheet's action buttons.

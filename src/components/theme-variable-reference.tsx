@@ -1,4 +1,4 @@
-import manifestJson from "../../public/demo/tag-helpers/assets/stellar-admin.theme-variables.json";
+import manifestJson from "../../public/demo/ui/assets/stellar-admin.theme-variables.json";
 
 // The variable tables on the docs' theme variables page, from the manifest the DocsSamplesGenerator
 // exports, so the docs list the variables of the exported library.

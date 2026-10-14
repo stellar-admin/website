@@ -1,0 +1,282 @@
+---
+title: Checkbox
+description: Capture boolean input from user
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/checkbox-intro.html">
+  <include>./_include/checkbox-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use `<sa-input>` with the `type` attribute specified as `checkbox` to display a checkbox to the user. The `type` can be specified either explicitly or inferred from the underlying data type (i.e. a `bool`) or data annotations when using model binding.
+
+```razor
+<sa-input type="checkbox"/>
+```
+
+<Callout type="idea">
+Use a [Checkbox group](checkbox-group) when multiple selected options should bind to a single array or collection.
+</Callout>
+
+## Examples
+
+### Model binding
+
+Supports ASP.NET Core model binding via `asp-for`. When you bind a `<sa-input>` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `render-field` attribute to `false`.
+
+<Demo src="/demo/ui/checkbox-model-binding.html">
+<Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/checkbox-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Accept terms and conditions",
+            Description = "By clicking this checkbox, you agree to the terms and conditions."
+        )]
+        public bool AcceptTerms { get; set; } = true;
+    }
+    ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Model binding validation
+
+When using model binding, validation errors from the [Model state](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation) are displayed correctly.
+
+<Demo src="/demo/ui/checkbox-validation.html">
+    <Tabs items={["Razor", "Model"]}>
+        <Tab value="Razor">
+        <include>./_include/checkbox-validation.mdx</include>
+        </Tab>
+        <Tab value="Model">
+        ```cs
+        public class ValidationModel
+        {
+            [Display(
+                Name = "Accept terms and conditions",
+                Description = "By clicking this checkbox, you agree to the terms and conditions."
+            )]
+            [Required(ErrorMessage = "You must accept the terms and conditions")]
+            public bool AcceptTerms { get; set; }
+        }
+        ```
+        </Tab>
+    </Tabs>
+</Demo>
+
+### With field
+
+If you are not using model binding, you can use the various [Field](field) Tag Helpers to wrap your input inside a field.
+
+<Demo src="/demo/ui/checkbox-field-explicit.html">
+  <include>./_include/checkbox-field-explicit.mdx</include>
+</Demo>
+
+### Implicit field
+
+You can also implicitly wrap the input inside a [Field](field) using the shorthand syntax and setting the `label` and `description` attributes.
+
+<Demo src="/demo/ui/checkbox-field-implicit.html">
+  <include>./_include/checkbox-field-implicit.mdx</include>
+</Demo>
+
+### Manual validation
+
+If you're not using ASP.NET Core model binding, you can manually indicate validation errors by setting the `aria-invalid` attribute to `true`. This will display a red border around the input. The error message can be displayed using either a `<sa-field-error>` Tag Helper (when using explicit fields) or the `error` attribute (when using implicit fields).
+
+<Demo src="/demo/ui/checkbox-manual-validation-explicit.html">
+  <Tabs items={["Using Explicit Field", "Using Implicit Field"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/checkbox-manual-validation-explicit.mdx</include>
+    </Tab>
+    <Tab value="Using Implicit Field">
+      <include>./_include/checkbox-manual-validation-implicit.mdx</include>
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent user interaction.
+
+<Demo src="/demo/ui/checkbox-disabled.html">
+  <include>./_include/checkbox-disabled.mdx</include>
+</Demo>
+
+### Group
+
+Group related checkboxes using `<sa-field-set>` and `<sa-field-group>`.
+
+<Demo src="/demo/ui/checkbox-group.html">
+  <Tabs items={["Using Explicit Field", "Using Model Binding", "Model"]}>
+    <Tab value="Using Explicit Field">
+      <include>./_include/checkbox-group.mdx</include>
+    </Tab>
+    <Tab value="Using Model Binding">
+      <include>./_include/checkbox-group-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class GroupModel
+    {
+        [Display(Name = "Landmark & Attractions")]
+        public bool Landmarks { get; set; } = true;
+
+        [Display(Name = "Restaurants & Bars")]
+        public bool Restaurants { get; set; } = true;
+
+        [Display(Name = "Transit Stations")]
+        public bool Stations { get; set; }
+
+        [Display(Name = "Local Tour Guides")]
+        public bool LocalGuides { get; set; }
+    }
+    ```
+    </Tab>
+
+  </Tabs>
+</Demo>
+
+### Choice cards
+
+Wrap each option's `<sa-field>` inside its `<sa-field-label>` to turn the whole field into a clickable card. Because the label wraps the field, clicking anywhere on the card toggles the checkbox, checked cards are highlighted, and keyboard focus outlines the card rather than the checkbox itself. Use `<sa-field-title>` for the option title, since the field label is now the wrapping element.
+
+<Demo src="/demo/ui/checkbox-choice-cards.html">
+  <include>./_include/checkbox-choice-cards.mdx</include>
+</Demo>
+
+## Accessibility
+
+A checkbox renders a native `<input type="checkbox">`, so it is focused with Tab, toggled with Space and announced with its checked state. The visible indicator is decorative. With `asp-for` or the `label` attribute the label is wired to the input for you.
+
+Group related checkboxes in an `<sa-field-set>` with an `<sa-field-legend>` so the group has a name. Set `aria-invalid="true"` on a checkbox that is not model bound to expose its error state.
+
+## Part classes
+
+Pass an `InputClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-input>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+<Demo src="/demo/ui/checkbox-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/checkbox-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
+
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
+
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-checkbox-control {
+          --sa-color-accent-fill: var(--travel-accent);
+          --sa-color-on-accent: var(--sa-color-canvas);
+          outline: 2px solid var(--travel-accent);
+          outline-offset: 4px;
+          border-radius: 0.25rem;
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The container around the checkbox input and its indicator. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+## API Reference
+
+### `<sa-input>`
+
+`<sa-input` with `type="checkbox"`, renders a checkbox. The `type` can also be inferred from a bound `bool` model property.
+
+<TypeTable
+  type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "InputClassNames",
+    },
+    "asp-for": {
+      description:
+        "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",
+      type: "ModelExpression",
+    },
+    "asp-format": {
+      description:
+        "The format string used to format the value bound via asp-for.",
+      type: "string",
+    },
+    description: {
+      description:
+        "The description text rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    error: {
+      description:
+        "The error message rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    form: {
+      description:
+        "The id of the form element the input is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "The label text rendered by the implicit field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered input element.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the input in a Field. When not set, a field is rendered automatically when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    type: {
+      description:
+        "The type of the rendered input element. Set to checkbox to render a checkbox.",
+      type: "string",
+    },
+    value: {
+      description: "The value of the rendered input element.",
+      type: "string",
+    },
+  }}
+/>

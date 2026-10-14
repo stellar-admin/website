@@ -1,0 +1,104 @@
+---
+title: Empty
+description: Display an empty state
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/empty-intro.html">
+  <include>./_include/empty-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-empty>
+    <sa-empty-header>
+        <sa-empty-media>...</sa-empty-media>
+        <sa-empty-title>...</sa-empty-title>
+        <sa-empty-description>...</sa-empty-description>
+    </sa-empty-header>
+    <sa-empty-content>
+        ...
+    </sa-empty-content>
+</sa-empty>
+```
+
+## Examples
+
+### Basic
+
+The plain empty state has no border or background. The content area holds the primary and secondary actions.
+
+<Demo src="/demo/ui/empty-basic.html">
+  <include>./_include/empty-basic.mdx</include>
+</Demo>
+
+### With muted background
+
+Add `bg-muted` to set the empty state on a subtle background.
+
+<Demo src="/demo/ui/empty-with-muted-background.html">
+  <include>./_include/empty-with-muted-background.mdx</include>
+</Demo>
+
+### With border
+
+Add `border` to outline the empty state. Here the content is a search input group.
+
+<Demo src="/demo/ui/empty-with-border.html">
+  <include>./_include/empty-with-border.mdx</include>
+</Demo>
+
+### With icon
+
+Use `<sa-empty-media variant="EmptyMediaVariant.Icon">` to show an icon above the title.
+
+<Demo src="/demo/ui/empty-with-icon.html">
+  <include>./_include/empty-with-icon.mdx</include>
+</Demo>
+
+### With muted background alt
+
+Use an opacity modifier such as `bg-muted/50` for an even lighter background.
+
+<Demo src="/demo/ui/empty-with-muted-background-alt.html">
+  <include>./_include/empty-with-muted-background-alt.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-empty>`
+
+Renders a `<div>` element that centers the empty state content.
+
+### `<sa-empty-header>`
+
+Renders a `<div>` element grouping the media, title, and description.
+
+### `<sa-empty-media>`
+
+Renders a `<div>` element for displaying an icon, image, or avatar.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "The visual style of the media container.",
+      type: "EmptyMediaVariant",
+      typeDescription: "EmptyMediaVariant.Default | EmptyMediaVariant.Icon",
+      default: "EmptyMediaVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-empty-title>`
+
+Renders a `<div>` element containing the title.
+
+### `<sa-empty-description>`
+
+Renders a `<div>` element containing the description.
+
+### `<sa-empty-content>`
+
+Renders a `<div>` element for actions such as buttons or links.

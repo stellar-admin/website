@@ -1,0 +1,74 @@
+---
+title: Stack
+description: Arrange elements and components within a vertical flex container
+---
+
+import { Demo } from "@/components/demo";
+
+## Usage
+
+Wrap children in `<sa-stack>` to lay them out vertically with a consistent gap.
+
+```razor
+<sa-stack>...</sa-stack>
+```
+
+## Examples
+
+### Gap
+
+Control the vertical gap between items with the `gap` attribute. You can specify a custom gap using [Tailwind's `gap-` utility](https://tailwindcss.com/docs/gap).
+
+<Demo src="/demo/ui/stack-gap.html">
+  <include>./_include/stack-gap.mdx</include>
+</Demo>
+
+### Justify
+
+Control how items are positioned along a stack's vertical axis.
+
+<Demo src="/demo/ui/stack-justify.html">
+  <include>./_include/stack-justify.mdx</include>
+</Demo>
+
+### Align
+
+Control how items are positioned along a stack's horizontal axis.
+
+<Demo src="/demo/ui/stack-align.html">
+  <include>./_include/stack-align.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-stack>`
+
+Renders a `<div>` element laid out as a vertical flex container.
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        "How items are positioned along the stack's horizontal axis.",
+      type: "StackAlign",
+      typeDescription:
+        "StackAlign.Stretch | StackAlign.Center | StackAlign.Start | StackAlign.End",
+      default: "StackAlign.Stretch",
+    },
+    gap: {
+      description: "The vertical gap between items.",
+      type: "StackGap",
+      typeDescription:
+        "StackGap.ExtraSmall | StackGap.Small | StackGap.Default | StackGap.Large | StackGap.ExtraLarge",
+      default: "StackGap.Default",
+    },
+    justify: {
+      description:
+        "How items are positioned along the stack's vertical axis.",
+      type: "StackJustify",
+      typeDescription:
+        "StackJustify.Center | StackJustify.Start | StackJustify.End | StackJustify.SpaceBetween | StackJustify.SpaceAround",
+      default: "StackJustify.Start",
+    },
+  }}
+/>

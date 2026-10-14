@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="min-h-[300px]">
+    <!-- code begin -->
+    <div class="flex w-[350px] flex-col gap-2 group/collapsible">
+        <div class="flex items-center justify-between gap-4">
+            <h4 class="text-sm font-semibold">
+                @ibnbattuta has 3 bookings
+            </h4>
+            <button commandfor="my-collapsible" command="--toggle" class="sa-button sa-button-variant-ghost sa-button-size-icon size-8" data-slot="button">
+                <svg class="in-aria-expanded:hidden" stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+                <svg class="not-in-aria-expanded:hidden" stroke-linejoin="round" fill="none" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" height="24"><path d="m7 20 5-5 5 5"></path><path d="m7 4 5 5 5-5"></path></svg>
+                <span class="sr-only">Toggle</span>
+            </button>
+        </div>
+        <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item sa-item-size-sm sa-item-variant-outline">
+            <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                <img
+                    class="object-cover size-12 rounded"
+                    src="https://images.unsplash.com/photo-1681785841804-4d8a976ee892?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+            </div>
+            <div data-slot="item-content" class="sa-item-content">
+                <div data-slot="item-title" class="sa-item-title">Non-stop to NYC (JFK)</div>
+                <p data-slot="item-description" class="sa-item-description">Departure 8AM - Dec 24, 2025</p>
+            </div>
+        </div>
+        <sel-collapsible id="my-collapsible" hidden="" class="flex flex-col gap-2" data-slot="collapsible">
+            <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item sa-item-size-sm sa-item-variant-outline">
+                <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                    <img
+                        class="object-cover size-12 rounded"
+                        src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div data-slot="item-title" class="sa-item-title">The Grand Resort & Spa</div>
+                    <p data-slot="item-description" class="sa-item-description">Check-in Dec 25 | 7 Nights</p>
+                </div>
+            </div>
+            <div data-slot="item" data-variant="outline" data-size="sm" class="sa-item sa-item-size-sm sa-item-variant-outline">
+                <div data-slot="item-media" data-variant="default" class="sa-item-media sa-item-media-variant-default">
+                    <img
+                        class="object-cover size-12 rounded"
+                        src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670"/>
+                </div>
+                <div data-slot="item-content" class="sa-item-content">
+                    <div data-slot="item-title" class="sa-item-title">Westminster Abbey Tour</div>
+                    <p data-slot="item-description" class="sa-item-description">Dec 26, 11:00 AM Slot | 2 Adult Tickets</p>
+                </div>
+            </div>
+        </sel-collapsible>
+    </div>
+    <!-- code end -->
+</div>
+
+</div>
+
+
+
+</body>
+</html>

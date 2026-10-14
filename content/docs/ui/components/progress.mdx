@@ -1,0 +1,82 @@
+---
+title: Progress
+description: Indicates the progress of a task
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/progress-intro.html">
+  <include>./_include/progress-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Set `value` and optionally add a label and an `<sa-progress-value>` readout.
+
+```razor
+<sa-progress value="...">
+    <sa-progress-label>...</sa-progress-label>
+    <sa-progress-value/>
+</sa-progress>
+```
+
+## Examples
+
+### Minimum and maximum values
+
+Specify custom `minimum` and `maximum` values. The default values are `0` and `100` respectively.
+
+<Demo src="/demo/ui/progress-min-max.html">
+  <include>./_include/progress-min-max.mdx</include>
+</Demo>
+
+### With label
+
+Add an `<sa-progress-label>` and an `<sa-progress-value>`, which renders the current value as a percentage.
+
+<Demo src="/demo/ui/progress-with-label.html">
+  <include>./_include/progress-with-label.mdx</include>
+</Demo>
+
+### File upload list
+
+Progress bars compose with [Item](/docs/ui/components/item) to build an upload list.
+
+<Demo src="/demo/ui/progress-file-upload-list.html">
+  <include>./_include/progress-file-upload-list.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-progress>`
+
+Renders a `<div>` element containing the progress track and indicator.
+
+<TypeTable
+  type={{
+    maximum: {
+      description: "The maximum value. Must be greater than minimum.",
+      type: "int",
+      default: "100",
+    },
+    minimum: {
+      description: "The minimum value. Must be less than maximum.",
+      type: "int",
+      default: "0",
+    },
+    value: {
+      description:
+        "The current value. Must be between minimum and maximum.",
+      type: "int",
+      default: "0",
+    },
+  }}
+/>
+
+### `<sa-progress-label>`
+
+Renders a `<span>` element containing the label text.
+
+### `<sa-progress-value>`
+
+Renders a `<span>` element. When it has no content, it displays the percentage completed, calculated from the parent `<sa-progress>` values.

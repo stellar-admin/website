@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="min-h-[450px]">
+    <!-- code begin -->
+    <div class="flex justify-center">
+        <button commandfor="--alert-dialog-intro" command="show-modal" data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-default">
+            Show Dialog
+        </button>
+    </div>
+    <sel-dialog><dialog id="--alert-dialog-intro" data-slot="alert-dialog-content" data-size="default" closedby="closerequest" class="sa-alert-dialog-content">
+        <div data-slot="alert-dialog-header" class="sa-alert-dialog-header">
+            <h2 data-slot="alert-dialog-title" class="sa-alert-dialog-title">Discard unsaved changes?</h2>
+            <p data-slot="alert-dialog-description" class="sa-alert-dialog-description">
+                You have unsaved changes to your itinerary for Trip #TRV-987. If you continue, your edits will be lost.
+            </p>
+        </div>
+        <form method="dialog">
+            <div data-slot="alert-dialog-footer" class="sa-alert-dialog-footer">
+                <button type="submit" value="cancel" data-slot="alert-dialog-cancel" class="sa-button sa-button-variant-outline sa-button-size-default sa-alert-dialog-cancel">Keep editing</button>
+                <button type="submit" value="confirm" data-slot="alert-dialog-action" class="sa-button sa-button-variant-default sa-button-size-default sa-alert-dialog-action">Continue</button>
+            </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LJ5-GMKW_BBgm63EwyuTxuoFZbzYzI4JNYQwN5T8aHjysPaOtYAm43TozIRVR2aClCO551wkNS6Y-A23IaFW8jAsEZQ1pfEQRdzS1k4-IzVtDKthwMwFI03-tSDJGv3uDyKgesnT0mh3XgGoN-9wGs" /></form>
+    </dialog></sel-dialog>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

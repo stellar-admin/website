@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.kbc5s7wosq.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.jggdllpfo4.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.xa30qryeib.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="flex flex-wrap items-center gap-4">
+    <!-- code begin -->
+    <span data-slot="avatar" data-size="default" class="sa-avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/ui/assets/avatar-1.jpg"></img></span>
+    <div data-slot="avatar-group" class="sa-avatar-group">
+        <span data-slot="avatar" data-size="default" class="sa-avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/ui/assets/avatar-1.jpg"></img></span>
+        <span data-slot="avatar" data-size="default" class="sa-avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/ui/assets/avatar-2.jpg"></img></span>
+        <span data-slot="avatar" data-size="default" class="sa-avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/ui/assets/avatar-3.jpg"></img></span>
+    </div>
+    <!-- code end -->
+</div>
+
+</div>
+
+
+
+</body>
+</html>

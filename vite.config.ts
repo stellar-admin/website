@@ -54,6 +54,17 @@ export default defineConfig(({ command }) => ({
       // the broken `modules/index.js` indirection at runtime; inlined (with the
       // alias below) it uses the clean ESM build. See the `ssr.noExternal` note.
       noExternals: ["tslib"],
+      // The UI docs and demos moved from `tag-helpers` to `ui`; keep old links
+      // (including those in shipped agent skills) working.
+      routeRules: {
+        "/docs/tag-helpers": { redirect: { to: "/docs/ui", status: 308 } },
+        "/docs/tag-helpers/**": {
+          redirect: { to: "/docs/ui/**", status: 308 },
+        },
+        "/demo/tag-helpers/**": {
+          redirect: { to: "/demo/ui/**", status: 308 },
+        },
+      },
     }),
   ],
   resolve: {

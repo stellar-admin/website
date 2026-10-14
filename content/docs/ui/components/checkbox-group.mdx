@@ -1,0 +1,135 @@
+---
+title: Checkbox group
+description: Select multiple options bound to a collection
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/checkbox-group-intro.html">
+  <include>./_include/checkbox-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Prefer a checkbox group when selected options should bind to one array or collection. Use a [normal checkbox](checkbox) for an individual boolean property.
+
+Use `<sa-checkbox-group>` with `<sa-checkbox-group-item>` children to render a labeled group. Each item uses its content as the label and accepts an optional `description`. Both display variants use the existing Field and Input markup.
+
+Use `asp-for` for model binding, or `name` and `values` for a group without model binding. Option `value` attributes are strings, including values such as `value="1"` that bind to numeric properties. MVC converts submitted values to the model type. Values must be unique within the group.
+
+## Examples
+
+### Model binding
+
+Bind to an array or a collection of strings, enums, GUIDs, booleans, or numeric primitives. Supported collection types include `List<T>`, `IList<T>`, `ICollection<T>`, `IEnumerable<T>`, `IReadOnlyList<T>`, and `IReadOnlyCollection<T>`. Nullable value-type elements, `byte[]`, sets, and immutable collections are not supported. Clearing every checkbox binds an empty collection: `AddTagHelpers()` registers the binder that handles the hidden group-presence marker.
+
+Labels and descriptions are derived from `[Display]` metadata. Submitted ModelState values take precedence when redisplaying the form. Do not combine `asp-for` with `name` or `values`. Date/time and complex model types are not supported.
+
+<Demo src="/demo/ui/checkbox-group-collection-binding.html">
+  <include>./_include/checkbox-group-collection-binding.mdx</include>
+</Demo>
+
+The example binds to this model property:
+
+```csharp
+[Display(Name = "Extras", Description = "Choose extras, or clear every checkbox and save.")]
+[MaxLength(2, ErrorMessage = "Choose at most two extras.")]
+public int[] Extras { get; set; } = [1, 2];
+```
+
+In a Razor Page, expose the containing model with `[BindProperty]` to receive form submissions. These exported previews demonstrate the rendered state; the DocsSamples application contains the working POST form.
+
+### Choice cards
+
+Set `variant="CheckboxGroupVariant.ChoiceCard"` to make each option a clickable card. The default is `CheckboxGroupVariant.Default`.
+
+<Demo src="/demo/ui/checkbox-group-choice-cards.html">
+  <include>./_include/checkbox-group-choice-cards.mdx</include>
+</Demo>
+
+### Items
+
+Use `asp-items` with `SelectListItem` objects as an alternative to child tags. `Selected` sets the initial selection for an unbound group when `values` is not supplied. `Disabled` disables an individual option. Do not combine `asp-items` with child items; `SelectListGroup` is not supported.
+
+<Demo src="/demo/ui/checkbox-group-items.html">
+  <include>./_include/checkbox-group-items.mdx</include>
+</Demo>
+
+### Media
+
+Put a `<sa-checkbox-group-item-media>` inside an item to show an icon, avatar, image or other media with the option. The media sits before the option's text, or leads the card in the choice card variant. Size the media with classes on its content. Use one media tag per item; options supplied with `asp-items` have no media. This example adds icons to plain options.
+
+<Demo src="/demo/ui/checkbox-group-media.html">
+  <include>./_include/checkbox-group-media.mdx</include>
+</Demo>
+
+### Columns
+
+Set `columns` to show the options in columns once the field is at least 40rem wide; narrower fields use one column. Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width. The widths are measured against the field, so a group in a narrow column of an `<sa-grid>` stays in one column. The options fill each row in turn; set `flow="CheckboxGroupFlow.Down"` to fill each column from top to bottom before the next.
+
+<Demo src="/demo/ui/checkbox-group-columns.html">
+  <include>./_include/checkbox-group-columns.mdx</include>
+</Demo>
+
+### Validation
+
+The group displays one ModelState error and marks its inputs invalid. StellarAdmin does not provide client-side validation; use server-side validation or add your own client validation.
+
+<Demo src="/demo/ui/checkbox-group-validation.html">
+  <include>./_include/checkbox-group-validation.mdx</include>
+</Demo>
+
+Use validation attributes on the bound property:
+
+```csharp
+[MinLength(1, ErrorMessage = "Choose at least one extra.")]
+public int[] Extras { get; set; } = [];
+```
+
+This preview is rendered with an empty selection and a seeded ModelState error. Its partial is rendered with the `PartialModel` prefix, so the error uses the full field name:
+
+```csharp
+ModelState.AddModelError("PartialModel.Extras", "Choose at least one extra.");
+```
+
+For an unbound group, use `error` to display a group error.
+
+## Accessibility
+
+The group renders a fieldset and legend with native checkbox inputs and associated labels. Descriptions and validation messages are associated with the inputs. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels. Media sits inside the label, so keep it decorative: an avatar without a `name` and an image with an empty `alt` leave the option text as its name.
+
+## API Reference
+
+### `<sa-checkbox-group>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `asp-for` | `ModelExpression` | Model property bound to the group. |
+| `asp-items` | `IEnumerable<SelectListItem>` | Options supplied instead of child tags. |
+| `name` | `string` | Submitted field name for an unbound group. |
+| `values` | `IEnumerable<string>` | Selected values for an unbound group. |
+| `variant` | `CheckboxGroupVariant` | `Default` or `ChoiceCard`. Defaults to `Default`. |
+| `columns` | `int` | Number of columns once the field is at least 40rem wide, from 1 to 12. Defaults to 1. Set either `columns` or `columns-md`, not both. |
+| `columns-base` | `int` | Number of columns at the smallest width. Defaults to 1. |
+| `columns-sm` | `int` | Number of columns once the field is at least 30rem wide. Defaults to the smaller width's value. |
+| `columns-md` | `int` | Number of columns once the field is at least 40rem wide. Defaults to the smaller width's value. |
+| `columns-lg` | `int` | Number of columns once the field is at least 56rem wide. Defaults to the smaller width's value. |
+| `flow` | `CheckboxGroupFlow` | `Across` or `Down`: the order in which the options fill the columns. Defaults to `Across`. |
+| `label` | `string` | Group legend; overrides model metadata. |
+| `description` | `string` | Supporting text; overrides model metadata. |
+| `error` | `string` | Explicit group error message. |
+| `disabled` | `bool` | Disables the group. |
+| `class` | `string` | Additional classes for the fieldset. |
+
+### `<sa-checkbox-group-item>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `value` | `string` | Required submitted option value. |
+| `description` | `string` | Supporting text below the option label. |
+| `disabled` | `bool` | Disables this option. |
+| `class` | `string` | Additional classes for the field, or the outer label in `ChoiceCard`. |
+
+### `<sa-checkbox-group-item-media>`
+
+Media shown with an option, placed inside `<sa-checkbox-group-item>`. It renders no element of its own and takes no attributes; its content is placed in the option.

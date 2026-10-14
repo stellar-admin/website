@@ -1,0 +1,74 @@
+---
+title: Group
+description: Arrange elements and components within a horizontal flex container
+---
+
+import { Demo } from "@/components/demo";
+
+## Usage
+
+Wrap children in `<sa-group>` to lay them out horizontally with a consistent gap.
+
+```razor
+<sa-group>...</sa-group>
+```
+
+## Examples
+
+### Gap
+
+Control the horizontal gap between items with the `gap` attribute. You can specify a custom gap by adding a `class` from [Tailwind's `gap-` utility](https://tailwindcss.com/docs/gap).
+
+<Demo src="/demo/ui/group-gap.html">
+  <include>./_include/group-gap.mdx</include>
+</Demo>
+
+### Justify
+
+Control how items are positioned along a group's horizontal axis.
+
+<Demo src="/demo/ui/group-justify.html">
+  <include>./_include/group-justify.mdx</include>
+</Demo>
+
+### Align
+
+Control how items are positioned along a group's vertical axis.
+
+<Demo src="/demo/ui/group-align.html">
+  <include>./_include/group-align.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-group>`
+
+Renders a `<div>` element laid out as a horizontal flex container.
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        "How items are positioned along the group's vertical axis.",
+      type: "GroupAlign",
+      typeDescription:
+        "GroupAlign.Stretch | GroupAlign.Center | GroupAlign.Start | GroupAlign.End | GroupAlign.Baseline",
+      default: "GroupAlign.Start",
+    },
+    gap: {
+      description: "The horizontal gap between items.",
+      type: "GroupGap",
+      typeDescription:
+        "GroupGap.ExtraSmall | GroupGap.Small | GroupGap.Default | GroupGap.Large | GroupGap.ExtraLarge",
+      default: "GroupGap.Default",
+    },
+    justify: {
+      description:
+        "How items are positioned along the group's horizontal axis.",
+      type: "GroupJustify",
+      typeDescription:
+        "GroupJustify.Center | GroupJustify.Start | GroupJustify.End | GroupJustify.SpaceBetween | GroupJustify.SpaceAround",
+      default: "GroupJustify.Start",
+    },
+  }}
+/>
