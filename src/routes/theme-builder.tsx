@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { ThemeVariableControl } from "@/components/theme-builder/variable-control";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,6 +66,43 @@ type View = "simple" | "advanced";
 
 const viewStorageKey = "theme-builder-view";
 
+// The view is the reader's preference, not part of the theme, so it stays out of the URL.
+// Prerendering and hydration use "simple"; the stored view applies after hydration.
+let currentView: View | undefined;
+const viewListeners = new Set<() => void>();
+
+function getView(): View {
+  if (currentView === undefined) {
+    try {
+      currentView =
+        localStorage.getItem(viewStorageKey) === "advanced"
+          ? "advanced"
+          : "simple";
+    } catch {
+      // Storage unavailable: stay on simple.
+      currentView = "simple";
+    }
+  }
+  return currentView;
+}
+
+function setView(next: View) {
+  currentView = next;
+  try {
+    localStorage.setItem(viewStorageKey, next);
+  } catch {
+    // Not persistable; the view still changes.
+  }
+  for (const listener of viewListeners) listener();
+}
+
+function subscribeView(listener: () => void) {
+  viewListeners.add(listener);
+  return () => {
+    viewListeners.delete(listener);
+  };
+}
+
 function ThemeBuilder() {
   const [manifest, setManifest] = useState<ThemeVariableManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -70,27 +114,12 @@ function ThemeBuilder() {
     label: preset.label,
   }));
   const [mode, setMode] = useState<Mode>("light");
-  const [view, setViewState] = useState<View>("simple");
+  const view = useSyncExternalStore(
+    subscribeView,
+    getView,
+    (): View => "simple",
+  );
   const [page, setPage] = useState(previewPages[0].value);
-
-  // The view is the reader's preference, not part of the theme, so it stays out of the URL.
-  useEffect(() => {
-    try {
-      if (localStorage.getItem(viewStorageKey) === "advanced")
-        setViewState("advanced");
-    } catch {
-      // Storage unavailable: stay on simple.
-    }
-  }, []);
-
-  const setView = (next: View) => {
-    setViewState(next);
-    try {
-      localStorage.setItem(viewStorageKey, next);
-    } catch {
-      // Not persistable; the view still changes.
-    }
-  };
 
   useEffect(() => {
     loadManifest()
@@ -436,7 +465,7 @@ function Preview({
       const dark = mode === "dark";
       if (root.classList.contains("dark") !== dark)
         root.classList.toggle("dark", dark);
-      root.style.colorScheme = mode;
+      root.style.setProperty("color-scheme", mode);
     };
     applyMode();
     const observer = new MutationObserver(applyMode);
