@@ -1,0 +1,116 @@
+---
+title: Image
+description: Displays an image as a thumbnail or a figure, with a placeholder when there is none and a broken-image tile when it can't be loaded
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/image-intro.html">
+  <include>./_include/image-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-image>` is a self-closing tag. Give it the image's URL in `src` and a description in `alt`.
+
+```razor
+<sa-image src="..." alt="..." />
+```
+
+Images are thumbnails by default: a small square, the size of a list item's media or a table cell. Set `variant` to `ImageVariant.Figure` for a record's main image, such as on its details page.
+
+## Examples
+
+### Sizes
+
+Set `size` to `ImageSize.ExtraSmall`, `Small`, `Medium` or `Large`. A thumbnail is 24, 32, 40 or 64 pixels tall, and `Small` is the default, which fits a table row.
+
+<Demo src="/demo/ui/image-sizes.html">
+  <include>./_include/image-sizes.mdx</include>
+</Demo>
+
+### Aspect ratio
+
+Set `aspect-ratio` to `ImageAspectRatio.Square`, `Landscape` (4:3), `Widescreen` (16:9) or `Portrait` (3:4) to choose the box's shape; `size` sets its height. By default the image covers the box and its edges are cropped. Set `fit` to `ImageFit.Contain` to show the whole image inside the box on a quiet backdrop instead, as the last image here does. `ImageAspectRatio.Original` keeps the image's own shape.
+
+<Demo src="/demo/ui/image-aspect-ratio.html">
+  <include>./_include/image-aspect-ratio.mdx</include>
+</Demo>
+
+### Figure
+
+A figure keeps the image's own shape by default and grows to the width of its container, up to a maximum height that `size` sets: 8, 10, 15 or 20rem, with `Medium` as the default. Corners follow the theme's radius for boxes. A figure without an image reads "No image", so it suits a details page where every record has the same layout.
+
+<Demo src="/demo/ui/image-figure.html">
+  <include>./_include/image-figure.mdx</include>
+</Demo>
+
+### Interaction
+
+An image with a `src` is a button that opens the image larger in a dialog, which closes with its close button, Escape or a click outside. The first image of a page that can open it writes the dialog's template, so a page with many images still has one dialog. Set `interaction` to `ImageInteraction.Preview` to show the larger image beside the thumbnail on hover instead, or to `ImageInteraction.None` for an image that does neither.
+
+<Demo src="/demo/ui/image-interaction.html">
+  <include>./_include/image-interaction.mdx</include>
+</Demo>
+
+The button is named by `alt`, so always describe the image; without `alt` it is named "View image".
+
+### Empty and broken images
+
+Without a `src` the image shows a placeholder, and an image that fails to load shows a broken-image tile in its place, which the script sets from the image's `error` event. A figure adds a short message to either. The tile replaces the button, so a broken image cannot open an empty dialog.
+
+<Demo src="/demo/ui/image-states.html">
+  <include>./_include/image-states.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-image>`
+
+Renders a `<button>` element for an image that opens a dialog, and a `<span>` element otherwise, holding an `<img>` and the placeholder and broken-image fallbacks, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    alt: {
+      description: "A description of the image, which also names the button that opens it.",
+      type: "string",
+    },
+    "aspect-ratio": {
+      description: "The shape of the image's box.",
+      type: "ImageAspectRatio",
+      typeDescription:
+        "ImageAspectRatio.Square | ImageAspectRatio.Landscape | ImageAspectRatio.Widescreen | ImageAspectRatio.Portrait | ImageAspectRatio.Original",
+      default: "Square for a thumbnail, Original for a figure",
+    },
+    fit: {
+      description: "How the image fills a box whose shape differs from its own.",
+      type: "ImageFit",
+      typeDescription: "ImageFit.Cover | ImageFit.Contain",
+      default: "ImageFit.Cover",
+    },
+    interaction: {
+      description: "What happens when the user clicks or hovers over the image.",
+      type: "ImageInteraction",
+      typeDescription:
+        "ImageInteraction.Lightbox | ImageInteraction.Preview | ImageInteraction.None",
+      default: "ImageInteraction.Lightbox",
+    },
+    size: {
+      description: "The height of a thumbnail, or the maximum height of a figure.",
+      type: "ImageSize",
+      typeDescription:
+        "ImageSize.ExtraSmall | ImageSize.Small | ImageSize.Medium | ImageSize.Large",
+      default: "Small for a thumbnail, Medium for a figure",
+    },
+    src: {
+      description: "The image's URL. Without it, the image shows a placeholder.",
+      type: "string",
+    },
+    variant: {
+      description: "Whether the image is a thumbnail or a figure.",
+      type: "ImageVariant",
+      typeDescription: "ImageVariant.Thumbnail | ImageVariant.Figure",
+      default: "ImageVariant.Thumbnail",
+    },
+  }}
+/>

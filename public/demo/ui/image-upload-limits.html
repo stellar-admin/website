@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var Native = window.XMLHttpRequest;
+            class DemoUploadRequest extends Native {
+                open(method, url) {
+                    this._demo = /[?&]handler=Upload\b/.test(String(url));
+                    if (!this._demo) return super.open.apply(this, arguments);
+                }
+                setRequestHeader() {
+                    if (!this._demo) return super.setRequestHeader.apply(this, arguments);
+                }
+                get status() { return this._demo ? this._status || 0 : super.status; }
+                get response() { return this._demo ? this._response || null : super.response; }
+                abort() {
+                    if (!this._demo) return super.abort();
+                    clearInterval(this._timer);
+                    this.dispatchEvent(new Event('abort'));
+                }
+                send(body) {
+                    if (!this._demo) return super.send(body);
+                    var request = this;
+                    var file = body.get('file');
+                    var total = file.size || 1;
+                    var loaded = 0;
+                    this._timer = setInterval(function () {
+                        loaded = Math.min(total, loaded + total / 8);
+                        request.upload.dispatchEvent(new ProgressEvent('progress', { lengthComputable: true, loaded: loaded, total: total }));
+                        if (loaded < total) return;
+                        clearInterval(request._timer);
+                        request._status = 200;
+                        request._response = { value: file.name, url: URL.createObjectURL(file) };
+                        request.dispatchEvent(new Event('load'));
+                    }, 150);
+                }
+            }
+            window.XMLHttpRequest = DemoUploadRequest;
+        })();
+    </script>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.effnxitasf.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.02ooxj5php.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.k5helaoabp.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-md">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-9883f3e8ce7024ba51cbb6f1da1e18996b2ae1ad5fca06cea750771b92b43cc94410-label" class="sa-label sa-field-label" data-slot="field-label">Route map</label><sel-image-upload id="sa-9883f3e8ce7024ba51cbb6f1da1e18996b2ae1ad5fca06cea750771b92b43cc94410" data-slot="image-upload" data-layout="dropzone" data-state="empty" role="group" data-upload-url="/ImageUpload?handler=Upload" data-max-file-size="1048576" data-accept="image/png,image/webp" data-accept-text="PNG or WebP" class="sa-image-upload" aria-labelledby="sa-9883f3e8ce7024ba51cbb6f1da1e18996b2ae1ad5fca06cea750771b92b43cc94410-label"><input accept="image/png,image/webp" aria-hidden="true" class="sa-image-upload-file" data-slot="image-upload-file" tabindex="-1" type="file" /><input data-slot="image-upload-value" name="MapScan" type="hidden" value="" /><div class="sa-image-upload-drop" data-action="pick" data-slot="image-upload-drop" data-when="empty" role="button" tabindex="0"><span class="sa-image-upload-drop-icon"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor"><path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg></span><span><strong>Click to upload</strong> or drag and drop</span></div><div class="sa-image-upload-media" data-slot="image-upload-media" data-when="filled uploading removed" hidden="hidden"><span aria-label="No image" class="sa-image" data-aspect-ratio="original" data-fit="cover" data-size="md" data-slot="image" data-state="empty" data-variant="figure" role="img"><span class="sa-image-fallback" data-slot="image-placeholder"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg><span>No image</span></span><span class="sa-image-fallback" data-slot="image-error"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor"><line x1="2" x2="22" y1="2" y2="22"></line><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"></path><line x1="13.5" x2="6" y1="13.5" y2="21"></line><line x1="18" x2="21" y1="12" y2="15"></line><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"></path><path d="M21 15V5a2 2 0 0 0-2-2H9"></path></svg><span>Couldn&#x27;t load the image</span></span></span><span class="sa-image-upload-progress" data-slot="image-upload-progress" data-when="uploading" hidden="hidden"><svg stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" class="sa-spinner" role="status" aria-label="Uploading"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg><span class="sa-image-upload-bar"><span data-slot="image-upload-bar"></span></span></span><div class="sa-image-upload-overlay"><button type="button" data-action="pick" data-slot="button" class="sa-button sa-button-variant-secondary sa-button-size-sm" data-when="filled" hidden="hidden"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" data-icon="inline-start"><path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg>Replace</button><button type="button" data-action="remove" data-slot="button" class="sa-button sa-button-variant-secondary sa-button-size-icon-sm" data-when="filled" hidden="hidden" aria-label="Remove image"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button><button type="button" data-action="cancel" data-slot="button" class="sa-button sa-button-variant-secondary sa-button-size-sm" data-when="uploading" hidden="hidden"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor" data-icon="inline-start"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Cancel</button></div></div><p aria-live="polite" class="sa-image-upload-note" data-hint="PNG or WebP, up to 1 MB." data-slot="image-upload-note">PNG or WebP, up to 1 MB.</p></sel-image-upload><template data-slot="image-lightbox-template"><sel-dialog><dialog aria-label="Image" class="sa-dialog-content sa-image-lightbox" closedby="any" data-slot="dialog-content" id="sa-image-lightbox"><img alt="" data-slot="image-lightbox-image" /><button type="button" commandfor="sa-image-lightbox" command="close" aria-label="Close" class="sa-button sa-button-variant-secondary sa-button-size-icon-sm sa-image-lightbox-close" data-slot="button"><svg aria-hidden="true" stroke-linecap="round" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" stroke-width="2" stroke-linejoin="round" stroke="currentColor"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></dialog></sel-dialog></template></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+---
+title: Image Upload
+description: An image picker that uploads the picked file straight away, with progress, and posts only the value the server returns
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/image-upload-intro.html">
+  <include>./_include/image-upload-intro.mdx</include>
+</Demo>
+
+The demos on this page answer uploads in the browser instead of sending them to a server, so nothing you pick leaves your machine.
+
+## Usage
+
+`<sa-image-upload>` is a self-closing tag. Bind it with `asp-for`, or give it a `name` and `value`, and point `upload-url` at the endpoint that stores images. Set `src` to the current image's URL when the stored value is a file name or key rather than a URL.
+
+```razor
+<sa-image-upload asp-for="..." src="..." upload-url="..." />
+```
+
+A picked or dropped file uploads straight away, with its progress over the image, and the value the endpoint returns goes in a hidden input, which is all the form posts. Replacing and removing the image are staged until the form is saved, and the note under the control offers Undo until then. While an upload is running, the control holds the form's submit and asks the user to wait.
+
+## The upload endpoint
+
+The control posts the file as the multipart field `file` to `upload-url`, with the form's antiforgery token both as the `__RequestVerificationToken` field and in the `RequestVerificationToken` header. Outside a form, such as in an editing table row, it uses the nearest token around the control. The endpoint stores the file and answers with JSON:
+
+```json
+{ "value": "lisbon-4f2a.jpg", "url": "https://cdn.voyager.example/photos/lisbon-4f2a.jpg" }
+```
+
+`value` is what the form saves. For a failed upload, answer with an error status and `{ "error": "..." }`, which the control shows under the image.
+
+```csharp
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> UploadPhoto(IFormFile file, CancellationToken cancellationToken)
+{
+    if (file.Length > 5 * 1024 * 1024)
+    {
+        return StatusCode(StatusCodes.Status413PayloadTooLarge, new { error = $"{file.FileName} is larger than 5 MB." });
+    }
+
+    var value = await photoStore.SaveAsync(file, cancellationToken);
+    return Json(new { value, url = photoStore.GetUrl(value) });
+}
+```
+
+The control checks the file's type and size in the browser before uploading it, but a request can come from anywhere, so check both again on the server.
+
+## Examples
+
+### Compact
+
+Set `layout` to `ImageUploadLayout.Compact` for a small thumbnail beside Replace and Remove buttons, where the image is a detail of the record rather than its subject.
+
+<Demo src="/demo/ui/image-upload-compact.html">
+  <include>./_include/image-upload-compact.mdx</include>
+</Demo>
+
+### Attachment
+
+`ImageUploadLayout.Attachment` shows the image as an [attachment](/docs/ui/components/attachment) row with the file's name, for forms that list files.
+
+<Demo src="/demo/ui/image-upload-attachment.html">
+  <include>./_include/image-upload-attachment.mdx</include>
+</Demo>
+
+### File size and types
+
+`accept` takes a comma-separated list of media types, and `max-file-size` a size in bytes. They default to JPEG, PNG, WebP, GIF and AVIF, up to 5 MB, and the hint under the control describes them. A file that doesn't match is rejected with a message before it is uploaded. SVG isn't accepted by default, since an SVG file can carry scripts.
+
+<Demo src="/demo/ui/image-upload-limits.html">
+  <include>./_include/image-upload-limits.mdx</include>
+</Demo>
+
+### Table cell
+
+`ImageUploadLayout.Cell` fits an editing table row: the thumbnail is the button that picks a file, a small badge on its corner removes the image, and a ring marks a change until the row is saved. It renders no label, so name it with `aria-label`. Errors appear under the thumbnail.
+
+<Demo src="/demo/ui/image-upload-cell.html">
+  <include>./_include/image-upload-cell.mdx</include>
+</Demo>
+
+The control holds a form's submit while it uploads, but a row saved with htmx or `fetch` doesn't submit a form. Check the element's `uploading` property before sending such a request.
+
+### Disabled
+
+Set `disabled` to show the image without letting the user change it. A disabled control needs no `upload-url`.
+
+<Demo src="/demo/ui/image-upload-disabled.html">
+  <include>./_include/image-upload-disabled.mdx</include>
+</Demo>
+
+## Accessibility
+
+The control renders with `role="group"`, named by its label. Its buttons are real buttons reached with Tab, and the drop zone is a button too, so a file can be picked without dragging. The note under the control is a polite live region that announces the upload's progress, errors and staged changes. The current image opens larger in a dialog, as an [image](/docs/ui/components/image) does.
+
+## Part classes
+
+Pass an `ImageUploadClassNames` instance from the `StellarAdmin.UI` namespace using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the control renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The `<sel-image-upload>` container. |
+| `Image` | The image. |
+| `Note` | The note under the control, with the hint, progress, errors and staged changes. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`; see [Field part classes](field#part-classes).
+
+## API Reference
+
+### `<sa-image-upload>`
+
+Renders a `<sel-image-upload>` web component containing a hidden file input, a hidden `<input>` that posts the value, and the parts of the chosen layout.
+
+<TypeTable
+  type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "ImageUploadClassNames",
+    },
+    accept: {
+      description: "The accepted image types, as a comma-separated list of media types.",
+      type: "string",
+      default: "image/jpeg,image/png,image/webp,image/gif,image/avif",
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model. Bind to a string property that stores the image's value.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    disabled: {
+      description: "Shows the image without letting the user change it.",
+      type: "bool?",
+      default: "false",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the hidden input is associated with.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    layout: {
+      description: "How the control is laid out.",
+      type: "ImageUploadLayout",
+      typeDescription:
+        "ImageUploadLayout.Dropzone | ImageUploadLayout.Compact | ImageUploadLayout.Attachment | ImageUploadLayout.Cell",
+      default: "ImageUploadLayout.Dropzone",
+    },
+    "max-file-size": {
+      description: "The largest file the control uploads, in bytes.",
+      type: "long?",
+      default: "5242880 (5 MB)",
+    },
+    name: {
+      description: "The name of the hidden <input> that posts the value.",
+      type: "string",
+    },
+    "render-field": {
+      description:
+        "Whether to wrap the control in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+      type: "bool",
+    },
+    src: {
+      description: "The current image's URL, when the value is not a URL itself.",
+      type: "string",
+    },
+    "upload-url": {
+      description: "The endpoint the picked file is posted to. Required unless the control is disabled.",
+      type: "string",
+    },
+    value: {
+      description: "The stored value when not bound via asp-for.",
+      type: "string",
+    },
+  }}
+/>

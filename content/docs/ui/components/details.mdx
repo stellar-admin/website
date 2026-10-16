@@ -60,7 +60,7 @@ Set `variant` to `DetailsVariant.Divided` to separate the fields with rules. It 
 
 ### Empty values
 
-A `null` value, a blank string or an empty collection shows a dash in a muted color. Set `empty-text` to show different text, or set `NullDisplayText` in the property's `[DisplayFormat]` attribute to use the same text wherever the property is displayed. Zero and `false` are values, not empty ones.
+A `null` value, a blank string or an empty collection shows a dash in a muted color. Set `empty-text` to show different text, or set `NullDisplayText` in the property's `[DisplayFormat]` attribute to use the same text wherever the property is displayed. Zero and `false` are values, not empty ones. A field with a `template` skips it for an empty value, unless `template-renders-empty` is set, which passes empty values to the template too.
 
 <Demo src="/demo/ui/details-empty-values.html">
   <include>./_include/details-empty-values.mdx</include>
@@ -212,6 +212,11 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
       description: "The name of the display template that renders the value, found like a partial view named DisplayTemplates/{template}.",
       type: "string",
       default: "The property's [UIHint]",
+    },
+    "template-renders-empty": {
+      description: "Whether the display template also renders empty values, instead of the empty text. Use it for a template that shows something of its own for an empty value, such as a placeholder image.",
+      type: "bool",
+      default: "false",
     },
     secondary: {
       description: "Muted text displayed after the value.",
