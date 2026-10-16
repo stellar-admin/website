@@ -560,9 +560,6 @@
   .w-3\/4 {
     width: calc(3 / 4 * 100%);
   }
-  .w-12 {
-    width: calc(var(--sa-unit) * 12);
-  }
   .w-16 {
     width: calc(var(--sa-unit) * 16);
   }
