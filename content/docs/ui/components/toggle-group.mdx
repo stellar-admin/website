@@ -14,15 +14,15 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 `<sa-toggle-group>` groups a set of related toggles. Each option is a `<sa-toggle-group-item>` with a `value`.
 
-Use the `type` attribute to choose how many items can be selected:
+Use the `multiple` attribute to choose how many items can be selected:
 
-- `ToggleGroupType.Single` (the default) renders the items as native radio buttons, so only one can be selected at a time and it binds to a scalar (e.g. a `string` or `enum`). Arrow-key navigation between items works out of the box.
-- `ToggleGroupType.Multiple` renders the items as native checkboxes, so any number can be selected and they bind to a collection (e.g. a `string[]`).
+- By default the items render as native radio buttons, so only one can be selected at a time and it binds to a scalar (e.g. a `string` or `enum`). Arrow-key navigation between items works out of the box. Without `asp-for`, set the selected item with `value`.
+- With `multiple="true"` the items render as native checkboxes, so any number can be selected and they bind to a collection (e.g. a `string[]`). Without `asp-for`, set the selected items with `values`.
 
 Either way the values post back with no JavaScript required.
 
 ```razor
-<sa-toggle-group name="results-view" type="ToggleGroupType.Single">
+<sa-toggle-group name="results-view" value="list">
     <sa-toggle-group-item value="list" aria-label="List view">
         <sa-icon name="list"/>
     </sa-toggle-group-item>
@@ -47,7 +47,7 @@ Use the `variant` attribute to control the visual style of the items. It accepts
 
 ### Multiple
 
-Set `type="ToggleGroupType.Multiple"` to allow more than one item to be selected at a time.
+Set `multiple="true"` to allow more than one item to be selected at a time, and `values` to set the selected items.
 
 <Demo src="/demo/ui/toggle-group-multiple.html">
   <include>./_include/toggle-group-multiple.mdx</include>
@@ -63,7 +63,7 @@ Use the `size` attribute to control the size of the items. It accepts `ToggleSiz
 
 ### Joined
 
-Set `spacing="0"` to collapse the gap and join the items into a single segmented control, with shared borders and rounding on the outer corners.
+Set `spacing="ToggleGroupSpacing.None"` to collapse the gap and join the items into a single segmented control, with shared borders and rounding on the outer corners.
 
 <Demo src="/demo/ui/toggle-group-joined.html">
   <include>./_include/toggle-group-joined.mdx</include>
@@ -71,7 +71,7 @@ Set `spacing="0"` to collapse the gap and join the items into a single segmented
 
 ### Spacing
 
-Use the `spacing` attribute to control the gap between items. It defaults to `2` and accepts any number, which is multiplied by `0.25rem` (so `spacing="2"` is a `0.5rem` gap). Set it to `0` to join the items into a single segmented control (see [Joined](#joined) above).
+Use the `spacing` attribute to control the gap between items. It accepts `ToggleGroupSpacing.Default` (the default), `ToggleGroupSpacing.Small` and `ToggleGroupSpacing.Large`. Set it to `ToggleGroupSpacing.None` to join the items into a single segmented control (see [Joined](#joined) above).
 
 <Demo src="/demo/ui/toggle-group-spacing.html">
   <include>./_include/toggle-group-spacing.mdx</include>
@@ -89,7 +89,7 @@ Use the `orientation` attribute to lay the group out vertically. It accepts `Tog
 
 Supports ASP.NET Core model binding via `asp-for`. Bind a single-select group to a scalar property and a multiple-select group to a collection. The items whose `value` matches the bound value(s) are rendered as selected.
 
-When using model binding, StellarAdmin will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+When using model binding, StellarAdmin will automatically wrap the group inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `wrap-in-field` attribute to `false`.
 
 <Demo src="/demo/ui/toggle-group-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -201,7 +201,7 @@ Pass a `ToggleGroupClassNames` instance from the `StellarAdmin.UI` namespace to 
 | `Control` | The toggle group container. |
 | `Item` | Every toggle item in the group. |
 
-Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `wrap-in-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
 Item classes are added alongside any class specified on an individual `<sa-toggle-group-item>`.
 
@@ -233,6 +233,12 @@ Renders a `<div role="group">` element containing the items. When `asp-for` is s
       description: "Label text for the implicit Field wrapper.",
       type: "string",
     },
+    multiple: {
+      description:
+        "Whether more than one item can be selected. A single-select group renders radio inputs and binds to a scalar; a multiple-select group renders checkboxes and binds to a collection.",
+      type: "bool",
+      default: "false",
+    },
     name: {
       description:
         "The form name the item inputs post under when asp-for is not set.",
@@ -245,10 +251,22 @@ Renders a `<div role="group">` element containing the items. When `asp-for` is s
         "ToggleGroupOrientation.Horizontal | ToggleGroupOrientation.Vertical",
       default: "ToggleGroupOrientation.Horizontal",
     },
-    "render-field": {
+    "wrap-in-field": {
       description:
-        "Whether to wrap the group in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+        "Whether to wrap the group in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
       type: "bool",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an `<sa-grid>`, from 1 to 12, or `full` for every column. Use `column-span-sm`, `column-span-md` and `column-span-lg` for the span once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Use `column-start-sm`, `column-start-md` and `column-start-lg` for the start once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "auto",
     },
     size: {
       description: "The size of the items. Inherited by every item in the group.",
@@ -258,16 +276,21 @@ Renders a `<div role="group">` element containing the items. When `asp-for` is s
     },
     spacing: {
       description:
-        "The gap between items, multiplied by 0.25rem. Set to 0 to join the items into a single segmented control.",
-      type: "int",
-      default: "2",
+        "The space between the items. None joins the items into a single segmented control.",
+      type: "ToggleGroupSpacing",
+      typeDescription:
+        "ToggleGroupSpacing.Default | ToggleGroupSpacing.None | ToggleGroupSpacing.Small | ToggleGroupSpacing.Large",
+      default: "ToggleGroupSpacing.Default",
     },
-    type: {
+    value: {
       description:
-        "Whether a single item (radio-backed, scalar binding) or multiple items (checkbox-backed, collection binding) can be selected.",
-      type: "ToggleGroupType",
-      typeDescription: "ToggleGroupType.Single | ToggleGroupType.Multiple",
-      default: "ToggleGroupType.Single",
+        "The selected value of a single-select group that isn't bound with asp-for. Can't be combined with asp-for or multiple.",
+      type: "string",
+    },
+    values: {
+      description:
+        "The selected values of a multiple-select group that isn't bound with asp-for. Can't be combined with asp-for, and requires multiple.",
+      type: "IEnumerable<string>",
     },
     variant: {
       description:
@@ -281,17 +304,18 @@ Renders a `<div role="group">` element containing the items. When `asp-for` is s
 
 ### `<sa-toggle-group-item>`
 
-Renders a `<label>` element wrapping a visually hidden native `<input type="radio">` or `<input type="checkbox">`, depending on the group's `type`.
+Renders a `<label>` element wrapping a visually hidden native `<input type="radio">` or `<input type="checkbox">`, depending on the group's `multiple` attribute.
 
 <TypeTable
   type={{
     disabled: {
-      description: "Whether the item is disabled.",
+      description: "Whether the item is disabled and can't be selected.",
       type: "bool?",
+      default: "false",
     },
     selected: {
       description:
-        "Forces the selected state. When unset, selection is derived from the value(s) bound through the parent group's asp-for.",
+        "Forces the selected state. When unset, the item is selected when the group's value contains the item's value.",
       type: "bool",
     },
     size: {

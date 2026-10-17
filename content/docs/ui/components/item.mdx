@@ -44,7 +44,7 @@ The following demo demonstrates all the various elements you can use.
 
 ### Variant
 
-Set `variant` to `ItemVariant.Outline` or `ItemVariant.Muted`. The default has a subtle background.
+Set `variant` to `ItemVariant.Outline` or `ItemVariant.Muted`. The default has no border or background.
 
 <Demo src="/demo/ui/item-variants.html">
   <include>./_include/item-variants.mdx</include>
@@ -128,9 +128,9 @@ Renders a `<div>` element.
 <TypeTable
   type={{
     size: {
-      description: "The size of the item.",
+      description: "The size of the item, which sets its padding and spacing.",
       type: "ItemSize",
-      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      typeDescription: "ItemSize.Default | ItemSize.ExtraSmall | ItemSize.Small",
       default: "ItemSize.Default",
     },
     variant: {
@@ -150,9 +150,9 @@ Renders an `<a>` element styled as an item, making the entire item clickable.
 <TypeTable
   type={{
     size: {
-      description: "The size of the item.",
+      description: "The size of the item, which sets its padding and spacing.",
       type: "ItemSize",
-      typeDescription: "ItemSize.Default | ItemSize.Small | ItemSize.ExtraSmall",
+      typeDescription: "ItemSize.Default | ItemSize.ExtraSmall | ItemSize.Small",
       default: "ItemSize.Default",
     },
     variant: {
@@ -186,7 +186,7 @@ Renders a `<div>` element that hosts an icon, image, or avatar.
 <TypeTable
   type={{
     variant: {
-      description: "The type of media the element contains.",
+      description: "The kind of media, which sets its size and style.",
       type: "ItemMediaVariant",
       typeDescription:
         "ItemMediaVariant.Default | ItemMediaVariant.Icon | ItemMediaVariant.Image",

@@ -24,7 +24,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 Supports ASP.NET Core model binding via `asp-for`. Bind it to a `bool` property and an unchecked switch will post `false`.
 
-When using model binding, StellarAdmin will automatically wrap the switch inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+When using model binding, StellarAdmin will automatically wrap the switch inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `wrap-in-field` attribute to `false`.
 
 <Demo src="/demo/ui/switch-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -126,7 +126,7 @@ Pass a `SwitchClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The container around the checkbox input and thumb. |
 
-Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `wrap-in-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
 ## API Reference
 
@@ -153,7 +153,7 @@ Renders a native `<input type="checkbox" role="switch">` wrapped in a `<span>` t
       type: "string",
     },
     form: {
-      description: "The id of the <form> the switch is associated with.",
+      description: "The id of the <form> the switch posts with. Use it when the switch isn't inside the form.",
       type: "string",
     },
     label: {
@@ -164,10 +164,22 @@ Renders a native `<input type="checkbox" role="switch">` wrapped in a `<span>` t
       description: "The name of the rendered <input> element.",
       type: "string",
     },
-    "render-field": {
+    "wrap-in-field": {
       description:
-        "Whether to wrap the switch in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+        "Whether to wrap the switch in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
       type: "bool",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an `<sa-grid>`, from 1 to 12, or `full` for every column. Use `column-span-sm`, `column-span-md` and `column-span-lg` for the span once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Use `column-start-sm`, `column-start-md` and `column-start-lg` for the start once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "auto",
     },
     size: {
       description: "The size of the switch.",
@@ -176,7 +188,7 @@ Renders a native `<input type="checkbox" role="switch">` wrapped in a `<span>` t
       default: "SwitchSize.Default",
     },
     value: {
-      description: "The value of the underlying checkbox.",
+      description: "The value the switch posts when it is on.",
       type: "string",
     },
   }}

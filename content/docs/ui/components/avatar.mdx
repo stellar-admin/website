@@ -105,7 +105,7 @@ Renders a `<span>` element containing either an `<img>` (when `src` is set) or a
     },
     name: {
       description:
-        "The name of the user. Used as the image's alt text and to automatically derive the initials.",
+        "The user's name. Used as the image's alt text and, without an image or initials, to derive the initials from the first letters of the first two words (or the first two letters of a single word).",
       type: "string",
     },
     size: {
@@ -115,7 +115,7 @@ Renders a `<span>` element containing either an `<img>` (when `src` is set) or a
       default: "AvatarSize.Default",
     },
     src: {
-      description: "The source URL of the avatar image.",
+      description: "The URL of the avatar image. Without it, the avatar shows initials.",
       type: "string",
     },
   }}

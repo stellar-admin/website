@@ -53,15 +53,16 @@ A narrow layout suited to single-column forms.
 
 ### `<sa-page-container>`
 
-Renders a `<div>` element wrapping the main content of a page.
+Renders a `<div>` element wrapping the main content of a page, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
 <TypeTable
   type={{
     width: {
-      description:
-        "The maximum width to which the content is constrained. One of Full, Large, Medium, or Small.",
+      description: "The maximum width of the content.",
       type: "PageContainerWidth",
-      default: "Full",
+      typeDescription:
+        "PageContainerWidth.Full | PageContainerWidth.Large | PageContainerWidth.Medium | PageContainerWidth.Small",
+      default: "PageContainerWidth.Full",
     },
   }}
 />

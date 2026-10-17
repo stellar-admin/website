@@ -76,7 +76,7 @@ Tabs can contain only an icon. Give each one an accessible name.
 
 ### Active item
 
-Set the currently active item using the `is-active` attribute.
+Set the currently active item using the `active` attribute.
 
 <Demo src="/demo/ui/tabs-active.html">
   <include>./_include/tabs-active.mdx</include>
@@ -93,7 +93,7 @@ The URL of `<sa-tab-link>` can be specified a couple of ways:
   <include>./_include/tabs-url.mdx</include>
 </Demo>
 
-When specifying the URL, StellarAdmin will automatically set the `is-active` attribute for the tab link representing the currently active route, so you should not need to specify the `is-active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `is-active` attribute to either `true` or `false`.
+When specifying the URL, StellarAdmin will automatically set the `active` attribute for the tab link representing the currently active route, so you should not need to specify the `active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `active` attribute to either `true` or `false`.
 
 ### Disabled
 
@@ -113,7 +113,7 @@ Selecting a tab shows its panel and hides the others. The first tab is selected 
 
 ### Selected panel
 
-Show a panel other than the first by setting the `selected` attribute of `<sa-tabs>` to its `id`. Panel tabs take the same variants and icons as link tabs.
+Show a panel other than the first by setting the `value` attribute of `<sa-tabs>` to its `id`. Panel tabs take the same variants and icons as link tabs.
 
 <Demo src="/demo/ui/tabs-panels-line.html">
   <include>./_include/tabs-panels-line.mdx</include>
@@ -129,7 +129,7 @@ With a vertical tab list, the panels sit beside the tabs.
 
 ### Loading a panel when it is shown
 
-Selecting a tab raises a bubbling `tab-hide` event on the panel it hides, then a `tab-show` event on the panel it shows, once that panel is visible. The event's `detail` holds the `tab` and the `panel`. The panel shown when the page loads raises no event. This example listens for `tab-show` to fill the Documents panel the first time it opens.
+Selecting a tab raises a bubbling `tabhide` event on the panel it hides, then a `tabshow` event on the panel it shows, once that panel is visible. The event's `detail` holds the `tab` and the `panel`. The panel shown when the page loads raises no event. This example listens for `tabshow` to fill the Documents panel the first time it opens.
 
 <Demo src="/demo/ui/tabs-panels-load-on-show.html">
   <include>./_include/tabs-panels-load-on-show.mdx</include>
@@ -140,7 +140,7 @@ With htmx, put the attributes on the panel itself, where the event fires. The pl
 ```razor
 <sa-tab-panel id="documents"
               hx-get="/bookings/VYG-4471-KX/documents"
-              hx-trigger="tab-show once">
+              hx-trigger="tabshow once">
     <sa-skeleton class="h-4 w-48"/>
 </sa-tab-panel>
 ```
@@ -189,9 +189,9 @@ Renders an `<a>` element.
       type: "bool",
       default: "false",
     },
-    "is-active": {
+    active: {
       description:
-        "Whether the tab is the active tab. When not set, StellarAdmin determines this from the current route.",
+        "Whether the tab is the active tab. When not set, the tab is active when its page or action routing attributes match the current request.",
       type: "bool",
     },
   }}
@@ -205,11 +205,11 @@ The tab link also accepts the same routing attributes as the ASP.NET Core [Ancho
 
 ### `<sa-tabs>`
 
-Wraps an `<sa-tab-list>` of `<sa-tab>`s and their `<sa-tab-panel>`s, rendered as a `sel-tabs` web component. It raises the bubbling `tab-hide` and `tab-show` events on the panels as they are hidden and shown. From JavaScript, call `select(tab)` on the element with an `<sa-tab>`'s button.
+Wraps an `<sa-tab-list>` of `<sa-tab>`s and their `<sa-tab-panel>`s, rendered as a `sel-tabs` web component. It raises the bubbling `tabhide` and `tabshow` events on the panels as they are hidden and shown. From JavaScript, call `select(tab)` on the element with an `<sa-tab>`'s button.
 
 <TypeTable
   type={{
-    selected: {
+    value: {
       description: "The `id` of the panel shown when the page loads.",
       type: "string",
       default: "The first tab's panel",

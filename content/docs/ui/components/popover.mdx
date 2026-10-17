@@ -44,11 +44,7 @@ You can trigger the popover on hover using an [Interest Invokers](https://develo
 
 ### Position
 
-Control the position of the popover relative to the trigger element using the `position` attribute. The default value is `PositionArea.Bottom`.
-
-<Callout type="tip">
-  You can visualize the various values by using the Chrome team's [Anchor Position Tool](https://chrome.dev/anchor-tool/).
-</Callout>
+Control the position of the popover relative to the trigger element using the `side` and `align` attributes. `side` sets the side of the trigger the popover appears on and defaults to `PopoverSide.Bottom`. `align` sets how the popover lines up with the trigger along that side and defaults to `PopoverAlign.Center`.
 
 <Demo src="/demo/ui/popover-position.html">
   <include>./_include/popover-position.mdx</include>
@@ -102,13 +98,20 @@ Renders a `<div>` element with a `popover` attribute (which you can override by 
 
 <TypeTable
   type={{
-    position: {
-      description:
-        "The position of the popover relative to the trigger element.",
-      type: "PositionArea",
+    side: {
+      description: "The side of the trigger that the popover appears on.",
+      type: "PopoverSide",
       typeDescription:
-        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
-      default: "PositionArea.Bottom",
+        "PopoverSide.Top | PopoverSide.Right | PopoverSide.Bottom | PopoverSide.Left",
+      default: "PopoverSide.Bottom",
+    },
+    align: {
+      description:
+        "How the popover lines up with the trigger along its side. Start and End line up with the trigger's start or end edge (its left edge above or below the trigger, its top edge to the left or right), Center centers on the trigger and extends past both edges as far as the content needs, and CenterWithin centers on the trigger and stays within its width or height.",
+      type: "PopoverAlign",
+      typeDescription:
+        "PopoverAlign.Start | PopoverAlign.Center | PopoverAlign.End | PopoverAlign.CenterWithin",
+      default: "PopoverAlign.Center",
     },
   }}
 />

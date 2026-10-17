@@ -49,8 +49,8 @@ The details use the same behavior and events as [table row details](/docs/ui/com
         "Where the grid places the buttons that expand and collapse rows. With None, place an `<sa-table-row-detail-toggle>` in a column's item template.",
       type: "DataGridRowDetailToggle",
       typeDescription:
-        "DataGridRowDetailToggle.Leading | DataGridRowDetailToggle.Trailing | DataGridRowDetailToggle.None",
-      default: "DataGridRowDetailToggle.Leading",
+        "DataGridRowDetailToggle.Start | DataGridRowDetailToggle.End | DataGridRowDetailToggle.None",
+      default: "DataGridRowDetailToggle.Start",
     },
     "row-click": {
       description:
@@ -59,31 +59,31 @@ The details use the same behavior and events as [table row details](/docs/ui/com
       default: "false",
     },
     "expand-mode": {
-      description: "How many rows can be expanded at once.",
-      type: "TableRowDetailExpandMode",
-      typeDescription: "TableRowDetailExpandMode.Multiple | TableRowDetailExpandMode.Single",
-      default: "TableRowDetailExpandMode.Multiple",
+      description: "How many rows can be expanded at once. With Single, expanding a row collapses the row that was expanded.",
+      type: "DataGridRowDetailExpandMode",
+      typeDescription: "DataGridRowDetailExpandMode.Multiple | DataGridRowDetailExpandMode.Single",
+      default: "DataGridRowDetailExpandMode.Multiple",
     },
     emphasis: {
-      description: "How an expanded row and its details are set apart from the rows around them.",
-      type: "TableRowDetailEmphasis",
+      description: "How an expanded row and its details stand out from the rows around them.",
+      type: "DataGridRowDetailEmphasis",
       typeDescription:
-        "TableRowDetailEmphasis.None | TableRowDetailEmphasis.Band | TableRowDetailEmphasis.Rail",
-      default: "TableRowDetailEmphasis.Band",
+        "DataGridRowDetailEmphasis.None | DataGridRowDetailEmphasis.Band | DataGridRowDetailEmphasis.Rail",
+      default: "DataGridRowDetailEmphasis.Band",
     },
     divider: {
       description:
         "The line between an expanded row and its details.",
-      type: "TableRowDetailDivider",
+      type: "DataGridRowDetailDivider",
       typeDescription:
-        "TableRowDetailDivider.None | TableRowDetailDivider.Inset | TableRowDetailDivider.FullWidth",
-      default: "TableRowDetailDivider.Inset",
+        "DataGridRowDetailDivider.None | DataGridRowDetailDivider.Inset | DataGridRowDetailDivider.FullWidth",
+      default: "DataGridRowDetailDivider.Inset",
     },
     inset: {
-      description: "Where the details content starts.",
-      type: "TableRowDetailInset",
-      typeDescription: "TableRowDetailInset.Aligned | TableRowDetailInset.Bleed",
-      default: "TableRowDetailInset.Aligned",
+      description: "Where the details content starts: at the row's first cell (Bleed) or at the column after the toggle's column (Aligned).",
+      type: "DataGridRowDetailInset",
+      typeDescription: "DataGridRowDetailInset.Bleed | DataGridRowDetailInset.Aligned",
+      default: "DataGridRowDetailInset.Aligned",
     },
     animate: {
       description:
@@ -91,13 +91,9 @@ The details use the same behavior and events as [table row details](/docs/ui/com
       type: "bool",
       default: "true",
     },
-    "key-field": {
-      description:
-        "The name of a public property on the row item that identifies it, compared against `expanded-keys`. Required when `expanded-keys` is set.",
-      type: "string",
-    },
     "expanded-keys": {
-      description: "The keys of the rows to render expanded.",
+      description:
+        "The keys of the rows to render expanded. Requires the grid's `key-field`. A row rendered expanded doesn't raise `rowdetailexpand`, so render its content directly instead of loading it on expand.",
       type: "IEnumerable",
     },
   }}
@@ -174,16 +170,16 @@ The grid renders only what it is given, so the requests that edit, save and add 
   type={{
     "key-field": {
       description:
-        "The name of a public property on the row item whose value identifies the row. Selection and row details use it, and a row keeps them when it is replaced in the page. Required for `editing-keys` and `new-item`.",
+        "The name of the item property that identifies a row. Row selection, edit mode and expanded row details require it, and a row that is replaced in the page keeps its selection and expanded details.",
       type: "string",
     },
     "editing-keys": {
-      description: "The keys of the rows to render in edit mode, with their columns' edit templates.",
+      description: "The keys of the rows to render in edit mode, with their columns' edit templates. Requires `key-field`.",
       type: "IEnumerable",
     },
     "new-item": {
       description:
-        "An item to render in edit mode above the other rows, with the key `new`. Its columns without an edit template are empty.",
+        "A new item to render in edit mode above the other rows, with the key `new`. Requires `key-field`. Its columns without an edit template are empty.",
       type: "object",
     },
     "rows-only": {
@@ -200,7 +196,7 @@ The grid renders only what it is given, so the requests that edit, save and add 
 <TypeTable
   type={{
     position: {
-      description: "Where the row is placed: first or last in the grid's body.",
+      description: "Where the row is placed: first or last in the grid's body. A grid rendered with `rows-only` leaves it out.",
       type: "DataGridAddRowPosition",
       typeDescription: "DataGridAddRowPosition.Top | DataGridAddRowPosition.Bottom",
       default: "DataGridAddRowPosition.Top",

@@ -11,10 +11,10 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-An `<sa-linkbutton>` renders an `<a>` styled as a button. Give it an `href` or one of the routing attributes below.
+An `<sa-button-link>` renders an `<a>` styled as a button. Give it an `href` or one of the routing attributes below.
 
 ```razor
-<sa-linkbutton>Proceed</sa-linkbutton>
+<sa-button-link>Proceed</sa-button-link>
 ```
 
 ## Examples
@@ -76,13 +76,13 @@ Since the Link Button Tag Helper is a wrapper around the HTML Anchor (`<a>`) ele
 
 ## Accessibility
 
-`<sa-linkbutton>` renders an `<a>` element, so it is announced as a link and activated with Enter. Use it for navigation and use [Button](/docs/ui/components/button) for actions. A link cannot be disabled, so render a button, or omit the link, when the destination is not available.
+`<sa-button-link>` renders an `<a>` element, so it is announced as a link and activated with Enter. Use it for navigation and use [Button](/docs/ui/components/button) for actions. A link cannot be disabled, so render a button, or omit the link, when the destination is not available.
 
 An icon-only link button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`.
 
 ## API Reference
 
-### `<sa-linkbutton>`
+### `<sa-button-link>`
 
 Renders an `<a>` element styled as a button.
 

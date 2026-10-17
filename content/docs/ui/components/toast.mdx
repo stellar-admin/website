@@ -23,9 +23,11 @@ Add `<sa-toaster>` once to your layout. Place it outside any region that htmx or
 
 `AddStellarAdminUI()` registers everything else, so there is no separate setup call and no middleware.
 
-Show a toast from a controller action or Razor Pages handler by injecting `IToastNotifier`:
+Show a toast from a controller action or Razor Pages handler by injecting `IToastNotifier` from the `StellarAdmin.UI.Toasts` namespace:
 
 ```cs
+using StellarAdmin.UI.Toasts;
+
 public class BookingsController(IToastNotifier toasts) : Controller
 {
     [HttpPost]
@@ -181,7 +183,7 @@ Renders the region that shows toasts. Classes set on it apply to the viewport th
       default: "ToasterPosition.BottomRight",
     },
     duration: {
-      description: "How long a toast stays open when it doesn't set its own duration. TimeSpan.Zero keeps toasts open until they are closed.",
+      description: "How long a toast stays open when it doesn't set its own duration. TimeSpan.Zero keeps toasts open until they are closed. It can't be negative, and loading toasts don't close on their own unless they set a duration.",
       type: "TimeSpan",
       default: "TimeSpan.FromSeconds(5)",
     },
@@ -195,14 +197,14 @@ Renders the region that shows toasts. Classes set on it apply to the viewport th
 
 ### `IToastNotifier`
 
-Inject it into controllers, page models and services. `Add(Toast)` queues a toast. The `Success`, `Info`, `Warning` and `Error` extension methods take a title and an optional description.
+Inject it into controllers, page models and services. It and the other server-side toast types live in the `StellarAdmin.UI.Toasts` namespace. `Add(Toast)` queues a toast. The `Success`, `Info`, `Warning` and `Error` extension methods take a title and an optional description.
 
 #### `Toast`
 
 <TypeTable
   type={{
     Title: {
-      description: "The toast title.",
+      description: "The toast title. It can't be empty or white space.",
       type: "string",
       required: true,
     },
@@ -218,7 +220,7 @@ Inject it into controllers, page models and services. `Add(Toast)` queues a toas
       default: "ToastType.Default",
     },
     Duration: {
-      description: "How long the toast stays open. Defaults to the toaster's duration. TimeSpan.Zero keeps it open until it is closed.",
+      description: "How long the toast stays open. Defaults to the toaster's duration. TimeSpan.Zero keeps it open until it is closed. It can't be negative.",
       type: "TimeSpan?",
     },
     Action: {

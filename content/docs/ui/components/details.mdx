@@ -14,7 +14,7 @@ import { Demo } from "@/components/demo";
 A details list is composed of `<sa-details>` wrapping one `<sa-display-field>` per value. Bind each field to a model property with `asp-for`: the label comes from the property's `[Display]` name, and the value is formatted from the property's metadata.
 
 ```razor
-<sa-details columns="...">
+<sa-details columns-md="...">
     <sa-display-field asp-for="..." />
     <sa-display-field asp-for="..." />
 </sa-details>
@@ -26,7 +26,7 @@ Inside `<sa-details>` the fields render as a description list, with each label i
 
 ### Columns and spans
 
-Set `columns` to lay the fields out in a grid. The columns respond to the width of the list rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the list is at least 40rem wide, and the list uses one column below that. Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width. The columns work as they do in a [Grid](./grid).
+Set `columns-md` to lay the fields out in a grid once the list is at least 40rem wide; narrower lists use one column. The columns respond to the width of the list rather than the viewport, so the same markup works in a page, a card or a side panel. Use `columns`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width. The columns work as they do in a [Grid](./grid).
 
 Set `column-span` on a field to a number of columns, or to `full` to span all of them. `column-span-sm`, `column-span-md` and `column-span-lg` set the span at each width in the same way, and a span is limited to the number of columns at each width.
 
@@ -44,7 +44,7 @@ Set `column-start` to the column a field starts at, from 1 to 12, to begin a new
 
 ### Horizontal
 
-Set `orientation` to `FieldOrientation.Horizontal` to place each label beside its value. Set it on `<sa-details>` for every field, or on a single `<sa-display-field>`.
+Set `orientation` to `DetailsOrientation.Horizontal` on `<sa-details>` to place each label beside its value for every field, or set `orientation` to `DisplayFieldOrientation.Horizontal` on a single `<sa-display-field>`.
 
 <Demo src="/demo/ui/details-horizontal.html">
   <include>./_include/details-horizontal.mdx</include>
@@ -140,12 +140,7 @@ Renders a `<div>` element around a `<dl>` element, forwarding any [global attrib
 <TypeTable
   type={{
     columns: {
-      description: "The number of columns when the list is at least 40rem wide, from 1 to 12. Narrower lists use one column, unless columns-base or columns-sm is set. Set either columns or columns-md, not both.",
-      type: "int",
-      default: "1",
-    },
-    "columns-base": {
-      description: "The number of columns at the smallest width, from 1 to 12.",
+      description: "The number of columns at the smallest width, from 1 to 12. Wider widths use this count unless they set their own.",
       type: "int",
       default: "1",
     },
@@ -157,7 +152,7 @@ Renders a `<div>` element around a `<dl>` element, forwarding any [global attrib
     "columns-md": {
       description: "The number of columns when the list is at least 40rem wide, from 1 to 12.",
       type: "int",
-      default: "columns, otherwise the number of columns at 30rem",
+      default: "The number of columns at 30rem",
     },
     "columns-lg": {
       description: "The number of columns when the list is at least 56rem wide, from 1 to 12.",
@@ -165,10 +160,10 @@ Renders a `<div>` element around a `<dl>` element, forwarding any [global attrib
       default: "The number of columns at 40rem",
     },
     orientation: {
-      description: "How each field arranges its label and value, unless the field sets its own.",
-      type: "FieldOrientation",
-      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
-      default: "FieldOrientation.Vertical",
+      description: "How each field arranges its label and value. A field's own orientation takes precedence.",
+      type: "DetailsOrientation",
+      typeDescription: "DetailsOrientation.Vertical | DetailsOrientation.Horizontal",
+      default: "DetailsOrientation.Vertical",
     },
     variant: {
       description: "The visual style of the list.",
@@ -195,21 +190,21 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
       default: "The property's display name",
     },
     format: {
-      description: "A composite format string, such as {0:C}, applied to the value.",
+      description: "A composite format string, such as {0:C}, applied to the value. Applies to each item of a collection, and is ignored when the value renders through a display template.",
       type: "string",
       default: "The property's display format",
     },
     "empty-text": {
-      description: "The text displayed when the value is empty.",
+      description: "The text displayed for a null or blank value, or an empty collection. Not used when template-renders-empty passes empty values to the template.",
       type: "string",
       default: "The property's null display text, otherwise a dash",
     },
     href: {
-      description: "A URL the value links to.",
+      description: "A URL the value links to. Applies only to a value from asp-for that renders as text.",
       type: "string",
     },
     template: {
-      description: "The name of the display template that renders the value, found like a partial view named DisplayTemplates/{template}.",
+      description: "The name of the display template that renders the value, found like a partial view named DisplayTemplates/{template}. A path that starts with ~/ or / is used as is. Ignored without asp-for.",
       type: "string",
       default: "The property's [UIHint]",
     },
@@ -219,7 +214,7 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
       default: "false",
     },
     secondary: {
-      description: "Muted text displayed after the value.",
+      description: "Muted text displayed after the value. Not shown when the value is empty.",
       type: "string",
     },
     "column-span": {
@@ -230,7 +225,7 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
     "column-span-sm": {
       description: "The span when the list is at least 30rem wide, from 1 to 12, or full.",
       type: "string",
-      default: "column-span",
+      default: "The span at the smallest width",
     },
     "column-span-md": {
       description: "The span when the list is at least 40rem wide, from 1 to 12, or full.",
@@ -250,7 +245,7 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
     "column-start-sm": {
       description: "The start when the list is at least 30rem wide, from 1 to 12, or auto.",
       type: "string",
-      default: "column-start",
+      default: "The start at the smallest width",
     },
     "column-start-md": {
       description: "The start when the list is at least 40rem wide, from 1 to 12, or auto.",
@@ -264,9 +259,9 @@ Renders a `<div>` element holding the label and the value, forwarding any [globa
     },
     orientation: {
       description: "How the field arranges its label and value.",
-      type: "FieldOrientation",
-      typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
-      default: "The orientation of the enclosing <sa-details>, otherwise FieldOrientation.Vertical",
+      type: "DisplayFieldOrientation",
+      typeDescription: "DisplayFieldOrientation.Vertical | DisplayFieldOrientation.Horizontal",
+      default: "The orientation of the enclosing <sa-details>, otherwise DisplayFieldOrientation.Vertical",
     },
   }}
 />

@@ -26,7 +26,7 @@ Use a [Checkbox group](checkbox-group) when multiple selected options should bin
 
 ### Model binding
 
-Supports ASP.NET Core model binding via `asp-for`. When you bind a `<sa-input>` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `render-field` attribute to `false`.
+Supports ASP.NET Core model binding via `asp-for`. When you bind a `<sa-input>` to a model with a `bool` data type, StellarAdmin will render a checkbox. StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of the field wrapping by setting the `wrap-in-field` attribute to `false`.
 
 <Demo src="/demo/ui/checkbox-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -217,7 +217,7 @@ Pass an `InputClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The container around the checkbox input and its indicator. |
 
-Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `wrap-in-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
 ## API Reference
 
@@ -233,50 +233,92 @@ Root, Label, Description, Error, and Content are inherited from `FieldClassNames
     },
     "asp-for": {
       description:
-        "An expression to be evaluated against the current model. Enables ASP.NET Core model binding.",
+        "The model property that the input is bound to. Enables ASP.NET Core model binding.",
       type: "ModelExpression",
     },
     "asp-format": {
       description:
-        "The format string used to format the value bound via asp-for.",
+        "The composite format string that formats the bound value. Applies only when the input is bound with asp-for.",
+      type: "string",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an <sa-grid>, from 1 to 12, or full for every column. The span is limited to the grid's column count at each width.",
+      type: "string",
+      default: "1",
+    },
+    "column-span-sm": {
+      description:
+        "The number of columns the field spans when the grid is at least 30rem wide. Defaults to the span at the smallest width.",
+      type: "string",
+    },
+    "column-span-md": {
+      description:
+        "The number of columns the field spans when the grid is at least 40rem wide. Defaults to the span at 30rem.",
+      type: "string",
+    },
+    "column-span-lg": {
+      description:
+        "The number of columns the field spans when the grid is at least 56rem wide. Defaults to the span at 40rem.",
+      type: "string",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an <sa-grid>, from 1 to 12, or auto to follow the previous item. Ignored at a width where the grid has one column or the field would extend past the last column.",
+      type: "string",
+      default: "auto",
+    },
+    "column-start-sm": {
+      description:
+        "The column the field starts at when the grid is at least 30rem wide. Defaults to the start at the smallest width.",
+      type: "string",
+    },
+    "column-start-md": {
+      description:
+        "The column the field starts at when the grid is at least 40rem wide. Defaults to the start at 30rem.",
+      type: "string",
+    },
+    "column-start-lg": {
+      description:
+        "The column the field starts at when the grid is at least 56rem wide. Defaults to the start at 40rem.",
       type: "string",
     },
     description: {
       description:
-        "The description text rendered by the implicit field wrapper.",
+        "The field's description. Defaults to the description from the bound property's metadata.",
       type: "string",
     },
     error: {
       description:
-        "The error message rendered by the implicit field wrapper.",
+        "An error message to show for the field. Setting it also marks the input as invalid.",
       type: "string",
     },
     form: {
       description:
-        "The id of the form element the input is associated with.",
+        "The id of the form that the input belongs to.",
       type: "string",
     },
     label: {
-      description: "The label text rendered by the implicit field wrapper.",
+      description: "The text of the field's label. Defaults to the display name of the bound property.",
       type: "string",
     },
     name: {
-      description: "The name of the rendered input element.",
+      description: "The name that the input's value is posted under. Defaults to the name of the bound property.",
       type: "string",
-    },
-    "render-field": {
-      description:
-        "Whether to wrap the input in a Field. When not set, a field is rendered automatically when asp-for, label, description, or error is set.",
-      type: "bool",
     },
     type: {
       description:
-        "The type of the rendered input element. Set to checkbox to render a checkbox.",
+        "The type of the input. Set to checkbox to render a checkbox. Defaults to the type that suits the bound property, or text when the input isn't bound.",
       type: "string",
     },
     value: {
-      description: "The value of the rendered input element.",
+      description: "The value of the input.",
       type: "string",
+    },
+    "wrap-in-field": {
+      description:
+        "Whether to wrap the input in a field with its label, description and error. When not set, the input is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
+      type: "bool",
     },
   }}
 />

@@ -48,10 +48,10 @@ The usage examples demonstrated so far require a lot of boilerplate when creatin
              error="Enter the name exactly as it appears on the card"/>
    ```
 
-In both cases mentioned above, you can opt out of implicit fields by setting the `render-field` attribute to `false`. In the example below, StellarAdmin will not create an implicit field, even though we're using model binding.
+In both cases mentioned above, you can opt out of implicit fields by setting the `wrap-in-field` attribute to `false`. In the example below, StellarAdmin will not create an implicit field, even though we're using model binding.
 
 ```razor
-<sa-input render-field="false" asp-for="Model.Name"/>
+<sa-input wrap-in-field="false" asp-for="Model.Name"/>
 ```
 
 Most of the examples in this document demonstrate both explicit and implicit mode. Notice how compact the implicit examples are compared to their explicit counterparts.
@@ -386,7 +386,57 @@ All properties below are optional strings containing space-separated CSS classes
 
 Input-specific properties target the control itself. For example, `InputClassNames.Control` styles the native `<input>` in this example.
 
-With `render-field="false"`, the shared field parts have no generated elements to style; input-specific parts still apply. For explicitly composed fields, put `class` directly on `<sa-field>`, `<sa-field-label>`, and the other elements you write, as shown above. The input's `class-names` options do not style parent or sibling elements.
+With `wrap-in-field="false"`, the shared field parts have no generated elements to style; input-specific parts still apply. For explicitly composed fields, put `class` directly on `<sa-field>`, `<sa-field-label>`, and the other elements you write, as shown above. The input's `class-names` options do not style parent or sibling elements.
+
+## Your own field inputs
+
+To build a control that gets the label, description, error and [`<sa-grid>`](./grid) placement of `<sa-input>`, derive from `FieldInputBaseTagHelper`. Render the control in `RenderInput`, call `ApplyFieldAttributes` so the control points at its description and error, and return the layout of the field's parts:
+
+```csharp
+[HtmlTargetElement("app-color-input", TagStructure = TagStructure.WithoutEndTag)]
+public sealed class ColorInputTagHelper : FieldInputBaseTagHelper
+{
+    private readonly IHtmlGenerator _generator;
+
+    public ColorInputTagHelper(IHtmlGenerator generator)
+        : base(generator)
+    {
+        _generator = generator;
+    }
+
+    protected override Task<FieldLayout> RenderInput(
+        TagHelperContext context,
+        TagHelperOutput output,
+        IDictionary<string, object?>? htmlAttributes
+    )
+    {
+        output.TagName = "input";
+        output.TagMode = TagMode.SelfClosing;
+        if (For != null)
+        {
+            output.MergeAttributes(
+                _generator.GenerateTextBox(ViewContext, For.ModelExplorer, For.Name, For.Model, null, htmlAttributes)
+            );
+        }
+
+        output.Attributes.SetAttribute("type", "color");
+        ApplyFieldAttributes(context, output.Attributes, FieldLayout.Stacked);
+        return Task.FromResult(FieldLayout.Stacked);
+    }
+}
+```
+
+Register the assembly with `@addTagHelper *, MyApp` and use it like any input. `asp-for`, `name`, `label`, `description`, `error`, `wrap-in-field` and the `column-span-*` and `column-start-*` attributes all work:
+
+```razor
+<sa-grid columns-md="2">
+    <app-color-input asp-for="BrandColor" description="Used for buttons and links." />
+</sa-grid>
+```
+
+- Bind with the framework's `IHtmlGenerator`, as above, so a bound control gets the `id` and `name` that its label and validation expect. Without `asp-for`, the base class gives the control an `id` and copies `name` for you.
+- `FieldLayout.Stacked`, `FieldLayout.StackedDescriptionFirst` and `FieldLayout.ControlFirst` cover the usual arrangements. Build a `FieldLayout` to choose other parts, order or orientation.
+- To accept `class-names` for the field's parts, derive from `FieldInputBaseTagHelper<TClassNames>` with a class that inherits `FieldClassNames`, and add `ClassNames?.Control` to the control's classes yourself.
 
 ## API Reference
 
@@ -397,7 +447,7 @@ Renders a `<div>` element that wraps a single form field.
 <TypeTable
   type={{
     orientation: {
-      description: "The layout direction of the field.",
+      description: "How the field arranges its label, control and supporting text.",
       type: "FieldOrientation",
       typeDescription: "FieldOrientation.Vertical | FieldOrientation.Horizontal",
       default: "FieldOrientation.Vertical",

@@ -26,7 +26,7 @@ Use a [Radio group](radio-group) to bind related options to one property with a 
 
 ### Model binding
 
-Supports ASP.NET Core model binding via `asp-for`. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `render-field` attribute to `false`.
+Supports ASP.NET Core model binding via `asp-for`. When using model binding, StellarAdmin will automatically wrap the input inside a [Field](field) with the correct label, description, and placeholder text derived from data attributes. You can opt out of this behavior by setting the `wrap-in-field` attribute to `false`.
 
 <Demo src="/demo/ui/radio-model-binding.html">
 <Tabs items={["Razor", "Model"]}>
@@ -181,7 +181,7 @@ Pass an `InputClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
 | `Control` | The container around the radio input and its indicator. |
 
-Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `render-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `wrap-in-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
 
 For a choice card built with explicit fields, apply classes directly to the card's field and label. These input options only style the radio and any field elements it generates.
 
@@ -204,7 +204,7 @@ For a choice card built with explicit fields, apply classes directly to the card
     },
     "asp-format": {
       description:
-        "The format string used to format the value bound via asp-for.",
+        "The composite format string that formats the value bound via asp-for.",
       type: "string",
     },
     description: {
@@ -230,10 +230,22 @@ For a choice card built with explicit fields, apply classes directly to the card
       description: "The name of the rendered input element.",
       type: "string",
     },
-    "render-field": {
+    "wrap-in-field": {
       description:
-        "Whether to wrap the input in a Field. When not set, a field is rendered automatically when asp-for, label, description, or error is set.",
+        "Whether to wrap the input in a Field with its label, description and error. When not set, the input is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
       type: "bool",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an `<sa-grid>`, from 1 to 12, or `full` for every column. Use `column-span-sm`, `column-span-md` and `column-span-lg` for the span once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Use `column-start-sm`, `column-start-md` and `column-start-lg` for the start once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "auto",
     },
     type: {
       description:
@@ -241,7 +253,7 @@ For a choice card built with explicit fields, apply classes directly to the card
       type: "string",
     },
     value: {
-      description: "The value of the rendered input element.",
+      description: "The value of the rendered input element. A radio button bound with asp-for is selected when its value matches the property.",
       type: "string",
     },
   }}

@@ -49,7 +49,7 @@ Display additional text information alongside inputs.
 
 ### Textarea
 
-Input groups also work with textarea components. Use `InputGroupAddOnVariantAlignment.BlockStart` or `InputGroupAddOnVariantAlignment.BlockEnd` for alignment.
+Input groups also work with textarea components. Use `InputGroupAddonAlign.Top` or `InputGroupAddonAlign.Bottom` for alignment.
 
 <Demo src="/demo/ui/input-group-textarea.html">
   <include>./_include/input-group-textarea.mdx</include>
@@ -105,7 +105,7 @@ Renders an `<input>` element styled for use inside an input group.
     },
     "asp-format": {
       description:
-        "The format string applied to the asp-for value when rendering it.",
+        "The composite format string that formats the bound value. Applies only when the input is bound with asp-for.",
       type: "string",
     },
     form: {
@@ -113,7 +113,7 @@ Renders an `<input>` element styled for use inside an input group.
       type: "string",
     },
     type: {
-      description: "The type of the rendered input element.",
+      description: "The type of the input, such as text or email. Defaults to the type that suits the bound property, or text when the input isn't bound.",
       type: "string",
     },
     value: {
@@ -138,16 +138,16 @@ Renders a `<textarea>` element styled for use inside an input group.
 
 ### `<sa-input-group-addon>`
 
-Renders a `<div>` element with `role="group"` that holds text, icons, or buttons alongside the input.
+Renders a `<div>` element with `role="group"` that holds text, icons, or buttons alongside the input. Clicking the add-on, outside its buttons, focuses the group's input.
 
 <TypeTable
   type={{
     align: {
-      description: "The alignment of the add-on relative to the input.",
-      type: "InputGroupAddOnVariantAlignment",
+      description: "Where the add-on is placed relative to the input: before or after it on the same row, or on its own row above or below it.",
+      type: "InputGroupAddonAlign",
       typeDescription:
-        "InputGroupAddOnVariantAlignment.InlineStart | InputGroupAddOnVariantAlignment.InlineEnd | InputGroupAddOnVariantAlignment.BlockStart | InputGroupAddOnVariantAlignment.BlockEnd",
-      default: "InputGroupAddOnVariantAlignment.InlineStart",
+        "InputGroupAddonAlign.Start | InputGroupAddonAlign.End | InputGroupAddonAlign.Top | InputGroupAddonAlign.Bottom",
+      default: "InputGroupAddonAlign.Start",
     },
   }}
 />
@@ -158,7 +158,7 @@ Renders a `<span>` element for displaying text inside an add-on.
 
 ### `<sa-input-group-button>`
 
-Renders a `<button>` element sized for use inside an add-on.
+Renders a `<button>` element sized for use inside an add-on. The button doesn't submit its form unless it has `type="submit"`.
 
 <TypeTable
   type={{

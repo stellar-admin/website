@@ -18,7 +18,7 @@ A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and
     <sa-command-input placeholder="..." />
     <sa-command-list>
         <sa-command-empty>No results found.</sa-command-empty>
-        <sa-command-group heading="...">
+        <sa-command-group title="...">
             <sa-command-item>...</sa-command-item>
             <sa-command-item>
                 ...
@@ -26,8 +26,8 @@ A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and
             </sa-command-item>
         </sa-command-group>
         <sa-command-separator />
-        <sa-command-group heading="...">
-            <sa-command-link-item href="...">...</sa-command-link-item>
+        <sa-command-group title="...">
+            <sa-command-item-link href="...">...</sa-command-item-link>
         </sa-command-group>
     </sa-command-list>
 </sa-command>
@@ -79,7 +79,7 @@ The list has a maximum height and scrolls when there are more items than fit. Th
 
 ### Links
 
-Use `<sa-command-link-item>` to render an item as an `<a>` that navigates when chosen, with either the mouse or Enter. The [Dialog](#dialog) example above uses link items for its Bookings group.
+Use `<sa-command-item-link>` to render an item as an `<a>` that navigates when chosen, with either the mouse or Enter. The [Dialog](#dialog) example above uses link items for its Bookings group.
 
 The URL can be specified a couple of ways:
 
@@ -113,7 +113,7 @@ The list's `id` is the command's `id` followed by `-list`. The handler renders t
 
 @if (Model.Destinations.Count > 0)
 {
-    <sa-command-group heading="Destinations">
+    <sa-command-group title="Destinations">
         @foreach (var destination in Model.Destinations)
         {
             <sa-command-item value="@destination.Slug">@destination.City</sa-command-item>
@@ -150,7 +150,7 @@ Renders the `<sel-command>` web component that filters the items and handles key
     },
     loop: {
       description: "Whether keyboard navigation wraps from the last item to the first and back.",
-      type: "bool?",
+      type: "bool",
       default: "false",
     },
   }}
@@ -171,7 +171,7 @@ Renders a modal `<dialog>` that presents a command menu as a command palette. Pl
     },
     "show-close-button": {
       description: "Whether the dialog shows a close button in its corner. Pressing Escape always closes the dialog.",
-      type: "bool?",
+      type: "bool",
       default: "false",
     },
     title: {
@@ -196,11 +196,11 @@ Renders a `<div>` shown only when no item is present or matches the search.
 
 ### `<sa-command-group>`
 
-Renders a `<div>` grouping related items under an optional heading. The group is hidden when none of its items match the search.
+Renders a `<div>` grouping related items under an optional heading set with `title`. The group is hidden when none of its items match a search that the browser filters.
 
 <TypeTable
   type={{
-    heading: {
+    title: {
       description: "The heading shown above the group's items.",
       type: "string",
     },
@@ -215,12 +215,12 @@ Renders a `<div role="option">`, forwarding any [global attributes](https://deve
   type={{
     checked: {
       description: "Whether the item shows a check mark, for example to mark the current choice. The check mark is hidden when the item has a shortcut.",
-      type: "bool?",
+      type: "bool",
       default: "false",
     },
     disabled: {
       description: "Whether the item is disabled. Disabled items cannot be highlighted or chosen.",
-      type: "bool?",
+      type: "bool",
       default: "false",
     },
     keywords: {
@@ -230,12 +230,12 @@ Renders a `<div role="option">`, forwarding any [global attributes](https://deve
     value: {
       description: "The value reported when the item is chosen and matched by the search.",
       type: "string",
-      default: "The item's text",
+      default: "The item's text without its shortcut",
     },
   }}
 />
 
-### `<sa-command-link-item>`
+### `<sa-command-item-link>`
 
 Renders an [`<a role="option">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) that navigates to its target when chosen. It accepts the same `checked`, `disabled`, `keywords` and `value` attributes as `<sa-command-item>`.
 
@@ -256,7 +256,7 @@ The item also accepts the same routing attributes as the ASP.NET Core [Anchor Ta
 
 ### `<sa-command-separator>`
 
-Renders a `<div role="separator">` between groups. Separators are hidden while a search is active.
+Renders a `<div role="separator">` between groups. Separators are hidden during a search that the browser filters.
 
 ### `<sa-command-shortcut>`
 

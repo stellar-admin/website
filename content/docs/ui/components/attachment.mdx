@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` or `<sa-attachment-link-trigger>` to make the whole card clickable. Place attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
+An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` or `<sa-attachment-trigger-link>` to make the whole card clickable. Place attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
 
 ```razor
 <sa-attachment-group>
@@ -45,7 +45,7 @@ Set `state` to indicate the upload or processing state. `Idle` draws a dashed bo
 
 ### Size
 
-Set `size` to `AttachmentSize.Small` or `AttachmentSize.ExtraSmall` to compact the attachment card. The smaller sizes suit a dense list or the row of pending files above a message composer, where the attachment is supporting content rather than the subject of the screen. Consider leaving `<sa-attachment-description>` out at smaller sizes.
+Set `size` to `AttachmentSize.ExtraSmall` or `AttachmentSize.Small` to compact the attachment card. The smaller sizes suit a dense list or the row of pending files above a message composer, where the attachment is supporting content rather than the subject of the screen. Consider leaving `<sa-attachment-description>` out at smaller sizes.
 
 <Demo src="/demo/ui/attachment-sizes.html">
   <include>./_include/attachment-sizes.mdx</include>
@@ -75,7 +75,7 @@ Attachments scrolled out of view are still reachable by keyboard when they conta
 
 A trigger covers the whole attachment with a control that activates it, while leaving the buttons in `<sa-attachment-actions>` clickable. Use it for the primary thing the card does — opening a preview, downloading the file — and keep the actions row for everything else.
 
-`<sa-attachment-button-trigger>` renders a `<button>` element, for a card that acts — opening a preview dialog or expanding the file in place. `<sa-attachment-link-trigger>` renders an `<a>` element, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
+`<sa-attachment-button-trigger>` renders a `<button>` element, for a card that acts — opening a preview dialog or expanding the file in place. `<sa-attachment-trigger-link>` renders an `<a>` element, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
 
 <Demo src="/demo/ui/attachment-trigger.html">
   <include>./_include/attachment-trigger.mdx</include>
@@ -103,12 +103,11 @@ Renders a `<div>` element, forwarding any [global attributes](https://developer.
         "The size of the attachment, controlling its padding and spacing.",
       type: "AttachmentSize",
       typeDescription:
-        "AttachmentSize.Default | AttachmentSize.Small | AttachmentSize.ExtraSmall",
+        "AttachmentSize.Default | AttachmentSize.ExtraSmall | AttachmentSize.Small",
       default: "AttachmentSize.Default",
     },
     state: {
-      description:
-        "The point the attachment has reached in its upload lifecycle.",
+      description: "How far the attachment has progressed through its upload.",
       type: "AttachmentState",
       typeDescription:
         "AttachmentState.Idle | AttachmentState.Uploading | AttachmentState.Processing | AttachmentState.Error | AttachmentState.Done",
@@ -124,8 +123,7 @@ Renders a `<div>` element holding a file-type icon or a thumbnail preview, forwa
 <TypeTable
   type={{
     variant: {
-      description:
-        "The kind of media the region contains, which controls its sizing and styling.",
+      description: "The kind of media shown, which controls its sizing and styling.",
       type: "AttachmentMediaVariant",
       typeDescription:
         "AttachmentMediaVariant.Icon | AttachmentMediaVariant.Image",
@@ -177,7 +175,7 @@ Renders a `<button>` element styled as a button, forwarding any [global attribut
 
 Renders a `<button>` element covering the whole attachment, making it activatable, and forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). The `type` defaults to `button` so a trigger inside a form does not submit it; set `type` explicitly to override that.
 
-### `<sa-attachment-link-trigger>`
+### `<sa-attachment-trigger-link>`
 
 Renders an `<a>` element in place of `<sa-attachment-button-trigger>`, making the whole attachment a link.
 

@@ -11,17 +11,17 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-Wrap fields in `<sa-grid>` and set `columns` to the number of columns. Each field takes one column unless it sets its own span with `column-span`.
+Wrap fields in `<sa-grid>` and set `columns-md` to the number of columns. Each field takes one column unless it sets its own span with `column-span`.
 
 ```razor
-<sa-grid columns="2">
+<sa-grid columns-md="2">
     <sa-input asp-for="FirstName" />
     <sa-input asp-for="LastName" />
     <sa-input asp-for="Email" column-span="full" />
 </sa-grid>
 ```
 
-The columns respond to the width of the grid rather than the viewport, so the same markup works in a page, a card or a side panel. `columns` applies once the grid is at least 40rem wide, and the grid uses one column below that.
+The columns respond to the width of the grid rather than the viewport, so the same markup works in a page, a card or a side panel. `columns-md` applies once the grid is at least 40rem wide, and the grid uses one column below that.
 
 Fields carry their own span: `<sa-field>`, every input that renders its own field, such as `<sa-input asp-for="...">` or `<sa-select asp-for="...">`, and `<sa-display-field>` accept the `column-span` and `column-start` attributes. Wrap anything else, such as a [Form Section](./form-section) or a [Details](./details) list, in `<sa-grid-item>` to give it a span or a start.
 
@@ -29,7 +29,7 @@ Fields carry their own span: `<sa-field>`, every input that renders its own fiel
 
 ### Columns and spans
 
-Use `columns-base`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width.
+Use `columns`, `columns-sm`, `columns-md` and `columns-lg` to set the number of columns at the smallest width, 30rem, 40rem and 56rem; a width without a value uses the value of the next smaller width.
 
 Set `column-span` to a number from 1 to 12, or to `full` to span every column. `column-span-sm`, `column-span-md` and `column-span-lg` set the span at each width in the same way. A width without a span uses the span of the next smaller width, and a span is limited to the number of columns at each width.
 
@@ -78,12 +78,7 @@ Renders a `<div>` element around the grid, forwarding any [global attributes](ht
 <TypeTable
   type={{
     columns: {
-      description: "The number of columns when the grid is at least 40rem wide, from 1 to 12. Narrower grids use one column, unless columns-base or columns-sm is set. Set either columns or columns-md, not both.",
-      type: "int",
-      default: "1",
-    },
-    "columns-base": {
-      description: "The number of columns at the smallest width, from 1 to 12.",
+      description: "The number of columns at the smallest width, from 1 to 12. Wider widths use this count unless they set their own.",
       type: "int",
       default: "1",
     },
@@ -95,7 +90,7 @@ Renders a `<div>` element around the grid, forwarding any [global attributes](ht
     "columns-md": {
       description: "The number of columns when the grid is at least 40rem wide, from 1 to 12.",
       type: "int",
-      default: "columns, otherwise the number of columns at 30rem",
+      default: "The number of columns at 30rem",
     },
     "columns-lg": {
       description: "The number of columns when the grid is at least 56rem wide, from 1 to 12.",
@@ -119,7 +114,7 @@ Renders a `<div>` element, forwarding any [global attributes](https://developer.
     "column-span-sm": {
       description: "The span when the grid is at least 30rem wide, from 1 to 12, or full.",
       type: "string",
-      default: "column-span",
+      default: "The span at the smallest width",
     },
     "column-span-md": {
       description: "The span when the grid is at least 40rem wide, from 1 to 12, or full.",
@@ -139,7 +134,7 @@ Renders a `<div>` element, forwarding any [global attributes](https://developer.
     "column-start-sm": {
       description: "The start when the grid is at least 30rem wide, from 1 to 12, or auto.",
       type: "string",
-      default: "column-start",
+      default: "The start at the smallest width",
     },
     "column-start-md": {
       description: "The start when the grid is at least 40rem wide, from 1 to 12, or auto.",

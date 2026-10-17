@@ -24,7 +24,7 @@ Set `value` and optionally add a label and an `<sa-progress-value>` readout.
 
 ### Minimum and maximum values
 
-Specify custom `minimum` and `maximum` values. The default values are `0` and `100` respectively.
+Specify custom `min` and `max` values. The default values are `0` and `100` respectively.
 
 <Demo src="/demo/ui/progress-min-max.html">
   <include>./_include/progress-min-max.mdx</include>
@@ -54,20 +54,22 @@ Renders a `<div>` element containing the progress track and indicator.
 
 <TypeTable
   type={{
-    maximum: {
-      description: "The maximum value. Must be greater than minimum.",
-      type: "int",
+    max: {
+      description:
+        "The value at which the task is complete. Must be greater than `min`.",
+      type: "double",
       default: "100",
     },
-    minimum: {
-      description: "The minimum value. Must be less than maximum.",
-      type: "int",
+    min: {
+      description:
+        "The value at which the task has not started. Must be less than `max`.",
+      type: "double",
       default: "0",
     },
     value: {
       description:
-        "The current value. Must be between minimum and maximum.",
-      type: "int",
+        "The current progress. Must be from `min` to `max`.",
+      type: "double",
       default: "0",
     },
   }}

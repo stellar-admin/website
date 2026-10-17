@@ -60,7 +60,7 @@ Add the `disabled` attribute to prevent the user from interacting with the toggl
 
 Supports ASP.NET Core model binding via `asp-for`. Bind it to a `bool` property and an un-pressed toggle will post `false`.
 
-Because a toggle is self-labelling, this example opts out of the automatic [Field](field) wrapper by setting the `render-field` attribute to `false`.
+Because a toggle is self-labelling, this example opts out of the automatic [Field](field) wrapper by setting the `wrap-in-field` attribute to `false`.
 
 <Demo src="/demo/ui/toggle-model-binding.html">
   <Tabs items={["Razor", "Model"]}>
@@ -96,6 +96,11 @@ Renders a `<label>` wrapping a visually hidden native `<input type="checkbox">` 
 
 <TypeTable
   type={{
+    "class-names": {
+      description:
+        "Additional CSS classes for the parts of the toggle: Root, Label, Description, Error and Content for the field it renders, and Control for the toggle button.",
+      type: "ToggleClassNames",
+    },
     "asp-for": {
       description: "An expression to be evaluated against the current model.",
       type: "ModelExpression",
@@ -109,7 +114,7 @@ Renders a `<label>` wrapping a visually hidden native `<input type="checkbox">` 
       type: "string",
     },
     form: {
-      description: "The id of the <form> the toggle is associated with.",
+      description: "The id of the <form> the toggle posts with. Use it when the toggle isn't inside the form.",
       type: "string",
     },
     label: {
@@ -120,10 +125,22 @@ Renders a `<label>` wrapping a visually hidden native `<input type="checkbox">` 
       description: "The name of the rendered <input> element.",
       type: "string",
     },
-    "render-field": {
+    "wrap-in-field": {
       description:
-        "Whether to wrap the toggle in a Field. By default a field is rendered when asp-for, label, description, or error is set.",
+        "Whether to wrap the toggle in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
       type: "bool",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an `<sa-grid>`, from 1 to 12, or `full` for every column. Use `column-span-sm`, `column-span-md` and `column-span-lg` for the span once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Use `column-start-sm`, `column-start-md` and `column-start-lg` for the start once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "auto",
     },
     size: {
       description: "The size of the toggle.",
@@ -132,7 +149,7 @@ Renders a `<label>` wrapping a visually hidden native `<input type="checkbox">` 
       default: "ToggleSize.Default",
     },
     value: {
-      description: "The value of the underlying checkbox.",
+      description: "The value the toggle posts when it is pressed.",
       type: "string",
     },
     variant: {

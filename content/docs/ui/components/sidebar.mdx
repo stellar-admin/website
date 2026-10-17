@@ -133,8 +133,8 @@ Renders the sidebar panel itself as a `<div>` (including the mobile drawer and i
       description: "The visual style of the sidebar.",
       type: "SidebarVariant",
       typeDescription:
-        "SidebarVariant.Sidebar | SidebarVariant.Floating | SidebarVariant.Inset",
-      default: "SidebarVariant.Sidebar",
+        "SidebarVariant.Default | SidebarVariant.Floating | SidebarVariant.Inset",
+      default: "SidebarVariant.Default",
     },
     side: {
       description: "The edge of the screen the sidebar is anchored to.",
@@ -143,11 +143,12 @@ Renders the sidebar panel itself as a `<div>` (including the mobile drawer and i
       default: "SidebarSide.Left",
     },
     collapsible: {
-      description: "How the sidebar collapses.",
+      description:
+        "How the sidebar collapses. A sidebar that can't collapse is always shown and doesn't open as a drawer on narrow screens.",
       type: "SidebarCollapsible",
       typeDescription:
-        "SidebarCollapsible.Offcanvas | SidebarCollapsible.Icon | SidebarCollapsible.None",
-      default: "SidebarCollapsible.Offcanvas",
+        "SidebarCollapsible.OffCanvas | SidebarCollapsible.Icon | SidebarCollapsible.None",
+      default: "SidebarCollapsible.OffCanvas",
     },
   }}
 />
@@ -216,8 +217,8 @@ Renders a `<button>` styled as a menu entry — typically paired with `<sa-colla
         "SidebarMenuButtonVariant.Default | SidebarMenuButtonVariant.Outline",
       default: "SidebarMenuButtonVariant.Default",
     },
-    "is-active": {
-      description: "Whether the button is rendered in the active state.",
+    active: {
+      description: "Whether the button is highlighted as the current item.",
       type: "bool",
       default: "false",
     },
@@ -272,14 +273,14 @@ Renders a `<button>` styled as a sub-entry.
 <TypeTable
   type={{
     size: {
-      description: "The size of the button.",
-      type: "SidebarMenuSubLinkSize",
+      description: "The text size of the button.",
+      type: "SidebarMenuSubButtonSize",
       typeDescription:
-        "SidebarMenuSubLinkSize.Small | SidebarMenuSubLinkSize.Medium",
-      default: "SidebarMenuSubLinkSize.Medium",
+        "SidebarMenuSubButtonSize.Default | SidebarMenuSubButtonSize.Small",
+      default: "SidebarMenuSubButtonSize.Default",
     },
-    "is-active": {
-      description: "Whether the button is rendered in the active state.",
+    active: {
+      description: "Whether the button is highlighted as the current item.",
       type: "bool",
       default: "false",
     },
@@ -293,11 +294,11 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/E
 <TypeTable
   type={{
     size: {
-      description: "The size of the link.",
+      description: "The text size of the link.",
       type: "SidebarMenuSubLinkSize",
       typeDescription:
-        "SidebarMenuSubLinkSize.Small | SidebarMenuSubLinkSize.Medium",
-      default: "SidebarMenuSubLinkSize.Medium",
+        "SidebarMenuSubLinkSize.Default | SidebarMenuSubLinkSize.Small",
+      default: "SidebarMenuSubLinkSize.Default",
     },
   }}
 />

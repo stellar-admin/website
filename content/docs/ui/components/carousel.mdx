@@ -68,7 +68,7 @@ This carousel uses native scrolling rather than Embla. Infinite looping, autopla
 
 Renders a `<sel-carousel>` element and forwards global attributes. A unique ID is generated unless you supply one. The default role is `region`; use `role="group"` when the carousel should not be a landmark. The default `aria-roledescription` is `carousel`.
 
-<TypeTable type={{ orientation: { description: "The direction in which items scroll.", type: "CarouselOrientation", typeDescription: "CarouselOrientation.Horizontal | CarouselOrientation.Vertical", default: "CarouselOrientation.Horizontal" } }} />
+<TypeTable type={{ orientation: { description: "The direction in which the slides scroll.", type: "CarouselOrientation", typeDescription: "CarouselOrientation.Horizontal | CarouselOrientation.Vertical", default: "CarouselOrientation.Horizontal" } }} />
 
 ### `<sa-carousel-content>`
 
@@ -82,13 +82,13 @@ Renders a `<div>` with `role="group"` and `aria-roledescription="slide"`. Use `a
 
 Renders a `<button>` targeting the enclosing carousel. Defaults to a left chevron and the accessible label “Previous slide”. Set `aria-label` to translate the label or supply child content to replace the icon. The `type` defaults to `button`.
 
-<TypeTable type={{ size: { description: "The button size.", type: "ButtonSize", default: "ButtonSize.IconSmall" }, variant: { description: "The button appearance.", type: "ButtonVariant", default: "ButtonVariant.Outline" } }} />
+<TypeTable type={{ size: { description: "The size of the button.", type: "ButtonSize", typeDescription: "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge", default: "ButtonSize.IconSmall" }, variant: { description: "The visual style of the button.", type: "ButtonVariant", typeDescription: "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link", default: "ButtonVariant.Outline" } }} />
 
 ### `<sa-carousel-next>`
 
 Renders a `<button>` targeting the enclosing carousel. Defaults to a right chevron and the accessible label “Next slide”. Supports the same customization as the previous button.
 
-<TypeTable type={{ size: { description: "The button size.", type: "ButtonSize", default: "ButtonSize.IconSmall" }, variant: { description: "The button appearance.", type: "ButtonVariant", default: "ButtonVariant.Outline" } }} />
+<TypeTable type={{ size: { description: "The size of the button.", type: "ButtonSize", typeDescription: "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge", default: "ButtonSize.IconSmall" }, variant: { description: "The visual style of the button.", type: "ButtonVariant", typeDescription: "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link", default: "ButtonVariant.Outline" } }} />
 
 ### `<sa-carousel-indicators>`
 

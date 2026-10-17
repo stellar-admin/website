@@ -61,7 +61,7 @@ Set `disabled` on the group to disable every chip's remove button, or on a singl
 
 ### Invalid
 
-Set `invalid` on the group to show the input box's invalid ring. It sets `aria-invalid="true"` on the group; point `aria-describedby` at the error message.
+Set `aria-invalid="true"` on the group to show the input box's invalid ring, and point `aria-describedby` at the error message.
 
 <Demo src="/demo/ui/chip-invalid.html">
   <include>./_include/chip-invalid.mdx</include>
@@ -76,17 +76,17 @@ Renders a `<div>` element, forwarding any [global attributes](https://developer.
 <TypeTable
   type={{
     appearance: {
-      description: "The appearance of the group.",
+      description: "How the group looks: a wrapping row of chips on the background that contains it, or a box styled like an input with a focus ring and an invalid ring.",
       type: "ChipGroupAppearance",
       typeDescription: "ChipGroupAppearance.Plain | ChipGroupAppearance.Input",
       default: "ChipGroupAppearance.Plain",
     },
     disabled: {
-      description: "Whether the chips' remove buttons are disabled.",
+      description: "Whether the chips in the group are dimmed and their remove buttons disabled. A chip can override this with its own disabled attribute.",
       type: "bool",
       default: "false",
     },
-    invalid: {
+    "aria-invalid": {
       description:
         "Whether the group's value is invalid, which shows the invalid ring on an input-styled group.",
       type: "bool",

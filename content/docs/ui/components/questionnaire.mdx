@@ -79,7 +79,7 @@ A free-text answer reports separately, next to the input, because it is bound to
   <include>./_include/questionnaire-validation.mdx</include>
 </Demo>
 
-Place `<sa-questionnaire-error>` yourself when you want the message somewhere other than the end of the question, or want to write your own text. Doing so replaces the automatic message rather than adding a second one. To leave the message out altogether, set `render-error="false"` on the item.
+Place `<sa-questionnaire-error>` yourself when you want the message somewhere other than the end of the question, or want to write your own text. Doing so replaces the automatic message rather than adding a second one. To leave the message out altogether, set `show-error="false"` on the item.
 
 ### Shortcut keys
 
@@ -170,16 +170,16 @@ Renders a `<fieldset>` holding one question, forwarding any [global attributes](
         "The name the answer posts under. Set automatically when bound with asp-for.",
       type: "string",
     },
-    "render-error": {
-      description:
-        "Whether to render the answer's validation message at the end of the question. A bound question renders one unless a sa-questionnaire-error inside it already does.",
-      type: "bool",
-      default: "true",
-    },
     required: {
       description: "Whether the question must be answered.",
       type: "bool",
       default: "false",
+    },
+    "show-error": {
+      description:
+        "Whether to render the answer's validation message at the end of the question. Applies only when bound with asp-for, and the message is left out when the item holds its own sa-questionnaire-error.",
+      type: "bool",
+      default: "true",
     },
   }}
 />
@@ -218,9 +218,10 @@ Renders a `<div>` wrapping a native radio button — or a checkbox when the ques
       description:
         "Whether the choice is selected. Ignored when the question is bound with asp-for, which takes its state from the model.",
       type: "bool",
+      default: "false",
     },
     disabled: {
-      description: "Whether the choice can be selected.",
+      description: "Whether the choice is disabled, so it can't be selected.",
       type: "bool",
       default: "false",
     },
@@ -256,17 +257,17 @@ Renders a free-text `<input>` alongside the question's fixed choices, forwarding
         "The format string used to format the value bound via asp-for.",
       type: "string",
     },
-    "render-error": {
-      description:
-        "Whether to render this answer's validation message after the input. The message reports the property this input is bound to, which is not the one the question's choices post.",
-      type: "bool",
-      default: "true",
-    },
     "replaces-choices": {
       description:
         "Whether this answer and the item's choices replace one another, so that only one of the two posts: typing here clears the selected choice, and selecting a choice takes this answer out of the form. Set it to false to let both stand and post together.",
       type: "bool",
       default: "true, or false on a multiple item",
+    },
+    "show-error": {
+      description:
+        "Whether to render this answer's validation message after the input. The message reports the property this input is bound to, which is not the one the question's choices post. Applies only when bound with asp-for; set it to false to place the message yourself.",
+      type: "bool",
+      default: "true",
     },
     type: {
       description: "The type of the HTML input.",

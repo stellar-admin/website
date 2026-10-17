@@ -37,7 +37,7 @@ Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelli
 Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by the `sel-dropdown-menu` web component, so no additional JavaScript is required.
 
 <Callout type="tip">
-  Control where the menu opens relative to its trigger with the `position` attribute on `<sa-dropdown-menu-content>`. It accepts the same `PositionArea` values as the [Popover](popover) Tag Helper and defaults to opening below the trigger.
+  Control where the menu opens relative to its trigger with the `side` and `align` attributes on `<sa-dropdown-menu-content>`, which work like the ones on the [Popover](popover) Tag Helper. By default the menu opens below the trigger (`DropdownMenuSide.Bottom`), lined up with its left edge (`DropdownMenuAlign.Start`).
 </Callout>
 
 ## Examples
@@ -76,7 +76,7 @@ Set `inset="true"` on an item, label or sub-trigger to indent it by the width of
 
 ### Links
 
-An item becomes a navigation link when you give it a URL — either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`). When any of these is present the item renders as an `<a role="menuitem">`. Otherwise it stays a `<div role="menuitem">`. Routing attributes are resolved by the framework, exactly like `<sa-linkbutton>`.
+Use `<sa-dropdown-menu-item-link>` for items that navigate to another page. It renders an `<a role="menuitem">` and takes either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`), which are resolved by the framework, exactly like `<sa-button-link>`. A plain `<sa-dropdown-menu-item>` renders a `<button role="menuitem">` instead. Inside a form, give it `type="submit"` to submit the form.
 
 <Demo src="/demo/ui/dropdown-menu-links.html">
   <include>./_include/dropdown-menu-links.mdx</include>
@@ -159,19 +159,27 @@ Renders the menu itself as a `<sel-dropdown-menu>` web component with the [`popo
 
 <TypeTable
   type={{
-    position: {
-      description: "Where the menu opens relative to its trigger.",
-      type: "PositionArea",
+    side: {
+      description: "The side of the trigger that the menu appears on.",
+      type: "DropdownMenuSide",
       typeDescription:
-        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
-      default: "PositionArea.BottomSpanRight",
+        "DropdownMenuSide.Top | DropdownMenuSide.Right | DropdownMenuSide.Bottom | DropdownMenuSide.Left",
+      default: "DropdownMenuSide.Bottom",
+    },
+    align: {
+      description:
+        "How the menu lines up with the trigger along its side. Start and End line up with the trigger's start or end edge (its left edge above or below the trigger, its top edge to the left or right), Center centers on the trigger and extends past both edges as far as the content needs, and CenterWithin centers on the trigger and stays within its width or height.",
+      type: "DropdownMenuAlign",
+      typeDescription:
+        "DropdownMenuAlign.Start | DropdownMenuAlign.Center | DropdownMenuAlign.End | DropdownMenuAlign.CenterWithin",
+      default: "DropdownMenuAlign.Start",
     },
   }}
 />
 
 ### `<sa-dropdown-menu-item>`
 
-Renders a `<div role="menuitem">`, or an [`<a role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) when an `href` or any routing attribute is supplied.
+Renders a `<button role="menuitem">` that performs an action. It defaults to `type="button"`; set `type="submit"` to submit an enclosing form. Use `<sa-dropdown-menu-item-link>` for navigation.
 
 <TypeTable
   type={{
@@ -185,10 +193,37 @@ Renders a `<div role="menuitem">`, or an [`<a role="menuitem">`](https://develop
       type: "bool?",
       default: "false",
     },
-    href: {
+    inset: {
       description:
-        "A raw URL. When set, the item renders as a navigation link.",
-      type: "string",
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "DropdownMenuItemVariant",
+      typeDescription:
+        "DropdownMenuItemVariant.Default | DropdownMenuItemVariant.Destructive",
+      default: "DropdownMenuItemVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-item-link>`
+
+Renders an [`<a role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) that links to another page. Supply the URL with a raw `href` or with routing attributes.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "true",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool?",
+      default: "false",
     },
     inset: {
       description:
@@ -208,7 +243,7 @@ Renders a `<div role="menuitem">`, or an [`<a role="menuitem">`](https://develop
 
 #### Routing attributes
 
-The item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+The link item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
 
 <include>./_shared/routing-attributes.mdx</include>
 
@@ -326,16 +361,23 @@ Renders a `<div role="menuitem">` with a trailing chevron that opens its submenu
 
 ### `<sa-dropdown-menu-sub-content>`
 
-Renders a submenu as a `<sel-dropdown-menu>` popover anchored to its sub-trigger, accepting the same `position` values as `<sa-dropdown-menu-content>`.
+Renders a submenu as a `<sel-dropdown-menu>` popover anchored to its sub-trigger, accepting the same `side` and `align` values as `<sa-dropdown-menu-content>`.
 
 <TypeTable
   type={{
-    position: {
-      description: "Where the submenu opens relative to its sub-trigger.",
-      type: "PositionArea",
+    side: {
+      description: "The side of the sub-trigger that the submenu appears on.",
+      type: "DropdownMenuSide",
       typeDescription:
-        "PositionArea.TopCenter | PositionArea.TopSpanLeft | PositionArea.TopSpanRight | PositionArea.Top | PositionArea.LeftCenter | PositionArea.LeftSpanTop | PositionArea.LeftSpanBottom | PositionArea.Left | PositionArea.BottomCenter | PositionArea.BottomSpanLeft | PositionArea.BottomSpanRight | PositionArea.Bottom | PositionArea.RightCenter | PositionArea.RightSpanTop | PositionArea.RightSpanBottom | PositionArea.Right | PositionArea.TopLeft | PositionArea.TopRight | PositionArea.BottomLeft | PositionArea.BottomRight",
-      default: "PositionArea.RightSpanBottom",
+        "DropdownMenuSide.Top | DropdownMenuSide.Right | DropdownMenuSide.Bottom | DropdownMenuSide.Left",
+      default: "DropdownMenuSide.Right",
+    },
+    align: {
+      description: "How the submenu lines up with the sub-trigger along its side.",
+      type: "DropdownMenuAlign",
+      typeDescription:
+        "DropdownMenuAlign.Start | DropdownMenuAlign.Center | DropdownMenuAlign.End | DropdownMenuAlign.CenterWithin",
+      default: "DropdownMenuAlign.Start",
     },
   }}
 />

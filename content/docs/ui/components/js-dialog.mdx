@@ -102,7 +102,7 @@ The promise returned by `showAsync()` resolves with an object containing the fol
   type={{
     confirmed: {
       description:
-        "false when the dialog was light-dismissed, dismissed with Esc, or closed with a returnValue of 'cancel', and true otherwise.",
+        "false when the dialog was light-dismissed, dismissed with Esc, closed without a returnValue, closed with a returnValue of 'cancel', or cancelled with cancel(), and true otherwise.",
       type: "boolean",
     },
     returnValue: {
