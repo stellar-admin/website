@@ -644,6 +644,9 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
+  .max-w-56 {
+    max-width: calc(var(--sa-unit) * 56);
+  }
   .max-w-96 {
     max-width: calc(var(--sa-unit) * 96);
   }

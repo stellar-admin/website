@@ -34,7 +34,7 @@ Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelli
 </sa-dropdown-menu>
 ```
 
-Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by the `sel-dropdown-menu` web component, so no additional JavaScript is required.
+Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by a web component in `stellar-admin.js`, so no additional JavaScript is required.
 
 <Callout type="tip">
   Control where the menu opens relative to its trigger with the `side` and `align` attributes on `<sa-dropdown-menu-content>`, which work like the ones on the [Popover](popover) Tag Helper. By default the menu opens below the trigger (`DropdownMenuSide.Bottom`), lined up with its left edge (`DropdownMenuAlign.Start`).
@@ -84,7 +84,7 @@ Use `<sa-dropdown-menu-item-link>` for items that navigate to another page. It r
 
 ### Handling clicks
 
-For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", ...)`. Because the `sel-dropdown-menu` web component dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
+For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", ...)`. Because the menu dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
 
 <Demo src="/demo/ui/dropdown-menu-click-events.html">
   <include>./_include/dropdown-menu-click-events.mdx</include>
@@ -155,7 +155,7 @@ Renders a `<button>` styled as a `<sa-button>` that opens the menu via the nativ
 
 ### `<sa-dropdown-menu-content>`
 
-Renders the menu itself as a `<sel-dropdown-menu>` web component with the [`popover` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover), anchored to the trigger.
+Renders the menu itself as a web component with the [`popover` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover), anchored to the trigger.
 
 <TypeTable
   type={{
@@ -361,7 +361,7 @@ Renders a `<div role="menuitem">` with a trailing chevron that opens its submenu
 
 ### `<sa-dropdown-menu-sub-content>`
 
-Renders a submenu as a `<sel-dropdown-menu>` popover anchored to its sub-trigger, accepting the same `side` and `align` values as `<sa-dropdown-menu-content>`.
+Renders a submenu as a popover anchored to its sub-trigger, accepting the same `side` and `align` values as `<sa-dropdown-menu-content>`.
 
 <TypeTable
   type={{

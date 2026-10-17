@@ -205,7 +205,7 @@ The tab link also accepts the same routing attributes as the ASP.NET Core [Ancho
 
 ### `<sa-tabs>`
 
-Wraps an `<sa-tab-list>` of `<sa-tab>`s and their `<sa-tab-panel>`s, rendered as a `sel-tabs` web component. It raises the bubbling `tabhide` and `tabshow` events on the panels as they are hidden and shown. From JavaScript, call `select(tab)` on the element with an `<sa-tab>`'s button.
+Wraps an `<sa-tab-list>` of `<sa-tab>`s and their `<sa-tab-panel>`s, rendered as a web component that takes the `id` you give it. It raises the bubbling `tabhide` and `tabshow` events on the panels as they are hidden and shown. From JavaScript, call `select(tab)` on `document.getElementById()` of that `id`, passing an `<sa-tab>`'s button.
 
 <TypeTable
   type={{

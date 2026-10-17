@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-`<sa-slider>` renders a slider for selecting a value from within a range. It is backed by a small `sel-slider` web component that handles pointer dragging, keyboard interaction, and clicking the track to seek, while the value is posted back through hidden inputs so it model-binds like any other form field.
+`<sa-slider>` renders a slider for selecting a value from within a range. It is backed by a small web component that handles pointer dragging, keyboard interaction, and clicking the track to seek, while the value is posted back through hidden inputs so it model-binds like any other form field.
 
 Use the `min`, `max`, and `step` attributes to control the range and the increment the slider snaps to.
 
@@ -220,7 +220,7 @@ Pass a `SliderClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-
 | `Description` | The generated help text, when rendered. |
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
-| `Control` | The `<sel-slider>` container. |
+| `Control` | The element that holds the track and thumbs. |
 | `Track` | The full slider track. |
 | `Range` | The filled portion of the track. |
 | `Thumb` | Every slider thumb, including both thumbs of a range slider. |
@@ -236,7 +236,7 @@ The slider has no Input part option. Use Track, Range, and Thumb to style its vi
 
 ### `<sa-slider>`
 
-Renders a `<sel-slider>` web component containing the track, a thumb per value, and a hidden `<input>` per thumb that posts the value.
+Renders a web component containing the track, a thumb per value, and a hidden `<input>` per thumb that posts the value.
 
 <TypeTable
   type={{

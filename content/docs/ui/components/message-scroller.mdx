@@ -72,7 +72,7 @@ The scroller is progressively enhanced. Without `stellar-admin.js` the transcrip
 
 ### `<sa-message-scroller>`
 
-Renders a `<sel-message-scroller>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). An `id` is generated when you do not supply one, so the buttons inside it can target it.
+Renders a web component, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). An `id` is generated when you do not supply one, so the buttons inside it can target it.
 
 <TypeTable
   type={{
@@ -93,7 +93,7 @@ Renders a `<sel-message-scroller>` element, forwarding any [global attributes](h
   }}
 />
 
-The rendered element exposes `scrollToStart()` and `scrollToEnd()` methods, and a `following` property reporting whether the transcript is currently following new content.
+Get the rendered element with `document.getElementById()` and the `id` you give `<sa-message-scroller>`. It exposes `scrollToStart()` and `scrollToEnd()` methods, and a `following` property reporting whether the transcript is currently following new content.
 
 ### `<sa-message-scroller-viewport>`
 

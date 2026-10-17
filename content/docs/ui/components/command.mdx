@@ -35,7 +35,7 @@ A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and
 
 As the user types, items are fuzzy-matched against their text and ranked within their group, so the best match in each group rises to the top while the groups themselves keep their order. Groups with no matches are hidden, and the empty message appears when no item matches at all. Set `value` on an item to match against something other than its text, and `keywords` to add extra search terms, such as synonyms.
 
-The menu is driven by the `sel-command` web component, so filtering and keyboard navigation need no additional JavaScript.
+The menu is driven by a web component in `stellar-admin.js`, so filtering and keyboard navigation need no additional JavaScript.
 
 ## Examples
 
@@ -134,7 +134,7 @@ Give the menu an accessible name with `label`, which renders a visually hidden l
 
 ### `<sa-command>`
 
-Renders the `<sel-command>` web component that filters the items and handles keyboard navigation, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+Renders a web component that filters the items and handles keyboard navigation, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
 
 <TypeTable
   type={{

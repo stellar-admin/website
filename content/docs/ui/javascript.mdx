@@ -23,21 +23,28 @@ This JavaScript file contains the following:
 
 A handful of Tag Helpers render a custom element (`<sel-*>`) around or in place of their markup. The script registers these elements and adds behavior on top of the server-rendered HTML: state that must be tracked in the browser, keyboard handling, and ARIA attributes that reflect that state.
 
+The table shows which element each Tag Helper renders, as background. The element names are internal and may change in any version (see [Stability](#stability)), so don't select or style them by name. To call a component's JavaScript API, give the `<sa-*>` Tag Helper an `id` and use `document.getElementById()`: the `id` lands on the element that exposes the API.
+
 | Tag Helper | Element | What the script adds |
 |------------|---------|----------------------|
+| `<sa-carousel>` | `<sel-carousel>` | Scrolls between slides, enables and disables the previous and next buttons, and builds the position indicators. |
 | `<sa-collapsible>` | `<sel-collapsible>` | Handles the `--toggle`, `--show` and `--hide` commands and keeps `aria-expanded` on the trigger buttons in sync. |
+| `<sa-command>` | `<sel-command>` | Filters the items as you type and handles keyboard navigation. |
 | `<sa-dialog>`, `<sa-alert-dialog>` (and `<sa-sheet>`) | `<sel-dialog>` | Locks page scrolling while a modal dialog is open and mirrors the dialog's open state in the `data-open` attribute. |
 | `<sa-dropdown-menu-content>`, `<sa-dropdown-menu-sub-content>` | `<sel-dropdown-menu>` | Menu semantics on top of a native popover such as roving focus with the arrow keys, Home/End and type-ahead, Enter/Space activation, close-on-select, checkbox and radio items that toggle in place, and sub-menu open/close. |
+| `<sa-image-upload>` | `<sel-image-upload>` | Opens the file picker, shows the chosen image and posts its value. |
 | `<sa-input-otp>` | `<sel-input-otp>` | Keeps the visual slot cells in sync with the `<input>` that contains the value, shows the active cell and caret, and enforces the input pattern. |
+| `<sa-message-scroller>` | `<sel-message-scroller>` | Follows new messages and exposes `scrollToStart()`, `scrollToEnd()` and `following`. |
 | `<sa-questionnaire>` | `<sel-questionnaire>` | The shortcut keys assigned by `<sa-questionnaire-choices>`, arrow keys that move between a question's answers and wrap at either end, and a free-text answer and the choices standing in for each other so that only one of the two posts. |
 | `<sa-sidebar-wrapper>` | `<sel-sidebar>` | Tracks the expanded/collapsed state on desktop and the open/closed drawer state on mobile, and handles the `--toggle-sidebar`, `--open-mobile` and `--close-mobile` commands. |
 | `<sa-slider>` | `<sel-slider>` | Pointer and keyboard interaction for the thumbs, and keeps the range fill, `aria-valuenow` and the hidden form inputs in sync. |
-| `<sa-table-selection>` | `<sel-table-selection>` | Select-all/indeterminate handling and the `data-state="selected"` row highlight for a table with row checkboxes. |
+| `<sa-table>` with `selection` or `row-details` | `<sel-table>` | Select-all/indeterminate handling and the `data-state="selected"` row highlight for row checkboxes, and expanding and collapsing row details. |
+| `<sa-tabs>` | `<sel-tabs>` | Shows the selected tab's panel, handles arrow keys between tabs, and raises `tabhide` and `tabshow`. |
 | `<sa-toaster>` | `<sel-toaster>` | Shows, stacks and closes toasts, pauses their timers on hover and focus, and renders the toasts queued on the server for the page. |
 
-All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table-selection>` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
+All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table selection="true">` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
 
-Custom elements are upgraded when the script runs, which with `defer` is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a `<sel-table-selection>`), wait for `customElements.whenDefined("sel-table-selection")` first.
+Custom elements are upgraded when the script runs, which with `defer` is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a table with `selection`), run it from a `DOMContentLoaded` listener or another deferred script, which runs after `stellar-admin.js`.
 
 ## Invoker Commands
 

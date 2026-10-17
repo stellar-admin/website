@@ -107,7 +107,7 @@ Pass an `ImageUploadClassNames` instance from the `StellarAdmin.UI` namespace us
 | `Description` | The generated help text, when rendered. |
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
-| `Control` | The `<sel-image-upload>` container. |
+| `Control` | The element that holds the parts of the layout. |
 | `Image` | The image. |
 | `Note` | The note under the control, with the hint, progress, errors and staged changes. |
 
@@ -117,7 +117,7 @@ Root, Label, Description, Error, and Content are inherited from `FieldClassNames
 
 ### `<sa-image-upload>`
 
-Renders a `<sel-image-upload>` web component containing a hidden file input, a hidden `<input>` that posts the value, and the parts of the chosen layout.
+Renders a web component containing a hidden file input, a hidden `<input>` that posts the value, and the parts of the chosen layout.
 
 <TypeTable
   type={{

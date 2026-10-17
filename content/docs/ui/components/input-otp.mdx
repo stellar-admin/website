@@ -12,7 +12,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Usage
 
-`<sa-input-otp>` renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small `sel-input-otp` web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
+`<sa-input-otp>` renders a segmented input for one-time passwords and verification codes. It is backed by a single real `<input>` that holds the whole code, made transparent and laid over the character slots, so it receives focus and keystrokes and model-binds and posts back like any other text field. A small web component distributes what you type into the slots, moves the active slot and caret, and enforces the allowed character `pattern`.
 
 Use the `maxlength` attribute to control how many characters the code has.
 
@@ -230,7 +230,7 @@ Pass an `InputOtpClassNames` instance from the `StellarAdmin.UI` namespace to `<
 | `Description` | The generated help text, when rendered. |
 | `Error` | The generated validation message element, when rendered. |
 | `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
-| `Control` | The `<sel-input-otp>` container. |
+| `Control` | The element that holds the slots and the input. |
 | `Group` | Every group of character slots. |
 | `Slot` | Every character slot. |
 | `Separator` | Every separator between groups. |
@@ -243,7 +243,7 @@ Group, Slot, and Separator apply to both automatically generated parts and child
 
 ### `<sa-input-otp>`
 
-Renders a `<sel-input-otp>` web component containing the slot cells and a single transparent `<input>` element that holds the whole code and posts it as one form value. When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper) to resolve the input's name, value, and validation attributes.
+Renders a web component containing the slot cells and a single transparent `<input>` element that holds the whole code and posts it as one form value. When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper) to resolve the input's name, value, and validation attributes.
 
 <TypeTable
   type={{

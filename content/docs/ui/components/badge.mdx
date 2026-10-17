@@ -53,7 +53,7 @@ An `<sa-spinner>` inside a badge indicates an in-progress state.
 
 ### Long text
 
-Long text wraps inside the badge rather than being truncated.
+A badge stays on one line and clips text that doesn't fit, so keep badge text short. If the text can be long, set a `max-width` on the badge and wrap the text in an element with the Tailwind utilities `min-w-0 truncate` to end it with an ellipsis, and put the full text in `title`.
 
 <Demo src="/demo/ui/badge-long-text.html">
   <include>./_include/badge-long-text.mdx</include>
