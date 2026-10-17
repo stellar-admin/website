@@ -1,0 +1,68 @@
+---
+title: Design Tokens
+description: Use the theme's colours, sizes and spacing in your own CSS or Tailwind CSS utilities
+---
+
+The [theme variables](/docs/ui/theme-variables) feed **design tokens**, CSS variables derived from them: the colours, radii, spacing and shadows the components read. Your own CSS can read them too, so your own markup follows the theme, the density and dark mode.
+
+## In your own CSS
+
+Read the tokens with `var()`:
+
+```css
+.trip-summary {
+  padding: var(--sa-space-container);
+  border: var(--sa-border-width) solid var(--sa-color-line);
+  border-radius: var(--sa-radius-container);
+  background: var(--sa-color-surface);
+  color: var(--sa-color-ink);
+}
+
+.trip-summary small {
+  color: var(--sa-color-ink-muted);
+}
+```
+
+| Use | Tokens |
+| --- | --- |
+| Page and cards | `--sa-color-canvas` (page), `--sa-color-surface` (cards, popovers), `--sa-color-surface-subtle` (footers, table heads), `--sa-color-surface-sunken` (tracks, chips) |
+| Text | `--sa-color-ink`, `--sa-color-ink-muted`, `--sa-color-ink-placeholder` |
+| Lines | `--sa-color-line` (dividers, container edges), `--sa-color-line-control` (control borders) |
+| Accent | `--sa-color-accent-fill` (solid fills) with `--sa-color-on-accent` (text on them), `--sa-color-accent-text` (accent as text) |
+| Danger and status | `--sa-color-danger-fill`, `--sa-color-on-danger`, `--sa-color-danger-text`, `--sa-color-success`, `--sa-color-warning`, `--sa-color-info` |
+| Washes | `--sa-color-hover`, `--sa-color-selected` |
+| Shape | `--sa-radius-control`, `--sa-radius-container`, `--sa-radius-tag`, `--sa-border-width` |
+| Space | `--sa-unit` (0.25rem × density), `--sa-space-container`, `--sa-control-h` |
+| Type | `--sa-font-sans`, `--sa-font-heading`, `--sa-font-mono`, `--sa-text-xs`, `--sa-text-sm`, `--sa-text-base` |
+| Shadows | `--sa-shadow-container`, `--sa-shadow-overlay` |
+
+Read the tokens, but don't set them: a theme sets the [theme variables](/docs/ui/theme-variables), and the tokens follow. Names not listed here, and any variable starting with `--_`, are internal and may change.
+
+## With Tailwind CSS
+
+The StellarAdmin stylesheet contains no utility classes, so `class="bg-primary"` or `class="mt-4"` on your own elements has no effect unless your project runs its own Tailwind CSS v4 build. If it does, import the StellarAdmin Tailwind adapter after Tailwind, and declare StellarAdmin's layer order first:
+
+```css title="app.css"
+@layer theme, base, sa.reset, sa.tokens, sa.components, components, sa.theme, sa.overrides, utilities;
+@import "tailwindcss";
+@import "./stellar-admin.tailwind.css";
+```
+
+Copy `stellar-admin.tailwind.css` from the package's static assets (`_content/StellarAdmin.UI/stellar-admin.tailwind.css`) into your project, or reference it where your build can read it. Keep linking `stellar-admin.css` as usual; the adapter adds no rules of its own.
+
+The adapter maps Tailwind's theme onto the tokens:
+
+- Spacing follows `--sa-unit`, so `p-4` and `gap-2` follow the density.
+- `text-xs`, `text-sm` and `text-base`, `font-sans`, `font-mono` and `font-heading`, and the `rounded-*` steps follow the theme.
+- The colours have their shadcn/ui names: `bg-primary`, `text-primary-foreground`, `bg-card`, `bg-muted`, `text-muted-foreground`, `border-border`, `bg-accent`, `text-destructive`, the `sidebar-*` colours and more.
+- `dark:` follows the `dark` class.
+
+The layer order keeps Tailwind's base styles below the components and your utilities above them, so a utility on a Tag Helper overrides the component's own style. The layer names and their order are a stable part of the public API, so you can rely on `sa.theme` and `sa.overrides`.
+
+```razor
+<!-- adapts to the theme and dark mode -->
+<div class="rounded-xl border bg-card p-4 text-card-foreground">...</div>
+
+<!-- hard-coded palette colours don't follow the theme -->
+<div class="rounded-xl border border-gray-200 bg-white p-4 text-gray-900">...</div>
+```

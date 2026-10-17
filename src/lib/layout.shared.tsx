@@ -20,7 +20,7 @@ export const homeLinks: LinkItemType[] = [
   {
     type: "main",
     text: "Documentation",
-    url: "/docs/tag-helpers",
+    url: "/docs/ui",
   },
   {
     type: "main",

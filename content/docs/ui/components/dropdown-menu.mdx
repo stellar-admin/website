@@ -1,0 +1,381 @@
+---
+title: Dropdown Menu
+description: Displays a menu of actions or options triggered by a button
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/dropdown-menu-intro.html">
+  <include>./_include/dropdown-menu-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-dropdown-menu>` groups a trigger and its menu. The `<sa-dropdown-menu-trigger>` renders a `<sa-button>` (defaulting to `ButtonVariant.Outline`) that opens the menu using the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), and `<sa-dropdown-menu-content>` holds the menu items.
+
+Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelling them with `<sa-dropdown-menu-label>`, `<sa-dropdown-menu-separator>` and `<sa-dropdown-menu-group>`. Add a trailing keyboard hint with `<sa-dropdown-menu-shortcut>`, and mark an item as dangerous with `variant="DropdownMenuItemVariant.Destructive"`.
+
+```razor
+<sa-dropdown-menu>
+    <sa-dropdown-menu-trigger variant="ButtonVariant.Outline">Open Menu</sa-dropdown-menu-trigger>
+    <sa-dropdown-menu-content class="w-56">
+        <sa-dropdown-menu-label>My Account</sa-dropdown-menu-label>
+        <sa-dropdown-menu-separator/>
+        <sa-dropdown-menu-item>
+            <sa-icon name="user"/>
+            Profile
+            <sa-dropdown-menu-shortcut>⇧⌘P</sa-dropdown-menu-shortcut>
+        </sa-dropdown-menu-item>
+        <sa-dropdown-menu-item variant="DropdownMenuItemVariant.Destructive">
+            <sa-icon name="log-out"/>
+            Log out
+        </sa-dropdown-menu-item>
+    </sa-dropdown-menu-content>
+</sa-dropdown-menu>
+```
+
+Keyboard navigation, type-ahead, roving focus and close-on-select are handled for you — the menu is driven by a web component in `stellar-admin.js`, so no additional JavaScript is required.
+
+<Callout type="tip">
+  Control where the menu opens relative to its trigger with the `side` and `align` attributes on `<sa-dropdown-menu-content>`, which work like the ones on the [Popover](popover) Tag Helper. By default the menu opens below the trigger (`DropdownMenuSide.Bottom`), lined up with its left edge (`DropdownMenuAlign.Start`).
+</Callout>
+
+## Examples
+
+### Checkbox items
+
+Use `<sa-dropdown-menu-checkbox-item>` for options that can be toggled independently. Set `checked="true"` to render an item as selected. The menu stays open as items are toggled.
+
+<Demo src="/demo/ui/dropdown-menu-checkbox-items.html">
+  <include>./_include/dropdown-menu-checkbox-items.mdx</include>
+</Demo>
+
+### Radio group
+
+Wrap `<sa-dropdown-menu-radio-item>` elements in a `<sa-dropdown-menu-radio-group>` for a set of mutually exclusive options. The group's `value` attribute determines which item is selected.
+
+<Demo src="/demo/ui/dropdown-menu-radio-group.html">
+  <include>./_include/dropdown-menu-radio-group.mdx</include>
+</Demo>
+
+### Submenus
+
+Nest a `<sa-dropdown-menu-sub>` containing a `<sa-dropdown-menu-sub-trigger>` and `<sa-dropdown-menu-sub-content>` to create a submenu. Submenus open on hover or with the `→` key, and close with `←`.
+
+<Demo src="/demo/ui/dropdown-menu-submenu.html">
+  <include>./_include/dropdown-menu-submenu.mdx</include>
+</Demo>
+
+### Inset
+
+Set `inset="true"` on an item, label or sub-trigger to indent it by the width of the leading icon/checkbox column. Use it so text-only items and labels line up with sibling items that have a leading icon or a checkbox/radio indicator.
+
+<Demo src="/demo/ui/dropdown-menu-inset.html">
+  <include>./_include/dropdown-menu-inset.mdx</include>
+</Demo>
+
+### Links
+
+Use `<sa-dropdown-menu-item-link>` for items that navigate to another page. It renders an `<a role="menuitem">` and takes either a raw `href` or ASP.NET routing attributes (`asp-page`, `asp-controller`/`asp-action`, `asp-route-*`), which are resolved by the framework, exactly like `<sa-button-link>`. A plain `<sa-dropdown-menu-item>` renders a `<button role="menuitem">` instead. Inside a form, give it `type="submit"` to submit the form.
+
+<Demo src="/demo/ui/dropdown-menu-links.html">
+  <include>./_include/dropdown-menu-links.mdx</include>
+</Demo>
+
+### Handling clicks
+
+For non-link items, attach a click handler however you like — an inline `onclick` or `addEventListener("click", ...)`. Because the menu dispatches a real click on the focused item for both mouse and keyboard activation (`Enter` / `Space`), your handler runs for either, and the menu closes on select afterwards.
+
+<Demo src="/demo/ui/dropdown-menu-click-events.html">
+  <include>./_include/dropdown-menu-click-events.mdx</include>
+</Demo>
+
+### Close on click
+
+By default a plain `<sa-dropdown-menu-item>` closes the menu when activated, while checkbox and radio items stay open so you can adjust several at once. Override that per item with `close-on-click`: set `close-on-click="false"` on a plain item to keep the menu open (handy for a repeatable action), or `close-on-click="true"` on a checkbox/radio item to apply the choice and dismiss the menu. It applies to both mouse and keyboard activation.
+
+<Demo src="/demo/ui/dropdown-menu-close-on-click.html">
+  <include>./_include/dropdown-menu-close-on-click.mdx</include>
+</Demo>
+
+### Reacting to checkbox changes
+
+Checkbox items report toggles through a bubbling `checkedchange` event, so you can listen on the item, its enclosing `<sa-dropdown-menu-group>`, or any ancestor — a single listener on the group is usually cleanest. `event.detail.checked` is the item's new state. Checkbox items carry no `value`, so identify which one changed via `event.target`. The event fires for both mouse and keyboard activation, and the menu deliberately stays open so multiple toggles feel natural.
+
+<Demo src="/demo/ui/dropdown-menu-checkbox-events.html">
+  <include>./_include/dropdown-menu-checkbox-events.mdx</include>
+</Demo>
+
+### Reacting to radio changes
+
+Radio items report selection through a bubbling `valuechange` event. Listen on the `<sa-dropdown-menu-radio-group>` and read `event.detail.value` — the newly selected value — from a single handler (`event.target` is the selected item, if you need the element). The component enforces single-selection before the event fires, and the menu stays open.
+
+<Demo src="/demo/ui/dropdown-menu-radio-events.html">
+  <include>./_include/dropdown-menu-radio-events.mdx</include>
+</Demo>
+
+## Accessibility
+
+The dropdown menu renders the menu pattern for you. The trigger gets `aria-haspopup="menu"`, the content is `role="menu"` and every item is a `menuitem`, `menuitemcheckbox` or `menuitemradio` with `aria-checked` kept in sync. Groups, radio groups and separators carry their roles, and a disabled item renders `aria-disabled="true"` and is skipped by keyboard navigation.
+
+When the menu opens, focus moves to the first enabled item. Up and Down arrows move between items and wrap around, Home and End jump to the first and last item, Right arrow opens a submenu, Left arrow and Escape close the current submenu and return focus to its trigger, Enter and Space activate the focused item, and typing a letter jumps to the next item starting with it.
+
+Give the trigger visible text or an `aria-label` when it only contains an icon.
+
+## API Reference
+
+### `<sa-dropdown-menu>`
+
+Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honouring a user-supplied `id`) that connects the trigger to the menu. To choose the id, set `id` here rather than on `<sa-dropdown-menu-content>`; an `id` on the content that differs from it throws, since the trigger could not find the menu.
+
+### `<sa-dropdown-menu-trigger>`
+
+Renders a `<button>` styled as a `<sa-button>` that opens the menu via the native `popovertarget` attribute.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the trigger button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+    variant: {
+      description: "The visual style of the trigger button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Outline",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-content>`
+
+Renders the menu itself as a web component with the [`popover` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover), anchored to the trigger.
+
+<TypeTable
+  type={{
+    side: {
+      description: "The side of the trigger that the menu appears on.",
+      type: "DropdownMenuSide",
+      typeDescription:
+        "DropdownMenuSide.Top | DropdownMenuSide.Right | DropdownMenuSide.Bottom | DropdownMenuSide.Left",
+      default: "DropdownMenuSide.Bottom",
+    },
+    align: {
+      description:
+        "How the menu lines up with the trigger along its side. Start and End line up with the trigger's start or end edge (its left edge above or below the trigger, its top edge to the left or right), Center centers on the trigger and extends past both edges as far as the content needs, and CenterWithin centers on the trigger and stays within its width or height.",
+      type: "DropdownMenuAlign",
+      typeDescription:
+        "DropdownMenuAlign.Start | DropdownMenuAlign.Center | DropdownMenuAlign.End | DropdownMenuAlign.CenterWithin",
+      default: "DropdownMenuAlign.Start",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-item>`
+
+Renders a `<button role="menuitem">` that performs an action. It defaults to `type="button"`; set `type="submit"` to submit an enclosing form. Use `<sa-dropdown-menu-item-link>` for navigation.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "true",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool?",
+      default: "false",
+    },
+    inset: {
+      description:
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "DropdownMenuItemVariant",
+      typeDescription:
+        "DropdownMenuItemVariant.Default | DropdownMenuItemVariant.Destructive",
+      default: "DropdownMenuItemVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-item-link>`
+
+Renders an [`<a role="menuitem">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes) that links to another page. Supply the URL with a raw `href` or with routing attributes.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "true",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool?",
+      default: "false",
+    },
+    inset: {
+      description:
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+    variant: {
+      description: "The visual style of the item.",
+      type: "DropdownMenuItemVariant",
+      typeDescription:
+        "DropdownMenuItemVariant.Default | DropdownMenuItemVariant.Destructive",
+      default: "DropdownMenuItemVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The link item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-dropdown-menu-checkbox-item>`
+
+Renders a `<div role="menuitemcheckbox">` with a leading check indicator. Toggling it raises a bubbling `checkedchange` event.
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the item is initially checked.",
+      type: "bool",
+      default: "false",
+    },
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "false",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool?",
+      default: "false",
+    },
+    inset: {
+      description:
+        "Indents the item by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-radio-group>`
+
+Renders a `<div role="group">` that enforces single selection among its radio items and raises a bubbling `valuechange` event when the selection changes.
+
+<TypeTable
+  type={{
+    value: {
+      description: "The value of the currently selected radio item.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-radio-item>`
+
+Renders a `<div role="menuitemradio">` with a leading check indicator, checked when its `value` matches the group's `value`.
+
+<TypeTable
+  type={{
+    "close-on-click": {
+      description: "Whether activating the item closes the menu.",
+      type: "bool",
+      default: "false",
+    },
+    disabled: {
+      description: "Whether the item is disabled.",
+      type: "bool?",
+      default: "false",
+    },
+    value: {
+      description: "The value this item contributes to the radio group.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-label>`
+
+Renders a `<div>` used as a heading for a group of items.
+
+<TypeTable
+  type={{
+    inset: {
+      description:
+        "Indents the label by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-separator>`
+
+Renders a `<div role="separator">` between groups of items.
+
+### `<sa-dropdown-menu-shortcut>`
+
+Renders a `<span>` for a trailing keyboard hint.
+
+### `<sa-dropdown-menu-group>`
+
+Renders a `<div role="group">` for grouping related items.
+
+### `<sa-dropdown-menu-sub>`
+
+Groups a sub-trigger and its submenu. Like `<sa-dropdown-menu>`, it renders no element of its own and only generates the shared id connecting the two. Set `id` here rather than on `<sa-dropdown-menu-sub-content>`, for the same reason.
+
+### `<sa-dropdown-menu-sub-trigger>`
+
+Renders a `<div role="menuitem">` with a trailing chevron that opens its submenu on hover or with the `→` key.
+
+<TypeTable
+  type={{
+    inset: {
+      description:
+        "Indents the sub-trigger by the width of the leading icon/indicator column.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-dropdown-menu-sub-content>`
+
+Renders a submenu as a popover anchored to its sub-trigger, accepting the same `side` and `align` values as `<sa-dropdown-menu-content>`.
+
+<TypeTable
+  type={{
+    side: {
+      description: "The side of the sub-trigger that the submenu appears on.",
+      type: "DropdownMenuSide",
+      typeDescription:
+        "DropdownMenuSide.Top | DropdownMenuSide.Right | DropdownMenuSide.Bottom | DropdownMenuSide.Left",
+      default: "DropdownMenuSide.Right",
+    },
+    align: {
+      description: "How the submenu lines up with the sub-trigger along its side.",
+      type: "DropdownMenuAlign",
+      typeDescription:
+        "DropdownMenuAlign.Start | DropdownMenuAlign.Center | DropdownMenuAlign.End | DropdownMenuAlign.CenterWithin",
+      default: "DropdownMenuAlign.Start",
+    },
+  }}
+/>

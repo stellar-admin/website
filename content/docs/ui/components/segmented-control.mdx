@@ -1,0 +1,98 @@
+---
+title: Segmented Control
+description: A single-choice control with the appearance of default tabs and native radio behavior.
+---
+
+Use a segmented control to choose one value from a short list of options.
+
+<Demo src="/demo/ui/segmented-control-intro.html">
+  <include>./_include/segmented-control-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Place `<sa-segmented-control-item>` elements inside `<sa-segmented-control>`. Each item requires a `value`; its content provides the label. For unbound controls, supply a unique field `name` and an optional initial `value` on the parent. With no matching value, no option is selected.
+
+### Icons
+
+Place an `<sa-icon>` alongside each option’s text. The icon is decorative; the text supplies the accessible label.
+
+<Demo src="/demo/ui/segmented-control-icons.html">
+  <include>./_include/segmented-control-icons.mdx</include>
+</Demo>
+
+### Model binding
+
+Set `asp-for` on the parent. It supplies the radio group name and selected value, taking precedence over `name` and `value`. String, enum, and nullable properties use normal ASP.NET Core model binding. Submitted values are preserved when redisplaying a form with validation errors, including nested field prefixes.
+
+<Demo src="/demo/ui/segmented-control-model-binding.html">
+  <include>./_include/segmented-control-model-binding.mdx</include>
+</Demo>
+
+Binding automatically renders the standard field wrapper with its label, description, and validation message. Use `label`, `description`, and `error` to provide explicit field text. Set `wrap-in-field="false"` to render only the control, or compose it inside `<sa-field>` with `<sa-field-label>`, `<sa-field-description>`, and `<sa-field-error>`; nesting inside a field suppresses the automatic wrapper. For custom help and error elements, `aria-describedby` on the control is also applied to its radios. Model metadata supplies the accessible group name and required state; `aria-label` or `aria-labelledby` overrides the name, and `required` overrides the required state. Form submission sends the selected enabled radio's value. An unselected group sends no value.
+
+<Demo src="/demo/ui/segmented-control-validation.html">
+  <include>./_include/segmented-control-validation.mdx</include>
+</Demo>
+
+### Change event
+
+Attach the standard `onchange` handler to the outer component, or use `addEventListener("change", handler)` on its rendered element. The native event bubbles from the selected radio: `event.target.value` contains the new value and `event.currentTarget` is the outer control.
+
+<Demo src="/demo/ui/segmented-control-change-event.html">
+  <include>./_include/segmented-control-change-event.mdx</include>
+</Demo>
+
+Selecting a different option fires one change event. Initialization, selecting the current option again, form reset, and assigning a radio's `checked` property do not fire a change event. Programmatic callers can explicitly dispatch a bubbling `change` event when they need to notify listeners. Selection styling and form behavior work without StellarAdmin JavaScript.
+
+### Disabled
+
+Set `disabled="true"` on an item or the entire control. Disabled radios cannot be selected and are excluded from form submission.
+
+<Demo src="/demo/ui/segmented-control-disabled.html">
+  <include>./_include/segmented-control-disabled.mdx</include>
+</Demo>
+
+## Accessibility
+
+The outer element is a `div` with `role="radiogroup"`. Each item renders a label containing a visually hidden native radio. Supply `aria-label` or `aria-labelledby` for unbound groups without a `label`, and visible text for every item. Label content may include decorative icons, but should not contain links, buttons, or other interactive controls.
+
+Tab enters and leaves the group; arrow keys move between enabled options using the browser's native radio behavior. Space selects a focused option. The visible segment displays keyboard focus, and form reset restores the initial selection.
+
+## API reference
+
+### `<sa-segmented-control>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `asp-for` | `ModelExpression` | Model property containing the selected value. |
+| `name` | `string` | Required field name when `asp-for` is absent. |
+| `value` | `string` | Initial selected value when `asp-for` is absent. |
+| `disabled` | `bool?` | Disables all options; defaults to false. |
+| `required` | `bool?` | Requires a selection; defaults to model metadata, or false when unbound. |
+| `label` | `string` | Field label; defaults to model metadata when bound. |
+| `description` | `string` | Supporting field text; defaults to model metadata. |
+| `error` | `string` | Explicit validation message and invalid state. |
+| `wrap-in-field` | `bool?` | Whether to wrap the control in a field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field. |
+| `column-span` | `string` | Number of columns the control spans in an `<sa-grid>`, from 1 to 12, or `full`. Defaults to 1. |
+| `column-span-sm` | `string` | Column span once the grid is at least 30rem wide. Defaults to the smaller width's value. |
+| `column-span-md` | `string` | Column span once the grid is at least 40rem wide. Defaults to the smaller width's value. |
+| `column-span-lg` | `string` | Column span once the grid is at least 56rem wide. Defaults to the smaller width's value. |
+| `column-start` | `string` | Column the control starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Defaults to `auto`. |
+| `column-start-sm` | `string` | Start column once the grid is at least 30rem wide. Defaults to the smaller width's value. |
+| `column-start-md` | `string` | Start column once the grid is at least 40rem wide. Defaults to the smaller width's value. |
+| `column-start-lg` | `string` | Start column once the grid is at least 56rem wide. Defaults to the smaller width's value. |
+| `class-names` | `SegmentedControlClassNames` | Additional CSS classes for the parts of the control: `Root`, `Label`, `Description`, `Error`, `Content`, `Control` (the element that holds the options) and `Item` (each option). |
+| `onchange` | JavaScript | Standard bubbling radio change handler. |
+
+Standard `id`, `class`, `aria-*`, and `data-*` attributes apply to the outer group. The component has one horizontal appearance matching the default tabs variant in the selected theme.
+
+### `<sa-segmented-control-item>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `value` | `string` | Required value submitted when selected. Use distinct values within a group. |
+| `disabled` | `bool?` | Disables this option; defaults to false. |
+| `selected` | `bool?` | `true` selects the option and `false` clears it; when unset, the option follows the bound or initial value. A value posted back to a bound control takes precedence. |
+
+Standard `id` and `class` attributes apply to the visible label. Each radio receives its own generated ID.

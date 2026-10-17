@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.zob7bbxt44.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.mjr7w04qmf.css" />
+        <script>saThemeInit();</script>
+    
+    <script defer src="/demo/ui/assets/stellar-admin.8p6ma0vskj.js"></script>
+</head>
+<body>
+
+    <div data-slot="page-container" data-width="medium" class="sa-page-container sa-page-container-width-medium">
+    <div class="w-full">
+        <!-- code begin -->
+        <section data-slot="form-section" data-layout="card" aria-labelledby="sa-form-section-0d2337345ee04fc581aea25ca51e1852" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title" data-slot="form-section-title" id="sa-form-section-0d2337345ee04fc581aea25ca51e1852">Trip details</h2><p class="sa-form-section-description" data-slot="form-section-description">How this trip appears in the Voyager catalog.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+            <div data-slot="grid" class="sa-grid"><div class="sa-grid-content" data-slot="grid-content" data-columns="multiple" style="--sa-cols-md:2;--sa-cols-lg:2">
+                <div class="sa-grid-item" data-slot="grid-item"><div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="card-name" data-slot="field-label" class="sa-label sa-field-label">Trip name</label>
+                    <input id="card-name" name="TripName" value="A week in Kyoto" data-slot="input" class="sa-input">
+                    <p data-slot="field-description" class="sa-field-description">The name travelers see.</p>
+                </div></div>
+                <div class="sa-grid-item" data-slot="grid-item"><div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="card-code" data-slot="field-label" class="sa-label sa-field-label">Booking code</label>
+                    <input id="card-code" name="BookingCode" value="KYO-07" data-slot="input" class="sa-input">
+                </div></div>
+                <div class="sa-grid-item" data-slot="grid-item" style="--sa-span-md:2;--sa-span-lg:2"><div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="card-description" data-slot="field-label" class="sa-label sa-field-label">Description</label>
+                    <textarea id="card-description" name="Description" rows="4" class="sa-textarea min-h-28" data-slot="textarea">Explore Kyoto's temples, gardens, and local food.</textarea>
+                    <p data-slot="field-description" class="sa-field-description">Describe the trip and its highlights.</p>
+                </div></div>
+            </div></div>
+        </div></div></section>
+        <section data-slot="form-section" data-layout="card" aria-labelledby="sa-form-section-253969d355ec492a9455b45a4666345c" class="sa-form-section"><div class="sa-form-section-inner"><div class="sa-form-section-header" data-slot="form-section-header"><h2 class="sa-form-section-title" data-slot="form-section-title" id="sa-form-section-253969d355ec492a9455b45a4666345c">Availability</h2><p class="sa-form-section-description" data-slot="form-section-description">Set the number of places travelers can book.</p></div><div class="sa-form-section-content" data-slot="form-section-content">
+            <div data-slot="field-group" class="sa-field-group">
+                <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+                    <label for="card-places" data-slot="field-label" class="sa-label sa-field-label">Available places</label>
+                    <input id="card-places" name="AvailablePlaces" type="number" min="0" value="12" data-slot="input" class="sa-input">
+                </div>
+                <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field">
+                    <span class="sa-input-control-wrapper"><input type="checkbox" id="card-waitlist" name="AllowWaitlist" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+                    <div data-slot="field-content" class="sa-field-content">
+                        <label for="card-waitlist" data-slot="field-label" class="sa-label sa-field-label">Allow waitlist</label>
+                        <p data-slot="field-description" class="sa-field-description">Accept requests when the trip is full.</p>
+                    </div>
+                </div>
+            </div>
+        </div></div></section>
+        <!-- code end -->
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

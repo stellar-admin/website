@@ -1,0 +1,195 @@
+---
+title: Switch
+description: A control that lets users toggle a setting on or off
+---
+
+import { Demo } from "@/components/demo";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+<Demo src="/demo/ui/switch-intro.html">
+  <include>./_include/switch-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-switch>` renders a native checkbox styled as a switch. Because the underlying element is a checkbox, the switch posts its value back and model-binds like any other `bool`, while the on/off appearance is driven entirely by CSS — no JavaScript is required.
+
+```razor
+<sa-switch/>
+```
+
+## Examples
+
+### Model binding
+
+Supports ASP.NET Core model binding via `asp-for`. Bind it to a `bool` property and an unchecked switch will post `false`.
+
+When using model binding, StellarAdmin will automatically wrap the switch inside a [Field](field) with the correct label and description derived from data attributes. You can opt out of this behavior by setting the `wrap-in-field` attribute to `false`.
+
+<Demo src="/demo/ui/switch-model-binding.html">
+  <Tabs items={["Razor", "Model"]}>
+    <Tab value="Razor">
+      <include>./_include/switch-model-binding.mdx</include>
+    </Tab>
+    <Tab value="Model">
+    ```cs
+    public class ModelBindingModel
+    {
+        [Display(
+            Name = "Flight alerts",
+            Description = "Receive an email when a flight on your itinerary changes."
+        )]
+        public bool EmailNotifications { get; set; } = true;
+    }
+    ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+### Sizes
+
+Use the `size` attribute to control the size of the switch. It accepts `SwitchSize.Default` (the default) and `SwitchSize.Small`.
+
+<Demo src="/demo/ui/switch-sizes.html">
+  <include>./_include/switch-sizes.mdx</include>
+</Demo>
+
+### Disabled
+
+Add the `disabled` attribute to prevent the user from interacting with the switch.
+
+<Demo src="/demo/ui/switch-disabled.html">
+  <include>./_include/switch-disabled.mdx</include>
+</Demo>
+
+## Accessibility
+
+`<sa-switch>` renders a native `<input type="checkbox">` with `role="switch"`, so it is announced as a switch, focused with Tab and toggled with Space. With `asp-for` or the `label` attribute the label is wired to the input for you. When you write the label yourself, set its `for` attribute to the switch's `id`.
+
+## Part classes
+
+Pass a `SwitchClassNames` instance from the `StellarAdmin.UI` namespace to `<sa-switch>` using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+<Demo src="/demo/ui/switch-class-names.html">
+  <Tabs items={["Razor", "CSS"]}>
+    <Tab value="Razor">
+      <include>./_include/switch-class-names.mdx</include>
+    </Tab>
+    <Tab value="CSS">
+      ```css
+      .travel-field {
+          --travel-accent: #0f766e;
+          padding: 1rem;
+          border-left: 4px solid var(--travel-accent);
+          border-radius: 0.75rem;
+          background: color-mix(in srgb, var(--travel-accent) 8%, transparent);
+      }
+
+      .dark .travel-field {
+          --travel-accent: #5eead4;
+      }
+
+      .travel-label {
+          color: var(--travel-accent);
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+      }
+
+      .travel-help {
+          color: var(--travel-accent);
+          font-style: italic;
+      }
+
+      .travel-switch-control {
+          --sa-color-accent-fill: var(--travel-accent);
+          --sa-color-on-accent: var(--sa-color-canvas);
+          outline: 2px solid var(--travel-accent);
+          outline-offset: 4px;
+          border-radius: 999px;
+      }
+
+      .travel-switch-control .sa-switch:checked {
+          background-color: var(--sa-color-accent-fill);
+      }
+      ```
+    </Tab>
+  </Tabs>
+</Demo>
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the input renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The container around the checkbox input and thumb. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`. They only style generated field elements; with `wrap-in-field="false"`, apply `class` directly to any field elements you compose yourself. The control-specific parts still apply. See [Field part classes](field#part-classes) for the shared behavior and a styled example.
+
+## API Reference
+
+### `<sa-switch>`
+
+Renders a native `<input type="checkbox" role="switch">` wrapped in a `<span>` that hosts the thumb. When `asp-for` is set, it delegates to the built-in [ASP.NET Core Input Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms#the-input-tag-helper) so the switch model-binds like any other `bool`.
+
+<TypeTable
+  type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "SwitchClassNames",
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model.",
+      type: "ModelExpression",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the switch posts with. Use it when the switch isn't inside the form.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    name: {
+      description: "The name of the rendered <input> element.",
+      type: "string",
+    },
+    "wrap-in-field": {
+      description:
+        "Whether to wrap the switch in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field.",
+      type: "bool",
+    },
+    "column-span": {
+      description:
+        "The number of columns the field spans in an `<sa-grid>`, from 1 to 12, or `full` for every column. Use `column-span-sm`, `column-span-md` and `column-span-lg` for the span once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description:
+        "The column the field starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Use `column-start-sm`, `column-start-md` and `column-start-lg` for the start once the grid is at least 30rem, 40rem and 56rem wide.",
+      type: "string",
+      default: "auto",
+    },
+    size: {
+      description: "The size of the switch.",
+      type: "SwitchSize",
+      typeDescription: "SwitchSize.Default | SwitchSize.Small",
+      default: "SwitchSize.Default",
+    },
+    value: {
+      description: "The value the switch posts when it is on.",
+      type: "string",
+    },
+  }}
+/>

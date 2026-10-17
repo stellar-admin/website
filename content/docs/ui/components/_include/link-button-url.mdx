@@ -1,0 +1,15 @@
+```razor
+<!-- Specify the URL via the href attribute -->
+<sa-button-link variant="ButtonVariant.Outline" href="https://dotnet.microsoft.com/" target="_blank">
+    .NET Home Page
+</sa-button-link>
+<!-- Specify the Razor Page to navigate to -->
+<sa-button-link variant="ButtonVariant.Outline" asp-page="/Booking/Confirmation" asp-route-id="123">
+    Booking Confirmation
+</sa-button-link>
+<!-- Specify the MVC Controller Action to navigate to -->
+<sa-button-link variant="ButtonVariant.Outline" asp-controller="Booking" asp-action="Confirmation"
+               asp-route-id="123">
+    Booking Confirmation
+</sa-button-link>
+```

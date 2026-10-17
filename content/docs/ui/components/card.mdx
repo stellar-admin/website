@@ -1,0 +1,126 @@
+---
+title: Card
+description: Use cards to group related information in a container
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/card-intro.html">
+  <include>./_include/card-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Use cards to group related content and actions inside a bordered container.
+
+```razor
+<sa-card>
+    <sa-card-header>
+        <sa-card-title>...</sa-card-title>
+        <sa-card-description>...</sa-card-description>
+    </sa-card-header>
+    <sa-card-content>
+        ...
+    </sa-card-content>
+    <sa-card-footer>...</sa-card-footer>
+</sa-card>
+```
+
+## Examples
+
+### Default size
+
+The default size gives the header, content and footer their standard padding.
+
+<Demo src="/demo/ui/card-default.html">
+  <include>./_include/card-default.mdx</include>
+</Demo>
+
+### Small size
+
+Use `size="CardSize.Small"` for tighter padding and smaller text, useful in dense layouts.
+
+<Demo src="/demo/ui/card-small.html">
+  <include>./_include/card-small.mdx</include>
+</Demo>
+
+### Header with border
+
+Add `border-b` to `<sa-card-header>` to separate the header from the content.
+
+<Demo src="/demo/ui/card-header-with-border.html">
+  <include>./_include/card-header-with-border.mdx</include>
+</Demo>
+
+### Footer with border
+
+Add `border-t` to `<sa-card-footer>` to separate the footer from the content.
+
+<Demo src="/demo/ui/card-footer-with-border.html">
+  <include>./_include/card-footer-with-border.mdx</include>
+</Demo>
+
+### Image
+
+Place an `<img>` as the first child and remove the top padding with `pt-0` for an edge-to-edge image.
+
+<Demo src="/demo/ui/card-with-image.html">
+  <include>./_include/card-with-image.mdx</include>
+</Demo>
+
+### Forms
+
+Cards compose with [Field](/docs/ui/components/field) and [Button](/docs/ui/components/button) to build complete forms.
+
+<Demo src="/demo/ui/card-login.html">
+  <include>./_include/card-login.mdx</include>
+</Demo>
+
+### Card actions
+
+Use `<sa-card-action>` in the header for an action such as a dropdown menu, and put any content in the footer.
+
+<Demo src="/demo/ui/card-meeting-notes.html">
+  <include>./_include/card-meeting-notes.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-card>`
+
+Renders a `<div>` element.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the card, which sets its padding and spacing.",
+      type: "CardSize",
+      typeDescription: "CardSize.Default | CardSize.Small",
+      default: "CardSize.Default",
+    },
+  }}
+/>
+
+### `<sa-card-header>`
+
+Renders a `<div>` element grouping the title, description, and optional action.
+
+### `<sa-card-title>`
+
+Renders a `<div>` element containing the title.
+
+### `<sa-card-description>`
+
+Renders a `<div>` element containing the description.
+
+### `<sa-card-action>`
+
+Renders a `<div>` element positioned in the top-right corner of the header, for actions such as buttons.
+
+### `<sa-card-content>`
+
+Renders a `<div>` element containing the main content.
+
+### `<sa-card-footer>`
+
+Renders a `<div>` element containing the footer content.

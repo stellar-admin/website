@@ -1,0 +1,205 @@
+---
+title: Data Grid
+description: Display typed data with columns, sorting, selection, pagination, row details, and inline editing.
+---
+
+import { Demo } from "@/components/demo";
+
+The data grid is part of `StellarAdmin.UI` and uses the standard tag helper setup, theme stylesheet, and JavaScript bundle.
+
+## Setup
+
+Register the tag helpers alongside your application's MVC or Razor Pages services:
+
+```csharp
+builder.Services.AddStellarAdminUI();
+```
+
+Add these directives to `_ViewImports.cshtml`:
+
+```razor
+@using StellarAdmin.UI
+@addTagHelper *, StellarAdmin.UI
+```
+
+## Example
+
+<Demo src="/demo/ui/data-grid-intro.html">
+  <include>./_include/data-grid-intro.mdx</include>
+</Demo>
+
+Selection works in this static preview. Sorting and pagination are disabled in the static preview and require the running DocsSamples app at `/DataGrid`; the sample reads query parameters and applies sorting and paging on the server. Supply the current page of items to `sa-data-grid`, define columns with `sa-data-grid-column`, and provide sorting and pagination state through the corresponding child tags.
+
+## Row details
+
+Add an `<sa-data-grid-row-detail>` to let rows expand and show more information below them. Its content is a row template like a column's `<sa-data-grid-item-template>`: it renders once per row, with the row's item available through `Html.GridItem<T>()`, so the details can show more fields of the same item or rows from another source, such as the itinerary in a nested grid here. The grid adds a column of toggles, with an expand-all toggle in its header. To render rows expanded, set `key-field` to the property that identifies a row and `expanded-keys` to the keys of the rows to open.
+
+<Demo src="/demo/ui/data-grid-row-details.html">
+  <include>./_include/data-grid-row-details.mdx</include>
+</Demo>
+
+The details use the same behavior and events as [table row details](/docs/ui/components/table#row-details), including loading them with htmx. To place the toggle yourself, such as in an actions column beside an edit button, set `toggle="DataGridRowDetailToggle.None"` and add an `<sa-table-row-detail-toggle>` to that column's `<sa-data-grid-item-template>`. The `emphasis`, `divider` and `inset` settings look as they do on a table; see the [row details divider](/docs/ui/components/table#row-details-divider) example.
+
+### `<sa-data-grid-row-detail>`
+
+<TypeTable
+  type={{
+    toggle: {
+      description:
+        "Where the grid places the buttons that expand and collapse rows. With None, place an `<sa-table-row-detail-toggle>` in a column's item template.",
+      type: "DataGridRowDetailToggle",
+      typeDescription:
+        "DataGridRowDetailToggle.Start | DataGridRowDetailToggle.End | DataGridRowDetailToggle.None",
+      default: "DataGridRowDetailToggle.Start",
+    },
+    "row-click": {
+      description:
+        "Whether clicking anywhere in a row toggles its details. Clicks on links, buttons and form controls keep their own behavior.",
+      type: "bool",
+      default: "false",
+    },
+    "expand-mode": {
+      description: "How many rows can be expanded at once. With Single, expanding a row collapses the row that was expanded.",
+      type: "DataGridRowDetailExpandMode",
+      typeDescription: "DataGridRowDetailExpandMode.Multiple | DataGridRowDetailExpandMode.Single",
+      default: "DataGridRowDetailExpandMode.Multiple",
+    },
+    emphasis: {
+      description: "How an expanded row and its details stand out from the rows around them.",
+      type: "DataGridRowDetailEmphasis",
+      typeDescription:
+        "DataGridRowDetailEmphasis.None | DataGridRowDetailEmphasis.Band | DataGridRowDetailEmphasis.Rail",
+      default: "DataGridRowDetailEmphasis.Band",
+    },
+    divider: {
+      description:
+        "The line between an expanded row and its details.",
+      type: "DataGridRowDetailDivider",
+      typeDescription:
+        "DataGridRowDetailDivider.None | DataGridRowDetailDivider.Inset | DataGridRowDetailDivider.FullWidth",
+      default: "DataGridRowDetailDivider.Inset",
+    },
+    inset: {
+      description: "Where the details content starts: at the row's first cell (Bleed) or at the column after the toggle's column (Aligned).",
+      type: "DataGridRowDetailInset",
+      typeDescription: "DataGridRowDetailInset.Bleed | DataGridRowDetailInset.Aligned",
+      default: "DataGridRowDetailInset.Aligned",
+    },
+    animate: {
+      description:
+        "Whether details animate open and closed. Animation is always off when the user prefers reduced motion.",
+      type: "bool",
+      default: "true",
+    },
+    "expanded-keys": {
+      description:
+        "The keys of the rows to render expanded. Requires the grid's `key-field`. A row rendered expanded doesn't raise `rowdetailexpand`, so render its content directly instead of loading it on expand.",
+      type: "IEnumerable",
+    },
+  }}
+/>
+
+## Inline editing
+
+Rows can be edited in place. Set `key-field` to the property that identifies a row, and list the keys of the rows to edit in `editing-keys`. Those rows render each column's `<sa-data-grid-edit-template>` instead of its value, with the row's item available through `Html.GridItem<T>()`; a column without an edit template keeps showing its value. Any number of rows can be in edit mode at once, and selection and row details keep working.
+
+<Demo src="/demo/ui/data-grid-editing.html">
+  <include>./_include/data-grid-editing.mdx</include>
+</Demo>
+
+Fields in an editing row are named after the row's key, so `asp-for="@Html.GridItem<Booking>().Destination"` posts as `rows[TRP-4822].Destination`. Bind a row's values with that prefix, for example `await TryUpdateModelAsync(booking, $"rows[{key}]")`. Give an editor the `sa-cell-editor` class so it fills its cell without changing the row's height, wrap a switch or checkbox in a `<span class="sa-cell-check">`, and label each editor with `aria-label`, since the cell has no label of its own. While a row is in edit mode the columns keep their widths, so the grid doesn't shift as editors appear.
+
+## New row
+
+Pass an item to `new-item` to render it as a new row in edit mode, above the other rows. Its key is `new`, so its fields post as `rows[new].Destination`. Columns without an edit template are empty in the new row.
+
+<Demo src="/demo/ui/data-grid-new-item.html">
+  <include>./_include/data-grid-new-item.mdx</include>
+</Demo>
+
+## Add row
+
+An `<sa-data-grid-add-row>` renders a full-width row for a button that adds an item, first in the grid or, with `position="DataGridAddRowPosition.Bottom"`, last. It also shows when the grid has no items, in which case the empty-state message steps aside for an added row, and it hides while a new row (the key `new`) is in edit mode.
+
+<Demo src="/demo/ui/data-grid-add-row.html">
+  <include>./_include/data-grid-add-row.mdx</include>
+</Demo>
+
+## Editor templates
+
+An edit template can render any Razor: tag helpers, `Html.EditorFor` with an editor template picked by the property's `[UIHint]` or by name, or a partial with `<partial for="...">`. Field names keep the row's prefix in each case.
+
+<Demo src="/demo/ui/data-grid-editor-templates.html">
+  <include>./_include/data-grid-editor-templates.mdx</include>
+</Demo>
+
+## Validation errors
+
+Render the posted values again with the errors under their cells: add an `<sa-field-error class="sa-cell-error">` for each field. It shows only when the field is invalid, and model state errors are keyed by the prefixed name, such as `rows[TRP-4822].Amount`.
+
+<Demo src="/demo/ui/data-grid-editing-errors.html">
+  <include>./_include/data-grid-editing-errors.mdx</include>
+</Demo>
+
+## Row requests with htmx
+
+The grid renders only what it is given, so the requests that edit, save and add rows are the application's. Render the same grid with `rows-only="true"` for a row request: it returns only the rows, without the grid, its table and its header, so a response can replace a single `<tr>`. A row rendered in edit mode this way has no details row; the row it replaced keeps its own.
+
+- **Edit:** load the item and render it with its key in `editing-keys`, swapped in for the row with `hx-target="closest tr" hx-swap="outerHTML"`.
+- **Save:** post the row's fields with `hx-include="closest tr"`, since a form can't hold a table row, and send the antiforgery token in `hx-headers`. On success, render the saved item as a display row; on failure, render the editing row again with the errors. For a row whose details row stayed in the page, select only the row with `hx-select="tr[data-key]"` and refresh the details' content with `hx-select-oob`.
+- **Add:** render the new item with `new-item` and insert the row where it belongs, for example with `hx-swap="afterend"` from a button in an add row.
+- **Cancel:** mark the button `data-row-cancel`. The grid puts the row it replaced back without a request, or removes a new row. Only a row that was rendered in edit mode with the page has no row to restore, so its Cancel button goes to the server.
+
+```razor
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var headers = $$"""{"RequestVerificationToken": "{{Antiforgery.GetAndStoreTokens(Context).RequestToken}}"}""";
+}
+
+<sa-data-grid-edit-template>
+    <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Small" data-row-cancel
+               hx-get="?handler=Cancel&id=@Html.GridItem<Tour>().Id" hx-target="closest tr" hx-swap="outerHTML">Cancel</sa-button>
+    <sa-button size="ButtonSize.Small" hx-post="?handler=Save&id=@Html.GridItem<Tour>().Id"
+               hx-include="closest tr" hx-headers="@headers" hx-target="closest tr" hx-swap="outerHTML">Save</sa-button>
+</sa-data-grid-edit-template>
+```
+
+### `<sa-data-grid>` editing attributes
+
+<TypeTable
+  type={{
+    "key-field": {
+      description:
+        "The name of the item property that identifies a row. Row selection, edit mode and expanded row details require it, and a row that is replaced in the page keeps its selection and expanded details.",
+      type: "string",
+    },
+    "editing-keys": {
+      description: "The keys of the rows to render in edit mode, with their columns' edit templates. Requires `key-field`.",
+      type: "IEnumerable",
+    },
+    "new-item": {
+      description:
+        "A new item to render in edit mode above the other rows, with the key `new`. Requires `key-field`. Its columns without an edit template are empty.",
+      type: "object",
+    },
+    "rows-only": {
+      description:
+        "Renders only the rows, without the grid, its table and its header, for a response that replaces rows in the page. A row in edit mode renders without its details row.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-data-grid-add-row>`
+
+<TypeTable
+  type={{
+    position: {
+      description: "Where the row is placed: first or last in the grid's body. A grid rendered with `rows-only` leaves it out.",
+      type: "DataGridAddRowPosition",
+      typeDescription: "DataGridAddRowPosition.Top | DataGridAddRowPosition.Bottom",
+      default: "DataGridAddRowPosition.Top",
+    },
+  }}
+/>

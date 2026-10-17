@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.zob7bbxt44.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.mjr7w04qmf.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.8p6ma0vskj.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <!-- code begin -->
+<sel-tabs class="sa-tabs-container w-full max-w-md" id="--sa-tabs-fea723940a70b8dfc89138dd7498d365aef0c2cc11f944b0b70cf15301b6c0b05866" data-slot="tabs-container">
+    <div data-slot="tabs" data-orientation="horizontal" class="sa-tabs"><div aria-orientation="horizontal" class="sa-tabs-list sa-tabs-list-variant-default" data-slot="tabs-list" data-variant="default" role="tablist">
+        <button type="button" id="tabs-load-summary-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-fea723940a70b8dfc89138dd7498d365aef0c2cc11f944b0b70cf15301b6c0b05866" aria-controls="tabs-load-summary" aria-selected="true" tabindex="0" data-slot="tabs-trigger" data-active="" class="sa-tabs-trigger">Summary</button>
+        <button type="button" id="tabs-load-documents-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-fea723940a70b8dfc89138dd7498d365aef0c2cc11f944b0b70cf15301b6c0b05866" aria-controls="tabs-load-documents" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Documents</button>
+    </div></div>
+    <div id="tabs-load-summary" role="tabpanel" aria-labelledby="tabs-load-summary-tab" tabindex="0" data-slot="tabs-content" class="sa-tab-panel">
+        <p class="font-medium">Booking VYG-4471-KX</p>
+        <p class="text-muted-foreground text-sm">Reykjavík, 14 to 17 March. Paid in full.</p>
+    </div>
+    <div id="tabs-load-documents" role="tabpanel" aria-labelledby="tabs-load-documents-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <div class="flex flex-col gap-2">
+            <div class="sa-skeleton h-4 w-48" data-slot="skeleton"></div>
+            <div class="sa-skeleton h-4 w-40" data-slot="skeleton"></div>
+        </div>
+    </div>
+</sel-tabs>
+
+<script>
+    (() => {
+        // With htmx, hx-get="…" hx-trigger="tabshow once" on the panel does the same.
+        const panel = document.getElementById("tabs-load-documents");
+        panel.addEventListener("tabshow", async () => {
+            await new Promise((resolve) => setTimeout(resolve, 800));
+            panel.innerHTML = `
+                <ul class="text-muted-foreground list-disc space-y-1 ps-5 text-sm">
+                    <li>E-ticket LIS to KEF</li>
+                    <li>Hotel Borg confirmation</li>
+                </ul>`;
+        }, { once: true });
+    })();
+</script>
+<!-- code end -->
+
+
+</div>
+
+
+
+</body>
+</html>

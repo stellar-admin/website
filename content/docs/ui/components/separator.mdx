@@ -1,0 +1,70 @@
+---
+title: Separator
+description: Visually divides or groups content
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/separator-intro.html">
+  <include>./_include/separator-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Visually separates a group of adjacent elements with a horizontal or vertical line.
+
+```razor
+<sa-separator/>
+```
+
+## Examples
+
+### Horizontal
+
+A horizontal separator between blocks of text.
+
+<Demo src="/demo/ui/separator-horizontal.html">
+  <include>./_include/separator-horizontal.mdx</include>
+</Demo>
+
+### Vertical
+
+Set `orientation="SeparatorOrientation.Vertical"` to divide inline items. The container needs a height for the line to be visible.
+
+<Demo src="/demo/ui/separator-vertical.html">
+  <include>./_include/separator-vertical.mdx</include>
+</Demo>
+
+### Vertical menu
+
+Vertical separators between the entries of a horizontal menu.
+
+<Demo src="/demo/ui/separator-vertical-menu.html">
+  <include>./_include/separator-vertical-menu.mdx</include>
+</Demo>
+
+### In a list
+
+Horizontal separators between the rows of a definition list.
+
+<Demo src="/demo/ui/separator-in-list.html">
+  <include>./_include/separator-in-list.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-separator>`
+
+Renders a `<div>` element with `role="separator"`.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The orientation of the separator.",
+      type: "SeparatorOrientation",
+      typeDescription:
+        "SeparatorOrientation.Horizontal | SeparatorOrientation.Vertical",
+      default: "SeparatorOrientation.Horizontal",
+    },
+  }}
+/>

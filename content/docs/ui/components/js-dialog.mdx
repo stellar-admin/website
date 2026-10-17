@@ -1,0 +1,118 @@
+---
+title: dialog()
+description: A JavaScript wrapper to help you work with promise-based dialogs
+---
+
+import { Demo } from "@/components/demo";
+
+The `dialog()` function returns a wrapper around an existing `<dialog>` element that makes it easy to use dialogs in an async/await style. Call `showAsync()` to open the dialog as a modal and get back a promise that resolves when the dialog closes, yielding a result with a `confirmed` flag, the dialog's `returnValue`, and any form data collected from within the dialog.
+
+You can also close the dialog programmatically by calling `confirm(data?)` or `cancel()` on the wrapper, which resolve the promise immediately with the appropriate result.
+
+## Usage
+
+```js
+const dialog = window.stellarAdmin.dialog(document.getElementById("myDialog"));
+const result = await dialog.showAsync();
+```
+
+## Examples
+
+### Basic usage
+
+Open a dialog with `showAsync()` and await the result. The result object includes a `confirmed` property and the dialog's `returnValue` - in this example set by the submit buttons' `value` attributes.
+
+The `confirmed` property will be false under the following conditions:
+
+- The dialog was light-dismissed
+- The dialog was dismissed using the `Esc` key
+- The dialog was closed without a `returnValue` (for example by a `command="close"` button or a sheet's close button)
+- The form's `returnValue` is set to `cancel`.
+
+<Demo src="/demo/ui/js-dialog-intro.html">
+  <include>./_include/js-dialog-intro.mdx</include>
+</Demo>
+
+### Returning form values
+
+When the dialog is confirmed, any form data within the dialog is serialized and returned in the `data` property of the result.
+
+<Demo src="/demo/ui/js-dialog-form-values.html">
+  <include>./_include/js-dialog-form-values.mdx</include>
+</Demo>
+
+### Manual result
+
+You can close the dialog programmatically using the `confirm(data?)` and `cancel()` methods. This will resolve the promise. When calling `cancel()`, the `confirmed` property of the result will be set to `false`.
+
+When calling `confirm(data?)`, the `confirmed` property will be set to `true`. You can also optionally pass a `data` parameter to the method, which will be returned in the `data` property of the result.
+
+<Demo src="/demo/ui/js-dialog-manual-result.html">
+  <include>./_include/js-dialog-manual-result.mdx</include>
+</Demo>
+
+## API Reference
+
+### `dialog(selector, options?)`
+
+The `dialog()` factory function, exposed as `window.stellarAdmin.dialog`, wraps an existing `<dialog>` element and returns a wrapper object with the methods below. It throws if the element cannot be found or is not a `HTMLDialogElement`.
+
+<TypeTable
+  type={{
+    selector: {
+      description:
+        "The dialog to wrap - either a CSS selector string or the HTMLDialogElement itself.",
+      type: "string | HTMLDialogElement",
+    },
+    options: {
+      description:
+        "Optional settings. clearReturnValueOnOpen (default true) resets the dialog's returnValue each time showAsync() opens it.",
+      type: "{ clearReturnValueOnOpen?: boolean }",
+    },
+  }}
+/>
+
+#### Wrapper methods
+
+<TypeTable
+  type={{
+    showAsync: {
+      description:
+        "Opens the dialog as a modal and returns a promise that resolves with a result object (see below) when the dialog closes.",
+      type: "() => Promise<Result>",
+    },
+    confirm: {
+      description:
+        "Closes the open dialog and resolves the pending promise with confirmed set to true. When data is omitted, the form data inside the dialog is serialized instead. Throws if no dialog is open.",
+      type: "(data?: object) => void",
+    },
+    cancel: {
+      description:
+        "Closes the open dialog and resolves the pending promise with confirmed set to false. Throws if no dialog is open.",
+      type: "() => void",
+    },
+  }}
+/>
+
+#### Result object
+
+The promise returned by `showAsync()` resolves with an object containing the following properties:
+
+<TypeTable
+  type={{
+    confirmed: {
+      description:
+        "false when the dialog was light-dismissed, dismissed with Esc, closed without a returnValue, closed with a returnValue of 'cancel', or cancelled with cancel(), and true otherwise.",
+      type: "boolean",
+    },
+    returnValue: {
+      description: "The dialog element's returnValue at the time it closed.",
+      type: "string",
+    },
+    data: {
+      description:
+        "The values of the form inside the dialog, serialized via FormData, when the dialog was confirmed, or null when it was cancelled or contains no form.",
+      type: "object | null",
+    },
+  }}
+/>

@@ -1,0 +1,40 @@
+```razor
+<div class="grid grid-cols-2 gap-4">
+    <sa-button variant="ButtonVariant.Outline" popovertarget="--popover-position-top-start" class="w-full">
+        Top, Start
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" popovertarget="--popover-position-right-center" class="w-full">
+        Right, Center
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" popovertarget="--popover-position-left-end" class="w-full">
+        Left, End
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" popovertarget="--popover-position-bottom-end" class="w-full">
+        Bottom, End
+    </sa-button>
+</div>
+<sa-popover side="PopoverSide.Top" align="PopoverAlign.Start" id="--popover-position-top-start" class="w-[230px]">
+    <sa-stack>
+        <sa-skeleton class="h-4 w-[200px]"/>
+        <sa-skeleton class="h-4 w-[200px]"/>
+    </sa-stack>
+</sa-popover>
+<sa-popover side="PopoverSide.Right" align="PopoverAlign.Center" id="--popover-position-right-center" class="w-[230px]">
+    <sa-stack>
+        <sa-skeleton class="h-4 w-[200px]"/>
+        <sa-skeleton class="h-4 w-[200px]"/>
+    </sa-stack>
+</sa-popover>
+<sa-popover side="PopoverSide.Left" align="PopoverAlign.End" id="--popover-position-left-end" class="w-[230px]">
+    <sa-stack>
+        <sa-skeleton class="h-4 w-[200px]"/>
+        <sa-skeleton class="h-4 w-[200px]"/>
+    </sa-stack>
+</sa-popover>
+<sa-popover side="PopoverSide.Bottom" align="PopoverAlign.End" id="--popover-position-bottom-end" class="w-[230px]">
+    <sa-stack>
+        <sa-skeleton class="h-4 w-[200px]"/>
+        <sa-skeleton class="h-4 w-[200px]"/>
+    </sa-stack>
+</sa-popover>
+```

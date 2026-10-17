@@ -1,0 +1,150 @@
+---
+title: Radio group
+description: Select one option bound to a single property
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/radio-group-intro.html">
+  <include>./_include/radio-group-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Prefer a radio group when related options share one bound property, label, and validation message. Use [normal radio inputs](radio) when you need to compose the fields and layout yourself.
+
+Use `<sa-radio-group>` with `<sa-radio-group-item>` children to render a labeled group. Each item uses its content as the label and accepts an optional `description`. Both display variants use the existing Field and Input markup.
+
+Use `asp-for` for model binding, or `name` and `value` for a group without model binding. Option `value` attributes are strings, including values such as `value="1"` that bind to numeric properties. MVC converts submitted values to the model type. Values must be unique within the group.
+
+## Examples
+
+### Model binding
+
+Bind to a scalar `string`, enum, `Guid`, `bool`, or numeric primitive, including nullable value types. Use a nullable property with `[Required]` to require a selection.
+
+Labels and descriptions are derived from `[Display]` metadata. Submitted ModelState values take precedence when redisplaying the form. Do not combine `asp-for` with `name` or `value`. Date/time and complex model types are not supported.
+
+<Demo src="/demo/ui/radio-group-model-binding.html">
+  <include>./_include/radio-group-model-binding.mdx</include>
+</Demo>
+
+The example binds to this model property:
+
+```csharp
+[Display(Name = "Delivery method", Description = "Choose how we deliver your order.")]
+[Required(ErrorMessage = "Choose a delivery method.")]
+public Delivery? DeliveryMethod { get; set; } = Delivery.Standard;
+
+public enum Delivery
+{
+    Standard,
+    Express,
+}
+```
+
+In a Razor Page, expose the containing model with `[BindProperty]` to receive form submissions. These exported previews demonstrate the rendered state; the DocsSamples application contains the working POST form.
+
+### Choice cards
+
+Set `variant="RadioGroupVariant.ChoiceCard"` to make each option a clickable card. The default is `RadioGroupVariant.Default`.
+
+<Demo src="/demo/ui/radio-group-choice-cards.html">
+  <include>./_include/radio-group-choice-cards.mdx</include>
+</Demo>
+
+### Items
+
+Use `asp-items` with `SelectListItem` objects as an alternative to child tags. `Selected` sets the initial selection for an unbound group when `value` is not supplied. `Disabled` disables an individual option. Do not combine `asp-items` with child items; `SelectListGroup` is not supported.
+
+<Demo src="/demo/ui/radio-group-items.html">
+  <include>./_include/radio-group-items.mdx</include>
+</Demo>
+
+### Media
+
+Put a `<sa-radio-group-item-media>` inside an item to show an icon, avatar, image or other media with the option. The media sits before the option's text, or leads the card in the choice card variant. Size the media with classes on its content. Use one media tag per item; options supplied with `asp-items` have no media. This example adds avatars to choice cards.
+
+<Demo src="/demo/ui/radio-group-media.html">
+  <include>./_include/radio-group-media.mdx</include>
+</Demo>
+
+### Columns
+
+Set `columns` to show the options in columns at every width, or `columns-sm`, `columns-md` and `columns-lg` to set the number of columns once the field is at least 30rem, 40rem and 56rem wide; a width without a value uses the value of the next smaller width, and `columns` defaults to one column. The widths are measured against the field, so a group in a narrow column of an `<sa-grid>` stays in one column. The options fill each row in turn; set `flow="RadioGroupFlow.Down"` to fill each column from top to bottom before the next.
+
+<Demo src="/demo/ui/radio-group-columns.html">
+  <include>./_include/radio-group-columns.mdx</include>
+</Demo>
+
+### Validation
+
+The group displays one ModelState error and marks its inputs invalid. StellarAdmin does not provide client-side validation; use server-side validation or add your own client validation.
+
+<Demo src="/demo/ui/radio-group-validation.html">
+  <include>./_include/radio-group-validation.mdx</include>
+</Demo>
+
+Use validation attributes on the bound property:
+
+```csharp
+[Required(ErrorMessage = "Choose a delivery method.")]
+public Delivery? DeliveryMethod { get; set; }
+```
+
+This preview is rendered with an empty selection and a seeded ModelState error. Its partial is rendered with the `PartialModel` prefix, so the error uses the full field name:
+
+```csharp
+ModelState.AddModelError("PartialModel.DeliveryMethod", "Choose a delivery method.");
+```
+
+For an unbound group, use `error` to display a group error.
+
+## Accessibility
+
+The group renders a fieldset and legend with native radio inputs and associated labels. Descriptions and validation messages are associated with the inputs. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels. Media sits inside the label, so keep it decorative: an avatar without a `name` and an image with an empty `alt` leave the option text as its name.
+
+## API Reference
+
+### `<sa-radio-group>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `asp-for` | `ModelExpression` | Model property bound to the group. |
+| `asp-items` | `IEnumerable<SelectListItem>` | Options supplied instead of child tags. |
+| `name` | `string` | Submitted field name for an unbound group. |
+| `value` | `string` | Selected value for an unbound group. Can't be combined with `asp-for`. |
+| `variant` | `RadioGroupVariant` | `Default` or `ChoiceCard`. Defaults to `Default`. |
+| `columns` | `int` | Number of columns at the smallest width, from 1 to 12. Wider widths use this count unless they set their own. Defaults to 1. |
+| `columns-sm` | `int` | Number of columns once the field is at least 30rem wide. Defaults to the smaller width's value. |
+| `columns-md` | `int` | Number of columns once the field is at least 40rem wide. Defaults to the smaller width's value. |
+| `columns-lg` | `int` | Number of columns once the field is at least 56rem wide. Defaults to the smaller width's value. |
+| `flow` | `RadioGroupFlow` | `Across` or `Down`: the order in which the options fill the columns, when there is more than one. Defaults to `Across`. |
+| `label` | `string` | Group legend; overrides model metadata. |
+| `description` | `string` | Supporting text; overrides model metadata. |
+| `error` | `string` | Explicit group error message. |
+| `disabled` | `bool` | Disables every option. Defaults to `false`. |
+| `wrap-in-field` | `bool` | Whether to wrap the group in a field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field. |
+| `column-span` | `string` | Number of columns the group spans in an `<sa-grid>`, from 1 to 12, or `full`. Defaults to 1. |
+| `column-span-sm` | `string` | Column span once the grid is at least 30rem wide. Defaults to the smaller width's value. |
+| `column-span-md` | `string` | Column span once the grid is at least 40rem wide. Defaults to the smaller width's value. |
+| `column-span-lg` | `string` | Column span once the grid is at least 56rem wide. Defaults to the smaller width's value. |
+| `column-start` | `string` | Column the group starts at in an `<sa-grid>`, from 1 to 12, or `auto` to follow the previous item. Defaults to `auto`. |
+| `column-start-sm` | `string` | Start column once the grid is at least 30rem wide. Defaults to the smaller width's value. |
+| `column-start-md` | `string` | Start column once the grid is at least 40rem wide. Defaults to the smaller width's value. |
+| `column-start-lg` | `string` | Start column once the grid is at least 56rem wide. Defaults to the smaller width's value. |
+| `class-names` | `ChoiceGroupClassNames` | Additional CSS classes for the parts of the group: `Root`, `Label`, `Description`, `Error`, `Content`, `Control` (the element that holds the options) and `Item` (each option). |
+| `class` | `string` | Additional classes for the fieldset. |
+
+### `<sa-radio-group-item>`
+
+| Attribute | Type | Description |
+| --- | --- | --- |
+| `value` | `string` | Required submitted option value. Each option in a group needs a different value. |
+| `description` | `string` | Supporting text below the option label. |
+| `disabled` | `bool` | Disables this option. Defaults to `false`. |
+| `class` | `string` | Additional classes for the field, or the outer label in `ChoiceCard`. |
+
+### `<sa-radio-group-item-media>`
+
+Media shown with an option, placed inside `<sa-radio-group-item>`. It renders no element of its own and takes no attributes; its content is placed in the option.

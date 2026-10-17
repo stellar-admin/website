@@ -1,0 +1,240 @@
+---
+title: Tabs
+description: Allow users to switch between pages, or between panels on the same page
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/tabs-intro.html">
+  <include>./_include/tabs-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Tabs can be used to either display a set of interactive navigation links, or interactive tabs with panels. Both share the same variants, orientations and icons.
+
+### Tabs with navigation links
+
+Use `<sa-tab-list>` with `<sa-tab-link>` when you want tabs that navigate the user to different pages.
+
+```razor
+<sa-tab-list>
+    <sa-tab-link>...</sa-tab-link>
+</sa-tab-list>
+```
+
+### Interactive tab panels
+
+When you want to use tabs with interactive panels that display different content based on the selected tab, you can use this pattern.
+
+Place `<sa-tab-list>` inside an `<sa-tabs>` Tag Helper. Use combinations of `<sa-tab>` and `<sa-tab-panel>` for the content. Each tabs's `for` attribute names the `id` of its panel. Selecting a tab shows its panel in place, without navigating.
+
+```razor
+<sa-tabs>
+    <sa-tab-list>
+        <sa-tab for="summary">...</sa-tab>
+        <sa-tab for="orders">...</sa-tab>
+    </sa-tab-list>
+    <sa-tab-panel id="summary">...</sa-tab-panel>
+    <sa-tab-panel id="orders">...</sa-tab-panel>
+</sa-tabs>
+```
+
+## Examples
+
+### Variant
+
+Create underline tabs by setting the `variant` attribute.
+
+<Demo src="/demo/ui/tabs-line.html">
+  <include>./_include/tabs-line.mdx</include>
+</Demo>
+
+### Orientation
+
+Create vertical tabs by setting the `orientation` attribute.
+
+<Demo src="/demo/ui/tabs-orientation.html">
+  <include>./_include/tabs-orientation.mdx</include>
+</Demo>
+
+### Icons
+
+Use icons along with the text.
+
+<Demo src="/demo/ui/tabs-icons.html">
+  <include>./_include/tabs-icons.mdx</include>
+</Demo>
+
+### Icons only
+
+Tabs can contain only an icon. Give each one an accessible name.
+
+<Demo src="/demo/ui/tabs-icons-only.html">
+  <include>./_include/tabs-icons-only.mdx</include>
+</Demo>
+
+### Active item
+
+Set the currently active item using the `active` attribute.
+
+<Demo src="/demo/ui/tabs-active.html">
+  <include>./_include/tabs-active.mdx</include>
+</Demo>
+
+### URL
+
+The URL of `<sa-tab-link>` can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+<Demo src="/demo/ui/tabs-url.html">
+  <include>./_include/tabs-url.mdx</include>
+</Demo>
+
+When specifying the URL, StellarAdmin will automatically set the `active` attribute for the tab link representing the currently active route, so you should not need to specify the `active` attribute explicitly. However, StellarAdmin can not always determine this correctly - especially if the URL contains query string parameters. In such cases, you can explicitly set the `active` attribute to either `true` or `false`.
+
+### Disabled
+
+Disable a tab using the `disabled` attribute.
+
+<Demo src="/demo/ui/tabs-disabled.html">
+  <include>./_include/tabs-disabled.mdx</include>
+</Demo>
+
+### Panels
+
+Selecting a tab shows its panel and hides the others. The first tab is selected unless `<sa-tabs>` names another panel. A disabled tab cannot be selected.
+
+<Demo src="/demo/ui/tabs-panels.html">
+  <include>./_include/tabs-panels.mdx</include>
+</Demo>
+
+### Selected panel
+
+Show a panel other than the first by setting the `value` attribute of `<sa-tabs>` to its `id`. Panel tabs take the same variants and icons as link tabs.
+
+<Demo src="/demo/ui/tabs-panels-line.html">
+  <include>./_include/tabs-panels-line.mdx</include>
+</Demo>
+
+### Vertical panels
+
+With a vertical tab list, the panels sit beside the tabs.
+
+<Demo src="/demo/ui/tabs-panels-vertical.html">
+  <include>./_include/tabs-panels-vertical.mdx</include>
+</Demo>
+
+### Loading a panel when it is shown
+
+Selecting a tab raises a bubbling `tabhide` event on the panel it hides, then a `tabshow` event on the panel it shows, once that panel is visible. The event's `detail` holds the `tab` and the `panel`. The panel shown when the page loads raises no event. This example listens for `tabshow` to fill the Documents panel the first time it opens.
+
+<Demo src="/demo/ui/tabs-panels-load-on-show.html">
+  <include>./_include/tabs-panels-load-on-show.mdx</include>
+</Demo>
+
+With htmx, put the attributes on the panel itself, where the event fires. The placeholder shows until the response arrives. Drop `once` to reload the panel every time it is shown.
+
+```razor
+<sa-tab-panel id="documents"
+              hx-get="/bookings/VYG-4471-KX/documents"
+              hx-trigger="tabshow once">
+    <sa-skeleton class="h-4 w-48"/>
+</sa-tab-panel>
+```
+
+## Accessibility
+
+Link tabs are links. Each `<sa-tab-link>` renders an `<a role="tab">` with `aria-selected` reflecting the active state, and following it navigates to its URL. Because they are links, each tab is a separate Tab stop and the arrow keys are not used to move between them.
+
+A disabled tab renders `aria-disabled="true"` and has its `href` removed so it cannot be followed. Give every tab visible text.
+
+Panel tabs follow the WAI-ARIA tabs pattern. The list renders `role="tablist"` with `aria-orientation`, each `<sa-tab>` renders a `<button role="tab">` with `aria-selected` and `aria-controls`, and each panel renders `role="tabpanel"` labelled by its tab. Only the selected tab is a Tab stop. The arrow keys move between the tabs and select the one they move to (Up and Down for a vertical list), Home and End move to the first and last, and disabled tabs are skipped. Pressing Tab from the selected tab moves focus to its panel.
+
+## API Reference
+
+### `<sa-tab-list>`
+
+Renders a `<div>` element wrapping an inner tab list `<div>`. Inside an `<sa-tabs>`, the inner list renders `role="tablist"`.
+
+<TypeTable
+  type={{
+    orientation: {
+      description: "The orientation of the tab list.",
+      type: "TabListOrientation",
+      typeDescription:
+        "TabListOrientation.Horizontal | TabListOrientation.Vertical",
+      default: "TabListOrientation.Horizontal",
+    },
+    variant: {
+      description: "The visual style of the tab list.",
+      type: "TabListVariant",
+      typeDescription: "TabListVariant.Default | TabListVariant.Line",
+      default: "TabListVariant.Default",
+    },
+  }}
+/>
+
+### `<sa-tab-link>`
+
+Renders an `<a>` element.
+
+<TypeTable
+  type={{
+    disabled: {
+      description:
+        "Disables the tab. A disabled tab has its href removed and does not respond to interaction.",
+      type: "bool",
+      default: "false",
+    },
+    active: {
+      description:
+        "Whether the tab is the active tab. When not set, the tab is active when its page or action routing attributes match the current request.",
+      type: "bool",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The tab link also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-tabs>`
+
+Wraps an `<sa-tab-list>` of `<sa-tab>`s and their `<sa-tab-panel>`s, rendered as a web component that takes the `id` you give it. It raises the bubbling `tabhide` and `tabshow` events on the panels as they are hidden and shown. From JavaScript, call `select(tab)` on `document.getElementById()` of that `id`, passing an `<sa-tab>`'s button.
+
+<TypeTable
+  type={{
+    value: {
+      description: "The `id` of the panel shown when the page loads.",
+      type: "string",
+      default: "The first tab's panel",
+    },
+  }}
+/>
+
+### `<sa-tab>`
+
+Renders a `<button>` element. Its `id` defaults to the panel's `id` followed by `-tab`.
+
+<TypeTable
+  type={{
+    for: {
+      description: "The `id` of the `<sa-tab-panel>` the tab shows. Required.",
+      type: "string",
+    },
+    disabled: {
+      description: "Disables the tab, so it cannot be selected.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-tab-panel>`
+
+Renders a `<div>` element, hidden until its tab is selected. It needs an `id`, which its tab's `for` attribute names.

@@ -1,0 +1,36 @@
+```razor
+<div class="grid grid-cols-2 gap-4">
+    <sa-button variant="ButtonVariant.Outline" class="size-30"
+                interestfor="--tooltip-position-top-start">
+        Top<br/>Start
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" class="size-30"
+                interestfor="--tooltip-position-right-center">
+        Right<br/>Center
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" class="size-30"
+                interestfor="--tooltip-position-left-end">
+        Left<br/>End
+    </sa-button>
+    <sa-button variant="ButtonVariant.Outline" class="size-30"
+                interestfor="--tooltip-position-bottom-end">
+        Bottom<br/>End
+    </sa-button>
+</div>
+<sa-tooltip side="TooltipSide.Top" align="TooltipAlign.Start"
+             id="--tooltip-position-top-start">
+    Above the trigger, lined up with its left edge
+</sa-tooltip>
+<sa-tooltip side="TooltipSide.Right" align="TooltipAlign.Center"
+             id="--tooltip-position-right-center">
+    To the right of the trigger, centered
+</sa-tooltip>
+<sa-tooltip side="TooltipSide.Left" align="TooltipAlign.End"
+             id="--tooltip-position-left-end">
+    To the left of the trigger, lined up with its bottom edge
+</sa-tooltip>
+<sa-tooltip side="TooltipSide.Bottom" align="TooltipAlign.End"
+             id="--tooltip-position-bottom-end">
+    Below the trigger, lined up with its right edge
+</sa-tooltip>
+```

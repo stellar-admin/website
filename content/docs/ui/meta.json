@@ -1,0 +1,24 @@
+{
+  "title": "StellarAdmin.UI",
+  "description": "Tag Helpers for ASP.NET Core MVC and Razor Pages",
+  "root": true,
+  "pages": [
+    "---Getting Started---",
+    "index",
+    "installation",
+    "conventions",
+    "agent-skills",
+    "acknowledgements",
+    "---Theming---",
+    "theming",
+    "theme-variables",
+    "density-and-scopes",
+    "design-tokens",
+    "dark-mode",
+    "---Customization---",
+    "icons",
+    "javascript",
+    "templated-views",
+    "...components"
+  ]
+}

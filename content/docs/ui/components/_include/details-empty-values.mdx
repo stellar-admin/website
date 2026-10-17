@@ -1,0 +1,11 @@
+```razor
+<sa-details columns-md="2">
+    @* A dash by default *@
+    <sa-display-field asp-for="PromoCode" />
+    @* [DisplayFormat(NullDisplayText = "None")] *@
+    <sa-display-field asp-for="DietaryNeeds" />
+    <sa-display-field asp-for="ArchivedAt" empty-text="Not archived" />
+    @* Zero and false are values *@
+    <sa-display-field asp-for="Infants" />
+</sa-details>
+```

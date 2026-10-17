@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.zob7bbxt44.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.mjr7w04qmf.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.8p6ma0vskj.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="sa-group sa-group-align-start sa-group-gap-sm sa-group-justify-start">
+    <!-- code begin -->
+    <span class="sa-badge sa-badge-variant-default bg-blue-600 text-blue-50 dark:bg-blue-600 dark:text-blue-50" data-slot="badge">
+        Blue
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-green-600 text-green-50 dark:bg-green-600 dark:text-green-50" data-slot="badge">
+        Green
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-sky-600 text-sky-50 dark:bg-sky-600 dark:text-sky-50" data-slot="badge">
+        Sky
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-purple-600 text-purple-50 dark:bg-purple-600 dark:text-purple-50" data-slot="badge">
+        Purple
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300" data-slot="badge">
+        Blue
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300" data-slot="badge">
+        Green
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300" data-slot="badge">
+        Sky
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300" data-slot="badge">
+        Purple
+    </span>
+    <span class="sa-badge sa-badge-variant-default bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300" data-slot="badge">
+        Red
+    </span>
+    <!-- code end -->
+</div>
+
+</div>
+
+
+
+</body>
+</html>

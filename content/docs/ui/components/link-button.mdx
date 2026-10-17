@@ -1,0 +1,112 @@
+---
+title: Link Button
+description: Render an anchor styled as a button for navigating to other URLs
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/link-button-intro.html">
+  <include>./_include/link-button-intro.mdx</include>
+</Demo>
+
+## Usage
+
+An `<sa-button-link>` renders an `<a>` styled as a button. Give it an `href` or one of the routing attributes below.
+
+```razor
+<sa-button-link>Proceed</sa-button-link>
+```
+
+## Examples
+
+### URL
+
+The URL of a link button can be specified a couple of ways:
+
+1. You can use the `href` property to specify any valid URL [as per the `href` property of the anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#href).
+2. You can use any of the attributes that are valid for specifying the URL for the ASP.NET Core Anchor Tag Helper, such as `asp-controller`, `asp-action`, `asp-page`, etc. Please refer to the [Anchor Tag Helper documentation](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for more examples.
+
+<Demo src="/demo/ui/link-button-url.html">
+  <include>./_include/link-button-url.mdx</include>
+</Demo>
+
+<Callout type="warn">
+  The same rules as for the `AnchorTagHelper` are applicable in that you cannot specify overlapping URL-related attributes. For example, if you specify an `href` attribute along with any of the `asp-*` attributes, an exception will be thrown. Likewise, if you specify an `asp-controller` attribute, as well as an `asp-page` attribute, an exception will be thrown.
+</Callout>
+
+### Sizes and variants
+
+Specify the size and variant using the `size` and `variant` attribute.
+
+<Demo src="/demo/ui/link-button-sizes-variants.html">
+  <include>./_include/link-button-sizes-variants.mdx</include>
+</Demo>
+
+### Icon right
+
+Place an `<sa-icon>` after the label to show it on the right.
+
+<Demo src="/demo/ui/link-button-icon-right.html">
+  <include>./_include/link-button-icon-right.mdx</include>
+</Demo>
+
+### Icon left
+
+Place the `<sa-icon>` before the label to show it on the left.
+
+<Demo src="/demo/ui/link-button-icon-left.html">
+  <include>./_include/link-button-icon-left.mdx</include>
+</Demo>
+
+### Icon only
+
+Use one of the `Icon*` sizes for a square icon-only link, and give it an accessible name with `aria-label` or visually hidden text.
+
+<Demo src="/demo/ui/link-button-icon-only.html">
+  <include>./_include/link-button-icon-only.mdx</include>
+</Demo>
+
+### Additional attributes
+
+Since the Link Button Tag Helper is a wrapper around the HTML Anchor (`<a>`) element, you can use any of the [Anchor element attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#attributes).
+
+<Demo src="/demo/ui/link-button-additional-attributes.html">
+  <include>./_include/link-button-additional-attributes.mdx</include>
+</Demo>
+
+## Accessibility
+
+`<sa-button-link>` renders an `<a>` element, so it is announced as a link and activated with Enter. Use it for navigation and use [Button](/docs/ui/components/button) for actions. A link cannot be disabled, so render a button, or omit the link, when the destination is not available.
+
+An icon-only link button has no accessible name. Give it one with `aria-label`, or add the text in a `<span class="sr-only">`.
+
+## API Reference
+
+### `<sa-button-link>`
+
+Renders an `<a>` element styled as a button.
+
+<TypeTable
+  type={{
+    size: {
+      description: "The size of the button.",
+      type: "ButtonSize",
+      typeDescription:
+        "ButtonSize.Default | ButtonSize.ExtraSmall | ButtonSize.Small | ButtonSize.Large | ButtonSize.Icon | ButtonSize.IconExtraSmall | ButtonSize.IconSmall | ButtonSize.IconLarge",
+      default: "ButtonSize.Default",
+    },
+    variant: {
+      description: "The visual style of the button.",
+      type: "ButtonVariant",
+      typeDescription:
+        "ButtonVariant.Default | ButtonVariant.Destructive | ButtonVariant.Outline | ButtonVariant.Secondary | ButtonVariant.Ghost | ButtonVariant.Link",
+      default: "ButtonVariant.Default",
+    },
+  }}
+/>
+
+#### Routing attributes
+
+The link button also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>

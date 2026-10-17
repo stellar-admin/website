@@ -310,7 +310,7 @@ function ThemeBuilder() {
         </aside>
 
         <Preview
-          src={`/demo/tag-helpers/${page}.html`}
+          src={`/demo/ui/${page}.html`}
           manifest={manifest}
           theme={theme}
           mode={mode}
@@ -567,8 +567,8 @@ function ExportPanel({
           <code>stellar-admin.css</code>:
         </p>
         <pre className="bg-muted overflow-auto rounded-md p-2">{`<link rel="stylesheet" href="~/css/theme.css" />`}</pre>
-        <p>With the Dashboard, add it as a stylesheet:</p>
-        <pre className="bg-muted overflow-auto rounded-md p-2">{`dashboard.AddStylesheet("~/css/theme.css");`}</pre>
+        <p>With the admin panel, add it as a stylesheet:</p>
+        <pre className="bg-muted overflow-auto rounded-md p-2">{`admin.AddStylesheet("~/css/theme.css");`}</pre>
       </div>
       <details className="text-sm">
         <summary className="cursor-pointer font-semibold">

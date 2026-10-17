@@ -1,0 +1,106 @@
+---
+title: Breadcrumb
+description: Breadcrumbs provide navigation context and allow users to quickly navigate the current page's hierarchy
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/breadcrumb-intro.html">
+  <include>./_include/breadcrumb-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Wrap the trail in `<sa-breadcrumb>` and `<sa-breadcrumb-list>`, put each link in an `<sa-breadcrumb-item>`, separate items with `<sa-breadcrumb-separator>`, and mark the current page with `<sa-breadcrumb-page>`.
+
+```razor
+<sa-breadcrumb>
+    <sa-breadcrumb-list>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 1</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-item>
+            <sa-breadcrumb-link href="...">Level 2</sa-breadcrumb-link>
+        </sa-breadcrumb-item>
+        <sa-breadcrumb-separator/>
+        <sa-breadcrumb-page>Current Page</sa-breadcrumb-page>
+    </sa-breadcrumb-list>
+</sa-breadcrumb>
+```
+
+## Examples
+
+### Custom separator
+
+Use the Icon Tag Helper for a custom separator.
+
+<Demo src="/demo/ui/breadcrumb-custom-separator.html">
+  <include>./_include/breadcrumb-custom-separator.mdx</include>
+</Demo>
+
+### Collapsed
+
+Use the `<sa-breadcrumb-ellipsis>` component to collapse a large navigation hierarchy.
+
+<Demo src="/demo/ui/breadcrumb-collapsed.html">
+  <include>./_include/breadcrumb-collapsed.mdx</include>
+</Demo>
+
+### Custom CSS
+
+Use the `class` attribute to add custom CSS styling to any of the breadcrumb components.
+
+<Demo src="/demo/ui/breadcrumb-custom-css.html">
+  <include>./_include/breadcrumb-custom-css.mdx</include>
+</Demo>
+
+### Icons
+
+Use the Icon Tag Helper and custom CSS to display icons next to navigation items.
+
+<Demo src="/demo/ui/breadcrumb-icons.html">
+  <include>./_include/breadcrumb-icons.mdx</include>
+</Demo>
+
+## Accessibility
+
+`<sa-breadcrumb>` renders a `<nav>` landmark labelled "breadcrumb". Use `<sa-breadcrumb-page>` for the current page so it renders `aria-current="page"`, and use `<sa-breadcrumb-link>` for every other item. Separators and the ellipsis are decorative and hidden from assistive technology.
+
+When the ellipsis opens a menu of collapsed items, give its trigger an accessible name, for example `aria-label="More pages"`.
+
+## API Reference
+
+### `<sa-breadcrumb>`
+
+Renders a [`<nav>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav) with `aria-label="breadcrumb"`.
+
+### `<sa-breadcrumb-list>`
+
+Renders an [`<ol>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol) containing the breadcrumb items.
+
+### `<sa-breadcrumb-item>`
+
+Renders an [`<li>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li).
+
+### `<sa-breadcrumb-link>`
+
+Renders an `<a>` element.
+
+#### Routing attributes
+
+The breadcrumb link also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-breadcrumb-page>`
+
+Renders a `<span>` element with `aria-current="page"` representing the current page.
+
+### `<sa-breadcrumb-separator>`
+
+Renders an [`<li>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li) that is hidden from assistive technology. It displays a chevron icon by default, or its child content when supplied.
+
+### `<sa-breadcrumb-ellipsis>`
+
+Renders a `<span>` element containing an ellipsis icon, used to indicate collapsed items.

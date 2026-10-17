@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.zob7bbxt44.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.mjr7w04qmf.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.8p6ma0vskj.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div data-slot="data-grid" class="sa-data-grid sa-card"><sel-table data-editing="" data-selection="" data-slot="table-interactivity"><div class="sa-table-container" data-slot="table-container"><table class="sa-table" data-slot="table"><thead class="sa-table-header" data-slot="table-header"><tr class="sa-table-row" data-slot="table-row"><th class="sa-table-head" data-slot="table-head" style="width: 3rem"><span class="sa-input-control-wrapper"><input type="checkbox" aria-label="Select all rows" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span></th><th class="sa-table-head font-medium" data-slot="table-head">Booking #</th><th class="sa-table-head" data-slot="table-head">Status</th><th class="sa-table-head" data-slot="table-head">Destination</th><th class="sa-table-head text-right" data-slot="table-head">Amount</th></tr></thead><tbody class="sa-table-body" data-slot="table-body"><tr class="sa-table-row" data-key="TRP-4821" data-slot="table-row"><td class="sa-table-cell" data-slot="table-cell"><span class="sa-input-control-wrapper"><input type="checkbox" data-row-select value="TRP-4821" aria-label="Select row TRP-4821" name="selectedBookings" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span></td><td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4821</td><td class="sa-table-cell" data-slot="table-cell"><span data-slot="badge" class="sa-badge sa-badge-variant-default">Confirmed</span>
+</td><td class="sa-table-cell" data-slot="table-cell">London, UK</td><td class="sa-table-cell text-right" data-slot="table-cell">$1,249.99</td></tr><tr class="sa-table-row" data-editing="" data-key="TRP-4822" data-slot="table-row"><td class="sa-table-cell" data-slot="table-cell"></td><td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4822</td><td class="sa-table-cell" data-slot="table-cell">
+            <div data-slot="native-select-wrapper" data-size="sm" class="sa-native-select-wrapper sa-cell-editor"><select aria-label="Status" data-slot="native-select" data-size="sm" class="sa-native-select" data-val="true" data-val-required="The Status field is required." id="rows_TRP-4822__Status" name="rows[TRP-4822].Status"><option value="0">Confirmed</option>
+<option selected="selected" value="1">Pending</option>
+<option value="2">Cancelled</option>
+</select><svg class="sa-native-select-icon" aria-hidden="true" data-slot="native-select-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div>
+        </td><td class="sa-table-cell" data-slot="table-cell">
+            <input class="sa-input sa-cell-editor" aria-label="Destination" type="text" data-val="true" data-val-required="The Destination field is required." id="rows_TRP-4822__Destination" name="rows[TRP-4822].Destination" value="Kyoto, Japan" data-slot="input">
+        </td><td class="sa-table-cell text-right" data-slot="table-cell">
+            <input class="sa-input sa-cell-editor text-right" aria-label="Amount" type="text" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="rows_TRP-4822__Amount" name="rows[TRP-4822].Amount" value="2450.00" data-slot="input">
+        </td></tr><tr class="sa-table-row" data-key="TRP-4823" data-slot="table-row"><td class="sa-table-cell" data-slot="table-cell"><span class="sa-input-control-wrapper"><input type="checkbox" data-row-select value="TRP-4823" aria-label="Select row TRP-4823" name="selectedBookings" data-slot="input" class="sa-checkbox"><span class="sa-checkbox-indicator"><svg class="sa-checkbox-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></span></td><td class="sa-table-cell font-medium" data-slot="table-cell">TRP-4823</td><td class="sa-table-cell" data-slot="table-cell"><span data-slot="badge" class="sa-badge sa-badge-variant-default">Confirmed</span>
+</td><td class="sa-table-cell" data-slot="table-cell">Cancun, Mexico</td><td class="sa-table-cell text-right" data-slot="table-cell">$850.50</td></tr></tbody></table></div></sel-table></div>
+
+
+</div>
+
+
+
+</body>
+</html>
