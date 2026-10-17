@@ -2832,14 +2832,14 @@
 }
 
 /* components/dropdown-menu.css */
-/* Dropdown menu: the menu and submenu popovers and their rows. The surface modifiers are in menu.css.
+/* Dropdown menu: the menu and submenu popovers and their rows.
    Replaces: .sa-dropdown-menu-content, .sa-dropdown-menu-content-logical, .sa-dropdown-menu-sub-content,
    .sa-dropdown-menu-subcontent, .sa-dropdown-menu-item, .sa-dropdown-menu-checkbox-item,
    .sa-dropdown-menu-radio-item, .sa-dropdown-menu-item-indicator, .sa-dropdown-menu-sub-trigger,
    .sa-dropdown-menu-label, .sa-dropdown-menu-separator, .sa-dropdown-menu-shortcut */
 
 @layer sa.components {
-  /* Defaults the surface modifiers (menu.css) replace; :where() keeps them below any modifier. */
+  /* The surface colours; :where() keeps them easy to override from a theme. */
   :where(.sa-dropdown-menu-content, .sa-dropdown-menu-sub-content) {
     --_bg: var(--sa-color-surface-raised);
     --_highlight-bg: var(--sa-color-highlight);
@@ -4595,41 +4595,6 @@
     .sa-marker-variant-separator > & {
       flex: none;
       text-align: center;
-    }
-  }
-}
-
-/* components/menu.css */
-/* Menu: the surface modifiers MenuAppearance and MenuAccent emit, shared by every floating menu (the
-   dropdown menu now; context menus and menubars when they ship). MenuColor.Inverted is the dark
-   class itself, which re-derives the colours for the menu and everything in it.
-   Replaces: .sa-menu-translucent, .sa-menu-accent-bold */
-
-@layer sa.components {
-  /* MenuAccent.Bold: the highlighted row takes the solid accent. */
-  .sa-menu-accent-bold {
-    --_highlight-bg: var(--sa-color-accent-fill);
-    --_highlight-fg: var(--sa-color-on-accent);
-  }
-
-  /* MenuAppearance.Translucent. The blur sits on a layer behind the rows rather than on the menu
-     itself, so the menu stays an ordinary box for its rows and nested menus. */
-  .sa-menu-translucent {
-    --_bg: color-mix(in oklab, var(--sa-color-surface-raised) 70%, transparent);
-    --_highlight-bg: color-mix(in oklab, var(--sa-color-ink) 10%, transparent);
-    --_separator-border: color-mix(in oklab, var(--sa-color-ink) 10%, transparent);
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      border-radius: inherit;
-      backdrop-filter: blur(40px) saturate(1.5);
-      pointer-events: none;
-    }
-    &.sa-menu-accent-bold {
-      --_highlight-bg: var(--sa-color-accent-fill);
     }
   }
 }

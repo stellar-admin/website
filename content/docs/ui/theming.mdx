@@ -114,45 +114,6 @@ The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/
 
 Theme variables also work on a single element, so a section of a page can have its own density or its own look, such as a dense data table on an otherwise roomy page or a branded panel. See [Density and Scopes](/docs/ui/density-and-scopes). The `dark` class switches a section to [dark mode](/docs/ui/dark-mode#part-of-a-page).
 
-## Menu surfaces
-
-Floating menus (such as the [Dropdown Menu](/docs/ui/components/dropdown-menu) content and sub-menus) have three application-wide appearance settings, configured once in `Program.cs` by chaining `ConfigureMenu` off `AddStellarAdminUI()`:
-
-```cs
-builder.Services.AddStellarAdminUI()
-    .ConfigureMenu(menu =>
-    {
-        menu.Color = MenuColor.Inverted;
-        menu.Appearance = MenuAppearance.Translucent;
-        menu.Accent = MenuAccent.Bold;
-    });
-```
-
-<TypeTable
-  type={{
-    Color: {
-      description:
-        "The color scheme of the menu surface. Default renders the menu in the page's current scheme. Inverted renders it in the dark scheme regardless of the page.",
-      type: "MenuColor",
-      default: "MenuColor.Default",
-    },
-    Appearance: {
-      description:
-        "The surface treatment. Solid is an opaque popover surface. Translucent is a frosted surface with a backdrop blur.",
-      type: "MenuAppearance",
-      default: "MenuAppearance.Solid",
-    },
-    Accent: {
-      description:
-        "The highlight applied to the focused or hovered item. Subtle uses the muted accent color. Bold uses a solid primary highlight.",
-      type: "MenuAccent",
-      default: "MenuAccent.Subtle",
-    },
-  }}
-/>
-
-The defaults apply without calling `ConfigureMenu`. Call it only to change them.
-
 ## Browser support
 
 The stylesheet uses CSS relative colour syntax, `color-mix()`, cascade layers, native nesting, `:has()` and `@scope`, without fallbacks. It needs Chrome and Edge 119, Safari 18 or Firefox 146, or later. In older browsers colours fail silently, leaving components unstyled in places.
