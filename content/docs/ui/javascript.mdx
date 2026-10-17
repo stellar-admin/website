@@ -79,3 +79,9 @@ if (result.confirmed) {
 - [`toast`](/docs/ui/components/toast#windowstellaradmintoast) shows toasts, and its `fromResponse()` shows the toasts the server sent with an AJAX response.
 
 If your page already defines `window.stellarAdmin`, the bundle logs a console warning and replaces it.
+
+## Stability
+
+These are part of the public contract and change only in a breaking release: the `window.stellarAdmin` object with `dialog()`, `alertDialog()` and `toast`, the name of the `SA-Toasts` response header, and the [CSS layer names and order](/docs/ui/design-tokens#with-tailwind-css).
+
+These are internal and may change in any version: the `<sel-*>` element names, the runtime `data-*` attributes they set, and the JSON inside the `SA-Toasts` header. Read the header only through [`toast.fromResponse()`](/docs/ui/components/toast#windowstellaradmintoast).

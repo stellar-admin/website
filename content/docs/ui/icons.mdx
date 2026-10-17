@@ -71,7 +71,6 @@ The prefix is literal, so an icon named `plane` becomes `tabler:plane` and can b
 Custom icons can be registered using the `AddIcon()` method of `StellarAdminUIBuilder`. An icon is added using a `name` and an `IconDefinition` which defines the attributes for the `<svg>` element and the list of shapes (`path`, `circle`, `rect`, and so on) used to draw the icon.
 
 ```cs
-using System.Collections.Immutable;
 using StellarAdmin.UI.Icons;
 
 builder.Services.AddStellarAdminUI()
@@ -92,13 +91,13 @@ builder.Services.AddStellarAdminUI()
             new SvgShape("rect", new Dictionary<string, string>
             {
                 ["x"] = "3", ["y"] = "7", ["width"] = "18", ["height"] = "13", ["rx"] = "2",
-            }.ToImmutableDictionary()),
+            }),
             new SvgShape("path", new Dictionary<string, string>
             {
                 ["d"] = "M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
-            }.ToImmutableDictionary()),
-            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M8 7v13" }.ToImmutableDictionary()),
-            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M16 7v13" }.ToImmutableDictionary()),
+            }),
+            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M8 7v13" }),
+            new SvgShape("path", new Dictionary<string, string> { ["d"] = "M16 7v13" }),
         ]));
 ```
 
@@ -107,7 +106,7 @@ builder.Services.AddStellarAdminUI()
 ```
 
 <Callout type="warn">
-  Duplicate names, including built-in icon names, cause an exception when icon options are resolved. To replace a built-in icon, register an icon pack.
+  An icon with the same name as a registered icon, including a built-in one, replaces it. Names aren't case sensitive.
 </Callout>
 
 ### Create an icon pack
@@ -115,7 +114,6 @@ builder.Services.AddStellarAdminUI()
 For more than a handful of icons, or to override existing ones, implement `IIconPack` and register it by calling `AddIconPack<T>()`. An icon pack returns a dictionary of icon names and definitions. When a pack contains an icon with a name that is already registered, the pack's icon replaces the existing one.
 
 ```cs
-using System.Collections.Immutable;
 using StellarAdmin.UI.Icons;
 
 public class VoyagerIconPack : IIconPack
@@ -133,7 +131,7 @@ public class VoyagerIconPack : IIconPack
         ["stroke-linejoin"] = "round",
     };
 
-    public IDictionary<string, IconDefinition> GetIcons()
+    public IReadOnlyDictionary<string, IconDefinition> GetIcons()
     {
         return new Dictionary<string, IconDefinition>
         {
@@ -156,9 +154,14 @@ public class VoyagerIconPack : IIconPack
         };
     }
 
+    public IReadOnlyDictionary<SemanticIconRole, string> GetSemanticIconMappings()
+    {
+        return new Dictionary<SemanticIconRole, string>();
+    }
+
     private static SvgShape Shape(string name, params (string Name, string Value)[] attributes)
     {
-        return new SvgShape(name, attributes.ToImmutableDictionary(a => a.Name, a => a.Value));
+        return new SvgShape(name, attributes.ToDictionary(a => a.Name, a => a.Value));
     }
 }
 ```
@@ -203,7 +206,7 @@ public IReadOnlyDictionary<SemanticIconRole, string> GetSemanticIconMappings()
 }
 ```
 
-Each mapped name must exist in the icons supplied by that same pack, even if an icon with that name is already registered, otherwise registration throws `ArgumentException`. 
+Each mapped name must exist in the icons supplied by that same pack, even if an icon with that name is already registered. Icons are checked and frozen when the app starts, so an invalid pack fails at startup rather than on the first page that renders an icon, and icons can't be changed after that.
 
 ### Override a single semantic icon
 
@@ -230,7 +233,7 @@ builder.Services.AddStellarAdminUI()
 
 ### `AddIcon(name, iconDefinition)`
 
-Registers a single icon under a new name. Duplicate names throw when icon options are resolved.
+Registers a single icon. It replaces any icon already registered with the same name, ignoring case.
 
 ### `AddIconPack<TIconPack>()`
 
@@ -241,12 +244,12 @@ Creates an instance of `TIconPack` (which must have a parameterless constructor)
 <TypeTable
   type={{
     GetSemanticIconMappings: {
-      description: "Returns semantic roles mapped to icon names supplied by this pack; defaults to an empty mapping.",
+      description: "Returns semantic roles mapped to icon names supplied by this pack. Return an empty dictionary if the pack maps none.",
       type: "IReadOnlyDictionary<SemanticIconRole, string>",
     },
     GetIcons: {
       description: "Returns the icons in the pack, keyed by name.",
-      type: "IDictionary<string, IconDefinition>",
+      type: "IReadOnlyDictionary<string, IconDefinition>",
     },
   }}
 />
@@ -258,11 +261,11 @@ Creates an instance of `TIconPack` (which must have a parameterless constructor)
     Attributes: {
       description:
         "The attributes rendered on the <svg> element, such as viewBox, fill and stroke. Attributes supplied on <sa-icon> take precedence.",
-      type: "IDictionary<string, string>",
+      type: "IReadOnlyDictionary<string, string>",
     },
     Shapes: {
       description: "The shapes rendered inside the <svg> element, in order.",
-      type: "List<SvgShape>",
+      type: "IReadOnlyList<SvgShape>",
     },
   }}
 />
@@ -277,7 +280,7 @@ Creates an instance of `TIconPack` (which must have a parameterless constructor)
     },
     Attributes: {
       description: "The attributes rendered on the shape element, such as d, cx, cy or r.",
-      type: "IImmutableDictionary<string, string>",
+      type: "IReadOnlyDictionary<string, string>",
     },
   }}
 />
