@@ -716,6 +716,9 @@
   .columns-lg {
     columns: var(--container-lg);
   }
+  .columns-md {
+    columns: var(--container-md);
+  }
   .columns-sm {
     columns: var(--container-sm);
   }

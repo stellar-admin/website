@@ -9,7 +9,7 @@
 </sa-page-header>
 
 <sa-form-section title="Booking" description="Who is travelling and where.">
-    <sa-details columns="2">
+    <sa-details columns-md="2">
         <sa-display-field asp-for="Reference" />
         <sa-display-field asp-for="Status" />
         <sa-display-field asp-for="LeadTraveller" />
@@ -27,7 +27,7 @@
     </sa-details>
 </sa-form-section>
 <sa-form-section title="Audit" description="Maintained automatically.">
-    <sa-details variant="DetailsVariant.Divided" orientation="FieldOrientation.Horizontal">
+    <sa-details variant="DetailsVariant.Divided" orientation="DetailsOrientation.Horizontal">
         <sa-display-field asp-for="CreatedAt" secondary="by @Model.CreatedBy" />
         <sa-display-field asp-for="UpdatedAt" secondary="by @Model.UpdatedBy" />
         <sa-display-field asp-for="Version" />

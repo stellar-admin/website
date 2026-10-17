@@ -400,27 +400,24 @@
 }
 
 @layer sa.components {
-  /* Anchor positioning: anchored-* mirrors the PositionArea enum (TagHelpers/PositionArea.cs). */
-  .anchored-top { position-area: top; }
-  .anchored-top-center { position-area: top center; }
-  .anchored-top-span-left { position-area: top span-left; }
-  .anchored-top-span-right { position-area: top span-right; }
-  .anchored-top-left { position-area: top left; }
-  .anchored-top-right { position-area: top right; }
-  .anchored-bottom { position-area: bottom; }
-  .anchored-bottom-center { position-area: bottom center; }
-  .anchored-bottom-span-left { position-area: bottom span-left; }
-  .anchored-bottom-span-right { position-area: bottom span-right; }
-  .anchored-bottom-left { position-area: bottom left; }
-  .anchored-bottom-right { position-area: bottom right; }
-  .anchored-left { position-area: left; }
-  .anchored-left-center { position-area: left center; }
-  .anchored-left-span-top { position-area: left span-top; }
-  .anchored-left-span-bottom { position-area: left span-bottom; }
-  .anchored-right { position-area: right; }
-  .anchored-right-center { position-area: right center; }
-  .anchored-right-span-top { position-area: right span-top; }
-  .anchored-right-span-bottom { position-area: right span-bottom; }
+  /* Anchor positioning: anchored-<side>-<align>, from the side and align attributes of the popover,
+     tooltip and dropdown menu panels (TagHelpers/AnchorPlacement.cs). */
+  .anchored-top-start { position-area: top span-right; }
+  .anchored-top-center { position-area: top; }
+  .anchored-top-end { position-area: top span-left; }
+  .anchored-top-center-within { position-area: top center; }
+  .anchored-bottom-start { position-area: bottom span-right; }
+  .anchored-bottom-center { position-area: bottom; }
+  .anchored-bottom-end { position-area: bottom span-left; }
+  .anchored-bottom-center-within { position-area: bottom center; }
+  .anchored-left-start { position-area: left span-bottom; }
+  .anchored-left-center { position-area: left; }
+  .anchored-left-end { position-area: left span-top; }
+  .anchored-left-center-within { position-area: left center; }
+  .anchored-right-start { position-area: right span-bottom; }
+  .anchored-right-center { position-area: right; }
+  .anchored-right-end { position-area: right span-top; }
+  .anchored-right-center-within { position-area: right center; }
 
   /* The gap between an anchored panel and its trigger, from the data-anchor-side attribute the
      overlay tag helpers emit. [popover] out-ranks the panels' own margin: 0. */
@@ -2919,6 +2916,11 @@
     }
     & > svg:last-child { margin-inline-start: auto; }
   }
+  /* Plain items are buttons, which size to their content and centre it */
+  button.sa-dropdown-menu-item {
+    width: 100%;
+    text-align: start;
+  }
   .sa-dropdown-menu-item[data-variant="destructive"] {
     color: var(--sa-color-danger-text);
     &:is(:focus, [data-highlighted]) {
@@ -3904,9 +3906,9 @@
 /* Input group: one field drawn around an input or textarea, with addons (icons, text, kbd, buttons)
    inline or above and below. The group draws the field; the control inside gives up its own edge.
    Reads the input's tokens (input.css).
-   Replaces: .sa-input-group, .sa-input-group-addon, .sa-input-group-addon-align-inline-start,
-   .sa-input-group-addon-align-inline-end, .sa-input-group-addon-align-block-start,
-   .sa-input-group-addon-align-block-end, .sa-input-group-button, .sa-input-group-button-size-xs,
+   Replaces: .sa-input-group, .sa-input-group-addon, .sa-input-group-addon-align-start,
+   .sa-input-group-addon-align-end, .sa-input-group-addon-align-top,
+   .sa-input-group-addon-align-bottom, .sa-input-group-button, .sa-input-group-button-size-xs,
    .sa-input-group-button-size-icon-xs, .sa-input-group-button-size-icon-sm, .sa-input-group-text,
    .sa-input-group-input, .sa-input-group-textarea */
 
@@ -3948,11 +3950,11 @@
       opacity: var(--sa-disabled-opacity);
     }
     &:has(> textarea),
-    &:has(> [data-align="block-start"], > [data-align="block-end"]) {
+    &:has(> [data-align="top"], > [data-align="bottom"]) {
       height: auto;
       border-radius: var(--sa-radius-box);
     }
-    &:has(> [data-align="block-start"], > [data-align="block-end"]) {
+    &:has(> [data-align="top"], > [data-align="bottom"]) {
       flex-direction: column;
     }
 
@@ -3972,16 +3974,16 @@
         opacity: 1;
       }
     }
-    &:has(> [data-align="inline-start"]) > .sa-input-group-input {
+    &:has(> [data-align="start"]) > .sa-input-group-input {
       padding-inline-start: calc(1.5 * var(--sa-unit));
     }
-    &:has(> [data-align="inline-end"]) > .sa-input-group-input {
+    &:has(> [data-align="end"]) > .sa-input-group-input {
       padding-inline-end: calc(1.5 * var(--sa-unit));
     }
-    &:has(> [data-align="block-start"]) > .sa-input-group-input {
+    &:has(> [data-align="top"]) > .sa-input-group-input {
       padding-bottom: calc(3 * var(--sa-unit));
     }
-    &:has(> [data-align="block-end"]) > .sa-input-group-input {
+    &:has(> [data-align="bottom"]) > .sa-input-group-input {
       padding-top: calc(3 * var(--sa-unit));
     }
   }
@@ -4007,7 +4009,7 @@
       border-radius: var(--sa-radius-inner);
     }
   }
-  .sa-input-group-addon-align-inline-start {
+  .sa-input-group-addon-align-start {
     order: -1;
     padding-inline-start: calc(2 * var(--sa-unit));
     &:has(> button) {
@@ -4017,7 +4019,7 @@
       margin-inline-start: calc(-0.6 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-inline-end {
+  .sa-input-group-addon-align-end {
     order: 1;
     padding-inline-end: calc(2 * var(--sa-unit));
     &:has(> button) {
@@ -4027,20 +4029,20 @@
       margin-inline-end: calc(-0.6 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-block-start,
-  .sa-input-group-addon-align-block-end {
+  .sa-input-group-addon-align-top,
+  .sa-input-group-addon-align-bottom {
     justify-content: flex-start;
     width: 100%;
     padding-inline: var(--sa-control-px);
   }
-  .sa-input-group-addon-align-block-start {
+  .sa-input-group-addon-align-top {
     order: -1;
     padding-top: calc(2 * var(--sa-unit));
     &.border-b {
       padding-bottom: calc(2 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-block-end {
+  .sa-input-group-addon-align-bottom {
     order: 1;
     padding-bottom: calc(2 * var(--sa-unit));
     &.border-t {
