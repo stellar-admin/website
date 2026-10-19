@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.bl3tbbamtr.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.xonhgofghm.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.oyi5khxplj.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-sm min-h-[440px]">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label for="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746" class="sa-label sa-field-label" data-slot="field-label">Category icon</label><sel-icon-picker data-slot="icon-picker" data-layout="picker" data-placeholder="Choose an icon" data-icons-url="/demo/ui/assets/icons.json" class="sa-icon-picker"><input data-slot="icon-picker-value" name="CategoryIcon" type="hidden" value="compass" /><button type="button" id="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746" data-slot="icon-picker-trigger" popovertarget="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-popover" aria-haspopup="dialog" aria-describedby="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-description" class="sa-input sa-icon-picker-trigger"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path></svg><span data-slot="icon-picker-text">compass</span><svg aria-hidden="true" class="sa-icon-picker-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></button><div aria-label="Choose an icon" class="sa-popover-content anchored-bottom-start sa-icon-picker-popover" data-anchor-side="bottom" data-slot="icon-picker-popover" id="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-popover" popover="" role="dialog"><div class="sa-icon-picker-search" data-slot="icon-picker-search"><div class="sa-input-group" data-slot="input-group" role="group"><input aria-controls="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-grid" aria-label="Search icons" autocomplete="off" class="sa-input sa-input-group-input" data-slot="input-group-control" placeholder="Search icons" spellcheck="false" type="search" /><div class="sa-input-group-addon sa-input-group-addon-align-start" data-align="start" data-slot="input-group-addon" role="group"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></div></div></div><div class="sa-icon-picker-scroll" data-slot="icon-picker-scroll"><div aria-label="Icons" class="sa-icon-picker-grid" data-slot="icon-picker-grid" id="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-grid" role="listbox"></div></div><div class="sa-icon-picker-status" data-slot="icon-picker-status"><span data-slot="icon-picker-name"></span><span aria-live="polite" data-slot="icon-picker-count"></span><button type="button" data-slot="button" class="sa-button sa-button-variant-ghost sa-button-size-xs" data-action="clear">Clear</button></div></div></sel-icon-picker><p id="sa-52d531e24f19ed8e2b98fa50f433e025a5dc415bc58421bc3ed5d28c0e5f4ec14746-description" class="sa-field-description" data-slot="field-description">Choose from every registered icon.</p></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

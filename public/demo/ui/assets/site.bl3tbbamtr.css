@@ -518,6 +518,9 @@
   .min-h-\[200px\] {
     min-height: 200px;
   }
+  .min-h-\[210px\] {
+    min-height: 210px;
+  }
   .min-h-\[250px\] {
     min-height: 250px;
   }
@@ -538,6 +541,9 @@
   }
   .min-h-\[420px\] {
     min-height: 420px;
+  }
+  .min-h-\[440px\] {
+    min-height: 440px;
   }
   .min-h-\[450px\] {
     min-height: 450px;

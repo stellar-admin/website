@@ -1,0 +1,224 @@
+---
+title: Icon Picker
+description: A control for choosing one of your registered icons, which posts the icon's name
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/icon-picker-intro.html">
+  <include>./_include/icon-picker-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-icon-picker>` edits a string that holds the name of an icon. Bind it with `asp-for`, or give it a `name` and `value`, and list the icons it offers as child [`<sa-icon>`](/docs/ui/components/icon) elements. Each child names a registered icon, and only its `name` is used.
+
+```razor
+<sa-icon-picker asp-for="...">
+    <sa-icon name="..." />
+</sa-icon-picker>
+```
+
+The button shows the current icon and its name. It opens a popover with a search box, a grid of the icons and a status line that names the icon under the pointer and counts the matches. The current icon comes first. Choosing an icon closes the popover and puts its name in a hidden input, which is what the form posts. A field that isn't required offers Clear in the status line.
+
+The current icon is rendered on the server, so the value shows before the script runs. A stored name that isn't one of the icons still shows, with a dashed box in place of the icon, and posts unchanged. Check a newly chosen name on the server, since a request can post any value.
+
+## Examples
+
+### Inline
+
+Set `layout` to `IconPickerLayout.Inline` to show every icon as a tile, chosen with one click, without a popover. It suits a short list of a couple of dozen icons at most. The tiles are a single-select [toggle group](/docs/ui/components/toggle-group), so they work without the script. An optional field is cleared by clicking the chosen tile again, which needs the script.
+
+<Demo src="/demo/ui/icon-picker-inline.html">
+  <include>./_include/icon-picker-inline.mdx</include>
+</Demo>
+
+### Icons from a URL
+
+To offer a large set, such as every registered icon, give `icons-url` instead of child icons. The picker requests the URL once, when it first opens, and searches and scrolls through the whole set in the browser, rendering more icons as the grid scrolls. A form that is never opened makes no request. `icons-url` can't be combined with child icons or the inline layout.
+
+<Demo src="/demo/ui/icon-picker-icons-url.html">
+  <include>./_include/icon-picker-icons-url.mdx</include>
+</Demo>
+
+The demo loads a static copy of the endpoint's response. See [the icons endpoint](#the-icons-endpoint) for what the URL returns.
+
+### Model binding
+
+Bound with `asp-for`, the picker takes its name, value, label and description from the property, and is required when the property is `[Required]`.
+
+<Demo src="/demo/ui/icon-picker-model-binding.html">
+  <include>./_include/icon-picker-model-binding.mdx</include>
+</Demo>
+
+### Disabled
+
+Set `disabled` to show the icon without letting the user change it. Like a native control, a disabled picker doesn't post its value.
+
+<Demo src="/demo/ui/icon-picker-disabled.html">
+  <include>./_include/icon-picker-disabled.mdx</include>
+</Demo>
+
+## The icons endpoint
+
+The picker sends a GET request to `icons-url`, with no query string, and expects JSON:
+
+```json
+{
+  "icons": [
+    { "name": "wifi", "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" …>…</svg>", "keywords": ["internet", "wireless"] }
+  ]
+}
+```
+
+`name` and `svg` are required, and `keywords` is optional. Search matches the names and the keywords. `svg` is complete markup with an `<svg>` root, so the icons can come from any source, not only `IconOptions`. The picker skips an entry whose markup has another root, and removes scripts, `foreignObject`, event attributes and `javascript:` links before showing it. If the request fails, the popover says so and the picker tries again the next time it opens.
+
+This endpoint returns every registered icon from `IconOptions`:
+
+```csharp
+public IActionResult OnGetIcons([FromServices] IOptions<IconOptions> iconOptions)
+{
+    var icons = iconOptions.Value;
+    var payload = icons.GetIconNames().Order(StringComparer.Ordinal).Select(name =>
+    {
+        icons.TryGetIcon(name, out var icon);
+        return new { name, svg = ToSvg(icon!) };
+    });
+
+    return new JsonResult(new { icons = payload });
+}
+
+private static string ToSvg(IconDefinition icon)
+{
+    var svg = new StringBuilder("<svg");
+    foreach (var (name, value) in icon.Attributes)
+    {
+        svg.Append($" {name}=\"{WebUtility.HtmlEncode(value)}\"");
+    }
+
+    svg.Append('>');
+    foreach (var shape in icon.Shapes)
+    {
+        svg.Append($"<{shape.Name}");
+        foreach (var (name, value) in shape.Attributes)
+        {
+            svg.Append($" {name}=\"{WebUtility.HtmlEncode(value)}\"");
+        }
+
+        svg.Append("/>");
+    }
+
+    return svg.Append("</svg>").ToString();
+}
+```
+
+The whole Lucide set is about 800 KB of JSON, and under 100 KB compressed, so enable response compression, or serve a precompressed copy, and let browsers cache the response. Put a version in the URL, such as a hash of the icons, when the set can change.
+
+## Accessibility
+
+The button announces the current icon's name and opens a dialog popover. In the popover, the search box has focus first. ↓ moves from the search box into the grid, the arrow keys move between icons, Enter chooses the focused icon and ↑ from the first row returns to the search box. In the search box, Escape first clears the search and then closes the popover. The status line is a polite live region that announces the number of matches. Focus returns to the button when the popover closes.
+
+`aria-label` and `aria-describedby` on `<sa-icon-picker>` are passed to the button, or to the toggle group with the inline layout. Inline tiles are named by their icon's name.
+
+## Part classes
+
+Pass an `IconPickerClassNames` instance from the `StellarAdmin.UI` namespace using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the control renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The picker's container. |
+| `Trigger` | The button that opens the popover. |
+| `Popover` | The popover. |
+| `Item` | Each tile of an inline picker. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`; see [Field part classes](field#part-classes).
+
+## API Reference
+
+### `<sa-icon-picker>`
+
+Renders a web component containing the button and its popover, or the inline tiles, and a hidden `<input>` that posts the chosen icon's name.
+
+<TypeTable
+  type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "IconPickerClassNames",
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model. Bind to a string property that stores the icon's name.",
+      type: "ModelExpression",
+    },
+    "column-span": {
+      description: "The number of columns the field spans in a <sa-grid>, from 1 to 12, or full for every column. column-span-sm, column-span-md and column-span-lg set the span at 30rem, 40rem and 56rem. See Grid.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description: "The column the field starts at in a <sa-grid>, from 1 to 12, or auto to follow the previous item. column-start-sm, column-start-md and column-start-lg set the start at 30rem, 40rem and 56rem. See Grid.",
+      type: "string",
+      default: "auto",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    disabled: {
+      description: "Shows the icon without letting the user change it. A disabled control doesn't post its value.",
+      type: "bool?",
+      default: "false",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    form: {
+      description: "The id of the <form> the value belongs to, when the control is outside it.",
+      type: "string",
+    },
+    "icons-url": {
+      description: "The URL the picker loads its icons from, once, when it first opens. Can't be combined with child <sa-icon> elements or the inline layout.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    layout: {
+      description: "How the control shows its icons.",
+      type: "IconPickerLayout",
+      typeDescription: "IconPickerLayout.Picker | IconPickerLayout.Inline",
+      default: "IconPickerLayout.Picker",
+    },
+    name: {
+      description: "The name of the hidden <input> that posts the value.",
+      type: "string",
+    },
+    placeholder: {
+      description: "The text the button shows when no icon is chosen.",
+      type: "string",
+      default: '"Choose an icon"',
+    },
+    required: {
+      description: "Whether an icon must be chosen. An optional control lets the user clear the choice.",
+      type: "bool?",
+      default: "Whether the bound property is required",
+    },
+    value: {
+      description: "The name of the chosen icon when not bound via asp-for.",
+      type: "string",
+    },
+    "wrap-in-field": {
+      description:
+        "Whether to wrap the control in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a Field.",
+      type: "bool",
+    },
+  }}
+/>
+
+The control throws when it has both child icons and `icons-url`, when it has neither, when the inline layout has `icons-url`, and when a child `<sa-icon>` has no `name`.
