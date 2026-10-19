@@ -109,6 +109,8 @@ builder.Services.AddStellarAdminUI()
   An icon with the same name as a registered icon, including a built-in one, replaces it. Names aren't case sensitive.
 </Callout>
 
+To make an icon easier to find in an [icon picker](/docs/ui/components/icon-picker), pass its keywords as a third argument, such as `["luggage", "baggage", "travel"]`. Search matches them as well as the name. The built-in Lucide and Tabler icons include their projects' keywords.
+
 ### Create an icon pack
 
 For more than a handful of icons, or to override existing ones, implement `IIconPack` and register it by calling `AddIconPack<T>()`. An icon pack returns a dictionary of icon names and definitions. When a pack contains an icon with a name that is already registered, the pack's icon replaces the existing one.
@@ -266,6 +268,10 @@ Creates an instance of `TIconPack` (which must have a parameterless constructor)
     Shapes: {
       description: "The shapes rendered inside the <svg> element, in order.",
       type: "IReadOnlyList<SvgShape>",
+    },
+    Keywords: {
+      description: "Words that an icon picker's search matches besides the name. Empty unless given.",
+      type: "IReadOnlyList<string>",
     },
   }}
 />

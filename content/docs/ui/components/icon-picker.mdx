@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-`<sa-icon-picker>` edits a string that holds the name of an icon. Bind it with `asp-for`, or give it a `name` and `value`, and list the icons it offers as child [`<sa-icon>`](/docs/ui/components/icon) elements. Each child names a registered icon, and only its `name` is used.
+`<sa-icon-picker>` edits a string that holds the name of an icon. Bind it with `asp-for`, or give it a `name` and `value`, and list the icons it offers as child [`<sa-icon>`](/docs/ui/components/icon) elements. Each child names a registered icon, and only its `name` is used. Search matches the names and the icons' keywords, which the built-in Lucide and Tabler icons include.
 
 ```razor
 <sa-icon-picker asp-for="...">
@@ -82,7 +82,7 @@ public IActionResult OnGetIcons([FromServices] IOptions<IconOptions> iconOptions
     var payload = icons.GetIconNames().Order(StringComparer.Ordinal).Select(name =>
     {
         icons.TryGetIcon(name, out var icon);
-        return new { name, svg = ToSvg(icon!) };
+        return new { name, svg = ToSvg(icon!), keywords = icon!.Keywords };
     });
 
     return new JsonResult(new { icons = payload });
@@ -112,7 +112,7 @@ private static string ToSvg(IconDefinition icon)
 }
 ```
 
-The whole Lucide set is about 800 KB of JSON, and under 100 KB compressed, so enable response compression, or serve a precompressed copy, and let browsers cache the response. Put a version in the URL, such as a hash of the icons, when the set can change.
+The whole Lucide set, with keywords, is about 1 MB of JSON, and about 150 KB compressed, so enable response compression, or serve a precompressed copy, and let browsers cache the response. Put a version in the URL, such as a hash of the icons, when the set can change.
 
 ## Accessibility
 
