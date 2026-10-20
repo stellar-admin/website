@@ -1,0 +1,208 @@
+---
+title: Checklist
+description: A list of steps or tasks, each with a status
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/checklist-intro.html">
+  <include>./_include/checklist-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-checklist>
+    <sa-checklist-item status="ChecklistStatus.Done" title="..." description="..."/>
+    <sa-checklist-item>
+        <sa-checklist-item-status label="...">...</sa-checklist-item-status>
+        <sa-checklist-item-title>...</sa-checklist-item-title>
+        <sa-checklist-item-description>...</sa-checklist-item-description>
+        <sa-checklist-item-actions>...</sa-checklist-item-actions>
+        ...
+    </sa-checklist-item>
+</sa-checklist>
+```
+
+## Examples
+
+### Descriptions
+
+Set `description` to show a line of detail under the title. The `status`, `title` and `description` attributes bind to your model like any other attribute.
+
+<Demo src="/demo/ui/checklist-descriptions.html">
+  <include>./_include/checklist-descriptions.mdx</include>
+</Demo>
+
+### Dividers
+
+Set `divider` to change the line between rows. The default, `ChecklistDivider.Inset`, starts the line at the text; `ChecklistDivider.FullWidth` runs it across the whole list, and `ChecklistDivider.None` leaves it out.
+
+<Demo src="/demo/ui/checklist-dividers.html">
+  <include>./_include/checklist-dividers.mdx</include>
+</Demo>
+
+### Custom status
+
+The built-in statuses are `Todo`, `InProgress` and `Done`. For anything else, such as a failed check or a warning, put an `<sa-checklist-item-status>` in the item with your own icon. Its `label` is required: screen readers announce it before the title, as they announce "Done" for a built-in status. Put buttons or links that act on the item in `<sa-checklist-item-actions>`.
+
+<Demo src="/demo/ui/checklist-custom-status.html">
+  <include>./_include/checklist-custom-status.mdx</include>
+</Demo>
+
+An attribute and its own child part can't be used together: an item with both `status` and an `<sa-checklist-item-status>`, `title` and an `<sa-checklist-item-title>`, or `description` and an `<sa-checklist-item-description>` throws an exception.
+
+### Link
+
+If you want to make the entire row clickable, use `<sa-checklist-item-link>` instead of `<sa-checklist-item>`. It takes an `href` or the routing attributes of the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper).
+
+<Demo src="/demo/ui/checklist-link.html">
+  <include>./_include/checklist-link.mdx</include>
+</Demo>
+
+### Expandable details
+
+Anything in an item other than its parts lays out under the text. Combine a button in `<sa-checklist-item-actions>` with an `<sa-collapsible>` to show details on request.
+
+<Demo src="/demo/ui/checklist-expandable.html">
+  <include>./_include/checklist-expandable.mdx</include>
+</Demo>
+
+### Groups
+
+Split a long list into several checklists with ordinary headings between them.
+
+<Demo src="/demo/ui/checklist-groups.html">
+  <include>./_include/checklist-groups.mdx</include>
+</Demo>
+
+### Nested
+
+Put a checklist inside an item to list its sub-steps. Set `size` to `ChecklistSize.Small` for a compact list.
+
+<Demo src="/demo/ui/checklist-nested.html">
+  <include>./_include/checklist-nested.mdx</include>
+</Demo>
+
+### Actions
+
+`<sa-checklist-item-actions>` holds any trailing content, such as a due date and the person responsible.
+
+<Demo src="/demo/ui/checklist-actions.html">
+  <include>./_include/checklist-actions.mdx</include>
+</Demo>
+
+### Card
+
+A small checklist in a card, with a progress bar. A finished item keeps its colour; set `muted` on `<sa-checklist-item-title>` to mute it.
+
+<Demo src="/demo/ui/checklist-card.html">
+  <include>./_include/checklist-card.mdx</include>
+</Demo>
+
+### Statuses
+
+The three built-in statuses, and three of your own.
+
+<Demo src="/demo/ui/checklist-statuses.html">
+  <include>./_include/checklist-statuses.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-checklist>`
+
+Renders a `<ul>` element with `role="list"`, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    divider: {
+      description: "The line drawn between the rows.",
+      type: "ChecklistDivider",
+      typeDescription:
+        "ChecklistDivider.Inset | ChecklistDivider.FullWidth | ChecklistDivider.None",
+      default: "ChecklistDivider.Inset",
+    },
+    size: {
+      description:
+        "The size of the checklist, which sets the size of its status icons and the spacing between its rows.",
+      type: "ChecklistSize",
+      typeDescription: "ChecklistSize.Default | ChecklistSize.Small",
+      default: "ChecklistSize.Default",
+    },
+  }}
+/>
+
+### `<sa-checklist-item>`
+
+Renders an `<li>` element for a row of the checklist, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    status: {
+      description:
+        "The status of the item, which sets its icon. Use an <sa-checklist-item-status> child instead for a status of your own.",
+      type: "ChecklistStatus",
+      typeDescription:
+        "ChecklistStatus.Todo | ChecklistStatus.InProgress | ChecklistStatus.Done",
+      default: "ChecklistStatus.Todo",
+    },
+    title: {
+      description:
+        "The title of the item. Use an <sa-checklist-item-title> child instead for a title with markup or a muted title.",
+      type: "string",
+    },
+    description: {
+      description:
+        "The description shown under the title. Use an <sa-checklist-item-description> child instead for a description with markup.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-checklist-item-link>`
+
+Renders an `<a>` element styled as a checklist row, inside an `<li>` element, making the entire row clickable. It takes the same `status`, `title` and `description` attributes as `<sa-checklist-item>`.
+
+#### Routing attributes
+
+The link item also accepts the same routing attributes as the ASP.NET Core [Anchor Tag Helper](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper) for generating the `href`. Supply either an `href` or these attributes — not both.
+
+<include>./_shared/routing-attributes.mdx</include>
+
+### `<sa-checklist-item-status>`
+
+Renders a `<span>` element in place of the built-in status icon, holding your own content, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    label: {
+      description:
+        "The name of the status that screen readers announce before the title, such as \"Failed\".",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
+
+### `<sa-checklist-item-title>`
+
+Renders a `<div>` element for the item title, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    muted: {
+      description: "Whether the title is shown in a muted colour, such as for a finished item.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-checklist-item-description>`
+
+Renders a `<p>` element for the item description, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-checklist-item-actions>`
+
+Renders a `<div>` element at the end of the row that holds buttons, links or other trailing content, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.ik9cnslwdi.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.5r46fh0qez.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.75o4aety6w.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-xl">
+    <!-- code begin -->
+    <div class="grid gap-3">
+        <div data-slot="progress" class="sa-progress-root">
+            <span data-slot="progress-label" class="sa-progress-label">Set up your panel</span>
+            <span data-slot="progress-value" class="sa-progress-value">2 of 5</span>
+        <div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 40%;"></div></div></div>
+        <ul role="list" data-slot="checklist" data-size="default" data-divider="inset" class="sa-checklist">
+            <li data-slot="checklist-item" class="sa-checklist-item" data-status="done"><span class="sa-checklist-item-status" data-slot="checklist-item-status"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg><span class="sr-only">Done: </span></span><div class="sa-checklist-item-title" data-slot="checklist-item-title">Connect your booking system</div><p class="sa-checklist-item-description" data-slot="checklist-item-description">Bookings sync every 15 minutes.</p>
+                <div data-slot="checklist-item-actions" class="sa-checklist-item-actions">
+                    <button commandfor="step-sync" command="--toggle" data-slot="button" class="sa-button sa-button-variant-ghost sa-button-size-sm">
+                        Change
+                        <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                </div>
+                <sel-collapsible id="step-sync" hidden="" data-slot="collapsible">
+                    <pre class="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">builder.AddVoyagerSync();</pre>
+                </sel-collapsible>
+            </li>
+            <li data-slot="checklist-item" class="sa-checklist-item"><div class="sa-checklist-item-title" data-slot="checklist-item-title">Require sign-in</div><p class="sa-checklist-item-description" data-slot="checklist-item-description">Anyone who can reach the panel can edit bookings.</p>
+                <span data-slot="checklist-item-status" class="sa-checklist-item-status">
+                    <svg class="text-[var(--sa-color-warning)]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                <span class="sr-only">Needs attention: </span></span>
+                <div data-slot="checklist-item-actions" class="sa-checklist-item-actions">
+                    <button commandfor="step-auth" command="--toggle" data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-sm">
+                        Show me how
+                        <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                </div>
+                <sel-collapsible id="step-auth" data-slot="collapsible">
+                    <pre class="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">resources.RequireAuthorization("Staff");</pre>
+                </sel-collapsible>
+            </li>
+            <li data-slot="checklist-item" class="sa-checklist-item" data-status="todo"><span class="sa-checklist-item-status" data-slot="checklist-item-status"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg><span class="sr-only">To do: </span></span><div class="sa-checklist-item-title" data-slot="checklist-item-title">Brand the sidebar</div><p class="sa-checklist-item-description" data-slot="checklist-item-description">Show the Voyager logo and name.</p>
+                <div data-slot="checklist-item-actions" class="sa-checklist-item-actions">
+                    <button commandfor="step-brand" command="--toggle" data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-sm">
+                        Show me how
+                        <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                </div>
+                <sel-collapsible id="step-brand" hidden="" data-slot="collapsible">
+                    <pre class="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">admin.ConfigureBranding(b => b.Title("Voyager"));</pre>
+                </sel-collapsible>
+            </li>
+            <li data-slot="checklist-item" class="sa-checklist-item"><p class="sa-checklist-item-description" data-slot="checklist-item-description">Let your coding agent build resources for you.</p>
+                <span data-slot="checklist-item-status" class="sa-checklist-item-status">
+                    <svg class="text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"></path><path d="M13.9 21.818a10 10 0 0 1-3.8 0"></path><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"></path><path d="M2.182 13.9a10 10 0 0 1 0-3.8"></path><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"></path><path d="M21.818 10.1a10 10 0 0 1 0 3.8"></path><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"></path><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"></path></svg>
+                <span class="sr-only">Optional: </span></span>
+                <div data-slot="checklist-item-title" class="sa-checklist-item-title">
+                    Install the agent skills
+                    <span data-slot="badge" class="sa-badge sa-badge-variant-outline">Optional</span>
+                </div>
+                <div data-slot="checklist-item-actions" class="sa-checklist-item-actions">
+                    <button commandfor="step-skills" command="--toggle" data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-sm">
+                        Show me how
+                        <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                </div>
+                <sel-collapsible id="step-skills" hidden="" data-slot="collapsible">
+                    <pre class="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">npx skills add stellar-admin/stellar-admin</pre>
+                </sel-collapsible>
+            </li>
+        </ul>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
