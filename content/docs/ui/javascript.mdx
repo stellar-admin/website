@@ -5,15 +5,17 @@ description: How StellarAdmin.UI enhances components using JavaScript
 
 StellarAdmin.UI attempts to be as lightweight as possible by making using of standard web platform features as much as possible. However, this is not always possible and in some cases we need to enhance certain components using JavaScript. Specifically, some of the Tag Helpers will make use of thin [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) to add additional interactivity.
 
-## The `stellar-admin.js` bundle
+## The `stellar-admin.js` script
 
-The [Installation steps](/docs/ui/installation) requires you to add a single script to your layout:
+The [Installation steps](/docs/ui/installation) add the script to your layout, after a base tag and the import map:
 
 ```razor
-<script defer src="/_content/StellarAdmin.UI/stellar-admin.js" asp-append-version="true"></script>
+<base href="~/"/>
+<script type="importmap"></script>
+<script type="module" src="/_content/StellarAdmin.UI/stellar-admin.js" asp-append-version="true"></script>
 ```
 
-This JavaScript file contains the following:
+It is an ES module, and the base tag and import map before it give the modules it imports cacheable, versioned URLs (see [Installation](/docs/ui/installation) for what the import map needs). It loads the following:
 
 - the **web components** some Tag Helpers use,
 - the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement, and
@@ -45,7 +47,7 @@ The table shows which element each Tag Helper renders, as background. The elemen
 
 All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table selection="true">` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
 
-Custom elements are upgraded when the script runs, which with `defer` is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a table with `selection`), run it from a `DOMContentLoaded` listener or another deferred script, which runs after `stellar-admin.js`.
+Custom elements are upgraded when the script runs, which for a module script is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a table with `selection`), run it from a `DOMContentLoaded` listener or from a deferred or module script placed after `stellar-admin.js`, which runs after it.
 
 ## Invoker Commands
 
