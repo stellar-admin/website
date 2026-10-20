@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.ekw9tuqspg.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.75o4aety6w.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-8">
+    <!-- code begin -->
+    <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="end" class="sa-timeline">
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Booked</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar, 09:14</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Online, by Amara Okafor.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Payment received</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar, 09:15</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">R 48,200 by card ending 4417.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Tickets issued</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">3 Mar, 11:02</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Emirates, e-tickets sent to both travellers.</p></li>
+    </ol>
+    <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="below" class="sa-timeline">
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Booked</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar, 09:14</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Online, by Amara Okafor.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Payment received</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar, 09:15</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">R 48,200 by card ending 4417.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Tickets issued</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">3 Mar, 11:02</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Emirates, e-tickets sent to both travellers.</p></li>
+    </ol>
+    <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="start" class="sa-timeline">
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Booked</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Online, by Amara Okafor.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Payment received</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">R 48,200 by card ending 4417.</p></li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Tickets issued</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">3 Mar</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">Emirates, e-tickets sent to both travellers.</p></li>
+    </ol>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.ekw9tuqspg.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.75o4aety6w.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-lg">
+    <!-- code begin -->
+    <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="end" class="sa-timeline">
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Kenji Tanaka commented</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 h ago</time>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><span data-slot="avatar" data-size="sm" class="sa-avatar"><span class="sa-avatar-fallback" data-slot="avatar-fallback">KT</span></span></span>
+            <div class="rounded-lg border p-3 text-sm">Can we move the Kumano Kodo hike to Day 4? My knee needs the rest day first.</div>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><time class="sa-timeline-item-time" data-slot="timeline-item-time">1 h ago</time>
+            <div data-slot="timeline-item-title" data-muted="true" class="sa-timeline-item-title">Status changed to <strong>Waiting on supplier</strong></div>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Lindiwe Mokoena commented</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">40 min ago</time>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><span data-slot="avatar" data-size="sm" class="sa-avatar"><img alt="" class="sa-avatar-image" data-slot="avatar-image" src="/demo/ui/assets/avatar-2.jpg"></img></span></span>
+            <div class="rounded-lg border p-3 text-sm">Asked Kii Tours; they'll confirm by tomorrow.</div>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><time class="sa-timeline-item-time" data-slot="timeline-item-time">40 min ago</time>
+            <div data-slot="timeline-item-title" data-muted="true" class="sa-timeline-item-title">Assigned to Lindiwe Mokoena</div>
+        </li>
+    </ol>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

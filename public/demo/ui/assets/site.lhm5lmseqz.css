@@ -742,6 +742,12 @@
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .grid-cols-\[max-content_1fr\] {
+    grid-template-columns: max-content 1fr;
+  }
+  .grid-cols-\[repeat\(auto-fit\,minmax\(min\(100\%\,15rem\)\,1fr\)\)\] {
+    grid-template-columns: repeat(auto-fit,minmax(min(100%, 15rem),1fr));
+  }
   .grid-cols-subgrid {
     grid-template-columns: subgrid;
   }
@@ -838,6 +844,9 @@
   }
   .gap-x-2\.5 {
     column-gap: calc(var(--sa-unit) * 2.5);
+  }
+  .gap-x-3 {
+    column-gap: calc(var(--sa-unit) * 3);
   }
   .gap-x-4 {
     column-gap: calc(var(--sa-unit) * 4);
@@ -1219,6 +1228,9 @@
   }
   .whitespace-nowrap {
     white-space: nowrap;
+  }
+  .text-\[var\(--sa-color-success\)\] {
+    color: var(--sa-color-success);
   }
   .text-\[var\(--sa-color-warning\)\] {
     color: var(--sa-color-warning);

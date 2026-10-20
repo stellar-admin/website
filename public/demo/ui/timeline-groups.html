@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.ekw9tuqspg.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.75o4aety6w.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-lg">
+    <!-- code begin -->
+    <div class="grid gap-3">
+        <h3 class="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Today</h3>
+        <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="end" class="sa-timeline">
+            <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Seat change requested</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">10:02</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">VT-2481, Kenji Okafor: 32A &#x2192; 14C.</p></li>
+            <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Traveller added</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">09:40</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">VT-2479, Mia Laurent.</p></li>
+        </ol>
+        <h3 class="mt-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Yesterday</h3>
+        <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="end" class="sa-timeline">
+            <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Hotel changed</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">16:21</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">VT-2466: Gion Garden Hotel &#x2192; Ryokan Hanaya.</p></li>
+            <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><span aria-hidden="true" class="sa-timeline-item-marker" data-slot="timeline-item-marker"></span><div class="sa-timeline-item-title" data-slot="timeline-item-title">Refund approved</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">11:05</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">RF-118, R 12,400.</p></li>
+        </ol>
+        <div class="mt-2">
+            <button data-slot="button" class="sa-button sa-button-variant-outline sa-button-size-sm">Show earlier activity</button>
+        </div>
+    </div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

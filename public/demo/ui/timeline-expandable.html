@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.ekw9tuqspg.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script defer src="/demo/ui/assets/stellar-admin.75o4aety6w.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-lg">
+    <!-- code begin -->
+    <ol role="list" data-slot="timeline" data-size="default" data-marker="dot" data-media-style="disc" data-time-placement="end" class="sa-timeline">
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Price changed</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">Today 10:02</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">By Lindiwe Mokoena.</p>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></svg></span>
+            <div data-slot="timeline-item-actions" class="sa-timeline-item-actions">
+                <button commandfor="change-81" command="--toggle" data-slot="button" class="sa-button sa-button-variant-ghost sa-button-size-sm">
+                    Changes
+                    <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+            </div>
+            <sel-collapsible id="change-81" data-slot="collapsible">
+                <dl class="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1 rounded-md bg-muted p-3 text-xs">
+                    <dt class="text-muted-foreground">Price per person</dt>
+                    <dd><del class="text-destructive">¥178,000</del> → ¥186,000</dd>
+                    <dt class="text-muted-foreground">Single supplement</dt>
+                    <dd><del class="text-destructive">¥24,000</del> → ¥28,000</dd>
+                </dl>
+            </sel-collapsible>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Day added</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">Yesterday</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">By Amara Okafor.</p>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></span>
+            <div data-slot="timeline-item-actions" class="sa-timeline-item-actions">
+                <button commandfor="change-80" command="--toggle" data-slot="button" class="sa-button sa-button-variant-ghost sa-button-size-sm">
+                    Changes
+                    <svg class="transition-transform in-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+            </div>
+            <sel-collapsible id="change-80" hidden="" data-slot="collapsible">
+                <dl class="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1 rounded-md bg-muted p-3 text-xs">
+                    <dt class="text-muted-foreground">Day 6</dt>
+                    <dd>Nishiki Market food tour</dd>
+                </dl>
+            </sel-collapsible>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Photo removed</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">3 Mar</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">By Amara Okafor.</p>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span>
+        </li>
+        <li data-slot="timeline-item" data-rail="solid" class="sa-timeline-item"><div class="sa-timeline-item-title" data-slot="timeline-item-title">Tour created</div><time class="sa-timeline-item-time" data-slot="timeline-item-time">2 Mar</time><p class="sa-timeline-item-description" data-slot="timeline-item-description">By Amara Okafor.</p>
+            <span data-slot="timeline-item-media" class="sa-timeline-item-media"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></span>
+        </li>
+    </ol>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

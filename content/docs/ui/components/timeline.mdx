@@ -1,0 +1,259 @@
+---
+title: Timeline
+description: An ordered list of events, each with a marker joined to the next by a rail
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/timeline-intro.html">
+  <include>./_include/timeline-intro.mdx</include>
+</Demo>
+
+## Usage
+
+```razor
+<sa-timeline>
+    <sa-timeline-item title="..." description="..." time="..."/>
+    <sa-timeline-item>
+        <sa-timeline-item-media>...</sa-timeline-item-media>
+        <sa-timeline-item-title>...</sa-timeline-item-title>
+        <sa-timeline-item-time datetime="...">...</sa-timeline-item-time>
+        <sa-timeline-item-description>...</sa-timeline-item-description>
+        <sa-timeline-item-actions>...</sa-timeline-item-actions>
+        ...
+    </sa-timeline-item>
+</sa-timeline>
+```
+
+A timeline records what happened. It has no status: for steps someone works through, use a [checklist](/docs/ui/components/checklist).
+
+## Examples
+
+### Avatars
+
+Put an `<sa-avatar>` in `<sa-timeline-item-media>` to show who did what. Use `<sa-timeline-item-time>` instead of the `time` attribute to add a machine-readable `datetime` to the `<time>` element.
+
+<Demo src="/demo/ui/timeline-avatars.html">
+  <include>./_include/timeline-avatars.mdx</include>
+</Demo>
+
+### Expandable details
+
+Anything in an item other than its parts lays out under the text. Combine a button in `<sa-timeline-item-actions>` with an `<sa-collapsible>` to show details on request.
+
+<Demo src="/demo/ui/timeline-expandable.html">
+  <include>./_include/timeline-expandable.mdx</include>
+</Demo>
+
+### Time in a gutter
+
+Set `time-placement` to `TimelineTimePlacement.Start` to show the times in a column before the markers. The column is as wide as the longest time, so the times line up.
+
+<Demo src="/demo/ui/timeline-time-gutter.html">
+  <include>./_include/timeline-time-gutter.mdx</include>
+</Demo>
+
+### Numbered
+
+Set `marker` to `TimelineMarker.Number` to number the items that have no media, such as for a set of instructions.
+
+<Demo src="/demo/ui/timeline-numbered.html">
+  <include>./_include/timeline-numbered.mdx</include>
+</Demo>
+
+### Card
+
+A small timeline in a card. Set `size` to `TimelineSize.Small` for compact markers and spacing.
+
+<Demo src="/demo/ui/timeline-card.html">
+  <include>./_include/timeline-card.mdx</include>
+</Demo>
+
+### Failure
+
+Colour an icon with a class to flag an event. When the icon adds meaning the title doesn't carry, set `label` on `<sa-timeline-item-media>`: screen readers announce it before the title, here "Failed: Payout to the traveller".
+
+<Demo src="/demo/ui/timeline-failure.html">
+  <include>./_include/timeline-failure.mdx</include>
+</Demo>
+
+An attribute and its own child part can't be used together: an item with both `title` and an `<sa-timeline-item-title>`, `time` and an `<sa-timeline-item-time>`, or `description` and an `<sa-timeline-item-description>` throws an exception.
+
+### Comments
+
+Put a comment's body in the item, under the text. Set `muted` on `<sa-timeline-item-title>` to quiet system events.
+
+<Demo src="/demo/ui/timeline-comments.html">
+  <include>./_include/timeline-comments.mdx</include>
+</Demo>
+
+### Groups
+
+Split a long feed into several timelines with ordinary headings between them.
+
+<Demo src="/demo/ui/timeline-groups.html">
+  <include>./_include/timeline-groups.mdx</include>
+</Demo>
+
+### Markers
+
+An item with no media shows the timeline's marker. Media holds an icon on a disc, coloured if the icon has a colour class, or an avatar that fills the marker.
+
+<Demo src="/demo/ui/timeline-markers.html">
+  <include>./_include/timeline-markers.mdx</include>
+</Demo>
+
+### Progress
+
+Set `current` on an item to show how far along the timeline is. The current item, the items before it and the rails between them take the accent colour, and the current item gets `aria-current="step"`. With several current items, the accent runs to the last of them. Set `rail` to `TimelineRail.Dashed` for the line out of an optional item, or to `TimelineRail.None` to break the line.
+
+<Demo src="/demo/ui/timeline-progress.html">
+  <include>./_include/timeline-progress.mdx</include>
+</Demo>
+
+### Marker styles
+
+`marker` sets what an item with no media shows: `TimelineMarker.Dot` (the default), `TimelineMarker.Ring` or `TimelineMarker.Number`.
+
+<Demo src="/demo/ui/timeline-marker-styles.html">
+  <include>./_include/timeline-marker-styles.mdx</include>
+</Demo>
+
+### Media styles
+
+`media-style` sets how an icon in `<sa-timeline-item-media>` is drawn: on a disc (`TimelineMediaStyle.Disc`, the default), on its own (`TimelineMediaStyle.Plain`) or in a ring (`TimelineMediaStyle.Ring`). Avatars are unaffected.
+
+<Demo src="/demo/ui/timeline-media-styles.html">
+  <include>./_include/timeline-media-styles.mdx</include>
+</Demo>
+
+### Time placement
+
+`time-placement` puts the time at the end of the title row (`TimelineTimePlacement.End`, the default), under the title (`TimelineTimePlacement.Below`), or in a column before the markers (`TimelineTimePlacement.Start`).
+
+<Demo src="/demo/ui/timeline-time-placement.html">
+  <include>./_include/timeline-time-placement.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-timeline>`
+
+Renders an `<ol>` element with `role="list"`, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    marker: {
+      description: "What the marker of an item with no media shows.",
+      type: "TimelineMarker",
+      typeDescription: "TimelineMarker.Dot | TimelineMarker.Ring | TimelineMarker.Number",
+      default: "TimelineMarker.Dot",
+    },
+    "media-style": {
+      description: "How the icons in the items' media are drawn.",
+      type: "TimelineMediaStyle",
+      typeDescription:
+        "TimelineMediaStyle.Disc | TimelineMediaStyle.Plain | TimelineMediaStyle.Ring",
+      default: "TimelineMediaStyle.Disc",
+    },
+    size: {
+      description:
+        "The size of the timeline, which sets the size of its markers and the spacing between its items.",
+      type: "TimelineSize",
+      typeDescription: "TimelineSize.Default | TimelineSize.Small",
+      default: "TimelineSize.Default",
+    },
+    "time-placement": {
+      description: "Where the time of each item is shown.",
+      type: "TimelineTimePlacement",
+      typeDescription:
+        "TimelineTimePlacement.End | TimelineTimePlacement.Below | TimelineTimePlacement.Start",
+      default: "TimelineTimePlacement.End",
+    },
+  }}
+/>
+
+### `<sa-timeline-item>`
+
+Renders an `<li>` element for an event in the timeline, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    title: {
+      description:
+        "The title of the item. Use an <sa-timeline-item-title> child instead for a title with markup or a muted title.",
+      type: "string",
+    },
+    time: {
+      description:
+        "The time of the item, as display text. Use an <sa-timeline-item-time> child instead to add a machine-readable date and time.",
+      type: "string",
+    },
+    description: {
+      description:
+        "The description shown under the title. Use an <sa-timeline-item-description> child instead for a description with markup.",
+      type: "string",
+    },
+    rail: {
+      description: "The line drawn from this item to the next one.",
+      type: "TimelineRail",
+      typeDescription: "TimelineRail.Solid | TimelineRail.Dashed | TimelineRail.None",
+      default: "TimelineRail.Solid",
+    },
+    current: {
+      description:
+        "Whether the item is the current one. It, the items before it and the rails between them take the accent colour.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-timeline-item-media>`
+
+Renders a `<span>` element in place of the item's marker, holding an icon or avatar, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    label: {
+      description:
+        "Text that screen readers announce before the title, such as \"Failed\", for an icon that adds meaning the title doesn't carry.",
+      type: "string",
+    },
+  }}
+/>
+
+### `<sa-timeline-item-title>`
+
+Renders a `<div>` element for the item title, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    muted: {
+      description: "Whether the title is shown in a muted colour, such as for a system event.",
+      type: "bool",
+      default: "false",
+    },
+  }}
+/>
+
+### `<sa-timeline-item-time>`
+
+Renders a `<time>` element for the item time, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). Put the display text inside it.
+
+<TypeTable
+  type={{
+    datetime: {
+      description: "The date and time of the item, rendered as the machine-readable datetime attribute.",
+      type: "DateTimeOffset",
+    },
+  }}
+/>
+
+### `<sa-timeline-item-description>`
+
+Renders a `<p>` element for the item description, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+### `<sa-timeline-item-actions>`
+
+Renders a `<div>` element at the end of the title row that holds buttons or other trailing content, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
