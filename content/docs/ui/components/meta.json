@@ -24,6 +24,7 @@
     "questionnaire",
     "radio",
     "radio-group",
+    "rich-text-editor",
     "segmented-control",
     "select",
     "slider",

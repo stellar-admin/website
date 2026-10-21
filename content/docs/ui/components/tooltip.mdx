@@ -32,7 +32,7 @@ import { Demo } from "@/components/demo";
 ### Limitations
 
 1. The Interest Invokers API is [not supported across all browsers](https://caniuse.com/wf-interest-invokers) yet. StellarAdmin includes the [mfreed7/interestfor](https://github.com/mfreed7/interestfor) polyfill to ensure it works across all browsers. Make sure you have included the StellarAdmin JavaScript file in your pages.
-2. Not all elements can be used as an invoker element (the element that triggers the tooltip). Officially, the `<a>`, `<button>` and `<area>` elements are supported, but in our tests it also works with `<input>` elements. See [Supported Tag Helpers](#supported-tag-helpers) below for the Tag Helpers you can use.
+2. The Interest Invokers API supports only the `<a>`, `<button>` and `<area>` elements as invoker elements (the element that triggers the tooltip). StellarAdmin's JavaScript handles `interestfor` on other elements too, such as inputs, selects, textareas and toggles, with the same delays and events. See [Supported Tag Helpers](#supported-tag-helpers) below for the Tag Helpers you can use.
 
 We strongly recommend you [read about the Interest Invokers API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers#creating_an_interest_invoker) to familiarise yourself with its use and limitations.
 
@@ -68,10 +68,10 @@ You can add a delay before opening and closing the tooltip by using the `interes
 
 ### Supported Tag Helpers
 
-You can use `<sa-tooltip>` with the `<sa-button>`, `<sa-button-link>`, `<sa-input>`, `<sa-select>`, and `<sa-textarea>` Tag Helpers.
+You can use `<sa-tooltip>` with the `<sa-button>`, `<sa-button-link>`, `<sa-input>`, `<sa-select>`, `<sa-textarea>` and `<sa-toggle>` Tag Helpers. On a toggle, the tooltip opens when the pointer is over the toggle and lines up with it.
 
 <Callout type="tip">
-  The limitations regarding which HTML elements it can be used with is due to the [limitations](#limitations) of the Interest Invokers API.
+  Other elements work through StellarAdmin's JavaScript rather than the browser; see [limitations](#limitations).
 </Callout>
 
 <Demo src="/demo/ui/tooltip-elements.html">

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.pl0dfqpt9t.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script type="module" src="/demo/ui/assets/stellar-admin.dvwe7gkgmv.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <div class="w-full max-w-2xl">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-36906be30d988b90caa09b02ecd5a12ea94280b287eab432271f2a3a2aaba8874204-label" class="sa-label sa-field-label" data-slot="field-label">Booking terms</label><sel-rich-text-editor id="sa-36906be30d988b90caa09b02ecd5a12ea94280b287eab432271f2a3a2aaba8874204" data-slot="rich-text-editor" class="sa-rich-text-editor" data-readonly="true"><div aria-labelledby="sa-36906be30d988b90caa09b02ecd5a12ea94280b287eab432271f2a3a2aaba8874204-label" aria-multiline="true" aria-readonly="true" class="sa-rich-text-editor-content sa-rich-text" data-slot="rich-text-editor-content" role="textbox" style="--_rows: 4"></div><textarea aria-labelledby="sa-36906be30d988b90caa09b02ecd5a12ea94280b287eab432271f2a3a2aaba8874204-label" class="sa-textarea" data-slot="textarea" name="Terms" readonly="readonly" rows="4">&lt;p&gt;Bookings can be cancelled free of charge up to &lt;strong&gt;14 days&lt;/strong&gt; before departure.&lt;/p&gt;</textarea><p aria-live="polite" class="sa-rich-text-editor-note" data-slot="rich-text-editor-note" hidden="hidden"></p><script src="/demo/ui/assets/rich-text-editor.88aelszcwe.js" type="module"></script></sel-rich-text-editor></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

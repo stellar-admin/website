@@ -1,0 +1,181 @@
+---
+title: Rich Text Editor
+description: An editor for formatted text, with headings, lists, links, tables and images, whose value is HTML
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/rich-text-editor-intro.html">
+  <include>./_include/rich-text-editor-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-rich-text-editor>` is a self-closing tag. Bind it with `asp-for` to a string property, or give it a `name` and `value`. The value is HTML.
+
+```razor
+<sa-rich-text-editor asp-for="..." />
+```
+
+The toolbar has undo and redo, a text style menu (text and three heading levels), bold, italic, underline, strikethrough, inline code, bulleted and numbered lists, quotes, code blocks, links, tables and dividers. Selecting text shows a bubble with the common marks. Typing `/` opens a menu of blocks to insert, and Markdown shortcuts such as `##`, `-`, `1.`, `>` and ` ``` ` turn into their blocks as you type. Hover over a table row or column for a handle that selects it, opens a menu to insert, merge or delete, and drags it to a new position. Tab moves to the next cell and adds a row at the end of the table.
+
+## Value
+
+The editor writes its HTML into a `<textarea>` inside it, which is what the form posts. Lists post as plain `ul` and `ol` elements, and an empty editor posts an empty value. A value without any tags, such as text saved before the field became rich text, opens as paragraphs, one for each block separated by a blank line. The textarea fires an `input` event whenever the text changes.
+
+Until the editor's script has loaded, and if it can't load, the textarea shows in its place with the HTML as text, so the form still works.
+
+**Sanitize the posted HTML on the server** before you store or display it. The editor only writes safe markup, but a request can come from anywhere and carry scripts or event handlers. Allow only the markup the editor writes: `p`, `h1` to `h3`, `strong`, `em`, `u`, `s`, `code`, `pre`, `blockquote`, `ul`, `ol`, `li`, `a` with `href`, `img` with `src`, `width` and `height`, `table`, `tbody`, `tr`, `th` and `td` with `colspan`, `rowspan` and `data-colwidth`, `hr` and `br`, and limit links and images to `http`, `https` and `mailto` URLs or relative ones. A library such as [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer) does this. The StellarAdmin admin panel's rich text fields sanitize for you.
+
+To show saved HTML formatted as the editor shows it, put it in an element with the `sa-rich-text` class:
+
+```razor
+<div class="sa-rich-text">@Html.Raw(sanitizedHtml)</div>
+```
+
+## Script
+
+The editor's script is a separate file, `rich-text-editor.js`, about 120 KB compressed. You don't add it to your layout: the editor renders a `<script type="module">` for it inside its element. Pages without an editor never download it, a page with several editors downloads it once, and an editor that htmx swaps into the page loads it when it arrives. The editor still needs [`stellar-admin.js`](/docs/ui/javascript) on the page for its menus and tooltips.
+
+## Examples
+
+### Model binding
+
+Bound with `asp-for`, the editor takes its label, description and placeholder from the property's `[Display]` attribute.
+
+<Demo src="/demo/ui/rich-text-editor-model-binding.html">
+  <include>./_include/rich-text-editor-model-binding.mdx</include>
+</Demo>
+
+### Images
+
+Set `upload-url` to let users add images. They paste, drop or insert an image from the toolbar or the `/` menu, and it uploads straight away, with its progress over the image. Drag the handle on a selected image to resize it. Without `upload-url` there is no image button, and pasted image files are ignored.
+
+<Demo src="/demo/ui/rich-text-editor-images.html">
+  <include>./_include/rich-text-editor-images.mdx</include>
+</Demo>
+
+The demo answers uploads in the browser instead of sending them to a server, so nothing you pick leaves your machine.
+
+The editor posts each image as the multipart field `file` to `upload-url`, with the form's antiforgery token both as the `__RequestVerificationToken` field and in the `RequestVerificationToken` header. The endpoint stores the file and answers with the URL to show it from:
+
+```json
+{ "url": "https://cdn.voyager.example/itineraries/lisbon-4f2a.jpg" }
+```
+
+For a failed upload, answer with an error status and `{ "error": "..." }`, which the editor shows under the text, and the image is removed. `accept` and `max-file-size` are checked in the browser before uploading, and default to JPEG, PNG, WebP, GIF and AVIF, up to 5 MB. Check both again on the server. The endpoint answers the same way as an [image upload](/docs/ui/components/image-upload#the-upload-endpoint)'s, with `url` instead of `value`.
+
+### Read only
+
+Set `readonly` to show the text without letting the user change it. A read-only editor has no toolbar and still posts its value.
+
+<Demo src="/demo/ui/rich-text-editor-read-only.html">
+  <include>./_include/rich-text-editor-read-only.mdx</include>
+</Demo>
+
+## Height
+
+The editor has room for `rows` lines of text, 8 by default, grows with its content and scrolls once it is 32rem tall.
+
+## Accessibility
+
+The editing area has `role="textbox"` and `aria-multiline="true"`, and is named by the field's label and described by its description and error. Clicking the label focuses it. The toolbar has `role="toolbar"`, and each control has a name and a tooltip with its keyboard shortcut, shown with ⌘ on Apple devices. Toggles such as bold report their state as checkboxes. Errors from uploads appear in a polite live region under the text.
+
+## Part classes
+
+Pass a `RichTextEditorClassNames` instance from the `StellarAdmin.UI` namespace using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the control renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The editor's container, with the border. |
+| `Editor` | The area the text is edited in. |
+| `Toolbar` | The toolbar. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`; see [Field part classes](field#part-classes).
+
+## API Reference
+
+### `<sa-rich-text-editor>`
+
+Renders a web component containing the toolbar, the editing area, a `<textarea>` that posts the HTML, the menus and the module script that loads the editor.
+
+<TypeTable
+  type={{
+    "class-names": {
+      description: "Additional CSS classes for individual parts. See Part classes above.",
+      type: "RichTextEditorClassNames",
+    },
+    accept: {
+      description: "The image types that can be added, as a comma-separated list of media types.",
+      type: "string",
+      default: "image/jpeg,image/png,image/webp,image/gif,image/avif",
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model. Bind to a string property that stores the HTML.",
+      type: "ModelExpression",
+    },
+    "column-span": {
+      description: "The number of columns the field spans in a <sa-grid>, from 1 to 12, or full for every column. column-span-sm, column-span-md and column-span-lg set the span at 30rem, 40rem and 56rem. See Grid.",
+      type: "string",
+      default: "1",
+    },
+    "column-start": {
+      description: "The column the field starts at in a <sa-grid>, from 1 to 12, or auto to follow the previous item. column-start-sm, column-start-md and column-start-lg set the start at 30rem, 40rem and 56rem. See Grid.",
+      type: "string",
+      default: "auto",
+    },
+    description: {
+      description: "Description text for the implicit Field wrapper.",
+      type: "string",
+    },
+    error: {
+      description: "Error text for the implicit Field wrapper.",
+      type: "string",
+    },
+    label: {
+      description: "Label text for the implicit Field wrapper.",
+      type: "string",
+    },
+    "max-file-size": {
+      description: "The largest image that can be added, in bytes.",
+      type: "long?",
+      default: "5242880 (5 MB)",
+    },
+    name: {
+      description: "The name of the <textarea> that posts the HTML.",
+      type: "string",
+    },
+    placeholder: {
+      description: "Hint text displayed while the editor is empty.",
+      type: "string",
+    },
+    readonly: {
+      description: "Shows the text without letting the user change it, with no toolbar.",
+      type: "bool?",
+      default: "false",
+    },
+    rows: {
+      description: "The number of lines of text the editor has room for before it grows.",
+      type: "int?",
+      default: "8",
+    },
+    "upload-url": {
+      description: "The endpoint added images are posted to. Without it, images can't be added.",
+      type: "string",
+    },
+    value: {
+      description: "The HTML when not bound via asp-for.",
+      type: "string",
+    },
+    "wrap-in-field": {
+      description:
+        "Whether to wrap the control in a Field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a Field.",
+      type: "bool",
+    },
+  }}
+/>
