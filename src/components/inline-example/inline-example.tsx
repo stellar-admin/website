@@ -14,6 +14,7 @@ function loadRuntime() {
       return;
     }
     const script = document.createElement("script");
+    script.type = "module";
     script.src = assets.runtime;
     script.dataset.inlineExampleRuntime = "";
     script.onload = () => resolve();
