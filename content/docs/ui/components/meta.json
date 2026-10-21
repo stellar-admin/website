@@ -59,6 +59,7 @@
     "message-scroller",
     "---Feedback---",
     "alert",
+    "environment-indicator",
     "progress",
     "skeleton",
     "spinner",

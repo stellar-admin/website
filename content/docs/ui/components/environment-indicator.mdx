@@ -1,0 +1,164 @@
+---
+title: Environment Indicator
+description: Shows which environment the application runs in, such as production, staging or a developer's machine.
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/environment-indicator-intro.html" mode="fullscreen">
+  <include>./_include/environment-indicator-intro.mdx</include>
+</Demo>
+
+## Usage
+
+Add one of the three indicators to your layout: `<sa-environment-stripe>`, a thin bar across the top of the window with the name of the environment on a tab, as above; `<sa-environment-frame>`; or `<sa-environment-banner>`. Each is fixed to the window, so it can go anywhere in the page. Render it only in the environments that should show one, however your application determines its environment.
+
+```razor
+@if (environmentName is not null)
+{
+    <sa-environment-stripe label="@environmentName" color="EnvironmentStripeColor.Warning" />
+}
+```
+
+The text on the indicator is white or dark, whichever reads better on its colour.
+
+## Examples
+
+### Frame
+
+A border around the whole window, with the name of the environment on a tab at the top.
+
+<Demo src="/demo/ui/environment-indicator-frame.html" mode="fullscreen">
+  <include>./_include/environment-indicator-frame.mdx</include>
+</Demo>
+
+### Banner
+
+A bar across the top of the window, with room for a `description` after the name. The page and the sidebar move down by the banner's height, so nothing is hidden under it.
+
+<Demo src="/demo/ui/environment-indicator-banner.html" mode="fullscreen">
+  <include>./_include/environment-indicator-banner.mdx</include>
+</Demo>
+
+### Custom colour
+
+Set `custom-color` to any CSS colour to use it in place of the theme colours, and `custom-dark-color` to use another colour in dark mode.
+
+<Demo src="/demo/ui/environment-indicator-custom-color.html" mode="fullscreen">
+  <include>./_include/environment-indicator-custom-color.mdx</include>
+</Demo>
+
+### Tab size
+
+Set `tab-size` on a stripe or frame to make the tab that names the environment smaller or larger.
+
+<Demo src="/demo/ui/environment-indicator-tab-size.html" mode="fullscreen">
+  <include>./_include/environment-indicator-tab-size.mdx</include>
+</Demo>
+
+## API Reference
+
+### `<sa-environment-stripe>`
+
+Renders a `<div>` element fixed to the top of the window, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    label: {
+      description: "The name of the environment.",
+      type: "string",
+      required: true,
+    },
+    color: {
+      description: "The colour of the indicator.",
+      type: "EnvironmentStripeColor",
+      typeDescription:
+        "EnvironmentStripeColor.Neutral | EnvironmentStripeColor.Info | EnvironmentStripeColor.Success | EnvironmentStripeColor.Warning | EnvironmentStripeColor.Danger",
+      default: "EnvironmentStripeColor.Neutral",
+    },
+    "custom-color": {
+      description: "A CSS colour that overrides color.",
+      type: "string",
+    },
+    "custom-dark-color": {
+      description: "A CSS colour used in dark mode. Without it, custom-color is used in dark mode too.",
+      type: "string",
+    },
+    "tab-size": {
+      description: "The size of the tab that names the environment.",
+      type: "EnvironmentStripeTabSize",
+      typeDescription:
+        "EnvironmentStripeTabSize.Small | EnvironmentStripeTabSize.Medium | EnvironmentStripeTabSize.Large | EnvironmentStripeTabSize.ExtraLarge",
+      default: "EnvironmentStripeTabSize.Medium",
+    },
+  }}
+/>
+
+### `<sa-environment-frame>`
+
+Renders a `<div>` element that borders the window, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    label: {
+      description: "The name of the environment.",
+      type: "string",
+      required: true,
+    },
+    color: {
+      description: "The colour of the indicator.",
+      type: "EnvironmentFrameColor",
+      typeDescription:
+        "EnvironmentFrameColor.Neutral | EnvironmentFrameColor.Info | EnvironmentFrameColor.Success | EnvironmentFrameColor.Warning | EnvironmentFrameColor.Danger",
+      default: "EnvironmentFrameColor.Neutral",
+    },
+    "custom-color": {
+      description: "A CSS colour that overrides color.",
+      type: "string",
+    },
+    "custom-dark-color": {
+      description: "A CSS colour used in dark mode. Without it, custom-color is used in dark mode too.",
+      type: "string",
+    },
+    "tab-size": {
+      description: "The size of the tab that names the environment.",
+      type: "EnvironmentFrameTabSize",
+      typeDescription:
+        "EnvironmentFrameTabSize.Small | EnvironmentFrameTabSize.Medium | EnvironmentFrameTabSize.Large | EnvironmentFrameTabSize.ExtraLarge",
+      default: "EnvironmentFrameTabSize.Medium",
+    },
+  }}
+/>
+
+### `<sa-environment-banner>`
+
+Renders a `<div>` element fixed to the top of the window, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes).
+
+<TypeTable
+  type={{
+    label: {
+      description: "The name of the environment.",
+      type: "string",
+      required: true,
+    },
+    description: {
+      description: "The text shown after the name of the environment.",
+      type: "string",
+    },
+    color: {
+      description: "The colour of the indicator.",
+      type: "EnvironmentBannerColor",
+      typeDescription:
+        "EnvironmentBannerColor.Neutral | EnvironmentBannerColor.Info | EnvironmentBannerColor.Success | EnvironmentBannerColor.Warning | EnvironmentBannerColor.Danger",
+      default: "EnvironmentBannerColor.Neutral",
+    },
+    "custom-color": {
+      description: "A CSS colour that overrides color.",
+      type: "string",
+    },
+    "custom-dark-color": {
+      description: "A CSS colour used in dark mode. Without it, custom-color is used in dark mode too.",
+      type: "string",
+    },
+  }}
+/>
