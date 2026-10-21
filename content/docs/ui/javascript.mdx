@@ -5,17 +5,15 @@ description: How StellarAdmin.UI enhances components using JavaScript
 
 StellarAdmin.UI attempts to be as lightweight as possible by making using of standard web platform features as much as possible. However, this is not always possible and in some cases we need to enhance certain components using JavaScript. Specifically, some of the Tag Helpers will make use of thin [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) to add additional interactivity.
 
-## The `stellar-admin.js` script
+## The `stellar-admin.js` bundle
 
-The [Installation steps](/docs/ui/installation) add the script to your layout, after a base tag and the import map:
+The [Installation steps](/docs/ui/installation) requires you to add a single script to your layout:
 
 ```razor
-<base href="~/"/>
-<script type="importmap"></script>
 <script type="module" src="/_content/StellarAdmin.UI/stellar-admin.js" asp-append-version="true"></script>
 ```
 
-It is an ES module, and the base tag and import map before it give the modules it imports cacheable, versioned URLs (see [Installation](/docs/ui/installation) for what the import map needs). It loads the following:
+This JavaScript file contains the following:
 
 - the **web components** some Tag Helpers use,
 - the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement, and
