@@ -1,0 +1,104 @@
+---
+title: Layout
+description: Sections, groups and columns for longer forms
+---
+
+By default, fields are stacked in one column. For longer forms, split them into sections and lay them out in columns.
+
+```cs
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.AddSection("Trip", section =>
+    {
+        section.Description = "What people see when they browse trips.";
+        section.Columns(2);
+        section.Add(trip => trip.Name).ColumnSpanFull();
+        section.Add(trip => trip.DestinationId);
+        section.Add(trip => trip.GuideId);
+        section.Add(trip => trip.Summary).ColumnSpanFull();
+    });
+
+    fields.AddSection("Pricing", section =>
+    {
+        section.Columns(3);
+        section.Add(trip => trip.Price);
+        section.Add(trip => trip.DurationDays);
+        section.Add(trip => trip.MaxGroupSize);
+    });
+}));
+```
+
+## Sections
+
+`AddSection` adds a titled block of fields. A section can have a `Description`, and it can hold anything a form can: fields, display fields, groups and other sections.
+
+How sections look is set by their layout, a `FormSectionLayout` from `StellarAdmin.UI`:
+
+| Layout | Looks like |
+| --- | --- |
+| `Stacked` | The title above the fields. |
+| `Split` | The title and description on the left, the fields on the right. |
+| `Card` | Each section in a card. |
+
+Set it for one section, one form, or every form in the panel:
+
+```cs
+using StellarAdmin.UI;
+
+section.Layout = FormSectionLayout.Card;
+
+edit.SectionLayout = FormSectionLayout.Split;
+
+admin.ConfigureUI(ui => ui.ConfigureForms(forms => forms.SectionLayout = FormSectionLayout.Card));
+```
+
+## Groups
+
+A group lays out fields together without a title or border. Use it for a row of small fields inside a bigger grid:
+
+```cs
+fields.AddGroup(group =>
+{
+    group.Columns(3);
+    group.Add(trip => trip.Price);
+    group.Add(trip => trip.DurationDays);
+    group.Add(trip => trip.MaxGroupSize);
+});
+```
+
+## Columns
+
+The form, each section and each group set their own column count. Fields, sections and groups then say how many of their parent's columns they span.
+
+```cs
+fields.Columns(2);
+fields.Add(trip => trip.Name).ColumnSpanFull();
+fields.Add(trip => trip.Price);
+fields.Add(trip => trip.DurationDays);
+```
+
+`Columns(2)` means one column on narrow screens and two from the medium breakpoint up. For more control, set each breakpoint:
+
+```cs
+section.Columns(columns => columns.Small(2).Large(3));
+```
+
+| Breakpoint | Width |
+| --- | --- |
+| `Base` | Anything |
+| `Small` | 30rem |
+| `Medium` | 40rem |
+| `Large` | 56rem |
+
+Breakpoints measure the form's own width, not the window's. A narrow section, or a create form in a side sheet, keeps fewer columns.
+
+| Method | What it does |
+| --- | --- |
+| `ColumnSpan(2)` | Spans two columns. |
+| `ColumnSpan(span => span.Medium(2))` | Spans two columns from the medium breakpoint. |
+| `ColumnSpanFull()` | Spans the whole row. |
+| `ColumnStart(1)` | Starts in the first column, so on a new row. |
+
+Fields fill the grid in the order you add them, and that's also the tab order.
+
+Forms don't have tabs or wizard steps yet.

@@ -1,0 +1,64 @@
+---
+title: Organizing configuration
+description: Keep Program.cs small as your panel grows
+---
+
+A couple of resources fit fine in `Program.cs`. Past that, give each resource an extension method in its own file and keep only the panel-wide settings in `Program.cs`.
+
+```cs
+// Program.cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
+    admin.ConfigureBranding(branding => branding.Title = "Voyager Travel");
+    admin.AddResources();
+});
+```
+
+```cs
+// Admin/AdminResources.cs
+public static class AdminResources
+{
+    public static StellarAdminBuilder AddResources(this StellarAdminBuilder admin) =>
+        admin.AddGuides().AddTrips().AddBookings();
+}
+```
+
+```cs
+// Admin/GuidesAdmin.cs
+using StellarAdmin;
+using StellarAdmin.EntityFrameworkCore;
+
+public static class GuidesAdmin
+{
+    public static StellarAdminBuilder AddGuides(this StellarAdminBuilder admin) =>
+        admin.AddEfCoreResource<Guide>(resource =>
+        {
+            resource.SidebarItem(item => item.Group = "Operations");
+            resource.Index(index => index.Columns(columns => columns.Add(guide => guide.Name)));
+        });
+}
+```
+
+There's no base class, interface or assembly scanning to learn. They're plain extension methods.
+
+## Order matters
+
+Resources appear in the sidebar in the order you register them, unless you give them an `Order`. With the setup above, the order of the calls in `AddResources` is the sidebar order. See [sidebar](/docs/admin/sidebar) for groups and ordering.
+
+## Sharing fields
+
+When create and edit show the same fields, put them in a method that takes the fields builder:
+
+```cs
+using StellarAdmin.Resources.Builders;
+
+static void GuideFields(ResourceFieldsBuilder<Guide> fields)
+{
+    fields.Add(guide => guide.Name);
+    fields.Add(guide => guide.Email);
+}
+
+resource.AllowCreate(create => create.Fields(GuideFields));
+resource.AllowEdit(edit => edit.Fields(GuideFields));
+```

@@ -1,0 +1,103 @@
+---
+title: Overview
+description: Create and edit pages for your resources
+---
+
+`AllowCreate` and `AllowEdit` add the create and edit pages. Each takes the fields its form shows:
+
+```cs
+resource.AllowCreate(create => create.Fields(fields =>
+{
+    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.DestinationId);
+    fields.Add(trip => trip.Price);
+}));
+
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.DestinationId);
+    fields.Add(trip => trip.Price);
+    fields.Add(trip => trip.IsPublished);
+}));
+```
+
+Only the fields you add are shown and saved. Other properties keep their values: the defaults on create, and whatever's stored on edit.
+
+On save, the form is validated, and on success you go back to the index page. Ctrl+Enter (Cmd+Enter on a Mac) saves from any field.
+
+## Where to next
+
+| To | See |
+| --- | --- |
+| Set labels, help text, read-only and display fields | [Fields](/docs/admin/fields) |
+| Lay out a long form in sections and columns | [Layout](/docs/admin/form-layout) |
+| Set defaults for new records, and validate | [Defaults and validation](/docs/admin/defaults-and-validation) |
+| Pick a different input for a field | [Editors](/docs/admin/editors) |
+| Save to something other than the entity | [Custom models and handlers](/docs/admin/custom-models) |
+
+## Page settings
+
+| Property | Create default | Edit default |
+| --- | --- | --- |
+| `Title` | `Create {singular}` | `Edit {singular}` |
+| `SubmitLabel` | `Create {singular}` | `Save {singular}` |
+| `SectionLayout` | The panel's default | The panel's default |
+
+```cs
+resource.AllowEdit(edit =>
+{
+    edit.Title = "Edit trip details";
+    edit.SubmitLabel = "Save changes";
+    edit.Fields(fields => fields.Add(trip => trip.Name));
+});
+```
+
+`SectionLayout` controls how [sections](/docs/admin/form-layout#sections) look.
+
+## Sharing fields
+
+Create and edit have separate field lists. When they're mostly the same, share them with a method:
+
+```cs
+using StellarAdmin.Resources.Builders;
+
+resource.AllowCreate(create => create.Fields(TripFields));
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    TripFields(fields);
+    fields.Add(trip => trip.IsPublished);
+}));
+
+static void TripFields(ResourceFieldsBuilder<Trip> fields)
+{
+    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.DestinationId);
+    fields.Add(trip => trip.Price);
+}
+```
+
+## Save and add another
+
+When people enter several records in a row, add a "Save and add another" button. It saves, then opens a fresh create form:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.Fields(fields =>
+    {
+        fields.Add(trip => trip.Name);
+        fields.Add(trip => trip.DestinationId);
+        fields.Add(trip => trip.DurationDays);
+    });
+    create.EnableAddAnother(another =>
+    {
+        another.KeepForNext(trip => trip.DestinationId);
+        another.Label = "Save and add another trip";
+    });
+});
+```
+
+`KeepForNext` carries a field's value over to the next record, which saves retyping when you're adding several trips to the same destination. Ctrl+Shift+Enter (Cmd+Shift+Enter) presses the button from the keyboard.
+
+With [inline editing](/docs/admin/inline-editing), the same call adds the button to the new row.

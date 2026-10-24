@@ -1,0 +1,32 @@
+---
+title: Delete
+description: Let people delete records, with a confirmation
+---
+
+`AllowDelete` adds a delete action to each row in the grid, and to the edit and view pages. Each one asks for confirmation first.
+
+```cs
+resource.AllowDelete();
+```
+
+## Confirmation text
+
+Change what the confirmation says:
+
+```cs
+resource.AllowDelete(delete =>
+{
+    delete.Title = "Cancel this booking?";
+    delete.Message = "The booking and its payment history will be removed.";
+    delete.ConfirmLabel = "Delete booking";
+    delete.CancelLabel = "Keep it";
+});
+```
+
+To change the defaults for every resource, see [global labels](/docs/admin/global-labels).
+
+## When a delete fails
+
+If the database refuses the delete, for example because other records still point to it, the record stays and the page shows an error. The exception is logged as a warning.
+
+There's no hook to run before a delete. To block one with your own message, or to clean up related data, use a [custom data source](/docs/admin/custom-data-sources) and return a validation error from `DeleteAsync`. A database constraint or cascade works too.

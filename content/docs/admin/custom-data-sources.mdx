@@ -1,0 +1,133 @@
+---
+title: Custom data sources
+description: Manage data that doesn't live in EF Core
+---
+
+When your data comes from somewhere else, such as an API, a file or another data access library, register it with `AddResource` and give it a data source.
+
+```cs
+using StellarAdmin.Resources;
+
+admin.AddResource<Supplier>(resource =>
+{
+    resource.UseDataSource<SupplierDataSource>();
+    resource.UseKey(supplier => supplier.Code);
+    resource.Index(index =>
+    {
+        index.Columns(columns => columns.Add(supplier => supplier.Name, column => column.Sortable()));
+        index.EnableSearch();
+        index.EnablePaging();
+    });
+    resource.AllowCreate(create => create.Fields(fields => fields.Add(supplier => supplier.Name)));
+    resource.AllowEdit(edit => edit.Fields(fields => fields.Add(supplier => supplier.Name)));
+    resource.AllowDelete();
+});
+```
+
+`UseKey` tells StellarAdmin which property identifies a record. `UseDataSource` registers the data source as a scoped service, unless you've registered it yourself, so its constructor can take your services.
+
+## The data source
+
+Implement `IResourceCrudDataSource<T>` for all pages, or only the interfaces for the pages you allow:
+
+| Interface | Methods | Pages |
+| --- | --- | --- |
+| `IResourceDataSource<T>` | `ListAsync` | Index |
+| `IResourceCreateHandler<T>` | `CreateAsync` | Create |
+| `IResourceViewHandler<T>` | `FindAsync` | View |
+| `IResourceEditHandler<T>` | `FindAsync`, `UpdateAsync` | Edit and view |
+| `IResourceDeleteHandler<T>` | `DeleteAsync` | Delete |
+
+Here's one backed by an API client:
+
+```cs
+using StellarAdmin.Resources;
+
+public class SupplierDataSource(SupplierApi api) : IResourceCrudDataSource<Supplier>
+{
+    public async Task<ResourceListResult<Supplier>> ListAsync(
+        ResourceListRequest request, CancellationToken cancellationToken)
+    {
+        var suppliers = (await api.GetAllAsync(cancellationToken)).AsEnumerable();
+
+        if (request.Keys is { } keys)
+            suppliers = suppliers.Where(supplier => keys.Contains(supplier.Code));
+
+        if (request.Search is { } search)
+            suppliers = suppliers.Where(supplier =>
+                supplier.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
+
+        if (request.Sort is { Field: nameof(Supplier.Name) } sort)
+            suppliers = sort.Direction == ResourceSortDirection.Ascending
+                ? suppliers.OrderBy(supplier => supplier.Name)
+                : suppliers.OrderByDescending(supplier => supplier.Name);
+
+        var all = suppliers.ToList();
+        var page = request.Paging is { } paging
+            ? all.Skip((paging.Page - 1) * paging.PageSize).Take(paging.PageSize).ToList()
+            : all;
+
+        return new ResourceListResult<Supplier>(page, all.Count);
+    }
+
+    public Task<Supplier?> FindAsync(string id, CancellationToken cancellationToken) =>
+        api.FindAsync(id, cancellationToken);
+
+    public async Task<ResourceOperationResult> CreateAsync(
+        Supplier model, CancellationToken cancellationToken)
+    {
+        await api.CreateAsync(model, cancellationToken);
+        return ResourceOperationResult.Success(model.Code);
+    }
+
+    public async Task<ResourceOperationResult> UpdateAsync(
+        string id, Supplier model, CancellationToken cancellationToken)
+    {
+        if (await api.FindAsync(id, cancellationToken) is null)
+            return ResourceOperationResult.NotFound();
+
+        await api.UpdateAsync(id, model, cancellationToken);
+        return ResourceOperationResult.Success();
+    }
+
+    public async Task<ResourceOperationResult> DeleteAsync(string id, CancellationToken cancellationToken)
+    {
+        if (await api.HasOpenOrdersAsync(id, cancellationToken))
+            return ResourceOperationResult.ValidationFailed(null, "This supplier still has open orders.");
+
+        await api.DeleteAsync(id, cancellationToken);
+        return ResourceOperationResult.Success();
+    }
+}
+```
+
+## What `ListAsync` gets
+
+The panel doesn't filter, sort or page the rows you return. That's your job, using the request:
+
+| Property | What it holds |
+| --- | --- |
+| `Search` | The search text, trimmed, or `null`. |
+| `Scope` | The selected [scope](/docs/admin/scopes)'s id, or `null`. |
+| `Sort` | The column's `Field` and the `Direction`, or `null`. |
+| `Paging` | `Page` (starting at 1) and `PageSize`, or `null` for everything. |
+| `Keys` | Only return these records, or `null`. Set when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the records already picked. |
+
+Apply search, scope and sort before paging, and return the total number of matching records, not just the ones on the page.
+
+## Results
+
+Write methods return a `ResourceOperationResult`:
+
+| Result | Meaning |
+| --- | --- |
+| `Success()` | Saved. |
+| `Success(key)` | Saved, with the new record's key. Return this from `CreateAsync` so a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) can select a record created from it. |
+| `NotFound()` | The record doesn't exist any more. |
+| `ValidationFailed(field, message)` | Shows the form again with the error on that field. Pass `null` as the field for an error that isn't about one field. |
+
+Field names are the model's property names, like `nameof(Supplier.Name)`. If you return an error, don't save anything. For anything unexpected, throw: the page shows a general error and the exception is logged.
+
+## What's different from EF Core
+
+Search and scopes on custom data sources don't take predicates. `index.EnableSearch()` adds the search box and your data source decides what matches. The same goes for scopes: you get the id in `request.Scope`.

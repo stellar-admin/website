@@ -1,0 +1,80 @@
+---
+title: View pages
+description: A read-only page for one record
+---
+
+`AllowView` adds a read-only page for each record, at `/stellaradmin/{slug}/view/{id}`, and a view action on each row of the grid.
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+resource.AllowView(view => view.Fields(fields =>
+{
+    fields.Columns(2);
+    fields.AddSection("Trip", section =>
+    {
+        section.Add(booking => booking.Reference);
+        section.Add(booking => booking.Trip);
+        section.Add(booking => booking.DepartureDate);
+        section.Add(booking => booking.Travellers);
+        section.Add(booking => booking.Total, field =>
+            field.UseDisplay<NumberDisplay>(number => number.Format = "C"));
+    });
+    fields.AddSection("Customer", section =>
+    {
+        section.Add(booking => booking.Customer);
+        section.Add(booking => booking.Customer!.Email, field => field.Title = "Email");
+        section.Add(booking => booking.Notes, field => field.EmptyText = "No notes");
+    });
+}));
+```
+
+You list every field you want: there's no "show everything" option. `AllowView()` without fields doesn't add a page, and reports a [configuration problem](/docs/admin/configuration-problems).
+
+Every field on a view page is a [display field](/docs/admin/fields#display-fields). It can read through navigations, show a computed value and use any [display](/docs/admin/displays). A related record, like `booking.Customer`, shows its title.
+
+The page's header has Back, plus Edit and Delete when you've allowed them.
+
+## Layout
+
+View pages use the same [sections, groups and columns](/docs/admin/form-layout) as forms. Sections can also set `Orientation` for the fields inside them:
+
+```cs
+using StellarAdmin.UI;
+
+resource.AllowView(view =>
+{
+    view.Title = "Booking";
+    view.SectionLayout = FormSectionLayout.Split;
+    view.Fields(fields =>
+    {
+        fields.AddSection("Audit", section =>
+        {
+            section.Orientation = FieldOrientation.Horizontal;
+            section.Add(booking => booking.CreatedAt);
+        });
+    });
+});
+```
+
+`view.Title` defaults to `View {singular}`.
+
+## Showing a different model
+
+To show something other than the entity, give the page its own model and a handler that loads it:
+
+```cs
+resource.AllowView<BookingSummary, BookingSummaryHandler>(view => view.Fields(fields =>
+{
+    fields.Add(summary => summary.Reference);
+    fields.Add(summary => summary.Itinerary);
+}));
+```
+
+The handler implements `IResourceViewHandler<BookingSummary>`, with a `FindAsync(id, cancellationToken)` that returns the model, or `null` if there's no such record.
+
+For a resource with a [custom data source](/docs/admin/custom-data-sources), the data source needs `IResourceViewHandler<T>`. `IResourceEditHandler<T>` includes it.
+
+## Adding to the page
+
+For anything the fields can't show, such as a list of related records or a button, [override the page](/docs/admin/overriding-pages) and use its slots.

@@ -1,0 +1,63 @@
+---
+title: Titles and references
+description: Control how a record is named and shown when other records point to it
+---
+
+Every record has a title. It's what shows up when another record refers to it: in a lookup, a select, a grid column or a badge.
+
+## The title
+
+By default, StellarAdmin uses the first of these it finds:
+
+1. The `string` property named by the class's `[DisplayColumn]` attribute.
+2. A `string` property called `Name` or `Title`.
+3. The key.
+
+So `Customer.Name` is picked up without any configuration. To use something else:
+
+```cs
+admin.AddEfCoreResource<Booking>(resource =>
+{
+    resource.UseTitle(booking => booking.Reference);
+});
+```
+
+Keep the title to the record's own properties, and to something EF Core can translate to SQL, since lookups search and sort on it.
+
+## How references look
+
+`Reference` controls how the record appears when someone picks it in a lookup or select. Add a description and, optionally, one kind of media:
+
+```cs
+admin.AddEfCoreResource<Customer>(resource =>
+{
+    resource.Reference(reference => reference
+        .UseDescription(customer => customer.Email)
+        .UseAvatar(customer => customer.Photo));
+});
+```
+
+The media options are `UseIcon`, `UseAvatar`, `UseImage` and `UseCode`.
+
+## Searching, sorting and filtering references
+
+EF Core resources can also say how lookups search and sort the records, and which records can be picked at all:
+
+```cs
+resource.Reference(reference => reference
+    .SearchOn(customer => customer.Name, customer => customer.Email)
+    .OrderBy(customer => customer.Name)
+    .Where(customer => !customer.IsBlocked));
+```
+
+| Setting | Default |
+| --- | --- |
+| `SearchOn` | The index page's search, then the title |
+| `OrderBy` | The index page's default sort, then the title |
+| `Where` | All records. Global query filters still apply. |
+
+## Access
+
+Picking a related record doesn't need access to its resource. Someone who can edit bookings can pick a customer, even if they can't manage customers.
+
+See [foreign keys](/docs/admin/foreign-keys) for the fields that use references.

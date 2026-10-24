@@ -1,0 +1,122 @@
+---
+title: Foreign keys
+description: Pick related records with a lookup or a select
+---
+
+When a field is a foreign key, like `Booking.CustomerId`, you want people to pick a customer, not type a number. Register the related type as a resource, and EF Core forms do the rest:
+
+```cs
+admin.AddEfCoreResource<Customer>(resource => { /* ... */ });
+
+admin.AddEfCoreResource<Booking>(resource =>
+{
+    resource.AllowCreate(create => create.Fields(fields =>
+    {
+        fields.Add(booking => booking.CustomerId);
+    }));
+});
+```
+
+`CustomerId` now gets a lookup: the field shows the selected customer, and Choose opens a sheet that searches as you type. It's labelled "Customer", after the resource. How customers look, search and sort in it comes from the Customer resource's [reference settings](/docs/admin/titles-and-references).
+
+Without a Customer resource, the field stays a number input, and the panel reports a [configuration problem](/docs/admin/configuration-problems) to tell you.
+
+## A select instead
+
+For a short list, a select is quicker:
+
+```cs
+fields.Add(trip => trip.GuideId).UseSelectEditor(select => select.EmptyChoiceText = "No guide yet");
+```
+
+Any [choice editor](/docs/admin/choice-editors) works. A radio group with `Appearance = RadioGroupAppearance.Cards` shows each record as a card, with the resource's description and media.
+
+## Creating from a lookup
+
+`EnableCreate` adds a New button to the lookup. It opens the related resource's create form in a sheet, and selects the new record when it's saved:
+
+```cs
+fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup => lookup.EnableCreate());
+```
+
+The related resource needs `AllowCreate`. People who aren't allowed to use that resource don't see New.
+
+## Lookup settings
+
+```cs
+using StellarAdmin.Resources.Editors;
+
+fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
+{
+    lookup.Field(field => field.Layout = LookupSheetEditorLayout.Input);
+    lookup.Sheet(sheet =>
+    {
+        sheet.Title = "Choose a customer";
+        sheet.SearchPlaceholder = "Name or email";
+    });
+});
+```
+
+| On | Settings |
+| --- | --- |
+| `Field` | `Layout` (`Card` or `Input`), `EmptyText`, `AllowClear`, `ShowMedia` |
+| `Sheet` | `Title`, `SearchPlaceholder`, `MinimumSearchLength`, `PageSize` (20 by default), `ShowMedia` |
+
+The fixed texts, like "Choose customer", "New" and "Load more", are [global labels](/docs/admin/global-labels).
+
+## Form models
+
+A [custom form model](/docs/admin/custom-models) has no foreign key metadata, so name the resource:
+
+```cs
+fields.Add(form => form.CustomerId).UseLookupSheetEditor(lookup => lookup.UseResource<Customer>());
+```
+
+`UseResource<T>()` is on every choice editor and both lookups.
+
+## Related types that aren't resources
+
+Countries, cities and other reference data often don't need pages of their own. Load them straight from EF Core with `UseItems`:
+
+```cs
+using StellarAdmin.EntityFrameworkCore;
+
+fields.Add(destination => destination.CountryId).UseSelectEditor(select =>
+    select.UseItems<Country>(
+        country => country.Id,
+        country => country.Name,
+        items => items.OrderBy(country => country.Name)));
+```
+
+The value has to match the field's type. The items builder also has `UseDescription`, `UseGroup`, and `UseIcon`, `UseAvatar`, `UseImage` or `UseCode` for media. On a lookup, `SearchOn` sets what the search matches.
+
+## Lookups without EF Core
+
+For data from an API or another store, write a `LookupSource`:
+
+```cs
+using StellarAdmin.Resources.Editors;
+
+public class AirportSource(AirportClient client) : LookupSource<Airport, string>
+{
+    public override string GetValue(Airport airport) => airport.Code;
+    public override string GetTitle(Airport airport) => airport.City;
+    public override string? GetCode(Airport airport) => airport.Code;
+
+    public override Task<IReadOnlyCollection<Airport>> FindAsync(
+        IReadOnlyCollection<string> values, CancellationToken cancellationToken) =>
+        client.FindAsync(values, cancellationToken);
+
+    public override Task<LookupPage<Airport>> SearchAsync(
+        LookupQuery query, CancellationToken cancellationToken) =>
+        client.SearchAsync(query.Term, query.Skip, query.Take, cancellationToken);
+}
+```
+
+```cs
+fields.Add(guide => guide.HomeBase).UseLookupSheetEditor(lookup => lookup.UseSource<AirportSource>());
+```
+
+`FindAsync` loads the records already picked. `SearchAsync` gets the search term (`null` when empty) and the page to return. The source can take services in its constructor.
+
+A resource with a [custom data source](/docs/admin/custom-data-sources) doesn't need a lookup source: `UseResource<T>()` loads its records through `ListAsync`.

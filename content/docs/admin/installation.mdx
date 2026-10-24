@@ -1,0 +1,98 @@
+---
+title: Installation
+description: Add the admin panel to an ASP.NET Core app
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+StellarAdmin goes into an app you already have. Any ASP.NET Core app on .NET 10 or later will do, whether it uses MVC, Razor Pages or minimal APIs.
+
+<Steps>
+    <Step>
+        ### Install the packages
+
+        Add `StellarAdmin`, and `StellarAdmin.EntityFrameworkCore` if your data lives in EF Core.
+
+        <Tabs items={['.NET CLI', 'Package Manager']}>
+            <Tab>
+                ```text
+                dotnet add package StellarAdmin
+                dotnet add package StellarAdmin.EntityFrameworkCore
+                ```
+            </Tab>
+            <Tab>
+                ```text
+                Install-Package StellarAdmin
+                Install-Package StellarAdmin.EntityFrameworkCore
+                ```
+            </Tab>
+        </Tabs>
+
+        There's no need to install `StellarAdmin.UI` as well. It comes along with `StellarAdmin`.
+    </Step>
+    <Step>
+        ### Register the panel
+
+        In `Program.cs`, call `AddStellarAdmin`. This is where your resources go later, along with things like authorization and branding. It registers MVC for you, so you don't have to add that yourself.
+
+        ```cs
+        using StellarAdmin;
+
+        builder.Services.AddStellarAdmin(admin =>
+        {
+            // Resources, authorization and branding go here
+        });
+        ```
+    </Step>
+    <Step>
+        ### Map the panel
+
+        Next, map the panel with `MapStellarAdmin`. The panel's CSS and JavaScript are static assets, so make sure you're serving those too, or you'll get a page of unstyled HTML.
+
+        ```cs
+        var app = builder.Build();
+
+        app.UseRouting();
+        app.UseAuthorization();
+
+        app.MapStaticAssets();
+        app.MapStellarAdmin();
+        app.MapRazorPages();
+
+        app.Run();
+        ```
+
+        It doesn't matter whether `MapStellarAdmin` comes before or after your own endpoints.
+    </Step>
+    <Step>
+        ### Open the panel
+
+        Run your app and head to `/stellaradmin`. There's not much to see yet, because you haven't added any resources. In Development you'll also get a checklist of what's left to set up.
+    </Step>
+</Steps>
+
+## Serving it from another path
+
+The panel lives at `/stellaradmin` by default. To put it somewhere else, pass the path to `MapStellarAdmin`:
+
+```cs
+app.MapStellarAdmin("/admin");
+```
+
+## Before you go live
+
+Out of the box, anyone who can reach your app can open the panel. Lock it down before you deploy:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
+});
+```
+
+This only lets in users with the Staff role. See [authorization](/docs/admin/authorization) for the other options.
+
+## Where to next
+
+Now [add your first resources](/docs/admin/quick-start). If something isn't working, have a look at [installation issues](/docs/admin/installation-troubleshooting).

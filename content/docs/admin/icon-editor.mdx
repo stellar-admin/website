@@ -1,0 +1,44 @@
+---
+title: Icons
+description: Let people pick an icon instead of typing its name
+---
+
+`IconEditor` edits a string property that stores an icon's name, such as an amenity's or a category's icon. People pick from the registered [icons](/docs/ui/icons) instead of typing a name.
+
+```cs
+using StellarAdmin.Resources.Displays;
+using StellarAdmin.Resources.Editors;
+
+fields.Add(trip => trip.Icon).UseIconEditor();
+
+columns.Add(trip => trip.Icon, column => column.UseDisplay<IconDisplay>());
+```
+
+Without a list of icons, it offers every registered icon in a searchable picker. The picker searches names and keywords, and loads the icons the first time it opens.
+
+## A short list
+
+Pass `Icons` to offer only some:
+
+```cs
+fields.Add(trip => trip.Icon).UseIconEditor(icon =>
+{
+    icon.Icons = ["mountain", "sailboat", "utensils", "landmark", "tent"];
+});
+```
+
+| `Layout` | Shows |
+| --- | --- |
+| `IconEditorLayout.Auto` | Tiles for up to 24 icons, the picker for more. The default. |
+| `Picker` | Always the picker. |
+| `Inline` | Always tiles. Needs `Icons`. |
+
+Names that aren't registered are dropped and reported as a [configuration problem](/docs/admin/configuration-problems).
+
+A new value has to be one of the offered icons. A stored value that isn't offered any more still shows and saves unchanged, so records with old names stay editable.
+
+## Showing icons
+
+`IconDisplay` shows the icon. In the grid, the name shows on hover. On view pages and forms it shows beside the icon. Set `ShowName` to change that.
+
+The icons endpoint sends every registered icon, so only register the icon packs you use. The editor is the [icon picker](/docs/ui/components/icon-picker) component.

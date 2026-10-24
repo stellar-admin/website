@@ -1,0 +1,49 @@
+---
+title: Environment indicator
+description: Show which environment you're in, so nobody edits live data by mistake
+---
+
+The environment indicator marks every panel page with a stripe, a frame or a banner, so it's obvious when you're on the live site.
+
+```cs
+var environment = builder.Configuration["Deployment:Environment"];
+
+builder.Services.AddStellarAdmin(admin =>
+{
+    if (environment == "live")
+    {
+        admin.EnableEnvironmentIndicator(EnvironmentIndicator.Banner("Live", banner =>
+        {
+            banner.Color = EnvironmentColor.Danger;
+            banner.Description = "Changes affect real customers";
+        }));
+    }
+    else if (environment == "staging")
+    {
+        admin.EnableEnvironmentIndicator(EnvironmentIndicator.Stripe("Staging", stripe =>
+        {
+            stripe.Color = EnvironmentColor.Warning;
+        }));
+    }
+});
+```
+
+You decide when to show it: call `EnableEnvironmentIndicator` in the environments that need one, however your app tells them apart. Nothing shows if you don't call it.
+
+| Indicator | Looks like | Settings |
+| --- | --- | --- |
+| `EnvironmentIndicator.Stripe(label)` | A thin bar across the top, with the label on a tab | `Color`, `TabSize` |
+| `EnvironmentIndicator.Frame(label)` | A border around the window, with the label on a tab | `Color`, `TabSize` |
+| `EnvironmentIndicator.Banner(label)` | A bar across the top with the label and a `Description`. The page moves down to make room. | `Color`, `Description` |
+
+## Colours
+
+`Color` is `EnvironmentColor.Neutral` (the default), `Info`, `Success`, `Warning` or `Danger`. Those follow your theme and dark mode.
+
+For your own colour, use `EnvironmentColor.Custom("#7c3aed")`, or pass a second colour for dark mode: `EnvironmentColor.Custom("#7c3aed", "#c4b5fd")`. The text colour is picked for you.
+
+`TabSize` is `EnvironmentIndicatorTabSize.Small`, `Medium` (the default), `Large` or `ExtraLarge`.
+
+## Outside the panel
+
+Pages outside the panel, like your sign-in pages, don't get the indicator. Add the [environment indicator component](/docs/ui/components/environment-indicator) to their layout.

@@ -1,0 +1,157 @@
+---
+title: Custom models and handlers
+description: Forms that don't map one-to-one onto your entity
+---
+
+Sometimes a form isn't just the entity's properties. Signing up a customer might need a password and a confirmation, or saving might need to send an email. For those, give the page its own form model and a handler that saves it.
+
+```cs
+resource.AllowCreate<NewCustomerForm, NewCustomerHandler>(create => create.Fields(fields =>
+{
+    fields.Add(form => form.Name);
+    fields.Add(form => form.Email);
+    fields.Add(form => form.Password);
+    fields.Add(form => form.ConfirmPassword);
+}));
+```
+
+```cs
+public class NewCustomerForm
+{
+    [Required]
+    public string Name { get; set; } = "";
+
+    [Required, EmailAddress]
+    public string Email { get; set; } = "";
+
+    [Required, DataType(DataType.Password)]
+    public string Password { get; set; } = "";
+
+    [Compare(nameof(Password)), DataType(DataType.Password)]
+    [Display(Name = "Confirm password")]
+    public string ConfirmPassword { get; set; } = "";
+}
+```
+
+```cs
+using StellarAdmin.Resources;
+
+public class NewCustomerHandler(VoyagerDbContext db, CustomerAccounts accounts)
+    : IResourceCreateHandler<NewCustomerForm>
+{
+    public async Task<ResourceOperationResult> CreateAsync(
+        NewCustomerForm form, CancellationToken cancellationToken)
+    {
+        if (await db.Customers.AnyAsync(customer => customer.Email == form.Email, cancellationToken))
+            return ResourceOperationResult.ValidationFailed(
+                nameof(form.Email), "A customer with this email already exists.");
+
+        var customer = new Customer { Name = form.Name, Email = form.Email };
+        db.Customers.Add(customer);
+        await db.SaveChangesAsync(cancellationToken);
+        await accounts.SetPasswordAsync(customer, form.Password, cancellationToken);
+
+        return ResourceOperationResult.Success(customer.Id.ToString());
+    }
+}
+```
+
+The handler is registered as a scoped service for you, so it can take whatever services it needs. It replaces the resource's own create. Labels and the page title still come from the resource.
+
+Return `Success(key)` from a create handler, so a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) that opens this form can select the new record.
+
+Passwords marked `[DataType(DataType.Password)]` are cleared when the form is shown again with errors.
+
+## Edit handlers
+
+An edit handler loads the form model as well as saving it:
+
+```cs
+resource.AllowEdit<CustomerProfileForm, CustomerProfileHandler>(edit => edit.Fields(fields =>
+{
+    fields.Add(form => form.Name);
+    fields.Add(form => form.Email);
+}));
+```
+
+```cs
+public class CustomerProfileHandler(VoyagerDbContext db) : IResourceEditHandler<CustomerProfileForm>
+{
+    public async Task<CustomerProfileForm?> FindAsync(string id, CancellationToken cancellationToken)
+    {
+        var customer = await db.Customers.FindAsync([int.Parse(id)], cancellationToken);
+        return customer is null ? null : new CustomerProfileForm { Name = customer.Name, Email = customer.Email };
+    }
+
+    public async Task<ResourceOperationResult> UpdateAsync(
+        string id, CustomerProfileForm form, CancellationToken cancellationToken)
+    {
+        var customer = await db.Customers.FindAsync([int.Parse(id)], cancellationToken);
+        if (customer is null)
+            return ResourceOperationResult.NotFound();
+
+        customer.Name = form.Name;
+        customer.Email = form.Email;
+        await db.SaveChangesAsync(cancellationToken);
+        return ResourceOperationResult.Success();
+    }
+}
+```
+
+Use the `id` you're given, not a key on the form model.
+
+## Side effects on save
+
+There are no before- or after-save hooks. A handler is the place for anything that should happen when a record is saved: sending an email, writing an audit entry, or updating another system.
+
+## Fields bound by your own code
+
+Normally MVC binds each field to its property. A `FieldBinder` takes over for a field whose posted values aren't the property's value, or whose property has no setter. EF Core resources already use one for [many-to-many](/docs/admin/many-to-many) navigations, so you'll mostly need your own with a [custom data source](/docs/admin/custom-data-sources).
+
+Say `Supplier` has a read-only list of region codes:
+
+```cs
+public class Supplier
+{
+    public string Code { get; set; } = "";
+    public string Name { get; set; } = "";
+    public List<string> Regions { get; } = [];
+}
+```
+
+The binder gives the editor its value, and fills the list from the posted values:
+
+```cs
+using StellarAdmin.Resources;
+
+public class RegionsBinder : FieldBinder
+{
+    public override object? GetValue(FieldBindingContext context) =>
+        ((Supplier)context.Model).Regions.ToList();
+
+    public override Task BindAsync(FieldBindingContext context, CancellationToken cancellationToken)
+    {
+        var regions = ((Supplier)context.Model).Regions;
+        regions.Clear();
+        regions.AddRange(context.Values.Where(value => !string.IsNullOrEmpty(value))!);
+        return Task.CompletedTask;
+    }
+}
+```
+
+Attach it to the field after the resource is configured:
+
+```cs
+using StellarAdmin.Resources.Options;
+
+builder.Services.AddOptions<ResourceOptions<Supplier>>().PostConfigure(options =>
+{
+    foreach (var field in options.Edit?.Fields ?? [])
+    {
+        if (field.FieldName == nameof(Supplier.Regions))
+            field.UseBinder(new RegionsBinder());
+    }
+});
+```
+
+One binder instance serves every request, so get services from `context.Services`. Call `context.AddError(message)` to show an error under the field. Without a setter or a binder, the field is left out and reported as a [configuration problem](/docs/admin/configuration-problems).

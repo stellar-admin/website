@@ -1,0 +1,42 @@
+---
+title: Theming
+description: Change how the panel looks with a theme file
+---
+
+The panel is built with [StellarAdmin.UI](/docs/ui) and uses its themes. A theme is a CSS file of variables that you load after the panel's own stylesheet:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddStylesheet("https://fonts.googleapis.com/css2?family=Lexend:wght@400..700&display=swap");
+    admin.AddStylesheet("~/css/theme.css");
+});
+```
+
+Stylesheets load after the panel's, in the order you add them. Add any web fonts your theme needs the same way.
+
+To make a theme:
+
+- Start from a preset in the [theme builder](/theme-builder), tweak it, and export the file.
+- Ask your coding agent, with the [stellar-admin-theme skill](/docs/ui/agent-skills#creating-a-theme).
+- Write one by hand from the [theme variables](/docs/ui/theme-variables).
+
+See [theming](/docs/ui/theming) in the StellarAdmin.UI docs for how themes work, and [dark mode](/docs/ui/dark-mode) for the light and dark variants.
+
+## Form layout
+
+How form sections look is a panel setting rather than part of the theme:
+
+```cs
+admin.ConfigureUI(ui => ui.ConfigureForms(forms => forms.SectionLayout = FormSectionLayout.Card));
+```
+
+See [form layout](/docs/admin/form-layout#sections).
+
+## Scripts
+
+`AddScript` adds your own scripts to every panel page, after the panel's:
+
+```cs
+admin.AddScript("~/js/admin.js");
+```

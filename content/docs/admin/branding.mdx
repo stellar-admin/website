@@ -1,0 +1,52 @@
+---
+title: Branding
+description: The panel's name and logo
+---
+
+```cs
+using StellarAdmin.Sidebar;
+
+admin.ConfigureBranding(branding =>
+{
+    branding.Title = "Voyager Travel";
+    branding.Subtitle = "Admin";
+    branding.Logo = BrandingLogo.Icon("compass");
+});
+```
+
+| Property | Default |
+| --- | --- |
+| `Title` | Your app's name, made readable: `Voyager.Admin` becomes "Voyager Admin". |
+| `Subtitle` | None. A second line under the title. |
+| `Logo` | None. The title shows on its own. |
+| `Href` | The panel's home page. |
+
+The title is also used in the browser tab, like "Bookings - Voyager Travel".
+
+## Logos
+
+There are three kinds of logo:
+
+| Logo | Looks like |
+| --- | --- |
+| `BrandingLogo.Icon("compass")` | An [icon](/docs/ui/icons) in a coloured tile, beside the title. |
+| `BrandingLogo.Image("~/img/logo.svg")` | A square image beside the title. |
+| `BrandingLogo.Wordmark("~/img/wordmark.svg")` | An image that replaces the title and subtitle. The title becomes its alt text. |
+
+`Image` and `Wordmark` take a second path for dark mode:
+
+```cs
+branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", "~/img/wordmark-dark.svg");
+```
+
+A wordmark is centred, and as tall as the two lines of text it replaces. Pass a `WordmarkLayout` to change that: `Start` lines it up with the menu items, and `Fill` stretches it across the sidebar, which suits a wide logo that looks small otherwise.
+
+```cs
+branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", WordmarkLayout.Fill);
+```
+
+A wordmark doesn't show the subtitle.
+
+## Your own header
+
+For a header the settings can't describe, add `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` to your app. It replaces the panel's, and gets a `SidebarBrandModel` with the `Title`, `Subtitle`, `Logo` and `Href`. It needs the [view imports](/docs/admin/overriding-pages#view-imports).

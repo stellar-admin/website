@@ -1,0 +1,58 @@
+---
+title: Overview
+description: The grid that lists a resource's records
+---
+
+Every resource has an index page: a grid of its records, at `/stellaradmin/{slug}`. You configure it with `resource.Index`:
+
+```cs
+resource.Index(index =>
+{
+    index.Columns(columns =>
+    {
+        columns.Add(booking => booking.Reference);
+        columns.Add(booking => booking.Customer);
+        columns.Add(booking => booking.DepartureDate, column => column.Sortable());
+    });
+    index.EnableSearch(term => booking => booking.Reference.Contains(term));
+    index.EnableScopes(scopes =>
+    {
+        scopes.Add("all", "All");
+        scopes.Add("pending", "Pending", booking => booking.Status == BookingStatus.Pending);
+        scopes.DefaultScope = "all";
+    });
+    index.DefaultSortBy(booking => booking.DepartureDate);
+    index.EnablePaging();
+});
+```
+
+| Feature | Page |
+| --- | --- |
+| What the grid shows | [Columns](/docs/admin/columns) |
+| A search box | [Search](/docs/admin/search) |
+| Tabs such as All, Pending and Confirmed | [Scopes](/docs/admin/scopes) |
+| Clickable headers and pages | [Sorting and paging](/docs/admin/sorting-and-paging) |
+| Rows that expand to show more | [Row details](/docs/admin/row-details) |
+| Editing and adding records in the grid | [Inline editing](/docs/admin/inline-editing) |
+
+Search, scopes, sorting and paging update the grid in place and keep their state in the URL, so a filtered list can be bookmarked or shared. Changing the search or the scope takes you back to page 1.
+
+## Title and labels
+
+| Property | Default |
+| --- | --- |
+| `index.Title` | The plural label, such as `Bookings` |
+| `index.CreateLabel` | `Create` |
+| `index.EditLabel` | `Edit {singular}`, such as `Edit Booking` |
+| `index.ViewLabel` | `View {singular}` |
+| `index.DeleteLabel` | `Delete {singular}` |
+
+```cs
+resource.Index(index =>
+{
+    index.Title = "All bookings";
+    index.CreateLabel = "New booking";
+});
+```
+
+The row actions are view, edit and delete, depending on which pages you've [allowed](/docs/admin/resources#pages). Custom row actions and bulk actions aren't supported yet.

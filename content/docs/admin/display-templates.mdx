@@ -1,0 +1,58 @@
+---
+title: Display templates
+description: Render a value with your own Razor template
+---
+
+The quickest way to show a value your own way is a display template. Mark the property with `[UIHint]`:
+
+```cs
+public class Booking
+{
+    [UIHint("BookingStatus")]
+    public BookingStatus Status { get; set; }
+}
+```
+
+Then add a template with that name. You need one for display fields and view pages, and one for grid cells:
+
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/BookingStatus.cshtml"
+@using StellarAdmin.UI
+@model BookingStatus
+
+<sa-badge variant="@(Model == BookingStatus.Cancelled ? BadgeVariant.Destructive : BadgeVariant.Secondary)">
+    @Model
+</sa-badge>
+```
+
+```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
+@using StellarAdmin.UI
+@model BookingStatus
+
+<sa-badge variant="@(Model == BookingStatus.Cancelled ? BadgeVariant.Destructive : BadgeVariant.Secondary)">
+    @Model
+</sa-badge>
+```
+
+## Where templates go
+
+| Shown in | Folder |
+| --- | --- |
+| Display fields and view pages | `DisplayTemplates/` |
+| Grid cells | `GridDisplayTemplates/` |
+
+The panel looks in `Areas/StellarAdmin/Views/Shared/`, `Views/Shared/` and `Pages/Shared/`. Templates under `Areas/StellarAdmin/Views/` need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) for the `sa-*` tag helpers, or their tags render as plain text.
+
+Add `@using` lines for your model's namespace too, or put them in the `_ViewImports.cshtml`.
+
+A `[UIHint]` applies everywhere the property is displayed, so if you hint a property, add both templates. A missing display template throws.
+
+## Changing a built-in display
+
+To change how a built-in display renders across the panel, add a template at its path. For booleans:
+
+- `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/Boolean.cshtml`
+- `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/Boolean.cshtml`
+
+## When to use a custom display instead
+
+A `[UIHint]` applies to every use of the property, and the template has no settings. If you want a template on some fields only, or one you can configure, write a [custom display](/docs/admin/custom-displays).

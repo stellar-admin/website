@@ -1,0 +1,58 @@
+---
+title: Sorting and paging
+description: Sort the grid by its columns and split it into pages
+---
+
+## Sorting
+
+Make a column sortable, and people can click its header to sort by it. Clicking again flips the direction.
+
+```cs
+resource.Index(index =>
+{
+    index.Columns(columns =>
+    {
+        columns.Add(booking => booking.Reference);
+        columns.Add(booking => booking.DepartureDate, column => column.Sortable());
+        columns.Add(booking => booking.Total, column => column.Sortable());
+    });
+    index.DefaultSortBy(booking => booking.DepartureDate);
+});
+```
+
+`DefaultSortBy` sorts ascending, and `DefaultSortByDescending` sorts the other way. The default sort has to be on a sortable column. If it isn't, the grid ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
+
+Without a default sort, EF Core resources are sorted by key, so pages stay stable. Ties in any sort are broken by key too.
+
+### Sorting by something else
+
+A column can sort by a different expression from the one it shows. That's useful for navigations and computed values:
+
+```cs
+columns.Add(booking => booking.Customer, column =>
+    column.Sortable(booking => booking.Customer!.Name));
+```
+
+## Paging
+
+Without paging, the grid shows every record. Turn it on with `EnablePaging`:
+
+```cs
+index.EnablePaging();
+```
+
+That shows 25 records per page, with a choice of 10, 25, 50 or 100. To change those:
+
+```cs
+index.EnablePaging(paging =>
+{
+    paging.PageSize = 20;
+    paging.PageSizes = [20, 50, 100];
+});
+```
+
+`PageSize` has to be one of `PageSizes`. If it isn't, StellarAdmin adds it to the list and reports a [configuration problem](/docs/admin/configuration-problems).
+
+## Custom data sources
+
+Your data source gets the column's `Field` and the direction in `ResourceListRequest.Sort`, and the page in `ResourceListRequest.Paging`. See [custom data sources](/docs/admin/custom-data-sources#what-listasync-gets).

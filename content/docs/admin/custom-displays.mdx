@@ -1,0 +1,72 @@
+---
+title: Custom displays
+description: Display classes with settings and their own templates
+---
+
+A custom display is a class with settings, plus a template that renders it. Use one when a template needs settings, or should apply to some fields and not others.
+
+Here's a booking status badge whose colour depends on the value:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+public class BookingStatusDisplay : FieldDisplay
+{
+    public override string TemplateName => "BookingStatus";
+
+    public bool ShowIcon { get; set; }
+}
+```
+
+```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
+@using StellarAdmin.Areas.StellarAdmin
+@using StellarAdmin.UI
+@inherits FieldDisplayView<BookingStatusDisplay>
+@{
+    var variant = Model switch
+    {
+        BookingStatus.Confirmed => BadgeVariant.Default,
+        BookingStatus.Cancelled => BadgeVariant.Destructive,
+        _ => BadgeVariant.Secondary,
+    };
+}
+
+<sa-badge variant="@variant">
+    @if (Display.ShowIcon)
+    {
+        <sa-icon name="circle-check" />
+    }
+    @FormatValue()
+</sa-badge>
+```
+
+```cs
+columns.Add(booking => booking.Status, column =>
+    column.UseDisplay<BookingStatusDisplay>(status => status.ShowIcon = true));
+```
+
+In the template:
+
+- `Model` is the value, as an `object?`.
+- `Display` is the display, with the settings you configured.
+- `FormatValue()` formats the value the way built-in displays do. Enum members show their `[Display(Name)]`. Pass a format string to override it.
+
+## Grid cells and display fields
+
+Grid cells use `GridDisplayTemplates/{TemplateName}.cshtml`, and display fields and view pages use `DisplayTemplates/{TemplateName}.cshtml`. If the display is used in both, add both templates. See [display templates](/docs/admin/display-templates#where-templates-go) for the folders.
+
+## Empty values
+
+An empty value normally shows the field's empty text, and your template isn't called. To render something of your own for empty values, like initials for a missing photo, override `RendersEmptyValue`:
+
+```cs
+public override bool RendersEmptyValue => true;
+```
+
+Your template then gets called with `null` and blank values too.
+
+## Displays that need data
+
+If the display needs to look something up, implement `IFieldDisplay<THandler>` and write a handler that derives from `FieldDisplayHandler<TDisplay>`. The handler takes services in its constructor and returns data from `PrepareAsync`. The template reads it from `DisplayData`.
+
+Displays with handlers work in display fields and on view pages, but not in grid cells.

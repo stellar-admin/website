@@ -1,0 +1,94 @@
+---
+title: Built-in displays
+description: How values are shown in the grid, on view pages and in display fields
+---
+
+A display decides how a value is shown: in a grid cell, a [display field](/docs/admin/fields#display-fields) or on a [view page](/docs/admin/view-pages). Each value gets one from its type, and you can pick another with `UseDisplay`:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(booking => booking.Total, column =>
+    column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
+
+fields.AddDisplayField(customer => customer.IsVip, field =>
+    field.UseDisplay<BooleanDisplay>(flag =>
+    {
+        flag.Appearance = BooleanDisplayAppearance.Text;
+        flag.TrueText = "VIP";
+        flag.FalseText = "Standard";
+    }));
+```
+
+## The displays
+
+| Display | Used by default for | Settings |
+| --- | --- | --- |
+| `TextDisplay` | Strings | `LineClamp` |
+| `NumberDisplay` | Numbers, right-aligned in the grid | `Format`, like `"C"` or `"N2"` |
+| `DateDisplay` | `DateTime`, `DateTimeOffset`, `DateOnly`, `TimeOnly` | `Format`, like `"d MMM yyyy"` |
+| `BooleanDisplay` | `bool` | `Appearance` (`Icon`, `Text` or `IconAndText`), `TrueText`, `FalseText` |
+| `EnumDisplay` | Enums | None |
+| `EmailDisplay` | `[EmailAddress]` | None. Shows a `mailto:` link. |
+| `PhoneDisplay` | `[Phone]` | None. Shows a `tel:` link. |
+| `LinkDisplay` | `[Url]` | `OpenInNewTab`, on by default |
+| `HtmlDisplay` | `[DataType(DataType.Html)]` | `LineClamp`, in the grid |
+| `BadgeDisplay` | Lists and dictionaries | `Variant`, `Limit`, `UseText` |
+| `ImageDisplay` | Nothing; pick it yourself | `ResolveUrl`, `Size`, `AspectRatio`, `Fit`, `Interaction` |
+| `IconDisplay` | Nothing; pick it yourself | `ShowName` |
+
+All of them are in `StellarAdmin.Resources.Displays`.
+
+## Formats
+
+`Format` falls back to the property's `[DisplayFormat]`. Dates default to `d MMM yyyy`, times to `HH:mm`, and both together to `d MMM yyyy, HH:mm`.
+
+Formats use the request's culture, so `"C"` shows your server's currency unless your app sets a request culture.
+
+One gotcha: `[DataType(DataType.Date)]` brings in MVC's short date format, like `10/14/2026` in en-US. Set `Format` on those if you want the panel's style.
+
+Enums show each member's `[Display(Name)]`, or its name with spaces: `NorthAmerica` reads "North America".
+
+## Text
+
+`LineClamp` cuts long text off after that many lines. In the grid, line breaks only show when it's set. In display fields, multi-line text keeps its line breaks.
+
+`HtmlDisplay` sanitizes the HTML and shows it formatted. In the grid it shows the text without formatting, cut off after two lines.
+
+## Badges
+
+`BadgeDisplay` shows each item of a list, or each entry of a dictionary, as a [badge](/docs/ui/components/badge):
+
+```cs
+columns.Add(trip => trip.Highlights, column =>
+    column.UseDisplay<BadgeDisplay>(badge =>
+    {
+        badge.Variant = BadgeVariant.Outline;
+        badge.Limit = 3;
+    }));
+```
+
+`Limit` shows that many, and the rest as a `+2` badge with the others in its tooltip. Every badge gets the same `Variant`. For a badge styled by its value, write a [custom display](/docs/admin/custom-displays).
+
+It also shows related records, like a trip's tags. See [showing related values](/docs/admin/related-values).
+
+## Images
+
+`ImageDisplay` shows a thumbnail in the grid, and a larger image that opens in a lightbox elsewhere. See [images](/docs/admin/image-editor#showing-images).
+
+| Setting | Grid default | Elsewhere |
+| --- | --- | --- |
+| `Size` | `Small`, 32px | `Medium`, up to 15rem tall |
+| `AspectRatio` | `Square` | `Original` |
+| `Fit` | `Cover` | `Cover` |
+| `Interaction` | `Lightbox` | `Lightbox` |
+
+An empty value shows a placeholder.
+
+## Empty values
+
+A null or empty value shows the field's `EmptyText`, then `[DisplayFormat(NullDisplayText)]`. In the grid, that's an empty cell by default, and in display fields a dash.
+
+## Changing a display everywhere
+
+To change how a built-in display looks across the panel, override its template. See [display templates](/docs/admin/display-templates).

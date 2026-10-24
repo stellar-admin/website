@@ -1,0 +1,28 @@
+---
+title: Template overrides
+description: Replace the panel's markup for editors, displays and other parts
+---
+
+Add a view at the same path as one of the panel's templates, and yours is used everywhere instead.
+
+| To change | Add |
+| --- | --- |
+| A built-in editor | `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/{Name}.cshtml` |
+| A built-in editor in inline rows | `Areas/StellarAdmin/Views/Shared/GridEditorTemplates/Editors/{Name}.cshtml` |
+| A built-in display, in display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/{Name}.cshtml` |
+| A built-in display, in grid cells | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/{Name}.cshtml` |
+| The environment indicator | `Areas/StellarAdmin/Views/Shared/_EnvironmentIndicator.cshtml` |
+| The sidebar header | `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` |
+| The user menu | `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` |
+
+`{Name}` is the editor or display without its suffix: `TextInput`, `Select`, `RadioGroup`, `Number`, `Boolean`, and so on.
+
+All of them need the [view imports](/docs/admin/overriding-pages#view-imports).
+
+Write your template for the behaviour you need, rather than copying the built-in one: the built-in templates read internal view data that can change between versions.
+
+The sidebar's own view isn't something you can override. Use the [sidebar settings](/docs/admin/sidebar) instead.
+
+## Your own editors and displays
+
+To add a new editor or display rather than change a built-in one, see [custom editors](/docs/admin/custom-editors) and [custom displays](/docs/admin/custom-displays).

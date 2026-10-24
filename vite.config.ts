@@ -35,6 +35,10 @@ export default defineConfig(({ command }) => ({
     mdx(),
     tailwindcss(),
     tanstackStart({
+      // The header's Documentation menu and the docs tab switcher only render
+      // their links when opened, so the crawler can't follow them. Seed each
+      // docs root explicitly.
+      pages: [{ path: "/" }, { path: "/docs/admin" }],
       prerender: {
         enabled: true,
         // Some docs cross-reference each other with relative links that resolve

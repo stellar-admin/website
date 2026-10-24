@@ -1,0 +1,31 @@
+---
+title: Installation issues
+description: Common problems when you first set up the panel
+---
+
+| Symptom | Cause |
+| --- | --- |
+| 404 at `/stellaradmin` | `app.MapStellarAdmin()` is missing, or you passed it a different path. |
+| The page has no styles | Static assets aren't mapped. Add `app.MapStaticAssets()` or `app.UseStaticFiles()`. |
+| Raw `<sa-...>` tags in the page | A view of yours under `Areas/StellarAdmin/Views/` has no [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports). |
+| Anyone can open the panel | There's no [`RequireAuthorization`](/docs/admin/authorization), or the authorization middleware is missing. |
+| A resource's pages return 404 | It has an error. Check the [configuration problems](/docs/admin/configuration-problems) pill or the log. Often no registered `DbContext` maps the entity, or more than one does: register it with `AddDbContext`, or pick one with `resource.UseDbContext<TContext>()`. |
+| A resource is at a different URL than you expected | The slug is the kebab-case plural of the type: `TripExtra` is at `/stellaradmin/trip-extras`. |
+| A foreign key shows a number box | Register the related type as a resource. See [foreign keys](/docs/admin/foreign-keys). |
+| No Create or Edit button | `AllowCreate` or `AllowEdit` isn't called for the resource. |
+| Dates start at 0001-01-01 on create | Set defaults with [`UseFactory`](/docs/admin/defaults-and-validation). |
+| Signed-in users without access land on a 404 | Cookie authentication sends them to `/Account/AccessDenied`. Add that page, or set `AccessDeniedPath`. |
+| A sidebar link is red, or missing outside Development | Its `Page` or `Action` doesn't exist. Check the name, controller and area. |
+
+## Every page is a 500
+
+Check your app's log for the exception. If there's no exception, look for errors in the `StellarAdmin.Configuration` category.
+
+## Checking without a browser
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' http://localhost:5000/stellaradmin/bookings
+curl -s http://localhost:5000/stellaradmin/bookings | grep -c '<sa-'
+```
+
+The second command should print 0. If the panel requires sign-in, an anonymous request gets a redirect to your sign-in page (302) or a 401.

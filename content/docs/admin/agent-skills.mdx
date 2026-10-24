@@ -1,0 +1,44 @@
+---
+title: Agent Skills
+description: Teach your coding agent to build admin panels with StellarAdmin
+---
+
+StellarAdmin ships two skills for agents such as Claude Code and Codex:
+
+- **stellar-admin-setup** installs the panel in your app: packages, `AddStellarAdmin`, `MapStellarAdmin`, and checks that it works. It asks you about resources, authorization and branding instead of guessing.
+- **stellar-admin** builds the panel: resources, index pages, forms, editors, relationships, the sidebar, authorization and view overrides.
+
+They're installed with [Vercel's skills installer](https://github.com/vercel-labs/skills). The source is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
+
+## Installation
+
+With Node.js and Git installed, run this in your app's project directory:
+
+```bash
+npx skills add stellar-admin/stellar-admin --skill stellar-admin-setup
+npx skills add stellar-admin/stellar-admin --skill stellar-admin
+```
+
+Pick your agent in the installer, or name it with `--agent claude-code` or `--agent codex`. Add `--global` to make the skills available in all your projects. Then start a fresh agent session.
+
+Keep the `--skill` option: the repository also contains internal skills used to build StellarAdmin itself.
+
+<Callout type="info">
+    This installs guidance for your agent. It doesn't install the NuGet packages or change your app.
+</Callout>
+
+## Using them
+
+Ask your agent to install the panel:
+
+> Use the stellar-admin-setup skill to add StellarAdmin to this app.
+
+Then build it out:
+
+> Add bookings to the admin panel, with search on the reference and Pending and Confirmed tabs.
+
+For your own pages that use `sa-*` components, add **stellar-admin-ui**. For theme files, add **stellar-admin-theme**. Both are described in the [StellarAdmin.UI agent skills](/docs/ui/agent-skills) docs.
+
+## Versions
+
+The skills follow the repository's default branch, so they can describe features newer than the packages you have installed. They tell the agent to check your installed version first. Updating a skill doesn't update your packages.

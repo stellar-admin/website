@@ -1,0 +1,48 @@
+---
+title: Page tag helpers and slots
+description: Put your own content inside a generated page
+---
+
+Each generated page is rendered by a tag helper. In an [overridden page](/docs/admin/overriding-pages), keep the tag helper, and fill its slots to add content in the right places.
+
+```razor title="Areas/StellarAdmin/Views/Bookings/View.cshtml"
+@model ResourceViewPageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<sa-view-page model="Model">
+    <sa-slot-content name="post-page-actions">
+        <sa-button-link href="@($"/invoices/{Model.EntityId}")" variant="ButtonVariant.Outline">
+            Invoice
+        </sa-button-link>
+    </sa-slot-content>
+    <sa-slot-content name="post-view-fields">
+        <sa-card>
+            <sa-card-content>Payment history goes here.</sa-card-content>
+        </sa-card>
+    </sa-slot-content>
+</sa-view-page>
+```
+
+## The tag helpers
+
+| Tag | Used by | Slots |
+| --- | --- | --- |
+| `<sa-index-page>` | Index | `pre-page-actions`, `post-page-actions` |
+| `<sa-form-page>` | Create and edit | `pre-form-fields`, `post-form-fields`, `form-leading-actions`, `pre-form-actions`, `post-form-actions` |
+| `<sa-view-page>` | View | `pre-page-actions`, `post-page-actions`, `pre-view-fields`, `post-view-fields` |
+
+The page actions are the buttons in the header, like Create on the index page. The form actions are the buttons at the bottom of a form.
+
+The edit page puts its Delete button in `form-leading-actions`, so filling that slot replaces it.
+
+The index page has no slot between its header and the grid. Put content above or below the whole page instead.
+
+## Attributes
+
+| Attribute | What it does |
+| --- | --- |
+| `model` | The page's model. Pass `Model`. |
+| `view` | Renders the page through your own partial instead of the built-in one. |
+| `class` | Extra classes for the page. |

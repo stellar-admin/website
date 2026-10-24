@@ -1,0 +1,41 @@
+---
+title: Introduction
+description: What StellarAdmin is, and why you might want it
+---
+
+Sooner or later, most apps need an admin area. Somewhere to look up a customer, fix a booking, or take a trip off sale. Building one means writing the same list, create and edit pages over and over, each with its own search box and paging, for every table you want to manage.
+
+StellarAdmin writes those pages for you. You tell it which entities to manage and which columns and fields to show, and it does the rest. It's all C#, in `Program.cs`:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Trip>(resource =>
+    {
+        resource.Index(index => index.Columns(columns =>
+        {
+            columns.Add(trip => trip.Name);
+            columns.Add(trip => trip.Price);
+        }));
+        resource.AllowEdit(edit => edit.Fields(fields =>
+        {
+            fields.Add(trip => trip.Name);
+            fields.Add(trip => trip.Price);
+        }));
+    });
+});
+```
+
+With that, you can open `/stellaradmin/trips`, see your trips in a grid and edit them. Add another resource and it shows up in the sidebar next to Trips.
+
+The panel isn't a separate service. It runs inside your app, reads your data through your own `DbContext`, and uses the sign-in you already have. Under the hood it's plain ASP.NET Core MVC, rendered on the server and built with [StellarAdmin.UI](/docs/ui) components. No JavaScript framework, and no Blazor.
+
+The defaults should get you most of the way. Each field picks an editor based on its type, so a `bool` gets a checkbox, an enum gets a dropdown, and a foreign key lets you search for the related record. When a default doesn't suit you, change it. And when configuration can't get you there, replace the page with your own Razor view.
+
+## Packages
+
+For most apps you'll want two packages: `StellarAdmin` for the panel, and `StellarAdmin.EntityFrameworkCore` for resources backed by EF Core. `StellarAdmin.UI` comes along automatically. You'll need .NET 10 or later.
+
+## Where to next
+
+Start with [installation](/docs/admin/installation), then build your first resources in the [quick start](/docs/admin/quick-start).

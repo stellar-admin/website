@@ -1,0 +1,96 @@
+---
+title: Row details
+description: Rows that expand to show more about a record
+---
+
+Row details let people expand a row in the grid to see more, without leaving the page. You write the content as a partial view.
+
+```cs
+resource.Index(index => index.EnableRowDetails("_BookingSummary"));
+```
+
+```razor title="Areas/StellarAdmin/Views/bookings/_BookingSummary.cshtml"
+@model Booking
+
+<sa-details>
+    <sa-display-field asp-for="Travellers" />
+    <sa-display-field asp-for="Notes" />
+</sa-details>
+```
+
+The partial gets the row's record as its model, and renders with the index page. Put it in `Areas/StellarAdmin/Views/{slug}/` or `Areas/StellarAdmin/Views/Shared/`, and make sure that folder has a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) so the `sa-*` tag helpers work.
+
+## Loading data when a row expands
+
+If the details need more than the row has, load them only when someone expands it.
+
+With EF Core, project the record into a model:
+
+```cs
+index.EnableRowDetails("_BookingPricing", booking => new BookingPricing(
+    booking.Total,
+    booking.Travellers,
+    booking.Trip!.Price));
+```
+
+For anything else, write a handler. It gets the row's key and returns the partial's model:
+
+```cs
+using StellarAdmin.Resources;
+
+public class BookingHistoryHandler(BookingHistoryService history)
+    : IResourceRowDetailHandler<BookingHistory>
+{
+    public Task<BookingHistory?> FindAsync(string id, CancellationToken cancellationToken) =>
+        history.FindAsync(int.Parse(id), cancellationToken);
+}
+```
+
+```cs
+index.EnableRowDetails<BookingHistoryHandler>("_BookingHistory");
+```
+
+The handler is registered as a scoped service for you. Each handler should load one model type.
+
+## Tabs
+
+Add more than one panel and they're shown as tabs:
+
+```cs
+index.EnableRowDetails(panels =>
+{
+    panels.Add("Summary", "_BookingSummary");
+    panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
+        booking.Total, booking.Travellers, booking.Trip!.Price));
+    panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
+});
+```
+
+## How rows expand
+
+Each overload has a version that takes a callback for the row settings:
+
+```cs
+using StellarAdmin.UI;
+
+index.EnableRowDetails("_BookingSummary", details =>
+{
+    details.ExpandMode = DataGridRowDetailExpandMode.Single;
+    details.RowClick = true;
+    details.Emphasis = DataGridRowDetailEmphasis.Rail;
+});
+```
+
+| Setting | What it does |
+| --- | --- |
+| `ExpandMode` | `Multiple` (the default) or `Single`, which closes the open row when another expands. |
+| `RowClick` | Expands the row when it's clicked anywhere, not just on the toggle. |
+| `Toggle` | Puts the toggle at the `Start` or `End` of the row. |
+| `Emphasis` | Marks the expanded row with a `Band` or `Rail`, or `None`. |
+| `Divider` | The line between the row and its details. |
+| `Inset` | Lines the details up with the columns (`Aligned`) or the grid's edge (`Bleed`). |
+| `Animate` | Animates opening and closing. |
+
+These map to the [data grid's row details](/docs/ui/components/data-grid#row-details) in StellarAdmin.UI.
+
+Calling `EnableRowDetails` again replaces the earlier configuration. For content about the whole page, such as a summary above the grid, [override the index page](/docs/admin/overriding-pages) instead.

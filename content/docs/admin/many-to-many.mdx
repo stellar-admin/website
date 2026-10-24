@@ -1,0 +1,64 @@
+---
+title: Many-to-many
+description: Pick several related records
+---
+
+On an EF Core resource, add a many-to-many navigation as a field, and it just works:
+
+```cs
+public class Trip
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public List<Tag> Tags { get; set; } = [];
+}
+```
+
+```cs
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.Tags);
+}));
+```
+
+With `Tag` registered as a resource, the field gets a multi-lookup. Saving adds and removes the rows in the join table. The navigation doesn't need a setter.
+
+## Other editors
+
+For a short list, checkboxes or chips are friendlier than a lookup:
+
+```cs
+fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
+fields.Add(trip => trip.Tags).UseToggleGroupEditor(tags => tags.Appearance = ToggleGroupAppearance.Chips);
+```
+
+Those two and `UseMultiLookupSheetEditor` are the only editors that work here. A select picks one value, so it's left out and reported as a [configuration problem](/docs/admin/configuration-problems).
+
+The multi-lookup takes the same `Field`, `Sheet` and `EnableCreate` settings as the [single lookup](/docs/admin/foreign-keys#lookup-settings). Its `Layout` is `Chips`, `List` or `Summary`:
+
+```cs
+fields.Add(trip => trip.Tags).UseMultiLookupSheetEditor(lookup =>
+    lookup.Field(field => field.Layout = MultiLookupSheetEditorLayout.List));
+```
+
+## How many
+
+`[MinLength]` and `[MaxLength]` on the navigation limit how many can be picked:
+
+```cs
+[MinLength(1), MaxLength(3)]
+public List<Tag> Tags { get; set; } = [];
+```
+
+## When it doesn't work
+
+This works when EF Core maps the join table without an entity type of its own. If you have a join entity, like `TripTag` with extra columns, or the related entity has a composite key, the field is left out. Use a [form model](/docs/admin/custom-models) with a list of keys, and a handler that saves the join rows:
+
+```cs
+fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup => lookup.UseResource<Tag>());
+```
+
+## Showing them
+
+Columns and view fields show the related records as badges with `BadgeDisplay`. See [showing related values](/docs/admin/related-values).

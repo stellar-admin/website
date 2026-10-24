@@ -1,0 +1,72 @@
+---
+title: Overriding pages
+description: Replace or add to the panel's generated pages with your own Razor views
+---
+
+Every page the panel renders can be overridden with a Razor view in your app. Most of the time you'll keep the standard content and add to it.
+
+## View imports
+
+Before anything else, add a `_ViewImports.cshtml` to your app's `Areas/StellarAdmin/Views/` folder. The panel's own imports are compiled into the package and don't apply to your views.
+
+```razor title="Areas/StellarAdmin/Views/_ViewImports.cshtml"
+@using StellarAdmin
+@using StellarAdmin.UI
+@using StellarAdmin.Areas.StellarAdmin
+@using StellarAdmin.Areas.StellarAdmin.ViewModels
+@using Voyager.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, StellarAdmin.UI
+@addTagHelper *, StellarAdmin
+```
+
+Without it, tags like `<sa-index-page>` end up in the HTML as plain text. The page still returns 200, but looks empty where the tag was, with no error. If you see raw `<sa-` tags in the page source, this is why.
+
+## Overriding a resource's page
+
+Add a view named after the page, in a folder named after the resource's slug:
+
+| Page | View | Model |
+| --- | --- | --- |
+| Index | `Areas/StellarAdmin/Views/{slug}/Index.cshtml` | `ResourceIndexPageViewModel<TResource>` |
+| Create | `Areas/StellarAdmin/Views/{slug}/Create.cshtml` | `ResourceFormPageViewModel` |
+| Edit | `Areas/StellarAdmin/Views/{slug}/Edit.cshtml` | `ResourceFormPageViewModel` |
+| View | `Areas/StellarAdmin/Views/{slug}/View.cshtml` | `ResourceViewPageViewModel` |
+
+The models are in `StellarAdmin.Areas.StellarAdmin.ViewModels`. The folder name follows the slug, not the type, and ignores case: `Views/Bookings/` for `/stellaradmin/bookings`.
+
+To override a page for every resource, add `ResourceIndex.cshtml`, `ResourceCreate.cshtml`, `ResourceEdit.cshtml` or `ResourceView.cshtml` to `Areas/StellarAdmin/Views/Shared/`. A shared index uses `IResourceIndexPageViewModel` as its model.
+
+## Adding to a page
+
+Keep the page tag helper, and put your content around it. Here's a summary above the bookings grid:
+
+```razor title="Areas/StellarAdmin/Views/Bookings/Index.cshtml"
+@model ResourceIndexPageViewModel<Booking>
+@using Microsoft.EntityFrameworkCore
+@inject VoyagerDbContext Db
+@{
+    ViewData["Title"] = Model.Title;
+    var pending = await Db.Bookings.CountAsync(booking => booking.Status == BookingStatus.Pending);
+}
+
+<sa-page-container>
+    <sa-alert>
+        <sa-alert-title>@pending bookings are waiting for confirmation</sa-alert-title>
+    </sa-alert>
+</sa-page-container>
+
+<sa-index-page model="Model" />
+```
+
+- Set `ViewData["Title"]` yourself. The built-in view sets it to `Model.Title`.
+- `Model.Items` only has the current page of rows, so count totals with your own query.
+- Search, scopes, sorting and paging keep working. They only replace the grid.
+
+To put content inside the page, like a button next to Create, use the page's [slots](/docs/admin/page-tag-helpers).
+
+## Other things you can override
+
+- The [home page](/docs/admin/home-page): `Areas/StellarAdmin/Views/Home/Index.cshtml`.
+- The [sidebar header](/docs/admin/branding#your-own-header) and [user menu](/docs/admin/user-menu#your-own-menu).
+- Editors, displays and the environment indicator: see [template overrides](/docs/admin/template-overrides).

@@ -1,0 +1,111 @@
+---
+title: Fields
+description: Editable fields, display fields and read-only values on a form
+---
+
+```cs
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.Add(booking => booking.CustomerId);
+    fields.Add(booking => booking.DepartureDate, field => field.Title = "Departs on");
+    fields.Add(booking => booking.Notes).Description = "Only staff see this.";
+}));
+```
+
+A field is a property with a public getter and setter. Its input is picked from its type and attributes, and you can [choose another editor](/docs/admin/editors).
+
+`Add(selector)` returns the field, so you can set things on it directly. `Add(selector, field => ...)` returns the fields builder, so you can't chain a field method after it. Configure the field inside the callback instead.
+
+## Labels and help text
+
+| | Comes from |
+| --- | --- |
+| Label | `field.Title`, then `[Display(Name)]`, then the property name as is |
+| Help text | `field.Description`, then `[Display(Description)]` |
+
+Without either, `DepartureDate` is labelled `DepartureDate`. The best fix is `[Display]` on the model, because validation messages use it too ("The Departure date field is required."). `Title` only changes the label.
+
+```cs
+public class Booking
+{
+    [Display(Name = "Departure date", Description = "The first day of the trip.")]
+    public DateOnly DepartureDate { get; set; }
+}
+```
+
+Foreign keys whose related type is a resource are labelled after it, so `CustomerId` reads "Customer".
+
+## Display fields
+
+A display field shows a value on the form without an editor. Use it for things nobody edits, like a reference number or a created date:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.AddDisplayField(booking => booking.Reference);
+    fields.AddDisplayField(booking => booking.CreatedAt, field => field.Title = "Booked on");
+    fields.AddDisplayField(booking => booking.Customer!.Email);
+    fields.AddDisplayField(booking => booking.Total)
+        .UseDisplay<NumberDisplay>(number => number.Format = "C");
+    fields.Add(booking => booking.Status);
+}));
+```
+
+Display fields can read through navigations, and EF Core loads them with the record. The property only needs a getter, and nothing is saved.
+
+| Setting | What it does |
+| --- | --- |
+| `Title` | The label. |
+| `EmptyText` | What to show for an empty value. Defaults to a dash. |
+| `Orientation` | `DisplayFieldOrientation.Vertical` or `Horizontal`. |
+| `UseDisplay<TDisplay>()` | Shows the value with another [display](/docs/admin/displays). |
+
+A display field can also show a computed value. Give it a `Title`:
+
+```cs
+fields.AddDisplayField(booking => booking.Total / booking.Travellers, field =>
+{
+    field.Title = "Per traveller";
+    field.UseDisplay<NumberDisplay>(number => number.Format = "C");
+});
+```
+
+## Details sections
+
+`AddDetails` groups display fields into a titled section, laid out as a description list:
+
+```cs
+using StellarAdmin.UI;
+
+fields.AddDetails("History", details =>
+{
+    details.Columns(2);
+    details.Variant = DetailsVariant.Divided;
+    details.Add(booking => booking.CreatedAt);
+    details.Add(booking => booking.Reference);
+});
+```
+
+## Read-only and disabled fields
+
+Sometimes you want the editor, but not the edits:
+
+```cs
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.Add(booking => booking.Reference).ReadOnly();
+    fields.Add(booking => booking.Total).ReadOnly(booking => booking.Status == BookingStatus.Confirmed);
+    fields.Add(booking => booking.Notes).Disabled();
+}));
+```
+
+- **Read-only** means the value matters, but can't be changed here. The editor looks normal and can be focused.
+- **Disabled** means the field doesn't apply. The editor is faded and skipped by the keyboard.
+
+Either way, the server ignores whatever is posted for the field, so nobody can get around it by editing the HTML.
+
+`ReadOnly(condition)` is checked against the record when the form loads. It doesn't change as people edit other fields; that happens after they save. Properties with `[ReadOnly(true)]`, `[Editable(false)]` or no public setter are read-only too.
+
+If a value is never edited, a display field is usually the better choice: it doesn't need a setter, and it formats the value nicely.

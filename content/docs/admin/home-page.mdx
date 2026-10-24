@@ -1,0 +1,41 @@
+---
+title: Home page
+description: The page at /stellaradmin
+---
+
+In Development, the panel's home page is a setup checklist. It shows what you've configured so far (resources, authorization, branding, the user menu, a theme and the sidebar), with the code for each step and instructions you can hand to a coding agent.
+
+In other environments, it links to the resources the user can open.
+
+To see the production page in Development, turn the checklist off:
+
+```cs
+admin.ConfigureHomePage(home => home.ShowSetupChecklist = false);
+```
+
+## Your own home page
+
+Add `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, and it replaces the home page everywhere:
+
+```razor title="Areas/StellarAdmin/Views/Home/Index.cshtml"
+@inject VoyagerDbContext Db
+@{
+    ViewData["Title"] = "Dashboard";
+    var pending = Db.Bookings.Count(booking => booking.Status == BookingStatus.Pending);
+}
+
+<sa-page-container>
+    <sa-page-header>
+        <sa-page-header-title>Welcome back</sa-page-header-title>
+    </sa-page-header>
+    <sa-card>
+        <sa-card-header>
+            <sa-card-title>@pending bookings waiting for confirmation</sa-card-title>
+        </sa-card-header>
+    </sa-card>
+</sa-page-container>
+```
+
+Don't declare a `@model`: the page's model is internal. Inject what you need, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
+
+There's no dashboard or widget API yet. Build the page from [StellarAdmin.UI components](/docs/ui).

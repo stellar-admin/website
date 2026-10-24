@@ -1,0 +1,104 @@
+---
+title: Lists and dictionaries
+description: Edit lists of text or numbers, and simple key-value pairs
+---
+
+## Lists
+
+A list of strings or numbers, like `List<string>` or `int[]`, gets a [list editor](/docs/ui/components/list-editor): one row per item, with Add as the last row. You only configure it to change its settings.
+
+```cs
+fields.Add(trip => trip.Highlights).UseListEditor(list =>
+{
+    list.MaxItems = 8;
+    list.Sortable = true;
+    list.Numbered = true;
+    list.MaxLength = 120;
+    list.AddText = "Add highlight";
+});
+```
+
+```cs
+fields.Add(trip => trip.DepartureAirports).UseListEditor(list =>
+{
+    list.Unique = true;
+    list.Casing = ListEditorCasing.Upper;
+    list.Pattern = "^[A-Z]{3}$";
+    list.PatternMessage = "Use a three-letter airport code, like LIS.";
+});
+```
+
+| Setting | What it does |
+| --- | --- |
+| `MinItems`, `MaxItems` | How many items are allowed. Default to `[MinLength]`, `[MaxLength]` or `[Length]`. |
+| `Sortable` | Lets people drag rows, or move them with Alt+Up and Alt+Down. |
+| `Numbered` | Numbers the rows. |
+| `Unique` | Rejects duplicates. |
+| `Pattern`, `PatternMessage` | A regular expression each item must match, and the error when it doesn't. |
+| `MaxLength` | The longest an item can be. |
+| `Min`, `Max`, `Step` | For lists of numbers. |
+| `Casing` | `ListEditorCasing.Upper` or `Lower` changes case as people type. |
+| `Prefix`, `Suffix`, `Placeholder`, `Align` | How each row's input looks. |
+| `AddText`, `EmptyText` | The Add row's text, and what shows when the list is empty. |
+
+`ListEditorCasing` and `ListEditorAlign` are in `StellarAdmin.UI`.
+
+The browser checks each row as people type, and the server checks again on save. Blank rows are dropped, and removing every row saves an empty list.
+
+EF Core maps lists of strings and numbers as primitive collections, so they need no extra setup.
+
+Lists hold text and numbers only. For a list of enum values, use a [checkbox or toggle group](/docs/admin/choice-editors). For related records, use a [multi-lookup](/docs/admin/many-to-many).
+
+## Dictionaries
+
+A dictionary with a string or enum key, and a string, number or enum value, gets a [dictionary editor](/docs/ui/components/dictionary-editor): one row per entry, with a key and a value.
+
+```cs
+fields.Add(trip => trip.BaggageAllowance).UseDictionaryEditor(dictionary =>
+{
+    dictionary.Key(key => key.Label = "Cabin");
+    dictionary.Value(value =>
+    {
+        value.Label = "Allowance";
+        value.Max = 50;
+        value.Suffix = "kg";
+    });
+});
+```
+
+The key and the value each take a `Label`, `Placeholder`, `Pattern`, `PatternMessage`, `MaxLength` and `Casing`. The value also takes `Min`, `Max`, `Step`, `Prefix`, `Suffix` and `Align`. The dictionary itself has `MinItems`, `MaxItems`, `Numbered`, `AddText` and `EmptyText`.
+
+An enum key or value is a select of its members. To pick from another list, give the key or value items, just like a [select](/docs/admin/choice-editors#your-own-list):
+
+```cs
+fields.Add(trip => trip.GuidesByLanguage).UseDictionaryEditor(dictionary =>
+{
+    dictionary.Key(key => key.UseItems([
+        new ChoiceItem("en", "English"),
+        new ChoiceItem("pt", "Portuguese"),
+        new ChoiceItem("ja", "Japanese"),
+    ]));
+    dictionary.Value(value => value.UseResource<Guide>());
+});
+```
+
+Keys are unique, so with a select for the key there's at most one entry per option.
+
+EF Core doesn't map dictionaries on its own. Store one in a JSON column, or give it a value converter.
+
+## Errors on one row
+
+A [handler or data source](/docs/admin/custom-models) can put an error under a specific row. Name the row by its index, and the key or value for a dictionary:
+
+```cs
+return ResourceOperationResult.ValidationFailed([
+    new ResourceValidationError("Highlights[2]", "We already have a highlight like this."),
+    new ResourceValidationError("BaggageAllowance[1].Key", "That cabin doesn't exist."),
+]);
+```
+
+## Default texts
+
+The default texts, like "Add item" and "No items yet", are [global labels](/docs/admin/global-labels), set with `labels.ListEditor(...)` and `labels.DictionaryEditor(...)`.
+
+In an [inline row](/docs/admin/inline-editing), a list or dictionary shows its badges instead of an editor, and saving the row keeps its value.

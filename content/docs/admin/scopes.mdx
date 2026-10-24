@@ -1,0 +1,46 @@
+---
+title: Scopes
+description: Tabs that filter the index page
+---
+
+Scopes are tabs above the grid, like All, Pending and Confirmed. One is active at a time.
+
+```cs
+resource.Index(index =>
+{
+    index.EnableScopes(scopes =>
+    {
+        scopes.Add("all", "All");
+        scopes.Add("pending", "Pending", booking => booking.Status == BookingStatus.Pending);
+        scopes.Add("confirmed", "Confirmed", booking => booking.Status == BookingStatus.Confirmed);
+        scopes.Add("cancelled", "Cancelled", booking => booking.Status == BookingStatus.Cancelled);
+        scopes.DefaultScope = "all";
+    });
+});
+```
+
+`Add` takes:
+
+1. An id, used in the URL: `?scope=pending`.
+2. The tab's text.
+3. A filter. Leave it out for a tab that shows everything.
+
+The id is just a name. Filtering happens only through the predicate, so `scopes.Add("pending", "Pending")` on an EF Core resource shows every record.
+
+## The default scope
+
+`DefaultScope` is the tab that's selected when the URL doesn't name one. Without it, no tab is selected and the list isn't filtered until someone picks one. Usually you want the unfiltered tab as the default.
+
+## With search
+
+The scope's filter and the search are combined, so searching on the Pending tab only searches pending bookings.
+
+## Scopes aren't security
+
+Anyone who can see the index can ask for any scope in the URL. To hide records from some users, use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources).
+
+## Custom data sources
+
+Leave out the predicate: `scopes.Add("pending", "Pending")`. The selected id arrives in `ResourceListRequest.Scope`.
+
+Scopes are the only filters for now. Field filters, such as a date range or a select, aren't supported yet.

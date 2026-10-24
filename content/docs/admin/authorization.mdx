@@ -1,0 +1,63 @@
+---
+title: Authorization
+description: Decide who can use the panel, and which resources
+---
+
+The panel is open to anyone who can reach your app until you require authorization. Do this before you deploy.
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
+});
+```
+
+`RequireAuthorization` takes the same arguments as endpoint `RequireAuthorization` in ASP.NET Core:
+
+| Argument | Allows |
+| --- | --- |
+| Nothing | Any signed-in user |
+| `"Sales"` | Users who meet the `Sales` policy, registered with `AddAuthorization` |
+| `policy => policy.RequireRole("Sales")` | Users who meet the requirements you build |
+| An `AuthorizationPolicy` or `IAuthorizeData` | Whatever they say |
+
+`app.MapStellarAdmin().RequireAuthorization(...)` works too.
+
+Anonymous users get the authentication challenge, and signed-in users without access get forbidden. With cookie authentication both are redirects, to `/Account/Login` and `/Account/AccessDenied` by default, so make sure those pages exist, or set `LoginPath` and `AccessDeniedPath`.
+
+The app needs authorization middleware: `app.UseAuthorization()` after `app.UseRouting()`.
+
+## Per resource
+
+A resource can add its own requirement on top of the panel's:
+
+```cs
+admin.AddEfCoreResource<Customer>(resource =>
+{
+    resource.RequireAuthorization(policy => policy.RequireRole("Sales"));
+});
+```
+
+That covers every page of the resource, and hides it from the sidebar for people who don't meet it.
+
+Picking a customer in a booking's lookup doesn't need access to the Customers resource. People who can't use the resource just don't see the lookup's New button.
+
+## What protects what
+
+| Call | Protects | Hides in the sidebar |
+| --- | --- | --- |
+| `admin.RequireAuthorization(...)` | Every panel page | |
+| `resource.RequireAuthorization(...)` | The resource's pages | The resource |
+| `link.RequireAuthorization(...)` | **Nothing** | The link |
+| `[Authorize]` on your own page | That page | |
+
+A [sidebar link](/docs/admin/sidebar#your-own-links) only points somewhere outside the panel, so its requirement can only hide it. Protect the page it links to with `[Authorize]`. The same goes for `item.Visible = false`: it hides the item, but the pages are still there.
+
+## What isn't covered
+
+- **Per-action rules**, like "everyone can view, only managers can delete", aren't supported. Leave the action off for the resource, or check it in a [custom handler](/docs/admin/custom-models) and return `ValidationFailed`.
+- **Per-record rules.** [Scopes](/docs/admin/scopes) are filters, not security. Use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources) to limit which records someone sees.
+
+## Signing out
+
+Signed-in users get a [user menu](/docs/admin/user-menu) with Log out in the sidebar footer.

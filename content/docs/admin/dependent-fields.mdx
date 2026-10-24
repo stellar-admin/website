@@ -1,0 +1,89 @@
+---
+title: Dependent fields
+description: Options that depend on another field, like cities of the selected country
+---
+
+`DependsOn` makes a field's options depend on another field on the same form. The classic case: pick a country, then a city in that country.
+
+```cs
+using StellarAdmin.EntityFrameworkCore;
+
+fields.Add(destination => destination.CountryId).UseSelectEditor(select =>
+    select.UseItems<Country>(country => country.Id, country => country.Name));
+
+fields.Add(destination => destination.CityId)
+    .DependsOn(destination => destination.CountryId)
+    .UseSelectEditor(select =>
+        select.UseItems<City>(
+            city => city.Id,
+            city => city.Name,
+            items => items.Where<Destination>((city, destination) => city.CountryId == destination.CountryId)));
+```
+
+When the country changes, the city field reloads its options and clears its value. While no country is picked, the city field is disabled and says "Select Country first".
+
+It works with every choice editor and both lookups, on create and edit pages, create sheets and [inline rows](/docs/admin/inline-editing). Dependencies can chain: country, then city, then neighbourhood.
+
+## Changing the empty text
+
+```cs
+.DependsOn(destination => destination.CountryId,
+    country => country.EmptyText = "Pick a country to see its cities")
+```
+
+## When the options come from a resource
+
+If the related type is a resource, filter it with `UseResource`. The editor already knows the form's type:
+
+```cs
+fields.Add(destination => destination.CityId)
+    .DependsOn(destination => destination.CountryId)
+    .UseSelectEditor(select => select.UseResource<City>(items =>
+        items.Where((city, destination) => city.CountryId == destination.CountryId)));
+```
+
+This needs an EF Core resource. A resource with a custom data source can't apply the filter, so it's ignored and reported as a [configuration problem](/docs/admin/configuration-problems).
+
+## Without EF Core
+
+Choice editors can load their options with a function that gets the form:
+
+```cs
+fields.Add(destination => destination.CityId)
+    .DependsOn(destination => destination.CountryId)
+    .UseSelectEditor(select => select.UseItems((destination, services, cancellationToken) =>
+        services.GetRequiredService<CityDirectory>()
+            .ListAsync(destination.CountryId, cancellationToken)));
+```
+
+For a lookup, derive the source from `LookupSource<TItem, TValue, TArgument>`. Its `SearchAsync` gets an argument that the field takes from the form:
+
+```cs
+fields.Add(guide => guide.HomeBase)
+    .DependsOn(guide => guide.CountryId)
+    .UseLookupSheetEditor(lookup => lookup.UseSource<CountryAirportSource>(guide => guide.CountryId));
+```
+
+```cs
+public class CountryAirportSource(AirportClient client) : LookupSource<Airport, string, int>
+{
+    public override string GetValue(Airport airport) => airport.Code;
+    public override string GetTitle(Airport airport) => airport.City;
+
+    public override Task<IReadOnlyCollection<Airport>> FindAsync(
+        IReadOnlyCollection<string> values, CancellationToken cancellationToken) =>
+        client.FindAsync(values, cancellationToken);
+
+    public override Task<LookupPage<Airport>> SearchAsync(
+        int countryId, LookupQuery query, CancellationToken cancellationToken) =>
+        client.SearchAsync(countryId, query.Term, query.Skip, query.Take, cancellationToken);
+}
+```
+
+If the search needs several values, pass a record of them as the argument.
+
+## Things to know
+
+- The form your filter gets only has the fields named in `DependsOn` filled in, plus the key on an edit page. If your filter reads another field, add a `DependsOn` for it too.
+- Saving doesn't check that the city belongs to the country. Validate that yourself if it matters, in a handler or with `IValidatableObject`.
+- Fields can't be made read-only or disabled live as other fields change. `DependsOn` only changes options.

@@ -1,0 +1,143 @@
+---
+title: Quick start
+description: Build a customers and bookings admin in a few minutes
+---
+
+This walks through two resources for a travel company: customers, and the bookings they make. It assumes you've [installed StellarAdmin](/docs/admin/installation) and have an EF Core `DbContext` registered with `AddDbContext`.
+
+```cs
+public class Customer
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public string Email { get; set; } = "";
+    public List<Booking> Bookings { get; set; } = [];
+}
+
+public enum BookingStatus { Pending, Confirmed, Cancelled }
+
+public class Booking
+{
+    public int Id { get; set; }
+    public string Reference { get; set; } = "";
+    public int CustomerId { get; set; }
+    public Customer? Customer { get; set; }
+    public DateOnly DepartureDate { get; set; }
+    public decimal Total { get; set; }
+    public BookingStatus Status { get; set; }
+}
+```
+
+## Add customers
+
+Register `Customer` as a resource and give its index page some columns. Columns start empty, so you choose what the grid shows.
+
+```cs
+using StellarAdmin;
+using StellarAdmin.EntityFrameworkCore;
+
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Customer>(resource =>
+    {
+        resource.Index(index => index.Columns(columns =>
+        {
+            columns.Add(customer => customer.Name);
+            columns.Add(customer => customer.Email);
+        }));
+    });
+});
+```
+
+Run the app and Customers shows up in the sidebar, with its grid at `/stellaradmin/customers`. StellarAdmin found the `DbContext` that maps `Customer` and the key from EF Core's model.
+
+## Let people add and edit customers
+
+Create, edit, view and delete are off until you allow them. Allow create and edit with the fields each form shows:
+
+```cs
+admin.AddEfCoreResource<Customer>(resource =>
+{
+    resource.Index(index => index.Columns(columns =>
+    {
+        columns.Add(customer => customer.Name);
+        columns.Add(customer => customer.Email);
+    }));
+    resource.AllowCreate(create => create.Fields(fields =>
+    {
+        fields.Add(customer => customer.Name);
+        fields.Add(customer => customer.Email);
+    }));
+    resource.AllowEdit(edit => edit.Fields(fields =>
+    {
+        fields.Add(customer => customer.Name);
+        fields.Add(customer => customer.Email);
+    }));
+});
+```
+
+The index page now has a Create button, and each row has an edit action.
+
+## Add bookings
+
+Bookings belong to a customer. Because `Customer` is a resource, the `CustomerId` field gets a searchable lookup instead of a number box, and the `Customer` column shows the customer's name.
+
+```cs
+admin.AddEfCoreResource<Booking>(resource =>
+{
+    resource.Index(index =>
+    {
+        index.Columns(columns =>
+        {
+            columns.Add(booking => booking.Reference);
+            columns.Add(booking => booking.Customer);
+            columns.Add(booking => booking.DepartureDate, column => column.Sortable());
+            columns.Add(booking => booking.Status);
+        });
+        index.EnableSearch(term => booking => booking.Reference.Contains(term));
+        index.DefaultSortBy(booking => booking.DepartureDate);
+        index.EnablePaging();
+    });
+
+    resource.AllowCreate(create =>
+    {
+        create.UseFactory(() => new Booking
+        {
+            DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(30)),
+        });
+        create.Fields(fields =>
+        {
+            fields.Add(booking => booking.Reference);
+            fields.Add(booking => booking.CustomerId);
+            fields.Add(booking => booking.DepartureDate);
+            fields.Add(booking => booking.Total);
+        });
+    });
+
+    resource.AllowEdit(edit => edit.Fields(fields =>
+    {
+        fields.AddDisplayField(booking => booking.Reference);
+        fields.Add(booking => booking.CustomerId);
+        fields.Add(booking => booking.DepartureDate);
+        fields.Add(booking => booking.Total);
+        fields.Add(booking => booking.Status);
+    }));
+
+    resource.AllowDelete();
+});
+```
+
+A few things are going on here:
+
+- `EnableSearch` adds a search box. You decide what a search term matches.
+- `DefaultSortBy` and `Sortable` sort the grid by departure date, and let people click the header to change direction.
+- `UseFactory` sets the defaults for a new booking. Without it, the date would start at 0001-01-01.
+- `AddDisplayField` shows the reference on the edit form without letting anyone change it.
+- `Status` is an enum, so it gets a select with its values.
+
+## Where to go from here
+
+- Lay out bigger forms with [sections and columns](/docs/admin/form-layout).
+- Pick a different [editor](/docs/admin/editors) for a field.
+- Add [scopes](/docs/admin/scopes) such as Pending and Confirmed tabs.
+- [Require authorization](/docs/admin/authorization) before you deploy.

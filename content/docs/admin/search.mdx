@@ -1,0 +1,46 @@
+---
+title: Search
+description: Add a search box to the index page
+---
+
+`EnableSearch` adds a search box to the page header. You give it a function that turns the search text into a filter:
+
+```cs
+resource.Index(index =>
+{
+    index.EnableSearch(term => booking =>
+        booking.Reference.Contains(term) || booking.Customer!.Name.Contains(term));
+});
+```
+
+The term is trimmed before you get it. The grid searches as you type, after a short pause.
+
+The predicate runs in the database, so it has to be something EF Core can translate. Paths like `booking.Customer!.Name` become joins.
+
+## Case sensitivity
+
+`Contains` follows your database's collation. On SQLite, and on case-sensitive collations elsewhere, it's case-sensitive. Lower-case both sides if you need to:
+
+```cs
+index.EnableSearch(term =>
+{
+    var lowered = term.ToLower();
+    return booking => booking.Reference.ToLower().Contains(lowered);
+});
+```
+
+## Placeholder
+
+The default placeholder is `Search {plural label}...`. Change it with the second argument:
+
+```cs
+index.EnableSearch(
+    term => booking => booking.Reference.Contains(term),
+    search => search.Placeholder = "Search by reference");
+```
+
+## Custom data sources
+
+For a resource with a [custom data source](/docs/admin/custom-data-sources), call `EnableSearch()` without a predicate. The text arrives in `ResourceListRequest.Search`, and your data source decides what matches.
+
+The search box only searches the current resource. Searching across all records in the panel isn't supported.

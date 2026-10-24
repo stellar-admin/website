@@ -1,0 +1,58 @@
+---
+title: Defaults and validation
+description: Set up new records and check what people enter
+---
+
+## Defaults
+
+New records are created with the entity's parameterless constructor. To start them with other values, use `UseFactory`:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.UseFactory(() => new Booking
+    {
+        Reference = $"VT-{Random.Shared.Next(0, 1_000_000):D6}",
+        DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
+        Travellers = 2,
+    });
+    create.Fields(fields =>
+    {
+        fields.Add(booking => booking.CustomerId);
+        fields.Add(booking => booking.DepartureDate);
+        fields.Add(booking => booking.Travellers);
+    });
+});
+```
+
+Without a factory, `DateOnly` and `DateTime` fields start at 0001-01-01, which is rarely what you want.
+
+Values that aren't fields, like `Reference` here, are set by the factory and saved as they are. You don't need hidden fields. Values your database generates, such as identity keys, need nothing at all.
+
+The factory runs when the form is shown and again when it's saved. A generated value you show on the form, as a display field, is generated again on save. If what's saved has to match what people saw, generate it in a [create handler](/docs/admin/custom-models) instead.
+
+## Validation
+
+Every save runs ASP.NET Core model validation: data annotations like `[Required]`, `[StringLength]`, `[Range]` and `[EmailAddress]`, and `IValidatableObject`. If something's wrong, the form comes back with what was entered and the errors, and nothing is saved.
+
+```cs
+public class Booking
+{
+    [Required, StringLength(12)]
+    public string Reference { get; set; } = "";
+
+    [Range(1, 20)]
+    public int Travellers { get; set; } = 1;
+}
+```
+
+For checks that need the database, like "this reference is already taken", return an error from a [handler or data source](/docs/admin/custom-models):
+
+```cs
+return ResourceOperationResult.ValidationFailed(
+    nameof(Booking.Reference), "That reference is already in use.");
+```
+
+It shows under the field, like any other validation error.
+
+When EF Core can't save, for example because of a unique index or a concurrency conflict, the form shows a general error and the exception is logged.

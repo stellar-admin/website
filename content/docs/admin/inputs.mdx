@@ -1,0 +1,104 @@
+---
+title: Inputs
+description: Text, numbers, dates, yes-or-no values, sliders and codes
+---
+
+## Text
+
+Strings and numbers get a text input, set to the right type: `number` for numbers, and email, tel, url or password from the property's attributes.
+
+```cs
+fields.Add(trip => trip.Price).UseTextInputEditor(input =>
+{
+    input.Prefix = "€";
+    input.Min = 0;
+    input.Step = 10;
+});
+fields.Add(customer => customer.Phone).UseTextInputEditor(input =>
+{
+    input.Type = TextInputType.Tel;
+    input.Placeholder = "+351 912 345 678";
+});
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Type` | `TextInputType.Text`, `Email`, `Tel`, `Url`, `Password` or `Number` |
+| `Placeholder` | Hint text in the empty input |
+| `Prefix`, `Suffix` | Text before or after the input, like `€` or `km` |
+| `Min`, `Max`, `Step` | For number inputs |
+
+Renders as an [input](/docs/ui/components/input), with an [input group](/docs/ui/components/input-group) for a prefix or suffix.
+
+## Long text
+
+```cs
+fields.Add(trip => trip.Summary).UseTextareaEditor(textarea =>
+{
+    textarea.Rows = 4;
+    textarea.Placeholder = "Two or three sentences for the trip card.";
+});
+```
+
+`[DataType(DataType.MultilineText)]` on the property picks a textarea without any configuration. For formatted text, use the [rich text editor](/docs/admin/rich-text-editor).
+
+## Dates and times
+
+`DateOnly`, `DateTime` and `TimeOnly` get a date, date and time, or time input. You can limit the range:
+
+```cs
+fields.Add(booking => booking.DepartureDate).UseDateInputEditor(date =>
+{
+    date.Min = DateOnly.FromDateTime(DateTime.Today);
+});
+```
+
+`Step` is in days for dates, and a `TimeSpan` for times. `DateTimeOffset` uses a text input that keeps the offset.
+
+New records start dates at 0001-01-01 unless you [set a default](/docs/admin/defaults-and-validation).
+
+## Yes or no
+
+A `bool` gets a [checkbox](/docs/ui/components/checkbox). For a [switch](/docs/ui/components/switch), use `UseToggleEditor`:
+
+```cs
+fields.Add(trip => trip.IsPublished).UseToggleEditor();
+```
+
+A `bool?` gets a select with Yes, No and Not set. For other ways to pick between two values, see [choices](/docs/admin/choice-editors).
+
+## Sliders
+
+For a whole number in a range:
+
+```cs
+fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
+{
+    slider.Min = 2;
+    slider.Max = 16;
+    slider.MarkInterval = 2;
+    slider.ValueFormat = "{0} people";
+});
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Min`, `Max` | The range. Defaults to `[Range]`, then 0 to 100. |
+| `Step` | How far each step moves. |
+| `ShowValue` | Shows the current value. On by default. |
+| `ValueFormat` | How the value reads, like `"{0} km"`. |
+| `MarkInterval` | Puts a mark every so many steps. |
+| `MarkLabels` | `SliderMarkLabels.None`, `Ends` (the default) or `All`. |
+| `AddMark(value, label)` | Adds a labelled mark. |
+
+See the [slider](/docs/ui/components/slider) component.
+
+## Codes
+
+For verification codes and PINs, one box per character:
+
+```cs
+fields.Add(guide => guide.BadgeCode).UseOneTimeCodeEditor(code => code.Length = 4);
+```
+
+`Length` defaults to the property's maximum length, then 6. See [Input OTP](/docs/ui/components/input-otp).

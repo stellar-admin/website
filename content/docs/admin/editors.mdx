@@ -1,0 +1,71 @@
+---
+title: Choosing an editor
+description: How fields pick their input, and how to pick another
+---
+
+Every field gets an editor from its type and attributes. Most of the time you don't need to choose one.
+
+| Property | Editor |
+| --- | --- |
+| `string`, `Guid` | Text input. `[EmailAddress]`, `[Phone]`, `[Url]` or `[DataType]` pick email, tel, url or password. |
+| Numbers | Number input |
+| `[DataType(DataType.MultilineText)]` | Textarea |
+| `[DataType(DataType.Html)]` | Rich text editor |
+| `DateOnly`, `DateTime`, `TimeOnly` | Date, date and time, or time input |
+| `bool` | Checkbox |
+| `bool?` | Select with Yes, No and Not set |
+| Enum | Select of its members |
+| `List<string>`, `int[]` and other lists of text or numbers | List editor |
+| `Dictionary<string, string>` and other simple dictionaries | Dictionary editor |
+| Foreign key to a resource (EF Core) | Lookup |
+| Many-to-many navigation to a resource (EF Core) | Multi-lookup |
+
+One gotcha: a `string` without `[DataType]` is a single-line input, however long it gets. Give descriptions, bios and notes a textarea.
+
+## Picking another editor
+
+Each editor has its own method on the field. Pass a callback to change its settings:
+
+```cs
+fields.Add(trip => trip.Summary).UseTextareaEditor(textarea => textarea.Rows = 4);
+fields.Add(trip => trip.IsPublished).UseToggleEditor();
+fields.Add(trip => trip.Difficulty).UseSegmentedControlEditor();
+fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
+{
+    slider.Min = 2;
+    slider.Max = 16;
+    slider.ValueFormat = "{0} people";
+});
+```
+
+Settings you don't set come from the property where possible. A slider takes its range from `[Range]`, for example.
+
+## The editors
+
+| Editor | Method | Page |
+| --- | --- | --- |
+| Text input | `UseTextInputEditor` | [Inputs](/docs/admin/inputs#text) |
+| Textarea | `UseTextareaEditor` | [Inputs](/docs/admin/inputs#long-text) |
+| Date, date and time, time | `UseDateInputEditor`, `UseDateTimeInputEditor`, `UseTimeInputEditor` | [Inputs](/docs/admin/inputs#dates-and-times) |
+| Checkbox, switch | `UseCheckboxEditor`, `UseToggleEditor` | [Inputs](/docs/admin/inputs#yes-or-no) |
+| Slider | `UseSliderEditor` | [Inputs](/docs/admin/inputs#sliders) |
+| One-time code | `UseOneTimeCodeEditor` | [Inputs](/docs/admin/inputs#codes) |
+| Select, radio group, segmented control | `UseSelectEditor`, `UseRadioGroupEditor`, `UseSegmentedControlEditor` | [Choices](/docs/admin/choice-editors) |
+| Checkbox group, toggle group | `UseCheckboxGroupEditor`, `UseToggleGroupEditor` | [Choices](/docs/admin/choice-editors) |
+| List, dictionary | `UseListEditor`, `UseDictionaryEditor` | [Lists and dictionaries](/docs/admin/list-and-dictionary-editors) |
+| Lookup, multi-lookup | `UseLookupSheetEditor`, `UseMultiLookupSheetEditor` | [Foreign keys](/docs/admin/foreign-keys), [many-to-many](/docs/admin/many-to-many) |
+| Image | `UseImageEditor` | [Images](/docs/admin/image-editor) |
+| Rich text | `UseRichTextEditor` | [Rich text](/docs/admin/rich-text-editor) |
+| Icon | `UseIconEditor` | [Icons](/docs/admin/icon-editor) |
+
+Need something else, like a colour picker? Write a [custom editor](/docs/admin/custom-editors). There's no general file upload editor yet.
+
+## Extra CSS classes
+
+Every editor has `ClassNames`, for adding classes from your own stylesheet to its parts, such as `Control`, `Label` and `Description`:
+
+```cs
+fields.Add(trip => trip.Summary).UseTextareaEditor(textarea => textarea.ClassNames.Control = "trip-summary");
+```
+
+The panel's stylesheet only has the classes its own components use, so Tailwind utilities won't work here unless you [add a stylesheet](/docs/admin/theming) that has them.

@@ -1,0 +1,84 @@
+---
+title: Resources
+description: Register the things you manage in the panel
+---
+
+A resource is a type you manage in the panel, such as `Trip` or `Booking`. Each resource gets an index page, and you switch on the other pages it needs.
+
+## EF Core resources
+
+For an entity in a `DbContext`, use `AddEfCoreResource`:
+
+```cs
+using StellarAdmin.EntityFrameworkCore;
+
+admin.AddEfCoreResource<Trip>(resource =>
+{
+    resource.Index(index => index.Columns(columns =>
+    {
+        columns.Add(trip => trip.Name);
+        columns.Add(trip => trip.Price);
+    }));
+    resource.AllowEdit(edit => edit.Fields(fields =>
+    {
+        fields.Add(trip => trip.Name);
+        fields.Add(trip => trip.Price);
+    }));
+});
+```
+
+StellarAdmin finds the registered `DbContext` that maps `Trip` and reads the key from EF Core's model. The key has to be a single `int`, `long`, `Guid` or `string` property.
+
+If more than one context maps the entity, pick one:
+
+```cs
+resource.UseDbContext<VoyagerDbContext>();
+```
+
+You don't need `Include` calls. When a column or field shows a related value, like `booking => booking.Customer`, it's loaded in the same query. Global query filters apply as usual.
+
+Data that doesn't live in EF Core uses a [custom data source](/docs/admin/custom-data-sources).
+
+## Pages
+
+Only the index page is there by default. Switch on the rest with `Allow*`:
+
+| Call | Adds |
+| --- | --- |
+| `resource.Index(...)` | Columns, search, scopes, sorting and paging for the grid. See [index pages](/docs/admin/index-pages). |
+| `resource.AllowCreate(...)` | A Create button and a create page. See [forms](/docs/admin/forms). |
+| `resource.AllowEdit(...)` | An edit action on each row and an edit page. |
+| `resource.AllowView(...)` | A view action on each row and a read-only [view page](/docs/admin/view-pages). |
+| `resource.AllowDelete()` | A delete action, with a confirmation. See [delete](/docs/admin/delete). |
+
+Each `Allow*` call is its own statement. They don't chain:
+
+```cs
+resource.AllowCreate(create => create.Fields(fields => fields.Add(trip => trip.Name)));
+resource.AllowEdit(edit => edit.Fields(fields => fields.Add(trip => trip.Name)));
+resource.AllowDelete();
+```
+
+If you'd rather not nest, call it without a callback and keep the page builder:
+
+```cs
+var create = resource.AllowCreate();
+create.Title = "Plan a trip";
+create.Fields(fields => fields.Add(trip => trip.Name));
+```
+
+## URLs and labels
+
+| Setting | Default | Change it with |
+| --- | --- | --- |
+| URL slug | Kebab-case plural of the type: `TripExtra` becomes `trip-extras` | `admin.AddEfCoreResource<Trip>("tours", resource => ...)` |
+| Singular label | The type name, humanized: `Trip extra` | `resource.SingularLabel = "Tour";` |
+| Plural label | The singular label, pluralized | `resource.PluralLabel = "Tours";` |
+
+So `Trip` lives at `/stellaradmin/trips`, with its pages at `/stellaradmin/trips/create`, `/stellaradmin/trips/edit/{id}` and `/stellaradmin/trips/view/{id}`.
+
+Page titles and action labels ("Create Trip", "Edit Trip") come from the labels. To change those patterns for every resource, see [global labels](/docs/admin/global-labels).
+
+## Configuring a resource in several places
+
+Registering the same type again adds to its configuration, and later settings win. A shared extension method can set defaults that your app then overrides.

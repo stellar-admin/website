@@ -1,0 +1,86 @@
+---
+title: Columns
+description: Choose what the index grid shows
+---
+
+The grid starts with no columns. Add the ones you want, in order:
+
+```cs
+resource.Index(index => index.Columns(columns =>
+{
+    columns.Add(booking => booking.Reference);
+    columns.Add(booking => booking.DepartureDate, column =>
+    {
+        column.Title = "Departs";
+        column.Sortable();
+    });
+    columns.Add(booking => booking.Total);
+    columns.Add(booking => booking.Notes, column => column.EmptyText = "No notes");
+}));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Title` | The header. Defaults to `[Display(Name)]`, or the property name, humanized. |
+| `EmptyText` | What to show for a null or empty value. |
+| `Sortable()` | Lets people sort by the column. See [sorting](/docs/admin/sorting-and-paging). |
+| `UseDisplay<TDisplay>()` | Shows the value with a different [display](/docs/admin/displays). |
+| `UseBuiltInRendering()` | Shows the value as plain text, formatted with `[DisplayFormat]`. |
+
+Without a callback, `Add` returns the column, so this works too:
+
+```cs
+columns.Add(booking => booking.Total).Sortable();
+```
+
+## How values are shown
+
+Each column picks a display from the property's type. Numbers are right-aligned, dates read like `3 Nov 2026`, booleans show an icon, and enums show their `[Display(Name)]`. To format a value differently, give it a display:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(booking => booking.Total, column =>
+    column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
+```
+
+The [built-in displays](/docs/admin/displays) page lists them all, with their settings.
+
+## Related values
+
+A column can read through a navigation property. EF Core loads it in the same query, so you don't need an `Include`:
+
+```cs
+columns.Add(booking => booking.Customer!.Name, column => column.Title = "Customer");
+```
+
+Set a `Title` here, since the default would be `Name`. A null customer shows the empty text.
+
+If the related type is a resource, you can also add the navigation itself. It shows the record's [title](/docs/admin/titles-and-references):
+
+```cs
+columns.Add(booking => booking.Customer);
+```
+
+Don't add the foreign key (`booking.CustomerId`) as a column: that shows the number. Collections, like a trip's tags, need a badge display. See [showing related values](/docs/admin/related-values).
+
+## Computed values
+
+A column can show any expression, not just a property. Give it a `Title`, since there's no property to name it after:
+
+```cs
+columns.Add(booking => booking.Total / booking.Travellers, column =>
+{
+    column.Title = "Per traveller";
+    column.Sortable(booking => booking.Total / booking.Travellers);
+    column.UseDisplay<NumberDisplay>(number => number.Format = "C");
+});
+```
+
+The value is worked out in memory for each row, after the query. To sort by it, pass the expression to `Sortable` so the database can sort it.
+
+A computed column without a `Title` is left out of the grid and reported as a [configuration problem](/docs/admin/configuration-problems).
+
+## Your own cell markup
+
+For something no display covers, such as a badge whose colour depends on the value, write a custom display with a grid template. See [custom displays](/docs/admin/custom-displays).

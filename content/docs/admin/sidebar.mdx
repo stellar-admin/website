@@ -1,0 +1,130 @@
+---
+title: Sidebar and links
+description: Group, order and add to the panel's navigation
+---
+
+Every resource adds itself to the sidebar, linking to its index page. The command palette (Ctrl+K, or Cmd+K on a Mac) lists the same items.
+
+## Resource items
+
+```cs
+admin.AddEfCoreResource<Booking>(resource =>
+{
+    resource.SidebarItem(item =>
+    {
+        item.Group = "Sales";
+        item.Label = "All bookings";
+        item.Icon = "ticket";
+        item.Order = 1;
+    });
+});
+```
+
+| Property | Default |
+| --- | --- |
+| `Group` | `"Resources"` |
+| `Label` | The plural label |
+| `Icon` | None. Any [icon](/docs/ui/icons) name. |
+| `Order` | None. See [order](#order). |
+| `Visible` | `true` |
+
+Hiding an item doesn't protect its pages. Use [authorization](/docs/admin/authorization) for that. Items for resources someone can't access are hidden automatically.
+
+Icons are per item. An item without one doesn't leave a gap, so give every item in a group an icon, or none.
+
+## Your own links
+
+`AddSidebarLink` links to your app's pages, MVC actions, or any URL:
+
+```cs
+using StellarAdmin.Sidebar;
+
+admin.AddSidebarLink("Departures this week", SidebarLinkTarget.Page("/Admin/Departures"), link =>
+{
+    link.Group = "Sales";
+    link.Icon = "calendar";
+});
+
+admin.AddSidebarLink("Invoices", SidebarLinkTarget.Action("Index", "Invoices"));
+
+admin.AddSidebarLink("Help centre", SidebarLinkTarget.Url("https://help.voyager.travel"), link =>
+{
+    link.Group = "Help";
+    link.OpenInNewTab = true;
+});
+```
+
+`Page` and `Action` targets point outside any area, so they reach your app's own pages. Pass an area if you need one. `Url` takes absolute URLs and `~/` paths.
+
+A link without a `Group` sits at the top level, without a heading.
+
+`link.RequireAuthorization(...)` hides the link from people who don't meet the requirement. It doesn't protect the page it links to: put `[Authorize]` on that page.
+
+If a `Page` or `Action` target doesn't exist, Development shows the link in red with the reason, like "No page /Admin/Departures". In other environments it's hidden and a warning is logged.
+
+To show your own pages inside the panel's layout, see [host pages](/docs/admin/host-pages).
+
+## Order
+
+Groups with the same name merge, whether their items come from resources or links. Within a group, items with an `Order` come first, then the rest in the order you added them. So usually, writing your registrations in the order you want is enough.
+
+Groups sit in the order their first item was added. To change that, or sort a group's items by label, configure the group:
+
+```cs
+admin.ConfigureSidebarGroup("Catalogue", group => group.Order = 1);
+admin.ConfigureSidebarGroup("Sales", group => group.Order = 2);
+admin.ConfigureSidebarGroup("Settings", group => group.SortItemsByLabel = true);
+```
+
+Configuring a group doesn't add it. It shows up when something is in it.
+
+Or sort everything by label:
+
+```cs
+admin.ConfigureSidebar(sidebar =>
+{
+    sidebar.SortGroupsByLabel = true;
+    sidebar.SortItemsByLabel = true;
+});
+```
+
+Anything with an `Order` still comes first.
+
+## Items from code
+
+When the items depend on the request or your data, implement `ISidebarItemsProvider`:
+
+```cs
+using StellarAdmin.Sidebar;
+
+public class UpcomingTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarItemsProvider
+{
+    public async Task<IReadOnlyList<SidebarItem>> GetItemsAsync(
+        HttpContext httpContext, CancellationToken cancellationToken)
+    {
+        var trips = await db.Trips
+            .Where(trip => trip.IsPublished)
+            .OrderBy(trip => trip.Name)
+            .Take(3)
+            .ToListAsync(cancellationToken);
+
+        return
+        [
+            new SidebarGroupItem(
+                "Featured trips",
+                trips.Select(trip => new SidebarLinkItem(trip.Name, $"~/stellaradmin/trips/edit/{trip.Id}")
+                {
+                    Icon = "plane",
+                })),
+        ];
+    }
+}
+```
+
+```cs
+builder.Services.AddScoped<ISidebarItemsProvider, UpcomingTripsSidebarItemsProvider>();
+```
+
+Return groups of `SidebarLinkItem`, `SidebarActionLinkItem` or `SidebarPageLinkItem`. They merge with the other items, by group name.
+
+The provider runs on every panel page, so keep it fast. It's also up to you to leave out items the user shouldn't see.

@@ -1,0 +1,63 @@
+---
+title: Rich text
+description: Formatted text stored as HTML
+---
+
+For text with headings, lists, links and tables, use the [rich text editor](/docs/ui/components/rich-text-editor). It edits a string property that stores HTML. Mark the property with `[DataType(DataType.Html)]` and it's picked automatically:
+
+```cs
+public class Trip
+{
+    [DataType(DataType.Html)]
+    public string? Description { get; set; }
+}
+```
+
+The same attribute makes columns and view pages show the HTML with `HtmlDisplay`. In the grid, that's the text without formatting, cut off after two lines.
+
+To change its settings, call `UseRichTextEditor`:
+
+```cs
+fields.Add(trip => trip.Description).UseRichTextEditor(editor =>
+{
+    editor.Placeholder = "What makes this trip special?";
+    editor.Rows = 12;
+});
+```
+
+`Rows` is how many lines it shows before it grows. It defaults to 8.
+
+People get a toolbar, a menu on selected text, a `/` menu for blocks, and Markdown shortcuts such as `##`, `-` and `>`.
+
+Only use it for HTML. Plain text loses its line breaks in HTML. Text that was saved before the field became rich text opens as paragraphs, one per blank-line-separated block.
+
+## Images
+
+Images are off until you say where to store them. `StoreImage` returns the URL the text shows the image from:
+
+```cs
+fields.Add(trip => trip.Description).UseRichTextEditor(editor =>
+{
+    editor.StoreImage((file, services, cancellationToken) =>
+        services.GetRequiredService<IPhotoStore>().SaveAsync(file, cancellationToken));
+});
+```
+
+People can then paste, drop or insert images. Uploads go through the same checks as the [image editor](/docs/admin/image-editor), with the same `MaxFileSize` and `AcceptedTypes` settings. StellarAdmin never deletes images, including ones removed from the text.
+
+## Sanitizing
+
+The HTML is sanitized when it's saved, and again when it's shown. The default sanitizer keeps what the editor produces: headings, paragraphs, lists, quotes, code, tables, links, images and line breaks. It allows `http`, `https` and `mailto` links and relative URLs, and removes everything else, including scripts, event handlers, styles and classes.
+
+To change that, register your own `IRichTextSanitizer`:
+
+```cs
+builder.Services.AddSingleton<IRichTextSanitizer, VoyagerSanitizer>();
+```
+
+Only rich text fields are sanitized. A field that stores HTML but uses a textarea isn't.
+
+## Good to know
+
+- The editor's script is a separate file, about 120 KB compressed, loaded only on pages that use it.
+- It doesn't work in an [inline row](/docs/admin/inline-editing).

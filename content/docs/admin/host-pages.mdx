@@ -1,0 +1,72 @@
+---
+title: Host pages
+description: Show your own pages inside the panel's layout
+---
+
+Some pages don't fit the resource model: a report, a calendar, a page that runs a job. Write them as normal Razor Pages or MVC views in your app, and give them the panel's layout. They get the sidebar, header, theme and command palette, and keep their own URL, routing and authorization.
+
+```razor title="Pages/Admin/Departures.cshtml"
+@page
+@model DeparturesModel
+@using StellarAdmin
+@addTagHelper *, StellarAdmin.UI
+@{
+    Layout = StellarAdminLayouts.Default;
+    ViewData["Title"] = "Departures this week";
+}
+
+<sa-page-container>
+    <sa-page-header>
+        <sa-page-header-title>Departures this week</sa-page-header-title>
+    </sa-page-header>
+    <sa-table>
+        <sa-table-header>
+            <sa-table-row>
+                <sa-table-head>Reference</sa-table-head>
+                <sa-table-head>Departs</sa-table-head>
+            </sa-table-row>
+        </sa-table-header>
+        <sa-table-body>
+            @foreach (var booking in Model.Departures)
+            {
+                <sa-table-row>
+                    <sa-table-cell>@booking.Reference</sa-table-cell>
+                    <sa-table-cell>@booking.DepartureDate.ToString("d MMM yyyy")</sa-table-cell>
+                </sa-table-row>
+            }
+        </sa-table-body>
+    </sa-table>
+</sa-page-container>
+```
+
+```cs title="Pages/Admin/Departures.cshtml.cs"
+[Authorize(Roles = "Sales")]
+public class DeparturesModel(VoyagerDbContext db) : PageModel
+{
+    public List<Booking> Departures { get; private set; } = [];
+
+    public async Task OnGetAsync()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        Departures = await db.Bookings
+            .Where(booking => booking.DepartureDate >= today && booking.DepartureDate < today.AddDays(7))
+            .OrderBy(booking => booking.DepartureDate)
+            .ToListAsync();
+    }
+}
+```
+
+Then add it to the sidebar:
+
+```cs
+admin.AddSidebarLink("Departures this week", SidebarLinkTarget.Page("/Admin/Departures"), link =>
+    link.Group = "Sales");
+```
+
+The sidebar link is highlighted while the page is open, and `ViewData["Title"]` sets the browser title, like "Departures this week - Voyager Travel".
+
+## Things to know
+
+- **Protect the page yourself.** The panel's `RequireAuthorization` only covers the panel's own routes. Use `[Authorize]`, or a Razor Pages authorization convention.
+- **Use `sa-*` components.** The panel's stylesheet only has the classes its components use, so Tailwind utilities like `p-4` won't do anything. See [StellarAdmin.UI](/docs/ui) for the components.
+- **Set the layout once for a folder** with a `_ViewStart.cshtml` beside its pages.

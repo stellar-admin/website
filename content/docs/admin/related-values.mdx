@@ -1,0 +1,60 @@
+---
+title: Showing related values
+description: Related records in columns, display fields and view pages
+---
+
+## One related record
+
+A navigation to a resource shows the record's [title](/docs/admin/titles-and-references):
+
+```cs
+columns.Add(booking => booking.Customer);
+
+view.Fields(fields =>
+{
+    fields.Add(booking => booking.Customer);
+    fields.Add(booking => booking.Customer!.Email, field => field.Title = "Customer email");
+});
+```
+
+To show one of its properties instead, read through the navigation, and set a `Title`, since the default would be the property's name. EF Core loads the navigation in the same query, with no `Include` needed.
+
+To sort a navigation column, say what to sort by:
+
+```cs
+columns.Add(booking => booking.Customer, column =>
+    column.Sortable(booking => booking.Customer!.Name));
+```
+
+If the related type isn't a resource, the navigation can't show a title, so it's left out and reported as a [configuration problem](/docs/admin/configuration-problems). Show one of its properties instead.
+
+## Several related records
+
+Collections and many-to-many navigations show one [badge](/docs/ui/components/badge) per record:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(trip => trip.Tags, column => column.UseDisplay<BadgeDisplay>());
+```
+
+Without `BadgeDisplay`, a collection of records is left out. If the related type isn't a resource, tell the badges what to show:
+
+```cs
+columns.Add(guide => guide.Trips, column =>
+    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name)));
+```
+
+For one line of text instead of badges, use a [computed column](/docs/admin/columns#computed-values):
+
+```cs
+columns.Add(trip => string.Join(", ", trip.Tags.Select(tag => tag.Name)), column => column.Title = "Tags");
+```
+
+A collection column can only be sorted by an expression, such as `column.Sortable(trip => trip.Tags.Count)`.
+
+## Long lists
+
+EF Core loads collections in the same query as the page. For long lists, like all of a customer's bookings, use [row details](/docs/admin/row-details) or [add them to the view page](/docs/admin/overriding-pages) instead.
+
+To load collections in separate queries, configure your context with `UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)`.

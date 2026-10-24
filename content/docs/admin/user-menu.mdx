@@ -1,0 +1,74 @@
+---
+title: User menu and log out
+description: The signed-in user in the sidebar footer
+---
+
+When someone is signed in, the sidebar footer shows them: an avatar, their name, their email, and a menu with Log out. It needs ASP.NET Core authentication, and only shows for signed-in users.
+
+## What it shows
+
+```cs
+using System.Security.Claims;
+using StellarAdmin.Sidebar;
+
+admin.ConfigureUserMenu(menu =>
+{
+    menu.DescriptionClaimType = ClaimTypes.Role;
+    menu.Add(UserMenuItem.Page("Account", "/Account/Manage/Index", "Identity", item => item.Icon = "badge-check"));
+    menu.Add(UserMenuItem.Separator());
+});
+```
+
+| Property | Default |
+| --- | --- |
+| `NameClaimType` | `User.Identity.Name`, then the `ClaimTypes.Name` and `name` claims. |
+| `DescriptionClaimType` | The `ClaimTypes.Email`, then `email` claim. Several claims of the type are joined, so a user in two roles reads "Sales, Finance". |
+| `AvatarClaimType` | `picture`, a URL. Without one, the avatar shows initials. |
+
+## Menu items
+
+`menu.Add` adds an item. The items come from `UserMenuItem`:
+
+| Item | Links to |
+| --- | --- |
+| `Url(text, url)` | Any URL |
+| `Page(text, page)`, `Page(text, page, area)` | A Razor Page |
+| `Action(text, action, controller)`, `Action(text, action, controller, area)` | An MVC action |
+| `Separator()` | Nothing. It's a line between groups of items. |
+
+Each one has an overload with an `item => ...` callback, for things like `item.Icon`. Pages and actions point outside any area unless you give one.
+
+## Log out
+
+Log out always comes last. It posts to the panel's logout endpoint, which signs the user out of the default authenticate scheme and redirects to the panel's home page. That's the right thing for cookie authentication and ASP.NET Core Identity.
+
+With more than one scheme, such as a cookie and OpenID Connect, list them in order. Put local cookies first and the remote scheme last, since it redirects to the identity provider:
+
+```cs
+admin.ConfigureUserMenu(menu => menu.Logout(logout =>
+{
+    logout.AddAuthenticationScheme(CookieAuthenticationDefaults.AuthenticationScheme);
+    logout.AddAuthenticationScheme(OpenIdConnectDefaults.AuthenticationScheme);
+    logout.RedirectPath = "~/";
+}));
+```
+
+To use your app's own logout endpoint instead, like Identity UI's, set its path. The item posts there with an antiforgery token:
+
+```cs
+admin.ConfigureUserMenu(menu => menu.Logout(logout => logout.Path = "~/Identity/Account/Logout"));
+```
+
+If your logout is a GET request, hide the built-in item and add a link:
+
+```cs
+admin.ConfigureUserMenu(menu =>
+{
+    menu.Logout(logout => logout.Show = false);
+    menu.Add(UserMenuItem.Url("Log out", "~/logout"));
+});
+```
+
+## Your own menu
+
+To replace the whole thing, add `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` to your app. It gets a `SidebarUserMenuModel` with the `Name`, `Description`, `AvatarUrl` and `Items`, and needs the [view imports](/docs/admin/overriding-pages#view-imports). That's also the way to change the "Log out" text, or hide items from some users.

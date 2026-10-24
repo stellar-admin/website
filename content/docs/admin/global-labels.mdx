@@ -1,0 +1,51 @@
+---
+title: Global labels
+description: Change the panel's text for every resource at once
+---
+
+Page titles, button labels and messages follow patterns like "Create {singular}" and "Edit {singular}". `ConfigureResourceLabels` changes those patterns for every resource:
+
+```cs
+admin.ConfigureResourceLabels(labels =>
+{
+    labels.Index(index =>
+    {
+        index.CreateLabel = resource => $"New {resource.SingularLabel.ToLower()}";
+        index.SearchPlaceholder = resource => $"Find {resource.PluralLabel.ToLower()}";
+    });
+    labels.Create(create => create.SubmitLabel = _ => "Save");
+    labels.Edit(edit => edit.SubmitLabel = _ => "Save changes");
+    labels.Delete(delete => delete.ConfirmLabel = _ => "Yes, delete");
+});
+```
+
+Each label is a function that gets the resource's `SingularLabel` and `PluralLabel`. Settings on a single page, like `create.Title`, still win.
+
+## What you can change
+
+| Group | Labels |
+| --- | --- |
+| `Index` | `Title`, `CreateLabel`, `EditLabel`, `ViewLabel`, `DeleteLabel`, `SearchPlaceholder`, and the [inline editing](/docs/admin/inline-editing#labels) texts |
+| `Create` | `Title`, `SubmitLabel`, `AddAnotherLabel` |
+| `Edit` | `Title`, `SubmitLabel` |
+| `View` | `Title` |
+| `Delete` | `Title`, `Message`, `ConfirmLabel`, `CancelLabel` |
+| `Lookup` | `ChooseLabel`, `CreateLabel`, `NoneText`, `LoadMoreLabel`, `NoResultsTitle` and more |
+| `ListEditor`, `DictionaryEditor` | `AddText`, `EmptyText`, `RemoveLabel`, the item count and the error messages |
+| `Sheet` | `ErrorTitle`, `ErrorDescription`, `SaveErrorDescription`, `RetryLabel` |
+
+Lookup and editor labels get the field's label too:
+
+```cs
+admin.ConfigureResourceLabels(labels =>
+{
+    labels.Lookup(lookup => lookup.ChooseLabel = context => $"Select {context.FieldLabel}");
+    labels.ListEditor(list => list.AddText = context => $"Add to {context.FieldLabel.ToLower()}");
+});
+```
+
+In list and dictionary texts, `{n}`, `{count}` and `{value}` are filled in as rows change.
+
+## Translating the panel
+
+This is the panel's only way to change its text. There's no `IStringLocalizer` support yet, but the functions can call your own translations. Field labels come from `[Display(Name)]`, which supports resource types.

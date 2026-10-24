@@ -18,9 +18,20 @@ export const homeLinks: LinkItemType[] = [
     url: "/blog",
   },
   {
-    type: "main",
+    type: "menu",
     text: "Documentation",
-    url: "/docs/ui",
+    items: [
+      {
+        text: "StellarAdmin",
+        description: "Admin panels for ASP.NET Core",
+        url: "/docs/admin",
+      },
+      {
+        text: "StellarAdmin.UI",
+        description: "Tag Helpers for ASP.NET Core MVC and Razor Pages",
+        url: "/docs/ui",
+      },
+    ],
   },
   {
     type: "main",

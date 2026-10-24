@@ -1,0 +1,107 @@
+---
+title: Inline editing
+description: Edit and add records right in the grid
+---
+
+For small resources, opening a form for every change is overkill. `UseInlineRow` turns the row itself into the form.
+
+```cs
+using StellarAdmin.Resources;
+
+admin.AddEfCoreResource<Destination>(resource =>
+{
+    resource.Index(index => index.Columns(columns =>
+    {
+        columns.Add(destination => destination.Name);
+        columns.Add(destination => destination.Country!.Name, column =>
+        {
+            column.Title = "Country";
+            column.EditsField(destination => destination.CountryId);
+        });
+        columns.Add(destination => destination.IsFeatured);
+    }));
+
+    resource.AllowEdit(edit =>
+    {
+        edit.Fields(fields =>
+        {
+            fields.Add(destination => destination.Name);
+            fields.Add(destination => destination.CountryId);
+            fields.Add(destination => destination.IsFeatured);
+        });
+        edit.UseInlineRow();
+    });
+});
+```
+
+Clicking Edit on a row swaps its cells for editors, with Save and Cancel in place of the row actions. Enter saves, Escape cancels.
+
+Create and edit each choose for themselves. You can edit inline and still create on a page, or the other way round. A page that's inline isn't registered as a page: with inline edit, there's no edit page, and the view page has no Edit button.
+
+## Fields and columns
+
+Each field needs a column to sit in. A field goes in the column with the same property. When a column shows something else, like the country's name for `CountryId`, say which field it edits with `EditsField`.
+
+Columns without a field just keep showing their value. Display fields, and fields that are always read-only or disabled, don't need a column.
+
+If a field has no column, the resource loses that inline row and a [configuration problem](/docs/admin/configuration-problems) is reported.
+
+## Adding rows
+
+`create.UseInlineRow` adds an Add button that inserts a new, empty row:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.Fields(fields =>
+    {
+        fields.Add(destination => destination.Name);
+        fields.Add(destination => destination.CountryId);
+        fields.Add(destination => destination.IsFeatured);
+    });
+    create.UseFactory(() => new Destination { IsFeatured = true });
+    create.UseInlineRow(inline =>
+    {
+        inline.Position = InlineCreatePosition.Bottom;
+        inline.AddButton = InlineAddButton.Grid;
+    });
+});
+```
+
+| Setting | Options |
+| --- | --- |
+| `Position` | `Top` (the default) or `Bottom` of the current page. |
+| `AddButton` | In the page `Header`, in a row of the `Grid`, or `Both` (the default). |
+| `DimOtherRows` | Dims and locks the rest of the page while a row is open. On by default. Turn it off and opening another row cancels the first. |
+| `AfterSave` | `ReloadGrid` (the default) or `KeepInPlace`. See below. |
+
+The new row starts with the values from `UseFactory`. `edit.UseInlineRow` takes the same `DimOtherRows` and `AfterSave` settings.
+
+For quick data entry, add [`EnableAddAnother`](/docs/admin/forms#save-and-add-another). The new row gets a third button that saves and opens another row straight away. Ctrl+Shift+Enter (Cmd+Shift+Enter on a Mac) does the same.
+
+## After a save
+
+- **`ReloadGrid`** reloads the current page with its search, scope, sort and paging, so the row lands where it belongs. If it's no longer on the page, a toast says so.
+- **`KeepInPlace`** leaves the row where it was until the grid next reloads. That's nicer for quick entry into short lists.
+
+## Which editors work in a cell
+
+Text, number, email and the other text inputs, select, checkbox, switch, date and time inputs, segmented control, lookup, image and icon editors all work in a cell.
+
+Textarea, rich text, radio group, checkbox group, toggle group, slider, one-time code and multi-lookup editors don't. In Development, a cell with one of those shows an error naming the missing template. Saving skips fields whose cell has no editor, so it never overwrites their values.
+
+A [custom editor](/docs/admin/custom-editors) works in a cell once you add a template for it to `GridEditorTemplates/`.
+
+## Labels
+
+| Property | Default |
+| --- | --- |
+| `index.SaveLabel` | `Save` |
+| `index.CancelLabel` | `Cancel` |
+| `index.CreatedMessage` | `{singular} added` |
+| `index.SavedMessage` | `{singular} saved` |
+| `index.NotShownMessage` | `It isn't on this page with the current search, scope and sort.` |
+
+## Custom data sources
+
+Inline rows use your data source's create and edit methods as usual. After a save, the panel reloads the row with `ListAsync`, passing its key in `ResourceListRequest.Keys`.
