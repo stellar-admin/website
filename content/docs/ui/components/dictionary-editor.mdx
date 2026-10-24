@@ -170,6 +170,11 @@ Renders a web component with the column labels, a row per entry, the Add row, an
       type: "bool?",
       default: "false",
     },
+    texts: {
+      description:
+        "Replaces the texts the editor shows as entries change: Count, Duplicate, Full, KeyRequired, None, Remove, TooFew and ValueRequired. {n} is filled in with an entry's number, {count} with the number of entries and {value} with a key.",
+      type: "DictionaryEditorTexts",
+    },
     "value-align": {
       description: "How each value is aligned within its column.",
       type: "DictionaryEditorAlign",

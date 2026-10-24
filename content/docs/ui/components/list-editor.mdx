@@ -233,6 +233,11 @@ Renders a web component with a row per item, the Add row, and a hidden marker th
       description: "Text shown after each item, such as a unit.",
       type: "string",
     },
+    texts: {
+      description:
+        "Replaces the texts the editor shows as items change: Count, Duplicate, Full, Item, Move, None, Remove and TooFew. {n} is filled in with an item's number, {count} with the number of items and {value} with an item.",
+      type: "ListEditorTexts",
+    },
     unique: {
       description: "Whether each item must be different, ignoring case.",
       type: "bool?",
