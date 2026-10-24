@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.u0skg4117m.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script type="module" src="/demo/ui/assets/stellar-admin.05h1vlki0i.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-md">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-label" class="sa-label sa-field-label" data-slot="field-label">Highlights</label><sel-collection-editor id="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390" data-slot="list-editor" class="sa-collection-editor" role="group" data-kind="list" data-name="PartialModel.Highlights" data-readonly="" data-min-items="1" data-max-items="8" aria-describedby="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-description sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-error" aria-labelledby="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-label"><ol class="sa-collection-editor-items" data-slot="collection-editor-items"><li class="sa-collection-editor-item" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="value"><span class="sa-collection-editor-text">Tasting at a family-run tasca in Alfama</span></div></li><li class="sa-collection-editor-item" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="value"><span class="sa-collection-editor-text">Past&#xE9;is de nata, warm from the oven in Bel&#xE9;m</span></div></li><li class="sa-collection-editor-item" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="value"><span class="sa-collection-editor-text">Sunset at the Miradouro da Senhora do Monte</span></div></li></ol><div class="sa-collection-editor-empty" data-slot="collection-editor-empty" hidden="hidden">None</div></sel-collection-editor><div id="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.Highlights" data-valmsg-replace="true" role="alert" data-slot="field-error"></div><p id="sa-11291ae8638f4b77107ad3c7a3431c844c9b2d334c86178f7b66f589c2724a1c3390-description" class="sa-field-description" data-slot="field-description">Shown as bullet points on the trip page.</p></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+---
+title: Dictionary Editor
+description: An editor for a dictionary of keys and values, with a row per entry
+---
+
+import { Demo } from "@/components/demo";
+
+<Demo src="/demo/ui/dictionary-editor-intro.html">
+  <include>./_include/dictionary-editor-intro.mdx</include>
+</Demo>
+
+## Usage
+
+`<sa-dictionary-editor>` edits a `Dictionary<TKey, TValue>` or `IDictionary<TKey, TValue>` whose key is a string or an enum and whose value is a string, a number or an enum. Bind it with `asp-for`. Each entry is a row with the key and the value side by side under their column labels, and Add is the last row.
+
+```razor
+<sa-dictionary-editor asp-for="..." key-label="..." value-label="..." />
+```
+
+Each row posts indexed names, such as `LocalNames[0].Key` and `LocalNames[0].Value`, which MVC binds to the dictionary. A hidden marker posts with the rows, so removing every entry binds an empty dictionary instead of keeping the old one. Rows left blank don't post. How the dictionary is stored is up to the app; with EF Core, it needs a value converter or a JSON column.
+
+The rows are rendered on the server, so the values show before the script runs. Adding and removing rows needs `stellar-admin.js`.
+
+Enter in a key moves to its value, and Enter in the last value adds a row. Escape in a blank row removes it. Pasting lines such as `pt=Passeio por Lisboa`, `pt: Passeio por Lisboa` or tab-separated pairs adds an entry for each line.
+
+## Examples
+
+### Enum keys
+
+An enum key or value is a select of the enum's members, with the names from their `[Display]` attributes. A key can be used once, so the keys other rows use are disabled, and the dictionary can have one entry for each member. `key-placeholder` and `value-placeholder` set the text of a select's empty choice.
+
+<Demo src="/demo/ui/dictionary-editor-enum-keys.html">
+  <include>./_include/dictionary-editor-enum-keys.mdx</include>
+</Demo>
+
+### Items
+
+`asp-key-items` and `asp-value-items` take the keys or values to choose from, as `SelectListItem`s, like `asp-items` on a [select](/docs/ui/components/select). With key items, the dictionary can have one entry for each item.
+
+<Demo src="/demo/ui/dictionary-editor-items.html">
+  <include>./_include/dictionary-editor-items.mdx</include>
+</Demo>
+
+### Numbers
+
+A number value renders a number input, aligned to the end so that the digits line up; `value-align` sets the values' alignment. The keys are always aligned to the start. `value-min`, `value-max` and `value-step` set its range and step, and `value-prefix` and `value-suffix` show text beside it, such as a currency symbol or a unit.
+
+<Demo src="/demo/ui/dictionary-editor-numbers.html">
+  <include>./_include/dictionary-editor-numbers.mdx</include>
+</Demo>
+
+### Key and value checks
+
+The key and value take the same checks as a [list editor's](/docs/ui/components/list-editor#item-checks) items, with a `key-` or `value-` prefix: `key-pattern`, `key-pattern-message`, `key-max-length` and `key-casing`, and the same for the value. A key can't repeat another row's, and a row with a key needs a value, and the other way round.
+
+The editor checks a row when focus leaves it, and every row when the form is submitted. A row's error shows under the row, and the submit is blocked until the errors are fixed. The browser checks can be bypassed, so check the entries again on the server.
+
+### Validation
+
+An error in ModelState for a key or value, such as `BaggageAllowance[1].Value`, shows under that row, and an error for the property shows under the field. The demo adds one to ModelState.
+
+<Demo src="/demo/ui/dictionary-editor-validation.html">
+  <include>./_include/dictionary-editor-validation.mdx</include>
+</Demo>
+
+### Read only
+
+Set `readonly` to show the entries as text, without adding or removing. A select's value shows its item's text. A read-only dictionary posts no values.
+
+<Demo src="/demo/ui/dictionary-editor-read-only.html">
+  <include>./_include/dictionary-editor-read-only.mdx</include>
+</Demo>
+
+## Accessibility
+
+The box is a group labelled by the field's label. Each input is named by its column and number, such as "Language 2", and the remove button as "Remove row 2". A row's error is linked to its input with `aria-describedby`.
+
+## Part classes
+
+Pass a `DictionaryEditorClassNames` instance from the `StellarAdmin.UI` namespace using `class-names`. Each property accepts an optional string of space-separated CSS classes, which are added to the part's existing classes.
+
+| Property | Target |
+| --- | --- |
+| `Root` | The generated field wrapper, when the control renders an implicit field. |
+| `Label` | The generated field label, when rendered. |
+| `Description` | The generated help text, when rendered. |
+| `Error` | The generated validation message element, when rendered. |
+| `Content` | The generated container around the label and supporting text in a horizontal implicit field. |
+| `Control` | The editor's box. |
+
+Root, Label, Description, Error, and Content are inherited from `FieldClassNames`; see [Field part classes](field#part-classes).
+
+## API Reference
+
+### `<sa-dictionary-editor>`
+
+Renders a web component with the column labels, a row per entry, the Add row, and a hidden marker that posts with the rows. It also takes `class-names`, `column-span`, `column-start`, `description`, `error`, `label`, `name` and `wrap-in-field`, as the [list editor](/docs/ui/components/list-editor#api-reference) does.
+
+<TypeTable
+  type={{
+    "add-text": {
+      description: "The text of the row that adds an entry.",
+      type: "string",
+      default: '"Add item"',
+    },
+    "asp-for": {
+      description: "An expression to be evaluated against the current model. Bind to a dictionary with a string or enum key and a string, number or enum value.",
+      type: "ModelExpression",
+    },
+    "asp-key-items": {
+      description: "The keys to choose from. The dictionary can have one entry for each.",
+      type: "IEnumerable<SelectListItem>",
+      default: "An enum key's members",
+    },
+    "asp-value-items": {
+      description: "The values to choose from.",
+      type: "IEnumerable<SelectListItem>",
+      default: "An enum value's members",
+    },
+    "empty-text": {
+      description: "The text shown when the dictionary has no entries.",
+      type: "string",
+      default: '"No items yet"',
+    },
+    "key-casing": {
+      description: "How a text key's case changes as it is typed.",
+      type: "DictionaryEditorCasing",
+      typeDescription: "DictionaryEditorCasing.None | DictionaryEditorCasing.Upper | DictionaryEditorCasing.Lower",
+      default: "DictionaryEditorCasing.None",
+    },
+    "key-label": {
+      description: "The label of the key column.",
+      type: "string",
+      default: '"Key"',
+    },
+    "key-max-length": {
+      description: "The largest number of characters a text key can have.",
+      type: "int?",
+    },
+    "key-pattern": {
+      description: "A regular expression each text key must match.",
+      type: "string",
+    },
+    "key-pattern-message": {
+      description: "The message shown when a key doesn't match key-pattern.",
+      type: "string",
+      default: "The browser's message",
+    },
+    "key-placeholder": {
+      description: "The placeholder of an empty key, or the text of a select's empty choice.",
+      type: "string",
+    },
+    "max-items": {
+      description: "The largest number of entries.",
+      type: "int?",
+      default: "From [MaxLength] or [Length], or the number of key items",
+    },
+    "min-items": {
+      description: "The smallest number of entries.",
+      type: "int?",
+      default: "From [MinLength] or [Length], or none",
+    },
+    numbered: {
+      description: "Whether each entry shows its number.",
+      type: "bool?",
+      default: "false",
+    },
+    readonly: {
+      description: "Shows the entries as text, without adding or removing. A read-only dictionary posts no values.",
+      type: "bool?",
+      default: "false",
+    },
+    "value-align": {
+      description: "How each value is aligned within its column.",
+      type: "DictionaryEditorAlign",
+      typeDescription: "DictionaryEditorAlign.Start | DictionaryEditorAlign.End",
+      default: "DictionaryEditorAlign.End for numbers, DictionaryEditorAlign.Start otherwise",
+    },
+    "value-casing": {
+      description: "How a text value's case changes as it is typed.",
+      type: "DictionaryEditorCasing",
+      typeDescription: "DictionaryEditorCasing.None | DictionaryEditorCasing.Upper | DictionaryEditorCasing.Lower",
+      default: "DictionaryEditorCasing.None",
+    },
+    "value-label": {
+      description: "The label of the value column.",
+      type: "string",
+      default: '"Value"',
+    },
+    "value-max": {
+      description: "The largest number a number value can be.",
+      type: "double?",
+    },
+    "value-max-length": {
+      description: "The largest number of characters a text value can have.",
+      type: "int?",
+    },
+    "value-min": {
+      description: "The smallest number a number value can be.",
+      type: "double?",
+    },
+    "value-pattern": {
+      description: "A regular expression each text value must match.",
+      type: "string",
+    },
+    "value-pattern-message": {
+      description: "The message shown when a value doesn't match value-pattern.",
+      type: "string",
+      default: "The browser's message",
+    },
+    "value-placeholder": {
+      description: "The placeholder of an empty value, or the text of a select's empty choice.",
+      type: "string",
+    },
+    "value-prefix": {
+      description: "Text shown before each value, such as a currency symbol.",
+      type: "string",
+    },
+    "value-step": {
+      description: "The step of a number value.",
+      type: "double?",
+      default: "1 for whole numbers, any otherwise",
+    },
+    "value-suffix": {
+      description: "Text shown after each value, such as a unit.",
+      type: "string",
+    },
+  }}
+/>
+
+The editor throws when it has no `asp-for`, or is bound to something other than a supported dictionary.

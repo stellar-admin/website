@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.u0skg4117m.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script type="module" src="/demo/ui/assets/stellar-admin.05h1vlki0i.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    
+<div class="w-full max-w-lg">
+    <!-- code begin -->
+    <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field"><label id="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-label" class="sa-label sa-field-label" data-slot="field-label">Baggage allowance</label><sel-collection-editor id="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365" data-slot="dictionary-editor" class="sa-collection-editor" role="group" data-kind="dictionary" data-name="PartialModel.BaggageAllowance" data-unique="" data-texts="{&quot;none&quot;:&quot;None&quot;,&quot;key&quot;:&quot;Cabin {n}&quot;,&quot;value&quot;:&quot;Allowance {n}&quot;,&quot;move&quot;:&quot;Move row {n}&quot;,&quot;remove&quot;:&quot;Remove row {n}&quot;,&quot;duplicate&quot;:&quot;{value} is already used.&quot;,&quot;keyRequired&quot;:&quot;Cabin is required.&quot;,&quot;valueRequired&quot;:&quot;Allowance is required.&quot;}" aria-describedby="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-error" aria-labelledby="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-label"><div aria-hidden="true" class="sa-collection-editor-head" data-slot="collection-editor-head"><span>Cabin</span><span data-align="end">Allowance</span><span></span></div><ol class="sa-collection-editor-items" data-slot="collection-editor-items"><li class="sa-collection-editor-item" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="key"><input type="text" name="PartialModel.BaggageAllowance[0].Key" aria-label="Cabin 1" data-part="key" value="Economy" data-slot="input" class="sa-input"></div><div class="sa-collection-editor-cell" data-align="end" data-col="value"><input type="number" name="PartialModel.BaggageAllowance[0].Value" aria-label="Allowance 1" data-part="value" value="23" inputmode="numeric" step="1" data-slot="input" class="sa-input"><span aria-hidden="true" class="sa-collection-editor-affix" data-side="end">kg</span></div><span class="sa-collection-editor-actions"><button type="button" class="sa-button sa-button-variant-ghost sa-button-size-icon-sm sa-collection-editor-remove" data-slot="button" aria-label="Remove row 1" command="--remove" commandfor="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></span></li><li class="sa-collection-editor-item" data-invalid="true" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="key"><input type="text" name="PartialModel.BaggageAllowance[1].Key" aria-label="Cabin 2" data-part="key" value="Business" data-slot="input" class="sa-input"></div><div class="sa-collection-editor-cell" data-align="end" data-col="value"><input type="number" name="PartialModel.BaggageAllowance[1].Value" aria-label="Allowance 2" data-part="value" aria-invalid="true" aria-describedby="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-1-error" value="40" inputmode="numeric" step="1" data-slot="input" class="sa-input"><span aria-hidden="true" class="sa-collection-editor-affix" data-side="end">kg</span></div><span class="sa-collection-editor-actions"><button type="button" class="sa-button sa-button-variant-ghost sa-button-size-icon-sm sa-collection-editor-remove" data-slot="button" aria-label="Remove row 2" command="--remove" commandfor="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></span><p class="sa-collection-editor-item-error" data-slot="collection-editor-item-error" id="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-1-error">Business allows no more than 32 kg on this route.</p></li></ol><div class="sa-collection-editor-empty" data-slot="collection-editor-empty" hidden="hidden">No items yet</div><button type="button" class="sa-collection-editor-add" data-slot="collection-editor-add" command="--add" commandfor="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg><span>Add item</span></button><template><li class="sa-collection-editor-item" data-slot="collection-editor-item"><div class="sa-collection-editor-cell" data-col="key"><input type="text" aria-label="Cabin 1" data-part="key" value="" data-slot="input" class="sa-input"></div><div class="sa-collection-editor-cell" data-align="end" data-col="value"><input type="number" aria-label="Allowance 1" data-part="value" value="" inputmode="numeric" step="1" data-slot="input" class="sa-input"><span aria-hidden="true" class="sa-collection-editor-affix" data-side="end">kg</span></div><span class="sa-collection-editor-actions"><button type="button" class="sa-button sa-button-variant-ghost sa-button-size-icon-sm sa-collection-editor-remove" data-slot="button" aria-label="Remove row 1" command="--remove" commandfor="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></span></li></template><input name="__sa_checkbox_group.PartialModel.BaggageAllowance" type="hidden" value="true" /></sel-collection-editor><div id="sa-3440b305d414db732f64efa8ffcd73aacddd10d22d3b9877e0e987252793968d4365-error" class="sa-field-error field-validation-valid" data-valmsg-for="PartialModel.BaggageAllowance" data-valmsg-replace="true" role="alert" data-slot="field-error"></div></div>
+    <!-- code end -->
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
