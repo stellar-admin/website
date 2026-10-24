@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.lhm5lmseqz.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.w7n1qyns01.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script type="module" src="/demo/ui/assets/stellar-admin.3f1a4wn8fi.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <fieldset class="sa-field-set w-full" data-slot="field-set">
+    <legend data-slot="field-legend" data-variant="legend" class="sa-field-legend">Bed Preference</legend>
+    <p data-slot="field-description" class="sa-field-description">
+        Your room is confirmed, so the bed can no longer change.
+    </p>
+    <div data-slot="radio-group" class="sa-field-group">
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="readonly-bed-preference" value="king" readonly id="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad969267" data-slot="input" class="sa-radiobutton" aria-describedby="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad969267-description" onclick="return false"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content" data-slot="field-content"><label for="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad969267" class="sa-label sa-field-label" data-slot="field-label">1 King</label><p id="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad969267-description" class="sa-field-description" data-slot="field-description">Large bed for couples or solo travelers</p></div></div>
+        <div class="sa-field sa-field-orientation-horizontal" data-orientation="horizontal" data-slot="field"><span class="sa-input-control-wrapper"><input type="radio" name="readonly-bed-preference" value="single" checked readonly id="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad9611553" data-slot="input" class="sa-radiobutton" aria-describedby="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad9611553-description" onclick="return false"><span class="sa-radiobutton-indicator"><svg class="sa-radiobutton-indicator-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg></span></span><div class="sa-field-content" data-slot="field-content"><label for="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad9611553" class="sa-label sa-field-label" data-slot="field-label">2 Single</label><p id="sa-cacc46648a779e437861fff18fcda62b1d76d44e9b87cba5474e0490ee97ad9611553-description" class="sa-field-description" data-slot="field-description">Ideal for friends or colleagues</p></div></div>
+    </div>
+</fieldset>
+
+
+</div>
+
+
+
+</body>
+</html>

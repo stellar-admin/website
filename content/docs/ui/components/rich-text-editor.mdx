@@ -67,10 +67,18 @@ For a failed upload, answer with an error status and `{ "error": "..." }`, which
 
 ### Read only
 
-Set `readonly` to show the text without letting the user change it. A read-only editor has no toolbar and still posts its value.
+Set `readonly` to show the text without letting the user change it. A read-only editor has no toolbar, can still be focused and posts its value.
 
 <Demo src="/demo/ui/rich-text-editor-read-only.html">
   <include>./_include/rich-text-editor-read-only.mdx</include>
+</Demo>
+
+### Disabled
+
+Set `disabled="true"` to fade the editor and its toolbar. Like a disabled textarea, a disabled editor can't be focused and doesn't post its value.
+
+<Demo src="/demo/ui/rich-text-editor-disabled.html">
+  <include>./_include/rich-text-editor-disabled.mdx</include>
 </Demo>
 
 ## Height
@@ -132,6 +140,11 @@ Renders a web component containing the toolbar, the editing area, a `<textarea>`
     description: {
       description: "Description text for the implicit Field wrapper.",
       type: "string",
+    },
+    disabled: {
+      description: "Whether the editor is disabled. A disabled editor can't be focused and doesn't post its value.",
+      type: "bool?",
+      default: "false",
     },
     error: {
       description: "Error text for the implicit Field wrapper.",

@@ -119,6 +119,14 @@ Add `disabled` to a radio to prevent it from being selected.
   <include>./_include/radio-disabled.mdx</include>
 </Demo>
 
+### Read only
+
+Add `readonly` to each radio button to show the selection without letting the user change it. Read-only radio buttons look like editable ones, can still be focused and post their value. Browsers ignore `readonly` on radio buttons, so each also gets `onclick="return false"`.
+
+<Demo src="/demo/ui/radio-read-only.html">
+  <include>./_include/radio-read-only.mdx</include>
+</Demo>
+
 ## Accessibility
 
 A radio button renders a native `<input type="radio">`, so a group of radios sharing a `name` is one Tab stop and the arrow keys move the selection between them. The visible indicator is decorative. With `asp-for` or the `label` attribute the label is wired to each radio for you.

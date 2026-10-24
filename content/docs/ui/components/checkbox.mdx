@@ -113,6 +113,14 @@ Add the `disabled` attribute to prevent user interaction.
   <include>./_include/checkbox-disabled.mdx</include>
 </Demo>
 
+### Read only
+
+Add `readonly` to show the value without letting the user change it. A read-only checkbox looks like an editable one, can still be focused and posts its value. Browsers ignore `readonly` on checkboxes, so the checkbox also gets `onclick="return false"`.
+
+<Demo src="/demo/ui/checkbox-read-only.html">
+  <include>./_include/checkbox-read-only.mdx</include>
+</Demo>
+
 ### Group
 
 Group related checkboxes using `<sa-field-set>` and `<sa-field-group>`.

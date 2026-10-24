@@ -86,10 +86,18 @@ The control holds a form's submit while it uploads, but a row saved with htmx or
 
 ### Disabled
 
-Set `disabled` to show the image without letting the user change it. A disabled control needs no `upload-url`.
+Set `disabled` to show the image without letting the user change it. Like a native control, a disabled control doesn't post its value. It needs no `upload-url`.
 
 <Demo src="/demo/ui/image-upload-disabled.html">
   <include>./_include/image-upload-disabled.mdx</include>
+</Demo>
+
+### Read only
+
+Set `readonly="true"` to show the image alone, without the upload area, the buttons or the accepted types. A read-only control posts its value and needs no `upload-url`.
+
+<Demo src="/demo/ui/image-upload-read-only.html">
+  <include>./_include/image-upload-read-only.mdx</include>
 </Demo>
 
 ## Accessibility
@@ -149,7 +157,7 @@ Renders a web component containing a hidden file input, a hidden `<input>` that 
       type: "string",
     },
     disabled: {
-      description: "Shows the image without letting the user change it.",
+      description: "Shows the image without letting the user change it. A disabled control doesn't post its value.",
       type: "bool?",
       default: "false",
     },
@@ -180,6 +188,11 @@ Renders a web component containing a hidden file input, a hidden `<input>` that 
     name: {
       description: "The name of the hidden <input> that posts the value.",
       type: "string",
+    },
+    readonly: {
+      description: "Shows the image alone, without the upload area, the buttons or the accepted types. Its value is posted.",
+      type: "bool?",
+      default: "false",
     },
     src: {
       description: "The current image's URL, when the value is not a URL itself.",

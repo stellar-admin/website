@@ -94,6 +94,14 @@ ModelState.AddModelError("PartialModel.Extras", "Choose at least one extra.");
 
 For an unbound group, use `error` to display a group error.
 
+### Read only
+
+Set `readonly="true"` to show the selection without letting the user change it. A read-only group looks like an editable one, can still be focused and posts its selection.
+
+<Demo src="/demo/ui/checkbox-group-read-only.html">
+  <include>./_include/checkbox-group-read-only.mdx</include>
+</Demo>
+
 ## Accessibility
 
 The group renders an element with `role="group"`, named by the field label, around native checkbox inputs with associated labels. The group's description and validation message are associated with the group, and each option's description with its input. Set `disabled="true"` on the group or an item to disable it. Avoid interactive elements inside item labels. Media sits inside the label, so keep it decorative: an avatar without a `name` and an image with an empty `alt` leave the option text as its name.
@@ -118,6 +126,7 @@ The group renders an element with `role="group"`, named by the field label, arou
 | `description` | `string` | Supporting text; overrides model metadata. |
 | `error` | `string` | Explicit group error message. |
 | `disabled` | `bool` | Disables every option. Defaults to `false`. |
+| `readonly` | `bool` | Shows the selection without letting the user change it. It can still be focused and is posted. Defaults to `false`. |
 | `wrap-in-field` | `bool` | Whether to wrap the group in a field with its label, description and error. By default it is wrapped when it has a label, description, error or bound property and isn't already inside a field. |
 | `column-span` | `string` | Number of columns the group spans in an `<sa-grid>`, from 1 to 12, or `full`. Defaults to 1. |
 | `column-span-sm` | `string` | Column span once the grid is at least 30rem wide. Defaults to the smaller width's value. |

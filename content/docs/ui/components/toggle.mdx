@@ -56,6 +56,14 @@ Add the `disabled` attribute to prevent the user from interacting with the toggl
   <include>./_include/toggle-disabled.mdx</include>
 </Demo>
 
+### Read only
+
+Add `readonly` to show the value without letting the user change it. A read-only toggle looks like an editable one, can still be focused and posts its value. Browsers ignore `readonly` on the checkbox behind it, so that checkbox also gets `onclick="return false"`.
+
+<Demo src="/demo/ui/toggle-read-only.html">
+  <include>./_include/toggle-read-only.mdx</include>
+</Demo>
+
 ### Model binding
 
 Supports ASP.NET Core model binding via `asp-for`. Bind it to a `bool` property and an un-pressed toggle will post `false`.

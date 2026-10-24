@@ -65,10 +65,18 @@ An error in ModelState for a key or value, such as `BaggageAllowance[1].Value`, 
 
 ### Read only
 
-Set `readonly` to show the entries as text, without adding or removing. A select's value shows its item's text. A read-only dictionary posts no values.
+Set `readonly="true"` to show the entries in read-only inputs and selects, without adding or removing. The entries can still be focused, and a read-only dictionary posts its values.
 
 <Demo src="/demo/ui/dictionary-editor-read-only.html">
   <include>./_include/dictionary-editor-read-only.mdx</include>
+</Demo>
+
+### Disabled
+
+Set `disabled="true"` to fade the editor and disable its inputs, selects and buttons. A disabled dictionary can't be focused and posts no values. A disabled `<fieldset>` around the editor disables it too.
+
+<Demo src="/demo/ui/dictionary-editor-disabled.html">
+  <include>./_include/dictionary-editor-disabled.mdx</include>
 </Demo>
 
 ## Accessibility
@@ -116,6 +124,11 @@ Renders a web component with the column labels, a row per entry, the Add row, an
       description: "The values to choose from.",
       type: "IEnumerable<SelectListItem>",
       default: "An enum value's members",
+    },
+    disabled: {
+      description: "Whether the dictionary is disabled. A disabled dictionary can't be focused and posts no values.",
+      type: "bool?",
+      default: "false",
     },
     "empty-text": {
       description: "The text shown when the dictionary has no entries.",
@@ -166,7 +179,7 @@ Renders a web component with the column labels, a row per entry, the Add row, an
       default: "false",
     },
     readonly: {
-      description: "Shows the entries as text, without adding or removing. A read-only dictionary posts no values.",
+      description: "Shows the entries in read-only inputs and selects, without adding or removing. A read-only dictionary posts its values.",
       type: "bool?",
       default: "false",
     },

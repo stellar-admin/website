@@ -53,6 +53,14 @@ Set `disabled="true"` on an item or the entire control. Disabled radios cannot b
   <include>./_include/segmented-control-disabled.mdx</include>
 </Demo>
 
+### Read only
+
+Set `readonly="true"` to show the selection without letting the user change it. A read-only control looks like an editable one, can still be focused and posts its value.
+
+<Demo src="/demo/ui/segmented-control-read-only.html">
+  <include>./_include/segmented-control-read-only.mdx</include>
+</Demo>
+
 ## Accessibility
 
 The outer element is a `div` with `role="radiogroup"`. Each item renders a label containing a visually hidden native radio. Supply `aria-label` or `aria-labelledby` for unbound groups without a `label`, and visible text for every item. Label content may include decorative icons, but should not contain links, buttons, or other interactive controls.
@@ -69,6 +77,7 @@ Tab enters and leaves the group; arrow keys move between enabled options using t
 | `name` | `string` | Required field name when `asp-for` is absent. |
 | `value` | `string` | Initial selected value when `asp-for` is absent. |
 | `disabled` | `bool?` | Disables all options; defaults to false. |
+| `readonly` | `bool?` | Shows the selection without letting the user change it. It can still be focused and is posted. Defaults to false. |
 | `required` | `bool?` | Requires a selection; defaults to model metadata, or false when unbound. |
 | `label` | `string` | Field label; defaults to model metadata when bound. |
 | `description` | `string` | Supporting field text; defaults to model metadata. |

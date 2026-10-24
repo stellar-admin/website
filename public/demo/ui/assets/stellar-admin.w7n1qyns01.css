@@ -2155,7 +2155,7 @@
       background: var(--sa-color-on-accent);
       translate: -50% -50%;
     }
-    &:hover:not(:disabled, :focus-visible, :checked, :indeterminate) {
+    &:hover:not(:disabled, :focus-visible, :checked, :indeterminate, [readonly]) {
       border-color: var(--sa-color-line-control-hover);
     }
     &:is(:checked, :indeterminate) {
@@ -2182,6 +2182,10 @@
     &:disabled {
       cursor: not-allowed;
       opacity: var(--sa-disabled-opacity);
+    }
+    /* Read-only looks like the editable checkbox, but nothing responds to the pointer */
+    &[readonly] {
+      cursor: default;
     }
   }
   .sa-checkbox-indicator {
@@ -2551,7 +2555,7 @@
    .sa-collection-editor-empty, .sa-collection-editor-ghost, .sa-collection-editor-gutter,
    .sa-collection-editor-handle, .sa-collection-editor-head, .sa-collection-editor-head-gutter,
    .sa-collection-editor-item, .sa-collection-editor-item-error, .sa-collection-editor-items,
-   .sa-collection-editor-number, .sa-collection-editor-remove, .sa-collection-editor-text */
+   .sa-collection-editor-number, .sa-collection-editor-remove */
 
 @layer sa.components {
   .sa-collection-editor {
@@ -2583,7 +2587,7 @@
     &:not([data-readonly]) {
       --_actions-col: var(--_actions-w);
     }
-    &:hover:not(:focus-within, [data-readonly]) {
+    &:hover:not(:focus-within, :disabled) {
       border-color: var(--sa-color-line-control-hover);
     }
     &:focus-within {
@@ -2596,9 +2600,9 @@
     &[aria-invalid="true"]:focus-within {
       box-shadow: var(--sa-shadow-control), var(--sa-invalid-focus-shadow);
     }
-    /* Read-only: the values as text on a disabled select's fill, with no add row, remove or handle */
-    &[data-readonly] {
-      border-color: var(--sa-color-line);
+    /* Read-only has read-only inputs and no add row, remove or handle. Disabled takes a disabled
+       field's fill, and its controls fade. */
+    &:disabled {
       background: var(--sa-color-field-disabled);
       box-shadow: none;
     }
@@ -2739,26 +2743,15 @@
 
   /* End-aligned values, such as numbers, so that their digits line up */
   .sa-collection-editor-cell[data-align="end"] {
-    & > :is(.sa-input, .sa-collection-editor-text),
+    & > .sa-input,
     & > .sa-native-select-wrapper > .sa-native-select {
       text-align: end;
       text-align-last: end;
     }
     /* The suffix's own padding is the gap, so the value sits beside it */
-    & > :is(.sa-input, .sa-collection-editor-text):has(+ .sa-collection-editor-affix[data-side="end"]) {
+    & > .sa-input:has(+ .sa-collection-editor-affix[data-side="end"]) {
       padding-inline-end: 0;
     }
-  }
-
-  .sa-collection-editor-text {
-    flex: 1;
-    min-width: 0;
-    padding-inline: var(--sa-control-px);
-    font-size: var(--sa-text-control);
-    line-height: var(--_row-h);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .sa-collection-editor-affix {
@@ -3840,7 +3833,7 @@
     & > [data-slot="field"] {
       padding: calc(2.5 * var(--sa-unit));
     }
-    &:hover:not(:has(:disabled, [data-disabled])) {
+    &:hover:not(:has(:disabled, [data-disabled], [readonly])) {
       border-color: var(--sa-color-line-control-hover);
       background: var(--sa-color-hover);
     }
@@ -4135,6 +4128,13 @@
   .sa-input.sa-icon-picker-trigger > .sa-icon-picker-chevron {
     margin-inline-start: auto;
     color: var(--sa-color-ink-muted);
+  }
+  /* Read-only: the icon and its name, without the chevron, and nothing responds to the pointer */
+  .sa-icon-picker[data-readonly] > .sa-input.sa-icon-picker-trigger {
+    cursor: default;
+    &:hover:not(:focus-visible) {
+      border-color: var(--sa-color-line-control);
+    }
   }
 
   .sa-popover-content.sa-icon-picker-popover {
@@ -6146,7 +6146,7 @@
       position: absolute;
       inset: calc(-2 * var(--sa-unit)) calc(-3 * var(--sa-unit));
     }
-    &:hover:not(:disabled, :focus-visible, :checked) {
+    &:hover:not(:disabled, :focus-visible, :checked, [readonly]) {
       border-color: var(--sa-color-line-control-hover);
     }
     &:checked {
@@ -6170,6 +6170,10 @@
     &:disabled {
       cursor: not-allowed;
       opacity: var(--sa-disabled-opacity);
+    }
+    /* Read-only looks like the editable radio button, but nothing responds to the pointer */
+    &[readonly] {
+      cursor: default;
     }
   }
   .sa-radiobutton-indicator {
@@ -6232,7 +6236,7 @@
       border-color var(--sa-motion-fast) var(--sa-motion-ease),
       box-shadow var(--sa-motion-fast) var(--sa-motion-ease);
 
-    &:hover:not(:focus-within) {
+    &:hover:not(:focus-within, [data-disabled]) {
       border-color: var(--sa-color-line-control-hover);
     }
     &:has(> [data-slot="rich-text-editor-content"]:focus-visible) {
@@ -6245,6 +6249,13 @@
       &:has(> [data-slot="rich-text-editor-content"]:focus-visible) {
         box-shadow: var(--sa-shadow-control), var(--sa-invalid-focus-shadow);
       }
+    }
+
+    /* Disabled fades like a disabled textarea */
+    &[data-disabled]:defined {
+      background: var(--sa-color-field-disabled);
+      opacity: var(--sa-disabled-opacity);
+      cursor: not-allowed;
     }
 
     /* Until the script has loaded, the textarea is the field: the HTML as text, still posted. */
@@ -6798,7 +6809,7 @@
     &:has(> [data-icon="inline-end"]) {
       padding-inline-end: var(--sa-unit);
     }
-    &:hover {
+    &:hover:not(:has([readonly])) {
       color: var(--sa-color-ink);
     }
     &:has(:checked) {
@@ -6815,6 +6826,10 @@
       opacity: var(--sa-disabled-opacity);
       cursor: not-allowed;
       pointer-events: none;
+    }
+    /* Read-only looks like the editable control, but nothing responds to the pointer */
+    &:has([readonly]) {
+      cursor: default;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -6886,7 +6901,7 @@
       background-color: var(--sa-color-surface-raised);
       color: var(--sa-color-ink);
     }
-    &:hover:not(:disabled, :focus-visible) {
+    &:hover:not(:disabled, :focus-visible, [readonly]) {
       border-color: var(--sa-color-line-control-hover);
     }
     &:focus-visible {
@@ -6905,6 +6920,10 @@
       cursor: not-allowed;
       pointer-events: none;
     }
+    /* Read-only looks like the editable select, without the dropdown icon, and doesn't open */
+    &[readonly] {
+      cursor: default;
+    }
   }
   .sa-native-select-icon {
     position: absolute;
@@ -6916,6 +6935,9 @@
     pointer-events: none;
     user-select: none;
     translate: 0 -50%;
+    .sa-native-select[readonly] + & {
+      display: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .sa-native-select {
@@ -7443,6 +7465,11 @@
     &:is([data-disabled]:not([data-disabled="false"])) {
       opacity: var(--sa-disabled-opacity);
     }
+    /* Read-only looks like the editable slider, but a touch scrolls the page and the thumbs have no
+       hover ring */
+    &[data-readonly] {
+      touch-action: auto;
+    }
     /* Mark labels hang outside the host, which stays as tight as the track; reserve their room. */
     &[data-orientation="horizontal"]:has([data-slot="slider-mark-label"]) {
       margin-bottom: calc(var(--_slider-thumb) / 2 + 1.25rem);
@@ -7507,6 +7534,9 @@
     }
     &:is(:hover, :focus-visible, :active) {
       box-shadow: var(--sa-shadow-control), var(--sa-focus-shadow);
+    }
+    .sa-slider[data-readonly] > &:not(:focus-visible) {
+      box-shadow: var(--sa-shadow-control);
     }
   }
 
@@ -7733,6 +7763,9 @@
     }
     &:disabled {
       cursor: not-allowed;
+    }
+    &[readonly] {
+      cursor: default;
     }
   }
   /* In a choice card (a field label around the field), the card shows focus instead. */
@@ -8869,14 +8902,14 @@
     &:has(> [data-icon="inline-end"]) {
       padding-inline-end: calc(var(--_px) - 0.5 * var(--sa-unit));
     }
-    &:hover {
+    &:hover:not(:has(> input[readonly])) {
       background-color: var(--sa-color-hover);
     }
     &:has(> input:checked) {
       border-color: var(--_on-border);
       background-color: var(--sa-color-selected);
       color: var(--sa-color-ink);
-      &:hover {
+      &:hover:not(:has(> input[readonly])) {
         background-color: color-mix(in oklab, var(--sa-color-selected), var(--sa-color-ink) 5%);
       }
     }
@@ -8895,6 +8928,10 @@
       opacity: var(--sa-disabled-opacity);
       cursor: not-allowed;
       pointer-events: none;
+    }
+    /* Read-only looks like the editable toggle, but nothing responds to the pointer */
+    &:has(> input[readonly]) {
+      cursor: default;
     }
   }
 

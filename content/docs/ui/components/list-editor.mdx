@@ -81,10 +81,18 @@ An error in ModelState for an item, such as `Highlights[1]`, shows under that ro
 
 ### Read only
 
-Set `readonly` to show the items as text, without adding, removing or reordering. A read-only list posts no values.
+Set `readonly="true"` to show the items in read-only inputs, without adding, removing or reordering. The items can still be focused, and a read-only list posts its values.
 
 <Demo src="/demo/ui/list-editor-read-only.html">
   <include>./_include/list-editor-read-only.mdx</include>
+</Demo>
+
+### Disabled
+
+Set `disabled="true"` to fade the editor and disable its inputs and buttons. A disabled list can't be focused and posts no values. A disabled `<fieldset>` around the editor disables it too.
+
+<Demo src="/demo/ui/list-editor-disabled.html">
+  <include>./_include/list-editor-disabled.mdx</include>
 </Demo>
 
 ## Accessibility
@@ -153,6 +161,11 @@ Renders a web component with a row per item, the Add row, and a hidden marker th
       description: "Description text for the implicit Field wrapper.",
       type: "string",
     },
+    disabled: {
+      description: "Whether the list is disabled. A disabled list can't be focused and posts no values.",
+      type: "bool?",
+      default: "false",
+    },
     "empty-text": {
       description: "The text shown when the list has no items.",
       type: "string",
@@ -215,7 +228,7 @@ Renders a web component with a row per item, the Add row, and a hidden marker th
       type: "string",
     },
     readonly: {
-      description: "Shows the items as text, without adding, removing or reordering. A read-only list posts no values.",
+      description: "Shows the items in read-only inputs, without adding, removing or reordering. A read-only list posts its values.",
       type: "bool?",
       default: "false",
     },

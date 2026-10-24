@@ -145,10 +145,18 @@ Use the `thumb-alignment` attribute to control how the thumb sits relative to it
 
 ### Disabled
 
-Set `disabled="true"` to prevent the user from interacting with the slider.
+Set `disabled="true"` to prevent the user from interacting with the slider. Like a native control, a disabled slider doesn't post its value.
 
 <Demo src="/demo/ui/slider-disabled.html">
   <include>./_include/slider-disabled.mdx</include>
+</Demo>
+
+### Read only
+
+Set `readonly="true"` to show the value without letting the user change it. A read-only slider looks like an editable one, its thumbs can still be focused, and it posts its value.
+
+<Demo src="/demo/ui/slider-read-only.html">
+  <include>./_include/slider-read-only.mdx</include>
 </Demo>
 
 ## Accessibility
@@ -254,7 +262,7 @@ Renders a web component containing the track, a thumb per value, and a hidden `<
       type: "string",
     },
     disabled: {
-      description: "Whether the slider is disabled and can't be moved.",
+      description: "Whether the slider is disabled and can't be moved. A disabled slider doesn't post its value.",
       type: "bool?",
       default: "false",
     },
@@ -298,6 +306,11 @@ Renders a web component containing the track, a thumb per value, and a hidden `<
       typeDescription:
         "SliderOrientation.Horizontal | SliderOrientation.Vertical",
       default: "SliderOrientation.Horizontal",
+    },
+    readonly: {
+      description: "Shows the value without letting the user change it. The thumbs can still be focused, and the value is posted.",
+      type: "bool?",
+      default: "false",
     },
     "wrap-in-field": {
       description:

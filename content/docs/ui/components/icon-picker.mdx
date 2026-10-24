@@ -59,6 +59,14 @@ Set `disabled` to show the icon without letting the user change it. Like a nativ
   <include>./_include/icon-picker-disabled.mdx</include>
 </Demo>
 
+### Read only
+
+Set `readonly="true"` to show the icon without letting the user change it. A read-only picker looks like an editable one without its chevron, can still be focused and posts its value, but doesn't open.
+
+<Demo src="/demo/ui/icon-picker-read-only.html">
+  <include>./_include/icon-picker-read-only.mdx</include>
+</Demo>
+
 ## The icons endpoint
 
 The picker sends a GET request to `icons-url`, with no query string, and expects JSON:
@@ -203,6 +211,11 @@ Renders a web component containing the button and its popover, or the inline til
       description: "The text the button shows when no icon is chosen.",
       type: "string",
       default: '"Choose an icon"',
+    },
+    readonly: {
+      description: "Shows the icon without letting the user change it. The control can still be focused, and its value is posted.",
+      type: "bool?",
+      default: "false",
     },
     required: {
       description: "Whether an icon must be chosen. An optional control lets the user clear the choice.",
