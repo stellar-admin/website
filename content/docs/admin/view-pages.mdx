@@ -1,9 +1,9 @@
 ---
-title: View pages
+title: Overview
 description: A read-only page for one record
 ---
 
-`AllowView` adds a read-only page for each record, at `/stellaradmin/{slug}/view/{id}`, and a view action on each row of the grid.
+A resource's *view page* displays one record without editing it. To add the page, call `AllowView()` on the resource. The example below adds a view page for bookings, with a **Trip** section and a **Customer** section:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -29,39 +29,51 @@ resource.AllowView(view => view.Fields(fields =>
 }));
 ```
 
-You list every field you want: there's no "show everything" option. `AllowView()` without fields doesn't add a page, and reports a [configuration problem](/docs/admin/configuration-problems).
+When a view page is enabled, the index page displays a view button on each row. The view page's header has a **Back** button that returns to the index page. If the resource has an edit page, the header also has an **Edit** button, and if [deleting is enabled](/docs/admin/delete), a **Delete** button.
 
-Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited). It can read through navigations, show a computed value and use any [display](/docs/admin/displays). A related record, like `booking.Customer`, shows its title.
+StellarAdmin doesn't add fields automatically, so the page displays only the fields you add. If the page has no fields, StellarAdmin leaves out the page and the view buttons, and reports a [configuration problem](/docs/admin/configuration-problems).
 
-The page's header has Back, plus Edit and Delete when you've allowed them.
+## Adding fields
 
-## Layout
+Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited), so it has the same settings, such as `Title`, `EmptyText` and `UseDisplay()`. A field can select a property of a related record, such as `booking.Customer!.Email`, or compute a value. A field that selects a record of another resource, such as `booking.Customer`, displays that record's title.
 
-View pages use the same [sections, groups and columns](/docs/admin/form-layout) as forms. Sections can also set `Orientation` for the fields inside them:
+## Laying out the page
+
+A view page uses the same [sections, groups and columns](/docs/admin/form-layout) as a form, and the same [section layouts](/docs/admin/form-layout#choosing-how-sections-look), which you set with the page's `SectionLayout`.
+
+To display each label beside its value instead of above it, set a section's `Orientation` to `FieldOrientation.Horizontal`. A field's own `Orientation` overrides its section's. The example below displays the **Audit** section's labels beside their values:
 
 ```cs
 using StellarAdmin.UI;
 
+resource.AllowView(view => view.Fields(fields =>
+{
+    fields.AddSection("Audit", section =>
+    {
+        section.Orientation = FieldOrientation.Horizontal;
+        section.Add(booking => booking.CreatedAt);
+        section.Add(booking => booking.UpdatedAt);
+    });
+}));
+```
+
+## Changing the title
+
+The page's title defaults to "View" and the singular label, such as "View Booking". To change it, set `Title` in the `AllowView()` callback:
+
+```cs
 resource.AllowView(view =>
 {
-    view.Title = "Booking";
-    view.SectionLayout = FormSectionLayout.Split;
-    view.Fields(fields =>
-    {
-        fields.AddSection("Audit", section =>
-        {
-            section.Orientation = FieldOrientation.Horizontal;
-            section.Add(booking => booking.CreatedAt);
-        });
-    });
+    view.Title = "Booking details";
+    view.Fields(fields => fields.Add(booking => booking.Reference));
 });
 ```
 
-`view.Title` defaults to `View {singular}`.
+To change the default for every resource, see [global labels](/docs/admin/global-labels).
 
-## Showing a different model
+## Displaying a different model
 
-To show something other than the entity, give the page its own model and a handler that loads it:
+To display something other than the resource's entity, such as a summary that combines several records, give the page its own model and a *handler* that loads it. Call `AllowView()` with the model and the handler as type arguments:
 
 ```cs
 resource.AllowView<BookingSummary, BookingSummaryHandler>(view => view.Fields(fields =>
@@ -71,10 +83,10 @@ resource.AllowView<BookingSummary, BookingSummaryHandler>(view => view.Fields(fi
 }));
 ```
 
-The handler implements `IResourceViewHandler<BookingSummary>`, with a `FindAsync(id, cancellationToken)` that returns the model, or `null` if there's no such record.
+The handler implements `IResourceViewHandler<T>`. Its `FindAsync()` method loads the model for the record with the given key. Return `null` when the record doesn't exist, and StellarAdmin returns a 404. StellarAdmin registers the handler as a scoped service, unless you've registered it already, so the handler can take any service in its constructor.
 
-For a resource with a [custom data source](/docs/admin/custom-data-sources), the data source needs `IResourceViewHandler<T>`. `IResourceEditHandler<T>` includes it.
+Without a handler, StellarAdmin loads the record through the resource's data source, which an EF Core resource already does. A [custom data source](/docs/admin/custom-data-sources) must implement `IResourceViewHandler<T>`, which `IResourceEditHandler<T>` includes. If it doesn't, StellarAdmin leaves out the page and reports a configuration problem.
 
-## Adding to the page
+## Adding content to the page
 
-For anything the fields can't show, such as a list of related records or a button, [override the page](/docs/admin/overriding-pages) and use its slots.
+To add content the fields can't display, such as a list of related records or a button in the header, [override the page](/docs/admin/overriding-pages) and use its [slots](/docs/admin/page-tag-helpers).
