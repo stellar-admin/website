@@ -1,9 +1,9 @@
 ---
 title: Custom data sources
-description: Manage data that doesn't live in EF Core
+description: Manage data that isn't in EF Core
 ---
 
-When your data comes from somewhere else, such as an API, a file or another data access library, register it with `AddResource` and give it a data source.
+When your data comes from somewhere other than EF Core, such as an API, a file or another data access library, register the resource with `AddResource<T>()` and give it a data source. The example below registers a `Supplier` resource that a `SupplierDataSource` class loads and saves:
 
 ```cs
 using StellarAdmin.Resources;
@@ -24,21 +24,23 @@ admin.AddResource<Supplier>(resource =>
 });
 ```
 
-`UseKey` tells StellarAdmin which property identifies a record. `UseDataSource` registers the data source as a scoped service, unless you've registered it yourself, so its constructor can take your services.
+`UseKey()` sets the property that identifies a record. The edit page, the view page and deleting need a key.
 
-## The data source
+`UseDataSource()` registers the data source as a scoped service, unless you've already registered it, so its constructor can take your own services.
 
-Implement `IResourceCrudDataSource<T>` for all pages, or only the interfaces for the pages you allow:
+## Implementing the data source
 
-| Interface | Methods | Pages |
+Every data source must implement `IResourceDataSource<T>`, which lists the records for the index page. For everything else you enable, the data source must also implement the matching interface:
+
+| Interface | Methods | Used by |
 | --- | --- | --- |
-| `IResourceDataSource<T>` | `ListAsync` | Index |
-| `IResourceCreateHandler<T>` | `CreateAsync` | Create |
-| `IResourceViewHandler<T>` | `FindAsync` | View |
-| `IResourceEditHandler<T>` | `FindAsync`, `UpdateAsync` | Edit and view |
-| `IResourceDeleteHandler<T>` | `DeleteAsync` | Delete |
+| `IResourceDataSource<T>` | `ListAsync()` | The index page |
+| `IResourceCreateHandler<T>` | `CreateAsync()` | The create page |
+| `IResourceViewHandler<T>` | `FindAsync()` | The view page |
+| `IResourceEditHandler<T>` | `FindAsync()` and `UpdateAsync()` | The edit and view pages |
+| `IResourceDeleteHandler<T>` | `DeleteAsync()` | Deleting |
 
-Here's one backed by an API client:
+`IResourceCrudDataSource<T>` combines all of these interfaces, for a data source that supports every page. The example below implements `IResourceCrudDataSource<Supplier>` with an API client:
 
 ```cs
 using StellarAdmin.Resources;
@@ -77,7 +79,7 @@ public class SupplierDataSource(SupplierApi api) : IResourceCrudDataSource<Suppl
         Supplier model, CancellationToken cancellationToken)
     {
         await api.CreateAsync(model, cancellationToken);
-        return ResourceOperationResult.Success(model.Code);
+        return ResourceOperationResult.Success();
     }
 
     public async Task<ResourceOperationResult> UpdateAsync(
@@ -101,33 +103,35 @@ public class SupplierDataSource(SupplierApi api) : IResourceCrudDataSource<Suppl
 }
 ```
 
-## What `ListAsync` gets
+## Filtering, sorting and paging in `ListAsync()`
 
-The panel doesn't filter, sort or page the rows you return. That's your job, using the request:
+StellarAdmin doesn't filter, sort or page the records that `ListAsync()` returns, so your data source must do it. StellarAdmin passes the requested search, scope, sort and page, and the keys of the records to return, via the properties of the `request` parameter:
 
 | Property | What it holds |
 | --- | --- |
 | `Search` | The search text, trimmed, or `null`. |
-| `Scope` | The selected [scope](/docs/admin/scopes)'s id, or `null`. |
-| `Sort` | The column's `Field` and the `Direction`, or `null`. |
-| `Paging` | `Page` (starting at 1) and `PageSize`, or `null` for everything. |
-| `Keys` | Only return these records, or `null`. Set when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the records already picked. |
+| `Scope` | The id of the selected [scope](/docs/admin/scopes), or `null`. |
+| `Sort` | The `Field` and `Direction` of the sort, or `null`. |
+| `Paging` | The `Page`, starting at 1, and the `PageSize`, or `null` to return all matching records. |
+| `Keys` | The keys of the only records to return, or `null`. StellarAdmin sets it when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the records already selected. |
 
-Apply search, scope and sort before paging, and return the total number of matching records, not just the ones on the page.
+Apply the search, scope and sort before paging. Return the total number of matching records, not only the number on the page.
 
-## Results
+## Returning results from create, update and delete
 
-Write methods return a `ResourceOperationResult`:
+`CreateAsync()`, `UpdateAsync()` and `DeleteAsync()` return a `ResourceOperationResult`:
 
 | Result | Meaning |
 | --- | --- |
-| `Success()` | Saved. |
-| `Success(key)` | Saved, with the new record's key. Return this from `CreateAsync` so a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) can select a record created from it. |
+| `Success()` | The record was saved or deleted. |
+| `Success(key)` | The record was saved, with the new record's key. Return this from `CreateAsync()` when the create page uses a [custom model](/docs/admin/custom-models), so that a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) can select the new record. |
 | `NotFound()` | The record doesn't exist any more. |
-| `ValidationFailed(field, message)` | Shows the form again with the error on that field. Pass `null` as the field for an error that isn't about one field. |
+| `ValidationFailed(field, message)` | The form is displayed again, with the error on that field. Pass `null` as the field for an error that isn't about one field. |
 
-Field names are the model's property names, like `nameof(Supplier.Name)`. If you return an error, don't save anything. For anything unexpected, throw: the page shows a general error and the exception is logged.
+The field name is the model's property name, such as `nameof(Supplier.Name)`. When you return an error, don't save any changes.
 
-## What's different from EF Core
+For an unexpected failure, throw an exception. The page displays a general error, and StellarAdmin logs the exception.
 
-Search and scopes on custom data sources don't take predicates. `index.EnableSearch()` adds the search box and your data source decides what matches. The same goes for scopes: you get the id in `request.Scope`.
+## Search and scopes without predicates
+
+On a resource with a custom data source, search and scopes don't take predicates, because your data source decides which records match. `index.EnableSearch()` adds the search box, and `ListAsync()` receives the text in `request.Search`. A scope adds a tab, and `ListAsync()` receives its id in `request.Scope`.

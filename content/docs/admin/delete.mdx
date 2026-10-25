@@ -1,17 +1,19 @@
 ---
-title: Delete
+title: Deleting records
 description: Let people delete records, with a confirmation
 ---
 
-`AllowDelete` adds a delete action to each row in the grid, and to the edit and view pages. Each one asks for confirmation first.
+Call `AllowDelete()` to add a delete action to each row in the grid, and to the edit and view pages:
 
 ```cs
 resource.AllowDelete();
 ```
 
-## Confirmation text
+Before deleting a record, StellarAdmin asks the user to confirm.
 
-Change what the confirmation says:
+## Changing the confirmation text
+
+To change the text of the confirmation, set its properties in the `AllowDelete()` callback:
 
 ```cs
 resource.AllowDelete(delete =>
@@ -23,10 +25,15 @@ resource.AllowDelete(delete =>
 });
 ```
 
-To change the defaults for every resource, see [global labels](/docs/admin/global-labels).
+To change the default text for every resource, see [global labels](/docs/admin/global-labels).
 
-## When a delete fails
+## When the database refuses a delete
 
-If the database refuses the delete, for example because other records still point to it, the record stays and the page shows an error. The exception is logged as a warning.
+If the database refuses to delete a record, for example because other records still refer to it, the record isn't deleted and the page displays an error. StellarAdmin logs the exception as a warning.
 
-There's no hook to run before a delete. To block one with your own message, or to clean up related data, use a [custom data source](/docs/admin/custom-data-sources) and return a validation error from `DeleteAsync`. A database constraint or cascade works too.
+StellarAdmin has no hook that runs before a delete, so handle related records in the database:
+
+- To delete the related records along with the record, configure a cascade delete, such as with `OnDelete(DeleteBehavior.Cascade)` in your EF Core model.
+- To prevent the delete while related records exist, keep the foreign key constraint without a cascade. The page displays a general error.
+
+To prevent a delete with your own message instead, use a [custom data source](/docs/admin/custom-data-sources), and return a validation error from its `DeleteAsync()` method. A custom data source also lets you run your own code before deleting a record.

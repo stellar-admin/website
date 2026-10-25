@@ -1,19 +1,19 @@
 ---
 title: Titles and references
-description: Control how a record is named and shown when other records point to it
+description: Control how a record is named and displayed when other records refer to it
 ---
 
-Every record has a title. It's what shows up when another record refers to it: in a lookup, a select, a grid column or a badge.
+Every record has a *title*, which names the record wherever another record refers to it: in a lookup, a select, a grid column or a badge.
 
-## The title
+## Choosing the title
 
-By default, StellarAdmin uses the first of these it finds:
+Unless specified otherwise, the title is the first of these that the resource's type has:
 
 1. The `string` property named by the class's `[DisplayColumn]` attribute.
 2. A `string` property called `Name` or `Title`.
 3. The key.
 
-So `Customer.Name` is picked up without any configuration. To use something else:
+For example, a `Customer` with a `Name` property uses the customer's name as its title. To use a different property, call `UseTitle()`:
 
 ```cs
 admin.AddEfCoreResource<Booking>(resource =>
@@ -22,11 +22,13 @@ admin.AddEfCoreResource<Booking>(resource =>
 });
 ```
 
-Keep the title to the record's own properties, and to something EF Core can translate to SQL, since lookups search and sort on it.
+A record whose title is empty is named by its key.
 
-## How references look
+For an EF Core resource, the title must use only the record's own properties, and EF Core must be able to translate it to SQL. A title that reads a related record isn't loaded for a column. If EF Core can't translate the title, such as one that calls your own method, the title is still displayed, but lookups order the records by key and searches don't match the title. In that case, set `SearchOn()` and `OrderBy()`, as described in [searching, sorting and filtering references](#searching-sorting-and-filtering-references).
 
-`Reference` controls how the record appears when someone picks it in a lookup or select. Add a description and, optionally, one kind of media:
+## Displaying a description and media
+
+`Reference()` configures how a record is displayed when someone selects it in a lookup or a select. You can add a description, and one kind of media:
 
 ```cs
 admin.AddEfCoreResource<Customer>(resource =>
@@ -37,11 +39,11 @@ admin.AddEfCoreResource<Customer>(resource =>
 });
 ```
 
-The media options are `UseIcon`, `UseAvatar`, `UseImage` and `UseCode`.
+The media methods are `UseIcon()`, `UseAvatar()`, `UseImage()` and `UseCode()`. A lookup whose records have a description displays the selected record as a card.
 
 ## Searching, sorting and filtering references
 
-EF Core resources can also say how lookups search and sort the records, and which records can be picked at all:
+For an EF Core resource, `Reference()` also sets how lookups search and order the records, and which records can be selected:
 
 ```cs
 resource.Reference(reference => reference
@@ -50,14 +52,16 @@ resource.Reference(reference => reference
     .Where(customer => !customer.IsBlocked));
 ```
 
-| Setting | Default |
+| Method | Default |
 | --- | --- |
-| `SearchOn` | The index page's search, then the title |
-| `OrderBy` | The index page's default sort, then the title |
-| `Where` | All records. Global query filters still apply. |
+| `SearchOn()` | The index page's search, or else the title |
+| `OrderBy()` | The index page's default sort, or else the title |
+| `Where()` | All records, with your global query filters applied |
 
-## Access
+`Where()` applies to every field that refers to the resource.
 
-Picking a related record doesn't need access to its resource. Someone who can edit bookings can pick a customer, even if they can't manage customers.
+## Access to related records
+
+Selecting a related record doesn't require access to its resource. Someone who can edit bookings can select a customer for a booking, even if they can't manage customers.
 
 See [foreign keys](/docs/admin/foreign-keys) for the fields that use references.

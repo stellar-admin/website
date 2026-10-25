@@ -1,13 +1,13 @@
 ---
-title: Resources
-description: Register the things you manage in the panel
+title: Defining resources
+description: Register the types you manage in the admin panel
 ---
 
-A resource is a type you manage in the panel, such as `Trip` or `Booking`. Each resource gets an index page, and you switch on the other pages it needs.
+A *resource* is a type you manage in the admin panel, such as `Trip` or `Booking`. Every resource has an index page that lists its records, and you enable the other pages it needs.
 
-## EF Core resources
+## Adding an EF Core resource
 
-For an entity in a `DbContext`, use `AddEfCoreResource`:
+To manage an entity from your `DbContext`, call `AddEfCoreResource<T>()`. The example below adds `Trip` with two columns in the grid and an edit page:
 
 ```cs
 using StellarAdmin.EntityFrameworkCore;
@@ -27,39 +27,32 @@ admin.AddEfCoreResource<Trip>(resource =>
 });
 ```
 
-StellarAdmin finds the registered `DbContext` that maps `Trip` and reads the key from EF Core's model. The key has to be a single `int`, `long`, `Guid` or `string` property.
+StellarAdmin finds the registered `DbContext` that maps `Trip`, and reads the entity's key from the EF Core model. The key must be a single `int`, `long`, `Guid` or `string` property.
 
-If more than one context maps the entity, pick one:
+If more than one `DbContext` maps the entity, call `UseDbContext<TContext>()` to select the one to use:
 
 ```cs
 resource.UseDbContext<VoyagerDbContext>();
 ```
 
-You don't need `Include` calls. When a column or field shows a related value, like `booking => booking.Customer`, it's loaded in the same query. Global query filters apply as usual.
+When a column or field displays a related record, such as `booking => booking.Customer`, StellarAdmin loads the related record in the same query, so you don't need to call `Include()`. Your global query filters still apply.
 
-Data that doesn't live in EF Core uses a [custom data source](/docs/admin/custom-data-sources).
+To manage data that isn't in EF Core, use a [custom data source](/docs/admin/custom-data-sources).
 
-## Pages
+## Adding pages
 
-Only the index page is there by default. Switch on the rest with `Allow*`:
+`Index()` configures the grid on the index page: its columns, search, scopes, sorting and paging. See the [index pages overview](/docs/admin/index-pages).
 
-| Call | Adds |
+A resource has no other pages until you enable them:
+
+| Method | Adds |
 | --- | --- |
-| `resource.Index(...)` | Columns, search, scopes, sorting and paging for the grid. See [index pages](/docs/admin/index-pages). |
-| `resource.AllowCreate(...)` | A Create button and a create page. See [forms](/docs/admin/forms). |
-| `resource.AllowEdit(...)` | An edit action on each row and an edit page. |
-| `resource.AllowView(...)` | A view action on each row and a read-only [view page](/docs/admin/view-pages). |
-| `resource.AllowDelete()` | A delete action, with a confirmation. See [delete](/docs/admin/delete). |
+| `AllowCreate()` | A Create button on the index page, and a create page. See the [forms overview](/docs/admin/forms). |
+| `AllowEdit()` | An edit action on each row, and an edit page. |
+| `AllowView()` | A view action on each row, and a read-only page. See [view pages](/docs/admin/view-pages). |
+| `AllowDelete()` | A delete action on each row and on the edit and view pages, which asks for confirmation. See [deleting records](/docs/admin/delete). |
 
-Each `Allow*` call is its own statement. They don't chain:
-
-```cs
-resource.AllowCreate(create => create.Fields(fields => fields.Add(trip => trip.Name)));
-resource.AllowEdit(edit => edit.Fields(fields => fields.Add(trip => trip.Name)));
-resource.AllowDelete();
-```
-
-If you'd rather not nest, call it without a callback and keep the page builder:
+Each method takes a callback that configures the page or action. To configure the page in separate statements instead, call the method without a callback. It returns the page's builder:
 
 ```cs
 var create = resource.AllowCreate();
@@ -67,18 +60,24 @@ create.Title = "Plan a trip";
 create.Fields(fields => fields.Add(trip => trip.Name));
 ```
 
-## URLs and labels
+## Changing the URL and labels
+
+StellarAdmin derives a resource's URL and labels from its type name:
 
 | Setting | Default | Change it with |
 | --- | --- | --- |
-| URL slug | Kebab-case plural of the type: `TripExtra` becomes `trip-extras` | `admin.AddEfCoreResource<Trip>("tours", resource => ...)` |
-| Singular label | The type name, humanized: `Trip extra` | `resource.SingularLabel = "Tour";` |
-| Plural label | The singular label, pluralized | `resource.PluralLabel = "Tours";` |
+| URL slug | The kebab-case plural of the type name: `TripExtra` becomes `trip-extras` | `admin.AddEfCoreResource<TripExtra>("add-ons", resource => ...)` |
+| Singular label | The type name, split into words: `TripExtra` becomes `Trip extra` | `resource.SingularLabel = "Add-on";` |
+| Plural label | The singular label, pluralized: `Trip extras` | `resource.PluralLabel = "Add-ons";` |
 
-So `Trip` lives at `/stellaradmin/trips`, with its pages at `/stellaradmin/trips/create`, `/stellaradmin/trips/edit/{id}` and `/stellaradmin/trips/view/{id}`.
+The index page of the `TripExtra` resource is at `/stellaradmin/trip-extras`. Its other pages are at `/stellaradmin/trip-extras/create`, `/stellaradmin/trip-extras/edit/{id}` and `/stellaradmin/trip-extras/view/{id}`.
 
-Page titles and action labels ("Create Trip", "Edit Trip") come from the labels. To change those patterns for every resource, see [global labels](/docs/admin/global-labels).
+Page titles and action labels, such as "Create Trip extra" and "Edit Trip extra", use the labels. To change these patterns for every resource, see [global labels](/docs/admin/global-labels).
 
 ## Configuring a resource in several places
 
-Registering the same type again adds to its configuration, and later settings win. A shared extension method can set defaults that your app then overrides.
+You can call `AddEfCoreResource<T>()` for the same type more than once. Each call adds to the resource's configuration, and when two calls set the same setting, the later one wins. For example, a shared extension method can set defaults that your app then overrides.
+
+Calling an `Allow*` method again replaces that page's configuration.
+
+A resource keeps the URL slug of the first call. StellarAdmin ignores a slug passed to a later call.
