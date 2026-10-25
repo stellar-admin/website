@@ -3,9 +3,11 @@ title: Sorting and paging
 description: Sort the grid by its columns and split it into pages
 ---
 
-## Sorting
+## Making columns sortable
 
-Make a column sortable, and people can click its header to sort by it. Clicking again flips the direction.
+Call `Sortable()` on a column to let people sort the grid by that column. Clicking the column's header sorts the grid in ascending order, and clicking it again sorts in descending order.
+
+The example below makes the departure date and total columns sortable.
 
 ```cs
 resource.Index(index =>
@@ -16,32 +18,45 @@ resource.Index(index =>
         columns.Add(booking => booking.DepartureDate, column => column.Sortable());
         columns.Add(booking => booking.Total, column => column.Sortable());
     });
-    index.DefaultSortBy(booking => booking.DepartureDate);
 });
 ```
 
-`DefaultSortBy` sorts ascending, and `DefaultSortByDescending` sorts the other way. The default sort has to be on a sortable column. If it isn't, the grid ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
+### Sorting by a different value
 
-Without a default sort, EF Core resources are sorted by key, so pages stay stable. Ties in any sort are broken by key too.
+A sortable column sorts by the property it displays. Pass an expression to `Sortable()` to sort by a different value instead, such as for a column that displays a related record or a computed value.
 
-### Sorting by something else
-
-A column can sort by a different expression from the one it shows. That's useful for navigations and computed values:
+The example below sorts the customer column by the customer's name.
 
 ```cs
 columns.Add(booking => booking.Customer, column =>
     column.Sortable(booking => booking.Customer!.Name));
 ```
 
-## Paging
+## Setting the default sort
 
-Without paging, the grid shows every record. Turn it on with `EnablePaging`:
+Call `DefaultSortBy()` to sort the grid by a column when the page first loads, before anyone clicks a header. Call `DefaultSortByDescending()` to sort in descending order instead.
+
+```cs
+index.DefaultSortBy(booking => booking.DepartureDate);
+```
+
+The default sort must be on a sortable column. If it isn't, StellarAdmin ignores the default sort and reports a [configuration problem](/docs/admin/configuration-problems).
+
+When there is no default sort, StellarAdmin sorts EF Core resources by their key. It also uses the key to order records that have the same value in the sorted column, so that records don't move between pages.
+
+## Enabling paging
+
+The grid displays every record unless you enable paging. Call `EnablePaging()` to split the grid into pages.
 
 ```cs
 index.EnablePaging();
 ```
 
-That shows 25 records per page, with a choice of 10, 25, 50 or 100. To change those:
+Each page displays 25 records, and people can change it to 10, 25, 50 or 100 records per page.
+
+### Changing the page sizes
+
+Set `PageSize` to change the number of records per page, and `PageSizes` to change the page sizes people can choose from.
 
 ```cs
 index.EnablePaging(paging =>
@@ -51,8 +66,31 @@ index.EnablePaging(paging =>
 });
 ```
 
-`PageSize` has to be one of `PageSizes`. If it isn't, StellarAdmin adds it to the list and reports a [configuration problem](/docs/admin/configuration-problems).
+`PageSize` must be one of the `PageSizes`. If it isn't, StellarAdmin adds it to `PageSizes` and reports a [configuration problem](/docs/admin/configuration-problems).
 
-## Custom data sources
+## Sorting and paging a custom data source
 
-Your data source gets the column's `Field` and the direction in `ResourceListRequest.Sort`, and the page in `ResourceListRequest.Paging`. See [custom data sources](/docs/admin/custom-data-sources#what-listasync-gets).
+When a resource uses a [custom data source](/docs/admin/custom-data-sources), the data source must implement sorting and paging. StellarAdmin passes the requested sort and page via the `Sort` and `Paging` properties of the `request` parameter when calling the `ListAsync()` method:
+
+| Property | Holds |
+| --- | --- |
+| `Sort` | The `Field` to sort by, which is the name of the column's property, and the `Direction`. `null` when the grid isn't sorted. |
+| `Paging` | The `Page` number, starting at 1, and the `PageSize`. `null` when paging isn't enabled. |
+
+The example below sorts suppliers by name, using their code to order suppliers with the same name, and then returns only the records on the requested page.
+
+```cs
+if (request.Sort is { Field: nameof(Supplier.Name) } sort)
+    suppliers = sort.Direction == ResourceSortDirection.Ascending
+        ? suppliers.OrderBy(supplier => supplier.Name).ThenBy(supplier => supplier.Code)
+        : suppliers.OrderByDescending(supplier => supplier.Name).ThenBy(supplier => supplier.Code);
+
+var all = suppliers.ToList();
+var page = request.Paging is { } paging
+    ? all.Skip((paging.Page - 1) * paging.PageSize).Take(paging.PageSize).ToList()
+    : all;
+
+return new ResourceListResult<Supplier>(page, all.Count);
+```
+
+Return the total number of records with the page, as `all.Count` does above, so that the grid can display how many pages there are.

@@ -59,8 +59,8 @@ public class SupplierDataSource(SupplierApi api) : IResourceCrudDataSource<Suppl
 
         if (request.Sort is { Field: nameof(Supplier.Name) } sort)
             suppliers = sort.Direction == ResourceSortDirection.Ascending
-                ? suppliers.OrderBy(supplier => supplier.Name)
-                : suppliers.OrderByDescending(supplier => supplier.Name);
+                ? suppliers.OrderBy(supplier => supplier.Name).ThenBy(supplier => supplier.Code)
+                : suppliers.OrderByDescending(supplier => supplier.Name).ThenBy(supplier => supplier.Code);
 
         var all = suppliers.ToList();
         var page = request.Paging is { } paging
