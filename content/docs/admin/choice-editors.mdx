@@ -3,35 +3,39 @@ title: Choices
 description: Selects, radio groups, segmented controls, checkbox groups and toggle groups
 ---
 
-There are five editors for picking from a list. Which one fits depends on how many options there are, and whether people pick one or several.
+There are five editors for selecting from a list of options. Deciding which one to use depends on how many options there are, and whether people select one or several options.
 
 | Editor | Use it for |
 | --- | --- |
-| `UseSelectEditor` | One value from a list of any length. The default for enums. |
-| `UseRadioGroupEditor` | One value, with every option visible, and room for descriptions. |
-| `UseSegmentedControlEditor` | One value from two to five short options, in a row. |
-| `UseCheckboxGroupEditor` | Several values from a short list, on a collection property. |
-| `UseToggleGroupEditor` | Several values as chips or buttons on a collection property, or one value otherwise. |
+| `UseSelectEditor` | Select one value from a list. The default for enums. |
+| `UseRadioGroupEditor` | Select one value, with every option visible, and room for descriptions. |
+| `UseSegmentedControlEditor` | Select one value from two to five short options, in a row. |
+| `UseCheckboxGroupEditor` | Select several values from a short list, on a collection property. |
+| `UseToggleGroupEditor` | Select several values as chips or buttons on a collection property, or one value otherwise. |
 
 ```cs
 fields.Add(trip => trip.Difficulty).UseSegmentedControlEditor();
 fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
 ```
 
+<Callout type="tip">
+  These editors load every option with the form. For a long list, such as customers or airports, use a lookup instead. A lookup opens a sheet where people search the list and page through the results. See [foreign keys](/docs/admin/foreign-keys) for selecting one value, and [many-to-many](/docs/admin/many-to-many) for selecting several.
+</Callout>
+
 ## Where the options come from
 
-Unless you say otherwise:
+Unless specified otherwise:
 
 1. **Foreign keys and many-to-many navigations** on EF Core forms list the related resource's records. See [foreign keys](/docs/admin/foreign-keys).
 2. **Enums** list their members.
 3. **Booleans** get Yes and No.
 4. **Collections** do the same for their element type.
 
-Anything else needs `UseItems` or `UseResource`.
+For anything else, you must call `UseItems()` or `UseResource()`.
 
-### Enums
+### Generating options for enums
 
-Describe the options on the enum itself, with `[Display]`:
+StellarAdmin generates an option for each member of an enum. Use the `[Display]` attribute on each member to set the title of the option with `Name`, and its description with `Description`.
 
 ```cs
 public enum TripDifficulty
@@ -47,19 +51,15 @@ public enum TripDifficulty
 }
 ```
 
-```cs
-using StellarAdmin.Resources.Editors;
+Using the radio group editor with a property of type `TripDifficulty` will display the following:
 
-fields.Add(trip => trip.Difficulty).UseRadioGroupEditor(radio =>
-{
-    radio.Appearance = RadioGroupAppearance.Cards;
-    radio.Columns(3);
-});
-```
+[screenshot here!]
 
-`[Display(GroupName)]` puts options in groups, which selects show as option groups.
+To put options in groups, set `GroupName` in the `[Display]` attribute. Only selects display groups, as option groups.
 
 ### Your own list
+
+You can supply your own list of options by calling `UseItems()` in the editor's configuration callback.
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -77,7 +77,7 @@ fields.Add(guide => guide.HomeBase).UseRadioGroupEditor(radio =>
 
 A `ChoiceItem` takes a value and a title, plus an optional `Description`, `Group`, `Media` and `Disabled`. Values are strings, converted to the property's type when the form is saved.
 
-`UseItems` has a few other forms:
+`UseItems()` has a few different overloads:
 
 | Overload | Use it for |
 | --- | --- |
@@ -85,8 +85,10 @@ A `ChoiceItem` takes a value and a title, plus an optional `Description`, `Group
 | `UseItems((services, cancellationToken) => ...)` | Loading the options when the form renders. |
 | `UseItems<TProvider>()` | A service that implements `IChoiceItemsProvider`. |
 | `UseItems((form, services, cancellationToken) => ...)` | Options that depend on other fields. See [dependent fields](/docs/admin/dependent-fields). |
-| `UseResource<TResource>()` | The records of another resource. |
+| `UseResource<TResource>()` | The records of another resource, using the [title and reference information](/docs/admin/titles-and-references) of that resource for the title, description and media. |
 | `UseItems<TEntity>(value, title)` | Rows of an EF Core entity that isn't a resource. |
+
+The example below loads the options from a service registered with dependency injection.
 
 ```cs
 fields.Add(guide => guide.HomeBase).UseSelectEditor(select =>
@@ -101,20 +103,39 @@ fields.Add(guide => guide.HomeBase).UseSelectEditor(select =>
 
 ## Media
 
-Radio groups, checkbox groups, segmented controls and toggle groups can show media with each option. Selects can't.
+Each option can display an icon, image or short code beside its title, to help people recognise it at a glance. Set the `Media` of the `ChoiceItem` to the media you want to display.
 
-| Media | Shows |
+```cs
+fields.Add(trip => trip.Transport).UseSegmentedControlEditor(segmented =>
+{
+    segmented.UseItems([
+        new ChoiceItem("Plane", "Plane") { Media = new ItemMedia.Icon("plane") },
+        new ChoiceItem("Train", "Train") { Media = new ItemMedia.Icon("train") },
+        new ChoiceItem("Ship", "Ship") { Media = new ItemMedia.Icon("ship") },
+    ]);
+});
+```
+
+There are four kinds of media:
+
+| Media | Displays |
 | --- | --- |
-| `new ItemMedia.Icon("plane")` | An [icon](/docs/ui/icons) |
-| `new ItemMedia.Avatar(url)` | A round photo, or initials when the URL is `null` |
-| `new ItemMedia.Image(url)` | An image |
-| `new ItemMedia.Code("LIS")` | A short code |
+| `new ItemMedia.Icon(name)` | The [icon](/docs/ui/icons) with the specified name, in the text color. |
+| `new ItemMedia.Avatar(url)` | A round image from the specified URL. When the URL is `null`, the initials of the option's title. |
+| `new ItemMedia.Image(url)` | A square image from the specified URL, with rounded corners. |
+| `new ItemMedia.Code(value)` | A short code, such as an airport or currency code, as a badge. |
 
-In the `Cards` appearances, the media leads each card. `ClassNames.Media` resizes it.
+Radio groups, checkbox groups, segmented controls and toggle groups display the media. Selects only display the title, since a browser's native select cannot display images.
+
+Options loaded with `UseResource()` use the media from the related resource's [reference information](/docs/admin/titles-and-references).
 
 ## The empty option
 
-Optional values, like an `int?` or a nullable enum, get a first option that clears the value, labelled "Not set". A select also shows it while a required value is still unset.
+The *empty option* is the first option in the list, and selecting it clears the value. By default, StellarAdmin adds it when the value is optional, such as an `int?`, `string?`, or nullable enum, and labels it "Not set".
+
+A select also displays the empty option while a required value has not been set yet, so that no other option appears selected. Once a value is saved, the empty option no longer appears.
+
+Set `EmptyChoice` to change when the empty option is added, and `EmptyChoiceText` to change its label.
 
 ```cs
 fields.Add(trip => trip.GuideId).UseSelectEditor(select =>
@@ -124,39 +145,86 @@ fields.Add(trip => trip.GuideId).UseSelectEditor(select =>
 });
 ```
 
-`EmptyChoice.Auto` is the default. `Include` always adds the option, and `Omit` never does. Collections don't get one.
+| Value | Empty option |
+| --- | --- |
+| `EmptyChoice.Auto` | Added for optional values, as described above. This is the default. |
+| `EmptyChoice.Include` | Always added, even when the value is required. |
+| `EmptyChoice.Omit` | Never added, even when the value is optional. |
 
-## Layout
+Editors that select several values, like checkbox groups, never get an empty option.
 
-Radio and checkbox groups can lay their options out in columns. The columns respond to the field's width, not the window's:
+## Appearance
+
+### Radio groups and checkbox groups
+
+Radio groups and checkbox groups display a list of options with labels. Set `Appearance` to `Cards` to display each option as a selectable card instead, which leaves more room for a description and media.
+
+```cs
+fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
+{
+    tags.Appearance = CheckboxGroupAppearance.Cards;
+});
+```
+
+### Toggle groups
+
+Toggle groups have three appearances:
+
+| `ToggleGroupAppearance` | Displays |
+| --- | --- |
+| `Chips` | Separate rounded chips, with a check mark on the selected ones. This is the default. |
+| `Joined` | Buttons joined into a single connected group. |
+| `Buttons` | Separate buttons. |
+
+```cs
+fields.Add(guide => guide.Languages).UseToggleGroupEditor(languages =>
+{
+    languages.Appearance = ToggleGroupAppearance.Joined;
+});
+```
+
+When a toggle group uses `Chips`, set `CheckPlacement` to change where the chips display their check mark:
+
+| `ToggleGroupCheckPlacement` | Displays the check mark |
+| --- | --- |
+| `ReplaceMedia` | In place of the option's media, so the chip keeps its width. Before the title when the option has no media. This is the default. |
+| `Start` | Before the media and title. |
+| `End` | After the title. |
+
+```cs
+fields.Add(guide => guide.Languages).UseToggleGroupEditor(languages =>
+{
+    languages.CheckPlacement = ToggleGroupCheckPlacement.End;
+});
+```
+
+## Columns
+
+Radio groups and checkbox groups display their options in a single column. Call `Columns()` to spread the options over more columns.
+
+```cs
+fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
+{
+    tags.Columns(3);
+});
+```
+
+With `Columns(3)`, the options are displayed in one column when the field is narrow, and in three columns once the field is at least 40rem wide. To set the number of columns at each width, use the same [breakpoints](/docs/admin/form-layout#columns) as form layout:
+
+```cs
+tags.Columns(columns => columns.Small(2).Large(3));
+```
+
+Options fill each row from left to right before starting the next. Set `Flow` to `Down` to fill each column from top to bottom instead, so that people can read an alphabetical list down each column.
 
 ```cs
 using StellarAdmin.UI;
 
 fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
 {
-    tags.Appearance = CheckboxGroupAppearance.Cards;
-    tags.Columns(columns => columns.Small(2).Large(3));
+    tags.Columns(3);
     tags.Flow = CheckboxGroupFlow.Down;
 });
 ```
 
-`Flow = Down` fills each column before starting the next. Radio groups have the same settings, with `RadioGroupFlow`.
-
-Toggle groups have their own look:
-
-```cs
-fields.Add(guide => guide.Languages).UseToggleGroupEditor(languages =>
-{
-    languages.Appearance = ToggleGroupAppearance.Chips;
-    languages.UseItems([
-        new ChoiceItem("English", "English"),
-        new ChoiceItem("Portuguese", "Portuguese"),
-        new ChoiceItem("Japanese", "Japanese"),
-    ]);
-});
-```
-
-`Appearance` is `Chips`, `Joined` or `Buttons`. `CheckPlacement` puts the check mark at the `Start`, the `End`, or in place of the media (`ReplaceMedia`).
-
-The components behind these editors are the [select](/docs/ui/components/select), [radio group](/docs/ui/components/radio-group), [segmented control](/docs/ui/components/segmented-control), [checkbox group](/docs/ui/components/checkbox-group) and [toggle group](/docs/ui/components/toggle-group).
+Radio groups use `RadioGroupFlow` instead.
