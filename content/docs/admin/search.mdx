@@ -13,7 +13,7 @@ resource.Index(index =>
 });
 ```
 
-StellarAdmin trims the search text before passing it to your function. The grid searches as the user types, after a short pause.
+StellarAdmin trims the search text before passing it to your function. The grid searches as someone types, after a short pause.
 
 The filter runs in the database, so EF Core must be able to translate it to SQL. A property of a related record, such as `booking.Customer!.Name`, becomes a join.
 

@@ -36,4 +36,23 @@ export const blogPosts = defineCollections({
   }),
 });
 
-export default defineConfig();
+// Flags a page whose content starts with text instead of a heading, so the page can add an
+// "On this page" entry that jumps back to the top. A page that starts with a heading already has one.
+function remarkHasIntro() {
+  return (
+    root: { children: { type: string }[] },
+    file: { data: Record<string, unknown> },
+  ) => {
+    const first = root.children.find(
+      (node) => node.type !== "yaml" && node.type !== "mdxjsEsm",
+    );
+    file.data.hasIntro = first !== undefined && first.type !== "heading";
+  };
+}
+
+export default defineConfig({
+  mdxOptions: {
+    remarkPlugins: [remarkHasIntro],
+    valueToExport: ["hasIntro"],
+  },
+});

@@ -1,9 +1,11 @@
 ---
 title: Inline editing
-description: Edit and add records right in the grid
+description: Edit and add records in the grid
 ---
 
-For small resources, opening a form for every change is overkill. `UseInlineRow` turns the row itself into the form.
+With *inline editing*, people edit a record in its row in the grid, instead of on the edit page. Inline editing suits resources with a few short fields, where opening a page for every change slows people down.
+
+To edit records inline, call `UseInlineRow()` in the `AllowEdit()` callback. The example below edits the name, country and featured flag of a destination in its row:
 
 ```cs
 using StellarAdmin.Resources;
@@ -34,21 +36,38 @@ admin.AddEfCoreResource<Destination>(resource =>
 });
 ```
 
-Clicking Edit on a row swaps its cells for editors, with Save and Cancel in place of the row actions. Enter saves, Escape cancels.
+When someone clicks a row's edit action, the row's cells change to editors, and **Save** and **Cancel** buttons replace the row actions. Press <kbd>Enter</kbd> in an input, or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field, to save the row. Press <kbd>Esc</kbd> to cancel.
 
-Create and edit each choose for themselves. You can edit inline and still create on a page, or the other way round. A page that's inline isn't registered as a page: with inline edit, there's no edit page, and the view page has no Edit button.
+With inline editing, the resource has no edit page, and the view page has no edit button. You choose inline editing separately for creating and editing, so you can, for example, edit records inline and still create them on the create page.
 
-## Fields and columns
+## Configuring the edited row
 
-Each field needs a column to sit in. A field goes in the column with the same property. When a column shows something else, like the country's name for `CountryId`, say which field it edits with `EditsField`.
+You configure the edited row in the callback that you pass to `UseInlineRow()`. The example below keeps the rest of the page usable while a row is edited, and keeps a saved row where it is:
 
-Columns without a field just keep showing their value. Display fields, and fields that are always read-only or disabled, don't need a column.
+```cs
+edit.UseInlineRow(inline =>
+{
+    inline.DimOtherRows = false;
+    inline.AfterSave = InlineRowAfterSave.KeepInPlace;
+});
+```
 
-If a field has no column, the resource loses that inline row and a [configuration problem](/docs/admin/configuration-problems) is reported.
+| Setting | What it does |
+| --- | --- |
+| `DimOtherRows` | When `true`, the default, dims and locks the rest of the page while the row is edited. When `false`, editing another row cancels the first one. |
+| `AfterSave` | Sets what the grid does after the row is saved: `ReloadGrid`, the default, or `KeepInPlace`. See [choosing what happens after a save](#choosing-what-happens-after-a-save). |
 
-## Adding rows
+## Matching fields to columns
 
-`create.UseInlineRow` adds an Add button that inserts a new, empty row:
+Each field the row edits must have a column in the grid. A field is edited in the column with the same property. When a column displays a different property than the field it edits, such as the country's name for the `CountryId` field, call `EditsField()` on the column to name the field.
+
+A column without a field displays its value while the row is being edited. Display fields, and fields that are always read-only or disabled, don't need a column.
+
+If a field doesn't have a column, StellarAdmin turns off editing for the resource, because saving the row could leave out that field's value. It reports a [configuration problem](/docs/admin/configuration-problems) that names the field.
+
+## Adding records in a new row
+
+To add records in a new row of the grid, call `UseInlineRow()` in the `AllowCreate()` callback. The index page's **Create** button then inserts an empty row instead of opening the create page. The example below adds the new row at the bottom of the grid, and displays the **Create** button in the grid only:
 
 ```cs
 resource.AllowCreate(create =>
@@ -68,40 +87,72 @@ resource.AllowCreate(create =>
 });
 ```
 
-| Setting | Options |
+The new row starts with the values of the model that `UseFactory()` creates. Every `[Required]` property of the model must have a field. If one doesn't, StellarAdmin turns off creating records, and reports a configuration problem.
+
+You configure the new row in the callback that you pass to `UseInlineRow()`:
+
+| Setting | What it does |
 | --- | --- |
-| `Position` | `Top` (the default) or `Bottom` of the current page. |
-| `AddButton` | In the page `Header`, in a row of the `Grid`, or `Both` (the default). |
-| `DimOtherRows` | Dims and locks the rest of the page while a row is open. On by default. Turn it off and opening another row cancels the first. |
-| `AfterSave` | `ReloadGrid` (the default) or `KeepInPlace`. See below. |
+| `Position` | Adds the new row at the `Top` of the current page, the default, or at the `Bottom`. |
+| `AddButton` | Displays the **Create** button in the page `Header`, in a row of the `Grid`, or in `Both`, the default. |
+| `DimOtherRows` | When `true`, the default, dims and locks the rest of the page while the row is open. When `false`, opening another row cancels the first one. |
+| `AfterSave` | Sets what the grid does after the row is saved: `ReloadGrid`, the default, or `KeepInPlace`. See [choosing what happens after a save](#choosing-what-happens-after-a-save). |
 
-The new row starts with the values from `UseFactory`. `edit.UseInlineRow` takes the same `DimOtherRows` and `AfterSave` settings.
+To speed up data entry, call [`EnableAddAnother()`](/docs/admin/forms#save-and-add-another) on the create page. The new row then has a third button, which saves the row and opens another new row. Pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) does the same.
 
-For quick data entry, add [`EnableAddAnother`](/docs/admin/forms#save-and-add-another). The new row gets a third button that saves and opens another row straight away. Ctrl+Shift+Enter (Cmd+Shift+Enter on a Mac) does the same.
+## Choosing what happens after a save
 
-## After a save
+`AfterSave` sets what the grid does after a row is saved:
 
-- **`ReloadGrid`** reloads the current page with its search, scope, sort and paging, so the row lands where it belongs. If it's no longer on the page, a toast says so.
-- **`KeepInPlace`** leaves the row where it was until the grid next reloads. That's nicer for quick entry into short lists.
+- `ReloadGrid` reloads the current page of the grid, with its search, scope, sort and page, so that the saved row moves to where it belongs. If the saved row isn't on the page any more, a message says so.
+- `KeepInPlace` keeps the saved row where it is until the grid next reloads. It suits entering several records quickly into a short list.
 
-## Which editors work in a cell
+## Editors that work in a cell
 
-Text, number, email and the other text inputs, select, checkbox, switch, date and time inputs, segmented control, lookup, image and icon editors all work in a cell.
+Not every [editor](/docs/admin/editors) works in a cell:
 
-Textarea, rich text, radio group, checkbox group, toggle group, slider, one-time code and multi-lookup editors don't. In Development, a cell with one of those shows an error naming the missing template. Saving skips fields whose cell has no editor, so it never overwrites their values.
+| Editor | Method | Works in a cell |
+| --- | --- | --- |
+| Text input, including number, email and the other single-line inputs | `UseTextInputEditor()` | <Yes /> |
+| Select | `UseSelectEditor()` | <Yes /> |
+| Checkbox | `UseCheckboxEditor()` | <Yes /> |
+| Switch | `UseToggleEditor()` | <Yes /> |
+| Date input | `UseDateInputEditor()` | <Yes /> |
+| Date and time input | `UseDateTimeInputEditor()` | <Yes /> |
+| Time input | `UseTimeInputEditor()` | <Yes /> |
+| Segmented control | `UseSegmentedControlEditor()` | <Yes /> |
+| Lookup | `UseLookupSheetEditor()` | <Yes /> |
+| List | `UseListEditor()` | <Yes /> |
+| Dictionary | `UseDictionaryEditor()` | <Yes /> |
+| Image | `UseImageEditor()` | <Yes /> |
+| Icon | `UseIconEditor()` | <Yes /> |
+| Textarea | `UseTextareaEditor()` | <No /> |
+| Rich text | `UseRichTextEditor()` | <No /> |
+| Radio group | `UseRadioGroupEditor()` | <No /> |
+| Checkbox group | `UseCheckboxGroupEditor()` | <No /> |
+| Toggle group | `UseToggleGroupEditor()` | <No /> |
+| Slider | `UseSliderEditor()` | <No /> |
+| One-time code | `UseOneTimeCodeEditor()` | <No /> |
+| Multi-lookup | `UseMultiLookupSheetEditor()` | <No /> |
+
+In Development, a cell with an editor that doesn't work in a cell displays an error that names the missing template. Saving the row leaves the value of that field unchanged.
 
 A [custom editor](/docs/admin/custom-editors) works in a cell once you add a template for it to `GridEditorTemplates/`.
 
-## Labels
+## Changing the labels
+
+To change the labels and messages of inline rows, set these properties in the `Index()` callback:
 
 | Property | Default |
 | --- | --- |
-| `index.SaveLabel` | `Save` |
-| `index.CancelLabel` | `Cancel` |
-| `index.CreatedMessage` | `{singular} added` |
-| `index.SavedMessage` | `{singular} saved` |
-| `index.NotShownMessage` | `It isn't on this page with the current search, scope and sort.` |
+| `SaveLabel` | "Save" |
+| `CancelLabel` | "Cancel" |
+| `CreatedMessage` | The singular label and "added", such as "Destination added" |
+| `SavedMessage` | The singular label and "saved", such as "Destination saved" |
+| `NotShownMessage` | "It isn't on this page with the current search, scope and sort." |
 
-## Custom data sources
+To change the defaults for every resource, see [global labels](/docs/admin/global-labels).
 
-Inline rows use your data source's create and edit methods as usual. After a save, the panel reloads the row with `ListAsync`, passing its key in `ResourceListRequest.Keys`.
+## Inline editing with a custom data source
+
+Inline rows save records with the create and update methods of a [custom data source](/docs/admin/custom-data-sources), like the create and edit pages. After a save, StellarAdmin reloads the saved row by calling `ListAsync()`, with the row's key in the `Keys` property of the `request` parameter.

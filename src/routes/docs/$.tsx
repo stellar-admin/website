@@ -44,7 +44,7 @@ const serverLoader = createServerFn({
 
 const clientLoader = browserCollections.docs.createClientLoader({
   component(
-    { toc, frontmatter, default: MDX },
+    { toc, frontmatter, default: MDX, hasIntro },
     // you can define props for the component
     {
       markdownUrl,
@@ -55,8 +55,15 @@ const clientLoader = browserCollections.docs.createClientLoader({
     },
   ) {
     return (
-      <DocsPage toc={toc} full={frontmatter.full}>
-        <DocsTitle>{frontmatter.title}</DocsTitle>
+      <DocsPage
+        toc={
+          hasIntro
+            ? [{ title: frontmatter.title, url: "#page-title", depth: 2 }, ...toc]
+            : toc
+        }
+        full={frontmatter.full}
+      >
+        <DocsTitle id="page-title" className="scroll-mt-28">{frontmatter.title}</DocsTitle>
         <DocsDescription>{frontmatter.description}</DocsDescription>
         <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
           <MarkdownCopyButton markdownUrl={markdownUrl} />
