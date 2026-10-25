@@ -132,6 +132,27 @@ The field name is the model's property name, such as `nameof(Supplier.Name)`. Wh
 
 For an unexpected failure, throw an exception. The page displays a general error, and StellarAdmin logs the exception.
 
+## Returning validation errors
+
+Some checks can only be made when the data source saves the record, such as checking with the supplier API that a code isn't already in use. To report such a check, return `ValidationFailed()` with the name of the property and the message, and don't save the record. The example below rejects a supplier whose code is already in use:
+
+```cs
+public async Task<ResourceOperationResult> CreateAsync(
+    Supplier model, CancellationToken cancellationToken)
+{
+    if (await api.FindAsync(model.Code, cancellationToken) is not null)
+        return ResourceOperationResult.ValidationFailed(
+            nameof(Supplier.Code), "A supplier with this code already exists.");
+
+    await api.CreateAsync(model, cancellationToken);
+    return ResourceOperationResult.Success();
+}
+```
+
+StellarAdmin displays the error under the field, like any other validation error. If you pass `null` as the property's name, or the property isn't a field of the form, StellarAdmin displays the error for the whole form.
+
+To return several errors at once, pass a list of `ResourceValidationError`s to `ValidationFailed()`.
+
 ## Search and scopes without predicates
 
 On a resource with a custom data source, search and scopes don't take predicates, because your data source decides which records match. `index.EnableSearch()` adds the search box, and `ListAsync()` receives the text in `request.Search`. A scope adds a tab, and `ListAsync()` receives its id in `request.Scope`.

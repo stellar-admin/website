@@ -137,8 +137,8 @@ admin.AddEfCoreResource<Booking>(resource =>
 
 In the example above:
 
-- `EnableSearch()` adds a search box to the grid. The expression decides which bookings match the search term. See [search](/docs/admin/search).
-- `Sortable()` lets people sort the grid by departure date, and `DefaultSortBy()` sorts by it when the page first loads. See [sorting and paging](/docs/admin/sorting-and-paging).
+- `EnableSearch()` adds a [search box](/docs/admin/search) to the grid. The expression decides which bookings match the search term.
+- `Sortable()` lets people [sort the grid](/docs/admin/sorting-and-paging) by departure date, and `DefaultSortBy()` sorts by it when the page first loads.
 - `EnablePaging()` splits the grid into pages of 25 bookings.
 - `UseFactory()` creates the booking that the create form starts with, so that the departure date starts 30 days from today instead of 0001-01-01.
 - `AddDisplayField()` displays the reference on the edit form, without letting people change it.

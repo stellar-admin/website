@@ -1,0 +1,75 @@
+---
+title: Setting default values
+description: Set the values a new record starts with
+---
+
+Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a booking with a departure date two weeks away, two travellers and a status of `Pending`:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.UseFactory(() => new Booking
+    {
+        DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
+        Travellers = 2,
+        Status = BookingStatus.Pending,
+    });
+    create.Fields(fields =>
+    {
+        fields.Add(booking => booking.CustomerId);
+        fields.Add(booking => booking.DepartureDate);
+        fields.Add(booking => booking.Travellers);
+    });
+});
+```
+
+## Setting properties that aren't on the form
+
+Some properties need a value when a record is created, but people shouldn't enter it, such as a new booking's status. Set these properties in the factory, and leave them off the form. StellarAdmin saves them with the values the factory set, so you don't need hidden fields. In the example above, the factory sets `Status`, which isn't a field.
+
+A value your database generates, such as an identity key, doesn't need a factory.
+
+## Generating a unique value, such as a reference
+
+To give each new record a generated value, such as a booking reference, generate it in a [create handler](/docs/admin/custom-models) when the record is saved, not in the factory.
+
+StellarAdmin calls the factory twice: when someone opens the create page, and again when they save. A reference that the factory generates randomly therefore gets a different random value on each call. If you display it on the create page, people see one reference, such as "VT-123456", and the booking is saved with another, such as "VT-654321".
+
+The example below generates the reference in the handler's `CreateAsync()` method:
+
+```cs
+using StellarAdmin.Resources;
+
+public class NewBookingHandler(VoyagerDbContext db) : IResourceCreateHandler<Booking>
+{
+    public async Task<ResourceOperationResult> CreateAsync(
+        Booking booking, CancellationToken cancellationToken)
+    {
+        booking.Reference = $"VT-{Random.Shared.Next(0, 1_000_000):D6}";
+        db.Bookings.Add(booking);
+        await db.SaveChangesAsync(cancellationToken);
+
+        return ResourceOperationResult.Success(booking.Id.ToString());
+    }
+}
+```
+
+Pass the handler as the second type argument of `AllowCreate()`:
+
+```cs
+resource.AllowCreate<Booking, NewBookingHandler>(create =>
+{
+    create.UseFactory(() => new Booking
+    {
+        DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
+        Travellers = 2,
+        Status = BookingStatus.Pending,
+    });
+    create.Fields(fields =>
+    {
+        fields.Add(booking => booking.CustomerId);
+        fields.Add(booking => booking.DepartureDate);
+        fields.Add(booking => booking.Travellers);
+    });
+});
+```

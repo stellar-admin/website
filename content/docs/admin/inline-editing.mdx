@@ -55,7 +55,7 @@ edit.UseInlineRow(inline =>
 | Setting | What it does |
 | --- | --- |
 | `DimOtherRows` | When `true`, the default, dims and locks the rest of the page while the row is edited. When `false`, editing another row cancels the first one. |
-| `AfterSave` | Sets what the grid does after the row is saved: `ReloadGrid`, the default, or `KeepInPlace`. See [choosing what happens after a save](#choosing-what-happens-after-a-save). |
+| `AfterSave` | Sets [what the grid does after the row is saved](#choosing-what-happens-after-a-save): `ReloadGrid`, the default, or `KeepInPlace`. |
 
 ## Matching fields to columns
 
@@ -96,9 +96,9 @@ You configure the new row in the callback that you pass to `UseInlineRow()`:
 | `Position` | Adds the new row at the `Top` of the current page, the default, or at the `Bottom`. |
 | `AddButton` | Displays the **Create** button in the page `Header`, in a row of the `Grid`, or in `Both`, the default. |
 | `DimOtherRows` | When `true`, the default, dims and locks the rest of the page while the row is open. When `false`, opening another row cancels the first one. |
-| `AfterSave` | Sets what the grid does after the row is saved: `ReloadGrid`, the default, or `KeepInPlace`. See [choosing what happens after a save](#choosing-what-happens-after-a-save). |
+| `AfterSave` | Sets [what the grid does after the row is saved](#choosing-what-happens-after-a-save): `ReloadGrid`, the default, or `KeepInPlace`. |
 
-To speed up data entry, call [`EnableAddAnother()`](/docs/admin/forms#save-and-add-another) on the create page. The new row then has a third button, which saves the row and opens another new row. Pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) does the same.
+To speed up data entry, call [`EnableAddAnother()`](/docs/admin/forms#saving-and-adding-another-record) on the create page. The new row then has a third button, which saves the row and opens another new row. Pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) does the same.
 
 ## Choosing what happens after a save
 

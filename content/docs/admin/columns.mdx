@@ -25,7 +25,7 @@ You configure a column in the callback that you pass to `Add()`:
 | --- | --- |
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
 | `EmptyText` | Sets the text to display when the value is null or empty. The default is the property's `[DisplayFormat(NullDisplayText)]`, or else an empty cell. |
-| `Sortable()` | Lets people sort the grid by the column. See [sorting and paging](/docs/admin/sorting-and-paging). |
+| `Sortable()` | Lets people [sort the grid](/docs/admin/sorting-and-paging) by the column. |
 | `UseDisplay<TDisplay>()` | Renders the value with a different [display type](/docs/admin/displays). |
 | `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. |
 
@@ -87,4 +87,4 @@ StellarAdmin computes the value for each row after loading the records, so the d
 
 ## Writing your own cell markup
 
-For a value that no built-in display covers, such as a badge whose color depends on the value, write a custom display with a grid template. See [custom displays](/docs/admin/custom-displays).
+For a value that no built-in display covers, such as a badge whose color depends on the value, write a [custom display](/docs/admin/custom-displays) with a grid template.

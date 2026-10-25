@@ -3,7 +3,7 @@ title: Overview
 description: Create and edit pages for your resources
 ---
 
-`AllowCreate` and `AllowEdit` add the create and edit pages. Each takes the fields its form shows:
+A resource's *create page* and *edit page* display a form for adding a record and for changing one. To add the pages, call `AllowCreate()` and `AllowEdit()` on the resource. In the callback of each one, call `Fields()` to add the form's fields. The example below adds a create page and an edit page for trips:
 
 ```cs
 resource.AllowCreate(create => create.Fields(fields =>
@@ -22,27 +22,29 @@ resource.AllowEdit(edit => edit.Fields(fields =>
 }));
 ```
 
-Only the fields you add are shown and saved. Other properties keep their values: the defaults on create, and whatever's stored on edit.
+StellarAdmin doesn't add fields automatically, so the form displays and saves only the fields you add. A property without a field keeps its value: on the create page, the [value the new record starts with](/docs/admin/default-values), and on the edit page, the stored value.
 
-On save, the form is validated, and on success you go back to the index page. Ctrl+Enter (Cmd+Enter on a Mac) saves from any field.
+When someone saves the form, StellarAdmin validates it. If the form is valid, StellarAdmin saves the record and returns to the index page. Otherwise, it displays the form again with the errors. Press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field to save the form.
 
-## Where to next
+You can read more about configuring forms on these pages:
 
-| To | See |
-| --- | --- |
-| Set labels, help text, read-only and display fields | [Fields](/docs/admin/fields) |
-| Lay out a long form in sections and columns | [Layout](/docs/admin/form-layout) |
-| Set defaults for new records, and validate | [Defaults and validation](/docs/admin/defaults-and-validation) |
-| Pick a different input for a field | [Editors](/docs/admin/editors) |
-| Save to something other than the entity | [Custom models and handlers](/docs/admin/custom-models) |
+- [Fields](/docs/admin/fields): set labels and help text, display values that aren't edited, and make fields read-only or disabled.
+- [Layout](/docs/admin/form-layout): split a long form into sections, and lay out fields in columns.
+- [Setting default values](/docs/admin/default-values): set the values a new record starts with.
+- [Validating forms](/docs/admin/validation): check what people enter before a record is saved.
+- [Choosing an editor](/docs/admin/editors): use a different editor for a field.
+- [Custom models and handlers](/docs/admin/custom-models): use a form that doesn't match your entity, or run your own code when a record is saved.
 
-## Page settings
+## Changing the title and button label
 
-| Property | Create default | Edit default |
+To change the page's title or the label of its submit button, set these properties in the `AllowCreate()` or `AllowEdit()` callback:
+
+| Property | Create page default | Edit page default |
 | --- | --- | --- |
-| `Title` | `Create {singular}` | `Edit {singular}` |
-| `SubmitLabel` | `Create {singular}` | `Save {singular}` |
-| `SectionLayout` | The panel's default | The panel's default |
+| `Title` | "Create" and the singular label, such as "Create Trip" | "Edit" and the singular label, such as "Edit Trip" |
+| `SubmitLabel` | "Create" and the singular label, such as "Create Trip" | "Save" and the singular label, such as "Save Trip" |
+
+The example below changes the edit page's title and the label of its submit button:
 
 ```cs
 resource.AllowEdit(edit =>
@@ -53,11 +55,11 @@ resource.AllowEdit(edit =>
 });
 ```
 
-`SectionLayout` controls how [sections](/docs/admin/form-layout#sections) look.
+To change the defaults for every resource, see [global labels](/docs/admin/global-labels). To change how the form's sections look, set `SectionLayout` to one of the [section layouts](/docs/admin/form-layout#choosing-how-sections-look).
 
-## Sharing fields
+## Sharing fields between the create and edit pages
 
-Create and edit have separate field lists. When they're mostly the same, share them with a method:
+The create page and the edit page each have their own fields. When most of the fields are the same, add them in a method that takes a `ResourceFieldsBuilder<T>`, and call it from both pages. The example below defines `TripFields()`, and the edit page adds the `IsPublished` field after it:
 
 ```cs
 using StellarAdmin.Resources.Builders;
@@ -77,9 +79,11 @@ static void TripFields(ResourceFieldsBuilder<Trip> fields)
 }
 ```
 
-## Save and add another
+## Saving and adding another record
 
-When people enter several records in a row, add a "Save and add another" button. It saves, then opens a fresh create form:
+When people add several records one after another, call `EnableAddAnother()` on the create page to add a **Save and add another** button. The button saves the record, confirms it with a message, and opens the create page again for the next record. Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) to do the same from the keyboard.
+
+The example below keeps the destination for the next trip, so someone adding several trips to the same destination doesn't select it each time:
 
 ```cs
 resource.AllowCreate(create =>
@@ -98,6 +102,9 @@ resource.AllowCreate(create =>
 });
 ```
 
-`KeepForNext` carries a field's value over to the next record, which saves retyping when you're adding several trips to the same destination. Ctrl+Shift+Enter (Cmd+Shift+Enter) presses the button from the keyboard.
+| Setting | What it does |
+| --- | --- |
+| `KeepForNext()` | Carries the field's value over to the next record. The field must be an editable field of the create page. If it isn't, StellarAdmin ignores the call and reports a [configuration problem](/docs/admin/configuration-problems). Call it once for each field to keep. |
+| `Label` | Sets the button's label. The default is "Save and add another". |
 
-With [inline editing](/docs/admin/inline-editing), the same call adds the button to the new row.
+With [inline editing](/docs/admin/inline-editing#adding-records-in-a-new-row), `EnableAddAnother()` adds the button to the new row instead.

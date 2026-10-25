@@ -47,10 +47,10 @@ A resource has no other pages until you enable them:
 
 | Method | Adds |
 | --- | --- |
-| `AllowCreate()` | A **Create** button on the index page, and a create page. See the [forms overview](/docs/admin/forms). |
+| `AllowCreate()` | A **Create** button on the index page, and a [create page](/docs/admin/forms). |
 | `AllowEdit()` | An edit action on each row, and an edit page. |
-| `AllowView()` | A view action on each row, and a read-only page. See [view pages](/docs/admin/view-pages). |
-| `AllowDelete()` | A delete action on each row and on the edit and view pages, which asks for confirmation. See [deleting records](/docs/admin/delete). |
+| `AllowView()` | A view action on each row, and a read-only [view page](/docs/admin/view-pages). |
+| `AllowDelete()` | A [delete action](/docs/admin/delete) on each row and on the edit and view pages, which asks for confirmation. |
 
 Each method takes a callback that configures the page or action. To configure the page in separate statements instead, call the method without a callback. It returns the page's builder:
 

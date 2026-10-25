@@ -13,7 +13,7 @@ description: Common problems when you first set up the panel
 | A resource is at a different URL than you expected | The slug is the kebab-case plural of the type: `TripExtra` is at `/stellaradmin/trip-extras`. |
 | A foreign key shows a number box | Register the related type as a resource. See [foreign keys](/docs/admin/foreign-keys). |
 | No Create or Edit button | `AllowCreate` or `AllowEdit` isn't called for the resource. |
-| Dates start at 0001-01-01 on create | Set defaults with [`UseFactory`](/docs/admin/defaults-and-validation). |
+| Dates start at 0001-01-01 on create | Set defaults with [`UseFactory`](/docs/admin/default-values). |
 | Signed-in users without access land on a 404 | Cookie authentication sends them to `/Account/AccessDenied`. Add that page, or set `AccessDeniedPath`. |
 | A sidebar link is red, or missing outside Development | Its `Page` or `Action` doesn't exist. Check the name, controller and area. |
 

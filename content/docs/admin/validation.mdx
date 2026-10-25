@@ -1,0 +1,33 @@
+---
+title: Validating forms
+description: Check what people enter before a record is saved
+---
+
+When someone saves a create or edit form, StellarAdmin runs ASP.NET Core model validation before it saves the record. If a field isn't valid, StellarAdmin displays the form again with the values that were entered and the errors, and doesn't save the record.
+
+The example below requires a reference of up to 12 characters, and between 1 and 20 travellers:
+
+```cs
+public class Booking
+{
+    [Required, StringLength(12)]
+    public string Reference { get; set; } = "";
+
+    [Range(1, 20)]
+    public int Travellers { get; set; } = 1;
+}
+```
+
+StellarAdmin displays the errors of the fields on the form, and ignores the errors of properties that aren't on it. A `[Required]` property without a field doesn't stop the record from being saved.
+
+<Callout type="info">
+StellarAdmin validates forms with the ASP.NET Core model validation pipeline, so validation libraries that plug into the pipeline work with StellarAdmin too. For example, to validate StellarAdmin's forms with [FluentValidation](https://docs.fluentvalidation.net/en/latest/aspnet.html) validators, enable FluentValidation's automatic validation by calling `AddFluentValidationAutoValidation()` from the `FluentValidation.AspNetCore` package.
+</Callout>
+
+A [custom data source](/docs/admin/custom-data-sources#returning-validation-errors) can also return validation errors when it saves a record, such as when a reference is already in use.
+
+## When EF Core can't save the record
+
+When EF Core reports a concurrency conflict, the form displays "This record changed while you were working. Reload it and try again." If the record was deleted in the meantime, StellarAdmin returns a 404 Not Found response.
+
+When saving fails for any other reason, such as a duplicate value in a unique index, StellarAdmin logs the exception, and the form displays "This record couldn't be saved. Try again."

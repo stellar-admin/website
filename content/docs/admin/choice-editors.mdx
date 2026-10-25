@@ -209,7 +209,7 @@ fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
 });
 ```
 
-With `Columns(3)`, the options are displayed in one column when the field is narrow, and in three columns once the field is at least 40rem wide. To set the number of columns at each width, use the same [breakpoints](/docs/admin/form-layout#columns) as form layout:
+With `Columns(3)`, the options are displayed in one column when the field is narrow, and in three columns once the field is at least 40rem wide. To set the number of columns at each width, use the same [breakpoints](/docs/admin/form-layout#laying-out-fields-in-columns) as form layout:
 
 ```cs
 tags.Columns(columns => columns.Small(2).Large(3));

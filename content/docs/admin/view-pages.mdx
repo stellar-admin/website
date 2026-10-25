@@ -31,7 +31,7 @@ resource.AllowView(view => view.Fields(fields =>
 
 You list every field you want: there's no "show everything" option. `AllowView()` without fields doesn't add a page, and reports a [configuration problem](/docs/admin/configuration-problems).
 
-Every field on a view page is a [display field](/docs/admin/fields#display-fields). It can read through navigations, show a computed value and use any [display](/docs/admin/displays). A related record, like `booking.Customer`, shows its title.
+Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited). It can read through navigations, show a computed value and use any [display](/docs/admin/displays). A related record, like `booking.Customer`, shows its title.
 
 The page's header has Back, plus Edit and Delete when you've allowed them.
 

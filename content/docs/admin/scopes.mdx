@@ -25,7 +25,7 @@ resource.Index(index =>
 
 1. The scope's id, which the URL uses, as in `?scope=pending`. Each scope must have a different id.
 2. The text of the scope's tab.
-3. For an EF Core resource, the filter. Leave it out for a scope that displays every record. A custom data source takes no filter, because it filters the records itself. See [scoping a custom data source](#scoping-a-custom-data-source).
+3. For an EF Core resource, the filter. Leave it out for a scope that displays every record. A custom data source takes no filter, because it [filters the records itself](#scoping-a-custom-data-source).
 
 Only the filter decides which records a scope displays. The id is only a name, so `scopes.Add("pending", "Pending")` on an EF Core resource displays every record.
 
