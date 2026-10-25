@@ -1,9 +1,11 @@
 ---
 title: Organizing configuration
-description: Keep Program.cs small as your panel grows
+description: Keep Program.cs small as your admin panel grows
 ---
 
-A couple of resources fit fine in `Program.cs`. Past that, give each resource an extension method in its own file and keep only the panel-wide settings in `Program.cs`.
+Once you have more than a few resources, configuring them all in `Program.cs` makes the file hard to read. Move each resource into an extension method in its own file, and keep only the settings for the whole admin panel in `Program.cs`.
+
+The example below calls a single `AddResources()` method from `Program.cs`:
 
 ```cs
 // Program.cs
@@ -15,6 +17,8 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
+`AddResources()` is an extension method on `StellarAdminBuilder`, defined in the `AdminResources` class. It calls the extension method for each resource:
+
 ```cs
 // Admin/AdminResources.cs
 public static class AdminResources
@@ -23,6 +27,8 @@ public static class AdminResources
         admin.AddGuides().AddTrips().AddBookings();
 }
 ```
+
+Each resource's extension method is defined in its own class, and registers and configures that resource. The example below defines `AddGuides()` in the `GuidesAdmin` class:
 
 ```cs
 // Admin/GuidesAdmin.cs
@@ -40,15 +46,13 @@ public static class GuidesAdmin
 }
 ```
 
-There's no base class, interface or assembly scanning to learn. They're plain extension methods.
+## Ordering the sidebar
 
-## Order matters
-
-Resources appear in the sidebar in the order you register them, unless you give them an `Order`. With the setup above, the order of the calls in `AddResources` is the sidebar order. See [sidebar](/docs/admin/sidebar) for groups and ordering.
+Resources appear in the sidebar in the order you register them, unless you set their `Order`. In the example above, the order of the calls in `AddResources()` is the order of the sidebar. See [sidebar and links](/docs/admin/sidebar) for groups and ordering.
 
 ## Sharing fields
 
-When create and edit show the same fields, put them in a method that takes the fields builder:
+When the create and edit forms have the same fields, add the fields in a method that takes a `ResourceFieldsBuilder<TResource>`, and pass the method to both `Fields()` calls.
 
 ```cs
 using StellarAdmin.Resources.Builders;

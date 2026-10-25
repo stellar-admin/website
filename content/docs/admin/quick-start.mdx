@@ -3,7 +3,9 @@ title: Quick start
 description: Build a customers and bookings admin in a few minutes
 ---
 
-This walks through two resources for a travel company: customers, and the bookings they make. It assumes you've [installed StellarAdmin](/docs/admin/installation) and have an EF Core `DbContext` registered with `AddDbContext`.
+This guide builds an admin panel for a travel company, with two resources: customers, and the bookings they make. Before you start, [install StellarAdmin](/docs/admin/installation) and register your EF Core `DbContext` with `AddDbContext()`.
+
+The guide uses the following entities:
 
 ```cs
 public class Customer
@@ -28,9 +30,9 @@ public class Booking
 }
 ```
 
-## Add customers
+## Adding customers
 
-Register `Customer` as a resource and give its index page some columns. Columns start empty, so you choose what the grid shows.
+Call `AddEfCoreResource()` to register `Customer` as a resource, and add the columns its grid displays. StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add.
 
 ```cs
 using StellarAdmin;
@@ -49,11 +51,11 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-Run the app and Customers shows up in the sidebar, with its grid at `/stellaradmin/customers`. StellarAdmin found the `DbContext` that maps `Customer` and the key from EF Core's model.
+Run the application. The sidebar now has a Customers link, which opens the grid at `/stellaradmin/customers`. StellarAdmin finds the `DbContext` that maps `Customer`, and uses the key from the EF Core model.
 
-## Let people add and edit customers
+## Creating and editing customers
 
-Create, edit, view and delete are off until you allow them. Allow create and edit with the fields each form shows:
+A resource's grid is read-only until you allow creating, editing, viewing or deleting records. Call `AllowCreate()` and `AllowEdit()`, and add the fields each form displays.
 
 ```cs
 admin.AddEfCoreResource<Customer>(resource =>
@@ -76,11 +78,17 @@ admin.AddEfCoreResource<Customer>(resource =>
 });
 ```
 
-The index page now has a Create button, and each row has an edit action.
+The grid now has a Create button, and each row has an Edit action.
 
-## Add bookings
+<Callout type="idea">
+  When the create and edit forms have the same fields, you can [share them in one method](/docs/admin/organizing-configuration#sharing-fields).
+</Callout>
 
-Bookings belong to a customer. Because `Customer` is a resource, the `CustomerId` field gets a searchable lookup instead of a number box, and the `Customer` column shows the customer's name.
+## Adding bookings
+
+Each booking belongs to a customer. Because `Customer` is a resource, StellarAdmin renders the `CustomerId` field as a lookup that searches customers, and the `Customer` column displays the customer's name. See [titles and references](/docs/admin/titles-and-references) for how StellarAdmin picks the name.
+
+The example below registers `Booking` with search, sorting, paging, and create, edit and delete.
 
 ```cs
 admin.AddEfCoreResource<Booking>(resource =>
@@ -127,17 +135,19 @@ admin.AddEfCoreResource<Booking>(resource =>
 });
 ```
 
-A few things are going on here:
+In the example above:
 
-- `EnableSearch` adds a search box. You decide what a search term matches.
-- `DefaultSortBy` and `Sortable` sort the grid by departure date, and let people click the header to change direction.
-- `UseFactory` sets the defaults for a new booking. Without it, the date would start at 0001-01-01.
-- `AddDisplayField` shows the reference on the edit form without letting anyone change it.
-- `Status` is an enum, so it gets a select with its values.
+- `EnableSearch()` adds a search box to the grid. The expression decides which bookings match the search term. See [search](/docs/admin/search).
+- `Sortable()` lets people sort the grid by departure date, and `DefaultSortBy()` sorts by it when the page first loads. See [sorting and paging](/docs/admin/sorting-and-paging).
+- `EnablePaging()` splits the grid into pages of 25 bookings.
+- `UseFactory()` creates the booking that the create form starts with, so that the departure date starts 30 days from today instead of 0001-01-01.
+- `AddDisplayField()` displays the reference on the edit form, without letting people change it.
+- `Status` is an enum, so StellarAdmin renders it as a select with an option for each member.
+- `AllowDelete()` adds a Delete action to each row, which asks for confirmation first.
 
-## Where to go from here
+## Next steps
 
-- Lay out bigger forms with [sections and columns](/docs/admin/form-layout).
-- Pick a different [editor](/docs/admin/editors) for a field.
-- Add [scopes](/docs/admin/scopes) such as Pending and Confirmed tabs.
+- Lay out larger forms with [sections and columns](/docs/admin/form-layout).
+- Choose a different [editor](/docs/admin/editors) for a field.
+- Add [scopes](/docs/admin/scopes), such as Pending and Confirmed tabs above the grid.
 - [Require authorization](/docs/admin/authorization) before you deploy.

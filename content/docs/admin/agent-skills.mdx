@@ -3,42 +3,46 @@ title: Agent Skills
 description: Teach your coding agent to build admin panels with StellarAdmin
 ---
 
-StellarAdmin ships two skills for agents such as Claude Code and Codex:
+StellarAdmin has two skills that teach coding agents, such as Claude Code and Codex, how to use it:
 
-- **stellar-admin-setup** installs the panel in your app: packages, `AddStellarAdmin`, `MapStellarAdmin`, and checks that it works. It asks you about resources, authorization and branding instead of guessing.
-- **stellar-admin** builds the panel: resources, index pages, forms, editors, relationships, the sidebar, authorization and view overrides.
+| Skill | Teaches the agent to |
+| --- | --- |
+| `stellar-admin-setup` | Install StellarAdmin in your app: add the packages, call `AddStellarAdmin()` and `MapStellarAdmin()`, and check that the admin panel works. The agent asks you before it adds resources, authorization, branding or a theme. |
+| `stellar-admin` | Build the admin panel: resources, index pages, forms, editors, relationships, the sidebar, authorization and overriding pages. |
 
-They're installed with [Vercel's skills installer](https://github.com/vercel-labs/skills). The source is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
+You install the skills with [Vercel's skills installer](https://github.com/vercel-labs/skills). The source of the skills is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
 
-## Installation
+## Installing the skills
 
-With Node.js and Git installed, run this in your app's project directory:
+You need Node.js and Git. Run the following commands in your app's project directory:
 
 ```bash
 npx skills add stellar-admin/stellar-admin --skill stellar-admin-setup
 npx skills add stellar-admin/stellar-admin --skill stellar-admin
 ```
 
-Pick your agent in the installer, or name it with `--agent claude-code` or `--agent codex`. Add `--global` to make the skills available in all your projects. Then start a fresh agent session.
+The `--skill` option installs only the named skill. Without it, the installer lists all the StellarAdmin skills, including the ones for [StellarAdmin.UI](/docs/ui/agent-skills).
 
-Keep the `--skill` option: the repository also contains internal skills used to build StellarAdmin itself.
+The installer asks which agent to install the skills for. To skip the question, add `--agent claude-code` or `--agent codex`. The skills are installed in the project. To make them available in all your projects, add `--global`.
+
+After installing, start a new agent session so that the agent loads the skills.
 
 <Callout type="info">
-    This installs guidance for your agent. It doesn't install the NuGet packages or change your app.
+  The skills only teach your agent how to use StellarAdmin. Installing them doesn't install the NuGet packages or change your app.
 </Callout>
 
-## Using them
+## Using the skills
 
-Ask your agent to install the panel:
+Ask your agent to install StellarAdmin:
 
 > Use the stellar-admin-setup skill to add StellarAdmin to this app.
 
-Then build it out:
+Then ask it to build the admin panel:
 
 > Add bookings to the admin panel, with search on the reference and Pending and Confirmed tabs.
 
-For your own pages that use `sa-*` components, add **stellar-admin-ui**. For theme files, add **stellar-admin-theme**. Both are described in the [StellarAdmin.UI agent skills](/docs/ui/agent-skills) docs.
+If you also write your own pages with the [StellarAdmin.UI Tag Helpers](/docs/ui), install the `stellar-admin-ui` skill. To create a theme, install the `stellar-admin-theme` skill. See [StellarAdmin.UI agent skills](/docs/ui/agent-skills) for both.
 
 ## Versions
 
-The skills follow the repository's default branch, so they can describe features newer than the packages you have installed. They tell the agent to check your installed version first. Updating a skill doesn't update your packages.
+The skills follow the main branch of the StellarAdmin repository, so they can describe features that aren't in the packages your app uses yet. They tell the agent to check which version your app uses before following their examples. Updating the skills doesn't update your packages.
