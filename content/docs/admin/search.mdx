@@ -3,7 +3,7 @@ title: Search
 description: Add a search box to the index page
 ---
 
-`EnableSearch` adds a search box to the page header. You give it a function that turns the search text into a filter:
+Call `EnableSearch()` to add a search box to the index page. For an EF Core resource, you pass a function that takes the search text and returns the filter to apply. The example below searches bookings by their reference and by the customer's name:
 
 ```cs
 resource.Index(index =>
@@ -13,13 +13,13 @@ resource.Index(index =>
 });
 ```
 
-The term is trimmed before you get it. The grid searches as you type, after a short pause.
+StellarAdmin trims the search text before passing it to your function. The grid searches as the user types, after a short pause.
 
-The predicate runs in the database, so it has to be something EF Core can translate. Paths like `booking.Customer!.Name` become joins.
+The filter runs in the database, so EF Core must be able to translate it to SQL. A property of a related record, such as `booking.Customer!.Name`, becomes a join.
 
-## Case sensitivity
+## Making the search case-insensitive
 
-`Contains` follows your database's collation. On SQLite, and on case-sensitive collations elsewhere, it's case-sensitive. Lower-case both sides if you need to:
+Whether `Contains()` is case-sensitive depends on your database's collation. On SQLite, and on databases with a case-sensitive collation, it's case-sensitive. To make the search case-insensitive there, convert both sides to lower case:
 
 ```cs
 index.EnableSearch(term =>
@@ -29,9 +29,9 @@ index.EnableSearch(term =>
 });
 ```
 
-## Placeholder
+## Changing the placeholder
 
-The default placeholder is `Search {plural label}...`. Change it with the second argument:
+The search box's default placeholder is "Search" and the plural label, such as "Search Bookings...". To change it, set `Placeholder` in the callback that you pass as the second argument:
 
 ```cs
 index.EnableSearch(
@@ -39,8 +39,12 @@ index.EnableSearch(
     search => search.Placeholder = "Search by reference");
 ```
 
-## Custom data sources
+To change the default placeholder for every resource, see [global labels](/docs/admin/global-labels).
 
-For a resource with a [custom data source](/docs/admin/custom-data-sources), call `EnableSearch()` without a predicate. The text arrives in `ResourceListRequest.Search`, and your data source decides what matches.
+## Searching a custom data source
 
-The search box only searches the current resource. Searching across all records in the panel isn't supported.
+When a resource uses a [custom data source](/docs/admin/custom-data-sources), call `EnableSearch()` without a filter. StellarAdmin passes the search text via the `Search` property of the `request` parameter when calling the `ListAsync()` method, and your data source decides which records match.
+
+## Searching across resources
+
+The search box searches only the records of its own resource. StellarAdmin doesn't support searching across every resource yet.

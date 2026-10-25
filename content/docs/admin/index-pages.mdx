@@ -3,7 +3,9 @@ title: Overview
 description: The grid that lists a resource's records
 ---
 
-Every resource has an index page: a grid of its records, at `/stellaradmin/{slug}`. You configure it with `resource.Index`:
+Every resource has an *index page*, which lists the resource's records in a grid. A resource's index page is at `/stellaradmin/{slug}`, such as `/stellaradmin/bookings`.
+
+To configure the grid, call `Index()` on the resource. The example below gives the bookings grid three columns, a search box, **All** and **Pending** scopes, a default sort and paging:
 
 ```cs
 resource.Index(index =>
@@ -26,26 +28,30 @@ resource.Index(index =>
 });
 ```
 
-| Feature | Page |
-| --- | --- |
-| What the grid shows | [Columns](/docs/admin/columns) |
-| A search box | [Search](/docs/admin/search) |
-| Tabs such as All, Pending and Confirmed | [Scopes](/docs/admin/scopes) |
-| Clickable headers and pages | [Sorting and paging](/docs/admin/sorting-and-paging) |
-| Rows that expand to show more | [Row details](/docs/admin/row-details) |
-| Editing and adding records in the grid | [Inline editing](/docs/admin/inline-editing) |
+You can read more about each of the grid's features on its own page:
 
-Search, scopes, sorting and paging update the grid in place and keep their state in the URL, so a filtered list can be bookmarked or shared. Changing the search or the scope takes you back to page 1.
+- [Columns](/docs/admin/columns): choose the columns the grid displays.
+- [Search](/docs/admin/search): add a search box that filters the records.
+- [Scopes](/docs/admin/scopes): add tabs that filter the records, such as **All**, **Pending** and **Confirmed**.
+- [Sorting and paging](/docs/admin/sorting-and-paging): let people sort the grid by a column, and split the records into pages.
+- [Row details](/docs/admin/row-details): expand a row to display more about a record.
+- [Inline editing](/docs/admin/inline-editing): edit and add records in the grid.
 
-## Title and labels
+Searching, selecting a scope, sorting and paging update the grid without reloading the page. The grid keeps its search, scope, sort and page in the URL, so you can bookmark or share a filtered list. Changing the search or the scope returns the grid to the first page.
+
+## Changing the title and labels
+
+To change the index page's title, or the labels of its **Create** button and row actions, set these properties in the `Index()` callback:
 
 | Property | Default |
 | --- | --- |
-| `index.Title` | The plural label, such as `Bookings` |
-| `index.CreateLabel` | `Create` |
-| `index.EditLabel` | `Edit {singular}`, such as `Edit Booking` |
-| `index.ViewLabel` | `View {singular}` |
-| `index.DeleteLabel` | `Delete {singular}` |
+| `Title` | The plural label, such as "Bookings" |
+| `CreateLabel` | "Create" |
+| `EditLabel` | "Edit" and the singular label, such as "Edit Booking" |
+| `ViewLabel` | "View" and the singular label, such as "View Booking" |
+| `DeleteLabel` | "Delete" and the singular label, such as "Delete Booking" |
+
+The example below changes the title and the label of the **Create** button:
 
 ```cs
 resource.Index(index =>
@@ -55,4 +61,10 @@ resource.Index(index =>
 });
 ```
 
-The row actions are view, edit and delete, depending on which pages you've [allowed](/docs/admin/resources#adding-pages). Custom row actions and bulk actions aren't supported yet.
+To change the defaults for every resource, see [global labels](/docs/admin/global-labels). The labels of inline rows are on the [inline editing](/docs/admin/inline-editing) page.
+
+## Row actions
+
+Each row displays a view, edit or delete action, depending on whether you've enabled the view page, the edit page or the delete action for your resource by calling `AllowView()`, `AllowEdit()` or `AllowDelete()`. See [adding pages](/docs/admin/resources#adding-pages).
+
+StellarAdmin doesn't support custom row actions or bulk actions yet.

@@ -81,3 +81,9 @@ html > body[data-scroll-locked] {
 [data-theme-toggle] > * {
   border-radius: var(--radius-sm);
 }
+
+/* Fumadocs sets prose bold to 500, which the system font renders like regular
+   text, so on-screen labels written in bold didn't stand out. */
+.prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-weight: 600;
+}

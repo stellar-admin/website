@@ -51,7 +51,7 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-Run the application. The sidebar now has a Customers link, which opens the grid at `/stellaradmin/customers`. StellarAdmin finds the `DbContext` that maps `Customer`, and uses the key from the EF Core model.
+Run the application. The sidebar now has a **Customers** link, which opens the grid at `/stellaradmin/customers`. StellarAdmin finds the `DbContext` that maps `Customer`, and uses the key from the EF Core model.
 
 ## Creating and editing customers
 
@@ -78,7 +78,7 @@ admin.AddEfCoreResource<Customer>(resource =>
 });
 ```
 
-The grid now has a Create button, and each row has an Edit action.
+The grid now has a **Create** button, and each row has an edit action.
 
 <Callout type="idea">
   When the create and edit forms have the same fields, you can [share them in one method](/docs/admin/organizing-configuration#sharing-fields).
@@ -143,11 +143,11 @@ In the example above:
 - `UseFactory()` creates the booking that the create form starts with, so that the departure date starts 30 days from today instead of 0001-01-01.
 - `AddDisplayField()` displays the reference on the edit form, without letting people change it.
 - `Status` is an enum, so StellarAdmin renders it as a select with an option for each member.
-- `AllowDelete()` adds a Delete action to each row, which asks for confirmation first.
+- `AllowDelete()` adds a delete action to each row, which asks for confirmation first.
 
 ## Next steps
 
 - Lay out larger forms with [sections and columns](/docs/admin/form-layout).
 - Choose a different [editor](/docs/admin/editors) for a field.
-- Add [scopes](/docs/admin/scopes), such as Pending and Confirmed tabs above the grid.
+- Add [scopes](/docs/admin/scopes), such as **Pending** and **Confirmed** tabs above the grid.
 - [Require authorization](/docs/admin/authorization) before you deploy.

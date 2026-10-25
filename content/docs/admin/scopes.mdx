@@ -1,9 +1,11 @@
 ---
 title: Scopes
-description: Tabs that filter the index page
+description: Filter the index page with tabs
 ---
 
-Scopes are tabs above the grid, like All, Pending and Confirmed. One is active at a time.
+*Scopes* are tabs above the grid that filter the records, such as **All**, **Pending** and **Confirmed**. One scope is selected at a time.
+
+Call `EnableScopes()`, and add each scope in its callback. The example below adds four scopes to the bookings grid, and selects **All** by default:
 
 ```cs
 resource.Index(index =>
@@ -19,28 +21,32 @@ resource.Index(index =>
 });
 ```
 
-`Add` takes:
+`Add()` takes these arguments:
 
-1. An id, used in the URL: `?scope=pending`.
-2. The tab's text.
-3. A filter. Leave it out for a tab that shows everything.
+1. The scope's id, which the URL uses, as in `?scope=pending`. Each scope must have a different id.
+2. The text of the scope's tab.
+3. For an EF Core resource, the filter. Leave it out for a scope that displays every record. A custom data source takes no filter, because it filters the records itself. See [scoping a custom data source](#scoping-a-custom-data-source).
 
-The id is just a name. Filtering happens only through the predicate, so `scopes.Add("pending", "Pending")` on an EF Core resource shows every record.
+Only the filter decides which records a scope displays. The id is only a name, so `scopes.Add("pending", "Pending")` on an EF Core resource displays every record.
 
-## The default scope
+## Setting the default scope
 
-`DefaultScope` is the tab that's selected when the URL doesn't name one. Without it, no tab is selected and the list isn't filtered until someone picks one. Usually you want the unfiltered tab as the default.
+`DefaultScope` sets the scope that's selected when the URL doesn't name a scope. Without a default scope, no tab is selected, and the grid displays every record until someone selects a scope. In most cases, set the scope that displays every record as the default.
 
-## With search
+`DefaultScope` must be the id of a scope you've added. If it isn't, StellarAdmin ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
 
-The scope's filter and the search are combined, so searching on the Pending tab only searches pending bookings.
+## Combining scopes with search
 
-## Scopes aren't security
+StellarAdmin applies both the scope's filter and the [search](/docs/admin/search), so searching on the **Pending** tab searches only the pending bookings.
 
-Anyone who can see the index can ask for any scope in the URL. To hide records from some users, use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources).
+## Restricting which records people can access
 
-## Custom data sources
+Scopes don't restrict access to records. Anyone who can access the index page can select any scope by changing the URL. To hide records from some users, use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources).
 
-Leave out the predicate: `scopes.Add("pending", "Pending")`. The selected id arrives in `ResourceListRequest.Scope`.
+## Scoping a custom data source
 
-Scopes are the only filters for now. Field filters, such as a date range or a select, aren't supported yet.
+When a resource uses a [custom data source](/docs/admin/custom-data-sources), add each scope without a filter, such as `scopes.Add("pending", "Pending")`. StellarAdmin passes the id of the selected scope via the `Scope` property of the `request` parameter when calling the `ListAsync()` method.
+
+## Filtering by a field
+
+Scopes are the only filters StellarAdmin supports. Filters on a field, such as a date range or a select, aren't supported yet.

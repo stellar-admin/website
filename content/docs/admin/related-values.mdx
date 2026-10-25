@@ -45,7 +45,7 @@ columns.Add(guide => guide.Trips, column =>
     column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name)));
 ```
 
-For one line of text instead of badges, use a [computed column](/docs/admin/columns#computed-values):
+For one line of text instead of badges, use a [computed column](/docs/admin/columns#displaying-computed-values):
 
 ```cs
 columns.Add(trip => string.Join(", ", trip.Tags.Select(tag => tag.Name)), column => column.Title = "Tags");

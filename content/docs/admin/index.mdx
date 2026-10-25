@@ -26,7 +26,7 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-The example above gives you a Trips page at `/stellaradmin/trips` that lists your trips in a grid, and a form to edit them. Each resource you register gets its own link in the sidebar.
+The example above gives you a **Trips** page at `/stellaradmin/trips` that lists your trips in a grid, and a form to edit them. Each resource you register gets its own link in the sidebar.
 
 StellarAdmin isn't a separate service. It runs inside your application, and uses your app's `DbContext`, services and authentication. It's server-rendered ASP.NET Core MVC, built with the [StellarAdmin.UI](/docs/ui) components, and doesn't use a JavaScript framework or Blazor.
 
