@@ -1,0 +1,62 @@
+---
+title: Badges
+description: Display a list, a dictionary, related records or a single value as badges
+---
+
+`BadgeDisplay` displays each item of a list, or each entry of a dictionary, as a [badge](/docs/ui/components/badge). StellarAdmin displays a list of strings or numbers, such as a trip's highlights, with `BadgeDisplay`. It displays a dictionary with a string or enum key, and a string, number or enum value, with a badge for each entry, such as `pt: Passeio por Lisboa`.
+
+A long badge is cut off, and displays all its text when people hover over it.
+
+## Limiting the number of badges
+
+To display at most a number of badges, set `Limit`. When there are more items than `Limit`, `BadgeDisplay` displays one more badge with the number of the other items, such as `+2`, and lists them when people hover over it. The example below displays at most 3 of a trip's highlights, as outline badges:
+
+```cs
+using StellarAdmin.Resources.Displays;
+using StellarAdmin.UI;
+
+columns.Add(trip => trip.Highlights, column =>
+    column.UseDisplay<BadgeDisplay>(badge =>
+    {
+        badge.Variant = BadgeVariant.Outline;
+        badge.Limit = 3;
+    }));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Limit` | Sets the largest number of badges displayed. The default is `null`, which displays every item. |
+| `Variant` | Sets the [variant](/docs/ui/components/badge) of every badge, such as `BadgeVariant.Outline`. The default is `Secondary`. |
+
+Every badge has the same `Variant`. To vary a badge's variant depending on its value, use a [custom display](/docs/admin/custom-displays).
+
+## Displaying related records as badges
+
+You can display a collection of related records, such as a trip's tags, using `UseDisplay<BadgeDisplay>()`. When the related type is a resource, each badge displays the record's [title](/docs/admin/titles-and-references):
+
+```cs
+columns.Add(trip => trip.Tags, column => column.UseDisplay<BadgeDisplay>());
+```
+
+When the related type isn't a resource, call `UseText()` to specify the text displayed inside the badge:
+
+```cs
+columns.Add(guide => guide.Trips, column =>
+{
+    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name));
+});
+```
+
+The type you pass to `UseText()` must be the type of the items. If it isn't, StellarAdmin leaves out the column or the field, and reports a [configuration problem](/docs/admin/configuration-problems).
+
+To sort by the related records, and to load long collections, see [displaying related records](/docs/admin/related-values#displaying-several-related-records).
+
+## Displaying a single value as a badge
+
+`BadgeDisplay` can also display a single value, such as an enum member or a status, as one badge. The example below displays the trip's difficulty as a badge:
+
+```cs
+columns.Add(trip => trip.Difficulty, column => column.UseDisplay<BadgeDisplay>());
+```
+
+To set the text of the badge, call `UseText()` with the type of the value.

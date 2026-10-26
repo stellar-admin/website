@@ -1,0 +1,53 @@
+---
+title: Images
+description: Display an image as a thumbnail in the grid, and larger in a display field
+---
+
+`ImageDisplay` displays an image, such as one uploaded with the [image editor](/docs/admin/image-editor).
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(destination => destination.Photo, column => column.UseDisplay<ImageDisplay>());
+```
+
+In the grid, `ImageDisplay` displays a thumbnail, and in a display field, a larger image. When people click the image, StellarAdmin opens a larger version in a popup.
+
+When the value is empty, `ImageDisplay` displays a placeholder instead of the [empty text](/docs/admin/displays#empty-values). When the image fails to load, it displays a broken image.
+
+## Turning the value into a URL
+
+If the property's value isn't a URL the browser can load, such as a file name, specify a `ResolveUrl()` function that turns the property value into one.
+
+```cs
+columns.Add(destination => destination.Photo, column =>
+    column.UseDisplay<ImageDisplay>(image =>
+        image.ResolveUrl(value => $"/photos/{value}")));
+```
+
+To build the URL with a service registered with dependency injection, pass a function that also takes the services and a cancellation token: `ResolveUrl(async (value, services, cancellationToken) => ...)`.
+
+The grid calls `ResolveUrl()` once for each row, so build the URL from the property value instead of loading it from a database.
+
+## Setting the image's size and shape
+
+The example below displays a larger, landscape thumbnail in the grid, which displays a larger version when people hover over it:
+
+```cs
+using StellarAdmin.UI;
+
+columns.Add(destination => destination.Photo, column =>
+    column.UseDisplay<ImageDisplay>(image =>
+    {
+        image.Size = ImageDisplaySize.Medium;
+        image.AspectRatio = ImageAspectRatio.Landscape;
+        image.Interaction = ImageDisplayInteraction.Preview;
+    }));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Size` | Sets the image's height in the grid, and its maximum height in a display field: `ImageDisplaySize.ExtraSmall`, `Small`, `Medium` or `Large`. The default is `Small` (32px) in the grid, and `Medium` (15rem) in a display field. |
+| `AspectRatio` | Sets the image's shape: `ImageAspectRatio.Square`, `Landscape`, `Widescreen`, `Portrait` or `Original`. The default is `Square` in the grid, and `Original` in a display field. |
+| `Fit` | Sets how the image fills its shape: `ImageFit.Cover` crops the image, and `Contain` fits all of it. The default is `Cover`. |
+| `Interaction` | Sets what happens when people interact with the image: `ImageDisplayInteraction.Lightbox` opens a larger version on click, `Preview` displays a larger version on hover, and `None` does nothing. The default is `Lightbox`. |

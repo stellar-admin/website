@@ -50,23 +50,16 @@ columns.Add(booking => booking.Total, column =>
 
 See [displays](/docs/admin/displays) for every display type and its settings.
 
-## Displaying related values
+## Displaying related records
 
-To display a property of a related record, read it through the navigation property. StellarAdmin loads the related record in the same query, so you don't need to call `Include()`. The example below displays the name of the booking's customer:
-
-```cs
-columns.Add(booking => booking.Customer!.Name, column => column.Title = "Customer");
-```
-
-Set a `Title` on such a column, because the default title is the name of the last property, "Name". When a booking has no customer, the cell displays the column's empty text.
-
-When the related type is a resource, you can add the navigation property itself. The cell displays the related record's [title](/docs/admin/titles-and-references):
+To display a related record, such as a booking's customer, add the navigation property, or read one of the related record's properties through it:
 
 ```cs
 columns.Add(booking => booking.Customer);
+columns.Add(booking => booking.Customer!.Email, column => column.Title = "Customer email");
 ```
 
-Don't add the foreign key, such as `booking.CustomerId`, as a column, because the cell displays the key's value instead of the related record. To display a collection of related records, such as a trip's tags, see [displaying related records](/docs/admin/related-values#displaying-several-related-records).
+See [displaying related records](/docs/admin/related-values) for what the cell displays, how to sort by a related record, and how to display a collection of related records, such as a trip's tags.
 
 ## Displaying computed values
 

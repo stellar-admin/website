@@ -25,6 +25,8 @@ We suggest you set a `Title` on a field that reads through a navigation property
 
 When the related type isn't a resource, StellarAdmin can't display the record itself, unless the type overrides `ToString()`. It leaves out the column or the field, and reports a [configuration problem](/docs/admin/configuration-problems). Display one of the related record's properties instead.
 
+Don't add the foreign key, such as `booking.CustomerId`, as a column, because the cell displays the key's value instead of the related record.
+
 ## Sorting by a related record
 
 A related record has no single value to [sort the grid](/docs/admin/sorting-and-paging) by, so a column of a navigation property that calls `Sortable()` without an expression isn't sortable, and StellarAdmin reports a configuration problem. To make the column sortable, pass `Sortable()` the property to sort by:
@@ -46,16 +48,7 @@ using StellarAdmin.Resources.Displays;
 columns.Add(trip => trip.Tags, column => column.UseDisplay<BadgeDisplay>());
 ```
 
-StellarAdmin displays a collection of related records only with `BadgeDisplay`. Without it, StellarAdmin leaves out the column or the field, and reports a configuration problem.
-
-When the related type isn't a resource, call `UseText()` with the type of the records, and a function that returns the text of each badge:
-
-```cs
-columns.Add(guide => guide.Trips, column =>
-{
-    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name));
-});
-```
+StellarAdmin displays a collection of related records only with `BadgeDisplay`. Without it, StellarAdmin leaves out the column or the field, and reports a configuration problem. To limit the number of badges, or to display records that aren't a resource, see [badges](/docs/admin/badge-display#displaying-related-records-as-badges).
 
 To display the records as a line of text instead of badges, add a [computed column](/docs/admin/columns#displaying-computed-values) that joins their names:
 

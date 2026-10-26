@@ -1,0 +1,33 @@
+---
+title: Links and emails
+description: Display email addresses, phone numbers and web addresses as links
+---
+
+StellarAdmin displays a `string` property with `[EmailAddress]`, `[Phone]` or `[Url]` as a link. To display a property without one of these attributes as a link, call `UseDisplay()` with the display type:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(supplier => supplier.Website, column => column.UseDisplay<LinkDisplay>());
+```
+
+## Email addresses
+
+`EmailDisplay` displays an email address as a `mailto:` link, which opens people's email app. It has no settings.
+
+## Phone numbers
+
+`PhoneDisplay` displays a phone number as a `tel:` link, which dials the number's digits, and keeps a leading `+`. A value without digits is displayed as text. `PhoneDisplay` has no settings.
+
+## Web addresses
+
+`LinkDisplay` displays an `http` or `https` URL as a link, which opens in a new tab. A value that isn't an `http` or `https` URL is displayed as text. The example below opens the link in the same tab:
+
+```cs
+columns.Add(supplier => supplier.Website, column =>
+    column.UseDisplay<LinkDisplay>(link => link.OpenInNewTab = false));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `OpenInNewTab` | Sets whether the link opens in a new tab. The default is `true`. |

@@ -1,0 +1,44 @@
+---
+title: Text
+description: Display text and HTML, and cut long text off after a number of lines
+---
+
+StellarAdmin displays a `string` property with `TextDisplay`, unless an attribute on the property chooses another display type, such as `[EmailAddress]`. `TextDisplay` displays all the text.
+
+## Cutting long text off
+
+To cut the text off after a number of lines, set `LineClamp`. The example below displays at most 2 lines of each trip's summary in the grid:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(trip => trip.Summary, column =>
+    column.UseDisplay<TextDisplay>(text => text.LineClamp = 2));
+```
+
+In the grid, text with a `LineClamp` wraps at a readable width, instead of widening the column.
+
+| Setting | What it does |
+| --- | --- |
+| `LineClamp` | Sets the number of lines displayed before the text is cut off. It must be 1 or more. The default is `null`, which displays all the text. |
+
+## Displaying line breaks
+
+In a display field, `TextDisplay` displays the text's line breaks when the property has `[DataType(DataType.MultilineText)]`, the attribute that also chooses a [textarea](/docs/admin/inputs#entering-long-text) on the form.
+
+In the grid, `TextDisplay` displays the text's line breaks only when `LineClamp` is set. Without it, the text is displayed on one line.
+
+## Displaying HTML
+
+StellarAdmin displays a property with `[DataType(DataType.Html)]`, such as the text of a [rich text editor](/docs/admin/rich-text-editor), with `HtmlDisplay`. `HtmlDisplay` [sanitizes the HTML](/docs/admin/rich-text-editor#sanitizing-the-html), and displays it formatted.
+
+In the grid, `HtmlDisplay` displays the text without formatting, cut off after 2 lines. The example below displays 4 lines instead:
+
+```cs
+columns.Add(trip => trip.Itinerary, column =>
+    column.UseDisplay<HtmlDisplay>(html => html.LineClamp = 4));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `LineClamp` | Sets the number of lines displayed in the grid before the text is cut off. It must be 1 or more. The default is 2. |

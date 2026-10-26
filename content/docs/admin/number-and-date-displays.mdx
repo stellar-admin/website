@@ -1,0 +1,41 @@
+---
+title: Numbers and dates
+description: Format numbers and dates, such as a currency or a short date
+---
+
+StellarAdmin displays a number property with `NumberDisplay`, and a `DateOnly`, `DateTime`, `DateTimeOffset` or `TimeOnly` property with `DateDisplay`.
+
+`NumberDisplay` displays every digit with the same width, so the numbers in a column line up. In the grid, numbers are aligned to the right.
+
+Without a format, a number is displayed as it is, a date as `14 Oct 2026`, a time as `09:30`, and a date and time as `14 Oct 2026, 09:30`.
+
+## Formatting a number or a date
+
+To format a number or a date, set `Format` to a .NET format string, such as `"C"` or `"N2"` for a number, or `"d MMM yyyy"` for a date. The example below displays the booking's total as a currency, and its departure date with the day of the week:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+columns.Add(booking => booking.Total, column =>
+    column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
+
+columns.Add(booking => booking.DepartureDate, column =>
+    column.UseDisplay<DateDisplay>(date => date.Format = "ddd d MMM yyyy"));
+```
+
+| Setting | What it does |
+| --- | --- |
+| `Format` | Sets the .NET format string. The default is `null`, which uses the property's `[DisplayFormat]`. |
+
+To format the value everywhere it's displayed, add `[DisplayFormat]` to the property instead:
+
+```cs
+[DisplayFormat(DataFormatString = "{0:C}")]
+public decimal Total { get; set; }
+```
+
+`[DataType(DataType.Date)]` also sets a `[DisplayFormat]`, which displays the culture's short date, such as `10/14/2026` in the en-US culture. To display the date as `14 Oct 2026` instead, set `Format` to `"d MMM yyyy"`.
+
+## Choosing the culture
+
+StellarAdmin formats values in the request's culture, so `"C"` displays the server's currency, unless your app sets a request culture with [request localization](https://learn.microsoft.com/aspnet/core/fundamentals/localization/select-language-culture).

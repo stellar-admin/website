@@ -51,7 +51,7 @@ fields.Add(destination => destination.Photo).UseImageEditor(image =>
 
 To build the URL with a service registered with dependency injection, pass a function that also takes the services and a cancellation token: `ResolveUrl(async (value, services, cancellationToken) => ...)`.
 
-To display the image in the grid or on the view page, use the [`ImageDisplay`](/docs/admin/displays#images) display type, with the same `ResolveUrl()` function.
+To display the image in the grid or on the view page, use the [`ImageDisplay`](/docs/admin/image-display) display type, with the same `ResolveUrl()` function.
 
 The record changes only when the form is saved, even though the image uploads straight away. Until then, people can undo replacing or removing the image.
 
