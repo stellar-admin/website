@@ -66,7 +66,7 @@ public class NewCustomerHandler(VoyagerDbContext db, CustomerAccounts accounts)
 
 StellarAdmin registers the handler as a scoped service, unless you've registered it already, so the handler can take any service in its constructor. The handler replaces only the data source's create. The page's title and labels still come from the resource.
 
-Return the new record's key with `Success(key)`. StellarAdmin can't read the key from a form model, and a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) that opens the create page needs the key to select the new record. To reject the form, return [validation errors](/docs/admin/custom-data-sources#returning-validation-errors) the same way a data source does.
+Return the new record's key with `Success(key)`. StellarAdmin can't read the key from a form model, and a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup) that opens the create page needs the key to select the new record. To reject the form, return [validation errors](/docs/admin/custom-data-sources#returning-validation-errors) the same way a data source does.
 
 StellarAdmin creates the form model with its parameterless constructor. To start it with other values, call [`UseFactory()`](/docs/admin/default-values).
 

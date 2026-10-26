@@ -21,14 +21,14 @@ fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
 ```
 
 <Callout type="idea">
-  These editors load every option with the form. For a long list, such as customers or airports, use a lookup instead. A lookup opens a sheet where people search the list and page through the results. See [foreign keys](/docs/admin/foreign-keys) for selecting one value, and [many-to-many](/docs/admin/many-to-many) for selecting several.
+  These editors load every option with the form. For a long list, such as customers or airports, use a lookup instead. A lookup opens a sheet where people search the list and page through the results. See [selecting a related record](/docs/admin/foreign-keys) for selecting one value, and [selecting several related records](/docs/admin/many-to-many) for selecting several.
 </Callout>
 
 ## Where the options come from
 
 Unless you call `UseItems()` or `UseResource()`, a choice editor takes its options from the property:
 
-- **Foreign keys and many-to-many navigations** on EF Core forms list the related resource's records. See [foreign keys](/docs/admin/foreign-keys).
+- **Foreign keys and many-to-many navigations** on EF Core forms list the related resource's records. See [selecting a related record](/docs/admin/foreign-keys).
 - **Enums** list their members. An enum with `[Flags]` has no options.
 - **Booleans** get Yes and No.
 - **Collections** do the same for their element type.
@@ -94,7 +94,7 @@ A `ChoiceItem` takes a value and a title, plus an optional `Description`, `Group
 | `UseItems(items)` | A fixed list of `ChoiceItem` or `SelectListItem`. |
 | `UseItems((services, cancellationToken) => ...)` | Loading the options when the form renders. |
 | `UseItems<TProvider>()` | A provider that implements `IChoiceItemsProvider`. Register the provider as a service. |
-| `UseItems((form, services, cancellationToken) => ...)` | Options that depend on other fields. See [dependent fields](/docs/admin/dependent-fields). |
+| `UseItems((form, services, cancellationToken) => ...)` | Options that depend on other fields. See [filtering options by another field](/docs/admin/dependent-fields). |
 | `UseResource<TResource>()` | The records of another resource, using the [title and reference information](/docs/admin/titles-and-references) of that resource for the title, description and media. |
 | `UseItems<TEntity>(value, title)` | Rows of an EF Core entity that isn't a resource. The method is in the `StellarAdmin.EntityFrameworkCore` namespace. |
 

@@ -1,11 +1,15 @@
 ---
-title: Showing related values
-description: Related records in columns, display fields and view pages
+title: Displaying related records
+description: Display related records in the grid, in display fields and on view pages
 ---
 
-## One related record
+A *navigation property*, such as `Booking.Customer` or `Trip.Tags`, holds a record's related records. On an EF Core resource, StellarAdmin loads the related records that the columns and fields read in the same query as the record, so you don't need to call `Include()`.
 
-A navigation to a resource shows the record's [title](/docs/admin/titles-and-references):
+## Displaying one related record
+
+When the related type is a resource, add the navigation property as a column or a field, and StellarAdmin displays the related record's [title](/docs/admin/titles-and-references). To display one of the related record's properties instead, read it through the navigation property.
+
+The example below displays the booking's customer in the grid, and the customer and their email address on the view page:
 
 ```cs
 columns.Add(booking => booking.Customer);
@@ -17,20 +21,24 @@ view.Fields(fields =>
 });
 ```
 
-To show one of its properties instead, read through the navigation, and set a `Title`, since the default would be the property's name. EF Core loads the navigation in the same query, with no `Include` needed.
+We suggest you set a `Title` on a field that reads through a navigation property, because the default title is the name of the last property, such as "Email".
 
-To sort a navigation column, say what to sort by:
+When the related type isn't a resource, StellarAdmin can't display the record itself, unless the type overrides `ToString()`. It leaves out the column or the field, and reports a [configuration problem](/docs/admin/configuration-problems). Display one of the related record's properties instead.
+
+## Sorting by a related record
+
+A related record has no single value to [sort the grid](/docs/admin/sorting-and-paging) by, so a column of a navigation property that calls `Sortable()` without an expression isn't sortable, and StellarAdmin reports a configuration problem. To make the column sortable, pass `Sortable()` the property to sort by:
 
 ```cs
 columns.Add(booking => booking.Customer, column =>
-    column.Sortable(booking => booking.Customer!.Name));
+{
+    column.Sortable(booking => booking.Customer!.Name);
+});
 ```
 
-If the related type isn't a resource, the navigation can't show a title, so it's left out and reported as a [configuration problem](/docs/admin/configuration-problems). Show one of its properties instead.
+## Displaying several related records
 
-## Several related records
-
-Collections and many-to-many navigations show one [badge](/docs/ui/components/badge) per record:
+To display a collection of related records, such as a trip's tags, use `BadgeDisplay`, which displays a [badge](/docs/ui/components/badge) for each record with its title:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -38,23 +46,40 @@ using StellarAdmin.Resources.Displays;
 columns.Add(trip => trip.Tags, column => column.UseDisplay<BadgeDisplay>());
 ```
 
-Without `BadgeDisplay`, a collection of records is left out. If the related type isn't a resource, tell the badges what to show:
+StellarAdmin displays a collection of related records only with `BadgeDisplay`. Without it, StellarAdmin leaves out the column or the field, and reports a configuration problem.
+
+When the related type isn't a resource, call `UseText()` with the type of the records, and a function that returns the text of each badge:
 
 ```cs
 columns.Add(guide => guide.Trips, column =>
-    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name)));
+{
+    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name));
+});
 ```
 
-For one line of text instead of badges, use a [computed column](/docs/admin/columns#displaying-computed-values):
+To display the records as a line of text instead of badges, add a [computed column](/docs/admin/columns#displaying-computed-values) that joins their names:
 
 ```cs
-columns.Add(trip => string.Join(", ", trip.Tags.Select(tag => tag.Name)), column => column.Title = "Tags");
+columns.Add(trip => string.Join(", ", trip.Tags.Select(tag => tag.Name)), column =>
+{
+    column.Title = "Tags";
+});
 ```
 
-A collection column can only be sorted by an expression, such as `column.Sortable(trip => trip.Tags.Count)`.
+A column of a collection isn't sortable without an expression either. To make it sortable, pass `Sortable()` an expression that returns one value for each trip, such as the number of tags:
 
-## Long lists
+```cs
+columns.Add(trip => trip.Tags, column =>
+{
+    column.UseDisplay<BadgeDisplay>();
+    column.Sortable(trip => trip.Tags.Count);
+});
+```
 
-EF Core loads collections in the same query as the page. For long lists, like all of a customer's bookings, use [row details](/docs/admin/row-details) or [add them to the view page](/docs/admin/overriding-pages) instead.
+## Displaying long lists of related records
 
-To load collections in separate queries, configure your context with `UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)`.
+StellarAdmin loads the related records of a collection in the same query as the page, so a long collection, such as all of a customer's bookings, makes the query slow. Display a long collection in [row details](/docs/admin/row-details), which load when someone expands a row, or [add it to the view page](/docs/admin/view-pages#adding-content-to-the-page) instead.
+
+<Callout type="idea">
+  EF Core loads the collections in a single query, which repeats the record's columns for each related record. To load each collection in a separate query instead, configure your `DbContext` with `UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)`.
+</Callout>

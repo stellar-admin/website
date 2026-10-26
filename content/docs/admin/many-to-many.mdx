@@ -1,9 +1,11 @@
 ---
-title: Many-to-many
-description: Pick several related records
+title: Selecting several related records
+description: Select the records of a many-to-many relationship, with a multi-lookup or a choice editor
 ---
 
-On an EF Core resource, add a many-to-many navigation as a field, and it just works:
+A *many-to-many navigation*, such as `Trip.Tags`, holds the related records of a many-to-many relationship. On an EF Core resource, StellarAdmin renders a many-to-many navigation as a *multi-lookup*, which lets people search the related records and select several. The related type must be registered as a resource.
+
+The example below adds `Tags` to the trip edit page:
 
 ```cs
 public class Trip
@@ -15,50 +17,89 @@ public class Trip
 ```
 
 ```cs
-resource.AllowEdit(edit => edit.Fields(fields =>
+admin.AddEfCoreResource<Tag>(resource => { /* ... */ });
+
+admin.AddEfCoreResource<Trip>(resource =>
 {
-    fields.Add(trip => trip.Name);
-    fields.Add(trip => trip.Tags);
-}));
+    resource.AllowEdit(edit => edit.Fields(fields =>
+    {
+        fields.Add(trip => trip.Name);
+        fields.Add(trip => trip.Tags);
+    }));
+});
 ```
 
-With `Tag` registered as a resource, the field gets a multi-lookup. Saving adds and removes the rows in the join table. The navigation doesn't need a setter.
+The field displays the selected tags as chips, and its button opens a sheet that searches the tags. When people save the form, StellarAdmin adds and removes the rows of the join table. The navigation doesn't need a setter, as long as it's initialized, such as with `= []`.
 
-## Other editors
+If the related type isn't registered as a resource, StellarAdmin leaves the field off the form, and reports a [configuration problem](/docs/admin/configuration-problems).
 
-For a short list, checkboxes or chips are friendlier than a lookup:
+## Using a choice editor instead of a multi-lookup
+
+A multi-lookup suits a long list. For a short list, such as tags, a checkbox group or a toggle group lets people select the records without opening a sheet.
 
 ```cs
 fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
-fields.Add(trip => trip.Tags).UseToggleGroupEditor(tags => tags.Appearance = ToggleGroupAppearance.Chips);
 ```
 
-Those two and `UseMultiLookupSheetEditor` are the only editors that work here. A select picks one value, so it's left out and reported as a [configuration problem](/docs/admin/configuration-problems).
+A many-to-many navigation works with only these editors:
 
-The multi-lookup takes the same `Field`, `Sheet` and `EnableCreate` settings as the [single lookup](/docs/admin/foreign-keys#lookup-settings). Its `Layout` is `Chips`, `List` or `Summary`:
+| Editor | Method |
+| --- | --- |
+| Multi-lookup | `UseMultiLookupSheetEditor()` |
+| [Checkbox group](/docs/admin/choice-editors) | `UseCheckboxGroupEditor()` |
+| [Toggle group](/docs/admin/choice-editors) | `UseToggleGroupEditor()` |
+
+The editor you configure with a many-to-many navigation must support selecting multiple records. If you specify an editor that only supports selecting a single record, such as a select, StellarAdmin leaves the field off the form, and reports a configuration problem.
+
+## Configuring the multi-lookup
+
+To configure the multi-lookup, call `UseMultiLookupSheetEditor()`. It has the same `Sheet()` settings and `EnableCreate()` as the [lookup for a single record](/docs/admin/foreign-keys#configuring-the-lookup). With `EnableCreate()`, the **New** button is displayed at the bottom of the sheet.
+
+The example below displays each selected tag in its own row:
 
 ```cs
+using StellarAdmin.Resources.Editors;
+
 fields.Add(trip => trip.Tags).UseMultiLookupSheetEditor(lookup =>
-    lookup.Field(field => field.Layout = MultiLookupSheetEditorLayout.List));
+{
+    lookup.Field(field => field.Layout = MultiLookupSheetEditorLayout.List);
+});
 ```
 
-## How many
+`Field()` has these settings:
 
-`[MinLength]` and `[MaxLength]` on the navigation limit how many can be picked:
+| Setting | What it does |
+| --- | --- |
+| `Layout` | Sets how the selected records are displayed: `MultiLookupSheetEditorLayout.Chips` displays a chip for each record, `List` a row for each record with its media, title and description, and `Summary` a single row that names the first records and counts the others. The default is `Chips`. |
+| `EmptyText` | Sets the text of the button while nothing is selected. |
+| `ShowMedia` | Sets whether the media of the selected records is displayed. The default is `true`. |
+
+## Limiting the number of records
+
+Add `[MinLength]` and `[MaxLength]` to the navigation property to require a minimum or maximum number of related records to be selected.
 
 ```cs
 [MinLength(1), MaxLength(3)]
 public List<Tag> Tags { get; set; } = [];
 ```
 
-## When it doesn't work
+## Relationships StellarAdmin can't edit
 
-This works when EF Core maps the join table without an entity type of its own. If you have a join entity, like `TripTag` with extra columns, or the related entity has a composite key, the field is left out. Use a [form model](/docs/admin/custom-models) with a list of keys, and a handler that saves the join rows:
+StellarAdmin allows editing a many-to-many navigation that goes straight to the related entity, such as `Trip.Tags`, when the related entity has a single-property primary key. The following is not supported:
+
+- A navigation to a join entity, such as `Trip.TripTags`, to a `TripTag` entity with columns of its own.
+- A navigation to an entity with a composite primary key.
+- A many-to-many navigation in an [inline row](/docs/admin/inline-editing), because the grid has no editor that selects several records.
+
+For a join entity or a composite key, use a [custom model](/docs/admin/custom-models) with a list of keys, and save the join rows yourself. The example below selects the tags of a `TripForm` by their keys:
 
 ```cs
-fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup => lookup.UseResource<Tag>());
+fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup =>
+{
+    lookup.UseResource<Tag>();
+});
 ```
 
-## Showing them
+## Displaying the related records
 
-Columns and view fields show the related records as badges with `BadgeDisplay`. See [showing related values](/docs/admin/related-values).
+To display the related records in the grid or on the view page, use `BadgeDisplay`. See [displaying related records](/docs/admin/related-values#displaying-several-related-records).

@@ -124,7 +124,7 @@ Apply the search, scope and sort before paging. Return the total number of match
 | Result | Meaning |
 | --- | --- |
 | `Success()` | The record was saved or deleted. |
-| `Success(key)` | The record was saved, with the new record's key. Return this from `CreateAsync()` when the create page uses a [custom model](/docs/admin/custom-models), so that a [lookup](/docs/admin/foreign-keys#creating-from-a-lookup) can select the new record. |
+| `Success(key)` | The record was saved, with the new record's key. Return this from `CreateAsync()` when the create page uses a [custom model](/docs/admin/custom-models), so that a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup) can select the new record. |
 | `NotFound()` | The record doesn't exist any more. |
 | `ValidationFailed(field, message)` | The form is displayed again, with the error on that field. Pass `null` as the field for an error that isn't about one field. |
 

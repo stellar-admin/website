@@ -1,9 +1,11 @@
 ---
-title: Foreign keys
-description: Pick related records with a lookup or a select
+title: Selecting a related record
+description: Select the record a foreign key refers to, with a lookup or a choice editor
 ---
 
-When a field is a foreign key, like `Booking.CustomerId`, you want people to pick a customer, not type a number. Register the related type as a resource, and EF Core forms do the rest:
+A *foreign key*, such as `Booking.CustomerId`, stores the key of a related record. On an EF Core resource, StellarAdmin renders a foreign key as a *lookup*, which lets people search the related records and select one. The related type must be registered as a resource.
+
+The example below registers customers as a resource, and adds `CustomerId` to the booking create page:
 
 ```cs
 admin.AddEfCoreResource<Customer>(resource => { /* ... */ });
@@ -17,31 +19,36 @@ admin.AddEfCoreResource<Booking>(resource =>
 });
 ```
 
-`CustomerId` now gets a lookup: the field shows the selected customer, and Choose opens a sheet that searches as you type. It's labeled "Customer", after the resource. How customers look, search and sort in it comes from the Customer resource's [reference settings](/docs/admin/titles-and-references).
+The field is labeled with the related resource's name, **Customer**, and displays the selected customer. Its **Choose customer** button opens a sheet that lists the customers, and searches them as people type. The title, description and media of each customer, and how the sheet searches and sorts them, come from the [title and reference information](/docs/admin/titles-and-references) of the Customer resource.
 
-Without a Customer resource, the field stays a number input, and the panel reports a [configuration problem](/docs/admin/configuration-problems) to tell you.
+If the related type isn't registered as a resource, StellarAdmin renders the foreign key with its property's default editor, such as a number input, and reports a [configuration problem](/docs/admin/configuration-problems).
 
-## A select instead
+## Using a choice editor instead of a lookup
 
-For a short list, a select is quicker:
-
-```cs
-fields.Add(trip => trip.GuideId).UseSelectEditor(select => select.EmptyChoiceText = "No guide yet");
-```
-
-Any [choice editor](/docs/admin/choice-editors) works. A radio group with `Appearance = RadioGroupAppearance.Cards` shows each record as a card, with the resource's description and media.
-
-## Creating from a lookup
-
-`EnableCreate` adds a New button to the lookup. It opens the related resource's create form in a sheet, and selects the new record when it's saved:
+A lookup suits a long list, such as customers. For a short list, such as a trip's guide, a [choice editor](/docs/admin/choice-editors) (such as a select) lets people select the record without opening a sheet.
 
 ```cs
-fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup => lookup.EnableCreate());
+fields.Add(trip => trip.GuideId).UseSelectEditor();
 ```
 
-The related resource needs `AllowCreate`. People who aren't allowed to use that resource don't see New.
+## Creating a record from a lookup
 
-## Lookup settings
+When the record people need doesn't exist yet, they can create it from the lookup. Call `EnableCreate()` to add a **New** button, which opens the create page of the related resource in a sheet, and selects the new record when it's saved:
+
+```cs
+fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
+{
+    lookup.EnableCreate();
+});
+```
+
+The **New** button is displayed beside **Choose customer** while nothing is selected, and in the sheet when a search finds nothing.
+
+The related resource must have a [create page](/docs/admin/forms), enabled with `AllowCreate()`. If it doesn't, StellarAdmin doesn't display the button, and reports a configuration problem. People who aren't [authorized](/docs/admin/authorization) to use the related resource don't see the button.
+
+## Configuring the lookup
+
+To configure the lookup, call `UseLookupSheetEditor()`. Call `Field()` to configure the field on the form, and `Sheet()` to configure the sheet that searches the records. The example below displays the selected customer in a single row, and sets the sheet's title and search hint:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -57,42 +64,97 @@ fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
 });
 ```
 
-| On | Settings |
+`Field()` has these settings:
+
+| Setting | What it does |
 | --- | --- |
-| `Field` | `Layout` (`Card` or `Input`), `EmptyText`, `AllowClear`, `ShowMedia` |
-| `Sheet` | `Title`, `SearchPlaceholder`, `MinimumSearchLength`, `PageSize` (20 by default), `ShowMedia` |
+| `Layout` | Sets how the selected record is displayed: `LookupSheetEditorLayout.Input` displays its media and title in a single row, and `Card` adds its description in a taller row. The default is `Card` when the records have a description, and `Input` otherwise. |
+| `EmptyText` | Sets the text of the button while nothing is selected. The default is "Choose customer", named after the field's label. |
+| `AllowClear` | Sets whether people can clear the selection. The default is `null`, which allows it when the field is optional. |
+| `ShowMedia` | Sets whether the selected record's media is displayed. The default is `true`. |
 
-The fixed texts, like "Choose customer", "New" and "Load more", are [global labels](/docs/admin/global-labels).
+`Sheet()` has these settings:
 
-## Form models
+| Setting | What it does |
+| --- | --- |
+| `Title` | Sets the sheet's title. The default is the field's label. |
+| `SearchPlaceholder` | Sets the hint text in the search input. |
+| `MinimumSearchLength` | Sets the number of characters people must type before the sheet searches. The default is 0, which lists the records when the sheet opens. |
+| `PageSize` | Sets the number of records loaded at a time. The sheet displays a **Load more** button for the next ones. The default is 20. |
+| `ShowMedia` | Sets whether each record's media is displayed. The default is `true`. |
 
-A [custom form model](/docs/admin/custom-models) has no foreign key metadata, so name the resource:
+To change the lookup's other text, such as **New** and **Load more**, for every lookup, see [global labels](/docs/admin/global-labels).
+
+## Selecting a related record on a custom model
+
+On a [custom model](/docs/admin/custom-models), StellarAdmin doesn't know which resource a property refers to, so the field needs `UseResource()` with the related resource's type:
 
 ```cs
-fields.Add(form => form.CustomerId).UseLookupSheetEditor(lookup => lookup.UseResource<Customer>());
+fields.Add(form => form.CustomerId).UseLookupSheetEditor(lookup =>
+{
+    lookup.UseResource<Customer>();
+});
 ```
 
-`UseResource<T>()` is on every choice editor and both lookups.
+Every choice editor and lookup has `UseResource()`.
 
-## Related types that aren't resources
+## Selecting records that aren't a resource
 
-Countries, cities and other reference data often don't need pages of their own. Load them straight from EF Core with `UseItems`:
+Reference data, such as countries, often doesn't need pages of its own in the admin panel. To list the records of an EF Core entity that isn't registered as a resource, call `UseItems()` with the entity's type, an expression for the value the field stores, and an expression for the title:
 
 ```cs
 using StellarAdmin.EntityFrameworkCore;
 
 fields.Add(destination => destination.CountryId).UseSelectEditor(select =>
-    select.UseItems<Country>(
-        country => country.Id,
-        country => country.Name,
-        items => items.OrderBy(country => country.Name)));
+{
+    select.UseItems<Country>(country => country.Id, country => country.Name);
+});
 ```
 
-The value has to match the field's type. The items builder also has `UseDescription`, `UseGroup`, and `UseIcon`, `UseAvatar`, `UseImage` or `UseCode` for media. On a lookup, `SearchOn` sets what the search matches.
+The value must have the type of the field's property. StellarAdmin loads the records from the registered `DbContext` that maps the entity.
 
-## Lookups without EF Core
+To configure the records, pass a callback as the third argument. The example below displays each country's ISO code in a lookup, and searches both the name and the code:
 
-For data from an API or another store, write a `LookupSource`:
+```cs
+fields.Add(destination => destination.CountryId).UseLookupSheetEditor(lookup =>
+{
+    lookup.UseItems<Country>(
+        country => country.Id,
+        country => country.Name,
+        items => items
+            .UseCode(country => country.IsoCode)
+            .SearchOn(country => country.Name, country => country.IsoCode));
+});
+```
+
+The callback has these methods:
+
+| Method | What it does | Choice editors | Lookups |
+| --- | --- | --- | --- |
+| `OrderBy()` | Orders the records by a property. Without it, a lookup orders the records by their title, and a choice editor lists them in the order the database returns them. | <Yes /> | <Yes /> |
+| `UseDescription()` | Displays a description under each record's title. | <Yes /> | <Yes /> |
+| `UseAvatar()`, `UseCode()`, `UseIcon()`, `UseImage()` | Displays an avatar, a short code, an icon or an image beside each record's title. | <Yes /> | <Yes /> |
+| `UseGroup()` | Groups the records under headings. | <Yes /> | <No /> |
+| `SearchOn()` | Sets the properties the search matches. The default is the title. | <No /> | <Yes /> |
+| `UseDbContext<TContext>()` | Loads the records from another `DbContext`. | <Yes /> | <Yes /> |
+| `Where()` | Filters the records by the values of other fields on the form. See [filtering options by another field](/docs/admin/dependent-fields). | <Yes /> | <Yes /> |
+
+## Selecting records from another service
+
+When the records come from an API or another store, write a *lookup source* that searches them. The lookup source derives from `LookupSource<TItem, TValue>`, where `TItem` is the type of the records and `TValue` is the type of the value the field stores. It must implement these methods:
+
+| Method | What it must do |
+| --- | --- |
+| `GetValue()` | Return the value the field stores for a record. |
+| `GetTitle()` | Return a record's title. |
+| `FindAsync()` | Return the records with the given values, which are the records already selected. Leave out the values that have no record. |
+| `SearchAsync()` | Return a page of the records that match the search. |
+
+`SearchAsync()` receives a `LookupQuery`, whose `Term` holds the search term, or `null` when the search input is empty, and whose `Skip` and `Take` hold the page of records to return. It returns a `LookupPage`, with the records and whether more records follow them.
+
+To display a description with each record, override `GetDescription()`. To display media, override one of `GetAvatar()`, `GetCode()`, `GetIcon()` or `GetImage()`.
+
+The example below looks up airports with an `AirportClient`, and displays each airport's code beside its city:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -100,23 +162,42 @@ using StellarAdmin.Resources.Editors;
 public class AirportSource(AirportClient client) : LookupSource<Airport, string>
 {
     public override string GetValue(Airport airport) => airport.Code;
+
     public override string GetTitle(Airport airport) => airport.City;
+
     public override string? GetCode(Airport airport) => airport.Code;
 
     public override Task<IReadOnlyCollection<Airport>> FindAsync(
-        IReadOnlyCollection<string> values, CancellationToken cancellationToken) =>
-        client.FindAsync(values, cancellationToken);
+        IReadOnlyCollection<string> values,
+        CancellationToken cancellationToken)
+    {
+        return client.FindAsync(values, cancellationToken);
+    }
 
-    public override Task<LookupPage<Airport>> SearchAsync(
-        LookupQuery query, CancellationToken cancellationToken) =>
-        client.SearchAsync(query.Term, query.Skip, query.Take, cancellationToken);
+    public override async Task<LookupPage<Airport>> SearchAsync(
+        LookupQuery query,
+        CancellationToken cancellationToken)
+    {
+        // Loads one more airport than the page holds, to find out whether more follow
+        var airports = await client.SearchAsync(
+            query.Term, query.Skip, query.Take + 1, cancellationToken);
+
+        return new LookupPage<Airport>(
+            airports.Take(query.Take).ToList(),
+            airports.Count > query.Take);
+    }
 }
 ```
 
+To use the lookup source, call `UseSource()` with its type:
+
 ```cs
-fields.Add(guide => guide.HomeBase).UseLookupSheetEditor(lookup => lookup.UseSource<AirportSource>());
+fields.Add(guide => guide.HomeAirport).UseLookupSheetEditor(lookup =>
+{
+    lookup.UseSource<AirportSource>();
+});
 ```
 
-`FindAsync` loads the records already picked. `SearchAsync` gets the search term (`null` when empty) and the page to return. The source can take services in its constructor.
+StellarAdmin resolves the lookup source from dependency injection. If it isn't registered, StellarAdmin creates it, with the services its constructor takes.
 
-A resource with a [custom data source](/docs/admin/custom-data-sources) doesn't need a lookup source: `UseResource<T>()` loads its records through `ListAsync`.
+A resource with a [custom data source](/docs/admin/custom-data-sources) doesn't need a lookup source, because `UseResource()` loads its records with the data source's `ListAsync()` method.

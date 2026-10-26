@@ -11,7 +11,7 @@ description: Common problems when you first set up the panel
 | Anyone can open the panel | There's no [`RequireAuthorization`](/docs/admin/authorization), or the authorization middleware is missing. |
 | A resource's pages return 404 | It has an error. Check the [configuration problems](/docs/admin/configuration-problems) pill or the log. Often no registered `DbContext` maps the entity, or more than one does: register it with `AddDbContext`, or pick one with `resource.UseDbContext<TContext>()`. |
 | A resource is at a different URL than you expected | The slug is the kebab-case plural of the type: `TripExtra` is at `/stellaradmin/trip-extras`. |
-| A foreign key shows a number box | Register the related type as a resource. See [foreign keys](/docs/admin/foreign-keys). |
+| A foreign key shows a number box | Register the related type as a resource. See [selecting a related record](/docs/admin/foreign-keys). |
 | No Create or Edit button | `AllowCreate` or `AllowEdit` isn't called for the resource. |
 | Dates start at 0001-01-01 on create | Set defaults with [`UseFactory`](/docs/admin/default-values). |
 | Signed-in users without access land on a 404 | Cookie authentication sends them to `/Account/AccessDenied`. Add that page, or set `AccessDeniedPath`. |
