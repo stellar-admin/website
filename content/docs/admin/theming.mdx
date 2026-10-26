@@ -1,9 +1,34 @@
 ---
 title: Theming
-description: Change how the panel looks with a theme file
+description: Change how the admin panel looks with a theme, and add your own stylesheets and scripts
 ---
 
-The panel is built with [StellarAdmin.UI](/docs/ui) and uses its themes. A theme is a CSS file of variables that you load after the panel's own stylesheet:
+The admin panel is built with the [StellarAdmin.UI components](/docs/ui), and uses the same themes. A theme is a CSS file that sets the [theme variables](/docs/ui/theme-variables), such as the colors, fonts and corner radius. Without one, the admin panel uses the [default theme](/docs/ui/theming#the-default-theme).
+
+To use a theme, save its file in your app's `wwwroot` folder, and add it with `AddStylesheet()`:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddStylesheet("~/css/theme.css");
+});
+```
+
+StellarAdmin loads your stylesheets after its own, in the order you add them, so the theme's variables replace the default ones.
+
+## Making a theme
+
+You can make a theme in any of these ways:
+
+- Start from a preset in the [theme builder](/theme-builder), change it, and download the file.
+- Ask your coding agent to make one, with the [stellar-admin-theme skill](/docs/ui/agent-skills#creating-a-theme).
+- Write one by hand from the [theme variables](/docs/ui/theme-variables).
+
+A theme has a light and a dark variant. See [dark mode](/docs/ui/dark-mode).
+
+## Adding fonts
+
+When the theme uses a web font, add the font's stylesheet before the theme. The example below loads Lexend from Google Fonts:
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
@@ -13,30 +38,18 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-Stylesheets load after the panel's, in the order you add them. Add any web fonts your theme needs the same way.
+See [fonts](/docs/ui/theming#fonts) for how a theme sets its fonts.
 
-To make a theme:
+## Adding your own stylesheets and scripts
 
-- Start from a preset in the [theme builder](/theme-builder), tweak it, and export the file.
-- Ask your coding agent, with the [stellar-admin-theme skill](/docs/ui/agent-skills#creating-a-theme).
-- Write one by hand from the [theme variables](/docs/ui/theme-variables).
+StellarAdmin's stylesheet only has the classes its own components use. To use other classes, such as Tailwind classes, in your [custom pages](/docs/admin/host-pages) or [custom editors](/docs/admin/custom-editors), add a stylesheet that has them with `AddStylesheet()`.
 
-See [theming](/docs/ui/theming) in the StellarAdmin.UI docs for how themes work, and [dark mode](/docs/ui/dark-mode) for the light and dark variants.
-
-## Form layout
-
-How form sections look is a panel setting rather than part of the theme:
-
-```cs
-admin.ConfigureUI(ui => ui.ConfigureForms(forms => forms.SectionLayout = FormSectionLayout.Card));
-```
-
-See [form layout](/docs/admin/form-layout#choosing-how-sections-look).
-
-## Scripts
-
-`AddScript` adds your own scripts to every panel page, after the panel's:
+To add a script to every page of the admin panel, call `AddScript()`:
 
 ```cs
 admin.AddScript("~/js/admin.js");
 ```
+
+StellarAdmin loads your scripts with `defer`, after its own, in the order you add them.
+
+Pass `AddStylesheet()` and `AddScript()` an absolute URL, or a path in your app that starts with `~/`. Adding the same path twice adds it once.

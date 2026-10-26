@@ -1,9 +1,9 @@
 ---
 title: Global labels
-description: Change the panel's text for every resource at once
+description: Change the default text of every resource's pages at once
 ---
 
-Page titles, button labels and messages follow patterns like `Create {singular}` and `Edit {singular}`. `ConfigureResourceLabels` changes those patterns for every resource:
+StellarAdmin builds the default text of each resource's pages from the resource's [labels](/docs/admin/resources), such as "Create Trip" for the create page's title, and "Search Trips..." for the search box. To change the default text for all resources, call `ConfigureResourceLabels()`. The example below changes the create button, the search box and the submit buttons:
 
 ```cs
 admin.ConfigureResourceLabels(labels =>
@@ -19,33 +19,71 @@ admin.ConfigureResourceLabels(labels =>
 });
 ```
 
-Each label is a function that gets the resource's `SingularLabel` and `PluralLabel`. Settings on a single page, like `create.Title`, still win.
+Each setting is a function that returns the text. Its parameter is a `ResourceLabelContext`, with the resource's `SingularLabel` and `PluralLabel`. 
+
+Text you specify on a specific resource's configuration, such as `edit.Title` in `AllowEdit()`, overrides the global default for that resource.
 
 ## What you can change
 
-| Group | Labels |
-| --- | --- |
-| `Index` | `Title`, `CreateLabel`, `EditLabel`, `ViewLabel`, `DeleteLabel`, `SearchPlaceholder`, and the [inline editing](/docs/admin/inline-editing#changing-the-labels) texts |
-| `Create` | `Title`, `SubmitLabel`, `AddAnotherLabel` |
-| `Edit` | `Title`, `SubmitLabel` |
-| `View` | `Title` |
-| `Delete` | `Title`, `Message`, `ConfirmLabel`, `CancelLabel` |
-| `Lookup` | `ChooseLabel`, `CreateLabel`, `NoneText`, `LoadMoreLabel`, `NoResultsTitle` and more |
-| `ListEditor`, `DictionaryEditor` | `AddText`, `EmptyText`, `RemoveLabel`, the item count and the error messages |
-| `Sheet` | `ErrorTitle`, `ErrorDescription`, `SaveErrorDescription`, `RetryLabel` |
+Call the method for the part of the admin panel you want to change, and set its properties in the callback:
 
-Lookup and editor labels get the field's label too:
+| Method | Properties |
+| --- | --- |
+| `Index()` | `Title`, `CreateLabel`, `EditLabel`, `ViewLabel`, `DeleteLabel` and `SearchPlaceholder`, and the [inline editing](/docs/admin/inline-editing#changing-the-labels) texts |
+| `Create()` | `Title`, `SubmitLabel` and `AddAnotherLabel` |
+| `Edit()` | `Title` and `SubmitLabel` |
+| `View()` | `Title` |
+| `Delete()` | `Title`, `Message`, `ConfirmLabel` and `CancelLabel` of the delete confirmation |
+| `Lookup()` | The text of the [lookups](/docs/admin/foreign-keys), such as `ChooseLabel`, `CreateLabel`, `LoadMoreLabel` and `NoResultsTitle` |
+| `ListEditor()`, `DictionaryEditor()` | The text of the [list and dictionary editors](/docs/admin/list-and-dictionary-editors), such as `AddText` and `EmptyText`, and their error messages |
+| `Sheet()` | `ErrorTitle`, `ErrorDescription`, `SaveErrorDescription` and `RetryLabel`, displayed when a sheet can't load or save |
+
+The `Sheet()` properties are strings, not functions, because they don't depend on the resource:
+
+```cs
+labels.Sheet(sheet => sheet.RetryLabel = "Reload");
+```
+
+## Changing the text of lookups and editors
+
+The functions of `Lookup()`, `ListEditor()` and `DictionaryEditor()` take a parameter about the field instead of the resource, with the field's label in `FieldLabel`:
 
 ```cs
 admin.ConfigureResourceLabels(labels =>
 {
-    labels.Lookup(lookup => lookup.ChooseLabel = context => $"Select {context.FieldLabel}");
-    labels.ListEditor(list => list.AddText = context => $"Add to {context.FieldLabel.ToLower()}");
+    labels.Lookup(lookup => lookup.ChooseLabel = field => $"Select {field.FieldLabel.ToLower()}");
+    labels.ListEditor(list => list.AddText = field => $"Add to {field.FieldLabel.ToLower()}");
 });
 ```
 
-In list and dictionary texts, `{n}`, `{count}` and `{value}` are filled in as rows change.
+Some list and dictionary texts contain a number or a value that StellarAdmin fills in, such as the number of items on the row with the add button. To include it in your text, put its placeholder in the text you return. The example below sets texts with placeholders for every list and dictionary editor:
 
-## Translating the panel
+```cs
+admin.ConfigureResourceLabels(labels =>
+{
+    labels.ListEditor(list =>
+    {
+        list.CountText = _ => "{count} added";
+        list.DuplicateText = _ => "{value} is already added";
+        list.RemoveLabel = _ => "Delete item {n}";
+    });
+    labels.DictionaryEditor(dictionary =>
+        dictionary.DuplicateText = _ => "The key {value} is taken");
+});
+```
 
-This is the panel's only way to change its text. There's no `IStringLocalizer` support yet, but the functions can call your own translations. Field labels come from `[Display(Name)]`, which supports resource types.
+These are the texts with placeholders:
+
+| Text | Placeholder | Replaced with |
+| --- | --- | --- |
+| `CountText` | `{count}` | The number of items or entries, displayed on the row with the add button when there is a maximum. |
+| `DuplicateText` | `{value}` | The item that is already in the list, or the key that is already used. |
+| `ItemLabel` (lists only) | `{n}` | The item's number, in its label for screen readers. |
+| `MoveLabel` (lists only) | `{n}` | The item's number, in the drag handle's label for screen readers. |
+| `RemoveLabel` | `{n}` | The item's or entry's number, in the remove button's label for screen readers. |
+
+## Translating the admin panel
+
+StellarAdmin doesn't use `IStringLocalizer`. To translate the admin panel's text, return your translations from the functions. StellarAdmin calls the functions for every request, so they can use the request's culture.
+
+Field labels come from the fields' configuration or from `[Display(Name = ...)]`. To translate them, set `ResourceType` on the `[Display]` attribute.
