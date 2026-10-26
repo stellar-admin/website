@@ -1,9 +1,9 @@
 ---
 title: Authorization
-description: Decide who can use the panel, and which resources
+description: Control who can use the admin panel and each resource
 ---
 
-The panel is open to anyone who can reach your app until you require authorization. Do this before you deploy.
+By default, your admin panel is unsecured and anyone who can access your application can access the admin panel. To require authorization for the admin panel, call `RequireAuthorization()` in `AddStellarAdmin`. The example below only lets signed-in users with the Staff role use the admin panel:
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
@@ -12,52 +12,66 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-`RequireAuthorization` takes the same arguments as endpoint `RequireAuthorization` in ASP.NET Core:
+`RequireAuthorization()` takes the same arguments as ASP.NET Core's `RequireAuthorization()` for endpoints:
 
-| Argument | Allows |
+| Argument | Who can use the admin panel |
 | --- | --- |
-| Nothing | Any signed-in user |
-| `"Sales"` | Users who meet the `Sales` policy, registered with `AddAuthorization` |
-| `policy => policy.RequireRole("Sales")` | Users who meet the requirements you build |
-| An `AuthorizationPolicy` or `IAuthorizeData` | Whatever they say |
+| None | Any signed-in user |
+| Policy names, such as `"Staff"` | Users who meet the named policies, which you register with `AddAuthorization()` |
+| A delegate, such as `policy => policy.RequireRole("Staff")` | Users who meet the policy the delegate builds |
+| An `AuthorizationPolicy` | Users who meet the policy |
+| One or more `IAuthorizeData`, such as `AuthorizeAttribute` | Users who meet all of them |
 
-`app.MapStellarAdmin().RequireAuthorization(...)` works too.
+If you call `RequireAuthorization()` more than once, users must meet every requirement. You can also call `RequireAuthorization()` on `app.MapStellarAdmin()` instead, which has the same effect.
 
-Anonymous users get the authentication challenge, and signed-in users without access get forbidden. With cookie authentication both are redirects, to `/Account/Login` and `/Account/AccessDenied` by default, so make sure those pages exist, or set `LoginPath` and `AccessDeniedPath`.
+StellarAdmin uses standard ASP.NET Core authorization, so your app must set up authentication and authorization as usual, including calling `app.UseAuthorization()`.
 
-The app needs authorization middleware: `app.UseAuthorization()` after `app.UseRouting()`.
+When someone who isn't signed in opens the admin panel, ASP.NET Core asks them to sign in. When someone is signed in but doesn't meet the requirements, ASP.NET Core denies them access. With cookie authentication, both redirect to a page, which is `/Account/Login` or `/Account/AccessDenied` by default. Make sure your app has these pages, or set the cookie's `LoginPath` and `AccessDeniedPath` to your own pages.
 
-## Per resource
+<Callout type="info">
+In the Development environment, the setup checklist on the admin panel's [home page](/docs/admin/home-page) shows whether the admin panel requires authorization.
+</Callout>
 
-A resource can add its own requirement on top of the panel's:
+## Requiring authorization for a resource
+
+To require authorization for a single resource, call `RequireAuthorization()` on the resource. It takes the same arguments as the admin panel's `RequireAuthorization()`, and users must meet both. The example below only lets users with the Sales role use the Customers resource:
 
 ```cs
-admin.AddEfCoreResource<Customer>(resource =>
+builder.Services.AddStellarAdmin(admin =>
 {
-    resource.RequireAuthorization(policy => policy.RequireRole("Sales"));
+    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
+
+    admin.AddEfCoreResource<Customer>(resource =>
+    {
+        resource.RequireAuthorization(policy => policy.RequireRole("Sales"));
+    });
 });
 ```
 
-That covers every page of the resource, and hides it from the sidebar for people who don't meet it.
+The requirement covers every page of the resource. StellarAdmin also hides the resource from the sidebar and the home page for users who don't meet it.
 
-Picking a customer in a booking's lookup doesn't need access to the Customers resource. People who can't use the resource just don't see the lookup's New button.
+A user who can't use the Customers resource can still select a customer in a [lookup](/docs/admin/foreign-keys) on another resource, such as a booking's customer. StellarAdmin hides the lookup's **New** button from them, since it opens the Customers resource's create page.
 
-## What protects what
+## What each setting protects
 
-| Call | Protects | Hides in the sidebar |
+Only the admin panel's and the resources' requirements stop people from opening pages. The other settings only hide items from the sidebar:
+
+| Setting | Stops people from opening | Hides from the sidebar |
 | --- | --- | --- |
-| `admin.RequireAuthorization(...)` | Every panel page | |
-| `resource.RequireAuthorization(...)` | The resource's pages | The resource |
-| `link.RequireAuthorization(...)` | **Nothing** | The link |
-| `[Authorize]` on your own page | That page | |
+| `admin.RequireAuthorization()` | Every page of the admin panel | |
+| `resource.RequireAuthorization()` | Every page of the resource | The resource |
+| `link.RequireAuthorization()` on a [sidebar link](/docs/admin/sidebar#hiding-a-link-from-some-people) | Nothing | The link |
+| `item.Visible = false` on a [resource's sidebar item](/docs/admin/sidebar#configuring-a-resources-item) | Nothing | The resource |
+| `[Authorize]` on your own page or controller | That page, or the controller's pages | |
 
-A [sidebar link](/docs/admin/sidebar#hiding-a-link-from-some-people) only points somewhere outside the panel, so its requirement can only hide it. Protect the page it links to with `[Authorize]`. The same goes for `item.Visible = false`: it hides the item, but the pages are still there.
+A sidebar link points to one of your own pages, so StellarAdmin can't protect that page. Add `[Authorize]` to the page or its controller.
 
-## What isn't covered
+## What StellarAdmin doesn't protect
 
-- **Per-action rules**, like "everyone can view, only managers can delete", aren't supported. Leave the action off for the resource, or check it in a [custom handler](/docs/admin/custom-models) and return `ValidationFailed`.
-- **Per-record rules.** [Scopes](/docs/admin/scopes) are filters, not security. Use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources) to limit which records someone sees.
+StellarAdmin can't require authorization for a single action of a resource. For example, you can't let everyone view a resource and only let managers delete. To do that, leave the action off the resource, or check the user in a [custom handler](/docs/admin/custom-models) and return `ResourceOperationResult.ValidationFailed()`. To get the user in the handler, inject `IHttpContextAccessor`.
+
+StellarAdmin also can't restrict which records a user can access. [Scopes](/docs/admin/scopes) only filter the index page, and anyone can select any scope by changing the URL. To hide records from some users, use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources).
 
 ## Signing out
 
-Signed-in users get a [user menu](/docs/admin/user-menu) with Log out in the sidebar footer.
+When someone is signed in, the sidebar displays the [user menu](/docs/admin/user-menu), which has a **Log out** menu item.
