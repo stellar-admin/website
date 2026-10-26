@@ -1,9 +1,11 @@
 ---
 title: Images
-description: Upload images, and show them in the grid and on view pages
+description: Upload images, and store a reference to them
 ---
 
-`ImageEditor` edits a string property that refers to an image: a file name, a storage key or a URL. People pick or drop a file, it uploads straight away, and your code decides where it goes.
+The *image editor* uploads an image, and stores a reference to the image in a `string` property, such as a file name, a storage key or a URL. When someone chooses or drops a file, the editor uploads it straight away, and your code decides where to store it.
+
+To use the image editor, call `UseImageEditor()` and pass `StoreImage()` a function that saves the file.
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -12,38 +14,54 @@ fields.Add(destination => destination.Photo).UseImageEditor(image =>
 {
     image.StoreImage((file, services, cancellationToken) =>
         services.GetRequiredService<IPhotoStore>().SaveAsync(file, cancellationToken));
-    image.ResolveUrl(value => $"https://cdn.voyager.travel/photos/{value}");
 });
 ```
 
-- **`StoreImage`** gets the uploaded `IFormFile`, saves it wherever you keep images, and returns the value to store in the property. It's required: without it, the field is left off the form and reported as a [configuration problem](/docs/admin/configuration-problems).
-- **`ResolveUrl`** turns the stored value into a URL for the preview. Leave it out if you store URLs.
+When someone uploads an image, StellarAdmin checks the file's size and type, and then calls the `StoreImage()` function with the uploaded `IFormFile`. The function must save the file and return a `string`, which StellarAdmin stores in the property when the form is saved. The string can't be empty, because an empty value fails the upload.
 
-The upload happens before the form is saved, but the record only changes when it is. Until then, a replaced or removed image can be put back.
-
-## Showing images
-
-Use `ImageDisplay` in columns and on the view page, with the same resolver:
+The example below saves the photo in the app's `wwwroot/photos` folder, and returns the file name:
 
 ```cs
-using StellarAdmin.Resources.Displays;
+public class PhotoStore(IWebHostEnvironment environment) : IPhotoStore
+{
+    public async Task<string> SaveAsync(IFormFile file, CancellationToken cancellationToken)
+    {
+        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        var path = Path.Combine(environment.WebRootPath, "photos", fileName);
 
-columns.Add(destination => destination.Photo, column =>
-    column.UseDisplay<ImageDisplay>(image =>
-        image.ResolveUrl(value => $"https://cdn.voyager.travel/photos/{value}")));
+        await using var stream = File.Create(path);
+        await file.CopyToAsync(stream, cancellationToken);
+
+        return fileName;
+    }
+}
 ```
 
-In the grid it's a small square thumbnail. On view pages and forms it's a bigger figure that opens in a lightbox. `Size`, `AspectRatio`, `Fit` and `Interaction` change that. See [built-in displays](/docs/admin/displays).
+If the property value isn't a URL the browser can load, specify a `ResolveUrl()` function that turns the property value into one.
 
-`ResolveUrl` runs once per row in the grid, so build the URL rather than querying for it. There's also an async version, `ResolveUrl(async (value, services, cancellationToken) => ...)`, for when you need a service.
+```cs
+using StellarAdmin.Resources.Editors;
 
-## Settings
+fields.Add(destination => destination.Photo).UseImageEditor(image =>
+{
+    image.StoreImage(...);
+    image.ResolveUrl(value => $"/photos/{value}");
+});
+```
 
-| Setting | What it does |
-| --- | --- |
-| `Layout` | `ImageEditorLayout.Dropzone` (the default), `Compact` or `Attachment`. |
-| `MaxFileSize` | In bytes. Defaults to 5 MB. |
-| `AcceptedTypes` | Defaults to JPEG, PNG, WebP, GIF and AVIF. SVG isn't accepted unless you add it. |
+To build the URL with a service registered with dependency injection, pass a function that also takes the services and a cancellation token: `ResolveUrl(async (value, services, cancellationToken) => ...)`.
+
+To display the image in the grid or on the view page, use the [`ImageDisplay`](/docs/admin/displays#images) display type, with the same `ResolveUrl()` function.
+
+The record changes only when the form is saved, even though the image uploads straight away. Until then, people can undo replacing or removing the image.
+
+<Callout type="warn">
+The image editor needs `StoreImage()`. Without it, StellarAdmin leaves the field off the form, and reports a [configuration problem](/docs/admin/configuration-problems).
+</Callout>
+
+## Changing the editor's settings
+
+The example below uses the compact layout for a guide's photo, and accepts files up to 10 MB:
 
 ```cs
 fields.Add(guide => guide.Photo).UseImageEditor(image =>
@@ -55,14 +73,20 @@ fields.Add(guide => guide.Photo).UseImageEditor(image =>
 });
 ```
 
-The editor is the [image upload](/docs/ui/components/image-upload) component.
+| Setting | What it does |
+| --- | --- |
+| `Layout` | Sets how the editor is laid out: `ImageEditorLayout.Dropzone`, a drop zone that displays the image with replace and remove buttons over it; `Compact`, a thumbnail beside upload and remove buttons; or `Attachment`, a row with the thumbnail and the file's name. The default is `Dropzone`. |
+| `MaxFileSize` | Sets the largest file the editor accepts, in bytes. The default is 5 MB. |
+| `AcceptedTypes` | Sets the media types the editor accepts, such as `image/png`. The default is JPEG, PNG, WebP, GIF and AVIF. To accept SVG files, add `image/svg+xml`. |
 
-## Security
+The image editor is rendered as an [image upload](/docs/ui/components/image-upload).
 
-The upload endpoint uses the resource's authorization and antiforgery checks. It checks the size and type again on the server, and recognises JPEG, PNG, GIF, WebP and AVIF by their content, so a renamed file is rejected. The request body limit is raised to `MaxFileSize` for that request only.
+In an [inline row](/docs/admin/inline-editing), the image editor is a thumbnail button. If someone saves the row while an image is uploading, StellarAdmin asks them to wait for the upload, and doesn't save the row.
 
-## Cleaning up
+## How uploads are checked
 
-StellarAdmin never deletes images. Replaced, removed and abandoned uploads stay wherever `StoreImage` put them, so clean up files no record refers to in your own code.
+The upload request goes through the resource's authorization and antiforgery checks. StellarAdmin checks the file's size and type again on the server, and recognizes JPEG, PNG, GIF, WebP and AVIF files by their content, so a file that's only been renamed to `.png` is rejected. StellarAdmin raises the request body limit to `MaxFileSize` for the upload request only.
 
-In an [inline row](/docs/admin/inline-editing), the editor is a thumbnail button, and Save waits for an upload to finish.
+## Deleting images that no record uses
+
+StellarAdmin never deletes images. An image that's replaced or removed, or uploaded on a form that's never saved, stays where `StoreImage()` saved it. To delete the images no record refers to, write your own clean-up code, such as a scheduled job.

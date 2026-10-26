@@ -74,7 +74,15 @@ It also shows related records, like a trip's tags. See [showing related values](
 
 ## Images
 
-`ImageDisplay` shows a thumbnail in the grid, and a larger image that opens in a lightbox elsewhere. See [images](/docs/admin/image-editor#showing-images).
+`ImageDisplay` shows a thumbnail in the grid, and a larger image that opens in a lightbox elsewhere. If the property value isn't a URL the browser can load, pass `ResolveUrl()` the same function as the [image editor](/docs/admin/image-editor):
+
+```cs
+columns.Add(destination => destination.Photo, column =>
+    column.UseDisplay<ImageDisplay>(image =>
+        image.ResolveUrl(value => $"/photos/{value}")));
+```
+
+The grid calls `ResolveUrl()` once for each row, so build the URL from the stored value instead of loading it from a database.
 
 | Setting | Grid default | Elsewhere |
 | --- | --- | --- |
@@ -84,6 +92,10 @@ It also shows related records, like a trip's tags. See [showing related values](
 | `Interaction` | `Lightbox` | `Lightbox` |
 
 An empty value shows a placeholder.
+
+## Icons
+
+`IconDisplay` renders the icon that a property's value names. In the grid, it shows the icon's name when people hover over the icon. On the view page, it renders the name beside the icon. To change that, set `ShowName`.
 
 ## Empty values
 

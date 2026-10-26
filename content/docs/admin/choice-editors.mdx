@@ -7,11 +7,13 @@ There are five editors for selecting from a list of options. Deciding which one 
 
 | Editor | Use it for |
 | --- | --- |
-| `UseSelectEditor` | Select one value from a list. The default for enums. |
-| `UseRadioGroupEditor` | Select one value, with every option visible, and room for descriptions. |
-| `UseSegmentedControlEditor` | Select one value from two to five short options, in a row. |
-| `UseCheckboxGroupEditor` | Select several values from a short list, on a collection property. |
-| `UseToggleGroupEditor` | Select several values as chips or buttons on a collection property, or one value otherwise. |
+| `UseSelectEditor()` | Select one value from a list. The default for enums and `bool?`. |
+| `UseRadioGroupEditor()` | Select one value, with every option visible, and room for descriptions. |
+| `UseSegmentedControlEditor()` | Select one value from two to five short options, in a row. |
+| `UseCheckboxGroupEditor()` | Select several values from a short list, on a collection property. |
+| `UseToggleGroupEditor()` | Select several values as chips or buttons on a collection property, or one value otherwise. |
+
+The example below uses a segmented control for the trip's difficulty, and a checkbox group for its tags:
 
 ```cs
 fields.Add(trip => trip.Difficulty).UseSegmentedControlEditor();
@@ -24,14 +26,14 @@ fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
 
 ## Where the options come from
 
-Unless specified otherwise:
+Unless you call `UseItems()` or `UseResource()`, a choice editor takes its options from the property:
 
-1. **Foreign keys and many-to-many navigations** on EF Core forms list the related resource's records. See [foreign keys](/docs/admin/foreign-keys).
-2. **Enums** list their members.
-3. **Booleans** get Yes and No.
-4. **Collections** do the same for their element type.
+- **Foreign keys and many-to-many navigations** on EF Core forms list the related resource's records. See [foreign keys](/docs/admin/foreign-keys).
+- **Enums** list their members. An enum with `[Flags]` has no options.
+- **Booleans** get Yes and No.
+- **Collections** do the same for their element type.
 
-For anything else, you must call `UseItems()` or `UseResource()`.
+For any other property, call `UseItems()` or `UseResource()`. If you don't, StellarAdmin uses the property's default editor instead, and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ### Generating options for enums
 
@@ -57,7 +59,7 @@ Using the radio group editor with a property of type `TripDifficulty` will displ
 
 To put options in groups, set `GroupName` in the `[Display]` attribute. Only selects display groups, as option groups.
 
-### Your own list
+### Supplying your own options
 
 You can supply your own list of options by calling `UseItems()` in the editor's configuration callback.
 
@@ -68,8 +70,16 @@ fields.Add(guide => guide.HomeBase).UseRadioGroupEditor(radio =>
 {
     radio.Appearance = RadioGroupAppearance.Cards;
     radio.UseItems([
-        new ChoiceItem("LIS", "Lisbon") { Description = "Portugal and Spain", Media = new ItemMedia.Code("LIS") },
-        new ChoiceItem("KIX", "Kyoto") { Description = "Japan", Media = new ItemMedia.Code("KIX") },
+        new ChoiceItem("LIS", "Lisbon")
+        {
+            Description = "Portugal and Spain",
+            Media = new ItemMedia.Code("LIS"),
+        },
+        new ChoiceItem("KIX", "Kyoto")
+        {
+            Description = "Japan",
+            Media = new ItemMedia.Code("KIX"),
+        },
         new ChoiceItem("CPT", "Cape Town") { Disabled = true },
     ]);
 });
@@ -83,10 +93,10 @@ A `ChoiceItem` takes a value and a title, plus an optional `Description`, `Group
 | --- | --- |
 | `UseItems(items)` | A fixed list of `ChoiceItem` or `SelectListItem`. |
 | `UseItems((services, cancellationToken) => ...)` | Loading the options when the form renders. |
-| `UseItems<TProvider>()` | A service that implements `IChoiceItemsProvider`. |
+| `UseItems<TProvider>()` | A provider that implements `IChoiceItemsProvider`. Register the provider as a service. |
 | `UseItems((form, services, cancellationToken) => ...)` | Options that depend on other fields. See [dependent fields](/docs/admin/dependent-fields). |
 | `UseResource<TResource>()` | The records of another resource, using the [title and reference information](/docs/admin/titles-and-references) of that resource for the title, description and media. |
-| `UseItems<TEntity>(value, title)` | Rows of an EF Core entity that isn't a resource. |
+| `UseItems<TEntity>(value, title)` | Rows of an EF Core entity that isn't a resource. The method is in the `StellarAdmin.EntityFrameworkCore` namespace. |
 
 The example below loads the options from a service registered with dependency injection.
 
@@ -101,9 +111,9 @@ fields.Add(guide => guide.HomeBase).UseSelectEditor(select =>
     }));
 ```
 
-## Media
+## Displaying an icon or image beside each option
 
-Each option can display an icon, image or short code beside its title, to help people recognise it at a glance. Set the `Media` of the `ChoiceItem` to the media you want to display.
+Each option can display an icon, image or short code beside its title, to help people recognize it at a glance. Set the `Media` of the `ChoiceItem` to the media you want to display.
 
 ```cs
 fields.Add(trip => trip.Transport).UseSegmentedControlEditor(segmented =>
@@ -129,11 +139,11 @@ Radio groups, checkbox groups, segmented controls and toggle groups display the 
 
 Options loaded with `UseResource()` use the media from the related resource's [reference information](/docs/admin/titles-and-references).
 
-## The empty option
+## Changing the empty option
 
 The *empty option* is the first option in the list, and selecting it clears the value. By default, StellarAdmin adds it when the value is optional, such as an `int?`, `string?`, or nullable enum, and labels it "Not set".
 
-A select also displays the empty option while a required value has not been set yet, so that no other option appears selected. Once a value is saved, the empty option no longer appears.
+A select also displays the empty option while a required value matches no option, such as a new record's foreign key of 0, so that no other option appears selected. Once the value matches an option, the empty option no longer appears.
 
 Set `EmptyChoice` to change when the empty option is added, and `EmptyChoiceText` to change its label.
 
@@ -153,7 +163,7 @@ fields.Add(trip => trip.GuideId).UseSelectEditor(select =>
 
 Editors that select several values, like checkbox groups, never get an empty option.
 
-## Appearance
+## Changing how the options look
 
 ### Radio groups and checkbox groups
 
@@ -198,7 +208,7 @@ fields.Add(guide => guide.Languages).UseToggleGroupEditor(languages =>
 });
 ```
 
-## Columns
+## Laying out options in columns
 
 Radio groups and checkbox groups display their options in a single column. Call `Columns()` to spread the options over more columns.
 

@@ -1,11 +1,11 @@
 ---
 title: Custom editors
-description: Write your own editor, or change how a built-in one renders
+description: Write your own editor, or change how a built-in editor renders
 ---
 
-When none of the built-in editors fit, write your own. An editor is two things: a class with its settings, and a Razor template that renders it.
+When none of the built-in editors fits a property, write your own. A *custom editor* has two parts: a class with the editor's settings, and a Razor template that renders the editor.
 
-Here's a colour picker for a trip's brand colour:
+The class derives from `FieldEditor`, and names its template in `TemplateName`. The example below is a color picker for a trip's brand color, with a setting that displays the color's hex code:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -18,47 +18,109 @@ public class ColorEditor : FieldEditor
 }
 ```
 
+The template inherits `FieldEditorView<TEditor>`:
+
 ```razor title="Areas/StellarAdmin/Views/Shared/EditorTemplates/Color.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
 @inherits FieldEditorView<ColorEditor>
 
 <sa-input asp-for="@Model" type="color" label="@Title" description="@Description"
-          disabled="@IsDisabled" />
+          readonly="@IsReadOnly" disabled="@IsDisabled" />
 @if (Editor.ShowHex)
 {
     <sa-kbd>@Model</sa-kbd>
 }
 ```
 
+To use the editor, call `UseEditor()` with the editor's type:
+
 ```cs
 fields.Add(trip => trip.BrandColor).UseEditor<ColorEditor>(color => color.ShowHex = true);
 ```
 
-The template's `Model` is the field's value. `Editor` has your settings, and `Title` and `Description` are the field's label and help text. Render inputs with `asp-for="@Model"` so they post back to the right property.
+## Writing the template
 
-Put the template in `Areas/StellarAdmin/Views/Shared/EditorTemplates/` or `Views/Shared/EditorTemplates/`. The folder needs a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) for the `sa-*` tag helpers.
+Put the template in `Areas/StellarAdmin/Views/Shared/EditorTemplates/`, named after `TemplateName`. The `sa-*` Tag Helpers need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) in `Areas/StellarAdmin/Views/`.
 
-Build the markup from [StellarAdmin.UI components](/docs/ui) so it matches the rest of the panel. The panel's stylesheet only has the classes its own components use, so Tailwind utilities won't style anything here.
+The template has these properties:
 
-## Read-only and disabled
+| Property | What it holds |
+| --- | --- |
+| `Model` | The field's value. |
+| `Editor` | The editor, with your settings. |
+| `Title`, `Description` | The field's label and help text. |
+| `IsReadOnly`, `IsDisabled` | Whether the field is read-only or disabled. |
+| `EditorData` | The data the editor's handler loaded. See [loading data for the editor](#loading-data-for-the-editor). |
 
-Fields can be made [read-only or disabled](/docs/admin/fields#making-fields-read-only-or-disabled), so your template should handle both:
+Render the inputs with `asp-for="@Model"`, so that they post the field's value.
 
-- When `IsReadOnly` is true, render the input with `readonly`. It still posts its value.
-- When `IsDisabled` is true, render it with `disabled`. It doesn't post.
+Build the markup from the [StellarAdmin.UI components](/docs/ui), so that the editor matches the rest of the admin panel. StellarAdmin's stylesheet contains only the classes its own components use, so a Tailwind utility class works only if you [add a stylesheet](/docs/admin/theming) that contains it.
 
-`IsReadOnly` is false when the field is disabled. The server ignores posted values for either, so this only affects how the editor looks and behaves.
+## Rendering read-only and disabled fields
 
-## Editors that need data
+A field can be [read-only or disabled](/docs/admin/fields#making-fields-read-only-or-disabled), so the template must render both:
 
-If the editor needs data from the request or your services, implement `IFieldEditor<THandler>` and write a handler that derives from `FieldEditorHandler<TEditor>`. The handler takes services in its constructor and returns data from `PrepareAsync`. The template reads it from `EditorData`.
+- When `IsReadOnly` is `true`, render the input with `readonly`, so that it still posts its value.
+- When `IsDisabled` is `true`, render the input with `disabled`, so that it doesn't post.
 
-## In inline rows
+`IsReadOnly` is `false` when the field is disabled. StellarAdmin ignores any value posted for a read-only or disabled field, so these only change how the editor looks and behaves.
 
-For the editor to work in an [inline row](/docs/admin/inline-editing), add a second template with the same name under `GridEditorTemplates/`. Render one compact input, without a label: the cell supplies the label for screen readers.
+## Loading data for the editor
+
+When the editor needs data from your services, such as a list of options, write a *handler* that loads it. The handler derives from `FieldEditorHandler<TEditor>`, and returns the data from `PrepareAsync()`. Its constructor takes the editor, and any services the handler needs.
+
+The example below loads the brand's colors from an `IBrandPalette` service, so that the color editor can list them under the input:
+
+```cs
+using StellarAdmin.Resources.Editors;
+
+public class ColorEditorHandler(ColorEditor editor, IBrandPalette palette)
+    : FieldEditorHandler<ColorEditor>(editor)
+{
+    public override async Task<object?> PrepareAsync(
+        FieldEditorContext context,
+        CancellationToken cancellationToken)
+    {
+        return await palette.GetColorsAsync(cancellationToken);
+    }
+}
+```
+
+To connect the handler to the editor, implement `IFieldEditor<THandler>` on the editor:
+
+```cs
+public class ColorEditor : FieldEditor, IFieldEditor<ColorEditorHandler>
+{
+    public override string TemplateName => "Color";
+
+    public bool ShowHex { get; set; }
+}
+```
+
+The template reads the data from `EditorData`, which has the type `object?`, so cast it to the type the handler returns:
+
+```razor title="Areas/StellarAdmin/Views/Shared/EditorTemplates/Color.cshtml"
+@using StellarAdmin.Areas.StellarAdmin
+@inherits FieldEditorView<ColorEditor>
+
+@{
+    var palette = EditorData as IReadOnlyList<string> ?? [];
+}
+
+<sa-input asp-for="@Model" type="color" label="@Title" description="@Description"
+          readonly="@IsReadOnly" disabled="@IsDisabled" />
+@foreach (var color in palette)
+{
+    <sa-kbd>@color</sa-kbd>
+}
+```
+
+`FieldEditorContext` holds the field's name, the record the form edits, and the field's current value, for a handler that loads data based on them.
+
+## Editing in an inline row
+
+For the editor to work in an [inline row](/docs/admin/inline-editing), add a second template with the same name in `Areas/StellarAdmin/Views/Shared/GridEditorTemplates/`. Render one compact input, without a label, because the cell provides the label for screen readers.
 
 ## Changing a built-in editor
 
-To change how a built-in editor renders everywhere, add a template at its path. For the text input, that's `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/TextInput.cshtml`, and `GridEditorTemplates/Editors/TextInput.cshtml` for inline rows.
-
-See [template overrides](/docs/admin/template-overrides) for more.
+To change how a built-in editor renders everywhere, add a template with the built-in template's path. For the text input, that's `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/TextInput.cshtml`, and `GridEditorTemplates/Editors/TextInput.cshtml` for inline rows. To find the paths of the other built-in templates, see [template overrides](/docs/admin/template-overrides).

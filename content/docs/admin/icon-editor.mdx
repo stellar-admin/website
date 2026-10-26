@@ -1,44 +1,41 @@
 ---
 title: Icons
-description: Let people pick an icon instead of typing its name
+description: Let people choose an icon instead of typing its name
 ---
 
-`IconEditor` edits a string property that stores an icon's name, such as an amenity's or a category's icon. People pick from the registered [icons](/docs/ui/icons) instead of typing a name.
+The *icon editor* edits a `string` property that stores an icon's name, such as a trip's or an amenity's icon. People choose from the registered [icons](/docs/ui/icons) instead of typing a name. To use the icon editor, call `UseIconEditor()`:
 
 ```cs
-using StellarAdmin.Resources.Displays;
-using StellarAdmin.Resources.Editors;
-
 fields.Add(trip => trip.Icon).UseIconEditor();
-
-columns.Add(trip => trip.Icon, column => column.UseDisplay<IconDisplay>());
 ```
 
-Without a list of icons, it offers every registered icon in a searchable picker. The picker searches names and keywords, and loads the icons the first time it opens.
+By default, the icon editor offers every registered icon in a picker that searches the icons' names and keywords. The picker loads the icons the first time it opens. The icon editor is rendered as an [icon picker](/docs/ui/components/icon-picker).
 
-## A short list
+The picker downloads every registered icon from the server, so register only the icon packs you use.
 
-Pass `Icons` to offer only some:
+## Offering a short list of icons
+
+To offer only some icons, set `Icons` to their names. The example below offers five icons:
 
 ```cs
+using StellarAdmin.Resources.Editors;
+
 fields.Add(trip => trip.Icon).UseIconEditor(icon =>
 {
     icon.Icons = ["mountain", "sailboat", "utensils", "landmark", "tent"];
 });
 ```
 
-| `Layout` | Shows |
+To choose how the editor displays the icons, set `Layout`:
+
+| `IconEditorLayout` | Displays |
 | --- | --- |
-| `IconEditorLayout.Auto` | Tiles for up to 24 icons, the picker for more. The default. |
-| `Picker` | Always the picker. |
-| `Inline` | Always tiles. Needs `Icons`. |
+| `Auto` | An inline grid of icons when `Icons` has 24 names or fewer. The picker when `Icons` has more names, or isn't set. This is the default. |
+| `Picker` | The picker. |
+| `Inline` | An inline grid of icons, even when `Icons` has more than 24 names. If `Icons` isn't set, the editor displays the picker, and StellarAdmin reports a [configuration problem](/docs/admin/configuration-problems). |
 
-Names that aren't registered are dropped and reported as a [configuration problem](/docs/admin/configuration-problems).
+If a name in `Icons` isn't a registered icon, StellarAdmin leaves the icon out, and reports a [configuration problem](/docs/admin/configuration-problems). If none of the names are registered icons, StellarAdmin leaves the field off the form.
 
-A new value has to be one of the offered icons. A stored value that isn't offered any more still shows and saves unchanged, so records with old names stay editable.
+A new value must be one of the offered icons. A stored value that the editor no longer offers still displays, and is saved unchanged, so records with an old icon name stay editable.
 
-## Showing icons
-
-`IconDisplay` shows the icon. In the grid, the name shows on hover. On view pages and forms it shows beside the icon. Set `ShowName` to change that.
-
-The icons endpoint sends every registered icon, so only register the icon packs you use. The editor is the [icon picker](/docs/ui/components/icon-picker) component.
+In an [inline row](/docs/admin/inline-editing), the icon editor is always a button that opens the picker.

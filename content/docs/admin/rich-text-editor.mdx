@@ -3,7 +3,7 @@ title: Rich text
 description: Formatted text stored as HTML
 ---
 
-For text with headings, lists, links and tables, use the [rich text editor](/docs/ui/components/rich-text-editor). It edits a string property that stores HTML. Mark the property with `[DataType(DataType.Html)]` and it's picked automatically:
+The *rich text editor* edits formatted text, such as headings, lists, links and tables, and stores it as HTML in a `string` property. A property with `[DataType(DataType.Html)]` is rendered as a rich text editor:
 
 ```cs
 public class Trip
@@ -13,9 +13,15 @@ public class Trip
 }
 ```
 
-The same attribute makes columns and view pages show the HTML with `HtmlDisplay`. In the grid, that's the text without formatting, cut off after two lines.
+The editor has a toolbar, a menu for selected text, a <kbd>/</kbd> menu for adding blocks, and Markdown shortcuts such as `##`, `-` and `>`. It's rendered as a [rich text editor](/docs/ui/components/rich-text-editor).
 
-To change its settings, call `UseRichTextEditor`:
+The same attribute also sets how the property is displayed in the grid and on the view page. See [displays](/docs/admin/displays#text).
+
+Use the rich text editor only for a property that stores HTML, because plain text loses its line breaks in HTML. Text that was saved before the field used the rich text editor opens as paragraphs, one for each block of text separated by a blank line.
+
+## Changing the editor's settings
+
+To use the rich text editor for a property without the attribute, or to change the editor's settings, call `UseRichTextEditor()`:
 
 ```cs
 fields.Add(trip => trip.Description).UseRichTextEditor(editor =>
@@ -25,39 +31,50 @@ fields.Add(trip => trip.Description).UseRichTextEditor(editor =>
 });
 ```
 
-`Rows` is how many lines it shows before it grows. It defaults to 8.
+| Setting | What it does |
+| --- | --- |
+| `Placeholder` | Sets the text displayed while the editor is empty. |
+| `Rows` | Sets the number of lines the editor has room for before it grows. The default is 8. |
 
-People get a toolbar, a menu on selected text, a `/` menu for blocks, and Markdown shortcuts such as `##`, `-` and `>`.
+## Adding images to the text
 
-Only use it for HTML. Plain text loses its line breaks in HTML. Text that was saved before the field became rich text opens as paragraphs, one per blank-line-separated block.
+By default, people can't add images to the text. To let them, pass `StoreImage()` a function that saves the image.
 
-## Images
+When someone adds an image, StellarAdmin checks the file's size and type, and then calls the `StoreImage()` function with the uploaded `IFormFile`. The function must save the file and return a `string` with the URL the text loads the image from. The URL can be relative, such as `/photos/beach.jpg`. The string can't be empty, because an empty value fails the upload.
 
-Images are off until you say where to store them. `StoreImage` returns the URL the text shows the image from:
+The example below saves the photo with the `PhotoStore` from the [image editor](/docs/admin/image-editor) page, which returns the file name, and turns the file name into a URL:
 
 ```cs
 fields.Add(trip => trip.Description).UseRichTextEditor(editor =>
 {
-    editor.StoreImage((file, services, cancellationToken) =>
-        services.GetRequiredService<IPhotoStore>().SaveAsync(file, cancellationToken));
+    editor.StoreImage(async (file, services, cancellationToken) =>
+    {
+        var photos = services.GetRequiredService<IPhotoStore>();
+        var fileName = await photos.SaveAsync(file, cancellationToken);
+
+        return $"/photos/{fileName}";
+    });
 });
 ```
 
-People can then paste, drop or insert images. Uploads go through the same checks as the [image editor](/docs/admin/image-editor), with the same `MaxFileSize` and `AcceptedTypes` settings. StellarAdmin never deletes images, including ones removed from the text.
+People can then paste, drop or insert images. StellarAdmin checks the images the same way as the [image editor](/docs/admin/image-editor#how-uploads-are-checked), and the rich text editor has the same `MaxFileSize` and `AcceptedTypes` settings. StellarAdmin never deletes images, including images removed from the text.
 
-## Sanitizing
+## Sanitizing the HTML
 
-The HTML is sanitized when it's saved, and again when it's shown. The default sanitizer keeps what the editor produces: headings, paragraphs, lists, quotes, code, tables, links, images and line breaks. It allows `http`, `https` and `mailto` links and relative URLs, and removes everything else, including scripts, event handlers, styles and classes.
+StellarAdmin sanitizes the HTML when the form is saved, and again when the HTML is rendered. The default sanitizer keeps what the editor produces: headings, paragraphs, lists, quotes, code, tables, links, images and line breaks. It keeps `http`, `https` and `mailto` links and relative URLs, and removes everything else, including scripts, event handlers, styles and classes.
 
-To change that, register your own `IRichTextSanitizer`:
+To sanitize the HTML differently, register your own `IRichTextSanitizer`:
 
 ```cs
+using StellarAdmin.Resources;
+
 builder.Services.AddSingleton<IRichTextSanitizer, VoyagerSanitizer>();
 ```
 
-Only rich text fields are sanitized. A field that stores HTML but uses a textarea isn't.
+StellarAdmin sanitizes only the fields that use the rich text editor when the form is saved. A property that stores HTML, but uses another editor, such as a textarea, isn't sanitized.
 
-## Good to know
+## Loading the editor's script
 
-- The editor's script is a separate file, about 120 KB compressed, loaded only on pages that use it.
-- It doesn't work in an [inline row](/docs/admin/inline-editing).
+The rich text editor's script is a separate file, about 140 KB compressed, so StellarAdmin loads it only on pages with a rich text editor.
+
+The rich text editor doesn't work in an [inline row](/docs/admin/inline-editing).
