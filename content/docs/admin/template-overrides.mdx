@@ -1,28 +1,52 @@
 ---
-title: Template overrides
-description: Replace the panel's markup for editors, displays and other parts
+title: Overriding templates
+description: Change how an editor, a display type or a part of the layout renders everywhere
 ---
 
-Add a view at the same path as one of the panel's templates, and yours is used everywhere instead.
+StellarAdmin renders each built-in editor and display type with a template, which is a partial view that's compiled into the `StellarAdmin` package. Some parts of the layout, such as the user menu, are partial views too. To change how one of them renders everywhere, add a view with the same path to your app, which ASP.NET Core uses instead of StellarAdmin's.
 
-| To change | Add |
+Your views need the [view imports](/docs/admin/overriding-pages#view-imports).
+
+## Overriding an editor
+
+An editor has a template for forms, and another for [inline rows](/docs/admin/inline-editing) if it [works in a cell](/docs/admin/inline-editing#editors-that-work-in-a-cell). To override an editor, add one of the following views:
+
+| To change the editor in | Add |
 | --- | --- |
-| A built-in editor | `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/{Name}.cshtml` |
-| A built-in editor in inline rows | `Areas/StellarAdmin/Views/Shared/GridEditorTemplates/Editors/{Name}.cshtml` |
-| A built-in display, in display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/{Name}.cshtml` |
-| A built-in display, in grid cells | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/{Name}.cshtml` |
-| The environment indicator | `Areas/StellarAdmin/Views/Shared/_EnvironmentIndicator.cshtml` |
-| The sidebar header | `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` |
-| The user menu | `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` |
+| Forms | `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/{Name}.cshtml` |
+| Inline rows | `Areas/StellarAdmin/Views/Shared/GridEditorTemplates/Editors/{Name}.cshtml` |
 
-`{Name}` is the editor or display without its suffix: `TextInput`, `Select`, `RadioGroup`, `Number`, `Boolean`, and so on.
+`{Name}` is the name of the editor's class without `Editor`, such as `TextInput` for `TextInputEditor` and `RadioGroup` for `RadioGroupEditor`. `ListEditor` and `DictionaryEditor` keep their full names.
 
-All of them need the [view imports](/docs/admin/overriding-pages#view-imports).
+StellarAdmin uses the editor's template for every field with that editor, including the fields for which StellarAdmin chooses the editor from the property's type.
 
-Write your template for the behavior you need, rather than copying the built-in one: the built-in templates read internal view data that can change between versions.
+## Overriding a display type
 
-The sidebar's own view isn't something you can override. Use the [sidebar settings](/docs/admin/sidebar) instead.
+Each display type has a template for the grid, and another for display fields and view pages. To override a display type, add one or both of the following views:
 
-## Your own editors and displays
+| To change the display type in | Add |
+| --- | --- |
+| The grid | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/{Name}.cshtml` |
+| Display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/{Name}.cshtml` |
 
-To add a new editor or display rather than change a built-in one, see [custom editors](/docs/admin/custom-editors) and [custom displays](/docs/admin/custom-displays).
+`{Name}` is the name of the display type without `Display`, such as `Boolean` for `BooleanDisplay`.
+
+## Writing the template
+
+The built-in templates use internal StellarAdmin APIs, so you can't copy one into your app as a starting point. Write your template for the behavior you need instead. Your template replaces the built-in one completely, so it must handle each of the editor's or display type's settings that you use.
+
+To read the settings, an editor's template inherits `FieldEditorView<TEditor>`, and a display type's template inherits `FieldDisplayView<TDisplay>`, as for a [custom editor](/docs/admin/custom-editors#writing-the-template) or a [custom display type](/docs/admin/custom-displays#writing-the-template). For an example, see [changing a built-in display type](/docs/admin/display-templates#changing-a-built-in-display-type).
+
+## Overriding parts of the layout
+
+To override a part of the layout, add one of the following views:
+
+| To change | Add | Model |
+| --- | --- | --- |
+| The [environment indicator](/docs/admin/environment-indicator) | `Areas/StellarAdmin/Views/Shared/_EnvironmentIndicator.cshtml` | `StripeEnvironmentIndicator`, `FrameEnvironmentIndicator` or `BannerEnvironmentIndicator`, depending on the indicator you configure |
+| The [sidebar header](/docs/admin/branding#replacing-the-top-of-the-sidebar) | `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` | `SidebarBrandModel` |
+| The [user menu](/docs/admin/user-menu#replacing-the-user-menu) | `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` | `SidebarUserMenuModel` |
+
+`SidebarBrandModel` and `SidebarUserMenuModel` are in the `StellarAdmin.Sidebar` namespace. To accept any environment indicator, declare the model of `_EnvironmentIndicator.cshtml` as `EnvironmentIndicator`.
+
+You can't override the rest of the sidebar. To change it, use the [sidebar settings](/docs/admin/sidebar).

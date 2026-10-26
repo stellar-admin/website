@@ -1,11 +1,32 @@
 ---
-title: Page tag helpers and slots
-description: Put your own content inside a generated page
+title: Page Tag Helpers and slots
+description: Add your own content inside a page of the admin panel
 ---
 
-Each generated page is rendered by a tag helper. In an [overridden page](/docs/admin/overriding-pages), keep the tag helper, and fill its slots to add content in the right places.
+StellarAdmin renders the content of each resource page with a Tag Helper. When you [override a page](/docs/admin/overriding-pages), your view uses the Tag Helper for the page, and passes it the view's model:
 
-```razor title="Areas/StellarAdmin/Views/Bookings/View.cshtml"
+| Tag Helper | Page | Model |
+| --- | --- | --- |
+| `<sa-index-page>` | Index | `ResourceIndexPageViewModel<TResource>` or `IResourceIndexPageViewModel` |
+| `<sa-form-page>` | Create and edit | `ResourceFormPageViewModel` |
+| `<sa-view-page>` | View | `ResourceViewPageViewModel` |
+
+```razor title="Areas/StellarAdmin/Views/bookings/View.cshtml"
+@model ResourceViewPageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<sa-view-page model="Model" />
+```
+
+## Adding content with slots [#slots]
+
+A *slot* is a place inside the page where you can add your own content, such as a button in the page's header. To fill a slot, put an `<sa-slot-content>` element with the slot's name inside the Tag Helper.
+
+The example below adds an **Invoice** button after the **Edit** button of the bookings view page, and a card below the fields:
+
+```razor title="Areas/StellarAdmin/Views/bookings/View.cshtml"
 @model ResourceViewPageViewModel
 @{
     ViewData["Title"] = Model.Title;
@@ -25,24 +46,34 @@ Each generated page is rendered by a tag helper. In an [overridden page](/docs/a
 </sa-view-page>
 ```
 
-## The tag helpers
+<Callout type="info">
+The Tag Helper renders only the content of its `<sa-slot-content>` elements. Anything else you put inside it isn't rendered. To add content outside the slots, put it before or after the Tag Helper.
+</Callout>
 
-| Tag | Used by | Slots |
+Each Tag Helper has the following slots:
+
+| Tag Helper | Slot | Where the content goes |
 | --- | --- | --- |
-| `<sa-index-page>` | Index | `pre-page-actions`, `post-page-actions` |
-| `<sa-form-page>` | Create and edit | `pre-form-fields`, `post-form-fields`, `form-leading-actions`, `pre-form-actions`, `post-form-actions` |
-| `<sa-view-page>` | View | `pre-page-actions`, `post-page-actions`, `pre-view-fields`, `post-view-fields` |
+| `<sa-index-page>` | `pre-page-actions` | In the header, before the **Create** button |
+| | `post-page-actions` | In the header, after the **Create** button |
+| `<sa-form-page>` | `pre-form-fields` | Above the fields |
+| | `post-form-fields` | Below the fields |
+| | `form-leading-actions` | At the start of the buttons below the form |
+| | `pre-form-actions` | Before the **Cancel** button |
+| | `post-form-actions` | After the submit button |
+| `<sa-view-page>` | `pre-page-actions` | In the header, before the **Back** button |
+| | `post-page-actions` | In the header, after the **Edit** button |
+| | `pre-view-fields` | Above the fields |
+| | `post-view-fields` | Below the fields |
 
-The page actions are the buttons in the header, like Create on the index page. The form actions are the buttons at the bottom of a form.
+StellarAdmin's own edit view puts the **Delete** button in `form-leading-actions`. If you override the edit page, see [keeping the Delete button](/docs/admin/overriding-pages#keeping-the-delete-button-on-the-edit-page).
 
-The edit page puts its Delete button in `form-leading-actions`, so filling that slot replaces it.
+The index page has no slot between its header and the grid. To add content there, put it above the Tag Helper, as in the example on [overriding pages](/docs/admin/overriding-pages#adding-content-to-a-page).
 
-The index page has no slot between its header and the grid. Put content above or below the whole page instead.
+## Replacing the content of the page
 
-## Attributes
+To replace the content that a Tag Helper renders, set its `view` attribute to the name of your own partial view, or to its path from your app's root. The partial view receives the Tag Helper's model, and renders the content of a slot where it contains an `<sa-slot-outlet>` element with the slot's name:
 
-| Attribute | What it does |
-| --- | --- |
-| `model` | The page's model. Pass `Model`. |
-| `view` | Renders the page through your own partial instead of the built-in one. |
-| `class` | Extra classes for the page. |
+```razor
+<sa-slot-outlet name="post-page-actions" />
+```

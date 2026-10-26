@@ -1,13 +1,15 @@
 ---
 title: Overriding pages
-description: Replace or add to the panel's generated pages with your own Razor views
+description: Replace a page of the admin panel with your own Razor view
 ---
 
-Every page the panel renders can be overridden with a Razor view in your app. Most of the time you'll keep the standard content and add to it.
+StellarAdmin renders each page of the admin panel with a Razor view that's compiled into the `StellarAdmin` package. To override a page, add a view with the same path to your app. As with any Razor class library, ASP.NET Core uses your app's view instead of the package's.
 
-## View imports
+Most of the time, you'll keep StellarAdmin's content and add your own around it, such as a summary above the grid of an index page.
 
-Before anything else, add a `_ViewImports.cshtml` to your app's `Areas/StellarAdmin/Views/` folder. The panel's own imports are compiled into the package and don't apply to your views.
+## Adding the view imports [#view-imports]
+
+StellarAdmin's own `_ViewImports.cshtml` is compiled into the package, so it doesn't apply to your views. Before you override a page or a template, add a `_ViewImports.cshtml` to your app's `Areas/StellarAdmin/Views/` folder that imports StellarAdmin's namespaces and Tag Helpers:
 
 ```razor title="Areas/StellarAdmin/Views/_ViewImports.cshtml"
 @using StellarAdmin
@@ -20,11 +22,11 @@ Before anything else, add a `_ViewImports.cshtml` to your app's `Areas/StellarAd
 @addTagHelper *, StellarAdmin
 ```
 
-Without it, tags like `<sa-index-page>` end up in the HTML as plain text. The page still returns 200, but looks empty where the tag was, with no error. If you see raw `<sa-` tags in the page source, this is why.
+Replace `Voyager.Models` with the namespace of your own models. If the folder has no `_ViewImports.cshtml`, Razor doesn't process tags such as `<sa-index-page>`, and writes them to the page as plain HTML. The page then looks empty where the tag is, without an error.
 
 ## Overriding a resource's page
 
-Add a view named after the page, in a folder named after the resource's slug:
+To override a page of one resource, add a view named after the page, in a folder named after the resource's [slug](/docs/admin/resources#changing-the-url-and-labels). The view's model depends on the page:
 
 | Page | View | Model |
 | --- | --- | --- |
@@ -33,15 +35,17 @@ Add a view named after the page, in a folder named after the resource's slug:
 | Edit | `Areas/StellarAdmin/Views/{slug}/Edit.cshtml` | `ResourceFormPageViewModel` |
 | View | `Areas/StellarAdmin/Views/{slug}/View.cshtml` | `ResourceViewPageViewModel` |
 
-The models are in `StellarAdmin.Areas.StellarAdmin.ViewModels`. The folder name follows the slug, not the type, and ignores case: `Views/Bookings/` for `/stellaradmin/bookings`.
+For example, the index page of a resource with the `bookings` slug is `Areas/StellarAdmin/Views/bookings/Index.cshtml`. The folder name ignores case, so `Views/Bookings/` works too.
 
-To override a page for every resource, add `ResourceIndex.cshtml`, `ResourceCreate.cshtml`, `ResourceEdit.cshtml` or `ResourceView.cshtml` to `Areas/StellarAdmin/Views/Shared/`. A shared index uses `IResourceIndexPageViewModel` as its model.
+To override a page for all resources, add `ResourceIndex.cshtml`, `ResourceCreate.cshtml`, `ResourceEdit.cshtml` or `ResourceView.cshtml` to `Areas/StellarAdmin/Views/Shared/`. The model of `ResourceIndex.cshtml` is `IResourceIndexPageViewModel`, because the view is used for resources of different types. A view in a resource's folder overrides the shared view for that resource.
 
-## Adding to a page
+## Adding content to a page
 
-Keep the page tag helper, and put your content around it. Here's a summary above the bookings grid:
+Your view renders StellarAdmin's content of the page with the page's [Tag Helper](/docs/admin/page-tag-helpers), such as `<sa-index-page>`, and adds its own content around it.
 
-```razor title="Areas/StellarAdmin/Views/Bookings/Index.cshtml"
+The example below displays the number of bookings that are waiting for confirmation above the grid of the bookings index page:
+
+```razor title="Areas/StellarAdmin/Views/bookings/Index.cshtml"
 @model ResourceIndexPageViewModel<Booking>
 @using Microsoft.EntityFrameworkCore
 @inject VoyagerDbContext Db
@@ -59,14 +63,43 @@ Keep the page tag helper, and put your content around it. Here's a summary above
 <sa-index-page model="Model" />
 ```
 
-- Set `ViewData["Title"]` yourself. The built-in view sets it to `Model.Title`.
-- `Model.Items` only has the current page of rows, so count totals with your own query.
-- Search, scopes, sorting and paging keep working. They only replace the grid.
+Set `ViewData["Title"]` to `Model.Title`, as StellarAdmin's own views do, so the browser tab displays the page's title. `Model.Items` contains only the records on the current page of the grid, so count totals with your own query, as in the example above.
 
-To put content inside the page, like a button next to Create, use the page's [slots](/docs/admin/page-tag-helpers).
+Search, scopes, sorting and paging still work on an overridden index page. They replace only the grid, and leave your content as it is.
 
-## Other things you can override
+To add content inside the page, such as a button next to **Create**, use the [slots](/docs/admin/page-tag-helpers#slots) of the page's Tag Helper.
 
-- The [home page](/docs/admin/home-page): `Areas/StellarAdmin/Views/Home/Index.cshtml`.
-- The [sidebar header](/docs/admin/branding#replacing-the-top-of-the-sidebar) and [user menu](/docs/admin/user-menu#replacing-the-user-menu).
-- Editors, displays and the environment indicator: see [template overrides](/docs/admin/template-overrides).
+## Keeping the Delete button on the edit page
+
+StellarAdmin's edit view adds the **Delete** button and its confirmation dialog itself, not `<sa-form-page>`. If you override the edit page and [deleting is enabled](/docs/admin/delete), add both to your view:
+
+```razor title="Areas/StellarAdmin/Views/bookings/Edit.cshtml"
+@model ResourceFormPageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<sa-form-page model="Model">
+    @if (Model.Delete is { } delete)
+    {
+        <sa-slot-content name="form-leading-actions">
+            <sa-button type="button" variant="ButtonVariant.Destructive"
+                       command="show-modal" commandfor="delete-confirm-dialog">@delete.Title</sa-button>
+        </sa-slot-content>
+    }
+</sa-form-page>
+
+@if (Model.Delete is not null)
+{
+    <partial name="_FormDeleteDialog" model="Model.Delete" />
+}
+```
+
+The view page's **Delete** button is part of `<sa-view-page>`, so an overridden view page keeps it.
+
+## Overriding other parts of the admin panel
+
+You can also override these views:
+
+- The [home page](/docs/admin/home-page), with `Areas/StellarAdmin/Views/Home/Index.cshtml`.
+- The editors and displays, the environment indicator, the [sidebar header](/docs/admin/branding#replacing-the-top-of-the-sidebar) and the [user menu](/docs/admin/user-menu#replacing-the-user-menu). See [overriding templates](/docs/admin/template-overrides) for their paths.
