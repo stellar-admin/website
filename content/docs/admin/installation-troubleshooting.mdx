@@ -1,31 +1,35 @@
 ---
 title: Installation issues
-description: Common problems when you first set up the panel
+description: Fix common problems when you first set up StellarAdmin
 ---
 
-| Symptom | Cause |
+The following table lists common problems when you first set up StellarAdmin, and how to fix them:
+
+| Problem | Fix |
 | --- | --- |
-| 404 at `/stellaradmin` | `app.MapStellarAdmin()` is missing, or you passed it a different path. |
-| The page has no styles | Static assets aren't mapped. Add `app.MapStaticAssets()` or `app.UseStaticFiles()`. |
-| Raw `<sa-...>` tags in the page | A view of yours under `Areas/StellarAdmin/Views/` has no [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports). |
-| Anyone can open the panel | There's no [`RequireAuthorization`](/docs/admin/authorization), or the authorization middleware is missing. |
-| A resource's pages return 404 | It has an error. Check the [configuration problems](/docs/admin/configuration-problems) pill or the log. Often no registered `DbContext` maps the entity, or more than one does: register it with `AddDbContext`, or pick one with `resource.UseDbContext<TContext>()`. |
-| A resource is at a different URL than you expected | The slug is the kebab-case plural of the type: `TripExtra` is at `/stellaradmin/trip-extras`. |
-| A foreign key shows a number box | Register the related type as a resource. See [selecting a related record](/docs/admin/foreign-keys). |
-| No Create or Edit button | `AllowCreate` or `AllowEdit` isn't called for the resource. |
-| Dates start at 0001-01-01 on create | Set defaults with [`UseFactory`](/docs/admin/default-values). |
-| Signed-in users without access land on a 404 | Cookie authentication sends them to `/Account/AccessDenied`. Add that page, or set `AccessDeniedPath`. |
-| A sidebar link is red, or missing outside Development | Its `Page` or `Action` doesn't exist. Check the name, controller and area. |
+| `/stellaradmin` returns 404 | Call `app.MapStellarAdmin()`. If you passed it a path, open the admin panel at that path instead. |
+| The admin panel has no styles | Call `app.MapStaticAssets()` or `app.UseStaticFiles()`, so that your app serves StellarAdmin's CSS and scripts. |
+| A page you overrode displays raw `<sa-...>` tags | Add the [view imports](/docs/admin/overriding-pages#view-imports) to `Areas/StellarAdmin/Views/`. |
+| Anyone can open the admin panel | Call [`RequireAuthorization()`](/docs/admin/authorization), and make sure your app calls `app.UseAuthorization()`. |
+| A resource's pages return 404 | Check the [configuration problems](/docs/admin/configuration-problems) for the resource. For an EF Core resource, the cause is often that no registered `DbContext` maps the entity, or that more than one does. Register the context with `AddDbContext()`, or select one by calling `resource.UseDbContext<TContext>()`. |
+| A resource isn't at the URL you expected | Use the resource's slug, which by default is the kebab-case plural of the type's name. For example, `TripExtra` is at `/stellaradmin/trip-extras`. |
+| A foreign key is rendered as a number input | Register the related type as a resource. See [selecting a related record](/docs/admin/foreign-keys). |
+| The index page has no **New** button, or rows have no edit action | Call `AllowCreate()` or `AllowEdit()` on the resource. |
+| Dates on the create page start at 0001-01-01 | Set the values a new record starts with by calling [`UseFactory()`](/docs/admin/default-values). |
+| Signed-in users without access get a 404 | Add an `/Account/AccessDenied` page, which cookie authentication redirects them to, or set the cookie's `AccessDeniedPath` to your own page. |
+| A sidebar link is red in the Development environment, or missing in other environments | Check that the link's page or action exists, with the right name, controller and area. |
 
-## Every page is a 500
+## Every page returns a 500 error
 
-Check your app's log for the exception. If there's no exception, look for errors in the `StellarAdmin.Configuration` category.
+A 500 error means your app threw an exception. Look for the exception in your app's log. In the Development environment, the developer exception page also displays it.
 
-## Checking without a browser
+## Checking the admin panel from the command line
+
+You can check that a page loads, for example in a script, with `curl`. The example below prints the status code of the bookings page, then counts the raw `<sa-` tags on it:
 
 ```bash
 curl -s -o /dev/null -w '%{http_code}\n' http://localhost:5000/stellaradmin/bookings
 curl -s http://localhost:5000/stellaradmin/bookings | grep -c '<sa-'
 ```
 
-The second command should print 0. If the panel requires sign-in, an anonymous request gets a redirect to your sign-in page (302) or a 401.
+The first command should print 200, and the second should print 0. If the admin panel requires authorization, a request without a signed-in user gets a redirect to your sign-in page (302) or a 401 instead.

@@ -1,38 +1,42 @@
 ---
 title: Configuration problems
-description: How the panel tells you about mistakes in your configuration
+description: Find and fix mistakes in your StellarAdmin configuration
 ---
 
-StellarAdmin doesn't crash your app over a configuration mistake. It works around it in the smallest way it can, and tells you what it did.
+When your configuration has a mistake, StellarAdmin attempts to gracefully recover from or work around the mistake. It reports a *configuration problem* that says what it changed and how to fix your configuration.
 
-For example:
+The following table shows some of the mistakes StellarAdmin can recover from:
 
-| Mistake | What happens |
+| Mistake | What StellarAdmin does |
 | --- | --- |
-| A default sort on a column that isn't sortable | The grid uses the data source's order. |
-| A `PageSize` that isn't in `PageSizes` | It's added to the page sizes. |
-| `AllowCreate` with a data source that can't create | There's no Create button, and the create page returns 404. |
-| A field without a public setter | The field is left off the form. |
+| A default sort on a column that isn't sortable | Sorts the grid in the data source's order. |
+| A `PageSize` that isn't one of the `PageSizes` | Adds the page size to `PageSizes`. |
+| `AllowCreate()` with a data source that can't create records | Leaves out the **New** button, and returns 404 for the create page. |
+| A field whose property has no public setter | Leaves the field off the form. |
 
-When there's nothing smaller to fall back to, like an EF Core entity no registered context maps, the whole resource is unavailable. It's hidden from the sidebar and the command palette, and its pages return 404. Your other resources, and the rest of your app, keep working.
+When StellarAdmin cannot recover from a configuration mistake, it makes the resource unavailable. For example, an EF Core resource is unavailable when no registered `DbContext` maps the entity. StellarAdmin hides an unavailable resource from the sidebar and the command palette, and returns 404 for its pages. In the Development environment, the 404 page says why the resource is unavailable. Your other resources, and the rest of your app, keep working.
 
-## Finding them
+## Finding configuration problems
 
-In Development, a pill at the bottom of every panel page counts the problems. Click it to see each one under the line of your code that caused it: what you'll notice, why, what the panel does instead, and how to fix it.
+In the Development environment, when your configuration has problems, a floating notification is displayed at the bottom of every admin panel page. Click the notification to open a panel that lists the lines of your code that caused each problem, and how to fix it.
 
-If a page looks incomplete, with a field, column, button or sidebar item missing, check the pill first.
+If a field, a column, a button or a sidebar item you configured is missing, check the configuration problems first.
 
-Every environment also logs each problem once, in the `StellarAdmin.Configuration` category, with the file and line that configured it. Each kind of problem has its own event ID, so you can filter or alert on them.
+StellarAdmin also logs each problem once, in every environment, in the `StellarAdmin.Configuration` category. The log entry names the file and line that configured the problem. Each kind of problem has its own event ID, so you can filter on them or alert on them.
 
-| Level | Means |
-| --- | --- |
-| Error | The resource is unavailable. |
-| Warning | Something you configured doesn't happen. |
-| Information | It happens, but the panel adjusted something next to it. |
+The log level of a problem says how much of your configuration StellarAdmin could use:
 
-Most problems are found at startup. A few only show up when a page renders, like a lookup's `EnableCreate` for a resource without a create page. Those are logged the first time.
+| Log level | Used when | Example |
+| --- | --- | --- |
+| `Error` | StellarAdmin made the whole resource unavailable. | No registered `DbContext` maps the entity of an EF Core resource. |
+| `Warning` | StellarAdmin ignored something you configured. | The grid isn't sorted by the default sort, because its column isn't sortable. |
+| `Information` | StellarAdmin used what you configured, and adjusted something next to it. | The default `PageSize` is added to `PageSizes`, because it wasn't one of them. |
 
-## Settings
+Most configuration problems are discovered at startup, but some can only be discovered when a page renders, such as a lookup's `EnableCreate()` for a resource without a create page.
+
+## Hiding the notification and failing on problems
+
+To change how StellarAdmin reports problems, call `ConfigureDiagnostics()`. The example below hides the notification, and throws an exception at startup in the Testing environment:
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
@@ -45,31 +49,11 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-- **`ShowIndicator`** hides the pill. Problems are still logged.
-- **`ThrowOnProblems`** makes startup throw an exception listing every problem. Turn it on in tests or CI, so a configuration mistake fails the build. Problems found while a page renders are only logged.
+You can set the following properties in the `ConfigureDiagnostics()` callback:
 
-## Reporting your own
+| Property | Description |
+| --- | --- |
+| `ShowIndicator` | Whether the Development environment displays the notification. The default is `true`. StellarAdmin logs the problems either way. |
+| `ThrowOnProblems` | Whether StellarAdmin throws an `InvalidOperationException` that lists every problem when the app starts. The default is `false`. Problems found when a page renders are only logged. |
 
-If you configure resources in a post-configure callback, like a package that adds resources, report what you worked around with `ReportProblem`, `ReportInfo` or `ReportUnavailable` on `ResourceOptions<T>`:
-
-```cs
-using StellarAdmin.Resources.Options;
-
-builder.Services.AddOptions<ResourceOptions<Booking>>().PostConfigure(options =>
-{
-    foreach (var field in options.Create?.Fields.ToList() ?? [])
-    {
-        if (field.FieldName == "LegacyCode")
-        {
-            options.Create!.RemoveField(field);
-            options.ReportProblem(
-                new EventId(5001, "LegacyField"),
-                "The `LegacyCode` field isn't on the form because it can't be saved any more.",
-                "Remove the `LegacyCode` field from the create form.",
-                field);
-        }
-    }
-});
-```
-
-The message says what you notice, why, and what happens instead. Then comes the fix. Use backticks for code. StellarAdmin uses event IDs 1000 to 1099, so pick your own outside that range.
+We suggest you set `ThrowOnProblems` in your tests or CI, so that a configuration mistake fails the build.
