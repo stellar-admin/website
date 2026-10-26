@@ -1,11 +1,11 @@
 ---
 title: Custom displays
-description: Display classes with settings and their own templates
+description: Write your own display type, with settings and its own template
 ---
 
-A custom display is a class with settings, plus a template that renders it. Use one when a template needs settings, or should apply to some fields and not others.
+When none of the built-in [display types](/docs/admin/displays) fits a value, write your own. A *custom display* has two parts: a class with the display type's settings, and a Razor template that renders the value.
 
-Here's a booking status badge whose colour depends on the value:
+The class derives from `FieldDisplay`, and names its template in `TemplateName`. The example below displays a booking's status as a badge, with a setting that adds an icon:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -18,10 +18,13 @@ public class BookingStatusDisplay : FieldDisplay
 }
 ```
 
+The template inherits `FieldDisplayView<TDisplay>`, and chooses the badge's variant from the value:
+
 ```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
 @using StellarAdmin.UI
 @inherits FieldDisplayView<BookingStatusDisplay>
+
 @{
     var variant = Model switch
     {
@@ -40,33 +43,78 @@ public class BookingStatusDisplay : FieldDisplay
 </sa-badge>
 ```
 
+To use the display type, call `UseDisplay()` with its type:
+
 ```cs
 columns.Add(booking => booking.Status, column =>
     column.UseDisplay<BookingStatusDisplay>(status => status.ShowIcon = true));
 ```
 
-In the template:
+## Writing the template
 
-- `Model` is the value, as an `object?`.
-- `Display` is the display, with the settings you configured.
-- `FormatValue()` formats the value the way built-in displays do. Enum members show their `[Display(Name)]`. Pass a format string to override it.
+Put the template for the grid in `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/`, and the template for display fields and view pages in `Areas/StellarAdmin/Views/Shared/DisplayTemplates/`, named after `TemplateName`. If the display type is used in both, add both templates. The `sa-*` Tag Helpers need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) in `Areas/StellarAdmin/Views/`.
 
-## Grid cells and display fields
+The template has these properties:
 
-Grid cells use `GridDisplayTemplates/{TemplateName}.cshtml`, and display fields and view pages use `DisplayTemplates/{TemplateName}.cshtml`. If the display is used in both, add both templates. See [display templates](/docs/admin/display-templates#where-templates-go) for the folders.
+| Property | What it holds |
+| --- | --- |
+| `Model` | The value, as an `object?`. |
+| `Display` | The display type, with your settings. |
+| `DisplayData` | The data the display type's handler loaded. See [loading data for the display](#loading-data-for-the-display). |
 
-## Empty values
+To format the value the same way as the built-in display types, call `FormatValue()`. It uses the property's `[DisplayFormat]`, an enum member's `[Display(Name)]`, and the title of a record of a registered resource. To use a .NET format string instead, pass it to `FormatValue()`, such as `FormatValue("N2")`.
 
-An empty value normally shows the field's empty text, and your template isn't called. To render something of your own for empty values, like initials for a missing photo, override `RendersEmptyValue`:
+## Displaying empty values
+
+By default, StellarAdmin doesn't call the template for a `null` or empty value, and displays the [empty text](/docs/admin/displays#empty-values) instead. To display something of your own for an empty value, such as a placeholder for a missing photo, override `RendersEmptyValue`:
 
 ```cs
 public override bool RendersEmptyValue => true;
 ```
 
-Your template then gets called with `null` and blank values too.
+StellarAdmin then calls the template for every value, including `null` and empty values.
 
-## Displays that need data
+## Loading data for the display
 
-If the display needs to look something up, implement `IFieldDisplay<THandler>` and write a handler that derives from `FieldDisplayHandler<TDisplay>`. The handler takes services in its constructor and returns data from `PrepareAsync`. The template reads it from `DisplayData`.
+When the display type needs data from your services, such as a name to look up, write a *handler* that loads it. The handler derives from `FieldDisplayHandler<TDisplay>`, and returns the data from `PrepareAsync()`. Its constructor takes the display type, and any services the handler needs.
 
-Displays with handlers work in display fields and on view pages, but not in grid cells.
+The example below displays an airport's name for a stored airport code, and loads the name from an `IAirportDirectory` service:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+public class AirportDisplayHandler(AirportDisplay display, IAirportDirectory airports)
+    : FieldDisplayHandler<AirportDisplay>(display)
+{
+    public override async Task<object?> PrepareAsync(
+        FieldDisplayContext context,
+        CancellationToken cancellationToken)
+    {
+        return context.Value is string code
+            ? await airports.FindNameAsync(code, cancellationToken)
+            : null;
+    }
+}
+```
+
+To connect the handler to the display type, implement `IFieldDisplay<THandler>` on the display type:
+
+```cs
+public class AirportDisplay : FieldDisplay, IFieldDisplay<AirportDisplayHandler>
+{
+    public override string TemplateName => "Airport";
+}
+```
+
+The template reads the data from `DisplayData`, which has the type `object?`, so cast it to the type the handler returns:
+
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/Airport.cshtml"
+@using StellarAdmin.Areas.StellarAdmin
+@inherits FieldDisplayView<AirportDisplay>
+
+@(DisplayData as string ?? FormatValue()) (@Model)
+```
+
+`FieldDisplayContext` holds the field's name, the record, and the field's value, for a handler that loads data based on them.
+
+A display type with a handler works in display fields and on view pages, but not in the grid. If a column uses one, the column uses its default display type instead, and StellarAdmin reports a [configuration problem](/docs/admin/configuration-problems).

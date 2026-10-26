@@ -30,9 +30,9 @@ A message is composed of `<sa-message>` wrapping a `<sa-message-avatar>` and a `
 </sa-message>
 ```
 
-`<sa-message>` owns the row — the avatar, the alignment, and the space above and below the message. It does not draw the message itself. Render the visible surface inside `<sa-message-content>` with [Bubble](/docs/ui/components/bubble), which is what gives the message its frame and colour.
+`<sa-message>` owns the row — the avatar, the alignment, and the space above and below the message. It does not draw the message itself. Render the visible surface inside `<sa-message-content>` with [Bubble](/docs/ui/components/bubble), which is what gives the message its frame and color.
 
-A message fills the width of its container and does not space itself against its neighbours, so put the conversation in a column-flex container that sets the gap between messages:
+A message fills the width of its container and does not space itself against its neighbors, so put the conversation in a column-flex container that sets the gap between messages:
 
 ```razor
 <div class="flex w-full flex-col gap-6">
@@ -89,7 +89,7 @@ Message-level actions such as copy, pin, or retry belong in `<sa-message-footer>
   <include>./_include/message-actions.mdx</include>
 </Demo>
 
-These buttons are usually icon-only, which leaves them with no accessible name, so give each one an `aria-label` describing what it does. Where the footer reports a state that also carries a colour, such as a message that failed to send, say so in the text as well rather than relying on the colour alone.
+These buttons are usually icon-only, which leaves them with no accessible name, so give each one an `aria-label` describing what it does. Where the footer reports a state that also carries a color, such as a message that failed to send, say so in the text as well rather than relying on the color alone.
 
 For a message that is still in progress, put `role="status"` on the element holding the placeholder so assistive technology announces it when it appears.
 

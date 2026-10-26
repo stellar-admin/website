@@ -1,9 +1,9 @@
 ---
 title: Display templates
-description: Render a value with your own Razor template
+description: Display a property's value with your own Razor template
 ---
 
-The quickest way to show a value your own way is a display template. Mark the property with `[UIHint]`:
+A *display template* is a Razor view that renders a property's value in place of its [display type](/docs/admin/displays). To use a display template for a property, add `[UIHint]` with the template's name:
 
 ```cs
 public class Booking
@@ -13,16 +13,7 @@ public class Booking
 }
 ```
 
-Then add a template with that name. You need one for display fields and view pages, and one for grid cells:
-
-```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/BookingStatus.cshtml"
-@using StellarAdmin.UI
-@model BookingStatus
-
-<sa-badge variant="@(Model == BookingStatus.Cancelled ? BadgeVariant.Destructive : BadgeVariant.Secondary)">
-    @Model
-</sa-badge>
-```
+The property then needs two templates with that name: one for the grid, and one for display fields and view pages. The example below displays a canceled booking's status as a red badge:
 
 ```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
 @using StellarAdmin.UI
@@ -33,26 +24,52 @@ Then add a template with that name. You need one for display fields and view pag
 </sa-badge>
 ```
 
-## Where templates go
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/BookingStatus.cshtml"
+@using StellarAdmin.UI
+@model BookingStatus
 
-| Shown in | Folder |
+<sa-badge variant="@(Model == BookingStatus.Cancelled ? BadgeVariant.Destructive : BadgeVariant.Secondary)">
+    @Model
+</sa-badge>
+```
+
+The template's model is the property value. StellarAdmin doesn't call the template for a `null` or empty value, and displays the [empty text](/docs/admin/displays#empty-values) instead.
+
+A column or display field that calls `UseDisplay()` uses that display type instead of the template.
+
+## Where to put the templates
+
+| Template for | Folder |
 | --- | --- |
-| Display fields and view pages | `DisplayTemplates/` |
-| Grid cells | `GridDisplayTemplates/` |
+| The grid | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/` |
+| Display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/` |
 
-The panel looks in `Areas/StellarAdmin/Views/Shared/`, `Views/Shared/` and `Pages/Shared/`. Templates under `Areas/StellarAdmin/Views/` need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) for the `sa-*` tag helpers, or their tags render as plain text.
+If a template is missing, the page that displays the property fails with an exception that lists the folders StellarAdmin searched.
 
-Add `@using` lines for your model's namespace too, or put them in the `_ViewImports.cshtml`.
+The `sa-*` Tag Helpers need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) in `Areas/StellarAdmin/Views/`. Without it, the tags render as plain text. Add a `@using` for your model's namespace to the template, or to the `_ViewImports.cshtml`.
 
-A `[UIHint]` applies everywhere the property is displayed, so if you hint a property, add both templates. A missing display template throws.
+## Changing a built-in display type
 
-## Changing a built-in display
+To change how a built-in display type renders everywhere, add a template with the built-in template's path. The path is the display type's name without `Display`, in a `Displays` folder. For `BooleanDisplay`, the paths are:
 
-To change how a built-in display renders across the panel, add a template at its path. For booleans:
-
-- `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/Boolean.cshtml`
 - `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/Boolean.cshtml`
+- `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/Boolean.cshtml`
 
-## When to use a custom display instead
+To read the display type's settings, the template inherits `FieldDisplayView<TDisplay>`. The example below displays a `bool` in the grid as a badge with the `TrueText` or `FalseText`:
 
-A `[UIHint]` applies to every use of the property, and the template has no settings. If you want a template on some fields only, or one you can configure, write a [custom display](/docs/admin/custom-displays).
+```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/Boolean.cshtml"
+@using StellarAdmin.Areas.StellarAdmin
+@using StellarAdmin.Resources.Displays
+@using StellarAdmin.UI
+@inherits FieldDisplayView<BooleanDisplay>
+
+<sa-badge variant="@(Model is true ? BadgeVariant.Default : BadgeVariant.Outline)">
+    @(Model is true ? Display.TrueText : Display.FalseText)
+</sa-badge>
+```
+
+See [custom displays](/docs/admin/custom-displays#writing-the-template) for the properties the template has.
+
+## Choosing between a display template and a custom display
+
+A `[UIHint]` applies to the property everywhere it's displayed, and the template has no settings. To use a template for some columns or fields only, or to give it settings, write a [custom display](/docs/admin/custom-displays) instead.

@@ -20,7 +20,7 @@ The StellarAdmin includes a sensible default theme which is applied when adding 
 
 While we provide a beautiful default theme, we wanted to give enough flexibility to allow you to style StellarAdmin according to your own needs. 
 
-To facilitate this, we [expose a set of CSS variables](/docs/ui/theme-variables) to control things such as the accent colour (`--sa-accent`), corner radius (`--sa-radius`), density (`--sa-density`), and more. Every colour, size and shadow in StellarAdmin is derived from these variables.
+To facilitate this, we [expose a set of CSS variables](/docs/ui/theme-variables) to control things such as the accent color (`--sa-accent`), corner radius (`--sa-radius`), density (`--sa-density`), and more. Every color, size and shadow in StellarAdmin is derived from these variables.
 
 Consider the card below, in the default theme.
 
@@ -76,7 +76,7 @@ These are starting points, not part of the package: start from one, change what 
 
 ### Ask your coding agent
 
-The **stellar-admin-theme** [agent skill](/docs/ui/agent-skills) teaches coding agents such as Claude Code and Codex to write a theme file from a description, brand colours or a reference look. Ask for the look you want:
+The **stellar-admin-theme** [agent skill](/docs/ui/agent-skills) teaches coding agents such as Claude Code and Codex to write a theme file from a description, brand colors or a reference look. Ask for the look you want:
 
 > Use the stellar-admin-theme skill to give this app a warm, editorial, dense theme with a green accent.
 
@@ -84,7 +84,7 @@ The agent writes the theme file, links it, loads its fonts, and gives you a them
 
 ### Do it by hand
 
-A theme file is plain CSS, so you can also write one yourself from the [theme variable reference](/docs/ui/theme-variables). Brand colours can be written in any CSS colour syntax; `oklch()` is the easiest to adjust.
+A theme file is plain CSS, so you can also write one yourself from the [theme variable reference](/docs/ui/theme-variables). Brand colors can be written in any CSS color syntax; `oklch()` is the easiest to adjust.
 
 ## Fonts
 
@@ -104,7 +104,7 @@ The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/
 
 | Parameter | What your app's users experience |
 | --- | --- |
-| `display=auto` | Their browser decides whether text appears immediately or waits for fonts. Use an explicit option below for more predictable behaviour. |
+| `display=auto` | Their browser decides whether text appears immediately or waits for fonts. Use an explicit option below for more predictable behavior. |
 | `display=block` | Button labels, navigation and table text may briefly be invisible while fonts load. Usually a poor choice for StellarAdmin apps because users must wait to read the interface. |
 | `display=swap` | Users can read the interface immediately; it switches to the preferred fonts when loaded. Used by our demos, but labels and table content may shift as fonts change. |
 | `display=fallback` | Users see readable text after a very brief wait, with only a short window for a font change. Choose this to limit shifts while users work; slow connections may keep native fonts for that page view. |
@@ -116,4 +116,4 @@ Theme variables also work on a single element, so a section of a page can have i
 
 ## Browser support
 
-The stylesheet uses CSS relative colour syntax, `color-mix()`, cascade layers, native nesting, `:has()` and `@scope`, without fallbacks. It needs Chrome and Edge 119, Safari 18 or Firefox 146, or later. In older browsers colours fail silently, leaving components unstyled in places.
+The stylesheet uses CSS relative color syntax, `color-mix()`, cascade layers, native nesting, `:has()` and `@scope`, without fallbacks. It needs Chrome and Edge 119, Safari 18 or Firefox 146, or later. In older browsers colors fail silently, leaving components unstyled in places.

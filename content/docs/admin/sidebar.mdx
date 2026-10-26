@@ -47,7 +47,7 @@ admin.AddSidebarLink("Departures this week", SidebarLinkTarget.Page("/Admin/Depa
 
 admin.AddSidebarLink("Invoices", SidebarLinkTarget.Action("Index", "Invoices"));
 
-admin.AddSidebarLink("Help centre", SidebarLinkTarget.Url("https://help.voyager.travel"), link =>
+admin.AddSidebarLink("Help center", SidebarLinkTarget.Url("https://help.voyager.travel"), link =>
 {
     link.Group = "Help";
     link.OpenInNewTab = true;
@@ -71,7 +71,7 @@ Groups with the same name merge, whether their items come from resources or link
 Groups sit in the order their first item was added. To change that, or sort a group's items by label, configure the group:
 
 ```cs
-admin.ConfigureSidebarGroup("Catalogue", group => group.Order = 1);
+admin.ConfigureSidebarGroup("Catalog", group => group.Order = 1);
 admin.ConfigureSidebarGroup("Sales", group => group.Order = 2);
 admin.ConfigureSidebarGroup("Settings", group => group.SortItemsByLabel = true);
 ```

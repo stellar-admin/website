@@ -31,7 +31,7 @@ function values(variable: ThemeVariable): string {
     case "switch":
       return "0 or 1";
     case "color":
-      return "any colour";
+      return "any color";
     case "number":
     case "length": {
       const unit = variable.type === "length" ? (variable.unit ?? "") : "";

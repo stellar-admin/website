@@ -5,7 +5,7 @@ description: Check what people enter before a record is saved
 
 When someone saves a create or edit form, StellarAdmin runs ASP.NET Core model validation before it saves the record. If a field isn't valid, StellarAdmin displays the form again with the values that were entered and the errors, and doesn't save the record.
 
-The example below requires a reference of up to 12 characters, and between 1 and 20 travellers:
+The example below requires a reference of up to 12 characters, and between 1 and 20 travelers:
 
 ```cs
 public class Booking
@@ -14,7 +14,7 @@ public class Booking
     public string Reference { get; set; } = "";
 
     [Range(1, 20)]
-    public int Travellers { get; set; } = 1;
+    public int Travelers { get; set; } = 1;
 }
 ```
 

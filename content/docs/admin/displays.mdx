@@ -1,9 +1,29 @@
 ---
-title: Built-in displays
-description: How values are shown in the grid, on view pages and in display fields
+title: Overview
+description: How StellarAdmin chooses how a value is displayed, and how to choose another display type
 ---
 
-A display decides how a value is shown: in a grid cell, a [display field](/docs/admin/fields#displaying-values-that-arent-edited) or on a [view page](/docs/admin/view-pages). Each value gets one from its type, and you can pick another with `UseDisplay`:
+A *display type* sets how a value is displayed in the grid, in a [display field](/docs/admin/fields#displaying-values-that-arent-edited) and on a [view page](/docs/admin/view-pages), such as a number as a currency, or a `bool` as an icon. StellarAdmin chooses each value's display type from the property's type and attributes. The table below lists the display type StellarAdmin chooses for each kind of property:
+
+| Property | Display type |
+| --- | --- |
+| `string` | `TextDisplay` |
+| `string` with `[EmailAddress]` | `EmailDisplay` |
+| `string` with `[Phone]` | `PhoneDisplay` |
+| `string` with `[Url]` | `LinkDisplay` |
+| `string` with `[DataType(DataType.Html)]` | `HtmlDisplay` |
+| Numbers | `NumberDisplay` |
+| `DateOnly`, `DateTime`, `DateTimeOffset`, `TimeOnly` | `DateDisplay` |
+| `bool` | `BooleanDisplay` |
+| Enum | `EnumDisplay` |
+| List or dictionary | `BadgeDisplay` |
+| Record of a registered resource | `TextDisplay`, with the record's title |
+
+StellarAdmin also supports `ImageDisplay` and `IconDisplay`, which must be specified explicitly using `UseDisplay()`.
+
+## Choosing another display type
+
+To choose another display type, call `UseDisplay()` on the column or the display field. To change the display type's settings, pass a callback. The example below displays the booking's total as a currency in the grid, and whether a customer is a VIP as text on the form:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -20,44 +40,43 @@ fields.AddDisplayField(customer => customer.IsVip, field =>
     }));
 ```
 
-## The displays
+For a display type StellarAdmin doesn't have, write a [custom display](/docs/admin/custom-displays).
 
-| Display | Used by default for | Settings |
-| --- | --- | --- |
-| `TextDisplay` | Strings | `LineClamp` |
-| `NumberDisplay` | Numbers, right-aligned in the grid | `Format`, like `"C"` or `"N2"` |
-| `DateDisplay` | `DateTime`, `DateTimeOffset`, `DateOnly`, `TimeOnly` | `Format`, like `"d MMM yyyy"` |
-| `BooleanDisplay` | `bool` | `Appearance` (`Icon`, `Text` or `IconAndText`), `TrueText`, `FalseText` |
-| `EnumDisplay` | Enums | None |
-| `EmailDisplay` | `[EmailAddress]` | None. Shows a `mailto:` link. |
-| `PhoneDisplay` | `[Phone]` | None. Shows a `tel:` link. |
-| `LinkDisplay` | `[Url]` | `OpenInNewTab`, on by default |
-| `HtmlDisplay` | `[DataType(DataType.Html)]` | `LineClamp`, in the grid |
-| `BadgeDisplay` | Lists and dictionaries | `Variant`, `Limit`, `UseText` |
-| `ImageDisplay` | Nothing; pick it yourself | `ResolveUrl`, `Size`, `AspectRatio`, `Fit`, `Interaction` |
-| `IconDisplay` | Nothing; pick it yourself | `ShowName` |
+## Numbers and dates
 
-All of them are in `StellarAdmin.Resources.Displays`.
+`NumberDisplay` and `DateDisplay` have a `Format` setting, which takes a .NET format string, such as `"C"` or `"N2"` for a number, or `"d MMM yyyy"` for a date. If `Format` isn't set, StellarAdmin uses the property's `[DisplayFormat]`. Without either, a number has no format, a date is displayed as `14 Oct 2026`, a time as `09:30`, and a date and time as `14 Oct 2026, 09:30`.
 
-## Formats
+StellarAdmin formats values in the request's culture, so `"C"` displays the server's currency, unless your app sets a request culture.
 
-`Format` falls back to the property's `[DisplayFormat]`. Dates default to `d MMM yyyy`, times to `HH:mm`, and both together to `d MMM yyyy, HH:mm`.
+`[DataType(DataType.Date)]` also sets a `[DisplayFormat]`, which displays the culture's short date, such as `10/14/2026` in the en-US culture. To display the date as `14 Oct 2026` instead, set `Format` to `"d MMM yyyy"`.
 
-Formats use the request's culture, so `"C"` shows your server's currency unless your app sets a request culture.
-
-One gotcha: `[DataType(DataType.Date)]` brings in MVC's short date format, like `10/14/2026` in en-US. Set `Format` on those if you want the panel's style.
-
-Enums show each member's `[Display(Name)]`, or its name with spaces: `NorthAmerica` reads "North America".
+In the grid, numbers are aligned to the right.
 
 ## Text
 
-`LineClamp` cuts long text off after that many lines. In the grid, line breaks only show when it's set. In display fields, multi-line text keeps its line breaks.
+`TextDisplay` displays all the text. To cut the text off after a number of lines, set `LineClamp`.
 
-`HtmlDisplay` sanitizes the HTML and shows it formatted. In the grid it shows the text without formatting, cut off after two lines.
+In the grid, `TextDisplay` displays the text's line breaks only when `LineClamp` is set. In a display field, it displays the line breaks of a property with `[DataType(DataType.MultilineText)]`.
 
-## Badges
+`HtmlDisplay` sanitizes the HTML, and displays it formatted. In the grid, it displays the text without formatting, cut off after 2 lines. To change the number of lines, set `LineClamp`.
 
-`BadgeDisplay` shows each item of a list, or each entry of a dictionary, as a [badge](/docs/ui/components/badge):
+## Yes or no
+
+`BooleanDisplay` displays a `bool` as an icon. To display it as text, or as an icon and text, set `Appearance` to `BooleanDisplayAppearance.Text` or `IconAndText`. To change the text, set `TrueText` and `FalseText`. The default text is "Yes" and "No", which screen readers announce when only the icon is displayed.
+
+## Enums
+
+`EnumDisplay` displays an enum member's `[Display(Name)]`. If the member has no `[Display]` attribute, it displays the member's name split into words, so `NorthAmerica` is displayed as "North America".
+
+## Email addresses, phone numbers and links
+
+`EmailDisplay` displays an email address as a `mailto:` link, and `PhoneDisplay` displays a phone number as a `tel:` link.
+
+`LinkDisplay` displays an `http` or `https` URL as a link, which opens in a new tab. To open the link in the same tab, set `OpenInNewTab` to `false`. A value that isn't an `http` or `https` URL is displayed as text.
+
+## Lists and dictionaries
+
+`BadgeDisplay` displays each item of a list, or each entry of a dictionary, as a [badge](/docs/ui/components/badge). The example below displays a trip's highlights as outline badges, with at most 3 badges:
 
 ```cs
 columns.Add(trip => trip.Highlights, column =>
@@ -68,13 +87,17 @@ columns.Add(trip => trip.Highlights, column =>
     }));
 ```
 
-`Limit` shows that many, and the rest as a `+2` badge with the others in its tooltip. Every badge gets the same `Variant`. For a badge styled by its value, write a [custom display](/docs/admin/custom-displays).
+When there are more items than `Limit`, StellarAdmin displays one more badge with the number of the other items, such as `+2`, and lists them when people hover over it.
 
-It also shows related records, like a trip's tags. See [showing related values](/docs/admin/related-values).
+Every badge has the same `Variant`. To choose each badge's variant from its value, write a [custom display](/docs/admin/custom-displays).
+
+To display related records as badges, such as a trip's tags, see [related values](/docs/admin/related-values).
 
 ## Images
 
-`ImageDisplay` shows a thumbnail in the grid, and a larger image that opens in a lightbox elsewhere. If the property value isn't a URL the browser can load, pass `ResolveUrl()` the same function as the [image editor](/docs/admin/image-editor):
+`ImageDisplay` displays an image. In the grid, it displays a thumbnail, and in a display field, a larger image. When people click the image, StellarAdmin opens a larger version.
+
+If the property value isn't a URL the browser can load, specify a `ResolveUrl()` function that turns the property value into one, such as the function you passed to the [image editor](/docs/admin/image-editor):
 
 ```cs
 columns.Add(destination => destination.Photo, column =>
@@ -82,25 +105,27 @@ columns.Add(destination => destination.Photo, column =>
         image.ResolveUrl(value => $"/photos/{value}")));
 ```
 
-The grid calls `ResolveUrl()` once for each row, so build the URL from the stored value instead of loading it from a database.
+The grid calls `ResolveUrl()` once for each row, so build the URL from the property value instead of loading it from a database.
 
-| Setting | Grid default | Elsewhere |
-| --- | --- | --- |
-| `Size` | `Small`, 32px | `Medium`, up to 15rem tall |
-| `AspectRatio` | `Square` | `Original` |
-| `Fit` | `Cover` | `Cover` |
-| `Interaction` | `Lightbox` | `Lightbox` |
+When the property value is empty, `ImageDisplay` displays a placeholder.
 
-An empty value shows a placeholder.
+| Setting | What it does |
+| --- | --- |
+| `Size` | Sets the image's height in the grid, and its maximum height in a display field: `ImageDisplaySize.ExtraSmall`, `Small`, `Medium` or `Large`. The default is `Small` (32px) in the grid, and `Medium` (15rem) in a display field. |
+| `AspectRatio` | Sets the image's shape: `ImageAspectRatio.Square`, `Landscape`, `Widescreen`, `Portrait` or `Original`. The default is `Square` in the grid, and `Original` in a display field. |
+| `Fit` | Sets how the image fills its shape: `ImageFit.Cover` crops the image, and `Contain` fits all of it. The default is `Cover`. |
+| `Interaction` | Sets what happens when people interact with the image: `ImageDisplayInteraction.Lightbox` opens a larger version on click, `Preview` displays a larger version on hover, and `None` does nothing. The default is `Lightbox`. |
 
 ## Icons
 
-`IconDisplay` renders the icon that a property's value names. In the grid, it shows the icon's name when people hover over the icon. On the view page, it renders the name beside the icon. To change that, set `ShowName`.
+`IconDisplay` displays the icon that the property value names, such as a value from the [icon editor](/docs/admin/icon-editor). In the grid, it displays the icon's name when people hover over the icon. In a display field, it displays the name beside the icon. To display the name everywhere, set `ShowName` to `true`. To display it only on hover, set `ShowName` to `false`.
+
+If the value isn't the name of a registered [icon](/docs/ui/icons), `IconDisplay` displays a dashed box instead.
 
 ## Empty values
 
-A null or empty value shows the field's `EmptyText`, then `[DisplayFormat(NullDisplayText)]`. In the grid, that's an empty cell by default, and in display fields a dash.
+When a value is `null` or empty, StellarAdmin displays the column's or the field's `EmptyText`. If `EmptyText` isn't set, it uses the property's `[DisplayFormat(NullDisplayText)]`. Without either, the grid displays an empty cell, and a display field displays a dash.
 
-## Changing a display everywhere
+## Changing a built-in display type
 
-To change how a built-in display looks across the panel, override its template. See [display templates](/docs/admin/display-templates).
+To change how a built-in display type renders everywhere, add a template with the built-in template's path. See [display templates](/docs/admin/display-templates#changing-a-built-in-display-type).

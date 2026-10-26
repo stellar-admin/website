@@ -37,9 +37,9 @@ columns.Add(booking => booking.Total).Sortable();
 
 ## Choosing how values are rendered
 
-Unless specified otherwise, a column renders its value with a [display](/docs/admin/displays) that StellarAdmin chooses from the property's type. For example, numbers are right-aligned, dates are rendered like "3 Nov 2026", a `bool` is rendered as an icon, and an enum is rendered with its `[Display(Name)]`.
+Unless specified otherwise, a column renders its value with a [display type](/docs/admin/displays) that StellarAdmin chooses from the property's type. For example, numbers are right-aligned, dates are rendered like "3 Nov 2026", a `bool` is rendered as an icon, and an enum is rendered with its `[Display(Name)]`.
 
-To render a value differently, call `UseDisplay()` with the display to use. The example below renders the total as a currency:
+To render a value differently, call `UseDisplay()` with the display type to use. The example below renders the total as a currency:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -48,7 +48,7 @@ columns.Add(booking => booking.Total, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 ```
 
-See [built-in displays](/docs/admin/displays) for every display and its settings.
+See [displays](/docs/admin/displays) for every display type and its settings.
 
 ## Displaying related values
 
@@ -70,13 +70,13 @@ Don't add the foreign key, such as `booking.CustomerId`, as a column, because th
 
 ## Displaying computed values
 
-A column can display any expression, not only a property. The example below displays the total per traveller:
+A column can display any expression, not only a property. The example below displays the total per traveler:
 
 ```cs
-columns.Add(booking => booking.Total / booking.Travellers, column =>
+columns.Add(booking => booking.Total / booking.Travelers, column =>
 {
-    column.Title = "Per traveller";
-    column.Sortable(booking => booking.Total / booking.Travellers);
+    column.Title = "Per traveler";
+    column.Sortable(booking => booking.Total / booking.Travelers);
     column.UseDisplay<NumberDisplay>(number => number.Format = "C");
 });
 ```

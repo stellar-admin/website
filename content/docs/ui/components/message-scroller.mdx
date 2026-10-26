@@ -34,7 +34,7 @@ New messages are picked up from the DOM rather than from any particular transpor
 
 ### What it does not do
 
-The scroller deliberately stops short of the behaviour a dedicated chat client needs. It does not anchor each new turn to the top of the viewport, it does not preserve the reader's position when older history is prepended above them, and it does not restore the position a reader left off at. If you need those, drive the scroll position yourself with `scrollToStart()` and `scrollToEnd()`.
+The scroller deliberately stops short of the behavior a dedicated chat client needs. It does not anchor each new turn to the top of the viewport, it does not preserve the reader's position when older history is prepended above them, and it does not restore the position a reader left off at. If you need those, drive the scroll position yourself with `scrollToStart()` and `scrollToEnd()`.
 
 ## Examples
 
@@ -58,7 +58,7 @@ The buttons carry an `sr-only` label describing where they scroll to, so they ar
 
 ### New messages
 
-Appending to the content element is all that is needed for the transcript to follow along. The viewport is a labelled `region` that a keyboard user can focus and scroll, and the content is a `log` with `aria-relevant="additions"`, so a screen reader announces messages as they arrive without re-reading the transcript already on screen. Give the viewport an `aria-label` naming the conversation when a page holds more than one.
+Appending to the content element is all that is needed for the transcript to follow along. The viewport is a labeled `region` that a keyboard user can focus and scroll, and the content is a `log` with `aria-relevant="additions"`, so a screen reader announces messages as they arrive without re-reading the transcript already on screen. Give the viewport an `aria-label` naming the conversation when a page holds more than one.
 
 <Demo src="/demo/ui/message-scroller-new-messages.html">
   <include>./_include/message-scroller-new-messages.mdx</include>
@@ -97,7 +97,7 @@ Get the rendered element with `document.getElementById()` and the `id` you give 
 
 ### `<sa-message-scroller-viewport>`
 
-Renders the scrolling `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It is a focusable `region` labelled `Messages`; set `aria-label` or `aria-labelledby` to name the conversation yourself.
+Renders the scrolling `<div>` element, forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). It is a focusable `region` labeled `Messages`; set `aria-label` or `aria-labelledby` to name the conversation yourself.
 
 ### `<sa-message-scroller-content>`
 

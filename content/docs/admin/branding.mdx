@@ -29,7 +29,7 @@ There are three kinds of logo:
 
 | Logo | Looks like |
 | --- | --- |
-| `BrandingLogo.Icon("compass")` | An [icon](/docs/ui/icons) in a coloured tile, beside the title. |
+| `BrandingLogo.Icon("compass")` | An [icon](/docs/ui/icons) in a colored tile, beside the title. |
 | `BrandingLogo.Image("~/img/logo.svg")` | A square image beside the title. |
 | `BrandingLogo.Wordmark("~/img/wordmark.svg")` | An image that replaces the title and subtitle. The title becomes its alt text. |
 
@@ -39,7 +39,7 @@ There are three kinds of logo:
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", "~/img/wordmark-dark.svg");
 ```
 
-A wordmark is centred, and as tall as the two lines of text it replaces. Pass a `WordmarkLayout` to change that: `Start` lines it up with the menu items, and `Fill` stretches it across the sidebar, which suits a wide logo that looks small otherwise.
+A wordmark is centered, and as tall as the two lines of text it replaces. Pass a `WordmarkLayout` to change that: `Start` lines it up with the menu items, and `Fill` stretches it across the sidebar, which suits a wide logo that looks small otherwise.
 
 ```cs
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", WordmarkLayout.Fill);

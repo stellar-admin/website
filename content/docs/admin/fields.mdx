@@ -72,12 +72,12 @@ The property of a display field needs only a public getter, and StellarAdmin nev
 | `Orientation` | Places the label above the value with `DisplayFieldOrientation.Vertical`, the default, or beside it with `Horizontal`. |
 | `UseDisplay<TDisplay>()` | Renders the value with a different [display type](/docs/admin/displays). |
 
-A display field can also render a value that it computes, such as the price per traveller. A computed value has no property to take its label from, so you must set its `Title`. If you don't, StellarAdmin leaves the field out and reports a [configuration problem](/docs/admin/configuration-problems). The example below computes the price per traveller:
+A display field can also render a value that it computes, such as the price per traveler. A computed value has no property to take its label from, so you must set its `Title`. If you don't, StellarAdmin leaves the field out and reports a [configuration problem](/docs/admin/configuration-problems). The example below computes the price per traveler:
 
 ```cs
-fields.AddDisplayField(booking => booking.Total / booking.Travellers, field =>
+fields.AddDisplayField(booking => booking.Total / booking.Travelers, field =>
 {
-    field.Title = "Per traveller";
+    field.Title = "Per traveler";
     field.UseDisplay<NumberDisplay>(number => number.Format = "C");
 });
 ```

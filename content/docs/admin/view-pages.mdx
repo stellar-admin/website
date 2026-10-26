@@ -16,7 +16,7 @@ resource.AllowView(view => view.Fields(fields =>
         section.Add(booking => booking.Reference);
         section.Add(booking => booking.Trip);
         section.Add(booking => booking.DepartureDate);
-        section.Add(booking => booking.Travellers);
+        section.Add(booking => booking.Travelers);
         section.Add(booking => booking.Total, field =>
             field.UseDisplay<NumberDisplay>(number => number.Format = "C"));
     });

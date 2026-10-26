@@ -5,7 +5,7 @@ description: Change the density or the theme of one part of a page
 
 import { Demo } from "@/components/demo";
 
-A theme sets its [theme variables](/docs/ui/theme-variables) on `:root`, for the whole page. Every theme variable also works on a single element: everything inside it re-derives from the new value, while the rest of the page keeps the theme. Use this for a dense table on an otherwise roomy page, or a branded panel with its own colours.
+A theme sets its [theme variables](/docs/ui/theme-variables) on `:root`, for the whole page. Every theme variable also works on a single element: everything inside it re-derives from the new value, while the rest of the page keeps the theme. Use this for a dense table on an otherwise roomy page, or a branded panel with its own colors.
 
 ## Density levels
 
@@ -33,7 +33,7 @@ For a density other than the two named levels, mark the element with `data-sa-sc
 
 ## Branded panels
 
-`data-sa-scope` marks an element that sets its own theme variables. Set any of them on the element, inline or from your own CSS, and everything inside it follows: the accent, the greys, the corners, the density. Here the rewards card has a green accent, green-tinted greys, pill controls and pill tags, next to an ordinary card.
+`data-sa-scope` marks an element that sets its own theme variables. Set any of them on the element, inline or from your own CSS, and everything inside it follows: the accent, the grays, the corners, the density. Here the rewards card has a green accent, green-tinted grays, pill controls and pill tags, next to an ordinary card.
 
 <Demo src="/demo/ui/theming-branded-panel.html">
   <include>./components/_include/theming-branded-panel.mdx</include>

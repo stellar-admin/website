@@ -1,9 +1,9 @@
 ---
 title: Design Tokens
-description: Use the theme's colours, sizes and spacing in your own CSS or Tailwind CSS utilities
+description: Use the theme's colors, sizes and spacing in your own CSS or Tailwind CSS utilities
 ---
 
-The [theme variables](/docs/ui/theme-variables) feed **design tokens**, CSS variables derived from them: the colours, radii, spacing and shadows the components read. Your own CSS can read them too, so your own markup follows the theme, the density and dark mode.
+The [theme variables](/docs/ui/theme-variables) feed **design tokens**, CSS variables derived from them: the colors, radii, spacing and shadows the components read. Your own CSS can read them too, so your own markup follows the theme, the density and dark mode.
 
 ## In your own CSS
 
@@ -54,7 +54,7 @@ The adapter maps Tailwind's theme onto the tokens:
 
 - Spacing follows `--sa-unit`, so `p-4` and `gap-2` follow the density.
 - `text-xs`, `text-sm` and `text-base`, `font-sans`, `font-mono` and `font-heading`, and the `rounded-*` steps follow the theme.
-- The colours have their shadcn/ui names: `bg-primary`, `text-primary-foreground`, `bg-card`, `bg-muted`, `text-muted-foreground`, `border-border`, `bg-accent`, `text-destructive`, the `sidebar-*` colours and more.
+- The colors have their shadcn/ui names: `bg-primary`, `text-primary-foreground`, `bg-card`, `bg-muted`, `text-muted-foreground`, `border-border`, `bg-accent`, `text-destructive`, the `sidebar-*` colors and more.
 - `dark:` follows the `dark` class.
 
 The layer order keeps Tailwind's base styles below the components and your utilities above them, so a utility on a Tag Helper overrides the component's own style. The layer names and their order are a stable part of the public API, so you can rely on `sa.theme` and `sa.overrides`.
@@ -63,6 +63,6 @@ The layer order keeps Tailwind's base styles below the components and your utili
 <!-- adapts to the theme and dark mode -->
 <div class="rounded-xl border bg-card p-4 text-card-foreground">...</div>
 
-<!-- hard-coded palette colours don't follow the theme -->
+<!-- hard-coded palette colors don't follow the theme -->
 <div class="rounded-xl border border-gray-200 bg-white p-4 text-gray-900">...</div>
 ```

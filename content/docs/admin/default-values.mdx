@@ -3,7 +3,7 @@ title: Setting default values
 description: Set the values a new record starts with
 ---
 
-Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a booking with a departure date two weeks away, two travellers and a status of `Pending`:
+Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a booking with a departure date two weeks away, two travelers and a status of `Pending`:
 
 ```cs
 resource.AllowCreate(create =>
@@ -11,14 +11,14 @@ resource.AllowCreate(create =>
     create.UseFactory(() => new Booking
     {
         DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
-        Travellers = 2,
+        Travelers = 2,
         Status = BookingStatus.Pending,
     });
     create.Fields(fields =>
     {
         fields.Add(booking => booking.CustomerId);
         fields.Add(booking => booking.DepartureDate);
-        fields.Add(booking => booking.Travellers);
+        fields.Add(booking => booking.Travelers);
     });
 });
 ```
@@ -62,14 +62,14 @@ resource.AllowCreate<Booking, NewBookingHandler>(create =>
     create.UseFactory(() => new Booking
     {
         DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
-        Travellers = 2,
+        Travelers = 2,
         Status = BookingStatus.Pending,
     });
     create.Fields(fields =>
     {
         fields.Add(booking => booking.CustomerId);
         fields.Add(booking => booking.DepartureDate);
-        fields.Add(booking => booking.Travellers);
+        fields.Add(booking => booking.Travelers);
     });
 });
 ```

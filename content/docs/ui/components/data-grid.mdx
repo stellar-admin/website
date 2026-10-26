@@ -35,7 +35,7 @@ Selection works in this static preview. Sorting and pagination are disabled in t
 A column's `field-for` can compute its value instead of selecting a property. The cells show the expression's result, and a `template` receives it as its model.
 
 ```razor
-<sa-data-grid-column title="Travellers" field-for="(Booking b) => b.Adults + b.Children" />
+<sa-data-grid-column title="Travelers" field-for="(Booking b) => b.Adults + b.Children" />
 <sa-data-grid-column title="Total" field-for="(Booking b) => b.Nights * b.NightlyRate" format="{0:C}" />
 ```
 

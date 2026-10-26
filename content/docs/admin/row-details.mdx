@@ -11,13 +11,13 @@ Call `EnableRowDetails()` with the name of the partial view. The example below r
 resource.Index(index => index.EnableRowDetails("_BookingSummary"));
 ```
 
-The `_BookingSummary` partial view below displays the booking's number of travellers and its notes:
+The `_BookingSummary` partial view below displays the booking's number of travelers and its notes:
 
 ```razor title="Areas/StellarAdmin/Views/bookings/_BookingSummary.cshtml"
 @model Booking
 
 <sa-details>
-    <sa-display-field asp-for="Travellers" />
+    <sa-display-field asp-for="Travelers" />
     <sa-display-field asp-for="Notes" />
 </sa-details>
 ```
@@ -30,12 +30,12 @@ The partial view needs a [`_ViewImports.cshtml` file](/docs/admin/overriding-pag
 
 Your details may need data that isn't part of the row's record, such as related records or data from another service. Instead of loading this data for every row on the index page, StellarAdmin can load it only when someone expands a row.
 
-For an EF Core resource, pass an expression that projects the record into the partial view's model. StellarAdmin runs the query when someone expands the row. The example below loads the booking's total, its number of travellers and the price of its trip:
+For an EF Core resource, pass an expression that projects the record into the partial view's model. StellarAdmin runs the query when someone expands the row. The example below loads the booking's total, its number of travelers and the price of its trip:
 
 ```cs
 index.EnableRowDetails("_BookingPricing", booking => new BookingPricing(
     booking.Total,
-    booking.Travellers,
+    booking.Travelers,
     booking.Trip!.Price));
 ```
 
@@ -71,7 +71,7 @@ index.EnableRowDetails(panels =>
 {
     panels.Add("Summary", "_BookingSummary");
     panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
-        booking.Total, booking.Travellers, booking.Trip!.Price));
+        booking.Total, booking.Travelers, booking.Trip!.Price));
     panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
 });
 ```

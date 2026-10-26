@@ -71,7 +71,7 @@ A small timeline in a card. Set `size` to `TimelineSize.Small` for compact marke
 
 ### Failure
 
-Colour an icon with a class to flag an event. When the icon adds meaning the title doesn't carry, set `label` on `<sa-timeline-item-media>`: screen readers announce it before the title, here "Failed: Payout to the traveller".
+Color an icon with a class to flag an event. When the icon adds meaning the title doesn't carry, set `label` on `<sa-timeline-item-media>`: screen readers announce it before the title, here "Failed: Payout to the traveler".
 
 <Demo src="/demo/ui/timeline-failure.html">
   <include>./_include/timeline-failure.mdx</include>
@@ -97,7 +97,7 @@ Split a long feed into several timelines with ordinary headings between them.
 
 ### Markers
 
-An item with no media shows the timeline's marker. Media holds an icon on a disc, coloured if the icon has a colour class, or an avatar that fills the marker.
+An item with no media shows the timeline's marker. Media holds an icon on a disc, colored if the icon has a color class, or an avatar that fills the marker.
 
 <Demo src="/demo/ui/timeline-markers.html">
   <include>./_include/timeline-markers.mdx</include>
@@ -105,7 +105,7 @@ An item with no media shows the timeline's marker. Media holds an icon on a disc
 
 ### Progress
 
-Set `current` on an item to show how far along the timeline is. The current item, the items before it and the rails between them take the accent colour, and the current item gets `aria-current="step"`. With several current items, the accent runs to the last of them. Set `rail` to `TimelineRail.Dashed` for the line out of an optional item, or to `TimelineRail.None` to break the line.
+Set `current` on an item to show how far along the timeline is. The current item, the items before it and the rails between them take the accent color, and the current item gets `aria-current="step"`. With several current items, the accent runs to the last of them. Set `rail` to `TimelineRail.Dashed` for the line out of an optional item, or to `TimelineRail.None` to break the line.
 
 <Demo src="/demo/ui/timeline-progress.html">
   <include>./_include/timeline-progress.mdx</include>
@@ -202,7 +202,7 @@ Renders an `<li>` element for an event in the timeline, forwarding any [global a
     },
     current: {
       description:
-        "Whether the item is the current one. It, the items before it and the rails between them take the accent colour.",
+        "Whether the item is the current one. It, the items before it and the rails between them take the accent color.",
       type: "bool",
       default: "false",
     },
@@ -230,7 +230,7 @@ Renders a `<div>` element for the item title, forwarding any [global attributes]
 <TypeTable
   type={{
     muted: {
-      description: "Whether the title is shown in a muted colour, such as for a system event.",
+      description: "Whether the title is shown in a muted color, such as for a system event.",
       type: "bool",
       default: "false",
     },

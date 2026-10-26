@@ -111,7 +111,7 @@ function Input({
         <div className="flex items-center gap-2">
           <input
             type="color"
-            aria-label={`${variable.label} colour`}
+            aria-label={`${variable.label} color`}
             className="h-8 w-10 shrink-0 cursor-pointer rounded-md border border-input bg-transparent p-0.5 disabled:opacity-50"
             value={hex ?? "#000000"}
             disabled={disabled}

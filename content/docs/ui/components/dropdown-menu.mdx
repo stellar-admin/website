@@ -13,7 +13,7 @@ import { Demo } from "@/components/demo";
 
 `<sa-dropdown-menu>` groups a trigger and its menu. The `<sa-dropdown-menu-trigger>` renders a `<sa-button>` (defaulting to `ButtonVariant.Outline`) that opens the menu using the [HTML Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), and `<sa-dropdown-menu-content>` holds the menu items.
 
-Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labelling them with `<sa-dropdown-menu-label>`, `<sa-dropdown-menu-separator>` and `<sa-dropdown-menu-group>`. Add a trailing keyboard hint with `<sa-dropdown-menu-shortcut>`, and mark an item as dangerous with `variant="DropdownMenuItemVariant.Destructive"`.
+Compose the content from `<sa-dropdown-menu-item>` entries, grouping and labeling them with `<sa-dropdown-menu-label>`, `<sa-dropdown-menu-separator>` and `<sa-dropdown-menu-group>`. Add a trailing keyboard hint with `<sa-dropdown-menu-shortcut>`, and mark an item as dangerous with `variant="DropdownMenuItemVariant.Destructive"`.
 
 ```razor
 <sa-dropdown-menu>
@@ -126,7 +126,7 @@ Give the trigger visible text or an `aria-label` when it only contains an icon.
 
 ### `<sa-dropdown-menu>`
 
-Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honouring a user-supplied `id`) that connects the trigger to the menu. To choose the id, set `id` here rather than on `<sa-dropdown-menu-content>`; an `id` on the content that differs from it throws, since the trigger could not find the menu.
+Groups a trigger and its menu content. It renders no element of its own — it only generates the shared id (honoring a user-supplied `id`) that connects the trigger to the menu. To choose the id, set `id` here rather than on `<sa-dropdown-menu-content>`; an `id` on the content that differs from it throws, since the trigger could not find the menu.
 
 ### `<sa-dropdown-menu-trigger>`
 

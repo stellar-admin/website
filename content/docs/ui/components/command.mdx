@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and a `<sa-command-list>`. The list holds `<sa-command-item>` entries, optionally organised into `<sa-command-group>` sections divided by `<sa-command-separator>`, and a `<sa-command-empty>` message shown when nothing matches. Add a trailing keyboard hint to an item with `<sa-command-shortcut>`.
+A command menu is composed of `<sa-command>` wrapping a `<sa-command-input>` and a `<sa-command-list>`. The list holds `<sa-command-item>` entries, optionally organized into `<sa-command-group>` sections divided by `<sa-command-separator>`, and a `<sa-command-empty>` message shown when nothing matches. Add a trailing keyboard hint to an item with `<sa-command-shortcut>`.
 
 ```razor
 <sa-command label="...">
@@ -88,7 +88,7 @@ The URL can be specified a couple of ways:
 
 ### Server-side search
 
-When the items come from a large or remote data set, set `filter="CommandFilter.None"` and search on the server instead. The command menu then never hides or ranks items itself. Attributes that `<sa-command-input>` does not recognise are rendered on the `<input>`, so a library such as [htmx](https://htmx.org) can send the search as the user types and replace the contents of the list with the results.
+When the items come from a large or remote data set, set `filter="CommandFilter.None"` and search on the server instead. The command menu then never hides or ranks items itself. Attributes that `<sa-command-input>` does not recognize are rendered on the `<input>`, so a library such as [htmx](https://htmx.org) can send the search as the user types and replace the contents of the list with the results.
 
 ```razor
 <sa-command id="trip-search" filter="CommandFilter.None" label="Search trips">
@@ -184,7 +184,7 @@ Renders a modal `<dialog>` that presents a command menu as a command palette. Pl
 
 ### `<sa-command-input>`
 
-Renders the search `<input>` with a search icon. Attributes the tag does not recognise, such as `name`, `placeholder`, or request attributes for server-side search, are rendered on the `<input>`.
+Renders the search `<input>` with a search icon. Attributes the tag does not recognize, such as `name`, `placeholder`, or request attributes for server-side search, are rendered on the `<input>`.
 
 ### `<sa-command-list>`
 

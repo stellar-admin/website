@@ -73,7 +73,7 @@ Two things to keep in mind:
 
 ## Interest invokers
 
-Tooltips and hover-triggered popovers use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers). An `interestfor` attribute on the trigger shows the target popover on hover, focus and long-press. StellarAdmin bundles the `interestfor` polyfill, so this works in current browsers regardless of native support. Browsers that support interest invokers natively honour `interestfor` only on links and buttons, so the bundle also handles it on other elements, such as inputs, selects and toggles, with the same delays and `interest` and `loseinterest` events. A control inside a label, such as a toggle's checkbox, takes its hover from the label, and the tooltip lines up with the label. See [Tooltip](/docs/ui/components/tooltip) and [Popover](/docs/ui/components/popover).
+Tooltips and hover-triggered popovers use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers). An `interestfor` attribute on the trigger shows the target popover on hover, focus and long-press. StellarAdmin bundles the `interestfor` polyfill, so this works in current browsers regardless of native support. Browsers that support interest invokers natively honor `interestfor` only on links and buttons, so the bundle also handles it on other elements, such as inputs, selects and toggles, with the same delays and `interest` and `loseinterest` events. A control inside a label, such as a toggle's checkbox, takes its hover from the label, and the tooltip lines up with the label. See [Tooltip](/docs/ui/components/tooltip) and [Popover](/docs/ui/components/popover).
 
 ## The `window.stellarAdmin` helpers
 
