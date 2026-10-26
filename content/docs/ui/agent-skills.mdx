@@ -3,81 +3,67 @@ title: Agent Skills
 description: Teach your coding agent to build UIs and themes with StellarAdmin.UI
 ---
 
-StellarAdmin provides two skills for agents such as Claude Code and Codex:
+StellarAdmin.UI has two skills that teach coding agents, such as Claude Code and Codex, how to use it:
 
-- **stellar-admin-ui** includes setup instructions, component references, and guidance for forms, layouts, and theming in ASP.NET Core MVC and Razor Pages `.cshtml` files.
-- **stellar-admin-theme** writes [theme files](/docs/ui/theming) from a description, brand colors or a reference look.
+| Skill | Teaches the agent to |
+| --- | --- |
+| `stellar-admin-ui` | Install StellarAdmin.UI in your app, and build pages with the Tag Helpers: components, forms, layouts, icons, JavaScript and templated views. |
+| `stellar-admin-theme` | Write a [theme file](/docs/ui/theming) from a description, your brand colors or a look you want to match. |
 
-Install them with [Vercel's skills installer](https://github.com/vercel-labs/skills). The skills and their references live in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
+You install the skills with [Vercel's skills installer](https://github.com/vercel-labs/skills). The source of the skills is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
 
-## Installation
+## Installing the skills
 
-With Node.js/npm and Git installed, open a terminal in your application's project directory and run:
+You need Node.js and Git. Run the following commands in your app's project directory:
 
 ```bash
 npx skills add stellar-admin/stellar-admin --skill stellar-admin-ui
-```
-
-Choose your agent in the installer. Installation is project-scoped by default. Keep the explicit `--skill stellar-admin-ui` selection: the repository also contains internal product-development skills.
-
-To select an agent directly, use one of these commands:
-
-```bash title="Claude Code"
-npx skills add stellar-admin/stellar-admin --skill stellar-admin-ui --agent claude-code
-```
-
-```bash title="Codex"
-npx skills add stellar-admin/stellar-admin --skill stellar-admin-ui --agent codex
-```
-
-Other agents supported by the installer can use the same skill. Add `--global` if you want it available across projects. Start a fresh agent session in your application after installation.
-
-<Callout type="info">
-    This installs agent guidance and bundled references. It does not install the StellarAdmin NuGet package or change your application. Ask your agent to set up StellarAdmin, or follow the [installation guide](/docs/ui/installation).
-</Callout>
-
-## Setting up your application
-
-Ask your agent:
-
-> Use the stellar-admin-ui skill to install StellarAdmin in this application.
-
-The skill asks you to choose a setup scope unless you already specified one:
-
-- **Basic installation:** install the package, register services and tag helpers, and add CSS and JavaScript references. Preserve the current layout structure and Bootstrap.
-- **Installation with layout conversion:** also adapt the default layout to StellarAdmin and remove Bootstrap where it is no longer needed. Check remaining dependencies before removing shared assets.
-
-The agent should offer a picker when its interface supports one, or ask a text question otherwise. Keeping Bootstrap can cause styling conflicts; basic installation does not guarantee that adding the StellarAdmin stylesheet leaves every existing element's appearance unchanged.
-
-## What's included
-
-One skill includes these references, which the agent reads as needed:
-
-| Area | Guidance |
-| --- | --- |
-| Setup and components | Package setup, tag names, attributes, enum values, composition rules, icons, JavaScript, and templated views. |
-| Forms | Fields, validation, model binding, input groups, and choice cards. |
-| Layout | Sidebars, app headers, page headers, spacing, and cards. |
-| Theming | Linking a theme file, fonts, dark mode, design tokens, and menu appearance. |
-
-For later tasks, ask the agent to use `stellar-admin-ui` to build a form or add navigation. Automatic skill selection depends on the agent and task.
-
-## Creating a theme
-
-Install the theme skill the same way, alongside the UI skill:
-
-```bash
 npx skills add stellar-admin/stellar-admin --skill stellar-admin-theme
 ```
 
-Then ask for the look you want:
+The `--skill` option installs only the named skill. Without it, the installer lists all the StellarAdmin skills, including the ones for the [admin panel](/docs/admin/agent-skills).
+
+The installer asks which agent to install the skills for. To skip the question, add `--agent claude-code` or `--agent codex`. The skills are installed in the project. To make them available in all your projects, add `--global`.
+
+After installing, start a new agent session so that the agent loads the skills.
+
+<Callout type="info">
+  The skills only teach your agent how to use StellarAdmin.UI. Installing them doesn't install the NuGet package or change your app.
+</Callout>
+
+## Installing StellarAdmin.UI with the skill
+
+Ask your agent to install StellarAdmin.UI:
+
+> Use the stellar-admin-ui skill to install StellarAdmin.UI in this app.
+
+Unless you've already said which one you want, the agent asks you to choose how much to change:
+
+| Choice | What the agent does |
+| --- | --- |
+| **Basic installation** | Installs the package, registers the services and the Tag Helpers, and adds the stylesheet and the script. Your layout and Bootstrap stay as they are. |
+| **Layout conversion** | Also converts your default layout to StellarAdmin.UI, and removes Bootstrap where nothing uses it any more. |
+
+<Callout type="info">
+  The basic installation keeps Bootstrap, which can conflict with the StellarAdmin.UI styles. Some of your existing pages may look different after you add the stylesheet.
+</Callout>
+
+## Building pages with the skill
+
+Ask your agent for the page you want, and name the skill:
+
+> Use the stellar-admin-ui skill to build a form for editing a booking.
+
+Depending on your agent and the task, the agent may also use the skill without you naming it.
+
+## Creating a theme with the skill
+
+Ask your agent for the look you want:
 
 > Use the stellar-admin-theme skill to give this app a warm, editorial, dense theme with a green accent.
 
-The agent writes a theme file of CSS variables, links it, loads its fonts, and gives you a [theme builder](/theme-builder) link to preview and fine-tune it. The skill includes the [theme variable reference](/docs/ui/theme-variables), guidance for turning descriptions into variable values, and worked examples.
+The agent writes the theme file, links it in your layout and loads its fonts. It also gives you a link to the [theme builder](/theme-builder), where you can preview the theme and adjust it.
 
-## Compatibility and updates
+## Versions
 
-The skills are maintained alongside StellarAdmin. Their references follow the repository's default branch and may include changes newer than your installed NuGet package. The agent should check your installed version before applying API examples. Installing or updating a skill does not update your NuGet packages.
-
-These skills cover the StellarAdmin.UI library. For the admin panel, use **stellar-admin-setup** and **stellar-admin**, described in the [StellarAdmin agent skills](/docs/admin/agent-skills) docs.
+The skills follow the main branch of the StellarAdmin repository, so they can describe features that aren't in the package your app uses yet. They tell the agent to check which version your app uses before following their examples. Updating the skills doesn't update your packages.

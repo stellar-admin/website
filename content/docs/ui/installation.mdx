@@ -1,20 +1,18 @@
 ---
 title: Installation
-description: Get started with StellarAdmin.UI
+description: Add StellarAdmin.UI to an ASP.NET Core app
 ---
 
 import { Step, Steps } from "fumadocs-ui/components/steps";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
-## Add to existing project
-
-The following installation instructions assume you are adding StellarAdmin to an existing ASP.NET Core MVC or Razor Pages project.
+To install StellarAdmin.UI, you need an ASP.NET Core MVC or Razor Pages app running on .NET 10 or later.
 
 <Steps>
     <Step>
-        ### Install package
+        ### Install the package
 
-        Install the StellarAdmin.UI NuGet package.
+        Add the `StellarAdmin.UI` package:
 
         <Tabs items={['.NET CLI', 'Package Manager']}>
             <Tab>
@@ -30,9 +28,9 @@ The following installation instructions assume you are adding StellarAdmin to an
         </Tabs>
     </Step>
     <Step>
-        ### Register services
+        ### Register the services
 
-        Update your `Program.cs` (or `Startup.cs`) to register the StellarAdmin services.
+        Call `AddStellarAdminUI()` in `Program.cs` to register the services the Tag Helpers need.
 
         ```cs
         using StellarAdmin.UI;
@@ -40,12 +38,14 @@ The following installation instructions assume you are adding StellarAdmin to an
         builder.Services.AddStellarAdminUI();
         ```
 
-        `AddStellarAdminUI()` also changes the MVC options for the whole app: it adds a model binder and a value provider that bind checkbox groups, and a global result filter that sends queued [toasts](/docs/ui/components/toast) in a response header for fetch and XHR requests.
+        <Callout type="info">
+            `AddStellarAdminUI()` changes the MVC options for your whole app, including pages that don't use StellarAdmin.UI. It adds a model binder and a value provider that bind [checkbox groups](/docs/ui/components/checkbox-group), and a global result filter that sends queued [toasts](/docs/ui/components/toast) in a response header for fetch and XHR requests.
+        </Callout>
     </Step>
     <Step>
-        ### Update imports
+        ### Register the Tag Helpers
 
-        Update your `_ViewImports.cshtml` to register the StellarAdmin Tag Helpers and import the `StellarAdmin.UI` namespace.
+        Add the following lines to your `_ViewImports.cshtml` to register the Tag Helpers and import the `StellarAdmin.UI` namespace:
 
         ```razor
         @using StellarAdmin.UI
@@ -53,9 +53,9 @@ The following installation instructions assume you are adding StellarAdmin to an
         ```
     </Step>
     <Step>
-        ### Add stylesheet and JavaScript file
+        ### Add the stylesheet and the script
 
-        Add the StellarAdmin stylesheet and the [StellarAdmin JavaScript file](/docs/ui/javascript) to your Razor page. The stylesheet carries every component and the default theme.
+        Add the StellarAdmin.UI stylesheet and [script](/docs/ui/javascript) to the `<head>` of your layout. The stylesheet contains the styles of every component and the default theme.
 
         ```razor
         <!DOCTYPE html>
@@ -72,25 +72,22 @@ The following installation instructions assume you are adding StellarAdmin to an
         ```
 
         <Callout type="idea">
-            To change the default theme, create a theme file in the [theme builder](/theme-builder) and link it after the stylesheet. The [Theming page](/docs/ui/theming) provides more information on theming.
+            To give your app its own look, create a theme file in the [theme builder](/theme-builder) and link it after the stylesheet. See [theming](/docs/ui/theming) for more.
         </Callout>
     </Step>
     <Step>
-        ### Start using the Tag Helpers
+        ### Use the Tag Helpers
 
-        Start using the StellarAdmin Tag Helpers inside your Razor Pages or MVC Views. For example, the code snippet below adds an alert to your page.
+        Add a Tag Helper to one of your pages or views to check that everything works. The example below adds an alert:
 
         ```razor
         <sa-alert>
-            <sa-alert-title>Success! You have configured StellarAdmin correctly.</sa-alert-title>
+            <sa-alert-title>StellarAdmin.UI is installed.</sa-alert-title>
         </sa-alert>
         ```
     </Step>
-
 </Steps>
 
-Before you start using the components, read the [Conventions](/docs/ui/conventions) page. It covers the rules every Tag Helper follows for attribute pass-through, custom classes, model binding and links.
+## Next steps
 
-## Starter Templates
-
-Coming soon...
+Read the [conventions](/docs/ui/conventions) that all the Tag Helpers follow, then browse the components in the sidebar.

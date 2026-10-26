@@ -1,17 +1,21 @@
 ---
 title: Dark Mode
-description: Apply dark mode and respect saved or system appearance preferences
+description: Display your pages in dark mode, following a saved choice or the operating system setting
 ---
 
 import { Demo } from "@/components/demo";
 
-StellarAdmin supports dark mode, which can be applied by adding the `dark` CSS class on a containing element such as the `<html>` or `<body>` element. All the content of that element will then render in dark mode. The StellarAdmin stylesheet carries both modes, and a [theme](/docs/ui/theming) derives its dark mode from the same CSS variables, so there is nothing else to add.
+To display a page in dark mode, add the `dark` class to the `<html>` element:
 
 ```razor
 <html lang="en" class="dark">
 ```
 
-You can render it server-side from a saved user preference, or toggle it on the client. The script below demonstrates a minimal client-side approach that honors a saved choice and falls back to the operating system setting. Place it in `<head>`, before the stylesheets.
+The StellarAdmin.UI stylesheet contains the styles for both modes, and derives dark mode from the same [theme variables](/docs/ui/theme-variables) as light mode, so your theme works in dark mode too.
+
+## Following the operating system setting
+
+You can add the `dark` class on the server, such as from a setting the user saved, or in the browser. The script below adds it in the browser. It uses the choice saved in `localStorage`, and if there isn't one, the operating system setting. Put it in the `<head>` of your layout, before the stylesheets, so that it runs before the page is displayed:
 
 ```html
 <script>
@@ -26,13 +30,15 @@ You can render it server-side from a saved user preference, or toggle it on the 
 </script>
 ```
 
-Setting `color-scheme` alongside the class keeps native controls such as scrollbars and form elements in step with the page.
+The script also sets the `color-scheme` property, so that the browser displays its own controls, such as scrollbars, in the same mode as the page.
 
-## Part of a page
+## Displaying part of a page in dark mode
 
-The class also works on part of a page: a `dark` element inside a light page renders its content in dark mode, such as a dark promotion or a dark sidebar beside light content. The `light` class does the opposite, switching part of a dark page back to light mode. Each stops at the other, so they nest: a `dark` element inside a `light` one inside a dark page is dark again.
+The `dark` class also works on any other element, such as a promotion or a sidebar. Everything inside the element is displayed in dark mode, and the rest of the page keeps its mode. To display part of a dark page in light mode, add the `light` class to the element.
 
-The sections below set their background with `bg-background` from the [Tailwind adapter](/docs/ui/design-tokens#with-tailwind-css), which is the page color in that section's mode; without Tailwind CSS, use `background: var(--sa-color-canvas)`. Whichever mode this site is in, one of them stands out.
+You can nest the two classes. For example, a `dark` element inside a `light` element on a dark page is displayed in dark mode.
+
+In the example below, the first section has the `dark` class and the second the `light` class. The sections set their background with the `bg-background` class from the [Tailwind adapter](/docs/ui/design-tokens#using-the-design-tokens-with-tailwind-css), which is the page color of the section's mode. Without Tailwind CSS, use `background: var(--sa-color-canvas)`.
 
 <Demo src="/demo/ui/theming-dark-section.html">
   <include>./components/_include/theming-dark-section.mdx</include>

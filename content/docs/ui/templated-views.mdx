@@ -1,18 +1,20 @@
 ---
 title: Templated Views & Slots
-description: Build your own Tag Helpers whose markup can be overridden, and pass content into named slots
+description: Build your own Tag Helpers whose markup is a Razor view, and pass content into named slots
 ---
 
 import { Demo } from "@/components/demo";
 
-Writing Tag Helpers in ASP.NET Core is very powerful, but you have to generate the rendered HTML in C# code. This can make it cumbersome as most developers are used to working with Razor Pages and Partials. StellarAdmin.UI adds a few helpers to make it easier for you to create your own Tag Helpers while still using the power of the Razor rendering engine.
+In ASP.NET Core, a Tag Helper builds its HTML in C#. StellarAdmin.UI lets you write the markup of your own Tag Helpers in Razor instead:
 
-- **Templated Tag Helpers** allow you to use Razor Views from your own Tag Helpers, drastically simplifying the process of developing your own Tag Helpers.
-- **Named slots** allows you to easily pass content to a specific section of a Tag Helpers. A caller can pass content into specific spots of a Tag Helper's output with `<sa-slot-content>`, which the markup renders through `<sa-slot-outlet>`.
+- A *templated Tag Helper* renders a Razor view, which you write like a partial view.
+- A *named slot* lets the page that uses a Tag Helper pass content to a specific place in the Tag Helper's markup.
 
-## Templated Tag Helpers
+## Creating a templated Tag Helper
 
-If you want to create your own Tag Helpers while using Razor partials to design the layout, you can inherit your Tag Helper from `StellarAdminTemplatedTagHelperBase` and return the name of the partial in the `ViewName` property.
+To create a templated Tag Helper, derive your Tag Helper from `StellarAdminTemplatedTagHelperBase`. Return the name of the view in the `ViewName` property, and the model of the view from the `GetViewModel()` method.
+
+The example below defines a `<docs-trip-card>` Tag Helper that renders the `_TripCard` view, with the booking as the model:
 
 ```cs
 [HtmlTargetElement("docs-trip-card")]
@@ -33,10 +35,9 @@ public class TripCardTagHelper : StellarAdminTemplatedTagHelperBase
 }
 ```
 
-The markup lives in `Pages/Shared/_TripCard.cshtml`.
+The Tag Helper finds the view the same way as a partial view. The example below defines the view in `Pages/Shared/_TripCard.cshtml`:
 
-
-```razor
+```razor title="Pages/Shared/_TripCard.cshtml"
 @model DocsSamples.Booking
 
 <sa-card class="w-full max-w-sm">
@@ -53,25 +54,31 @@ The markup lives in `Pages/Shared/_TripCard.cshtml`.
 </sa-card>
 ```
 
-Using the Tag Helper is then a single element:
+The page that uses the Tag Helper only needs the `<docs-trip-card>` element:
 
 <Demo src="/demo/ui/templated-tag-helper-intro.html">
   <include>./components/_include/templated-tag-helper-intro.mdx</include>
 </Demo>
 
-### Swapping the view per instance
+The Tag Helper doesn't render an element of its own, only the view. It also doesn't render its child content, except for [slot content](#passing-content-to-a-slot).
 
-Every templated Tag Helper accepts a `view` attribute that allows you to overrides the view for that instance, so the same Tag Helper can render through a different view where needed.
+### Rendering a different view
+
+To render a different view for one use of a templated Tag Helper, specify the view's name in the `view` attribute. You can also specify a path relative to the root of your app.
+
+The example below renders the `_TripCardCompact` view:
 
 <Demo src="/demo/ui/templated-tag-helper-view-override.html">
   <include>./components/_include/templated-tag-helper-view-override.mdx</include>
 </Demo>
 
-## Slot outlets
+## Passing content to a slot
 
-A templated Tag Helper's view can declare slots that allows the user to specify the content for a slot when using the Tag Helper. The view renders `<sa-slot-outlet name="...">` where content should go.  The child content of `<sa-slot-outlet>` is used as fallback content when the caller does not supply content for the slot.
+To let the page that uses your templated Tag Helper supply part of its markup, add a `<sa-slot-outlet>` to the view, with the slot's name. The content of `<sa-slot-outlet>` is the *fallback content*, which is rendered when the page doesn't supply content for the slot.
 
-```razor
+The example below is the footer of the `_BookingCard` view of a `<docs-booking-card>` Tag Helper. It adds an `actions` slot, with a **View details** button as the fallback content:
+
+```razor title="Pages/Shared/_BookingCard.cshtml"
 <sa-card-footer>
     <sa-slot-outlet name="actions">
         <sa-button size="ButtonSize.Small" variant="ButtonVariant.Outline">View details</sa-button>
@@ -79,23 +86,23 @@ A templated Tag Helper's view can declare slots that allows the user to specify 
 </sa-card-footer>
 ```
 
-The caller fills the slot by placing `<sa-slot-content>` with the matching name among the Tag Helper's children.
+To supply the content for the slot, add a `<sa-slot-content>` with the slot's name inside the Tag Helper. The example below replaces the **View details** button with **Check in** and **Cancel trip** buttons:
 
 <Demo src="/demo/ui/slot-outlet-intro.html">
   <include>./components/_include/slot-outlet-intro.mdx</include>
 </Demo>
 
-### Fallback content
-
-When the caller leaves the slot unfilled, the outlet renders its fallback children instead.
+When the page doesn't supply content for the slot, the view renders the fallback content:
 
 <Demo src="/demo/ui/slot-outlet-fallback.html">
   <include>./components/_include/slot-outlet-fallback.mdx</include>
 </Demo>
 
-## Named slots in any Tag Helper
+## Using slots in a Tag Helper that builds its HTML in C#
 
-Named slots are not limited to templated Tag Helpers - any StellarAdmin Tag Helper can host them. The host executes its child content (which registers the `<sa-slot-content>` children with the host) and reads slots back with `TryGetNamedSlot`, rendering them wherever it chooses:
+A Tag Helper that derives from `StellarAdminTagHelperBase` can also receive slot content, and render it where you want in C#. Call `GetChildContentAsync()` first, which runs the `<sa-slot-content>` elements in the child content, and then get the content of a slot with `TryGetNamedSlot()`. The `<sa-slot-content>` elements don't render anything in the child content.
+
+The example below defines a `<docs-booking-summary>` Tag Helper that renders the `actions` slot in its header, and the rest of the child content in its body:
 
 ```cs
 [HtmlTargetElement("docs-booking-summary")]
@@ -109,20 +116,25 @@ public class BookingSummaryTagHelper : StellarAdminTagHelperBase
         var childContent = await output.GetChildContentAsync();
 
         output.TagName = "div";
+        output.Attributes.SetAttribute("class", "booking-summary");
 
-        // Header row, with the "actions" slot rendered at the end when filled
+        output.Content.AppendHtml("<div class=\"booking-summary-header\">");
+        output.Content.Append(Booking?.Destination ?? string.Empty);
+
         if (TryGetNamedSlot("actions", out var actions))
         {
             output.Content.AppendHtml(actions);
         }
 
-        // The remaining children become the body
+        output.Content.AppendHtml("</div>");
+        output.Content.AppendHtml("<div class=\"booking-summary-body\">");
         output.Content.AppendHtml(childContent);
+        output.Content.AppendHtml("</div>");
     }
 }
 ```
 
-The caller mixes slot content and regular children freely — the `<sa-slot-content>` element assigns itself to the nearest StellarAdmin ancestor and renders nothing in place:
+The page that uses the Tag Helper can put the `<sa-slot-content>` anywhere in the child content:
 
 <Demo src="/demo/ui/slot-content-intro.html">
   <include>./components/_include/slot-content-intro.mdx</include>
@@ -132,12 +144,12 @@ The caller mixes slot content and regular children freely — the `<sa-slot-cont
 
 ### `<sa-slot-content>`
 
-Assigns its child content to a named slot on the nearest StellarAdmin ancestor Tag Helper and renders nothing in place. Assigning the same slot name twice on the same host is an error.
+Supplies its child content for a named slot of the closest StellarAdmin.UI Tag Helper it's in. It doesn't render anything where it is. Supplying content for the same slot twice in the same Tag Helper throws an exception.
 
 <TypeTable
   type={{
     name: {
-      description: "The name of the slot to assign the content to.",
+      description: "The name of the slot.",
       type: "string",
       required: true,
     },
@@ -146,12 +158,12 @@ Assigns its child content to a named slot on the nearest StellarAdmin ancestor T
 
 ### `<sa-slot-outlet>`
 
-Renders the content of the named slot on the hosting Tag Helper. When the slot is unfilled — or the view renders as a plain partial, outside a templated Tag Helper — it renders its own child content as the fallback instead. It renders no element of its own.
+Renders the content supplied for the named slot of the templated Tag Helper that renders the view. When no content is supplied, or the view is rendered as a partial view instead of by a templated Tag Helper, it renders its own child content. It doesn't render an element of its own.
 
 <TypeTable
   type={{
     name: {
-      description: "The name of the slot to render.",
+      description: "The name of the slot.",
       type: "string",
       required: true,
     },

@@ -5,19 +5,33 @@ description: Every CSS variable a theme file can set, with its default and its r
 
 import { ThemeVariableReference } from "@/components/theme-variable-reference";
 
-A [theme file](/docs/ui/theming#themes-are-css-variables) sets these CSS variables on `:root` inside `@layer sa.theme`. Leave out any variable you don't change. The [theme builder](/theme-builder) has a control for each variable below, with the same ranges.
+A [theme file](/docs/ui/theming#changing-the-theme) sets the theme variables below on `:root`, inside `@layer sa.theme`:
 
-The package ships the same list as `stellar-admin.theme-variables.json` (at `/_content/StellarAdmin.UI/stellar-admin.theme-variables.json`), which tools can read for the variables of the installed version.
+```css title="wwwroot/css/theme.css"
+@layer sa.theme {
+  :root {
+    /* Your theme variables go here */
+  }
+}
+```
+
+Set only the theme variables you want to change. The [theme builder](/theme-builder) has a control for each theme variable, with the same range.
+
+<Callout type="idea">
+  The package also contains the list of theme variables as JSON, at `/_content/StellarAdmin.UI/stellar-admin.theme-variables.json`. Tools can read it to get the theme variables of the version your app uses.
+</Callout>
 
 ## Essential variables
 
-Most themes are made from these alone.
+Most themes only set these theme variables.
 
 <ThemeVariableReference essential />
 
 ## Color
 
-Colors accept any CSS color syntax. The accent's fills and text forms are adjusted for contrast automatically, so any lightness works. Variables that follow another variable are unset by default: set them only when dark mode or text on the accent should differ.
+You can write colors in any CSS color syntax. StellarAdmin.UI adjusts the accent's fills and text to meet the WCAG contrast ratio of 4.5:1, so the accent can be any lightness.
+
+Some theme variables follow another theme variable, and have no default. Set them only when you want a different value in dark mode, or for the text on the accent.
 
 <ThemeVariableReference group="colour" />
 
@@ -27,13 +41,15 @@ Colors accept any CSS color syntax. The accent's fills and text forms are adjust
 
 ## Space and type
 
-Density scales spacing and control sizes, not text; the type scale changes text sizes. Each font variable is a font stack: end it with native fallbacks, and load the web font from your layout (see [fonts](/docs/ui/theming#fonts)).
+The density changes the spacing and the size of the controls, but not the size of the text. To change the size of the text, set the type scale.
+
+Each font theme variable is a list of fonts. End it with the system fonts, and load the web font in your layout, as described in [adding fonts](/docs/ui/theming#adding-fonts).
 
 <ThemeVariableReference group="type" />
 
 ## Section labels
 
-Menu labels, sidebar group labels, and table column heads when they take the section label style.
+These theme variables style the labels of menu sections and sidebar groups, and the headers of tables that use the section label style.
 
 <ThemeVariableReference group="section-labels" />
 

@@ -1,36 +1,31 @@
 ---
 title: Theming
-description: Use the default theme, or give StellarAdmin your own look by setting a few CSS variables
+description: Use the default theme, or give StellarAdmin.UI your own look by setting a few CSS variables
 ---
 
 import { Demo } from "@/components/demo";
 
-## The default theme
-
-The StellarAdmin includes a sensible default theme which is applied when adding the StellarAdmin stylesheet to your application.
+The StellarAdmin.UI stylesheet includes a default theme, so the components are styled as soon as you add the stylesheet to your layout:
 
 ```razor
 <link rel="stylesheet" href="/_content/StellarAdmin.UI/stellar-admin.css" asp-append-version="true"/>
 ```
 
+The components below use the default theme:
+
 <Demo src="/demo/ui/showcase-theme-showcase.html">
 </Demo>
 
-## Themes are CSS variables
+## Changing the theme
 
-While we provide a beautiful default theme, we wanted to give enough flexibility to allow you to style StellarAdmin according to your own needs. 
+To change the theme, you set *theme variables*. These are CSS variables, such as `--sa-accent` for the accent color, `--sa-radius` for the corner radius and `--sa-density` for the spacing. StellarAdmin.UI derives every color, size and shadow of the components from them. The [theme variables](/docs/ui/theme-variables) page lists all of them.
 
-To facilitate this, we [expose a set of CSS variables](/docs/ui/theme-variables) to control things such as the accent color (`--sa-accent`), corner radius (`--sa-radius`), density (`--sa-density`), and more. Every color, size and shadow in StellarAdmin is derived from these variables.
-
-Consider the card below, in the default theme.
+The card below uses the default theme:
 
 <Demo src="/demo/ui/theme-override-standard.html">
 </Demo>
 
-Seven variables give it a warm, orange, square, monospaced look:
-
-<Demo src="/demo/ui/theme-override.html">
-</Demo>
+The theme file below sets seven theme variables, which give the same card a warm, orange, square and monospaced look:
 
 ```css title="wwwroot/css/theme.css"
 @layer sa.theme {
@@ -46,51 +41,54 @@ Seven variables give it a warm, orange, square, monospaced look:
 }
 ```
 
-You can link your custom theme file in your application after the StellarAdmin stylesheet:
+<Demo src="/demo/ui/theme-override.html">
+</Demo>
+
+To use a theme file, link it in your layout after the StellarAdmin.UI stylesheet:
 
 ```razor
 <link rel="stylesheet" href="/_content/StellarAdmin.UI/stellar-admin.css" asp-append-version="true"/>
 <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true"/>
 ```
 
-A few rules keep a theme simple:
+When you write a theme file:
 
-- Set the variables on `:root`, inside `@layer sa.theme`. The layer places the theme above the components' own values wherever the file is linked.
-- Set only the variables that differ from the default. Most themes need four to ten.
-- Don't write dark mode values. Dark mode is derived from the same variables; a few `-dark` variables exist for when it should differ.
-- You do not have to check contrast. Text on the accent switches between white and near-black automatically, and the accent's fills and text are adjusted to pass WCAG's 4.5:1.
+- Set the theme variables on `:root`, inside `@layer sa.theme`. The layer gives your values precedence over the defaults.
+- Set only the theme variables you want to change. Most themes set between four and ten.
+- Don't set values for dark mode. StellarAdmin.UI derives [dark mode](/docs/ui/dark-mode) from the same theme variables. To use a different value in dark mode, set the theme variable's `-dark` version, such as `--sa-accent-dark`.
+- You don't need to check the contrast of the accent color. StellarAdmin.UI makes text on the accent white or near-black, and adjusts the accent's fills and text to meet the WCAG contrast ratio of 4.5:1.
 
-## Create a theme
+## Creating a theme
 
-### Use the Theme Builder
+### Using the theme builder
 
-The [theme builder](/theme-builder) shows real StellarAdmin components while you adjust the variables, and downloads the theme file when you are done. The builder offers a few starting points besides the default:
+The [theme builder](/theme-builder) displays StellarAdmin.UI components while you change the theme variables, and downloads the theme file when you're done. Besides the default theme, you can start from one of the following presets:
 
-| Preset | Character |
+| Preset | Look |
 | --- | --- |
-| Ledger | Warm paper that turns indigo in dark mode, an indigo accent, roomier controls, uppercase labels on banded table heads, outlined parts and tactile buttons. Uses the Lexend font. |
-| Ops | Dense and sharp, with strong lines, a safety-orange accent, banded table heads and an offset focus ring. Uses the IBM Plex Sans font. |
-| Soft | Pill controls, roomy spacing, floating surfaces and a violet accent. Uses the Figtree font. |
+| Ledger | Warm paper that turns indigo in dark mode, an indigo accent, roomier controls, uppercase labels on banded table headers, outlined parts and tactile buttons. Uses the Lexend font. |
+| Ops | Dense and sharp, with strong lines, a safety-orange accent, banded table headers and an offset focus ring. Uses the IBM Plex Sans font. |
+| Soft | Pill-shaped controls, roomy spacing, floating surfaces and a violet accent. Uses the Figtree font. |
 
-These are starting points, not part of the package: start from one, change what you like, and download your own file.
+The presets aren't included in the package. To use one, change it as you like, and download your own theme file.
 
-### Ask your coding agent
+### Using a coding agent
 
-The **stellar-admin-theme** [agent skill](/docs/ui/agent-skills) teaches coding agents such as Claude Code and Codex to write a theme file from a description, brand colors or a reference look. Ask for the look you want:
+The `stellar-admin-theme` [agent skill](/docs/ui/agent-skills) teaches coding agents, such as Claude Code and Codex, to write a theme file from a description, your brand colors or a look you want to match. Ask your agent for the look you want:
 
 > Use the stellar-admin-theme skill to give this app a warm, editorial, dense theme with a green accent.
 
-The agent writes the theme file, links it, loads its fonts, and gives you a theme builder link to preview and fine-tune the result.
+The agent writes the theme file, links it in your layout and loads its fonts. It also gives you a link to the theme builder, where you can preview the theme and adjust it.
 
-### Do it by hand
+### Writing a theme file yourself
 
-A theme file is plain CSS, so you can also write one yourself from the [theme variable reference](/docs/ui/theme-variables). Brand colors can be written in any CSS color syntax; `oklch()` is the easiest to adjust.
+A theme file is plain CSS, so you can also write one yourself, using the [theme variables](/docs/ui/theme-variables) reference. You can write colors in any CSS color syntax. We suggest `oklch()`, because it's the easiest to adjust.
 
-## Fonts
+## Adding fonts
 
-StellarAdmin never downloads fonts. Each font variable is a font stack that ends in native fallbacks, so a theme works without loading anything: until a web font loads, or if it never does, the text uses the fallback. The default theme prefers Inter; load it if you want Inter rather than the system font.
+StellarAdmin.UI doesn't load any fonts. Each font theme variable is a list of fonts that ends with the system fonts, so the text uses a system font until a web font loads, or if it never does. The default theme uses Inter when it's available. To use Inter instead of the system font, load it in your layout.
 
-To use a web font, load it from your layout before the stylesheets, from Google Fonts or from your own files:
+To use a web font, load it in your layout before the stylesheets, either from your own files or from a service such as Google Fonts:
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,22 +96,22 @@ To use a web font, load it from your layout before the stylesheets, from Google 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
 ```
 
-A theme file downloaded from the theme builder can instead import its fonts on its first line. That works when the theme file is linked; a remote `@import` inside a stylesheet that is itself imported is dropped by browsers without an error.
+A theme file you download from the theme builder can load its fonts with an `@import` on its first line instead. This only works when you link the theme file in your layout. Browsers ignore an `@import` of a remote file in a stylesheet that is itself imported.
 
-The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/css2#use_font-display) controls how text appears while fonts load.
+The Google Fonts [`display` parameter](https://developers.google.com/fonts/docs/css2#use_font-display) controls how text is displayed while the fonts load. You can set it to one of the following:
 
-| Parameter | What your app's users experience |
+| Parameter | What people see |
 | --- | --- |
-| `display=auto` | Their browser decides whether text appears immediately or waits for fonts. Use an explicit option below for more predictable behavior. |
-| `display=block` | Button labels, navigation and table text may briefly be invisible while fonts load. Usually a poor choice for StellarAdmin apps because users must wait to read the interface. |
-| `display=swap` | Users can read the interface immediately; it switches to the preferred fonts when loaded. Used by our demos, but labels and table content may shift as fonts change. |
-| `display=fallback` | Users see readable text after a very brief wait, with only a short window for a font change. Choose this to limit shifts while users work; slow connections may keep native fonts for that page view. |
-| `display=optional` | Users get native fonts unless the preferred fonts are ready almost immediately, avoiding a later font change. Choose this when keeping forms and tables stable matters more than matching the theme's typography. |
+| `display=auto` | The browser decides whether text is displayed immediately or after the fonts load. Prefer one of the other values, so that the behavior is the same in every browser. |
+| `display=block` | Button labels, the navigation and the text in tables can be invisible while the fonts load, so people must wait to read the page. |
+| `display=swap` | Text is displayed immediately in a system font, and switches to the web font when it loads. Labels and the text in tables can move when the font switches. The demos on this site use `swap`. |
+| `display=fallback` | Text is displayed after a very short wait. If the web font loads soon after, the text switches to it. Otherwise, the text keeps the system font for that page. |
+| `display=optional` | Text uses the web font only if it loads almost immediately, and otherwise keeps the system font, so the text never moves. Choose this when stable forms and tables matter more than the theme's fonts. |
 
 ## Theming part of a page
 
-Theme variables also work on a single element, so a section of a page can have its own density or its own look, such as a dense data table on an otherwise roomy page or a branded panel. See [Density and Scopes](/docs/ui/density-and-scopes). The `dark` class switches a section to [dark mode](/docs/ui/dark-mode#part-of-a-page).
+You can also set theme variables on a single element, to change the density or the look of one part of a page, such as a dense table on a roomy page or a panel in your brand colors. See [density and scopes](/docs/ui/density-and-scopes). To display part of a page in dark mode, use the `dark` class, as described in [dark mode](/docs/ui/dark-mode#displaying-part-of-a-page-in-dark-mode).
 
 ## Browser support
 
-The stylesheet uses CSS relative color syntax, `color-mix()`, cascade layers, native nesting, `:has()` and `@scope`, without fallbacks. It needs Chrome and Edge 119, Safari 18 or Firefox 146, or later. In older browsers colors fail silently, leaving components unstyled in places.
+The StellarAdmin.UI stylesheet uses CSS relative color syntax, `color-mix()`, cascade layers, native nesting, `:has()` and `@scope`, without fallbacks. It needs Chrome or Edge 119, Safari 18 or Firefox 146, or later. In older browsers, some parts of the components are unstyled.

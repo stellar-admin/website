@@ -5,40 +5,49 @@ description: Change the density or the theme of one part of a page
 
 import { Demo } from "@/components/demo";
 
-A theme sets its [theme variables](/docs/ui/theme-variables) on `:root`, for the whole page. Every theme variable also works on a single element: everything inside it re-derives from the new value, while the rest of the page keeps the theme. Use this for a dense table on an otherwise roomy page, or a branded panel with its own colors.
+A theme sets its [theme variables](/docs/ui/theme-variables) on `:root`, so they apply to the whole page. You can also set them on a single element. The content of that element then uses the new values, and the rest of the page keeps the theme. For example, you can make a table denser than the rest of the page, or give a panel your brand colors.
 
-## Density levels
+## Changing the density
 
-Add `data-sa-density` to any element to change the spacing and control sizes inside it. `compact` multiplies the theme's density by 0.8 and `comfortable` by 1.2, so they stay tighter or roomier than whatever theme is active; text sizes stay the same.
+To change the spacing and the size of the controls inside an element, add the `data-sa-density` attribute to it, with one of the following values:
+
+| Value | Density |
+| --- | --- |
+| `compact` | The theme's density multiplied by 0.8 |
+| `comfortable` | The theme's density multiplied by 1.2 |
+
+The size of the text stays the same. The cards below use the `compact` density, the default density and the `comfortable` density:
 
 <Demo src="/demo/ui/theming-density-levels.html">
   <include>./components/_include/theming-density-levels.mdx</include>
 </Demo>
 
-## A compact section
-
-Density is most useful on part of a page. Here the search bar keeps the page's density, and the bookings table inside `<section data-sa-density="compact">` fits more rows in the same space.
+The example below makes a table of bookings `compact`, so it fits more rows, and leaves the search above it at the theme's density:
 
 <Demo src="/demo/ui/theming-compact-section.html">
   <include>./components/_include/theming-compact-section.mdx</include>
 </Demo>
 
-## Any density
+## Setting a specific density
 
-For a density other than the two named levels, mark the element with `data-sa-scope` and set `--sa-density` on it. The theme builder's range, 0.7 to 1.4, is a good guide.
+To set a density other than `compact` and `comfortable`, add the `data-sa-scope` attribute to the element, and set `--sa-density` on it. We suggest a value between 0.7 and 1.4, the range of the theme builder.
+
+The example below sets `--sa-density` to 0.7, 1 and 1.4:
 
 <Demo src="/demo/ui/theming-custom-density.html">
   <include>./components/_include/theming-custom-density.mdx</include>
 </Demo>
 
-## Branded panels
+`--sa-density` on a `data-sa-scope` element replaces the theme's density. A `data-sa-density` attribute multiplies the density of the element it's in, including a `data-sa-scope` element's.
 
-`data-sa-scope` marks an element that sets its own theme variables. Set any of them on the element, inline or from your own CSS, and everything inside it follows: the accent, the grays, the corners, the density. Here the rewards card has a green accent, green-tinted grays, pill controls and pill tags, next to an ordinary card.
+## Theming part of a page
+
+To give an element its own theme, add the `data-sa-scope` attribute to it, and set the theme variables on it, either in a `style` attribute or in your own CSS. Everything inside the element uses them, such as the accent color, the grays, the corner radius and the density.
+
+The example below gives the rewards card a green accent, green-tinted grays and pill-shaped controls and badges, and leaves the card next to it in the theme:
 
 <Demo src="/demo/ui/theming-branded-panel.html">
   <include>./components/_include/theming-branded-panel.mdx</include>
 </Demo>
 
-Contrast still follows the formulas inside a scope: text on the green accent is picked automatically, as it is for the page's own accent.
-
-A scope's values are absolute: a scope that sets `--sa-density: 1` replaces the theme's density inside it. A `data-sa-density` level is relative: it scales whatever density is in effect, including a scope's.
+StellarAdmin.UI adjusts the contrast inside the element too. For example, it makes the text on the green accent white or near-black, as it does for the theme's accent.

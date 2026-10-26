@@ -3,51 +3,55 @@ title: Conventions
 description: The rules every StellarAdmin Tag Helper follows for attributes, classes, model binding and links
 ---
 
-All StellarAdmin Tag Helpers share a handful of conventions. They are described once here rather than repeated on every component page, so the API Reference sections list only what is specific to each tag.
+All the StellarAdmin.UI Tag Helpers follow the conventions on this page. The API Reference section of each component page lists only what's specific to that component.
 
-## Attributes are passed through
+## Passing attributes to the rendered element
 
-All StellarAdmin Tag Helpers list their attributes in their API Reference section. Howewer, since these ultimately render normal HTML elements such as `input`, `div`, etc, any other attribute you specify on a Tag Helper is forwarded, unchanged, to the element it renders. That includes:
+Each Tag Helper renders a standard HTML element, such as a `<button>` or a `<div>`. The API Reference section of a component page lists the attributes the Tag Helper uses, and says which element it renders. The Tag Helper passes any other attribute you specify, unchanged, to that element. These include:
 
-- The [global HTML attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes) such as `id`, `style`, `title` and `hidden`.
+- The [global HTML attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes), such as `id`, `style`, `title` and `hidden`.
 - `data-*` and `aria-*` attributes.
-- The native attributes of the rendered element: `href` and `target` on tags that render an `<a>`, `type`, `name`, `value`, `disabled`, `required` and `placeholder` on tags that render an `<input>`, `<select>` or `<textarea>`, and so on.
-- Event handler attributes and the attributes of libraries such as [htmx](https://htmx.org/) (`hx-get`, `hx-target`, ...) or Alpine.js.
+- The attributes of the rendered element, such as `href` and `target` on an `<a>`, or `type`, `name`, `disabled` and `placeholder` on an `<input>`.
+- Event handler attributes, and the attributes of libraries such as [htmx](https://htmx.org/) and Alpine.js.
 
-In the example below, the `variant` and `size` attributes are processed by the StellarAdmin Button Tag Helper. All the other attributes (`id`, `type`, `form`, `data-testid`, and `hx-post`) are passed to the `<button>` element as-is.
+In the example below, the Button Tag Helper uses the `variant` and `size` attributes. It passes `id`, `type`, `form`, `data-testid` and `hx-post` to the `<button>` element.
 
 ```razor
 <sa-button variant="ButtonVariant.Outline" size="ButtonSize.Large"
-            id="save" type="submit" form="booking-form" data-testid="save-button" 
-            hx-post="/bookings">
+           id="save" type="submit" form="booking-form"
+           data-testid="save-button" hx-post="/bookings">
     Save
 </sa-button>
 ```
 
-Each API Reference section says which element a tag renders, so you know which native attributes apply. Where a component renders more than one element and needs to be specific about where an attribute lands (the [Table](/docs/ui/components/table), for example, puts `class` on the `<table>` and other attributes on its scroll container), the API Reference says so.
+Some Tag Helpers render more than one element. Their API Reference section says which element gets the attributes. For example, the [table](/docs/ui/components/table) puts `class` on the `<table>`, and the other attributes on the element that scrolls it.
 
 ## Adding your own classes
 
-The `class` attribute is handled slightly different from the attributes listed above. Since each Tag Helper controls its style using its own CSS class(es), any classes you specify in the `class` attribute are appended to those classes.
-
-For example,
+Each Tag Helper styles its element with its own CSS classes. The classes you specify in the `class` attribute are added after them. For example, the following card:
 
 ```razor
-<sa-card class="mx-auto w-full max-w-sm">...</sa-card>
+<sa-card class="trip-card">...</sa-card>
 ```
 
-renders
+renders the following `<div>`:
 
 ```html
-<div data-slot="card" class="sa-card group/card mx-auto w-full max-w-sm">...</div>
+<div data-slot="card" data-size="default" class="sa-card trip-card">...</div>
 ```
 
-Use this for layout and spacing utilities, or for your own CSS classes. If your project runs its own Tailwind CSS build, utilities such as `w-full` or `bg-primary` work as usual (see [Design Tokens](/docs/ui/design-tokens#with-tailwind-css) for making them resolve to the StellarAdmin design tokens). Without a Tailwind build, the StellarAdmin stylesheet provides no utility classes, so add your own classes and style them in your stylesheet with the [design tokens](/docs/ui/design-tokens#in-your-own-css).
+Use your own classes for layout and spacing, and style them in your own stylesheet. To match the theme, use the [design tokens](/docs/ui/design-tokens#using-the-design-tokens-in-your-own-css) in your CSS.
 
-## Model binding
+The StellarAdmin.UI stylesheet doesn't contain utility classes, such as `w-full` or `mt-4`. If your app has its own Tailwind CSS build, its utility classes work on the Tag Helpers too. To make them use the theme's colors and spacing, add the [Tailwind adapter](/docs/ui/design-tokens#using-the-design-tokens-with-tailwind-css).
 
-Form Tag Helpers accept `asp-for` and behave like the built-in ASP.NET Core Tag Helpers: the `name`, `id` and `value` come from the bound property, validation state is read from `ModelState`, and labels, descriptions and placeholders are taken from the property's `[Display]` metadata.
+## Binding to the model
 
-## Links and routing
+The form Tag Helpers take an `asp-for` attribute, and work like the built-in ASP.NET Core Tag Helpers:
 
-Tag Helpers that render an [Anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) (Link Button, Breadcrumb links, Pagination links, Tab links, Link Item, Dropdown Menu links, etc.) accept either a raw `href` or the standard ASP.NET Core routing attributes (`asp-page`, `asp-controller` / `asp-action`, `asp-route-*` and friends). Routing attributes are resolved by the framework's own anchor Tag Helper, so they behave exactly as they do on a plain `<a>`.
+- The `name`, `id` and `value` come from the bound property.
+- The validation state comes from `ModelState`.
+- The label, the description and the placeholder come from the property's `[Display]` attribute.
+
+## Linking to pages
+
+The Tag Helpers that render an `<a>` element, such as the link button and the breadcrumb, pagination, tab and dropdown menu links, take either an `href` or the ASP.NET Core routing attributes, such as `asp-page`, `asp-controller`, `asp-action` and `asp-route-*`. The built-in anchor Tag Helper resolves the routing attributes, so they work the same as on an `<a>`.

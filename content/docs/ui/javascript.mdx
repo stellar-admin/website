@@ -1,59 +1,67 @@
 ---
 title: JavaScript & Interactivity
-description: How StellarAdmin.UI enhances components using JavaScript
+description: How StellarAdmin.UI adds interactivity to the components with JavaScript
 ---
 
-StellarAdmin.UI attempts to be as lightweight as possible by making using of standard web platform features as much as possible. However, this is not always possible and in some cases we need to enhance certain components using JavaScript. Specifically, some of the Tag Helpers will make use of thin [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) to add additional interactivity.
+StellarAdmin.UI uses HTML and CSS features of the browser wherever it can. Where a component needs more, such as keyboard handling or state that changes in the browser, StellarAdmin.UI adds it with small [web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
 
-## The `stellar-admin.js` bundle
+## Adding the script
 
-The [Installation steps](/docs/ui/installation) requires you to add a single script to your layout:
+The script is part of the [installation](/docs/ui/installation). Add it to the `<head>` of your layout:
 
 ```razor
 <script type="module" src="/_content/StellarAdmin.UI/stellar-admin.js" asp-append-version="true"></script>
 ```
 
-This JavaScript file contains the following:
+The script contains:
 
-- the **web components** some Tag Helpers use,
-- the **`interestfor` polyfill**, so hover-triggered tooltips and popovers work in browsers that do not yet implement it, and on elements that browsers which do implement it ignore,
-- the **`window.stellarAdmin`** object with the `dialog()` and `alertDialog()` helpers and the `toast` API.
+- The [web components](#web-components) the Tag Helpers use.
+- A polyfill for [interest invokers](#interest-invokers), which open tooltips and popovers on hover.
+- The [`window.stellarAdmin`](#the-windowstellaradmin-object) object, which you use to open dialogs and display toasts from your own JavaScript.
 
 ## Web components
 
-A handful of Tag Helpers render a custom element (`<sel-*>`) around or in place of their markup. The script registers these elements and adds behavior on top of the server-rendered HTML: state that must be tracked in the browser, keyboard handling, and ARIA attributes that reflect that state.
+Some Tag Helpers render a custom element, such as `<sel-tabs>`, around their markup or in place of it. The script registers these custom elements, which add behavior to the HTML that the server renders.
 
-The table shows which element each Tag Helper renders, as background. The element names are internal and may change in any version (see [Stability](#stability)), so don't select or style them by name. To call a component's JavaScript API, give the `<sa-*>` Tag Helper an `id` and use `document.getElementById()`: the `id` lands on the element that exposes the API.
+The table below lists the custom element each Tag Helper renders, and what it adds:
 
-| Tag Helper | Element | What the script adds |
-|------------|---------|----------------------|
-| `<sa-carousel>` | `<sel-carousel>` | Scrolls between slides, enables and disables the previous and next buttons, and builds the position indicators. |
-| `<sa-collapsible>` | `<sel-collapsible>` | Handles the `--toggle`, `--show` and `--hide` commands and keeps `aria-expanded` on the trigger buttons in sync. |
-| `<sa-list-editor>`, `<sa-dictionary-editor>` | `<sel-collection-editor>` | Adds, removes and reorders rows, renumbers the names the rows post, handles the keyboard, paste and dragging, checks the rows and blocks the submit while a row is invalid, and drops blank rows as the form is submitted. |
-| `<sa-command>` | `<sel-command>` | Filters the items as you type and handles keyboard navigation. |
-| `<sa-dialog>`, `<sa-alert-dialog>` (and `<sa-sheet>`) | `<sel-dialog>` | Locks page scrolling while a modal dialog is open and mirrors the dialog's open state in the `data-open` attribute. |
-| `<sa-dropdown-menu-content>`, `<sa-dropdown-menu-sub-content>` | `<sel-dropdown-menu>` | Menu semantics on top of a native popover such as roving focus with the arrow keys, Home/End and type-ahead, Enter/Space activation, close-on-select, checkbox and radio items that toggle in place, and sub-menu open/close. |
-| `<sa-icon-picker>` | `<sel-icon-picker>` | Opens the popover, searches the icons and handles the grid's arrow keys, loads `icons-url` on first open, and puts the chosen icon's name in the hidden input. |
-| `<sa-image-upload>` | `<sel-image-upload>` | Opens the file picker, shows the chosen image and posts its value. |
-| `<sa-input-otp>` | `<sel-input-otp>` | Keeps the visual slot cells in sync with the `<input>` that contains the value, shows the active cell and caret, and enforces the input pattern. |
-| `<sa-message-scroller>` | `<sel-message-scroller>` | Follows new messages and exposes `scrollToStart()`, `scrollToEnd()` and `following`. |
-| `<sa-rich-text-editor>` | `<sel-rich-text-editor>` | The editor itself: the toolbar, the selection bubble, the `/` menu, links, tables and image uploads, writing the HTML to the `<textarea>` the form posts. Its script is a separate file (see below). |
-| `<sa-questionnaire>` | `<sel-questionnaire>` | The shortcut keys assigned by `<sa-questionnaire-choices>`, arrow keys that move between a question's answers and wrap at either end, and a free-text answer and the choices standing in for each other so that only one of the two posts. |
-| `<sa-sidebar-wrapper>` | `<sel-sidebar>` | Tracks the expanded/collapsed state on desktop and the open/closed drawer state on mobile, and handles the `--toggle-sidebar`, `--open-mobile` and `--close-mobile` commands. |
-| `<sa-slider>` | `<sel-slider>` | Pointer and keyboard interaction for the thumbs, and keeps the range fill, `aria-valuenow` and the hidden form inputs in sync. |
-| `<sa-table>` with `selection` or `row-details` | `<sel-table>` | Select-all/indeterminate handling and the `data-state="selected"` row highlight for row checkboxes, and expanding and collapsing row details. |
-| `<sa-tabs>` | `<sel-tabs>` | Shows the selected tab's panel, handles arrow keys between tabs, and raises `tabhide` and `tabshow`. |
-| `<sa-toaster>` | `<sel-toaster>` | Shows, stacks and closes toasts, pauses their timers on hover and focus, and renders the toasts queued on the server for the page. |
+| Tag Helper | Custom element | What the script adds |
+| --- | --- | --- |
+| `<sa-carousel>` | `<sel-carousel>` | Scrolling between the slides, enabling and disabling the previous and next buttons, and the position indicators. |
+| `<sa-collapsible>` | `<sel-collapsible>` | The `--toggle`, `--show` and `--hide` commands, and the `aria-expanded` attribute of the buttons that open it. |
+| `<sa-list-editor>`, `<sa-dictionary-editor>` | `<sel-collection-editor>` | Adding, removing and reordering rows, with the keyboard, pasting and dragging, and renumbering the names that the rows post. Checking the rows, blocking the submit while a row is invalid, and dropping blank rows when the form is submitted. |
+| `<sa-command>` | `<sel-command>` | Filtering the items as you type, and keyboard navigation. |
+| `<sa-dialog>`, `<sa-alert-dialog>`, `<sa-sheet>` | `<sel-dialog>` | Locking the page's scrolling while a modal dialog is open, and the `data-open` attribute, which reflects whether the dialog is open. |
+| `<sa-dropdown-menu-content>`, `<sa-dropdown-menu-sub-content>` | `<sel-dropdown-menu>` | Menu keyboard navigation, with the arrow keys, <kbd>Home</kbd>, <kbd>End</kbd> and typing an item's first letters. Selecting an item with <kbd>Enter</kbd> or <kbd>Space</kbd>, closing the menu when an item is selected, checkbox and radio items, and opening and closing submenus. |
+| `<sa-icon-picker>` | `<sel-icon-picker>` | Opening the popover, loading the icons from `icons-url` the first time it opens, searching the icons, moving through the grid with the arrow keys, and putting the selected icon's name in the hidden input. |
+| `<sa-image-upload>` | `<sel-image-upload>` | Opening the file picker, displaying the selected image and posting its value. |
+| `<sa-input-otp>` | `<sel-input-otp>` | Displaying the value of the `<input>` in the slots, with the active slot and the caret, and enforcing the input's pattern. |
+| `<sa-message-scroller>` | `<sel-message-scroller>` | Scrolling to new messages, and the `scrollToStart()` and `scrollToEnd()` methods and the `following` property. |
+| `<sa-rich-text-editor>` | `<sel-rich-text-editor>` | The whole editor: the toolbar, the selection bubble, the `/` menu, links, tables and image uploads, and writing the HTML to the `<textarea>` that the form posts. The editor has its [own script](#scripts-of-large-components). |
+| `<sa-questionnaire>` | `<sel-questionnaire>` | The shortcut keys of `<sa-questionnaire-choices>`, and the arrow keys, which move between a question's answers and wrap at either end. Posting either the free-text answer or the selected choices, but not both. |
+| `<sa-sidebar-wrapper>` | `<sel-sidebar>` | Expanding and collapsing the sidebar on desktop, opening and closing the drawer on mobile, and the `--toggle-sidebar`, `--open-mobile` and `--close-mobile` commands. |
+| `<sa-slider>` | `<sel-slider>` | Moving the thumbs with the pointer and the keyboard, and updating the range fill, `aria-valuenow` and the hidden inputs. |
+| `<sa-table>` with `selection` or `row-details` | `<sel-table>` | The checkbox that selects all rows, the highlight of selected rows, and expanding and collapsing row details. |
+| `<sa-tabs>` | `<sel-tabs>` | Displaying the selected tab's panel, moving between the tabs with the arrow keys, and the `tabhide` and `tabshow` events. |
+| `<sa-toaster>` | `<sel-toaster>` | Displaying, stacking and closing toasts, pausing their timers on hover and focus, and displaying the toasts the server queued for the page. |
 
-All of these render in the **light DOM**: there is no shadow root, so the server-rendered markup stays visible to CSS, to Tailwind utilities, and to your own scripts, and the elements participate in layout like any other. Where a component can degrade gracefully it does. For example, a `<sa-table selection="true">` table still posts its checked rows without the script, and a `<sa-dialog>` still opens with a plain `command="show-modal"` button.
+<Callout type="info">
+  The names of the custom elements are internal and can change in any version, so don't select or style them by name. To call a component's JavaScript API, give its Tag Helper an `id`, and get the element with `document.getElementById()`. The `id` is rendered on the element that has the API.
+</Callout>
 
-Large components that few pages use keep their script out of `stellar-admin.js`. The [rich text editor](/docs/ui/components/rich-text-editor) is one: it renders a `<script type="module">` for its own file inside its element, so the file loads only on pages with an editor, once however many there are, and also when htmx swaps an editor into the page. There is nothing to add to your layout.
+The custom elements don't use a shadow root, so your CSS, Tailwind CSS and your own scripts can reach the markup inside them. Some components also work without the script. For example, a `<sa-table selection="true">` still posts its checked rows, and a `<sa-dialog>` still opens with a `command="show-modal"` button.
 
-Custom elements are upgraded when the script runs, which for a module script is after the document has been parsed. If your own code needs to interact with one of them (for example reading `selectedValues` from a table with `selection`), run it from a `DOMContentLoaded` listener or from a deferred or module script placed after `stellar-admin.js`, which runs after it.
+### Waiting for the custom elements
 
-## Invoker Commands
+The script is a module, so it runs after the browser has parsed the page, and only then adds the behavior to the custom elements. If your own code uses one of them, such as to read `selectedValues` from a table with `selection`, run your code in a `DOMContentLoaded` listener, or in a module or deferred script after `stellar-admin.js`.
 
-In keeping with the modern features of the Web Platform, StellarAdmin.UI uses [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to perform actions such as opening or closing dialogs. No JavaScript is required for actions like these.
+### Scripts of large components
+
+Components that are large and only used on a few pages have their own script, which isn't part of `stellar-admin.js`. The [rich text editor](/docs/ui/components/rich-text-editor) is one of them. You don't need to add its script to your layout: the editor adds it to the page, and the browser loads it once, however many editors the page has. This also works when htmx adds an editor to the page.
+
+## Invoker commands
+
+StellarAdmin.UI uses the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API) to open and close components, such as dialogs, without JavaScript. To open a component, give a button a `commandfor` attribute with the component's `id`, and a `command` attribute with the command:
 
 ```razor
 <sa-button commandfor="booking-dialog" command="show-modal">Edit booking</sa-button>
@@ -64,36 +72,51 @@ In keeping with the modern features of the Web Platform, StellarAdmin.UI uses [I
 </sa-dialog>
 ```
 
-StellarAdmin uses **built-in commands** scuh as `show-modal`, `show` and `close` for `<sa-dialog>`, `<sa-alert-dialog>`, and `<sa-sheet>`. It also adds various **custom commands** such as`--toggle`, `--show` and `--hide` on `<sa-collapsible>`.
+`<sa-dialog>`, `<sa-alert-dialog>` and `<sa-sheet>` use the browser's built-in commands, such as `show-modal`, `show` and `close`. Other components add their own commands, such as `--toggle`, `--show` and `--hide` on `<sa-collapsible>`.
 
-Two things to keep in mind:
+The element with `commandfor` and `command` must be a `<button>`. `<sa-button>` renders one. On any other element, the attributes do nothing.
 
-- The invoking element must be a `<button>` (a `<sa-button>` renders one). `commandfor` and `command` on any other element do nothing.
-- Invoker Commands are a recent web platform feature. Check [browser support](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API#browser_compatibility) against your audience before you rely on it. StellarAdmin does not bundle a polyfill for it.
+<Callout type="info">
+  StellarAdmin.UI doesn't include a polyfill for invoker commands. Check the [browser support](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_commands_API#browser_compatibility) against the browsers your users have.
+</Callout>
 
 ## Interest invokers
 
-Tooltips and hover-triggered popovers use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers). An `interestfor` attribute on the trigger shows the target popover on hover, focus and long-press. StellarAdmin bundles the `interestfor` polyfill, so this works in current browsers regardless of native support. Browsers that support interest invokers natively honor `interestfor` only on links and buttons, so the bundle also handles it on other elements, such as inputs, selects and toggles, with the same delays and `interest` and `loseinterest` events. A control inside a label, such as a toggle's checkbox, takes its hover from the label, and the tooltip lines up with the label. See [Tooltip](/docs/ui/components/tooltip) and [Popover](/docs/ui/components/popover).
+[Tooltips](/docs/ui/components/tooltip) and [popovers](/docs/ui/components/popover) that open on hover use [interest invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers). The element that opens the tooltip or popover has an `interestfor` attribute, which opens it on hover, focus and long-press.
 
-## The `window.stellarAdmin` helpers
+The script includes a polyfill for interest invokers, so they work in all browsers that StellarAdmin.UI supports. Browsers that support interest invokers only support them on links and buttons, so the polyfill also adds them to other elements, such as inputs, selects and toggles, with the same delays and the same `interest` and `loseinterest` events. For a control inside a label, such as a toggle's checkbox, hovering over the label opens the tooltip, which is aligned with the label.
 
-The script also exposes a small global object with promise-based helpers for opening dialogs from your own code and awaiting the outcome:
+## The `window.stellarAdmin` object
+
+The script adds a `window.stellarAdmin` object, which you use to open dialogs from your own JavaScript and wait for the result. The example below opens a dialog, and reads the dialog's form values when the dialog is confirmed:
 
 ```js
 const result = await window.stellarAdmin.dialog("#booking-dialog").showAsync();
 if (result.confirmed) {
-    // result.data holds the dialog's form values
+    // result.data contains the dialog's form values
 }
 ```
 
-- [`dialog()`](/docs/ui/components/js-dialog) wraps a `<sa-dialog>` or `<sa-sheet>` and its `showAsync()` opens it and resolves with whether it was confirmed, its `returnValue`, and any form values.
-- [`alertDialog()`](/docs/ui/components/js-alert-dialog) does the same for a `<sa-alert-dialog>`.
-- [`toast`](/docs/ui/components/toast#windowstellaradmintoast) shows toasts, and its `fromResponse()` shows the toasts the server sent with an AJAX response.
+`window.stellarAdmin` has the following members:
 
-If your page already defines `window.stellarAdmin`, the bundle logs a console warning and replaces it.
+| Member | Used to |
+| --- | --- |
+| [`dialog()`](/docs/ui/components/js-dialog) | Open a `<sa-dialog>` or `<sa-sheet>`. Its `showAsync()` method opens the dialog, and returns whether it was confirmed, its `returnValue` and its form values. |
+| [`alertDialog()`](/docs/ui/components/js-alert-dialog) | Open a `<sa-alert-dialog>`, the same way as `dialog()`. |
+| [`toast`](/docs/ui/components/toast#windowstellaradmintoast) | Display toasts. Its `fromResponse()` method displays the toasts that the server sent with a fetch or XHR response. |
+
+If your page already has a `window.stellarAdmin` object, the script replaces it, and logs a warning in the browser console.
 
 ## Stability
 
-These are part of the public contract and change only in a breaking release: the `window.stellarAdmin` object with `dialog()`, `alertDialog()` and `toast`, the name of the `SA-Toasts` response header, and the [CSS layer names and order](/docs/ui/design-tokens#with-tailwind-css).
+The following only change in a breaking release:
 
-These are internal and may change in any version: the `<sel-*>` element names, the runtime `data-*` attributes they set, and the JSON inside the `SA-Toasts` header. Read the header only through [`toast.fromResponse()`](/docs/ui/components/toast#windowstellaradmintoast).
+- The `window.stellarAdmin` object, with `dialog()`, `alertDialog()` and `toast`.
+- The name of the `SA-Toasts` response header.
+- The [names and the order of the CSS layers](/docs/ui/design-tokens#using-the-design-tokens-with-tailwind-css).
+
+The following are internal, and can change in any version:
+
+- The names of the custom elements.
+- The `data-*` attributes the custom elements set.
+- The JSON in the `SA-Toasts` header. To read it, use [`toast.fromResponse()`](/docs/ui/components/toast#windowstellaradmintoast).
