@@ -1,7 +1,9 @@
 ---
 title: Branding
-description: The panel's name and logo
+description: Set the admin panel's name and logo
 ---
+
+To set the admin panel's name and logo, call `ConfigureBranding()`. StellarAdmin displays them at the top of the sidebar:
 
 ```cs
 using StellarAdmin.Sidebar;
@@ -14,39 +16,47 @@ admin.ConfigureBranding(branding =>
 });
 ```
 
-| Property | Default |
+| Setting | What it does |
 | --- | --- |
-| `Title` | Your app's name, made readable: `Voyager.Admin` becomes "Voyager Admin". |
-| `Subtitle` | None. A second line under the title. |
-| `Logo` | None. The title shows on its own. |
-| `Href` | The panel's home page. |
+| `Title` | Sets the admin panel's name. The default is your app's name, with each part as a word, such as "Voyager Admin" for `Voyager.Admin`. |
+| `Subtitle` | Sets a second line under the title. The default is none. |
+| `Logo` | Sets the logo. The default is none, which displays the title on its own. |
+| `Href` | Sets the URL that the title and logo link to: an absolute URL, or a path in your app that starts with `~/`. The default is the admin panel's [home page](/docs/admin/home-page). |
 
-The title is also used in the browser tab, like "Bookings - Voyager Travel".
+The browser tab also displays the title after the page's name, such as "Bookings - Voyager Travel".
 
-## Logos
+## Choosing a logo
 
-There are three kinds of logo:
+To set the logo, set `Logo` to one of the following:
 
-| Logo | Looks like |
+| Logo | What it displays |
 | --- | --- |
-| `BrandingLogo.Icon("compass")` | An [icon](/docs/ui/icons) in a colored tile, beside the title. |
-| `BrandingLogo.Image("~/img/logo.svg")` | A square image beside the title. |
-| `BrandingLogo.Wordmark("~/img/wordmark.svg")` | An image that replaces the title and subtitle. The title becomes its alt text. |
+| `BrandingLogo.Icon(name)` | An [icon](/docs/ui/icons) in a colored tile, beside the title. |
+| `BrandingLogo.Image(path)` | A square image beside the title. |
+| `BrandingLogo.Wordmark(path)` | An image in place of the title and the subtitle, with the title as its alt text. |
 
-`Image` and `Wordmark` take a second path for dark mode:
+The path is an absolute URL, or a path in your app that starts with `~/`. To display another image in dark mode, pass its path as the second argument of `Image()` or `Wordmark()`:
 
 ```cs
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", "~/img/wordmark-dark.svg");
 ```
 
-A wordmark is centered, and as tall as the two lines of text it replaces. Pass a `WordmarkLayout` to change that: `Start` lines it up with the menu items, and `Fill` stretches it across the sidebar, which suits a wide logo that looks small otherwise.
+A wordmark has no space for a subtitle, so StellarAdmin doesn't display the subtitle with a wordmark, and reports a [configuration problem](/docs/admin/configuration-problems).
+
+### Placing a wordmark
+
+StellarAdmin centers a wordmark, at the height of the title and the subtitle it replaces. To place it differently, pass a `WordmarkLayout` as the last argument of `Wordmark()`. The example below stretches a wide wordmark across the sidebar, so it doesn't look small:
 
 ```cs
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", WordmarkLayout.Fill);
 ```
 
-A wordmark doesn't show the subtitle.
+| Layout | What it does |
+| --- | --- |
+| `WordmarkLayout.Center` | Centers the wordmark. This is the default. |
+| `WordmarkLayout.Start` | Lines the wordmark up with the sidebar items. |
+| `WordmarkLayout.Fill` | Stretches the wordmark across the sidebar, up to twice its height. |
 
-## Your own header
+## Replacing the top of the sidebar
 
-For a header the settings can't describe, add `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` to your app. It replaces the panel's, and gets a `SidebarBrandModel` with the `Title`, `Subtitle`, `Logo` and `Href`. It needs the [view imports](/docs/admin/overriding-pages#view-imports).
+When the settings can't produce the design you want, add your own `Areas/StellarAdmin/Views/Shared/_SidebarBrand.cshtml` to your app, which replaces StellarAdmin's. The view's model is a `SidebarBrandModel`, with the `Title`, `Subtitle`, `Logo` and `Href` you configured. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).

@@ -1,11 +1,13 @@
 ---
-title: Sidebar and links
-description: Group, order and add to the panel's navigation
+title: Sidebar
+description: Group and order the sidebar's items, and add links to your own pages
 ---
 
-Every resource adds itself to the sidebar, linking to its index page. The command palette (Ctrl+K, or Cmd+K on a Mac) lists the same items.
+StellarAdmin adds an item to the sidebar for each resource, which links to the resource's index page. The command palette, which people open by pressing <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>Command</kbd>+<kbd>K</kbd> on a Mac), lists the same items.
 
-## Resource items
+## Configuring a resource's item
+
+To change a resource's item, call `SidebarItem()` on the resource. The example below moves the bookings into a Sales group, with a ticket icon, as the group's first item:
 
 ```cs
 admin.AddEfCoreResource<Booking>(resource =>
@@ -20,21 +22,21 @@ admin.AddEfCoreResource<Booking>(resource =>
 });
 ```
 
-| Property | Default |
+| Setting | What it does |
 | --- | --- |
-| `Group` | `"Resources"` |
-| `Label` | The plural label |
-| `Icon` | None. Any [icon](/docs/ui/icons) name. |
-| `Order` | None. See [order](#order). |
-| `Visible` | `true` |
+| `Group` | Sets the label of the group the item is in. The default is "Resources". |
+| `Label` | Sets the item's label. The default is the resource's plural label. |
+| `Icon` | Sets the name of the [icon](/docs/ui/icons) displayed before the label. The default is none. |
+| `Order` | Sets the item's position in its group. See [ordering the sidebar](#ordering-the-sidebar). |
+| `Visible` | Sets whether the item is in the sidebar. The default is `true`. |
 
-Hiding an item doesn't protect its pages. Use [authorization](/docs/admin/authorization) for that. Items for resources someone can't access are hidden automatically.
+StellarAdmin hides the item from people who aren't [authorized](/docs/admin/authorization) to use the resource. Setting `Visible` to `false` only hides the item, and people can still open the resource's pages by their URL.
 
-Icons are per item. An item without one doesn't leave a gap, so give every item in a group an icon, or none.
+An item without an icon doesn't leave space for one, so the labels in a group only line up when every item in the group has an icon, or none has.
 
-## Your own links
+## Adding links to your own pages
 
-`AddSidebarLink` links to your app's pages, MVC actions, or any URL:
+To add a link to one of your app's pages, call `AddSidebarLink()` with the link's label and a target. The example below links to a Razor Page and an MVC action in the Sales group, and to a help site in a new tab:
 
 ```cs
 using StellarAdmin.Sidebar;
@@ -45,30 +47,48 @@ admin.AddSidebarLink("Departures this week", SidebarLinkTarget.Page("/Admin/Depa
     link.Icon = "calendar";
 });
 
-admin.AddSidebarLink("Invoices", SidebarLinkTarget.Action("Index", "Invoices"));
+admin.AddSidebarLink("Invoices", SidebarLinkTarget.Action("Index", "Invoices"), link =>
+    link.Group = "Sales");
 
 admin.AddSidebarLink("Help center", SidebarLinkTarget.Url("https://help.voyager.travel"), link =>
-{
-    link.Group = "Help";
-    link.OpenInNewTab = true;
-});
+    link.OpenInNewTab = true);
 ```
 
-`Page` and `Action` targets point outside any area, so they reach your app's own pages. Pass an area if you need one. `Url` takes absolute URLs and `~/` paths.
+| Target | Links to |
+| --- | --- |
+| `SidebarLinkTarget.Page(page)` | A Razor Page outside any area. To link to a page in an area, pass the area as well: `Page(page, area)`. |
+| `SidebarLinkTarget.Action(action, controller)` | An MVC action outside any area. To link to an action in an area, pass the area as well: `Action(action, controller, area)`. |
+| `SidebarLinkTarget.Url(url)` | An absolute URL, or a path in your app that starts with `~/`. |
 
-A link without a `Group` sits at the top level, without a heading.
+| Setting | What it does |
+| --- | --- |
+| `Group` | Sets the label of the group the link is in. The default is `null`, which displays the link at the top level of the sidebar, without a group heading. |
+| `Icon` | Sets the name of the [icon](/docs/ui/icons) displayed before the label. The default is none. |
+| `Order` | Sets the link's position. See [ordering the sidebar](#ordering-the-sidebar). |
+| `OpenInNewTab` | Sets whether the link opens in a new tab. The default is `false`. |
 
-`link.RequireAuthorization(...)` hides the link from people who don't meet the requirement. It doesn't protect the page it links to: put `[Authorize]` on that page.
+To display the page inside the admin panel, with the sidebar and the header, see [custom pages](/docs/admin/host-pages).
 
-If a `Page` or `Action` target doesn't exist, Development shows the link in red with the reason, like "No page /Admin/Departures". In other environments it's hidden and a warning is logged.
+When the page or the action of a target doesn't exist, StellarAdmin displays the link in red in the Development environment, with the reason, such as "No page /Admin/Departures". In other environments, it hides the link and logs a warning.
 
-To show your own pages inside the panel's layout, see [host pages](/docs/admin/host-pages).
+### Hiding a link from some people
 
-## Order
+To hide a link from people who don't meet an authorization requirement, call `RequireAuthorization()` on the link. It takes the same arguments as the resource's [`RequireAuthorization()`](/docs/admin/authorization). The example below displays the Invoices link only to people in the Finance role:
 
-Groups with the same name merge, whether their items come from resources or links. Within a group, items with an `Order` come first, then the rest in the order you added them. So usually, writing your registrations in the order you want is enough.
+```cs
+admin.AddSidebarLink("Invoices", SidebarLinkTarget.Action("Index", "Invoices"), link =>
+    link.RequireAuthorization(policy => policy.RequireRole("Finance")));
+```
 
-Groups sit in the order their first item was added. To change that, or sort a group's items by label, configure the group:
+`RequireAuthorization()` only hides the link. To stop other people from opening the page, add `[Authorize]` to the page or the controller.
+
+## Ordering the sidebar
+
+StellarAdmin displays the sidebar's items in the order you add them, so adding your resources and links in the order you want is usually enough. Resources and links with the same `Group` share a group, which StellarAdmin displays where its first item was added.
+
+Items with an `Order` come before the items without one, with the lowest `Order` first. A resource's `Order` sets its position in its group. A link's `Order` sets its position in its group, or, for a link without a group, among the groups.
+
+To move a group, or to sort its items by label, call `ConfigureSidebarGroup()` with the group's label. The example below displays the Catalog group first and the Sales group second, and sorts the items in the Settings group by label:
 
 ```cs
 admin.ConfigureSidebarGroup("Catalog", group => group.Order = 1);
@@ -76,9 +96,9 @@ admin.ConfigureSidebarGroup("Sales", group => group.Order = 2);
 admin.ConfigureSidebarGroup("Settings", group => group.SortItemsByLabel = true);
 ```
 
-Configuring a group doesn't add it. It shows up when something is in it.
+`ConfigureSidebarGroup()` doesn't add a group. The group is displayed when a resource or a link is in it.
 
-Or sort everything by label:
+To sort every group and every item by label, call `ConfigureSidebar()`:
 
 ```cs
 admin.ConfigureSidebar(sidebar =>
@@ -88,16 +108,18 @@ admin.ConfigureSidebar(sidebar =>
 });
 ```
 
-Anything with an `Order` still comes first.
+<Callout type="info">
+    Sorting by label only applies to the items and groups without an `Order`, which come after the ones with an `Order`.
+</Callout>
 
-## Items from code
+## Adding items from code
 
-When the items depend on the request or your data, implement `ISidebarItemsProvider`:
+To add items that change while the app runs, such as links to records in your database, add a class that implements `ISidebarItemsProvider`. The example below adds a Featured trips group, with a link to the edit page of each of the first 3 published trips:
 
 ```cs
 using StellarAdmin.Sidebar;
 
-public class UpcomingTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarItemsProvider
+public class FeaturedTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarItemsProvider
 {
     public async Task<IReadOnlyList<SidebarItem>> GetItemsAsync(
         HttpContext httpContext, CancellationToken cancellationToken)
@@ -121,10 +143,19 @@ public class UpcomingTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarIt
 }
 ```
 
+Register the provider with dependency injection:
+
 ```cs
-builder.Services.AddScoped<ISidebarItemsProvider, UpcomingTripsSidebarItemsProvider>();
+builder.Services.AddScoped<ISidebarItemsProvider, FeaturedTripsSidebarItemsProvider>();
 ```
 
-Return groups of `SidebarLinkItem`, `SidebarActionLinkItem` or `SidebarPageLinkItem`. They merge with the other items, by group name.
+| Item | What it is |
+| --- | --- |
+| `SidebarGroupItem(label, items)` | A group of links. Its items join the group with the same label, if there is one. |
+| `SidebarLinkItem(label, href)` | A link to an absolute URL, or a path in your app that starts with `~/`. |
+| `SidebarPageLinkItem(label, page, area)` | A link to a Razor Page. Pass `""` as the area for a page outside any area. |
+| `SidebarActionLinkItem(label, controller, action, area)` | A link to an MVC action. Pass `""` as the area for an action outside any area. |
 
-The provider runs on every panel page, so keep it fast. It's also up to you to leave out items the user shouldn't see.
+A link that isn't in a `SidebarGroupItem` is displayed at the top level of the sidebar. The items from a provider come after the items you added in `AddStellarAdmin()`, unless they have an `Order`.
+
+StellarAdmin calls the provider for every page of the admin panel, so keep it fast. StellarAdmin doesn't check whether people can open the links a provider returns, so leave out the links people shouldn't see.

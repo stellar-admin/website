@@ -1,9 +1,11 @@
 ---
 title: Environment indicator
-description: Show which environment you're in, so nobody edits live data by mistake
+description: Mark every page with the environment's name, so nobody changes live data by mistake
 ---
 
-The environment indicator marks every panel page with a stripe, a frame or a banner, so it's obvious when you're on the live site.
+An *environment indicator* marks every page of the admin panel with the name of the environment, such as "Live" or "Staging". This allows users to tell the live admin panel apart from a test one, so they don't change live data by mistake.
+
+To display an environment indicator, call `EnableEnvironmentIndicator()` with the indicator. Call it only in the environments that should display an indicator. The example below reads the environment from the app's configuration, and displays a red banner in the live environment and a yellow stripe in staging:
 
 ```cs
 var environment = builder.Configuration["Deployment:Environment"];
@@ -21,29 +23,39 @@ builder.Services.AddStellarAdmin(admin =>
     else if (environment == "staging")
     {
         admin.EnableEnvironmentIndicator(EnvironmentIndicator.Stripe("Staging", stripe =>
-        {
-            stripe.Color = EnvironmentColor.Warning;
-        }));
+            stripe.Color = EnvironmentColor.Warning));
     }
 });
 ```
 
-You decide when to show it: call `EnableEnvironmentIndicator` in the environments that need one, however your app tells them apart. Nothing shows if you don't call it.
+The parameter passed to `EnableEnvironmentIndicator()` can be one of the following:
 
-| Indicator | Looks like | Settings |
-| --- | --- | --- |
-| `EnvironmentIndicator.Stripe(label)` | A thin bar across the top, with the label on a tab | `Color`, `TabSize` |
-| `EnvironmentIndicator.Frame(label)` | A border around the window, with the label on a tab | `Color`, `TabSize` |
-| `EnvironmentIndicator.Banner(label)` | A bar across the top with the label and a `Description`. The page moves down to make room. | `Color`, `Description` |
+| Indicator | What it displays |
+| --- | --- |
+| `EnvironmentIndicator.Stripe(label)` | A thin bar across the top of the window, with the label on a tab. |
+| `EnvironmentIndicator.Frame(label)` | A border around the window, with the label on a tab at the top. |
+| `EnvironmentIndicator.Banner(label)` | A bar across the top of the window, with the label and the description. The page moves down to make room for it. |
 
-## Colors
+You can set the following optional properties in the `configure` callback:
 
-`Color` is `EnvironmentColor.Neutral` (the default), `Info`, `Success`, `Warning` or `Danger`. Those follow your theme and dark mode.
+| Setting | What it does |
+| --- | --- |
+| `Color` | Sets the indicator's color. See [choosing a color](#choosing-a-color). The default is `EnvironmentColor.Neutral`, which is gray. |
+| `TabSize` | Sets the size of the tab of a stripe or a frame: `EnvironmentIndicatorTabSize.Small`, `Medium`, `Large` or `ExtraLarge`. The default is `Medium`. |
+| `Description` | Sets the text displayed after the label on a banner. The default is none. |
 
-For your own color, use `EnvironmentColor.Custom("#7c3aed")`, or pass a second color for dark mode: `EnvironmentColor.Custom("#7c3aed", "#c4b5fd")`. The text color is picked for you.
+## Choosing a color
 
-`TabSize` is `EnvironmentIndicatorTabSize.Small`, `Medium` (the default), `Large` or `ExtraLarge`.
+`EnvironmentColor` has a color from your [theme](/docs/admin/theming) for each kind of environment: `Neutral`, `Info`, `Success`, `Warning` and `Danger`. These colors change with your theme, and in dark mode.
 
-## Outside the panel
+To use your own color, pass a CSS color to `EnvironmentColor.Custom()`. To use another color in dark mode, pass it as the second argument:
 
-Pages outside the panel, like your sign-in pages, don't get the indicator. Add the [environment indicator component](/docs/ui/components/environment-indicator) to their layout.
+```cs
+banner.Color = EnvironmentColor.Custom("#7c3aed", "#c4b5fd");
+```
+
+StellarAdmin displays the label in white or in a dark color, whichever is easier to read on the indicator's color.
+
+## Marking pages outside the admin panel
+
+The environment indicator is only displayed on the pages of the admin panel, including your [custom pages](/docs/admin/host-pages). To mark your app's other pages, such as its sign-in page, add the [environment indicator component](/docs/ui/components/environment-indicator) to their layout.

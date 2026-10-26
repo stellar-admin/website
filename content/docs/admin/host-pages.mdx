@@ -1,9 +1,11 @@
 ---
-title: Host pages
-description: Show your own pages inside the panel's layout
+title: Custom pages
+description: Display your own Razor Pages and MVC views inside the admin panel
 ---
 
-Some pages don't fit the resource model: a report, a calendar, a page that runs a job. Write them as normal Razor Pages or MVC views in your app, and give them the panel's layout. They get the sidebar, header, theme and command palette, and keep their own URL, routing and authorization.
+For a page that isn't a resource, such as a report or a page that starts a job, write a Razor Page or an MVC view in your app, and set its layout to `StellarAdminLayouts.Default`. The page is then displayed inside the admin panel, with the sidebar, the header, the theme and the command palette. It keeps its own URL, routing and authorization.
+
+The example below lists the bookings that depart this week:
 
 ```razor title="Pages/Admin/Departures.cshtml"
 @page
@@ -56,17 +58,25 @@ public class DeparturesModel(VoyagerDbContext db) : PageModel
 }
 ```
 
-Then add it to the sidebar:
+`ViewData["Title"]` sets the page's name in the browser tab, such as "Departures this week - Voyager Travel".
+
+To set the layout of every page in a folder, set it in a `_ViewStart.cshtml` in that folder instead.
+
+## Adding the page to the sidebar
+
+To link to the page from the sidebar, call `AddSidebarLink()`:
 
 ```cs
 admin.AddSidebarLink("Departures this week", SidebarLinkTarget.Page("/Admin/Departures"), link =>
     link.Group = "Sales");
 ```
 
-The sidebar link is highlighted while the page is open, and `ViewData["Title"]` sets the browser title, like "Departures this week - Voyager Travel".
+While the page is open, StellarAdmin highlights its link in the sidebar. See [adding links to your own pages](/docs/admin/sidebar#adding-links-to-your-own-pages) for the other targets and settings.
 
-## Things to know
+## Protecting the page
 
-- **Protect the page yourself.** The panel's `RequireAuthorization` only covers the panel's own routes. Use `[Authorize]`, or a Razor Pages authorization convention.
-- **Use `sa-*` components.** The panel's stylesheet only has the classes its components use, so Tailwind utilities like `p-4` won't do anything. See [StellarAdmin.UI](/docs/ui) for the components.
-- **Set the layout once for a folder** with a `_ViewStart.cshtml` beside its pages.
+The admin panel's [authorization](/docs/admin/authorization) only protects StellarAdmin's own pages, so protect your page yourself, with `[Authorize]` or a Razor Pages authorization convention, as in the example above.
+
+## Styling the page
+
+Build the page with the [StellarAdmin.UI components](/docs/ui), such as `<sa-card>` and `<sa-table>`. The admin panel's stylesheet only has the classes that its components use, so Tailwind classes such as `p-4` don't style your page.

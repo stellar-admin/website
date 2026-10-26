@@ -1,21 +1,23 @@
 ---
 title: Home page
-description: The page at /stellaradmin
+description: Turn off the setup checklist, or replace the home page with your own
 ---
 
-In Development, the panel's home page is a setup checklist. It shows what you've configured so far (resources, authorization, branding, the user menu, a theme and the sidebar), with the code for each step and instructions you can hand to a coding agent.
+The admin panel's home page is the page at the admin panel's URL, `/stellaradmin` by default, which the title at the top of the sidebar links to.
 
-In other environments, it links to the resources the user can open.
+In the Development environment, the home page is a setup checklist. It lists the steps for setting up StellarAdmin, such as adding resources, protecting the admin panel and setting the branding, and marks the steps you've done. Each step has the code to add, and instructions you can give to a coding agent.
 
-To see the production page in Development, turn the checklist off:
+In other environments, the home page links to the resources the user can open, in the order of the sidebar.
+
+To see that page in Development, turn the setup checklist off:
 
 ```cs
 admin.ConfigureHomePage(home => home.ShowSetupChecklist = false);
 ```
 
-## Your own home page
+## Replacing the home page
 
-Add `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, and it replaces the home page everywhere:
+To display your own home page, such as a dashboard, add your own `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, which replaces StellarAdmin's in every environment. The example below displays the number of bookings waiting for confirmation:
 
 ```razor title="Areas/StellarAdmin/Views/Home/Index.cshtml"
 @inject VoyagerDbContext Db
@@ -36,6 +38,6 @@ Add `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, and it replaces th
 </sa-page-container>
 ```
 
-Don't declare a `@model`: the page's model is internal. Inject what you need, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
+Don't declare a `@model`, because the model of StellarAdmin's home page is internal. To load data, inject a service, as in the example above, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
 
-There's no dashboard or widget API yet. Build the page from [StellarAdmin.UI components](/docs/ui).
+StellarAdmin doesn't have dashboard widgets, so build the page with the [StellarAdmin.UI components](/docs/ui).
