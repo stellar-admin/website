@@ -103,6 +103,14 @@
     "width": 1280,
     "height": 800
   },
+  "sidebar-links": {
+    "width": 255,
+    "height": 290
+  },
+  "sidebar-links-dark": {
+    "width": 255,
+    "height": 290
+  },
   "sidebar-missing-link": {
     "width": 255,
     "height": 340
