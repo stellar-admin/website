@@ -43,7 +43,7 @@ When the related type isn't a resource, call `UseText()` to specify the text dis
 ```cs
 columns.Add(guide => guide.Trips, column =>
 {
-    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Name));
+    column.UseDisplay<BadgeDisplay>(badge => badge.UseText<Trip>(trip => trip.Title));
 });
 ```
 

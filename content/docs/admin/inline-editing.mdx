@@ -38,6 +38,8 @@ admin.AddEfCoreResource<Destination>(resource =>
 
 When someone clicks a row's edit action, the row's cells change to editors, and **Save** and **Cancel** buttons replace the row actions. Press <kbd>Enter</kbd> in an input, or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field, to save the row. Press <kbd>Esc</kbd> to cancel.
 
+<Screenshot name="inline-editing-edit-row" alt="The destinations grid with one row being edited, with a name input, a country select, a featured checkbox and Save and Cancel buttons, and the other rows dimmed" todo="Crop of the destinations grid configured as above, with the second row being edited." />
+
 With inline editing, the resource has no edit page, and the view page has no edit button. You choose inline editing separately for creating and editing, so you can, for example, edit records inline and still create them on the create page.
 
 ## Configuring the edited row
@@ -88,6 +90,8 @@ resource.AllowCreate(create =>
 ```
 
 The new row starts with the values of the model that `UseFactory()` creates. Every `[Required]` property of the model must have a field. If one doesn't, StellarAdmin turns off creating records, and reports a configuration problem.
+
+<Screenshot name="inline-editing-new-row" alt="A new, empty row at the bottom of the destinations grid, with Featured already checked" todo="Crop of the bottom of the destinations grid after clicking the Create button in the grid, with the configuration above. Box around the new row." />
 
 You configure the new row in the callback that you pass to `UseInlineRow()`:
 

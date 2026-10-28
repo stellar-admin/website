@@ -27,11 +27,11 @@ resource.Index(index =>
 
 A sortable column sorts by the property it displays. Pass an expression to `Sortable()` to sort by a different value instead, such as for a column that displays a related record or a computed value.
 
-The example below sorts the customer column by the customer's name.
+The example below sorts the traveller column by the traveller's last name.
 
 ```cs
-columns.Add(booking => booking.Customer, column =>
-    column.Sortable(booking => booking.Customer!.Name));
+columns.Add(booking => booking.Traveller, column =>
+    column.Sortable(booking => booking.Traveller.LastName));
 ```
 
 ## Setting the default sort
@@ -39,7 +39,7 @@ columns.Add(booking => booking.Customer, column =>
 Call `DefaultSortBy()` to sort the grid by a column when the page first loads, before anyone clicks a header. Call `DefaultSortByDescending()` to sort in descending order instead.
 
 ```cs
-index.DefaultSortBy(booking => booking.DepartureDate);
+index.DefaultSortBy(booking => booking.Departure.StartDate);
 ```
 
 The default sort must be on a sortable column. If it isn't, StellarAdmin ignores the default sort and reports a [configuration problem](/docs/admin/configuration-problems).

@@ -132,7 +132,7 @@ public class FeaturedTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarIt
     {
         var trips = await db.Trips
             .Where(trip => trip.IsPublished)
-            .OrderBy(trip => trip.Name)
+            .OrderBy(trip => trip.Title)
             .Take(3)
             .ToListAsync(cancellationToken);
 
@@ -140,7 +140,7 @@ public class FeaturedTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarIt
         [
             new SidebarGroupItem(
                 "Featured trips",
-                trips.Select(trip => new SidebarLinkItem(trip.Name, $"~/stellaradmin/trips/edit/{trip.Id}")
+                trips.Select(trip => new SidebarLinkItem(trip.Title, $"~/stellaradmin/trips/edit/{trip.Id}")
                 {
                     Icon = "plane",
                 })),

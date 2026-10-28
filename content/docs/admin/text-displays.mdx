@@ -35,7 +35,7 @@ StellarAdmin displays a property with `[DataType(DataType.Html)]`, such as the t
 In the grid, `HtmlDisplay` displays the text without formatting, cut off after 2 lines. The example below displays 4 lines instead:
 
 ```cs
-columns.Add(trip => trip.Itinerary, column =>
+columns.Add(trip => trip.Description, column =>
     column.UseDisplay<HtmlDisplay>(html => html.LineClamp = 4));
 ```
 

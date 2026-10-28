@@ -11,7 +11,7 @@ The example below adds `Tags` to the trip edit page:
 public class Trip
 {
     public int Id { get; set; }
-    public string Name { get; set; } = "";
+    public string Title { get; set; } = "";
     public List<Tag> Tags { get; set; } = [];
 }
 ```
@@ -23,7 +23,7 @@ admin.AddEfCoreResource<Trip>(resource =>
 {
     resource.AllowEdit(edit => edit.Fields(fields =>
     {
-        fields.Add(trip => trip.Name);
+        fields.Add(trip => trip.Title);
         fields.Add(trip => trip.Tags);
     }));
 });

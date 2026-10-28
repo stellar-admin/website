@@ -14,13 +14,13 @@ builder.Services.AddStellarAdmin(admin =>
     {
         resource.Index(index => index.Columns(columns =>
         {
-            columns.Add(trip => trip.Name);
-            columns.Add(trip => trip.Price);
+            columns.Add(trip => trip.Title);
+            columns.Add(trip => trip.BasePrice);
         }));
         resource.AllowEdit(edit => edit.Fields(fields =>
         {
-            fields.Add(trip => trip.Name);
-            fields.Add(trip => trip.Price);
+            fields.Add(trip => trip.Title);
+            fields.Add(trip => trip.BasePrice);
         }));
     });
 });

@@ -10,7 +10,7 @@ To use the image editor, call `UseImageEditor()` and pass `StoreImage()` a funct
 ```cs
 using StellarAdmin.Resources.Editors;
 
-fields.Add(destination => destination.Photo).UseImageEditor(image =>
+fields.Add(destination => destination.HeroImageUrl).UseImageEditor(image =>
 {
     image.StoreImage((file, services, cancellationToken) =>
         services.GetRequiredService<IPhotoStore>().SaveAsync(file, cancellationToken));
@@ -42,7 +42,7 @@ If the property value isn't a URL the browser can load, specify a `ResolveUrl()`
 ```cs
 using StellarAdmin.Resources.Editors;
 
-fields.Add(destination => destination.Photo).UseImageEditor(image =>
+fields.Add(destination => destination.HeroImageUrl).UseImageEditor(image =>
 {
     image.StoreImage(...);
     image.ResolveUrl(value => $"/photos/{value}");
@@ -64,7 +64,7 @@ The image editor needs `StoreImage()`. Without it, StellarAdmin leaves the field
 The example below uses the compact layout for a guide's photo, and accepts files up to 10 MB:
 
 ```cs
-fields.Add(guide => guide.Photo).UseImageEditor(image =>
+fields.Add(guide => guide.PhotoUrl).UseImageEditor(image =>
 {
     image.StoreImage((file, services, cancellationToken) =>
         services.GetRequiredService<IPhotoStore>().SaveAsync(file, cancellationToken));

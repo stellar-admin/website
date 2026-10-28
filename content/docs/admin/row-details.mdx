@@ -11,18 +11,20 @@ Call `EnableRowDetails()` with the name of the partial view. The example below r
 resource.Index(index => index.EnableRowDetails("_BookingSummary"));
 ```
 
-The `_BookingSummary` partial view below displays the booking's number of travelers and its notes:
+The `_BookingSummary` partial view below displays when the booking was made and its special requests:
 
 ```razor title="Areas/StellarAdmin/Views/bookings/_BookingSummary.cshtml"
 @model Booking
 
 <sa-details>
-    <sa-display-field asp-for="Travelers" />
-    <sa-display-field asp-for="Notes" />
+    <sa-display-field asp-for="BookedAt" />
+    <sa-display-field asp-for="SpecialRequests" />
 </sa-details>
 ```
 
 StellarAdmin renders the partial view with the index page, and passes the row's record as its model. Put the partial view in `Areas/StellarAdmin/Views/{slug}/`, such as `Areas/StellarAdmin/Views/bookings/`, or in `Areas/StellarAdmin/Views/Shared/`.
+
+<Screenshot name="row-details-expanded" alt="The bookings grid with one booking expanded, showing when it was booked and its special requests" todo="Crop of the bookings grid with the second row expanded with the _BookingSummary partial view above." />
 
 The partial view needs a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that adds the StellarAdmin Tag Helpers, or `<sa-details>` and the other components render as plain text.
 
@@ -30,13 +32,13 @@ The partial view needs a [`_ViewImports.cshtml` file](/docs/admin/overriding-pag
 
 Your details may need data that isn't part of the row's record, such as related records or data from another service. Instead of loading this data for every row on the index page, StellarAdmin can load it only when someone expands a row.
 
-For an EF Core resource, pass an expression that projects the record into the partial view's model. StellarAdmin runs the query when someone expands the row. The example below loads the booking's total, its number of travelers and the price of its trip:
+For an EF Core resource, pass an expression that projects the record into the partial view's model. StellarAdmin runs the query when someone expands the row. The example below loads the booking's total, its number of travelers and the base price of its trip:
 
 ```cs
 index.EnableRowDetails("_BookingPricing", booking => new BookingPricing(
-    booking.Total,
-    booking.Travelers,
-    booking.Trip!.Price));
+    booking.TotalAmount,
+    booking.Passengers.Count,
+    booking.Departure.Trip.BasePrice));
 ```
 
 To load the data from anywhere else, write a handler that implements `IResourceRowDetailHandler<TModel>`, where `TModel` is the partial view's model. Its `FindAsync()` method receives the row's key, and returns the model, or `null` when the record doesn't exist. The example below loads a booking's history from a service:
@@ -71,12 +73,14 @@ index.EnableRowDetails(panels =>
 {
     panels.Add("Summary", "_BookingSummary");
     panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
-        booking.Total, booking.Travelers, booking.Trip!.Price));
+        booking.TotalAmount, booking.Passengers.Count, booking.Departure.Trip.BasePrice));
     panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
 });
 ```
 
 StellarAdmin loads a panel's data the first time someone selects its tab. If you add only one panel, StellarAdmin displays it without tabs.
+
+<Screenshot name="row-details-tabs" alt="An expanded booking with Summary, Pricing and History tabs, and Pricing selected" todo="Crop of one expanded booking row with the three tabs above, Pricing selected." />
 
 ## Changing how rows expand
 
@@ -102,6 +106,8 @@ index.EnableRowDetails("_BookingSummary", details =>
 | `Divider` | Sets the line between the row and its details: `Inset`, the default, `FullWidth` or `None`. |
 | `Inset` | Lines the details up with the columns with `Aligned`, the default, or starts them at the edge of the grid with `Bleed`. |
 | `Animate` | When `true`, the default, the details animate as they open and close. They don't animate when the user prefers reduced motion. |
+
+<Screenshot name="row-details-emphasis" alt="An expanded booking row set apart with each kind of emphasis" variants={["Band", "Rail"]} todo="Crops of the same expanded booking row with Band and Rail emphasis." />
 
 These settings match the [row details](/docs/ui/components/data-grid#row-details) of the StellarAdmin.UI data grid.
 

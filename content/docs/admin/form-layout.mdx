@@ -12,16 +12,16 @@ resource.AllowEdit(edit => edit.Fields(fields =>
     {
         section.Description = "What people see when they browse trips.";
         section.Columns(2);
-        section.Add(trip => trip.Name).ColumnSpanFull();
+        section.Add(trip => trip.Title).ColumnSpanFull();
         section.Add(trip => trip.DestinationId);
-        section.Add(trip => trip.GuideId);
+        section.Add(trip => trip.LeadGuideId);
         section.Add(trip => trip.Summary).ColumnSpanFull();
     });
 
     fields.AddSection("Pricing", section =>
     {
         section.Columns(3);
-        section.Add(trip => trip.Price);
+        section.Add(trip => trip.BasePrice);
         section.Add(trip => trip.DurationDays);
         section.Add(trip => trip.MaxGroupSize);
     });
@@ -29,6 +29,8 @@ resource.AllowEdit(edit => edit.Fields(fields =>
 ```
 
 StellarAdmin places the fields in the order you add them, which is also the order the keyboard moves through them. StellarAdmin doesn't support splitting a form into tabs or steps yet.
+
+<Screenshot name="form-layout-sections" alt="The trip edit page with a Trip section in two columns and a Pricing section in three" todo="Whole window: the trip edit page with the sections above." />
 
 ## Splitting a form into sections
 
@@ -43,6 +45,8 @@ A section's layout sets where its title is displayed. The layouts are values of 
 | `Stacked` | The title and description are above the fields. |
 | `Split` | The title and description are beside the fields, when there's room. This is the default. |
 | `Card` | The title, description and fields are in a bordered card. |
+
+<Screenshot name="form-layout-section-layout" alt="The Trip section in each layout" variants={["Stacked", "Split", "Card"]} todo="Crops of the Trip section from the first example in each layout." />
 
 You can set the layout for one section, for every section of one form, or for every form. A section's `Layout` overrides its form's `SectionLayout`, which overrides the layout for every form. The example below displays every form's sections in cards, the trip edit page's sections stacked, and its **Pricing** section split:
 
@@ -67,7 +71,7 @@ builder.Services.AddStellarAdmin(admin =>
                 {
                     // Configures the layout for this section
                     section.Layout = FormSectionLayout.Split;
-                    section.Add(trip => trip.Price);
+                    section.Add(trip => trip.BasePrice);
                 });
             });
         });
@@ -83,7 +87,7 @@ A *group* lays out fields together, without a title or a border. Use a group to 
 fields.AddGroup(group =>
 {
     group.Columns(3);
-    group.Add(trip => trip.Price);
+    group.Add(trip => trip.BasePrice);
     group.Add(trip => trip.DurationDays);
     group.Add(trip => trip.MaxGroupSize);
 });
@@ -95,8 +99,8 @@ The form, each section, each group and each details section sets its own number 
 
 ```cs
 fields.Columns(2);
-fields.Add(trip => trip.Name).ColumnSpanFull();
-fields.Add(trip => trip.Price);
+fields.Add(trip => trip.Title).ColumnSpanFull();
+fields.Add(trip => trip.BasePrice);
 fields.Add(trip => trip.DurationDays);
 ```
 

@@ -8,16 +8,16 @@ A resource's *create page* and *edit page* display a form for adding a record an
 ```cs
 resource.AllowCreate(create => create.Fields(fields =>
 {
-    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.Title);
     fields.Add(trip => trip.DestinationId);
-    fields.Add(trip => trip.Price);
+    fields.Add(trip => trip.BasePrice);
 }));
 
 resource.AllowEdit(edit => edit.Fields(fields =>
 {
-    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.Title);
     fields.Add(trip => trip.DestinationId);
-    fields.Add(trip => trip.Price);
+    fields.Add(trip => trip.BasePrice);
     fields.Add(trip => trip.IsPublished);
 }));
 ```
@@ -51,7 +51,7 @@ resource.AllowEdit(edit =>
 {
     edit.Title = "Edit trip details";
     edit.SubmitLabel = "Save changes";
-    edit.Fields(fields => fields.Add(trip => trip.Name));
+    edit.Fields(fields => fields.Add(trip => trip.Title));
 });
 ```
 
@@ -73,9 +73,9 @@ resource.AllowEdit(edit => edit.Fields(fields =>
 
 static void TripFields(ResourceFieldsBuilder<Trip> fields)
 {
-    fields.Add(trip => trip.Name);
+    fields.Add(trip => trip.Title);
     fields.Add(trip => trip.DestinationId);
-    fields.Add(trip => trip.Price);
+    fields.Add(trip => trip.BasePrice);
 }
 ```
 
@@ -90,7 +90,7 @@ resource.AllowCreate(create =>
 {
     create.Fields(fields =>
     {
-        fields.Add(trip => trip.Name);
+        fields.Add(trip => trip.Title);
         fields.Add(trip => trip.DestinationId);
         fields.Add(trip => trip.DurationDays);
     });

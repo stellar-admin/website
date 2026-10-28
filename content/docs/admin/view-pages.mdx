@@ -3,7 +3,7 @@ title: Overview
 description: A read-only page for one record
 ---
 
-A resource's *view page* displays one record without editing it. To add the page, call `AllowView()` on the resource. The example below adds a view page for bookings, with a **Trip** section and a **Customer** section:
+A resource's *view page* displays one record without editing it. To add the page, call `AllowView()` on the resource. The example below adds a view page for bookings, with a **Trip** section and a **Traveller** section:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -14,17 +14,17 @@ resource.AllowView(view => view.Fields(fields =>
     fields.AddSection("Trip", section =>
     {
         section.Add(booking => booking.Reference);
-        section.Add(booking => booking.Trip);
-        section.Add(booking => booking.DepartureDate);
-        section.Add(booking => booking.Travelers);
-        section.Add(booking => booking.Total, field =>
+        section.Add(booking => booking.Departure.Trip);
+        section.Add(booking => booking.Departure.StartDate);
+        section.Add(booking => booking.Passengers.Count, field => field.Title = "Travelers");
+        section.Add(booking => booking.TotalAmount, field =>
             field.UseDisplay<NumberDisplay>(number => number.Format = "C"));
     });
-    fields.AddSection("Customer", section =>
+    fields.AddSection("Traveller", section =>
     {
-        section.Add(booking => booking.Customer);
-        section.Add(booking => booking.Customer!.Email, field => field.Title = "Email");
-        section.Add(booking => booking.Notes, field => field.EmptyText = "No notes");
+        section.Add(booking => booking.Traveller);
+        section.Add(booking => booking.Traveller.Email, field => field.Title = "Email");
+        section.Add(booking => booking.SpecialRequests, field => field.EmptyText = "No special requests");
     });
 }));
 ```
@@ -35,7 +35,7 @@ StellarAdmin doesn't add fields automatically, so the page displays only the fie
 
 ## Adding fields
 
-Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited), so it has the same settings, such as `Title`, `EmptyText` and `UseDisplay()`. A field can select a property of a related record, such as `booking.Customer!.Email`, or compute a value. A field that selects a record of another resource, such as `booking.Customer`, displays that record's title.
+Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited), so it has the same settings, such as `Title`, `EmptyText` and `UseDisplay()`. A field can select a property of a related record, such as `booking.Traveller.Email`, or compute a value. A field that selects a record of another resource, such as `booking.Traveller`, displays that record's title.
 
 ## Laying out the page
 
@@ -51,7 +51,7 @@ resource.AllowView(view => view.Fields(fields =>
     fields.AddSection("Audit", section =>
     {
         section.Orientation = FieldOrientation.Horizontal;
-        section.Add(booking => booking.CreatedAt);
+        section.Add(booking => booking.BookedAt);
         section.Add(booking => booking.UpdatedAt);
     });
 }));

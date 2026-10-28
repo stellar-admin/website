@@ -8,7 +8,7 @@ description: Display an image as a thumbnail in the grid, and larger in a displa
 ```cs
 using StellarAdmin.Resources.Displays;
 
-columns.Add(destination => destination.Photo, column => column.UseDisplay<ImageDisplay>());
+columns.Add(destination => destination.HeroImageUrl, column => column.UseDisplay<ImageDisplay>());
 ```
 
 In the grid, `ImageDisplay` displays a thumbnail, and in a display field, a larger image. When people click the image, StellarAdmin opens a larger version in a popup.
@@ -20,7 +20,7 @@ When the value is empty, `ImageDisplay` displays a placeholder instead of the [e
 If the property's value isn't a URL the browser can load, such as a file name, specify a `ResolveUrl()` function that turns the property value into one.
 
 ```cs
-columns.Add(destination => destination.Photo, column =>
+columns.Add(destination => destination.HeroImageUrl, column =>
     column.UseDisplay<ImageDisplay>(image =>
         image.ResolveUrl(value => $"/photos/{value}")));
 ```
@@ -36,7 +36,7 @@ The example below displays a larger, landscape thumbnail in the grid, which disp
 ```cs
 using StellarAdmin.UI;
 
-columns.Add(destination => destination.Photo, column =>
+columns.Add(destination => destination.HeroImageUrl, column =>
     column.UseDisplay<ImageDisplay>(image =>
     {
         image.Size = ImageDisplaySize.Medium;

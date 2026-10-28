@@ -3,21 +3,21 @@ title: Displaying related records
 description: Display related records in the grid, in display fields and on view pages
 ---
 
-A *navigation property*, such as `Booking.Customer` or `Trip.Tags`, holds a record's related records. On an EF Core resource, StellarAdmin loads the related records that the columns and fields read in the same query as the record, so you don't need to call `Include()`.
+A *navigation property*, such as `Booking.Traveller` or `Trip.Tags`, holds a record's related records. On an EF Core resource, StellarAdmin loads the related records that the columns and fields read in the same query as the record, so you don't need to call `Include()`.
 
 ## Displaying one related record
 
 When the related type is a resource, add the navigation property as a column or a field, and StellarAdmin displays the related record's [title](/docs/admin/titles-and-references). To display one of the related record's properties instead, read it through the navigation property.
 
-The example below displays the booking's customer in the grid, and the customer and their email address on the view page:
+The example below displays the booking's traveller in the grid, and the traveller and their email address on the view page:
 
 ```cs
-columns.Add(booking => booking.Customer);
+columns.Add(booking => booking.Traveller);
 
 view.Fields(fields =>
 {
-    fields.Add(booking => booking.Customer);
-    fields.Add(booking => booking.Customer!.Email, field => field.Title = "Customer email");
+    fields.Add(booking => booking.Traveller);
+    fields.Add(booking => booking.Traveller.Email, field => field.Title = "Traveller email");
 });
 ```
 
@@ -25,16 +25,16 @@ We suggest you set a `Title` on a field that reads through a navigation property
 
 When the related type isn't a resource, StellarAdmin can't display the record itself, unless the type overrides `ToString()`. It leaves out the column or the field, and reports a [configuration problem](/docs/admin/configuration-problems). Display one of the related record's properties instead.
 
-Don't add the foreign key, such as `booking.CustomerId`, as a column, because the cell displays the key's value instead of the related record.
+Don't add the foreign key, such as `booking.TravellerId`, as a column, because the cell displays the key's value instead of the related record.
 
 ## Sorting by a related record
 
 A related record has no single value to [sort the grid](/docs/admin/sorting-and-paging) by, so a column of a navigation property that calls `Sortable()` without an expression isn't sortable, and StellarAdmin reports a configuration problem. To make the column sortable, pass `Sortable()` the property to sort by:
 
 ```cs
-columns.Add(booking => booking.Customer, column =>
+columns.Add(booking => booking.Traveller, column =>
 {
-    column.Sortable(booking => booking.Customer!.Name);
+    column.Sortable(booking => booking.Traveller.LastName);
 });
 ```
 
@@ -71,7 +71,7 @@ columns.Add(trip => trip.Tags, column =>
 
 ## Displaying long lists of related records
 
-StellarAdmin loads the related records of a collection in the same query as the page, so a long collection, such as all of a customer's bookings, makes the query slow. Display a long collection in [row details](/docs/admin/row-details), which load when someone expands a row, or [add it to the view page](/docs/admin/view-pages#adding-content-to-the-page) instead.
+StellarAdmin loads the related records of a collection in the same query as the page, so a long collection, such as all of a traveller's bookings, makes the query slow. Display a long collection in [row details](/docs/admin/row-details), which load when someone expands a row, or [add it to the view page](/docs/admin/view-pages#adding-content-to-the-page) instead.
 
 <Callout type="idea">
   EF Core loads the collections in a single query, which repeats the record's columns for each related record. To load each collection in a separate query instead, configure your `DbContext` with `UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)`.

@@ -16,13 +16,13 @@ admin.AddEfCoreResource<Trip>(resource =>
 {
     resource.Index(index => index.Columns(columns =>
     {
-        columns.Add(trip => trip.Name);
-        columns.Add(trip => trip.Price);
+        columns.Add(trip => trip.Title);
+        columns.Add(trip => trip.BasePrice);
     }));
     resource.AllowEdit(edit => edit.Fields(fields =>
     {
-        fields.Add(trip => trip.Name);
-        fields.Add(trip => trip.Price);
+        fields.Add(trip => trip.Title);
+        fields.Add(trip => trip.BasePrice);
     }));
 });
 ```
@@ -35,7 +35,7 @@ If more than one `DbContext` maps the entity, call `UseDbContext<TContext>()` to
 resource.UseDbContext<VoyagerDbContext>();
 ```
 
-When a column or field displays a related record, such as `booking => booking.Customer`, StellarAdmin loads the related record in the same query, so you don't need to call `Include()`. Your global query filters still apply.
+When a column or field displays a related record, such as `booking => booking.Traveller`, StellarAdmin loads the related record in the same query, so you don't need to call `Include()`. Your global query filters still apply.
 
 To manage data that isn't in EF Core, use a [custom data source](/docs/admin/custom-data-sources).
 
@@ -57,7 +57,7 @@ Each method takes a callback that configures the page or action. To configure th
 ```cs
 var create = resource.AllowCreate();
 create.Title = "Plan a trip";
-create.Fields(fields => fields.Add(trip => trip.Name));
+create.Fields(fields => fields.Add(trip => trip.Title));
 ```
 
 ## Changing the URL and labels

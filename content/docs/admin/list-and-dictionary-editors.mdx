@@ -20,6 +20,8 @@ fields.Add(trip => trip.Highlights).UseListEditor(list =>
 });
 ```
 
+<Screenshot name="list-and-dictionary-editors-list" alt="A numbered list of three trip highlights, each with a drag handle, and an Add highlight button" todo="Crop of the highlights field configured as above, with three highlights." />
+
 The example below accepts only three-letter airport codes, changes them to upper case as people type, and rejects duplicates:
 
 ```cs
@@ -73,6 +75,8 @@ fields.Add(trip => trip.BaggageAllowance).UseDictionaryEditor(dictionary =>
     });
 });
 ```
+
+<Screenshot name="list-and-dictionary-editors-dictionary" alt="A dictionary editor with Cabin and Allowance columns, and two cabins with allowances in kg" todo="Crop of the baggage allowance field configured as above, with two entries." />
 
 The dictionary editor has the `MinItems`, `MaxItems`, `Numbered`, `AddText` and `EmptyText` settings of the list editor. The keys and the values have these settings:
 
@@ -141,6 +145,8 @@ public class Trip : IValidatableObject
 ```
 
 A [handler or data source](/docs/admin/custom-data-sources#returning-validation-errors) that returns validation errors names the row the same way.
+
+<Screenshot name="list-and-dictionary-editors-row-error" alt="A list of highlights with the error A highlight can't be the trip's name under the second row" todo="Crop of the highlights field after saving a trip whose second highlight is its name." />
 
 ## Changing the default texts
 

@@ -5,6 +5,8 @@ description: Configure the signed-in user's details and menu at the bottom of th
 
 When someone is signed in, the bottom of the sidebar displays their avatar, name and email address. Clicking these opens the *user menu*, with a **Log out** menu item. People who aren't signed in don't see the user menu, so it needs ASP.NET Core authentication.
 
+<Screenshot name="user-menu-open" alt="The bottom of the sidebar with the user's avatar, name and email address, and the user menu open with Log out" todo="Crop of the bottom of the sidebar with the user menu open, with the default configuration." />
+
 ## Choosing the user's details
 
 StellarAdmin reads the user's details from their claims. You can specify different user claims using `ConfigureUserMenu()`. The example below displays the user's roles under their name, instead of their email address:
@@ -37,6 +39,8 @@ admin.ConfigureUserMenu(menu =>
     menu.Add(UserMenuItem.Separator());
 });
 ```
+
+<Screenshot name="user-menu-items" alt="The user menu with an Account item, a line, and Log out" todo="Crop of the bottom of the sidebar with the user menu open, configured as above." />
 
 The parameter passed to `Add()` can be one of the following:
 

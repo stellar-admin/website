@@ -12,7 +12,7 @@ A `string` or number property is rendered as a text input. The input's type come
 ```cs
 using StellarAdmin.Resources.Editors;
 
-fields.Add(trip => trip.Price).UseTextInputEditor(input =>
+fields.Add(trip => trip.BasePrice).UseTextInputEditor(input =>
 {
     input.Prefix = "€";
     input.Min = 0;
@@ -56,10 +56,10 @@ For formatted text, use the [rich text editor](/docs/admin/rich-text-editor).
 
 ## Entering dates and times
 
-A `DateOnly`, `DateTime` or `TimeOnly` property is rendered as a date, date and time, or time input. To limit the dates or times people can enter, call `UseDateInputEditor()`, `UseDateTimeInputEditor()` or `UseTimeInputEditor()`. The example below accepts only departure dates from today:
+A `DateOnly`, `DateTime` or `TimeOnly` property is rendered as a date, date and time, or time input. To limit the dates or times people can enter, call `UseDateInputEditor()`, `UseDateTimeInputEditor()` or `UseTimeInputEditor()`. The example below accepts only start dates from today:
 
 ```cs
-fields.Add(booking => booking.DepartureDate).UseDateInputEditor(date =>
+fields.Add(departure => departure.StartDate).UseDateInputEditor(date =>
 {
     date.Min = DateOnly.FromDateTime(DateTime.Today);
 });

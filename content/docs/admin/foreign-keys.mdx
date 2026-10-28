@@ -3,32 +3,32 @@ title: Selecting a related record
 description: Select the record a foreign key refers to, with a lookup or a choice editor
 ---
 
-A *foreign key*, such as `Booking.CustomerId`, stores the key of a related record. On an EF Core resource, StellarAdmin renders a foreign key as a *lookup*, which lets people search the related records and select one. The related type must be registered as a resource.
+A *foreign key*, such as `Booking.TravellerId`, stores the key of a related record. On an EF Core resource, StellarAdmin renders a foreign key as a *lookup*, which lets people search the related records and select one. The related type must be registered as a resource.
 
-The example below registers customers as a resource, and adds `CustomerId` to the booking create page:
+The example below registers travellers as a resource, and adds `TravellerId` to the booking create page:
 
 ```cs
-admin.AddEfCoreResource<Customer>(resource => { /* ... */ });
+admin.AddEfCoreResource<Traveller>(resource => { /* ... */ });
 
 admin.AddEfCoreResource<Booking>(resource =>
 {
     resource.AllowCreate(create => create.Fields(fields =>
     {
-        fields.Add(booking => booking.CustomerId);
+        fields.Add(booking => booking.TravellerId);
     }));
 });
 ```
 
-The field is labeled with the related resource's name, **Customer**, and displays the selected customer. Its **Choose customer** button opens a sheet that lists the customers, and searches them as people type. The title, description and media of each customer, and how the sheet searches and sorts them, come from the [title and reference information](/docs/admin/titles-and-references) of the Customer resource.
+The field is labeled with the related resource's name, **Traveller**, and displays the selected traveller. Its **Choose traveller** button opens a sheet that lists the travellers, and searches them as people type. The title, description and media of each traveller, and how the sheet searches and sorts them, come from the [title and reference information](/docs/admin/titles-and-references) of the Traveller resource.
 
 If the related type isn't registered as a resource, StellarAdmin renders the foreign key with its property's default editor, such as a number input, and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Using a choice editor instead of a lookup
 
-A lookup suits a long list, such as customers. For a short list, such as a trip's guide, a [choice editor](/docs/admin/choice-editors) (such as a select) lets people select the record without opening a sheet.
+A lookup suits a long list, such as travellers. For a short list, such as a trip's guide, a [choice editor](/docs/admin/choice-editors) (such as a select) lets people select the record without opening a sheet.
 
 ```cs
-fields.Add(trip => trip.GuideId).UseSelectEditor();
+fields.Add(trip => trip.LeadGuideId).UseSelectEditor();
 ```
 
 ## Creating a record from a lookup
@@ -36,29 +36,29 @@ fields.Add(trip => trip.GuideId).UseSelectEditor();
 When the record people need doesn't exist yet, they can create it from the lookup. Call `EnableCreate()` to add a **New** button, which opens the create page of the related resource in a sheet, and selects the new record when it's saved:
 
 ```cs
-fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
+fields.Add(booking => booking.TravellerId).UseLookupSheetEditor(lookup =>
 {
     lookup.EnableCreate();
 });
 ```
 
-The **New** button is displayed beside **Choose customer** while nothing is selected, and in the sheet when a search finds nothing.
+The **New** button is displayed beside **Choose traveller** while nothing is selected, and in the sheet when a search finds nothing.
 
 The related resource must have a [create page](/docs/admin/forms), enabled with `AllowCreate()`. If it doesn't, StellarAdmin doesn't display the button, and reports a configuration problem. People who aren't [authorized](/docs/admin/authorization) to use the related resource don't see the button.
 
 ## Configuring the lookup
 
-To configure the lookup, call `UseLookupSheetEditor()`. Call `Field()` to configure the field on the form, and `Sheet()` to configure the sheet that searches the records. The example below displays the selected customer in a single row, and sets the sheet's title and search hint:
+To configure the lookup, call `UseLookupSheetEditor()`. Call `Field()` to configure the field on the form, and `Sheet()` to configure the sheet that searches the records. The example below displays the selected traveller in a single row, and sets the sheet's title and search hint:
 
 ```cs
 using StellarAdmin.Resources.Editors;
 
-fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
+fields.Add(booking => booking.TravellerId).UseLookupSheetEditor(lookup =>
 {
     lookup.Field(field => field.Layout = LookupSheetEditorLayout.Input);
     lookup.Sheet(sheet =>
     {
-        sheet.Title = "Choose a customer";
+        sheet.Title = "Choose a traveller";
         sheet.SearchPlaceholder = "Name or email";
     });
 });
@@ -69,7 +69,7 @@ fields.Add(booking => booking.CustomerId).UseLookupSheetEditor(lookup =>
 | Setting | What it does |
 | --- | --- |
 | `Layout` | Sets how the selected record is displayed: `LookupSheetEditorLayout.Input` displays its media and title in a single row, and `Card` adds its description in a taller row. The default is `Card` when the records have a description, and `Input` otherwise. |
-| `EmptyText` | Sets the text of the button while nothing is selected. The default is "Choose customer", named after the field's label. |
+| `EmptyText` | Sets the text of the button while nothing is selected. The default is "Choose traveller", named after the field's label. |
 | `AllowClear` | Sets whether people can clear the selection. The default is `null`, which allows it when the field is optional. |
 | `ShowMedia` | Sets whether the selected record's media is displayed. The default is `true`. |
 
@@ -90,9 +90,9 @@ To change the lookup's other text, such as **New** and **Load more**, for every 
 On a [custom model](/docs/admin/custom-models), StellarAdmin doesn't know which resource a property refers to, so the field needs `UseResource()` with the related resource's type:
 
 ```cs
-fields.Add(form => form.CustomerId).UseLookupSheetEditor(lookup =>
+fields.Add(form => form.TravellerId).UseLookupSheetEditor(lookup =>
 {
-    lookup.UseResource<Customer>();
+    lookup.UseResource<Traveller>();
 });
 ```
 

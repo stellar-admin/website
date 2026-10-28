@@ -19,7 +19,7 @@ A *display type* sets how a value is displayed in the grid, in a [display field]
 | List of strings or numbers, such as `List<string>` or `int[]` | `BadgeDisplay` |
 | Dictionary with a string or enum key, and a string, number or enum value | `BadgeDisplay` |
 
-StellarAdmin never chooses `ImageDisplay` or `IconDisplay`, so you must choose them with `UseDisplay()`. To display a related record, such as a booking's customer, see [displaying related records](/docs/admin/related-values).
+StellarAdmin never chooses `ImageDisplay` or `IconDisplay`, so you must choose them with `UseDisplay()`. To display a related record, such as a booking's traveller, see [displaying related records](/docs/admin/related-values).
 
 ## Choosing another display type
 
@@ -28,7 +28,7 @@ To choose another display type, call `UseDisplay()` on the column or the display
 ```cs
 using StellarAdmin.Resources.Displays;
 
-columns.Add(booking => booking.Total, column =>
+columns.Add(booking => booking.TotalAmount, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 
 fields.AddDisplayField(customer => customer.IsVip, field =>

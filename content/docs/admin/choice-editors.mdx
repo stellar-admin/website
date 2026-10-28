@@ -66,7 +66,7 @@ You can supply your own list of options by calling `UseItems()` in the editor's 
 ```cs
 using StellarAdmin.Resources.Editors;
 
-fields.Add(guide => guide.HomeBase).UseRadioGroupEditor(radio =>
+fields.Add(guide => guide.HomeAirport).UseRadioGroupEditor(radio =>
 {
     radio.Appearance = RadioGroupAppearance.Cards;
     radio.UseItems([
@@ -101,7 +101,7 @@ A `ChoiceItem` takes a value and a title, plus an optional `Description`, `Group
 The example below loads the options from a service registered with dependency injection.
 
 ```cs
-fields.Add(guide => guide.HomeBase).UseSelectEditor(select =>
+fields.Add(guide => guide.HomeAirport).UseSelectEditor(select =>
     select.UseItems(async (services, cancellationToken) =>
     {
         var airports = services.GetRequiredService<AirportDirectory>();
@@ -150,7 +150,7 @@ A select also displays the empty option while a required value matches no option
 Set `EmptyChoice` to change when the empty option is added, and `EmptyChoiceText` to change its label.
 
 ```cs
-fields.Add(trip => trip.GuideId).UseSelectEditor(select =>
+fields.Add(trip => trip.LeadGuideId).UseSelectEditor(select =>
 {
     select.EmptyChoice = EmptyChoice.Include;
     select.EmptyChoiceText = "No guide yet";

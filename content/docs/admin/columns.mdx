@@ -34,7 +34,7 @@ You configure a column in the callback that you pass to `Add()`:
 When you call `Add()` without a callback, it returns the column's builder, so you can chain the methods instead:
 
 ```cs
-columns.Add(booking => booking.Total).Sortable();
+columns.Add(booking => booking.TotalAmount).Sortable();
 ```
 
 ## Choosing how values are rendered
@@ -46,7 +46,7 @@ To render a value differently, call `UseDisplay()` with the display type to use.
 ```cs
 using StellarAdmin.Resources.Displays;
 
-columns.Add(booking => booking.Total, column =>
+columns.Add(booking => booking.TotalAmount, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 ```
 
@@ -54,11 +54,11 @@ See [displays](/docs/admin/displays) for every display type and its settings.
 
 ## Displaying related records
 
-To display a related record, such as a booking's customer, add the navigation property, or read one of the related record's properties through it:
+To display a related record, such as a booking's traveller, add the navigation property, or read one of the related record's properties through it:
 
 ```cs
-columns.Add(booking => booking.Customer);
-columns.Add(booking => booking.Customer!.Email, column => column.Title = "Customer email");
+columns.Add(booking => booking.Traveller);
+columns.Add(booking => booking.Traveller.Email, column => column.Title = "Traveller email");
 ```
 
 See [displaying related records](/docs/admin/related-values) for what the cell displays, how to sort by a related record, and how to display a collection of related records, such as a trip's tags.
@@ -68,10 +68,10 @@ See [displaying related records](/docs/admin/related-values) for what the cell d
 A column can display any expression, not only a property. The example below displays the total per traveler:
 
 ```cs
-columns.Add(booking => booking.Total / booking.Travelers, column =>
+columns.Add(booking => booking.TotalAmount / booking.Passengers.Count, column =>
 {
     column.Title = "Per traveler";
-    column.Sortable(booking => booking.Total / booking.Travelers);
+    column.Sortable(booking => booking.TotalAmount / booking.Passengers.Count);
     column.UseDisplay<NumberDisplay>(number => number.Format = "C");
 });
 ```

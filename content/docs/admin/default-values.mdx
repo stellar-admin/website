@@ -3,29 +3,29 @@ title: Setting default values
 description: Set the values a new record starts with
 ---
 
-Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a booking with a departure date two weeks away, two travelers and a status of `Pending`:
+Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a departure six weeks away, with a meeting time of 9:00 and a status of `Scheduled`:
 
 ```cs
 resource.AllowCreate(create =>
 {
-    create.UseFactory(() => new Booking
+    create.UseFactory(() => new Departure
     {
-        DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
-        Travelers = 2,
-        Status = BookingStatus.Pending,
+        StartDate = DateOnly.FromDateTime(DateTime.Today.AddDays(42)),
+        MeetingTime = new TimeOnly(9, 0),
+        Status = DepartureStatus.Scheduled,
     });
     create.Fields(fields =>
     {
-        fields.Add(booking => booking.CustomerId);
-        fields.Add(booking => booking.DepartureDate);
-        fields.Add(booking => booking.Travelers);
+        fields.Add(departure => departure.TripId);
+        fields.Add(departure => departure.StartDate);
+        fields.Add(departure => departure.MeetingTime);
     });
 });
 ```
 
 ## Setting properties that aren't on the form
 
-Some properties need a value when a record is created, but people shouldn't enter it, such as a new booking's status. Set these properties in the factory, and leave them off the form. StellarAdmin saves them with the values the factory set, so you don't need hidden fields. In the example above, the factory sets `Status`, which isn't a field.
+Some properties need a value when a record is created, but people shouldn't enter it, such as a new departure's status. Set these properties in the factory, and leave them off the form. StellarAdmin saves them with the values the factory set, so you don't need hidden fields. In the example above, the factory sets `Status`, which isn't a field.
 
 A value your database generates, such as an identity key, doesn't need a factory.
 
@@ -59,17 +59,11 @@ Pass the handler as the second type argument of `AllowCreate()`:
 ```cs
 resource.AllowCreate<Booking, NewBookingHandler>(create =>
 {
-    create.UseFactory(() => new Booking
-    {
-        DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(14)),
-        Travelers = 2,
-        Status = BookingStatus.Pending,
-    });
+    create.UseFactory(() => new Booking { Reference = "", Status = BookingStatus.Pending });
     create.Fields(fields =>
     {
-        fields.Add(booking => booking.CustomerId);
-        fields.Add(booking => booking.DepartureDate);
-        fields.Add(booking => booking.Travelers);
+        fields.Add(booking => booking.TravellerId);
+        fields.Add(booking => booking.DepartureId);
     });
 });
 ```

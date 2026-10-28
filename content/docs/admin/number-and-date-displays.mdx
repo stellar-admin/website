@@ -16,10 +16,10 @@ To format a number or a date, set `Format` to a .NET format string, such as `"C"
 ```cs
 using StellarAdmin.Resources.Displays;
 
-columns.Add(booking => booking.Total, column =>
+columns.Add(booking => booking.TotalAmount, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 
-columns.Add(booking => booking.DepartureDate, column =>
+columns.Add(booking => booking.Departure.StartDate, column =>
     column.UseDisplay<DateDisplay>(date => date.Format = "ddd d MMM yyyy"));
 ```
 

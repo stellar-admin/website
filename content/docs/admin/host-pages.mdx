@@ -33,7 +33,7 @@ The example below lists the bookings that depart this week:
             {
                 <sa-table-row>
                     <sa-table-cell>@booking.Reference</sa-table-cell>
-                    <sa-table-cell>@booking.DepartureDate.ToString("d MMM yyyy")</sa-table-cell>
+                    <sa-table-cell>@booking.Departure.StartDate.ToString("d MMM yyyy")</sa-table-cell>
                 </sa-table-row>
             }
         </sa-table-body>
@@ -51,8 +51,9 @@ public class DeparturesModel(VoyagerDbContext db) : PageModel
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
         Departures = await db.Bookings
-            .Where(booking => booking.DepartureDate >= today && booking.DepartureDate < today.AddDays(7))
-            .OrderBy(booking => booking.DepartureDate)
+            .Include(booking => booking.Departure)
+            .Where(booking => booking.Departure.StartDate >= today && booking.Departure.StartDate < today.AddDays(7))
+            .OrderBy(booking => booking.Departure.StartDate)
             .ToListAsync();
     }
 }

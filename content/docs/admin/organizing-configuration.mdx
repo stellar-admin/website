@@ -41,7 +41,7 @@ public static class GuidesAdmin
         admin.AddEfCoreResource<Guide>(resource =>
         {
             resource.SidebarItem(item => item.Group = "Operations");
-            resource.Index(index => index.Columns(columns => columns.Add(guide => guide.Name)));
+            resource.Index(index => index.Columns(columns => columns.Add(guide => guide.LastName)));
         });
 }
 ```
@@ -59,7 +59,8 @@ using StellarAdmin.Resources.Builders;
 
 static void GuideFields(ResourceFieldsBuilder<Guide> fields)
 {
-    fields.Add(guide => guide.Name);
+    fields.Add(guide => guide.FirstName);
+    fields.Add(guide => guide.LastName);
     fields.Add(guide => guide.Email);
 }
 
