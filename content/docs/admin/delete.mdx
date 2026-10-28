@@ -11,6 +11,8 @@ resource.AllowDelete();
 
 Before deleting a record, StellarAdmin asks the user to confirm.
 
+<Screenshot name="delete-confirmation-default" alt="The confirmation dialog, titled Delete Booking, with Cancel and Delete Booking buttons" todo="Crop of the delete confirmation for a booking, with the default text." />
+
 ## Changing the confirmation text
 
 To change the text of the confirmation, set its properties in the `AllowDelete()` callback:
@@ -24,6 +26,8 @@ resource.AllowDelete(delete =>
     delete.CancelLabel = "Keep it";
 });
 ```
+
+<Screenshot name="delete-confirmation-custom" alt="The confirmation dialog, titled Cancel this booking?, with Keep it and Delete booking buttons" todo="Crop of the delete confirmation with the text above." />
 
 To change the default text for every resource, see [global labels](/docs/admin/global-labels).
 

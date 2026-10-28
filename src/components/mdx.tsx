@@ -63,10 +63,10 @@ function ThemedImage({
   );
 }
 
-type ScreenshotSize = { height: number; width: number };
+type ScreenshotSize = { format?: "gif"; height: number; width: number };
 
-// The size of each admin panel screenshot the product CLI captured, by name. Empty until it
-// first writes it.
+// The size of each admin panel screenshot the product CLI captured, by name, and format when it's a
+// GIF rather than a PNG. Empty until it first writes it.
 const screenshotSizes: Record<string, ScreenshotSize> =
   Object.values(
     import.meta.glob<Record<string, ScreenshotSize>>(
@@ -116,7 +116,7 @@ function ScreenshotImage({
           alt={alt}
           className="h-auto max-w-full rounded-lg border"
           height={light.height}
-          src={`/images/admin/generated/${name}.png`}
+          src={`/images/admin/generated/${name}.${light.format ?? "png"}`}
           width={light.width}
         />
       </div>
@@ -125,7 +125,7 @@ function ScreenshotImage({
           alt={alt}
           className="h-auto max-w-full rounded-lg border"
           height={dark.height}
-          src={`/images/admin/generated/${darkName}.png`}
+          src={`/images/admin/generated/${darkName}.${dark.format ?? "png"}`}
           width={dark.width}
         />
       </div>
@@ -133,9 +133,9 @@ function ScreenshotImage({
   );
 }
 
-// An admin panel screenshot that a screenshot spec in the product CLI saves as {name}.png. todo
-// says what to capture, for the spec's author. With variants, it shows {name}-{variant} for each variant,
-// side by side, with the variant as the caption.
+// An admin panel screenshot that a screenshot spec in the product CLI saves as {name}.png, or a
+// recording it saves as {name}.gif. todo says what to capture, for the spec's author. With variants, it
+// shows {name}-{variant} for each variant, side by side, with the variant as the caption.
 function Screenshot({
   alt,
   name,

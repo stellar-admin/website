@@ -7,7 +7,7 @@ description: Sort the grid by its columns and split it into pages
 
 Call `Sortable()` on a column to let people sort the grid by that column. Clicking the column's header sorts the grid in ascending order, and clicking it again sorts in descending order.
 
-The example below makes the departure date and total columns sortable.
+The example below makes the booking date and total amount columns sortable.
 
 ```cs
 resource.Index(index =>
@@ -15,11 +15,13 @@ resource.Index(index =>
     index.Columns(columns =>
     {
         columns.Add(booking => booking.Reference);
-        columns.Add(booking => booking.DepartureDate, column => column.Sortable());
-        columns.Add(booking => booking.Total, column => column.Sortable());
+        columns.Add(booking => booking.BookedAt, column => column.Sortable());
+        columns.Add(booking => booking.TotalAmount, column => column.Sortable());
     });
 });
 ```
+
+<Screenshot name="sorting-and-paging-sortable" alt="The top of the bookings grid sorted by Booked At, with the sort indicators on the Booked At and Total Amount headers marked" todo="The bookings grid's headers sorted by Booked At, with both sort indicators annotated." />
 
 ### Sorting by a different value
 
@@ -53,6 +55,8 @@ index.EnablePaging();
 ```
 
 Each page displays 25 records, and people can change it to 10, 25, 50 or 100 records per page.
+
+<Screenshot name="sorting-and-paging-pager" alt="The pager under the grid, with rows per page, the range of records and the page links" todo="Crop of the pager under the bookings grid." />
 
 ### Changing the page sizes
 

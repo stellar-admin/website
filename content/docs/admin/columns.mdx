@@ -3,21 +3,23 @@ title: Columns
 description: Choose the columns the index grid displays
 ---
 
-StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add. Call `Add()` in the `Columns()` callback for each column, in the order the grid displays them. The example below adds four columns to the bookings grid, and configures the departure date and notes columns:
+StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add. Call `Add()` in the `Columns()` callback for each column, in the order the grid displays them. The example below adds four columns to the bookings grid, and configures the booking date and special requests columns:
 
 ```cs
 resource.Index(index => index.Columns(columns =>
 {
     columns.Add(booking => booking.Reference);
-    columns.Add(booking => booking.DepartureDate, column =>
+    columns.Add(booking => booking.BookedAt, column =>
     {
-        column.Title = "Departs";
+        column.Title = "Booked";
         column.Sortable();
     });
-    columns.Add(booking => booking.Total);
-    columns.Add(booking => booking.Notes, column => column.EmptyText = "No notes");
+    columns.Add(booking => booking.TotalAmount);
+    columns.Add(booking => booking.SpecialRequests, column => column.EmptyText = "No requests");
 }));
 ```
+
+<Screenshot name="columns-settings" alt="The bookings grid with a sortable Booked column, right-aligned totals, and No requests in empty cells" todo="Crop of the grid with the four columns above, with empty special requests in most rows." />
 
 You configure a column in the callback that you pass to `Add()`:
 

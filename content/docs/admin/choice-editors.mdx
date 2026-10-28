@@ -120,11 +120,13 @@ fields.Add(trip => trip.Transport).UseSegmentedControlEditor(segmented =>
 {
     segmented.UseItems([
         new ChoiceItem("Plane", "Plane") { Media = new ItemMedia.Icon("plane") },
-        new ChoiceItem("Train", "Train") { Media = new ItemMedia.Icon("train") },
+        new ChoiceItem("Train", "Train") { Media = new ItemMedia.Icon("train-front") },
         new ChoiceItem("Ship", "Ship") { Media = new ItemMedia.Icon("ship") },
     ]);
 });
 ```
+
+<Screenshot name="choice-editors-media" alt="A segmented control with Plane, Train and Ship, each with its icon, and Train selected" todo="The transport segmented control with an icon beside each option." />
 
 There are four kinds of media:
 
@@ -175,6 +177,8 @@ fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
     tags.Appearance = CheckboxGroupAppearance.Cards;
 });
 ```
+
+<Screenshot name="choice-editors-cards" alt="A trip's tags as a list of cards, each with a checkbox, with the trip's own tags checked" todo="The trip's tags as a checkbox group of cards." />
 
 ### Toggle groups
 

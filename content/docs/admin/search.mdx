@@ -3,19 +3,21 @@ title: Search
 description: Add a search box to the index page
 ---
 
-Call `EnableSearch()` to add a search box to the index page. For an EF Core resource, you pass a function that takes the search text and returns the filter to apply. The example below searches bookings by their reference and by the customer's name:
+Call `EnableSearch()` to add a search box to the index page. For an EF Core resource, you pass a function that takes the search text and returns the filter to apply. The example below searches bookings by their reference and by the traveller's last name:
 
 ```cs
 resource.Index(index =>
 {
     index.EnableSearch(term => booking =>
-        booking.Reference.Contains(term) || booking.Customer!.Name.Contains(term));
+        booking.Reference.Contains(term) || booking.Traveller.LastName.Contains(term));
 });
 ```
 
 StellarAdmin trims the search text before passing it to your function. The grid searches as someone types, after a short pause.
 
-The filter runs in the database, so EF Core must be able to translate it to SQL. A property of a related record, such as `booking.Customer!.Name`, becomes a join.
+<Screenshot name="search-as-you-type" alt="Typing Walker in the search box filters the bookings to the travellers called Walker" todo="GIF: type a traveller's last name in the search box, and the grid filters to their bookings." />
+
+The filter runs in the database, so EF Core must be able to translate it to SQL. A property of a related record, such as `booking.Traveller.LastName`, becomes a join.
 
 ## Making the search case-insensitive
 

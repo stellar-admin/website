@@ -13,8 +13,8 @@ resource.Index(index =>
     index.Columns(columns =>
     {
         columns.Add(booking => booking.Reference);
-        columns.Add(booking => booking.Customer);
-        columns.Add(booking => booking.DepartureDate, column => column.Sortable());
+        columns.Add(booking => booking.Traveller);
+        columns.Add(booking => booking.BookedAt, column => column.Sortable());
     });
     index.EnableSearch(term => booking => booking.Reference.Contains(term));
     index.EnableScopes(scopes =>
@@ -23,10 +23,12 @@ resource.Index(index =>
         scopes.Add("pending", "Pending", booking => booking.Status == BookingStatus.Pending);
         scopes.DefaultScope = "all";
     });
-    index.DefaultSortBy(booking => booking.DepartureDate);
+    index.DefaultSortBy(booking => booking.BookedAt);
     index.EnablePaging();
 });
 ```
+
+<Screenshot name="index-pages-overview" alt="The bookings index page with All and Pending tabs, a search box, and the grid sorted by Booked At" todo="Whole window: the bookings grid configured as above." />
 
 You can read more about each of the grid's features on its own page:
 

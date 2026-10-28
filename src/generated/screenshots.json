@@ -63,6 +63,22 @@
     "width": 255,
     "height": 104
   },
+  "choice-editors-cards": {
+    "width": 1280,
+    "height": 640
+  },
+  "choice-editors-cards-dark": {
+    "width": 1280,
+    "height": 640
+  },
+  "choice-editors-media": {
+    "width": 1024,
+    "height": 322
+  },
+  "choice-editors-media-dark": {
+    "width": 1024,
+    "height": 322
+  },
   "choice-editors-radio-enum": {
     "width": 1024,
     "height": 480
@@ -70,6 +86,30 @@
   "choice-editors-radio-enum-dark": {
     "width": 1024,
     "height": 480
+  },
+  "columns-settings": {
+    "width": 1024,
+    "height": 564
+  },
+  "columns-settings-dark": {
+    "width": 1024,
+    "height": 564
+  },
+  "delete-confirmation-custom": {
+    "width": 1280,
+    "height": 600
+  },
+  "delete-confirmation-custom-dark": {
+    "width": 1280,
+    "height": 600
+  },
+  "delete-confirmation-default": {
+    "width": 1280,
+    "height": 600
+  },
+  "delete-confirmation-default-dark": {
+    "width": 1280,
+    "height": 600
   },
   "environment-indicator-banner": {
     "width": 1280,
@@ -103,6 +143,32 @@
     "width": 1280,
     "height": 800
   },
+  "index-pages-overview": {
+    "width": 1280,
+    "height": 800
+  },
+  "index-pages-overview-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "scopes-tabs": {
+    "width": 1280,
+    "height": 420
+  },
+  "scopes-tabs-dark": {
+    "width": 1280,
+    "height": 420
+  },
+  "search-as-you-type": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
+  "search-as-you-type-dark": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
   "sidebar-links": {
     "width": 255,
     "height": 290
@@ -126,5 +192,21 @@
   "sidebar-resource-item-dark": {
     "width": 255,
     "height": 420
+  },
+  "sorting-and-paging-pager": {
+    "width": 998,
+    "height": 169
+  },
+  "sorting-and-paging-pager-dark": {
+    "width": 998,
+    "height": 169
+  },
+  "sorting-and-paging-sortable": {
+    "width": 1010,
+    "height": 318
+  },
+  "sorting-and-paging-sortable-dark": {
+    "width": 1010,
+    "height": 318
   }
 }
