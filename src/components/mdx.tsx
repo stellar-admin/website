@@ -63,14 +63,14 @@ function ThemedImage({
   );
 }
 
-type CaptureSize = { height: number; width: number };
+type ScreenshotSize = { height: number; width: number };
 
-// The size of each admin panel screenshot the product's docs generator captured, by name. Empty until the
-// generator first writes it.
-const captureSizes: Record<string, CaptureSize> =
+// The size of each admin panel screenshot the product CLI captured, by name. Empty until it
+// first writes it.
+const screenshotSizes: Record<string, ScreenshotSize> =
   Object.values(
-    import.meta.glob<Record<string, CaptureSize>>(
-      "/src/generated/captures.json",
+    import.meta.glob<Record<string, ScreenshotSize>>(
+      "/src/generated/screenshots.json",
       {
         eager: true,
         import: "default",
@@ -78,7 +78,7 @@ const captureSizes: Record<string, CaptureSize> =
     ),
   )[0] ?? {};
 
-// The part of an image name for a variant, as the generator makes it: "Wordmark only" is wordmark-only.
+// The part of an image name for a variant, as the CLI makes it: "Wordmark only" is wordmark-only.
 function variantSlug(variant: string) {
   return variant
     .toLowerCase()
@@ -88,7 +88,7 @@ function variantSlug(variant: string) {
 
 // One captured screenshot, with its {name}-dark version in dark mode when there is one. Until it's
 // captured, development shows what to capture, and production shows nothing.
-function CaptureImage({
+function ScreenshotImage({
   alt,
   name,
   todo,
@@ -97,7 +97,7 @@ function CaptureImage({
   name: string;
   todo?: string;
 }) {
-  const light = captureSizes[name];
+  const light = screenshotSizes[name];
   if (!light) {
     return import.meta.env.DEV ? (
       <div className="my-4 rounded-lg border-2 border-dashed p-4 text-sm text-fd-muted-foreground">
@@ -107,8 +107,8 @@ function CaptureImage({
     ) : null;
   }
 
-  const darkName = captureSizes[`${name}-dark`] ? `${name}-dark` : name;
-  const dark = captureSizes[darkName];
+  const darkName = screenshotSizes[`${name}-dark`] ? `${name}-dark` : name;
+  const dark = screenshotSizes[darkName];
   return (
     <>
       <div className="dark:hidden">
@@ -133,10 +133,10 @@ function CaptureImage({
   );
 }
 
-// An admin panel screenshot that a capture spec in the product's docs generator saves as {name}.png. todo
+// An admin panel screenshot that a screenshot spec in the product CLI saves as {name}.png. todo
 // says what to capture, for the spec's author. With variants, it shows {name}-{variant} for each variant,
 // side by side, with the variant as the caption.
-function Capture({
+function Screenshot({
   alt,
   name,
   todo,
@@ -148,7 +148,7 @@ function Capture({
   variants?: string[];
 }) {
   if (!variants) {
-    return <CaptureImage alt={alt} name={name} todo={todo} />;
+    return <ScreenshotImage alt={alt} name={name} todo={todo} />;
   }
 
   // Two or three side by side; four as two rows of two
@@ -157,7 +157,7 @@ function Capture({
     <div className={`not-prose my-6 grid items-end gap-x-4 gap-y-6 ${columns}`}>
       {variants.map((variant) => (
         <figure key={variant}>
-          <CaptureImage
+          <ScreenshotImage
             alt={`${alt}: ${variant}`}
             name={`${name}-${variantSlug(variant)}`}
             todo={todo}
@@ -174,7 +174,7 @@ function Capture({
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
-    Capture,
+    Screenshot,
     Demo,
     No,
     ThemedImage,

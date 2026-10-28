@@ -22,7 +22,7 @@ admin.AddEfCoreResource<Booking>(resource =>
 });
 ```
 
-<Capture name="sidebar-resource-item" alt="The sidebar with All bookings, with a ticket icon, first in the Sales group" todo="Sidebar crop: bookings configured as above, another resource in Sales after it, and a few resources in the default Resources group. Box around All bookings." />
+<Screenshot name="sidebar-resource-item" alt="The sidebar with All bookings, with a ticket icon, first in the Sales group" todo="Sidebar crop: bookings configured as above, another resource in Sales after it, and a few resources in the default Resources group. Box around All bookings." />
 
 | Setting | What it does |
 | --- | --- |
@@ -56,7 +56,7 @@ admin.AddSidebarLink("Help center", SidebarLinkTarget.Url("https://help.voyager.
     link.OpenInNewTab = true);
 ```
 
-<Capture name="sidebar-links" alt="The sidebar with Departures this week and Invoices in the Sales group, and Help center at the top level" todo="Sidebar crop with the three links above, next to some resources. Needs a real /Admin/Departures page and Invoices action in the scenario host, or the links show in red. Box around Help center." />
+<Screenshot name="sidebar-links" alt="The sidebar with Departures this week and Invoices in the Sales group, and Help center at the top level" todo="Sidebar crop with the three links above, next to some resources. Needs a real /Admin/Departures page and Invoices action in the scenario host, or the links show in red. Box around Help center." />
 
 | Target | Links to |
 | --- | --- |
@@ -75,7 +75,7 @@ To display the page inside the admin panel, with the sidebar and the header, see
 
 When the page or the action of a target doesn't exist, StellarAdmin displays the link in red in the Development environment, with the reason, such as "No page /Admin/Departures". In other environments, it hides the link and logs a warning.
 
-<Capture name="sidebar-missing-link" alt="The Departures this week link in red, with the reason No page /Admin/Departures" todo="Sidebar crop with the Departures this week link to a page that doesn't exist, in the Sales group. Box around the link." />
+<Screenshot name="sidebar-missing-link" alt="The Departures this week link in red, with the reason No page /Admin/Departures" todo="Sidebar crop with the Departures this week link to a page that doesn't exist, in the Sales group. Box around the link." />
 
 ### Hiding a link from some people
 
