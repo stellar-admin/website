@@ -16,6 +16,8 @@ admin.ConfigureBranding(branding =>
 });
 ```
 
+<Capture name="branding-sidebar-header" alt="The top of the sidebar, with a compass icon, the Voyager Travel title and the Admin subtitle" todo="Crop of the sidebar header with exactly the configuration above." />
+
 | Setting | What it does |
 | --- | --- |
 | `Title` | Sets the admin panel's name. The default is your app's name, with each part as a word, such as "Voyager Admin" for `Voyager.Admin`. |
@@ -34,6 +36,8 @@ To set the logo, set `Logo` to one of the following:
 | `BrandingLogo.Icon(name)` | An [icon](/docs/ui/icons) in a colored tile, beside the title. |
 | `BrandingLogo.Image(path)` | A square image beside the title. |
 | `BrandingLogo.Wordmark(path)` | An image in place of the title and the subtitle, with the title as its alt text. |
+
+<Capture name="branding-logo" alt="The top of the sidebar with each kind of logo" variants={["No logo", "Icon", "Image", "Wordmark"]} todo="Sidebar header crops of title Voyager Travel and subtitle Admin with no logo, an icon and an image, and of a wordmark." />
 
 The path is an absolute URL, or a path in your app that starts with `~/`. To display another image in dark mode, pass its path as the second argument of `Image()` or `Wordmark()`:
 
@@ -56,6 +60,8 @@ branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", WordmarkLayout.Fill)
 | `WordmarkLayout.Center` | Centers the wordmark. This is the default. |
 | `WordmarkLayout.Start` | Lines the wordmark up with the sidebar items. |
 | `WordmarkLayout.Fill` | Stretches the wordmark across the sidebar, up to twice its height. |
+
+<Capture name="branding-wordmark-layout" alt="A wordmark at the top of the sidebar in each layout" variants={["Center", "Start", "Fill"]} todo="Sidebar header crops of the same wordmark in each layout." />
 
 ## Replacing the top of the sidebar
 

@@ -1,0 +1,122 @@
+{
+  "branding-logo-icon": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-icon-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-image": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-image-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-no-logo": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-no-logo-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-wordmark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-logo-wordmark-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-sidebar-header": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-sidebar-header-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-wordmark-layout-center": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-wordmark-layout-center-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-wordmark-layout-fill": {
+    "width": 255,
+    "height": 117
+  },
+  "branding-wordmark-layout-fill-dark": {
+    "width": 255,
+    "height": 117
+  },
+  "branding-wordmark-layout-start": {
+    "width": 255,
+    "height": 104
+  },
+  "branding-wordmark-layout-start-dark": {
+    "width": 255,
+    "height": 104
+  },
+  "choice-editors-radio-enum": {
+    "width": 1024,
+    "height": 480
+  },
+  "choice-editors-radio-enum-dark": {
+    "width": 1024,
+    "height": 480
+  },
+  "environment-indicator-banner": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment-indicator-banner-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment-indicator-frame": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment-indicator-frame-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment-indicator-stripe": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment-indicator-stripe-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "home-page-setup-checklist": {
+    "width": 1280,
+    "height": 800
+  },
+  "home-page-setup-checklist-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "sidebar-missing-link": {
+    "width": 255,
+    "height": 340
+  },
+  "sidebar-missing-link-dark": {
+    "width": 255,
+    "height": 340
+  },
+  "sidebar-resource-item": {
+    "width": 255,
+    "height": 420
+  },
+  "sidebar-resource-item-dark": {
+    "width": 255,
+    "height": 420
+  }
+}
