@@ -64,12 +64,12 @@
     "height": 104
   },
   "choice-editors-cards": {
-    "width": 1280,
-    "height": 640
+    "width": 1024,
+    "height": 360
   },
   "choice-editors-cards-dark": {
-    "width": 1280,
-    "height": 640
+    "width": 1024,
+    "height": 360
   },
   "choice-editors-media": {
     "width": 1024,

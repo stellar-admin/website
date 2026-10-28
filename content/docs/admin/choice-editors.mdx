@@ -116,9 +116,9 @@ fields.Add(guide => guide.HomeBase).UseSelectEditor(select =>
 Each option can display an icon, image or short code beside its title, to help people recognize it at a glance. Set the `Media` of the `ChoiceItem` to the media you want to display.
 
 ```cs
-fields.Add(trip => trip.Transport).UseSegmentedControlEditor(segmented =>
+fields.Add(trip => trip.Transport).UseToggleGroupEditor(toggle =>
 {
-    segmented.UseItems([
+    toggle.UseItems([
         new ChoiceItem("Plane", "Plane") { Media = new ItemMedia.Icon("plane") },
         new ChoiceItem("Train", "Train") { Media = new ItemMedia.Icon("train-front") },
         new ChoiceItem("Ship", "Ship") { Media = new ItemMedia.Icon("ship") },
@@ -126,7 +126,7 @@ fields.Add(trip => trip.Transport).UseSegmentedControlEditor(segmented =>
 });
 ```
 
-<Screenshot name="choice-editors-media" alt="A segmented control with Plane, Train and Ship, each with its icon, and Train selected" todo="The transport segmented control with an icon beside each option." />
+<Screenshot name="choice-editors-media" alt="A toggle group with Plane, Train and Ship, each with its icon" todo="The transport toggle group with an icon beside each option." />
 
 There are four kinds of media:
 
@@ -171,14 +171,17 @@ Editors that select several values, like checkbox groups, never get an empty opt
 
 Radio groups and checkbox groups display a list of options with labels. Set `Appearance` to `Cards` to display each option as a selectable card instead, which leaves more room for a description and media.
 
+The example below displays the trip's difficulty as cards in three columns, each with its title and description.
+
 ```cs
-fields.Add(trip => trip.Tags).UseCheckboxGroupEditor(tags =>
+fields.Add(trip => trip.Difficulty).UseRadioGroupEditor(difficulty =>
 {
-    tags.Appearance = CheckboxGroupAppearance.Cards;
+    difficulty.Appearance = RadioGroupAppearance.Cards;
+    difficulty.Columns(3);
 });
 ```
 
-<Screenshot name="choice-editors-cards" alt="A trip's tags as a list of cards, each with a checkbox, with the trip's own tags checked" todo="The trip's tags as a checkbox group of cards." />
+<Screenshot name="choice-editors-cards" alt="Easy, Moderate and Challenging as three cards side by side, each with its description, and Moderate selected" todo="The difficulty as a radio group of cards in three columns." />
 
 ### Toggle groups
 
