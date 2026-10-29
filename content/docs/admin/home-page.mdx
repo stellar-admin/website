@@ -22,7 +22,7 @@ admin.ConfigureHomePage(home => home.ShowSetupChecklist = false);
 To display your own home page, such as a dashboard, add your own `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, which replaces StellarAdmin's in every environment. The example below displays the number of bookings waiting for confirmation:
 
 ```razor title="Areas/StellarAdmin/Views/Home/Index.cshtml"
-@inject VoyagerDbContext Db
+@inject ApplicationDbContext Db
 @{
     ViewData["Title"] = "Dashboard";
     var pending = Db.Bookings.Count(booking => booking.Status == BookingStatus.Pending);

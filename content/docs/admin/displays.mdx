@@ -23,7 +23,7 @@ StellarAdmin never chooses `ImageDisplay` or `IconDisplay`, so you must choose t
 
 ## Choosing another display type
 
-To choose another display type, call `UseDisplay()` on the column or the display field. To change the display type's settings, pass a callback. The example below displays the booking's total as a currency in the grid, and whether a customer is a VIP as text on the form:
+To choose another display type, call `UseDisplay()` on the column or the display field. To change the display type's settings, pass a callback. The example below displays the booking's total as a currency in the grid, and whether a traveller has opted in to marketing as text on the form:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -31,12 +31,12 @@ using StellarAdmin.Resources.Displays;
 columns.Add(booking => booking.TotalAmount, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 
-fields.AddDisplayField(customer => customer.IsVip, field =>
+fields.AddDisplayField(traveller => traveller.MarketingOptIn, field =>
     field.UseDisplay<BooleanDisplay>(flag =>
     {
         flag.Appearance = BooleanDisplayAppearance.Text;
-        flag.TrueText = "VIP";
-        flag.FalseText = "Standard";
+        flag.TrueText = "Subscribed";
+        flag.FalseText = "Not subscribed";
     }));
 ```
 

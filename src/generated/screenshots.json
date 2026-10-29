@@ -223,6 +223,38 @@
     "width": 1008,
     "height": 233
   },
+  "quick-start-departures": {
+    "width": 1280,
+    "height": 640
+  },
+  "quick-start-departures-create": {
+    "width": 1280,
+    "height": 560
+  },
+  "quick-start-departures-create-dark": {
+    "width": 1280,
+    "height": 560
+  },
+  "quick-start-departures-dark": {
+    "width": 1280,
+    "height": 640
+  },
+  "quick-start-trips": {
+    "width": 1280,
+    "height": 640
+  },
+  "quick-start-trips-dark": {
+    "width": 1280,
+    "height": 640
+  },
+  "quick-start-trips-edit": {
+    "width": 1280,
+    "height": 560
+  },
+  "quick-start-trips-edit-dark": {
+    "width": 1280,
+    "height": 560
+  },
   "row-details-emphasis-band": {
     "width": 1024,
     "height": 777

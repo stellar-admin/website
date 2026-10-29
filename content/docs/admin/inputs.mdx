@@ -18,7 +18,7 @@ fields.Add(trip => trip.BasePrice).UseTextInputEditor(input =>
     input.Min = 0;
     input.Step = 10;
 });
-fields.Add(customer => customer.Phone).UseTextInputEditor(input =>
+fields.Add(traveller => traveller.Phone).UseTextInputEditor(input =>
 {
     input.Type = TextInputType.Tel;
     input.Placeholder = "+351 912 345 678";

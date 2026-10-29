@@ -48,7 +48,7 @@ The example below displays the number of bookings that are waiting for confirmat
 ```razor title="Areas/StellarAdmin/Views/bookings/Index.cshtml"
 @model ResourceIndexPageViewModel<Booking>
 @using Microsoft.EntityFrameworkCore
-@inject VoyagerDbContext Db
+@inject ApplicationDbContext Db
 @{
     ViewData["Title"] = Model.Title;
     var pending = await Db.Bookings.CountAsync(booking => booking.Status == BookingStatus.Pending);

@@ -12,12 +12,12 @@ public class Trip
 {
     public int Id { get; set; }
     public string Title { get; set; } = "";
-    public List<Tag> Tags { get; set; } = [];
+    public List<TripTag> Tags { get; set; } = [];
 }
 ```
 
 ```cs
-admin.AddEfCoreResource<Tag>(resource => { /* ... */ });
+admin.AddEfCoreResource<TripTag>(resource => { /* ... */ });
 
 admin.AddEfCoreResource<Trip>(resource =>
 {
@@ -80,14 +80,14 @@ Add `[MinLength]` and `[MaxLength]` to the navigation property to require a mini
 
 ```cs
 [MinLength(1), MaxLength(3)]
-public List<Tag> Tags { get; set; } = [];
+public List<TripTag> Tags { get; set; } = [];
 ```
 
 ## Relationships StellarAdmin can't edit
 
 StellarAdmin allows editing a many-to-many navigation that goes straight to the related entity, such as `Trip.Tags`, when the related entity has a single-property primary key. The following is not supported:
 
-- A navigation to a join entity, such as `Trip.TripTags`, to a `TripTag` entity with columns of its own.
+- A navigation to a join entity, such as `Trip.TripGuides`, to a `TripGuide` entity with columns of its own.
 - A navigation to an entity with a composite primary key.
 - A many-to-many navigation in an [inline row](/docs/admin/inline-editing), because the grid has no editor that selects several records.
 
@@ -96,7 +96,7 @@ For a join entity or a composite key, use a [custom model](/docs/admin/custom-mo
 ```cs
 fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup =>
 {
-    lookup.UseResource<Tag>();
+    lookup.UseResource<TripTag>();
 });
 ```
 

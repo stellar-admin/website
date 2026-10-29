@@ -32,7 +32,7 @@ StellarAdmin finds the registered `DbContext` that maps `Trip`, and reads the en
 If more than one `DbContext` maps the entity, call `UseDbContext<TContext>()` to select the one to use:
 
 ```cs
-resource.UseDbContext<VoyagerDbContext>();
+resource.UseDbContext<ApplicationDbContext>();
 ```
 
 When a column or field displays a related record, such as `booking => booking.Traveller`, StellarAdmin loads the related record in the same query, so you don't need to call `Include()`. Your global query filters still apply.

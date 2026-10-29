@@ -3,16 +3,17 @@ title: Custom models and handlers
 description: Forms that don't match your entity, and your own code when a record is saved
 ---
 
-By default, a create or edit page edits the resource's entity, and saves it through the resource's data source. When the form doesn't match the entity, give the page its own *form model*, and a *handler* that saves it. For example, signing up a customer needs a password and a confirmation, which the `Customer` entity doesn't store.
+By default, a create or edit page edits the resource's entity, and saves it through the resource's data source. When the form doesn't match the entity, give the page its own *form model*, and a *handler* that saves it. For example, giving a guide a sign-in needs a password and a confirmation, which the `Guide` entity doesn't store.
 
 ## Using a form model on the create page
 
-To use a form model on the create page, call `AllowCreate()` with the form model and the handler as type arguments. The example below adds a create page that signs up a customer:
+To use a form model on the create page, call `AllowCreate()` with the form model and the handler as type arguments. The example below adds a create page that gives a new guide a sign-in:
 
 ```cs
-resource.AllowCreate<NewCustomerForm, NewCustomerHandler>(create => create.Fields(fields =>
+resource.AllowCreate<NewGuideForm, NewGuideHandler>(create => create.Fields(fields =>
 {
-    fields.Add(form => form.Name);
+    fields.Add(form => form.FirstName);
+    fields.Add(form => form.LastName);
     fields.Add(form => form.Email);
     fields.Add(form => form.Password);
     fields.Add(form => form.ConfirmPassword);
@@ -22,10 +23,13 @@ resource.AllowCreate<NewCustomerForm, NewCustomerHandler>(create => create.Field
 The form model has a property for each field, with the attributes that validate it:
 
 ```cs
-public class NewCustomerForm
+public class NewGuideForm
 {
-    [Required]
-    public string Name { get; set; } = "";
+    [Required, Display(Name = "First name")]
+    public string FirstName { get; set; } = "";
+
+    [Required, Display(Name = "Last name")]
+    public string LastName { get; set; } = "";
 
     [Required, EmailAddress]
     public string Email { get; set; } = "";
@@ -39,27 +43,27 @@ public class NewCustomerForm
 }
 ```
 
-The handler implements `IResourceCreateHandler<T>`. When someone saves the form, StellarAdmin calls the handler's `CreateAsync()` method with the form model. The example below rejects an email address that's already used, and otherwise saves the customer and sets the password:
+The handler implements `IResourceCreateHandler<T>`. When someone saves the form, StellarAdmin calls the handler's `CreateAsync()` method with the form model. The example below rejects an email address that's already used, and otherwise saves the guide and sets the password:
 
 ```cs
 using StellarAdmin.Resources;
 
-public class NewCustomerHandler(VoyagerDbContext db, CustomerAccounts accounts)
-    : IResourceCreateHandler<NewCustomerForm>
+public class NewGuideHandler(ApplicationDbContext db, GuideAccounts accounts)
+    : IResourceCreateHandler<NewGuideForm>
 {
     public async Task<ResourceOperationResult> CreateAsync(
-        NewCustomerForm form, CancellationToken cancellationToken)
+        NewGuideForm form, CancellationToken cancellationToken)
     {
-        if (await db.Customers.AnyAsync(customer => customer.Email == form.Email, cancellationToken))
+        if (await db.Guides.AnyAsync(guide => guide.Email == form.Email, cancellationToken))
             return ResourceOperationResult.ValidationFailed(
-                nameof(NewCustomerForm.Email), "A customer with this email already exists.");
+                nameof(NewGuideForm.Email), "A guide with this email already exists.");
 
-        var customer = new Customer { Name = form.Name, Email = form.Email };
-        db.Customers.Add(customer);
+        var guide = new Guide { FirstName = form.FirstName, LastName = form.LastName, Email = form.Email };
+        db.Guides.Add(guide);
         await db.SaveChangesAsync(cancellationToken);
-        await accounts.SetPasswordAsync(customer, form.Password, cancellationToken);
+        await accounts.SetPasswordAsync(guide, form.Password, cancellationToken);
 
-        return ResourceOperationResult.Success(customer.Id.ToString());
+        return ResourceOperationResult.Success(guide.Id.ToString());
     }
 }
 ```
@@ -77,9 +81,10 @@ A field with `[DataType(DataType.Password)]` is always empty when the form is di
 To use a form model on the edit page, call `AllowEdit()` with the form model and the handler as type arguments:
 
 ```cs
-resource.AllowEdit<CustomerProfileForm, CustomerProfileHandler>(edit => edit.Fields(fields =>
+resource.AllowEdit<GuideProfileForm, GuideProfileHandler>(edit => edit.Fields(fields =>
 {
-    fields.Add(form => form.Name);
+    fields.Add(form => form.FirstName);
+    fields.Add(form => form.LastName);
     fields.Add(form => form.Email);
 }));
 ```
@@ -89,28 +94,31 @@ The handler implements `IResourceEditHandler<T>`, which has two methods:
 - `FindAsync()` loads the form model for the record with the given key. Return `null` when the record doesn't exist, and StellarAdmin returns a 404.
 - `UpdateAsync()` saves the form model to the record with the given key. Return `NotFound()` when the record doesn't exist any more, such as when someone deleted it while the form was open.
 
-When someone saves the form, StellarAdmin calls `FindAsync()` again, applies the posted fields to the form model, and passes it to `UpdateAsync()`. A property that isn't on the form keeps the value `FindAsync()` loaded. The example below loads and saves a customer's name and email address:
+When someone saves the form, StellarAdmin calls `FindAsync()` again, applies the posted fields to the form model, and passes it to `UpdateAsync()`. A property that isn't on the form keeps the value `FindAsync()` loaded. The example below loads and saves a guide's name and email address:
 
 ```cs
 using StellarAdmin.Resources;
 
-public class CustomerProfileHandler(VoyagerDbContext db) : IResourceEditHandler<CustomerProfileForm>
+public class GuideProfileHandler(ApplicationDbContext db) : IResourceEditHandler<GuideProfileForm>
 {
-    public async Task<CustomerProfileForm?> FindAsync(string id, CancellationToken cancellationToken)
+    public async Task<GuideProfileForm?> FindAsync(string id, CancellationToken cancellationToken)
     {
-        var customer = await db.Customers.FindAsync([int.Parse(id)], cancellationToken);
-        return customer is null ? null : new CustomerProfileForm { Name = customer.Name, Email = customer.Email };
+        var guide = await db.Guides.FindAsync([int.Parse(id)], cancellationToken);
+        return guide is null
+            ? null
+            : new GuideProfileForm { FirstName = guide.FirstName, LastName = guide.LastName, Email = guide.Email };
     }
 
     public async Task<ResourceOperationResult> UpdateAsync(
-        string id, CustomerProfileForm form, CancellationToken cancellationToken)
+        string id, GuideProfileForm form, CancellationToken cancellationToken)
     {
-        var customer = await db.Customers.FindAsync([int.Parse(id)], cancellationToken);
-        if (customer is null)
+        var guide = await db.Guides.FindAsync([int.Parse(id)], cancellationToken);
+        if (guide is null)
             return ResourceOperationResult.NotFound();
 
-        customer.Name = form.Name;
-        customer.Email = form.Email;
+        guide.FirstName = form.FirstName;
+        guide.LastName = form.LastName;
+        guide.Email = form.Email;
         await db.SaveChangesAsync(cancellationToken);
         return ResourceOperationResult.Success();
     }

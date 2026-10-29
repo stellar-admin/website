@@ -1,38 +1,38 @@
 ---
 title: Quick start
-description: Build a customers and bookings admin in a few minutes
+description: Build a trips and departures admin in a few minutes
 ---
 
-This guide builds an admin panel for a travel company, with two resources: customers, and the bookings they make. Before you start, [install StellarAdmin](/docs/admin/installation) and register your EF Core `DbContext` with `AddDbContext()`.
+This guide builds an admin panel for a travel company, with two resources: trips, and their departures. Before you start, [install StellarAdmin](/docs/admin/installation) and register your EF Core `DbContext` with `AddDbContext()`.
 
 The guide uses the following entities:
 
 ```cs
-public class Customer
+public class Trip
 {
     public int Id { get; set; }
-    public string Name { get; set; } = "";
-    public string Email { get; set; } = "";
-    public List<Booking> Bookings { get; set; } = [];
+    public required string Code { get; set; }
+    public required string Title { get; set; }
+    public int DurationDays { get; set; }
+    public List<Departure> Departures { get; set; } = [];
 }
 
-public enum BookingStatus { Pending, Confirmed, Cancelled }
+public enum DepartureStatus { Scheduled, Confirmed, SoldOut, Cancelled }
 
-public class Booking
+public class Departure
 {
     public int Id { get; set; }
-    public string Reference { get; set; } = "";
-    public int CustomerId { get; set; }
-    public Customer? Customer { get; set; }
-    public DateOnly DepartureDate { get; set; }
-    public decimal Total { get; set; }
-    public BookingStatus Status { get; set; }
+    public int TripId { get; set; }
+    public Trip Trip { get; set; } = null!;
+    public DateOnly StartDate { get; set; }
+    public int Capacity { get; set; }
+    public DepartureStatus Status { get; set; } = DepartureStatus.Scheduled;
 }
 ```
 
-## Adding customers
+## Adding trips
 
-Call `AddEfCoreResource()` to register `Customer` as a resource, and add the columns its grid displays. StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add.
+Call `AddEfCoreResource()` to register `Trip` as a resource, and add the columns its grid displays. StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add.
 
 ```cs
 using StellarAdmin;
@@ -40,108 +40,118 @@ using StellarAdmin.EntityFrameworkCore;
 
 builder.Services.AddStellarAdmin(admin =>
 {
-    admin.AddEfCoreResource<Customer>(resource =>
+    admin.AddEfCoreResource<Trip>(resource =>
     {
         resource.Index(index => index.Columns(columns =>
         {
-            columns.Add(customer => customer.Name);
-            columns.Add(customer => customer.Email);
+            columns.Add(trip => trip.Code);
+            columns.Add(trip => trip.Title);
         }));
     });
 });
 ```
 
-Run the application. The sidebar now has a **Customers** link, which opens the grid at `/stellaradmin/customers`. StellarAdmin finds the `DbContext` that maps `Customer`, and uses the key from the EF Core model.
+Run the application. The sidebar now has a **Trips** link, which opens the grid at `/stellaradmin/trips`. StellarAdmin finds the `DbContext` that maps `Trip`, and uses the key from the EF Core model.
 
-## Creating and editing customers
+<Screenshot name="quick-start-trips" alt="The trips grid with Code and Title columns, and the Trips link in the sidebar" todo="The trips grid." />
+
+## Creating and editing trips
 
 A resource's grid is read-only until you allow creating, editing, viewing or deleting records. Call `AllowCreate()` and `AllowEdit()`, and add the fields each form displays.
 
 ```cs
-admin.AddEfCoreResource<Customer>(resource =>
+admin.AddEfCoreResource<Trip>(resource =>
 {
     resource.Index(index => index.Columns(columns =>
     {
-        columns.Add(customer => customer.Name);
-        columns.Add(customer => customer.Email);
+        columns.Add(trip => trip.Code);
+        columns.Add(trip => trip.Title);
     }));
     resource.AllowCreate(create => create.Fields(fields =>
     {
-        fields.Add(customer => customer.Name);
-        fields.Add(customer => customer.Email);
+        fields.Add(trip => trip.Code);
+        fields.Add(trip => trip.Title);
+        fields.Add(trip => trip.DurationDays);
     }));
     resource.AllowEdit(edit => edit.Fields(fields =>
     {
-        fields.Add(customer => customer.Name);
-        fields.Add(customer => customer.Email);
+        fields.Add(trip => trip.Code);
+        fields.Add(trip => trip.Title);
+        fields.Add(trip => trip.DurationDays);
     }));
 });
 ```
 
-The grid now has a **Create** button, and each row has an edit action.
+The grid now has a **Create** button, and each row has an edit action, which opens the edit form:
+
+<Screenshot name="quick-start-trips-edit" alt="A trip's edit form with Code, Title and Duration Days fields" todo="A trip's edit form." />
 
 <Callout type="idea">
   When the create and edit forms have the same fields, you can [share them in one method](/docs/admin/organizing-configuration#sharing-fields).
 </Callout>
 
-## Adding bookings
+## Adding departures
 
-Each booking belongs to a customer. Because `Customer` is a resource, StellarAdmin renders the `CustomerId` field as a lookup that searches customers, and the `Customer` column displays the customer's name. See [titles and references](/docs/admin/titles-and-references) for how StellarAdmin picks the name.
+Each departure belongs to a trip. Because `Trip` is a resource, StellarAdmin renders the `TripId` field as a lookup that searches trips, and the `Trip` column displays the trip's title. See [titles and references](/docs/admin/titles-and-references) for how StellarAdmin picks the title.
 
-The example below registers `Booking` with search, sorting, paging, and create, edit and delete.
+The example below registers `Departure` with search, sorting, paging, and create, edit and delete.
 
 ```cs
-admin.AddEfCoreResource<Booking>(resource =>
+admin.AddEfCoreResource<Departure>(resource =>
 {
     resource.Index(index =>
     {
         index.Columns(columns =>
         {
-            columns.Add(booking => booking.Reference);
-            columns.Add(booking => booking.Customer);
-            columns.Add(booking => booking.DepartureDate, column => column.Sortable());
-            columns.Add(booking => booking.Status);
+            columns.Add(departure => departure.Trip);
+            columns.Add(departure => departure.StartDate, column => column.Sortable());
+            columns.Add(departure => departure.Capacity);
+            columns.Add(departure => departure.Status);
         });
-        index.EnableSearch(term => booking => booking.Reference.Contains(term));
-        index.DefaultSortBy(booking => booking.DepartureDate);
+        index.EnableSearch(term => departure => departure.Trip.Title.Contains(term));
+        index.DefaultSortBy(departure => departure.StartDate);
         index.EnablePaging();
     });
 
     resource.AllowCreate(create =>
     {
-        create.UseFactory(() => new Booking
+        create.UseFactory(() => new Departure
         {
-            DepartureDate = DateOnly.FromDateTime(DateTime.Today.AddDays(30)),
+            StartDate = DateOnly.FromDateTime(DateTime.Today.AddDays(30)),
         });
         create.Fields(fields =>
         {
-            fields.Add(booking => booking.Reference);
-            fields.Add(booking => booking.CustomerId);
-            fields.Add(booking => booking.DepartureDate);
-            fields.Add(booking => booking.Total);
+            fields.Add(departure => departure.TripId);
+            fields.Add(departure => departure.StartDate);
+            fields.Add(departure => departure.Capacity);
         });
     });
 
     resource.AllowEdit(edit => edit.Fields(fields =>
     {
-        fields.AddDisplayField(booking => booking.Reference);
-        fields.Add(booking => booking.CustomerId);
-        fields.Add(booking => booking.DepartureDate);
-        fields.Add(booking => booking.Total);
-        fields.Add(booking => booking.Status);
+        fields.AddDisplayField(departure => departure.Trip);
+        fields.Add(departure => departure.StartDate);
+        fields.Add(departure => departure.Capacity);
+        fields.Add(departure => departure.Status);
     }));
 
     resource.AllowDelete();
 });
 ```
 
+<Screenshot name="quick-start-departures" alt="The departures grid with a search box, sorted by start date, with Trip, Start Date, Capacity and Status columns" todo="The departures grid." />
+
+The create form starts with a start date 30 days from today, and selects the trip with a lookup:
+
+<Screenshot name="quick-start-departures-create" alt="The departure create form with a trip lookup, a start date 30 days from today and a capacity" todo="The departure create form." />
+
 In the example above:
 
-- `EnableSearch()` adds a [search box](/docs/admin/search) to the grid. The expression decides which bookings match the search term.
-- `Sortable()` lets people [sort the grid](/docs/admin/sorting-and-paging) by departure date, and `DefaultSortBy()` sorts by it when the page first loads.
-- `EnablePaging()` splits the grid into pages of 25 bookings.
-- `UseFactory()` creates the booking that the create form starts with, so that the departure date starts 30 days from today instead of 0001-01-01.
-- `AddDisplayField()` displays the reference on the edit form, without letting people change it.
+- `EnableSearch()` adds a [search box](/docs/admin/search) to the grid. The expression decides which departures match the search term, here by their trip's title.
+- `Sortable()` lets people [sort the grid](/docs/admin/sorting-and-paging) by start date, and `DefaultSortBy()` sorts by it when the page first loads.
+- `EnablePaging()` splits the grid into pages of 25 departures.
+- `UseFactory()` creates the departure that the create form starts with, so that the start date starts 30 days from today instead of 0001-01-01.
+- `AddDisplayField()` displays the trip on the edit form, without letting people move the departure to another trip.
 - `Status` is an enum, so StellarAdmin renders it as a select with an option for each member.
 - `AllowDelete()` adds a delete action to each row, which asks for confirmation first.
 
@@ -149,5 +159,5 @@ In the example above:
 
 - Lay out larger forms with [sections and columns](/docs/admin/form-layout).
 - Choose a different [editor](/docs/admin/editors) for a field.
-- Add [scopes](/docs/admin/scopes), such as **Pending** and **Confirmed** tabs above the grid.
+- Add [scopes](/docs/admin/scopes), such as **Scheduled** and **Confirmed** tabs above the grid.
 - [Require authorization](/docs/admin/authorization) before you deploy.

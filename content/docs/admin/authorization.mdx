@@ -34,23 +34,23 @@ In the Development environment, the setup checklist on the admin panel's [home p
 
 ## Requiring authorization for a resource
 
-To require authorization for a single resource, call `RequireAuthorization()` on the resource. It takes the same arguments as the admin panel's `RequireAuthorization()`, and users must meet both. The example below only lets users with the Sales role use the Customers resource:
+To require authorization for a single resource, call `RequireAuthorization()` on the resource. It takes the same arguments as the admin panel's `RequireAuthorization()`, and users must meet both. The example below only lets users with the Finance role use the Suppliers resource:
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
 {
     admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
 
-    admin.AddEfCoreResource<Customer>(resource =>
+    admin.AddEfCoreResource<Supplier>(resource =>
     {
-        resource.RequireAuthorization(policy => policy.RequireRole("Sales"));
+        resource.RequireAuthorization(policy => policy.RequireRole("Finance"));
     });
 });
 ```
 
 The requirement covers every page of the resource. StellarAdmin also hides the resource from the sidebar and the home page for users who don't meet it.
 
-A user who can't use the Customers resource can still select a customer in a [lookup](/docs/admin/foreign-keys) on another resource, such as a booking's customer. StellarAdmin hides the lookup's **New** button from them, since it opens the Customers resource's create page.
+A user who can't use the Suppliers resource can still select a supplier in a [lookup](/docs/admin/foreign-keys) on another resource, such as an accommodation's supplier. StellarAdmin hides the lookup's **New** button from them, since it opens the Suppliers resource's create page.
 
 ## What each setting protects
 

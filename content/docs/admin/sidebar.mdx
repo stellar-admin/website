@@ -125,7 +125,7 @@ To add items that change while the app runs, such as links to records in your da
 ```cs
 using StellarAdmin.Sidebar;
 
-public class FeaturedTripsSidebarItemsProvider(VoyagerDbContext db) : ISidebarItemsProvider
+public class FeaturedTripsSidebarItemsProvider(ApplicationDbContext db) : ISidebarItemsProvider
 {
     public async Task<IReadOnlyList<SidebarItem>> GetItemsAsync(
         HttpContext httpContext, CancellationToken cancellationToken)

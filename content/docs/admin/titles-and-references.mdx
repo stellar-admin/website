@@ -13,7 +13,7 @@ Unless specified otherwise, the title is the first of these that the resource's 
 2. A `string` property called `Name` or `Title`.
 3. The key.
 
-For example, a `Customer` with a `Name` property uses the customer's name as its title. To use a different property, call `UseTitle()`:
+For example, a `Destination` with a `Name` property uses the destination's name as its title. To use a different property, call `UseTitle()`:
 
 ```cs
 admin.AddEfCoreResource<Booking>(resource =>
@@ -31,11 +31,12 @@ For an EF Core resource, the title must use only the record's own properties, an
 `Reference()` configures how a record is displayed when someone selects it in a lookup or a select. You can add a description, and one kind of media:
 
 ```cs
-admin.AddEfCoreResource<Customer>(resource =>
+admin.AddEfCoreResource<Guide>(resource =>
 {
+    resource.UseTitle(guide => guide.FirstName + " " + guide.LastName);
     resource.Reference(reference => reference
-        .UseDescription(customer => customer.Email)
-        .UseAvatar(customer => customer.Photo));
+        .UseDescription(guide => guide.Email)
+        .UseAvatar(guide => guide.PhotoUrl));
 });
 ```
 
@@ -47,9 +48,9 @@ For an EF Core resource, `Reference()` also sets how lookups search and order th
 
 ```cs
 resource.Reference(reference => reference
-    .SearchOn(customer => customer.Name, customer => customer.Email)
-    .OrderBy(customer => customer.Name)
-    .Where(customer => !customer.IsBlocked));
+    .SearchOn(guide => guide.FirstName, guide => guide.LastName, guide => guide.Email)
+    .OrderBy(guide => guide.LastName)
+    .Where(guide => guide.IsActive));
 ```
 
 | Method | Default |
@@ -62,6 +63,6 @@ resource.Reference(reference => reference
 
 ## Access to related records
 
-Selecting a related record doesn't require access to its resource. Someone who can edit bookings can select a customer for a booking, even if they can't manage customers.
+Selecting a related record doesn't require access to its resource. Someone who can edit bookings can select a traveller for a booking, even if they can't manage travellers.
 
 See [selecting a related record](/docs/admin/foreign-keys) for the fields that use references.

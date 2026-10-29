@@ -43,7 +43,7 @@ The example below lists the bookings that depart this week:
 
 ```cs title="Pages/Admin/Departures.cshtml.cs"
 [Authorize(Roles = "Sales")]
-public class DeparturesModel(VoyagerDbContext db) : PageModel
+public class DeparturesModel(ApplicationDbContext db) : PageModel
 {
     public List<Booking> Departures { get; private set; } = [];
 
