@@ -16,6 +16,8 @@ columns.Add(trip => trip.Summary, column =>
     column.UseDisplay<TextDisplay>(text => text.LineClamp = 2));
 ```
 
+<Screenshot name="text-displays-line-clamp" alt="The trips grid with each summary cut off after 2 lines" />
+
 In the grid, text with a `LineClamp` wraps at a readable width, instead of widening the column.
 
 | Setting | What it does |

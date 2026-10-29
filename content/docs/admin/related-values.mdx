@@ -21,6 +21,8 @@ view.Fields(fields =>
 });
 ```
 
+<Screenshot name="related-values-traveller" alt="The bookings grid with each booking's traveller" />
+
 We suggest you set a `Title` on a field that reads through a navigation property, because the default title is the name of the last property, such as "Email".
 
 When the related type isn't a resource, StellarAdmin can't display the record itself, unless the type overrides `ToString()`. It leaves out the column or the field, and reports a [configuration problem](/docs/admin/configuration-problems). Display one of the related record's properties instead.

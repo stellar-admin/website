@@ -98,6 +98,8 @@ fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
 });
 ```
 
+<Screenshot name="inputs-slider" alt="A trip's group size on a slider from 2 to 16 people" />
+
 | Setting | What it does |
 | --- | --- |
 | `Min`, `Max` | Sets the range. The default comes from the property's `[Range]`, and is 0 to 100 without it. |
@@ -117,5 +119,7 @@ To display one box for each digit of a code, such as a verification code or a PI
 ```cs
 fields.Add(guide => guide.BadgeCode).UseOneTimeCodeEditor(code => code.Length = 4);
 ```
+
+<Screenshot name="inputs-code" alt="A guide's badge code with one box for each of its 4 digits" />
 
 `Length` sets the number of digits. The default comes from the property's `[StringLength]` or `[MaxLength]`, and is 6 without one. The code input is rendered as an [input OTP](/docs/ui/components/input-otp).

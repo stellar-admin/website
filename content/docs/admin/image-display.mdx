@@ -11,6 +11,8 @@ using StellarAdmin.Resources.Displays;
 columns.Add(destination => destination.HeroImageUrl, column => column.UseDisplay<ImageDisplay>());
 ```
 
+<Screenshot name="image-display-thumbnails" alt="The destinations grid with a thumbnail of each destination's hero image" />
+
 In the grid, `ImageDisplay` displays a thumbnail, and in a display field, a larger image. When people click the image, StellarAdmin opens a larger version in a popup.
 
 When the value is empty, `ImageDisplay` displays a placeholder instead of the [empty text](/docs/admin/displays#empty-values). When the image fails to load, it displays a broken image.

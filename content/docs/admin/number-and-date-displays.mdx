@@ -23,6 +23,8 @@ columns.Add(booking => booking.Departure.StartDate, column =>
     column.UseDisplay<DateDisplay>(date => date.Format = "ddd d MMM yyyy"));
 ```
 
+<Screenshot name="number-and-date-displays-format" alt="The bookings grid with each total as a currency and each departure date with the day of the week" />
+
 | Setting | What it does |
 | --- | --- |
 | `Format` | Sets the .NET format string. The default is `null`, which uses the property's `[DisplayFormat]`. |

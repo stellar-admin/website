@@ -98,6 +98,8 @@ fields.AddDetails("History", details =>
 });
 ```
 
+<Screenshot name="fields-details" alt="A booking's edit page with a History section showing when it was booked and its reference" />
+
 | Setting | What it does |
 | --- | --- |
 | `Add()` | Adds a display field, with the same settings as `AddDisplayField()`. |
@@ -119,6 +121,8 @@ resource.AllowEdit(edit => edit.Fields(fields =>
     fields.Add(booking => booking.SpecialRequests).Disabled();
 }));
 ```
+
+<Screenshot name="fields-read-only-disabled" alt="A booking's edit page with a read-only reference and faded, disabled special requests" />
 
 | Method | Use it when | The editor |
 | --- | --- | --- |
