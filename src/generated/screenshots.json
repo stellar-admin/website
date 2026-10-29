@@ -312,5 +312,21 @@
   "sorting-and-paging-sortable-dark": {
     "width": 1010,
     "height": 318
+  },
+  "user-menu-items": {
+    "width": 505,
+    "height": 174
+  },
+  "user-menu-items-dark": {
+    "width": 505,
+    "height": 174
+  },
+  "user-menu-open": {
+    "width": 505,
+    "height": 174
+  },
+  "user-menu-open-dark": {
+    "width": 505,
+    "height": 174
   }
 }
