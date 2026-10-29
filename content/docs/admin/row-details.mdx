@@ -64,9 +64,9 @@ StellarAdmin registers the handler as a scoped service, unless you've already re
 
 Loading data when a row expands needs the resource's key. For a [custom data source](/docs/admin/custom-data-sources), call `UseKey()`.
 
-## Displaying the details in tabs
+## Splitting the details into panels
 
-To split the details into tabs, pass a callback that adds a panel for each tab. `Add()` takes the tab's title and the partial view, and loads the panel's data in the same ways as `EnableRowDetails()`. The example below adds **Summary**, **Pricing** and **History** tabs:
+To split the details into panels, pass a callback that adds each panel. `Add()` takes the panel's title and the partial view, and loads the panel's data in the same ways as `EnableRowDetails()`. The example below adds **Summary**, **Pricing** and **History** panels:
 
 ```cs
 index.EnableRowDetails(panels =>
@@ -78,9 +78,49 @@ index.EnableRowDetails(panels =>
 });
 ```
 
-StellarAdmin loads a panel's data the first time someone selects its tab. If you add only one panel, StellarAdmin displays it without tabs.
+StellarAdmin displays the panels in an accordion, with every panel closed when a row expands. It loads a panel's data the first time someone opens the panel. If you add only one panel, StellarAdmin displays it without an accordion.
 
-<Screenshot name="row-details-tabs" alt="An expanded booking with Summary, Pricing and History tabs, and Pricing selected" todo="Crop of one expanded booking row with the three tabs above, Pricing selected." />
+<Screenshot name="row-details-accordion" alt="An expanded booking with Summary, Pricing and History panels, and Pricing open" todo="Crop of one expanded booking row with the three panels, Pricing open." />
+
+To display an icon before a panel's title, set `Icon` on the panel that `Add()` returns. The example below adds a receipt icon to the **Pricing** panel:
+
+```cs
+index.EnableRowDetails(panels =>
+{
+    panels.Add("Summary", "_BookingSummary");
+    panels.Add("Pricing", "_BookingPricing").Icon = "receipt";
+});
+```
+
+### Displaying the panels as tabs
+
+To change how the panels are laid out, set `PanelLayout` in the callback that configures how rows expand. The example below displays the panels as tabs:
+
+```cs
+using StellarAdmin.Resources;
+
+index.EnableRowDetails(
+    panels =>
+    {
+        panels.Add("Summary", "_BookingSummary");
+        panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
+    },
+    details =>
+    {
+        details.PanelLayout = ResourceRowDetailPanelLayout.Tabs();
+    });
+```
+
+To set the layout, set `PanelLayout` to one of the following:
+
+| Layout | What it displays |
+| --- | --- |
+| `ResourceRowDetailPanelLayout.Accordion()` | An accordion in which any number of panels can be open at once. This is the default. |
+| `ResourceRowDetailPanelLayout.Accordion(ResourceRowDetailAccordionExpandMode.Single)` | An accordion in which opening a panel closes the panel that was open. |
+| `ResourceRowDetailPanelLayout.Tabs()` | Tabs on a muted background. |
+| `ResourceRowDetailPanelLayout.Tabs(ResourceRowDetailTabStyle.Line)` | Tabs with an underline below the selected tab. |
+
+With tabs, the first tab is selected when a row expands, and StellarAdmin loads a panel's data the first time someone selects its tab.
 
 ## Changing how rows expand
 

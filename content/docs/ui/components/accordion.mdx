@@ -57,11 +57,23 @@ Disable accordion items using the `disabled` attribute.
   <include>./_include/accordion-disabled.mdx</include>
 </Demo>
 
+### Contained
+
+Set `variant="AccordionVariant.Contained"` on `<sa-accordion>` to display the items in a bordered box, with each title on a muted band. The example below also sets the `icon` attribute of `<sa-accordion-item-title>`, which displays an icon before the title and indents the content to line up with the title.
+
+<Demo src="/demo/ui/accordion-contained.html">
+  <include>./_include/accordion-contained.mdx</include>
+</Demo>
+
 ## API Reference
 
 ### `<sa-accordion>`
 
 Renders a `<div>` element that wraps the accordion items.
+
+| Attribute | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `AccordionVariant` | `Default` | The visual style: `Default`, with lines between the items, or `Contained`, with the items in a bordered box. |
 
 ### `<sa-accordion-item>`
 
@@ -70,6 +82,10 @@ Renders a `<details>` element. Native `<details>` attributes such as `name` and 
 ### `<sa-accordion-item-title>`
 
 Renders a `<summary>` element and appends a chevron indicator icon after the title content.
+
+| Attribute | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `string` | `null` | The name of an icon displayed in a tile before the title. |
 
 ### `<sa-accordion-item-content>`
 
