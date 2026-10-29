@@ -38,7 +38,7 @@ admin.AddEfCoreResource<Destination>(resource =>
 
 When someone clicks a row's edit action, the row's cells change to editors, and **Save** and **Cancel** buttons replace the row actions. Press <kbd>Enter</kbd> in an input, or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field, to save the row. Press <kbd>Esc</kbd> to cancel.
 
-<Screenshot name="inline-editing-edit-row" alt="The destinations grid with one row being edited, with a name input, a country select, a featured checkbox and Save and Cancel buttons, and the other rows dimmed" todo="Crop of the destinations grid configured as above, with the second row being edited." />
+<Screenshot name="inline-editing-edit-row" alt="The destinations grid with one row being edited, with a name input, a country lookup, a featured checkbox and Save and Cancel buttons, and the other rows dimmed" todo="Crop of the destinations grid configured as above, with the second row being edited." />
 
 With inline editing, the resource has no edit page, and the view page has no edit button. You choose inline editing separately for creating and editing, so you can, for example, edit records inline and still create them on the create page.
 
@@ -80,7 +80,7 @@ resource.AllowCreate(create =>
         fields.Add(destination => destination.CountryId);
         fields.Add(destination => destination.IsFeatured);
     });
-    create.UseFactory(() => new Destination { IsFeatured = true });
+    create.UseFactory(() => new Destination { Name = "", IsFeatured = true });
     create.UseInlineRow(inline =>
     {
         inline.Position = InlineCreatePosition.Bottom;

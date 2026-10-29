@@ -20,7 +20,7 @@ fields.Add(trip => trip.Highlights).UseListEditor(list =>
 });
 ```
 
-<Screenshot name="list-and-dictionary-editors-list" alt="A numbered list of three trip highlights, each with a drag handle, and an Add highlight button" todo="Crop of the highlights field configured as above, with three highlights." />
+<Screenshot name="list-and-dictionary-editors-list" alt="A numbered list of three trip highlights, with an Add highlight button and the count, 3 of 8" todo="Crop of the highlights field configured as above, with three highlights." />
 
 The example below accepts only three-letter airport codes, changes them to upper case as people type, and rejects duplicates:
 
@@ -128,14 +128,14 @@ using System.ComponentModel.DataAnnotations;
 
 public class Trip : IValidatableObject
 {
-    public string Name { get; set; } = "";
+    public string Title { get; set; } = "";
     public List<string> Highlights { get; set; } = [];
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         for (var index = 0; index < Highlights.Count; index++)
         {
-            if (string.Equals(Highlights[index], Name, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(Highlights[index], Title, StringComparison.OrdinalIgnoreCase))
                 yield return new ValidationResult(
                     "A highlight can't be the trip's name.",
                     [$"{nameof(Highlights)}[{index}]"]);

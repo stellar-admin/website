@@ -135,6 +135,38 @@
     "width": 1280,
     "height": 800
   },
+  "form-layout-section-layout-card": {
+    "width": 1008,
+    "height": 389
+  },
+  "form-layout-section-layout-card-dark": {
+    "width": 1008,
+    "height": 389
+  },
+  "form-layout-section-layout-split": {
+    "width": 1008,
+    "height": 253
+  },
+  "form-layout-section-layout-split-dark": {
+    "width": 1008,
+    "height": 253
+  },
+  "form-layout-section-layout-stacked": {
+    "width": 1008,
+    "height": 326
+  },
+  "form-layout-section-layout-stacked-dark": {
+    "width": 1008,
+    "height": 326
+  },
+  "form-layout-sections": {
+    "width": 1280,
+    "height": 640
+  },
+  "form-layout-sections-dark": {
+    "width": 1280,
+    "height": 640
+  },
   "home-page-setup-checklist": {
     "width": 1280,
     "height": 800
@@ -150,6 +182,78 @@
   "index-pages-overview-dark": {
     "width": 1280,
     "height": 800
+  },
+  "inline-editing-edit-row": {
+    "width": 1024,
+    "height": 644
+  },
+  "inline-editing-edit-row-dark": {
+    "width": 1024,
+    "height": 644
+  },
+  "inline-editing-new-row": {
+    "width": 1024,
+    "height": 690
+  },
+  "inline-editing-new-row-dark": {
+    "width": 1024,
+    "height": 690
+  },
+  "list-and-dictionary-editors-dictionary": {
+    "width": 1008,
+    "height": 202
+  },
+  "list-and-dictionary-editors-dictionary-dark": {
+    "width": 1008,
+    "height": 202
+  },
+  "list-and-dictionary-editors-list": {
+    "width": 1008,
+    "height": 207
+  },
+  "list-and-dictionary-editors-list-dark": {
+    "width": 1008,
+    "height": 207
+  },
+  "list-and-dictionary-editors-row-error": {
+    "width": 1008,
+    "height": 233
+  },
+  "list-and-dictionary-editors-row-error-dark": {
+    "width": 1008,
+    "height": 233
+  },
+  "row-details-emphasis-band": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-emphasis-band-dark": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-emphasis-rail": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-emphasis-rail-dark": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-expanded": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-expanded-dark": {
+    "width": 1024,
+    "height": 777
+  },
+  "row-details-tabs": {
+    "width": 1024,
+    "height": 877
+  },
+  "row-details-tabs-dark": {
+    "width": 1024,
+    "height": 877
   },
   "scopes-tabs": {
     "width": 1280,
