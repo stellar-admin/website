@@ -19,6 +19,8 @@ fields.Add(destination => destination.HeroImageUrl).UseImageEditor(image =>
 
 When someone uploads an image, StellarAdmin checks the file's size and type, and then calls the `StoreImage()` function with the uploaded `IFormFile`. The function must save the file and return a `string`, which StellarAdmin stores in the property when the form is saved. The string can't be empty, because an empty value fails the upload.
 
+<Screenshot name="image-editor-layout" alt="A destination's hero image in each layout of the image editor" variants={["Dropzone", "Compact", "Attachment"]} />
+
 The example below saves the photo in the app's `wwwroot/photos` folder, and returns the file name:
 
 ```cs

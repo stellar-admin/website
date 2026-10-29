@@ -95,6 +95,22 @@
     "width": 1024,
     "height": 564
   },
+  "configuration-problems-notification": {
+    "width": 340,
+    "height": 128
+  },
+  "configuration-problems-notification-dark": {
+    "width": 340,
+    "height": 128
+  },
+  "configuration-problems-panel": {
+    "width": 1280,
+    "height": 600
+  },
+  "configuration-problems-panel-dark": {
+    "width": 1280,
+    "height": 600
+  },
   "delete-confirmation-custom": {
     "width": 1280,
     "height": 600
@@ -110,6 +126,16 @@
   "delete-confirmation-default-dark": {
     "width": 1280,
     "height": 600
+  },
+  "dependent-fields-cities": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
+  "dependent-fields-cities-dark": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
   },
   "environment-indicator-banner": {
     "width": 1280,
@@ -134,6 +160,14 @@
   "environment-indicator-stripe-dark": {
     "width": 1280,
     "height": 800
+  },
+  "foreign-keys-lookup": {
+    "width": 1280,
+    "height": 640
+  },
+  "foreign-keys-lookup-dark": {
+    "width": 1280,
+    "height": 640
   },
   "form-layout-section-layout-card": {
     "width": 1008,
@@ -174,6 +208,46 @@
   "home-page-setup-checklist-dark": {
     "width": 1280,
     "height": 800
+  },
+  "icon-editor-picker": {
+    "width": 1280,
+    "height": 720
+  },
+  "icon-editor-picker-dark": {
+    "width": 1280,
+    "height": 720
+  },
+  "image-editor-layout-attachment": {
+    "width": 1280,
+    "height": 440
+  },
+  "image-editor-layout-attachment-dark": {
+    "width": 1280,
+    "height": 440
+  },
+  "image-editor-layout-compact": {
+    "width": 1280,
+    "height": 440
+  },
+  "image-editor-layout-compact-dark": {
+    "width": 1280,
+    "height": 440
+  },
+  "image-editor-layout-dropzone": {
+    "width": 1280,
+    "height": 640
+  },
+  "image-editor-layout-dropzone-dark": {
+    "width": 1280,
+    "height": 640
+  },
+  "index-overview": {
+    "width": 1280,
+    "height": 600
+  },
+  "index-overview-dark": {
+    "width": 1280,
+    "height": 600
   },
   "index-pages-overview": {
     "width": 1280,
@@ -223,6 +297,14 @@
     "width": 1008,
     "height": 233
   },
+  "many-to-many-multi-lookup": {
+    "width": 1280,
+    "height": 480
+  },
+  "many-to-many-multi-lookup-dark": {
+    "width": 1280,
+    "height": 480
+  },
   "quick-start-departures": {
     "width": 1280,
     "height": 640
@@ -254,6 +336,14 @@
   "quick-start-trips-edit-dark": {
     "width": 1280,
     "height": 560
+  },
+  "rich-text-editor-trip": {
+    "width": 1280,
+    "height": 640
+  },
+  "rich-text-editor-trip-dark": {
+    "width": 1280,
+    "height": 640
   },
   "row-details-emphasis-band": {
     "width": 1024,
@@ -360,5 +450,21 @@
   "user-menu-open-dark": {
     "width": 505,
     "height": 174
+  },
+  "validation-errors": {
+    "width": 1280,
+    "height": 560
+  },
+  "validation-errors-dark": {
+    "width": 1280,
+    "height": 560
+  },
+  "view-pages-overview": {
+    "width": 1280,
+    "height": 560
+  },
+  "view-pages-overview-dark": {
+    "width": 1280,
+    "height": 560
   }
 }

@@ -5,31 +5,28 @@ description: Make a field's options depend on the value of another field, such a
 
 A field's options can depend on the value of another field on the same form, such as a city that must be in the selected country. To make a field depend on another field, call `DependsOn()` on it, and filter its options by the other field's value.
 
-The example below lists the cities of the selected country:
+The example below registers countries and cities as resources, and lists only the cities of the selected country in the city field's lookup:
 
 ```cs
-using StellarAdmin.EntityFrameworkCore;
+admin.AddEfCoreResource<Country>(resource => { /* ... */ });
+admin.AddEfCoreResource<City>(resource => { /* ... */ });
 
-fields.Add(destination => destination.CountryId).UseSelectEditor(select =>
-{
-    select.UseItems<Country>(country => country.Id, country => country.Name);
-});
+fields.Add(destination => destination.CountryId);
 
 fields.Add(destination => destination.CityId)
     .DependsOn(destination => destination.CountryId)
-    .UseSelectEditor(select =>
+    .UseLookupSheetEditor(lookup =>
     {
-        select.UseItems<City>(
-            city => city.Id,
-            city => city.Name,
-            items => items.Where<Destination>((city, destination) =>
-                city.CountryId == destination.CountryId));
+        lookup.UseResource<City>(items => items.Where((city, destination) =>
+            city.CountryId == destination.CountryId));
     });
 ```
 
-`Where()` receives each record and the form's model, and returns whether the record is an option. Pass the type of the form's model to `Where()`, such as `Where<Destination>()`.
+`Where()` receives each record and the form's model, and returns whether the record is an option. Only an EF Core resource can apply the filter. On a resource with a [custom data source](/docs/admin/custom-data-sources), StellarAdmin ignores the filter, and reports a configuration problem.
 
 When people change the country, the city field loads its options again, and clears its value. While no country is selected, the city field is disabled, and displays "Select Country first", named after the label of the country field.
+
+<Screenshot name="dependent-fields-cities" alt="Choosing Japan in the country lookup enables the city lookup, whose sheet lists only Japan's cities, and Kyoto is chosen" />
 
 `DependsOn()` works with every choice editor and lookup, on the create and edit pages, and in [inline rows](/docs/admin/inline-editing). To make a field depend on several fields, call `DependsOn()` once for each of them. A field can also depend on a field that depends on another, such as a neighborhood that depends on the city.
 
@@ -43,14 +40,11 @@ So if the filter reads another property, call `DependsOn()` for that field too. 
 fields.Add(destination => destination.CityId)
     .DependsOn(destination => destination.CountryId)
     .DependsOn(destination => destination.RequiresAirport)
-    .UseSelectEditor(select =>
+    .UseLookupSheetEditor(lookup =>
     {
-        select.UseItems<City>(
-            city => city.Id,
-            city => city.Name,
-            items => items.Where<Destination>((city, destination) =>
-                city.CountryId == destination.CountryId
-                && (!destination.RequiresAirport || city.HasAirport)));
+        lookup.UseResource<City>(items => items.Where((city, destination) =>
+            city.CountryId == destination.CountryId
+            && (!destination.RequiresAirport || city.HasAirport)));
     });
 ```
 
@@ -68,24 +62,8 @@ fields.Add(destination => destination.CityId)
     {
         country.EmptyText = "Select a country to see its cities";
     })
-    .UseSelectEditor(/* ... */);
+    .UseLookupSheetEditor(/* ... */);
 ```
-
-## Filtering the records of a resource
-
-When the options are the records of a resource, call `UseResource()` with a callback, and filter the records with `Where()`. The callback already knows the type of the form's model:
-
-```cs
-fields.Add(destination => destination.CityId)
-    .DependsOn(destination => destination.CountryId)
-    .UseSelectEditor(select =>
-    {
-        select.UseResource<City>(items => items.Where((city, destination) =>
-            city.CountryId == destination.CountryId));
-    });
-```
-
-Only an EF Core resource can apply the filter. On a resource with a [custom data source](/docs/admin/custom-data-sources), StellarAdmin ignores the filter, and reports a configuration problem.
 
 ## Loading options that depend on another field from a service
 

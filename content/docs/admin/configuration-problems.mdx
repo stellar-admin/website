@@ -20,6 +20,8 @@ When StellarAdmin cannot recover from a configuration mistake, it makes the reso
 
 In the Development environment, when your configuration has problems, a floating notification is displayed at the bottom of every admin panel page. Click the notification to open a panel that lists the lines of your code that caused each problem, and how to fix it.
 
+<Screenshot name="configuration-problems" alt="The configuration problems notification, and the panel it opens" variants={["Notification", "Panel"]} />
+
 If a field, a column, a button or a sidebar item you configured is missing, check the configuration problems first.
 
 StellarAdmin also logs each problem once, in every environment, in the `StellarAdmin.Configuration` category. The log entry names the file and line that configured the problem. Each kind of problem has its own event ID, so you can filter on them or alert on them.

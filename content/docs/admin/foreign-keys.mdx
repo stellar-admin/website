@@ -21,6 +21,8 @@ admin.AddEfCoreResource<Booking>(resource =>
 
 The field is labeled with the related resource's name, **Traveller**, and displays the selected traveller. Its **Choose traveller** button opens a sheet that lists the travellers, and searches them as people type. The title, description and media of each traveller, and how the sheet searches and sorts them, come from the [title and reference information](/docs/admin/titles-and-references) of the Traveller resource.
 
+<Screenshot name="foreign-keys-lookup" alt="The booking create page with the traveller lookup's sheet open, searched for Walker, listing each traveller with their email address" />
+
 If the related type isn't registered as a resource, StellarAdmin renders the foreign key with its property's default editor, such as a number input, and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Using a choice editor instead of a lookup

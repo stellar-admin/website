@@ -31,6 +31,8 @@ admin.AddEfCoreResource<Trip>(resource =>
 
 The field displays the selected tags as chips, and its button opens a sheet that searches the tags. When people save the form, StellarAdmin adds and removes the rows of the join table. The navigation doesn't need a setter, as long as it's initialized, such as with `= []`.
 
+<Screenshot name="many-to-many-multi-lookup" alt="The trip edit page with the trip's tags as chips, and an Add tags button" />
+
 If the related type isn't registered as a resource, StellarAdmin leaves the field off the form, and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Using a choice editor instead of a multi-lookup

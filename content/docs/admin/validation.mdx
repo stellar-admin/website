@@ -20,6 +20,8 @@ public class Trip
 
 StellarAdmin displays the errors of the fields on the form, and ignores the errors of properties that aren't on it. A `[Required]` property without a field doesn't stop the record from being saved.
 
+<Screenshot name="validation-errors" alt="The trip edit form with an empty code and a group size of 60, each with its error under it" />
+
 <Callout type="info">
 StellarAdmin validates forms with the ASP.NET Core model validation pipeline, so validation libraries that plug into the pipeline work with StellarAdmin too. For example, to validate StellarAdmin's forms with [FluentValidation](https://docs.fluentvalidation.net/en/latest/aspnet.html) validators, enable FluentValidation's automatic validation by calling `AddFluentValidationAutoValidation()` from the `FluentValidation.AspNetCore` package.
 </Callout>

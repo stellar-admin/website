@@ -28,6 +28,8 @@ builder.Services.AddStellarAdmin(admin =>
 
 The example above gives you a **Trips** page at `/stellaradmin/trips` that lists your trips in a grid, and a form to edit them. Each resource you register gets its own link in the sidebar.
 
+<Screenshot name="index-overview" alt="The trips grid with Title and Base price columns, and the Trips link in the sidebar" />
+
 StellarAdmin isn't a separate service. It runs inside your application, and uses your app's `DbContext`, services and authentication. It's server-rendered ASP.NET Core MVC, built with the [StellarAdmin.UI](/docs/ui) components, and doesn't use a JavaScript framework or Blazor.
 
 Each field gets an editor based on its type. For example, a `bool` is rendered as a checkbox, an enum as a dropdown, and a foreign key to another resource as a lookup that searches the records of the related resource. You can choose a different [editor](/docs/admin/editors) for any field.
