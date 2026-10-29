@@ -13,7 +13,10 @@ public class Trip
     public int Id { get; set; }
     public required string Code { get; set; }
     public required string Title { get; set; }
+
+    [Display(Name = "Duration (days)")]
     public int DurationDays { get; set; }
+
     public List<Departure> Departures { get; set; } = [];
 }
 
@@ -24,11 +27,16 @@ public class Departure
     public int Id { get; set; }
     public int TripId { get; set; }
     public Trip Trip { get; set; } = null!;
+
+    [Display(Name = "Start date")]
     public DateOnly StartDate { get; set; }
+
     public int Capacity { get; set; }
     public DepartureStatus Status { get; set; } = DepartureStatus.Scheduled;
 }
 ```
+
+A form labels a field with its property's name, so `[Display]` gives `DurationDays` and `StartDate` readable labels. The grid uses the same labels.
 
 ## Adding trips
 
@@ -84,7 +92,7 @@ admin.AddEfCoreResource<Trip>(resource =>
 
 The grid now has a **Create** button, and each row has an edit action, which opens the edit form:
 
-<Screenshot name="quick-start-trips-edit" alt="A trip's edit form with Code, Title and Duration Days fields" todo="A trip's edit form." />
+<Screenshot name="quick-start-trips-edit" alt="A trip's edit form with Code, Title and Duration (days) fields" todo="A trip's edit form." />
 
 <Callout type="idea">
   When the create and edit forms have the same fields, you can [share them in one method](/docs/admin/organizing-configuration#sharing-fields).
@@ -139,7 +147,7 @@ admin.AddEfCoreResource<Departure>(resource =>
 });
 ```
 
-<Screenshot name="quick-start-departures" alt="The departures grid with a search box, sorted by start date, with Trip, Start Date, Capacity and Status columns" todo="The departures grid." />
+<Screenshot name="quick-start-departures" alt="The departures grid with a search box, sorted by start date, with Trip, Start date, Capacity and Status columns" todo="The departures grid." />
 
 The create form starts with a start date 30 days from today, and selects the trip with a lookup:
 
