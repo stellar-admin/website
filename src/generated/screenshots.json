@@ -433,6 +433,14 @@
     "width": 1280,
     "height": 640
   },
+  "row-details-accordion": {
+    "width": 1024,
+    "height": 991
+  },
+  "row-details-accordion-dark": {
+    "width": 1024,
+    "height": 991
+  },
   "row-details-emphasis-band": {
     "width": 1024,
     "height": 777
