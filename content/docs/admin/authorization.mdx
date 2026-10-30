@@ -28,6 +28,12 @@ StellarAdmin uses standard ASP.NET Core authorization, so your app must set up a
 
 When someone who isn't signed in opens the admin panel, ASP.NET Core asks them to sign in. When someone is signed in but doesn't meet the requirements, ASP.NET Core denies them access. With cookie authentication, both redirect to a page, which is `/Account/Login` or `/Account/AccessDenied` by default. Make sure your app has these pages, or set the cookie's `LoginPath` and `AccessDeniedPath` to your own pages.
 
+Some parts of the admin panel's pages load after the page itself, such as [row details](/docs/admin/row-details) that load when a row expands. When ASP.NET Core refuses one of these requests, for example because the user's session has expired, StellarAdmin reloads the whole page, so the user is redirected to the sign-in page or denied access as usual.
+
+<Callout type="warn">
+StellarAdmin handles these refused requests by wrapping your app's `IAuthorizationMiddlewareResultHandler`. If your app registers its own `IAuthorizationMiddlewareResultHandler`, register it before calling `AddStellarAdmin()`. If you register it afterwards, it replaces StellarAdmin's, and a refused request displays the sign-in page inside the part of the page that was loading.
+</Callout>
+
 <Callout type="info">
 In the Development environment, the setup checklist on the admin panel's [home page](/docs/admin/home-page) shows whether the admin panel requires authorization.
 </Callout>
