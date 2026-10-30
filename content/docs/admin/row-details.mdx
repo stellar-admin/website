@@ -103,6 +103,8 @@ index.EnableRowDetails(
     panels =>
     {
         panels.Add("Summary", "_BookingSummary");
+        panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
+            booking.TotalAmount, booking.Passengers.Count, booking.Departure.Trip.BasePrice));
         panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
     },
     details =>
