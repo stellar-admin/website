@@ -9,7 +9,7 @@ In the Development environment, the home page is a setup checklist. It lists the
 
 <Screenshot name="home-page-setup-checklist" alt="The setup checklist on the admin panel's home page" />
 
-In other environments, the home page links to the resources the user can open, in the order of the sidebar.
+In other environments, the home page links to the resources the user can open, in the order of the sidebar. To display stats, lists or links instead, add [widgets](/docs/admin/widgets).
 
 To see that page in Development, turn the setup checklist off:
 
@@ -42,4 +42,4 @@ To display your own home page, such as a dashboard, add your own `Areas/StellarA
 
 Don't declare a `@model`, because the model of StellarAdmin's home page is internal. To load data, inject a service, as in the example above, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
 
-StellarAdmin doesn't have dashboard widgets, so build the page with the [StellarAdmin.UI components](/docs/ui).
+To add blocks of data to the home page without replacing it, use [widgets](/docs/admin/widgets).
