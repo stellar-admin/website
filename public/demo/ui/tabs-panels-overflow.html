@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function () {
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyDark() {
+                var theme = null;
+                try { theme = localStorage.getItem('theme'); } catch (e) { }
+                var dark = theme === 'dark' || (theme !== 'light' && media.matches);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            }
+            window.saThemeInit = function () {
+                window.saLoadThemeFonts('default');
+            };
+            applyDark();
+            window.addEventListener('storage', function (e) {
+                if (e.key === null || e.key === 'theme') applyDark();
+            });
+            media.addEventListener('change', applyDark);
+        })();
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
+    <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
+    <link rel="stylesheet" href="/demo/ui/assets/site.ik4ghfepqt.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.h6866lusnd.css" />
+        <script>saThemeInit();</script>
+    
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    
+
+    <script type="module" src="/demo/ui/assets/stellar-admin.y6wvbiuhes.js"></script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function () {
+        document.body.style.opacity = '1';
+    });
+</script>
+<div class="preview flex w-full justify-center px-10 py-10">
+    
+    <sel-tabs class="sa-tabs-container w-full max-w-xs" id="--sa-tabs-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6438" data-slot="tabs-container">
+    <sel-tab-list data-slot="tabs" data-orientation="horizontal" class="sa-tabs"><div aria-orientation="horizontal" class="sa-tabs-list sa-tabs-list-variant-default" data-slot="tabs-list" data-variant="default" role="tablist">
+        <button type="button" id="tabs-panels-overflow-flights-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6438" aria-controls="tabs-panels-overflow-flights" aria-selected="true" tabindex="0" data-slot="tabs-trigger" data-active="" class="sa-tabs-trigger">Flights</button>
+        <button type="button" id="tabs-panels-overflow-accommodation-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6438" aria-controls="tabs-panels-overflow-accommodation" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Accommodation</button>
+        <button type="button" id="tabs-panels-overflow-car-rental-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6438" aria-controls="tabs-panels-overflow-car-rental" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Car Rental</button>
+        <button type="button" id="tabs-panels-overflow-excursions-tab" role="tab" command="--select-tab" commandfor="--sa-tabs-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6438" aria-controls="tabs-panels-overflow-excursions" aria-selected="false" tabindex="-1" data-slot="tabs-trigger" class="sa-tabs-trigger">Excursions</button>
+    <button aria-haspopup="menu" class="sa-tabs-trigger sa-tabs-more" data-slot="tabs-more" hidden="" popovertarget="--sa-tab-list-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6723-more" type="button">More<svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></button></div><sel-dropdown-menu class="sa-dropdown-menu-content sa-dropdown-menu-content-logical anchored-bottom-start" data-anchor-side="bottom" data-side="bottom" data-slot="dropdown-menu-content" id="--sa-tab-list-2efcb1453fc55d71fed1c778aadbe7b290ff536a0d5376301d8df4b59dbd943a6723-more" popover="" role="menu"></sel-dropdown-menu></sel-tab-list>
+    <div id="tabs-panels-overflow-flights" role="tabpanel" aria-labelledby="tabs-panels-overflow-flights-tab" tabindex="0" data-slot="tabs-content" class="sa-tab-panel">
+        <p class="font-medium">Lisbon (LIS) to Reykjavík (KEF)</p>
+        <p class="text-muted-foreground text-sm">Departs 14 March at 07:40, arrives 10:15. Economy, 1 checked bag.</p>
+    </div>
+    <div id="tabs-panels-overflow-accommodation" role="tabpanel" aria-labelledby="tabs-panels-overflow-accommodation-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <p class="font-medium">Hotel Borg, Reykjavík</p>
+        <p class="text-muted-foreground text-sm">3 nights from 14 March. Deluxe double room, breakfast included.</p>
+    </div>
+    <div id="tabs-panels-overflow-car-rental" role="tabpanel" aria-labelledby="tabs-panels-overflow-car-rental-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <p class="font-medium">Compact car, Keflavík Airport</p>
+        <p class="text-muted-foreground text-sm">Pick up 14 March at 10:45, return 17 March.</p>
+    </div>
+    <div id="tabs-panels-overflow-excursions" role="tabpanel" aria-labelledby="tabs-panels-overflow-excursions-tab" tabindex="0" data-slot="tabs-content" hidden="hidden" class="sa-tab-panel">
+        <p class="font-medium">Golden Circle day tour</p>
+        <p class="text-muted-foreground text-sm">15 March, hotel pick-up at 08:30.</p>
+    </div>
+</sel-tabs>
+
+
+</div>
+
+
+
+</body>
+</html>

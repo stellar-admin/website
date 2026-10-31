@@ -103,6 +103,22 @@ Disable a tab using the `disabled` attribute.
   <include>./_include/tabs-disabled.mdx</include>
 </Demo>
 
+### Overflow
+
+When a horizontal tab list is wider than the space it has, the tabs that don't fit move into a **More** menu at the end of the list. The selected tab always stays in the list. The list checks which tabs fit again when its width changes, so resizing the window moves tabs in and out of the menu.
+
+<Demo src="/demo/ui/tabs-overflow.html">
+  <include>./_include/tabs-overflow.mdx</include>
+</Demo>
+
+To change the text of the **More** button, set the `more-label` attribute.
+
+To keep every tab in the list, set the `overflow` attribute to `TabListOverflow.None`. The tabs then stay on one line, and you decide how the list handles the extra width, such as by wrapping it in an element that scrolls.
+
+<Demo src="/demo/ui/tabs-overflow-none.html">
+  <include>./_include/tabs-overflow-none.mdx</include>
+</Demo>
+
 ### Panels
 
 Selecting a tab shows its panel and hides the others. The first tab is selected unless `<sa-tabs>` names another panel. A disabled tab cannot be selected.
@@ -125,6 +141,14 @@ With a vertical tab list, the panels sit beside the tabs.
 
 <Demo src="/demo/ui/tabs-panels-vertical.html">
   <include>./_include/tabs-panels-vertical.mdx</include>
+</Demo>
+
+### Panels that don't fit
+
+Panel tabs move into the **More** menu in the same way. Selecting a tab from the menu shows its panel, and the tab takes its place in the list.
+
+<Demo src="/demo/ui/tabs-panels-overflow.html">
+  <include>./_include/tabs-panels-overflow.mdx</include>
 </Demo>
 
 ### Loading a panel when it is shown
@@ -153,11 +177,13 @@ A disabled tab renders `aria-disabled="true"` and has its `href` removed so it c
 
 Panel tabs follow the WAI-ARIA tabs pattern. The list renders `role="tablist"` with `aria-orientation`, each `<sa-tab>` renders a `<button role="tab">` with `aria-selected` and `aria-controls`, and each panel renders `role="tabpanel"` labeled by its tab. Only the selected tab is a Tab stop. The arrow keys move between the tabs and select the one they move to (Up and Down for a vertical list), Home and End move to the first and last, and disabled tabs are skipped. Pressing Tab from the selected tab moves focus to its panel.
 
+The **More** button is a `<button>` with `aria-haspopup="menu"` at the end of the list, and its menu follows the [dropdown menu](/docs/ui/components/dropdown-menu)'s keyboard behavior. The menu holds the tabs that don't fit: a link tab's item is a link to the same URL, and a panel tab's item selects the tab. The arrow keys move between the tabs in the list and skip the ones in the menu.
+
 ## API Reference
 
 ### `<sa-tab-list>`
 
-Renders a `<div>` element wrapping an inner tab list `<div>`. Inside an `<sa-tabs>`, the inner list renders `role="tablist"`.
+Renders a `<div>` element wrapping an inner tab list `<div>`. Inside an `<sa-tabs>`, the inner list renders `role="tablist"`. A horizontal list with an overflow menu renders a `<sel-tab-list>` element instead of the outer `<div>`.
 
 <TypeTable
   type={{
@@ -173,6 +199,18 @@ Renders a `<div>` element wrapping an inner tab list `<div>`. Inside an `<sa-tab
       type: "TabListVariant",
       typeDescription: "TabListVariant.Default | TabListVariant.Line",
       default: "TabListVariant.Default",
+    },
+    overflow: {
+      description:
+        "What a horizontal tab list does with the tabs that don't fit. A vertical tab list ignores it.",
+      type: "TabListOverflow",
+      typeDescription: "TabListOverflow.Menu | TabListOverflow.None",
+      default: "TabListOverflow.Menu",
+    },
+    "more-label": {
+      description: "The text of the button that opens the menu of the tabs that don't fit.",
+      type: "string",
+      default: '"More"',
     },
   }}
 />
