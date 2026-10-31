@@ -5,7 +5,7 @@ description: Add stats, lists and other blocks above, beside or below a view pag
 
 You can add [widgets](/docs/admin/widgets) to a resource's view page, such as a list of the traveller's other bookings beside a booking's fields. View page widgets work like home page widgets: each one is rendered using a partial view that you write, and can have a handler that loads its data.
 
-<Screenshot name="view-page-widgets" alt="A product's view page with a card comparing its price with its category's beside the fields" todo="The AdminPlayground view page of a product with a category, at 1440px wide: Category prices in the column beside the Product and Pricing sections." />
+<Screenshot name="view-page-widgets-booking" alt="A booking's view page with the traveller's other bookings beside the fields and the booking's notes below them" todo="A booking's view page at 1440px wide: Other bookings in the column beside the fields, Notes below them." />
 
 ## Adding a widget
 
@@ -46,7 +46,7 @@ The functions you pass to `Parameters()` and `ShowWhen()` receive a `RecordWidge
 
 A widget without a handler receives the `RecordWidgetContext<T>` as its partial view's model, so it can display the record without a handler. The example below is the `_BookingNotesWidget` partial view from the first example:
 
-```cshtml
+```razor
 @model RecordWidgetContext<Booking>
 <sa-card>
     <sa-card-header>

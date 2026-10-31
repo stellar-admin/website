@@ -233,6 +233,14 @@
     "width": 1280,
     "height": 640
   },
+  "form-widgets-trip": {
+    "width": 1440,
+    "height": 760
+  },
+  "form-widgets-trip-dark": {
+    "width": 1440,
+    "height": 760
+  },
   "home-page-setup-checklist": {
     "width": 1280,
     "height": 800
@@ -296,6 +304,14 @@
   "index-overview-dark": {
     "width": 1280,
     "height": 600
+  },
+  "index-page-widgets-bookings": {
+    "width": 1440,
+    "height": 760
+  },
+  "index-page-widgets-bookings-dark": {
+    "width": 1440,
+    "height": 760
   },
   "index-pages-overview": {
     "width": 1280,
@@ -563,6 +579,14 @@
     "width": 1280,
     "height": 560
   },
+  "view-page-widgets-booking": {
+    "width": 1440,
+    "height": 760
+  },
+  "view-page-widgets-booking-dark": {
+    "width": 1440,
+    "height": 760
+  },
   "view-pages-overview": {
     "width": 1280,
     "height": 560
@@ -570,5 +594,13 @@
   "view-pages-overview-dark": {
     "width": 1280,
     "height": 560
+  },
+  "widgets-home-page": {
+    "width": 1440,
+    "height": 760
+  },
+  "widgets-home-page-dark": {
+    "width": 1440,
+    "height": 760
   }
 }
