@@ -1,19 +1,19 @@
 {
   "badge-display-limit": {
-    "width": 1024,
-    "height": 422
+    "width": 1022,
+    "height": 420
   },
   "badge-display-limit-dark": {
-    "width": 1024,
-    "height": 422
+    "width": 1022,
+    "height": 420
   },
   "boolean-and-enum-displays-grid": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "boolean-and-enum-displays-grid-dark": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "branding-logo-icon": {
     "width": 255,
@@ -104,12 +104,12 @@
     "height": 480
   },
   "columns-settings": {
-    "width": 1024,
-    "height": 564
+    "width": 1022,
+    "height": 562
   },
   "columns-settings-dark": {
-    "width": 1024,
-    "height": 564
+    "width": 1022,
+    "height": 562
   },
   "configuration-problems-notification": {
     "width": 340,
@@ -258,12 +258,12 @@
     "height": 720
   },
   "image-display-thumbnails": {
-    "width": 1024,
-    "height": 439
+    "width": 1022,
+    "height": 437
   },
   "image-display-thumbnails-dark": {
-    "width": 1024,
-    "height": 439
+    "width": 1022,
+    "height": 437
   },
   "image-editor-layout-attachment": {
     "width": 1280,
@@ -306,20 +306,20 @@
     "height": 800
   },
   "inline-editing-edit-row": {
-    "width": 1024,
-    "height": 644
+    "width": 1022,
+    "height": 642
   },
   "inline-editing-edit-row-dark": {
-    "width": 1024,
-    "height": 644
+    "width": 1022,
+    "height": 642
   },
   "inline-editing-new-row": {
-    "width": 1024,
-    "height": 690
+    "width": 1022,
+    "height": 688
   },
   "inline-editing-new-row-dark": {
-    "width": 1024,
-    "height": 690
+    "width": 1022,
+    "height": 688
   },
   "inputs-code": {
     "width": 1280,
@@ -338,12 +338,12 @@
     "height": 400
   },
   "link-displays-grid": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "link-displays-grid-dark": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "list-and-dictionary-editors-dictionary": {
     "width": 1008,
@@ -378,12 +378,12 @@
     "height": 480
   },
   "number-and-date-displays-format": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "number-and-date-displays-format-dark": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "quick-start-departures": {
     "width": 1280,
@@ -418,12 +418,12 @@
     "height": 560
   },
   "related-values-traveller": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "related-values-traveller-dark": {
-    "width": 1024,
-    "height": 416
+    "width": 1022,
+    "height": 414
   },
   "rich-text-editor-trip": {
     "width": 1280,
@@ -434,44 +434,44 @@
     "height": 640
   },
   "row-details-accordion": {
-    "width": 1024,
-    "height": 991
+    "width": 1022,
+    "height": 989
   },
   "row-details-accordion-dark": {
-    "width": 1024,
-    "height": 991
+    "width": 1022,
+    "height": 989
   },
   "row-details-emphasis-band": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-emphasis-band-dark": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-emphasis-rail": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-emphasis-rail-dark": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-expanded": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-expanded-dark": {
-    "width": 1024,
-    "height": 777
+    "width": 1022,
+    "height": 775
   },
   "row-details-tabs": {
-    "width": 1024,
-    "height": 877
+    "width": 1022,
+    "height": 875
   },
   "row-details-tabs-dark": {
-    "width": 1024,
-    "height": 877
+    "width": 1022,
+    "height": 875
   },
   "scopes-tabs": {
     "width": 1280,
@@ -532,12 +532,12 @@
     "height": 318
   },
   "text-displays-line-clamp": {
-    "width": 1024,
-    "height": 536
+    "width": 1022,
+    "height": 534
   },
   "text-displays-line-clamp-dark": {
-    "width": 1024,
-    "height": 536
+    "width": 1022,
+    "height": 534
   },
   "user-menu-items": {
     "width": 505,
