@@ -3,7 +3,7 @@ title: Titles and references
 description: Control how a record is named and displayed when other records refer to it
 ---
 
-Every record has a *title*, which names the record wherever another record refers to it: in a lookup, a select, a grid column or a badge.
+Every record has a *title*, which names the record wherever another record refers to it: in a lookup, a select, a grid column or a badge. The title is also the title of the record's view and edit pages.
 
 ## Choosing the title
 
@@ -23,6 +23,8 @@ admin.AddEfCoreResource<Booking>(resource =>
 ```
 
 A record whose title is empty is named by its key.
+
+When the title is the key or empty, the view and edit pages use their label as the title instead, such as "View Booking".
 
 For an EF Core resource, the title must use only the record's own properties, and EF Core must be able to translate it to SQL. A title that reads a related record isn't loaded for a column. If EF Core can't translate the title, such as one that calls your own method, the title is still displayed, but lookups order the records by key and searches don't match the title. In that case, set `SearchOn()` and `OrderBy()`, as described in [searching, sorting and filtering references](#searching-sorting-and-filtering-references).
 

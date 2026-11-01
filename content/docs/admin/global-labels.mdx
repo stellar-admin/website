@@ -23,6 +23,10 @@ Each setting is a function that returns the text. Its parameter is a `ResourceLa
 
 Text you specify on a specific resource's configuration, such as `edit.Title` in `AllowEdit()`, overrides the global default for that resource.
 
+<Callout type="info">
+  The view and edit pages use the record's [title](/docs/admin/titles-and-references) as the page title. Their `Title` label is used only when the record's title is the key or empty.
+</Callout>
+
 ## What you can change
 
 Call the method for the part of the admin panel you want to change, and set its properties in the callback:

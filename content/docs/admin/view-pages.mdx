@@ -61,7 +61,7 @@ resource.AllowView(view => view.Fields(fields =>
 
 ## Changing the title
 
-The page's title defaults to "View" and the singular label, such as "View Booking". To change it, set `Title` in the `AllowView()` callback:
+The page's title defaults to the record's [title](/docs/admin/titles-and-references), such as the booking's reference. When the title is the key, it defaults to "View" and the singular label, such as "View Booking". To change it, set `Title` in the `AllowView()` callback:
 
 ```cs
 resource.AllowView(view =>

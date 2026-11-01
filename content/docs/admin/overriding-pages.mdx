@@ -83,7 +83,7 @@ StellarAdmin's edit view adds the **Delete** button and its confirmation dialog 
     @if (Model.Delete is { } delete)
     {
         <sa-slot-content name="form-leading-actions">
-            <sa-button type="button" variant="ButtonVariant.Destructive"
+            <sa-button type="button" variant="ButtonVariant.OutlineDestructive"
                        command="show-modal" commandfor="delete-confirm-dialog">@delete.Title</sa-button>
         </sa-slot-content>
     }
