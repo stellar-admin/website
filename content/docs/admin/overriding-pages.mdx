@@ -69,9 +69,9 @@ Search, scopes, sorting and paging still work on an overridden index page. They 
 
 To add content inside the page, such as a button next to **Create**, use the [slots](/docs/admin/page-tag-helpers#slots) of the page's Tag Helper.
 
-## Keeping the Delete button on the edit page
+## Adding a Delete button to the edit page
 
-StellarAdmin's edit view adds the **Delete** button and its confirmation dialog itself, not `<sa-form-page>`. If you override the edit page and [deleting is enabled](/docs/admin/delete), add both to your view:
+The edit page has no **Delete** button. To add one, override the edit page and add the button and its confirmation dialog to your view. `Model.Delete` is `null` when [deleting](/docs/admin/delete) isn't enabled:
 
 ```razor title="Areas/StellarAdmin/Views/bookings/Edit.cshtml"
 @model ResourceFormPageViewModel

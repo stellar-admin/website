@@ -61,12 +61,12 @@ Each Tag Helper has the following slots:
 | | `form-leading-actions` | In the header, at the start of the form's buttons |
 | | `pre-form-actions` | In the header, before the **Cancel** button |
 | | `post-form-actions` | In the header, after the submit button |
-| `<sa-view-page>` | `pre-page-actions` | In the header, before the **Back** button |
+| `<sa-view-page>` | `pre-page-actions` | In the header, at the start of the page's buttons |
 | | `post-page-actions` | In the header, after the **Edit** button |
 | | `pre-view-fields` | Above the fields |
 | | `post-view-fields` | Below the fields |
 
-StellarAdmin's own edit view puts the **Delete** button in `form-leading-actions`. If you override the edit page, see [keeping the Delete button](/docs/admin/overriding-pages#keeping-the-delete-button-on-the-edit-page).
+The edit page has no **Delete** button. To add one, see [adding a Delete button to the edit page](/docs/admin/overriding-pages#adding-a-delete-button-to-the-edit-page).
 
 The index page has no slot between its header and the grid. To add content there, put it above the Tag Helper, as in the example on [overriding pages](/docs/admin/overriding-pages#adding-content-to-a-page).
 
