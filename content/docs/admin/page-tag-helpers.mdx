@@ -34,9 +34,9 @@ The example below adds an **Invoice** button after the **Edit** button of the bo
 
 <sa-view-page model="Model">
     <sa-slot-content name="post-page-actions">
-        <sa-button-link href="@($"/invoices/{Model.EntityId}")" variant="ButtonVariant.Outline">
+        <sa-link-button href="@($"/invoices/{Model.EntityId}")" variant="ButtonVariant.Outline">
             Invoice
-        </sa-button-link>
+        </sa-link-button>
     </sa-slot-content>
     <sa-slot-content name="post-view-fields">
         <sa-card>
