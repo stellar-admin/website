@@ -81,7 +81,7 @@ The URL can be specified a couple of ways:
 
 ### Button content
 
-Use `<sa-bubble-button-content>` to render the bubble surface as a `<button>`, for a bubble that acts rather than reads. Its most common job is offering the reader a set of replies to pick from, but it also covers the affordances around a thread — retrying a message that failed to send, pulling in the earlier part of the conversation.
+Use `<sa-bubble-content-button>` to render the bubble surface as a `<button>`, for a bubble that acts rather than reads. Its most common job is offering the reader a set of replies to pick from, but it also covers the affordances around a thread — retrying a message that failed to send, pulling in the earlier part of the conversation.
 
 <Demo src="/demo/ui/bubble-button.html">
   <include>./_include/bubble-button.mdx</include>
@@ -127,7 +127,7 @@ The link bubble content also accepts the same routing attributes as the ASP.NET 
 
 <include>./_shared/routing-attributes.mdx</include>
 
-### `<sa-bubble-button-content>`
+### `<sa-bubble-content-button>`
 
 Renders a `<button>` element in place of `<sa-bubble-content>`, making the whole bubble activatable. The `type` defaults to `button` so a bubble inside a form does not submit it; set `type` explicitly to override that.
 

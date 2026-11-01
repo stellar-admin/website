@@ -11,7 +11,7 @@ import { Demo } from "@/components/demo";
 
 ## Usage
 
-An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-button-trigger>` or `<sa-attachment-trigger-link>` to make the whole card clickable. Place attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
+An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>` region, a `<sa-attachment-content>` block holding the title and description, and a `<sa-attachment-actions>` row. Add a `<sa-attachment-trigger-button>` or `<sa-attachment-trigger-link>` to make the whole card clickable. Place attachments in a `<sa-attachment-group>` to lay them out as a scrolling row.
 
 ```razor
 <sa-attachment-group>
@@ -26,7 +26,7 @@ An attachment is composed of `<sa-attachment>` wrapping a `<sa-attachment-media>
         <sa-attachment-actions>
             <sa-attachment-action>...</sa-attachment-action>
         </sa-attachment-actions>
-        <sa-attachment-button-trigger/>
+        <sa-attachment-trigger-button/>
     </sa-attachment>
 </sa-attachment-group>
 ```
@@ -75,7 +75,7 @@ Attachments scrolled out of view are still reachable by keyboard when they conta
 
 A trigger covers the whole attachment with a control that activates it, while leaving the buttons in `<sa-attachment-actions>` clickable. Use it for the primary thing the card does — opening a preview, downloading the file — and keep the actions row for everything else.
 
-`<sa-attachment-button-trigger>` renders a `<button>` element, for a card that acts — opening a preview dialog or expanding the file in place. `<sa-attachment-trigger-link>` renders an `<a>` element, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
+`<sa-attachment-trigger-button>` renders a `<button>` element, for a card that acts — opening a preview dialog or expanding the file in place. `<sa-attachment-trigger-link>` renders an `<a>` element, for a card that navigates, and takes the same routing attributes as the ASP.NET Core Anchor Tag Helper.
 
 <Demo src="/demo/ui/attachment-trigger.html">
   <include>./_include/attachment-trigger.mdx</include>
@@ -171,13 +171,13 @@ Renders a `<button>` element styled as a button, forwarding any [global attribut
   }}
 />
 
-### `<sa-attachment-button-trigger>`
+### `<sa-attachment-trigger-button>`
 
 Renders a `<button>` element covering the whole attachment, making it activatable, and forwarding any [global attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes). The `type` defaults to `button` so a trigger inside a form does not submit it; set `type` explicitly to override that.
 
 ### `<sa-attachment-trigger-link>`
 
-Renders an `<a>` element in place of `<sa-attachment-button-trigger>`, making the whole attachment a link.
+Renders an `<a>` element in place of `<sa-attachment-trigger-button>`, making the whole attachment a link.
 
 #### Routing attributes
 
