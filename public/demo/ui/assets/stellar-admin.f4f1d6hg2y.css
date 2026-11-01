@@ -232,9 +232,17 @@
     --sa-space-item-x: calc(1.5 * var(--sa-unit));
     --sa-space-item-y: calc(1 * var(--sa-unit));
     --sa-space-item-gap: calc(1.5 * var(--sa-unit));
+    --sa-space-page: calc(5 * var(--sa-unit));                                             /* the page container's padding */
 
     --sa-border-width: var(--sa-stroke);
     --sa-focus-ring-width: var(--sa-focus-width);
+  }
+  @media (width >= 48rem) {
+    :root,
+    [data-sa-density],
+    [data-sa-scope] {
+      --sa-space-page: calc(8 * var(--sa-unit));
+    }
   }
 
   /* --- Colour ramps: the only mode-specific part ---------------------------------------------- */
@@ -1714,10 +1722,10 @@
 /* components/button.css */
 /* Button: <sa-button> and the parts other components render as buttons (ButtonRenderingHelper).
    Replaces: .sa-button, .sa-button-variant-default, .sa-button-variant-secondary,
-   .sa-button-variant-outline, .sa-button-variant-ghost, .sa-button-variant-destructive,
-   .sa-button-variant-link, .sa-button-size-default, .sa-button-size-xs, .sa-button-size-sm,
-   .sa-button-size-lg, .sa-button-size-icon, .sa-button-size-icon-xs, .sa-button-size-icon-sm,
-   .sa-button-size-icon-lg */
+   .sa-button-variant-outline, .sa-button-variant-outline-destructive, .sa-button-variant-ghost,
+   .sa-button-variant-destructive, .sa-button-variant-link, .sa-button-size-default,
+   .sa-button-size-xs, .sa-button-size-sm, .sa-button-size-lg, .sa-button-size-icon,
+   .sa-button-size-icon-xs, .sa-button-size-icon-sm, .sa-button-size-icon-lg */
 
 @layer sa.tokens {
   .sa-button {
@@ -1853,7 +1861,7 @@
     --_fg: var(--sa-color-ink);
     --_s: calc(var(--_secondary-sheen) * var(--sa-sheen) * var(--_sheen-k));   /* dark: lighter, as a full edge on the grey reads as an outline button */
   }
-  .sa-button-variant-outline {
+  :is(.sa-button-variant-outline, .sa-button-variant-outline-destructive) {
     --_bg: var(--_button-outline-bg);
     --_bg-hover: var(--sa-color-hover);
     --_bg-active: var(--sa-color-hover);
@@ -1863,6 +1871,14 @@
     --_shadow: var(--sa-shadow-control), inset 0 -1px 0 var(--_relief-edge), 0 1px 1px rgb(0 0 0 / calc((0.07 + 0.03 * var(--_relief-press)) * var(--_relief-lift) * var(--_relief-k-drop)));
     --_shadow-hover: var(--sa-shadow-control), inset 0 -1px 0 var(--_relief-edge), 0 calc(1px + 1px * var(--_relief-press)) calc(1px + 2px * var(--_relief-press)) rgb(0 0 0 / calc((0.07 + 0.05 * var(--_relief-press)) * var(--_relief-lift) * var(--_relief-k-drop)));
     --_shadow-active: var(--sa-shadow-control), inset 0 1px 2px rgb(0 0 0 / calc(0.3 * var(--_relief-press) * var(--_relief-k)));
+  }
+  /* Outline destructive: the outline button in the danger text colour, filling with the soft danger tint on hover. */
+  .sa-button-variant-outline-destructive {
+    --_bg-hover: var(--sa-color-danger-soft);
+    --_bg-active: var(--sa-color-danger-soft-hover);
+    --_fg: var(--sa-color-danger-text);
+    --sa-focus-border: var(--sa-color-danger);
+    --sa-focus-shadow: var(--sa-invalid-focus-shadow);
   }
   .sa-button-variant-ghost {
     --_fg: var(--sa-color-ink);
@@ -5617,8 +5633,7 @@
     gap: calc(5 * var(--sa-unit));
     width: 100%;
     margin-inline: auto;
-    padding: calc(5 * var(--sa-unit));
-    @media (width >= 48rem) { padding: calc(8 * var(--sa-unit)); }
+    padding: var(--sa-space-page);
   }
   .sa-page-container-width-small { max-width: 42rem; }
   .sa-page-container-width-medium { max-width: 56rem; }
@@ -5627,7 +5642,8 @@
 
 /* components/page-header.css */
 /* Page header: a title with an optional breadcrumb above, description below, actions beside (below on
-   narrow screens) and a nav row (usually line tabs) underneath.
+   narrow screens) and a nav row (usually line tabs) underneath. A sticky header stays at the top as the
+   page scrolls.
    Replaces: .sa-page-header, .sa-page-header-title, .sa-page-header-description,
    .sa-page-header-actions, .sa-page-header-nav */
 
@@ -5642,6 +5658,29 @@
       grid-column: 1 / -1;
       padding-bottom: var(--sa-unit);
     }
+  }
+  /* Sticky: stays at the top of the scrolling page, ruled off from the content passing under its
+     translucent canvas. Above the content's raised parts (10), under the sidebar's backdrop (20). As a
+     page container's child it reaches the container's edges and keeps the page's side padding. A narrow
+     screen keeps the title, the actions and the nav in view, not the breadcrumb and the description. */
+  .sa-page-header[data-sticky] {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    padding-bottom: calc(4 * var(--sa-unit));
+    border-bottom: var(--sa-border-width) solid var(--sa-color-line);
+    background: color-mix(in oklab, var(--sa-color-canvas) 90%, transparent);
+    backdrop-filter: blur(8px);
+    @media (width < 48rem) {
+      padding-bottom: calc(3 * var(--sa-unit));
+      & > :is([data-slot="breadcrumb"], .sa-page-header-description) { display: none; }
+    }
+  }
+  .sa-page-container > .sa-page-header[data-sticky] {
+    margin: calc(-1 * var(--sa-space-page)) calc(-1 * var(--sa-space-page)) 0;
+    padding-top: calc(5 * var(--sa-unit));
+    padding-inline: var(--sa-space-page);
+    @media (width < 48rem) { padding-top: calc(3 * var(--sa-unit)); }
   }
   .sa-page-header-title {
     color: var(--sa-color-ink);

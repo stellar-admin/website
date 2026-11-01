@@ -59,6 +59,18 @@ Inline trailing content such as an [`<sa-badge>`](./badge) can be placed directl
   <include>./_include/page-header-badge.mdx</include>
 </Demo>
 
+### Sticky header
+
+On a long page, set `sticky` to `true` to keep the header at the top of the page as it scrolls, so that its title and actions stay in view. The content scrolls under the header, which has a rule along its bottom edge.
+
+<Callout type="info">
+  Placed directly inside an [`<sa-page-container>`](./page-container), the sticky header reaches the edges of the container. On narrow viewports, it hides the breadcrumb and the description.
+</Callout>
+
+<Demo src="/demo/ui/page-header-sticky.html" mode="fullscreen">
+  <include>./_include/page-header-sticky.mdx</include>
+</Demo>
+
 ### Full page
 
 A page header composed with a sidebar, app header, and page container into a complete page layout.
@@ -71,7 +83,7 @@ A page header composed with a sidebar, app header, and page container into a com
 
 ### `<sa-page-header>`
 
-Renders a `<header>` element at the top of a page's content.
+Renders a `<header>` element at the top of a page's content. Set `sticky` to `true` to keep the header at the top of the page as it scrolls.
 
 ### `<sa-page-header-title>`
 
