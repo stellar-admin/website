@@ -30,6 +30,7 @@
     "dependent-fields",
     "default-values",
     "validation",
+    "form-events",
     "custom-models",
     "form-widgets",
     "---View Pages---",

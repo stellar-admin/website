@@ -1,0 +1,200 @@
+---
+title: Form events
+description: Run your own code when an EF Core create or edit form loads or saves a record
+---
+
+Saving a record often needs more than the values on the form, such as writing an audit entry, recording who created the record, or checking a rule that compares the old and new values. On an EF Core resource, *form events* run your own code at each step of a create or edit form, while StellarAdmin still loads and saves the record through your `DbContext`.
+
+To add events, call `Events()` in the callback of `AllowCreate()` or `AllowEdit()`, and set the delegate of each event you need. The example below sets the creation time of a new booking before it's saved:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.Fields(fields =>
+    {
+        fields.Add(booking => booking.TravellerId);
+        fields.Add(booking => booking.DepartureId);
+    });
+    create.Events(events =>
+        events.OnCreating = (context, cancellationToken) =>
+        {
+            context.Entity.CreatedAt = DateTimeOffset.UtcNow;
+
+            return Task.CompletedTask;
+        }
+    );
+});
+```
+
+<Callout type="info">
+Form events are only available on EF Core resources. A [custom data source](/docs/admin/custom-data-sources) runs its own code when it saves a record.
+</Callout>
+
+You can set the following events in the `Events()` callback:
+
+| Event | Form | Runs |
+| --- | --- | --- |
+| `OnInitialized` | Create | Before a create form is displayed, so you can set [default values](/docs/admin/default-values#setting-default-values-that-need-services) that need services. |
+| `OnCreating` | Create | Before a new record is saved. |
+| `OnCreated` | Create | After a new record is saved. |
+| `OnLoaded` | Edit | After the edit form loads the record. |
+| `OnUpdating` | Edit | Before the changes to a record are saved. |
+| `OnUpdated` | Edit | After the changes to a record are saved. |
+
+Each event receives a context with the following properties:
+
+| Property | Contains |
+| --- | --- |
+| `Db` | The `DbContext` that loads and saves the record. |
+| `Entity` | The entity the form creates or edits. |
+| `Model` | The model the form binds to. It's the same object as `Entity`, unless the form uses its own [form model](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have). |
+| `Services` | The request's services. |
+
+## Running code before a record is saved
+
+`OnCreating` and `OnUpdating` run after StellarAdmin has applied the form's values to the entity, and before it calls `SaveChanges()`. The `DbContext` tracks the entity, so StellarAdmin saves the changes you make to it. It also saves any record you add to `Db` in the same call to `SaveChanges()`.
+
+The example below adds an audit entry each time a trip's price changes. `context.Entry` is the entity's change tracking entry, which has the stored value as the original value:
+
+```cs
+resource.AllowEdit(edit =>
+{
+    edit.Fields(fields =>
+    {
+        fields.Add(trip => trip.Title);
+        fields.Add(trip => trip.BasePrice);
+    });
+    edit.Events(events =>
+        events.OnUpdating = (context, cancellationToken) =>
+        {
+            var price = context.Entry.Property(trip => trip.BasePrice);
+            if (price.IsModified)
+            {
+                context.Db.Add(new TripPriceChange
+                {
+                    TripId = context.Entity.Id,
+                    OldPrice = price.OriginalValue,
+                    NewPrice = price.CurrentValue,
+                    ChangedAt = DateTimeOffset.UtcNow,
+                });
+            }
+
+            return Task.CompletedTask;
+        }
+    );
+});
+```
+
+StellarAdmin runs the event and the save in one database transaction, through the `DbContext`'s execution strategy. If the save fails, nothing the event added is saved.
+
+## Rejecting a save
+
+To stop a record from being saved, call `Fail()` in `OnCreating` or `OnUpdating`. StellarAdmin displays the form again with the values that were entered and the error, and rolls back the transaction. The `Fail()` method has the following overloads:
+
+| Overload | Displays the error |
+| --- | --- |
+| `Fail(message)` | Above the form. |
+| `Fail(field, message)` | Under the field that `field` selects, such as `trip => trip.BasePrice`. |
+
+The example below rejects a price that drops by more than half in one change:
+
+```cs
+edit.Events(events =>
+    events.OnUpdating = (context, cancellationToken) =>
+    {
+        var original = context.Entry.Property(trip => trip.BasePrice).OriginalValue;
+        if (context.Entity.BasePrice < original / 2)
+        {
+            context.Fail(trip => trip.BasePrice, "The price can't drop by more than half in one change.");
+        }
+
+        return Task.CompletedTask;
+    }
+);
+```
+
+For a rule that only reads the form's values, prefer [validation](/docs/admin/validation), so that the error is displayed before StellarAdmin loads or saves anything.
+
+## Saving the record yourself
+
+Some records must be saved through a service, such as ASP.NET Core Identity's `UserManager`, which hashes the password and normalizes the email address. To save the record in `OnCreating` or `OnUpdating`, save it through `Db`, or through a service that uses the same `DbContext`, and call `Handled()`. StellarAdmin then doesn't call `SaveChanges()`.
+
+The example below creates a user with `UserManager`. `CreateUserModel` holds the user and the password, as described in [adding fields the entity doesn't have](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have):
+
+```cs
+create.Events(events =>
+    events.OnCreating = async (context, cancellationToken) =>
+    {
+        var users = context.Services.GetRequiredService<UserManager<ApplicationUser>>();
+        context.Entity.UserName = context.Entity.Email;
+
+        var result = await users.CreateAsync(context.Entity, context.Model.Password);
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                context.Fail(error.Description);
+            }
+
+            return;
+        }
+
+        context.Handled();
+    }
+);
+```
+
+What the event saves is part of the same transaction, so when the event saves the record and then calls `Fail()`, StellarAdmin rolls the save back.
+
+## Running code after a record is saved
+
+`OnCreated` and `OnUpdated` run after the transaction is committed. Use them for work that must only happen once the record is saved, such as sending an email. The example below sends a confirmation for a new booking:
+
+```cs
+create.Events(events =>
+    events.OnCreated = async (context, cancellationToken) =>
+    {
+        var email = context.Services.GetRequiredService<IBookingEmails>();
+        await email.SendConfirmationAsync(context.Entity, cancellationToken);
+    }
+);
+```
+
+The record is already saved, so these events can't reject the save. When one throws an exception, StellarAdmin logs the exception, and continues as if the event had succeeded.
+
+## Loading values into the edit form
+
+`OnLoaded` runs each time the edit form loads the record: before the form is displayed, and before StellarAdmin applies the values of a submitted form. Use it to fill fields of a [form model](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have) that the entity doesn't store. The `DbContext` doesn't track the entity at this point.
+
+## Using an events class
+
+When the events need services, or are long enough to be hard to read inline, put them in a class. The class inherits from `EfCoreCreateEvents<TEntity, TModel>` or `EfCoreEditEvents<TEntity, TModel>`, and overrides the methods of the events it needs, such as `CreatingAsync()` or `UpdatingAsync()`. `TModel` is the entity type, unless the form uses its own form model.
+
+The example below sets the user who created a booking:
+
+```cs
+using StellarAdmin.EntityFrameworkCore;
+
+public class BookingEvents(IHttpContextAccessor http) : EfCoreCreateEvents<Booking, Booking>
+{
+    public override Task CreatingAsync(
+        EfCoreSaveContext<Booking, Booking> context, CancellationToken cancellationToken)
+    {
+        context.Entity.CreatedBy = http.HttpContext!.User.Identity!.Name!;
+
+        return Task.CompletedTask;
+    }
+}
+```
+
+To use the class, call `UseEvents()` with the class as the type argument:
+
+```cs
+resource.AllowCreate(create =>
+{
+    create.Fields(fields => fields.Add(booking => booking.DepartureId));
+    create.UseEvents<BookingEvents>();
+});
+```
+
+StellarAdmin registers the class as a scoped service, unless you've registered it already, so its constructor can take any service. An events class replaces the delegates set with `Events()`.

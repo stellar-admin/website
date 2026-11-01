@@ -3,7 +3,61 @@ title: Custom models and handlers
 description: Forms that don't match your entity, and your own code when a record is saved
 ---
 
-By default, a create or edit page edits the resource's entity, and saves it through the resource's data source. When the form doesn't match the entity, give the page its own *form model*, and a *handler* that saves it. For example, giving a guide a sign-in needs a password and a confirmation, which the `Guide` entity doesn't store.
+By default, a create or edit page edits the resource's entity, and saves it through the resource's data source. When the form doesn't match the entity, give the page its own *form model*. On an EF Core resource, the form model can wrap the entity and add fields of its own. Otherwise, the page needs a *handler* that saves the form model. For example, giving a guide a sign-in needs a password and a confirmation, which the `Guide` entity doesn't store.
+
+## Adding fields the entity doesn't have
+
+On an EF Core resource, a form that needs a few fields the entity doesn't store, such as a reason for the change, can wrap the entity in a form model. StellarAdmin still loads and saves the entity, and the extra fields reach your [form events](/docs/admin/form-events).
+
+The form model has a property that holds the entity, and a property for each extra field. The example below asks for a reason each time someone edits a trip:
+
+```cs
+public class EditTripForm
+{
+    public Trip Trip { get; set; } = null!;
+
+    [Required, StringLength(500)]
+    [Display(Name = "Reason for the change")]
+    public string Reason { get; set; } = "";
+}
+```
+
+To use the form model, pass `AllowEdit()` the form model as the type argument, and a lambda that selects the property that holds the entity. Fields under that property are the entity's fields. The example below adds the reason to an audit entry in `OnUpdating`:
+
+```cs
+resource.AllowEdit<EditTripForm>(form => form.Trip, edit =>
+{
+    edit.Fields(fields =>
+    {
+        fields.Add(form => form.Trip.Title);
+        fields.Add(form => form.Trip.BasePrice);
+        fields.Add(form => form.Trip.DestinationId);
+        fields.Add(form => form.Trip.Tags);
+        fields.Add(form => form.Reason);
+    });
+    edit.Events(events =>
+        events.OnUpdating = (context, cancellationToken) =>
+        {
+            context.Db.Add(new TripChange
+            {
+                TripId = context.Entity.Id,
+                Reason = context.Model.Reason,
+                ChangedAt = DateTimeOffset.UtcNow,
+            });
+
+            return Task.CompletedTask;
+        }
+    );
+});
+```
+
+StellarAdmin copies the entity's fields onto the stored trip as it does for a form that edits the entity, including [foreign keys](/docs/admin/foreign-keys) and [many-to-many](/docs/admin/many-to-many) fields. `Reason` isn't saved, but `OnUpdating` reads it from `context.Model`. In `OnUpdating`, `context.Model.Trip` and `context.Entity` are the same tracked entity.
+
+`AllowCreate()` takes a form model the same way. The property must hold a new entity when StellarAdmin creates the form model, such as `public Trip Trip { get; set; } = new();`. On the edit page, StellarAdmin creates the form model with its parameterless constructor and sets the property to the stored entity.
+
+The labels of the entity's fields come from the entity's properties, so set `[Display]` on the entity, or the field's `Title`. To validate an entity field that you can't add attributes to, implement `IValidatableObject` on the form model, and name the field by its path, such as `Trip.Title`, in the `ValidationResult`.
+
+When the form edits rows in the [index grid](/docs/admin/inline-editing), a column matches the entity's field without the property name, so the `Title` column edits `form.Trip.Title`.
 
 ## Using a form model on the create page
 
@@ -129,9 +183,9 @@ StellarAdmin passes the record's key to both methods, so the form model doesn't 
 
 ## Running your own code when a record is saved
 
-StellarAdmin has no events that run before or after a record is saved. To run your own code when a record is saved, such as sending an email or writing an audit entry, do it in a handler.
+On an EF Core resource, run your own code when a record is saved, such as sending an email or writing an audit entry, with [form events](/docs/admin/form-events). With a custom data source, do it in a handler.
 
-When the form matches the entity, the form model can be the entity itself. For example, the create handler in [generating a unique value](/docs/admin/default-values#generating-a-unique-value-such-as-a-reference) saves a `Booking`, and sets the booking's reference first.
+When the form matches the entity, the handler's form model can be the entity itself, such as `AllowCreate<Booking, BookingHandler>()` with a `BookingHandler` that implements `IResourceCreateHandler<Booking>`.
 
 ## Binding a field with your own code
 

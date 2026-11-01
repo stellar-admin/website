@@ -87,13 +87,13 @@ public List<TripTag> Tags { get; set; } = [];
 
 ## Relationships StellarAdmin can't edit
 
-StellarAdmin allows editing a many-to-many navigation that goes straight to the related entity, such as `Trip.Tags`, when the related entity has a single-property primary key. The following is not supported:
+StellarAdmin allows editing a many-to-many navigation that goes straight to the related entity, such as `Trip.Tags`, when the related entity has a single-property primary key. This includes a navigation that EF Core maps through a join entity type with `UsingEntity()`, such as ASP.NET Core Identity's `IdentityUserRole<string>` behind a `User.Roles` navigation, as long as the join entity has only its two foreign keys. The following is not supported:
 
 - A navigation to a join entity, such as `Trip.TripGuides`, to a `TripGuide` entity with columns of its own.
 - A navigation to an entity with a composite primary key.
 - A many-to-many navigation in an [inline row](/docs/admin/inline-editing), because the grid has no editor that selects several records.
 
-For a join entity or a composite key, use a [custom model](/docs/admin/custom-models) with a list of keys, and save the join rows yourself. The example below selects the tags of a `TripForm` by their keys:
+For a join entity with columns of its own or a composite key, use a [custom model](/docs/admin/custom-models) with a list of keys, and save the join rows yourself. The example below selects the tags of a `TripForm` by their keys:
 
 ```cs
 fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup =>
