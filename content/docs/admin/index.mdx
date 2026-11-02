@@ -3,9 +3,23 @@ title: Introduction
 description: What StellarAdmin is, and why you might want it
 ---
 
-At some point, most apps need an admin area, often called an admin panel. Somewhere to look up a customer, fix a booking, or take a trip off sale. Building one means writing the same list, create and edit pages over and over, each with its own search box and paging, for every table you want to manage.
+## Introduction
 
-StellarAdmin lets you quickly create these admin pages. You register the entities you want to manage as *resources*, and configure how they are displayed. You do all of this in C#, in your app's `Program.cs`.
+StellarAdmin was born out out my frustration with having to write internal CRUD apps for over 30 years and asking the same question every time - *why isn't there an easier way to do this?*
+
+It is not that these CRUD apps are difficult to write. It is more that they all follow the same predicable pattern and can be mind numbingly boring. You display a list of records, allow a user to add a new record, edit and existing record, and delete the record.
+
+Years ago ASP.NET had a feature called [Dynamic Data](https://learn.microsoft.com/en-us/previous-versions/aspnet/cc488546) which addressed exactly this problem and generated a suite of CRUD pages at runtime from an Entity Framework data context. Sadly, Dynamic Data never made its way across into the ASP.NET Core world.
+
+Most other server web frameworks have products that addresses this gap. Laravel has [Filament](https://filamentphp.com/) and [Nova](https://nova.laravel.com/), and Rails has [Avo](https://avohq.io/). And there are many others on both these and other frameworks. But for some reason ASP.NET Core has nothing that comes close to any of these.
+
+*StellarAdmin is my attempt to address this gap.*
+
+StellarAdmin allows you to rapidly create beautiful, feature rich admin screens for your applications, which still giving you the extensibility to go outside the sandbox of the framework.
+
+## How StellarAdmin works
+
+To create admin pages in StellarAdmin, you register the entities you want to manage as *resources*, and configure how they are displayed. You do all of this in C#, in your app's `Program.cs`.
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
@@ -26,19 +40,22 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-The example above gives you a **Trips** page at `/stellaradmin/trips` that lists your trips in a grid, and a form to edit them. Each resource you register gets its own link in the sidebar.
+The code above gives you a **Trips** page at `/stellaradmin/trips` that lists your trips in a grid, and a form to edit them.
 
 <Screenshot name="index-overview" alt="The trips grid with Title and Base price columns, and the Trips link in the sidebar" />
 
 StellarAdmin isn't a separate service. It runs inside your application, and uses your app's `DbContext`, services and authentication. It's server-rendered ASP.NET Core MVC, built with the [StellarAdmin.UI](/docs/ui) components, and doesn't use a JavaScript framework or Blazor.
 
-Each field gets an editor based on its type. For example, a `bool` is rendered as a checkbox, an enum as a dropdown, and a foreign key to another resource as a lookup that searches the records of the related resource. You can choose a different [editor](/docs/admin/editors) for any field.
+## But AI can create these pages
 
-If configuration isn't enough, you can [replace any page](/docs/admin/overriding-pages) with your own Razor view.
+So one of the questions you may ask is whether something like StellarAdmin still adds value in the age of AI and agents. After all, an AI agent can pump out CRUD screens like this with very little effort.
 
-## Packages
+My answer would be that you are correct. The value of admin frameworks like StellarAdmin are definitely diminished compared to the value they added in a pre-AI world. However, I believe StellarAdmin still adds value for a couple of reasons:
 
-The `StellarAdmin` package contains the admin panel and everything it needs to manage resources. To manage data in EF Core, add the `StellarAdmin.EntityFrameworkCore` package, which queries and updates data through your `DbContext`.
+1. With StellarAdmin your agent does not have to write all the CRUD code and page markup. It only has to create the definitions for the various resources and StellarAdmin handles the rest. This ensures more efficient token use and lower cost for you.
+2. The above then also leads to the second point which is that StellarAdmin ensures consistency in terms of the UI. Every page will have a consistent user experience in terms on page layout, placements of buttons, etc.
+
+That being said, StellarAdmin fully embraces the new AI world we live in and makes available a full set of [agent skills](/docs/admin/agent-skills) that teaches agents to configure and customize StellarAdmin.
 
 ## Next steps
 

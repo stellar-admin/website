@@ -417,6 +417,16 @@
     "width": 1280,
     "height": 640
   },
+  "quick-start-departures-trip-lookup": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
+  "quick-start-departures-trip-lookup-dark": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
   "quick-start-trips": {
     "width": 1280,
     "height": 640

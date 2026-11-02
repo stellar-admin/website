@@ -8,5 +8,8 @@
   "pasteImage.filePathConfirmInputBoxMode": "fullPath",
   "pasteImage.defaultName": "SSS",
   "pasteImage.prefix": "![](",
-  "pasteImage.suffix": ")"
+  "pasteImage.suffix": ")",
+  "cSpell.words": [
+    "Laravel"
+  ]
 }

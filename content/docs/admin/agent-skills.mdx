@@ -5,35 +5,33 @@ description: Teach your coding agent to build admin panels with StellarAdmin
 
 StellarAdmin has two skills that teach coding agents, such as Claude Code and Codex, how to use it:
 
-| Skill | Teaches the agent to |
+| Skill | Description |
 | --- | --- |
-| `stellar-admin-setup` | Install StellarAdmin in your app: add the packages, call `AddStellarAdmin()` and `MapStellarAdmin()`, and check that the admin panel works. The agent asks you before it adds resources, authorization, branding or a theme. |
-| `stellar-admin` | Build the admin panel: resources, index pages, forms, editors, relationships, the sidebar, authorization and overriding pages. |
+| `stellar-admin-setup` | Teaches your agent how to install StellarAdmin in your app: add the packages, call `AddStellarAdmin()` and `MapStellarAdmin()`, and check that the admin panel works. The agent also prompts you whether you want to define resources, configure authorization, or configure branding. |
+| `stellar-admin` | Teaches your agent how to build an app using StellarAdmin: how to define resources, index pages, forms, editors, and relationships. It also covers topics such as customizing the sidebar, configuring authorization, and more. This is the skill you will use the most often. |
 
-You install the skills with [Vercel's skills installer](https://github.com/vercel-labs/skills). The source of the skills is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
+Install the skills using [Vercel's skills installer](https://github.com/vercel-labs/skills). The source of the skills is in the [StellarAdmin repository](https://github.com/stellar-admin/stellar-admin/tree/master/skills).
 
 ## Installing the skills
 
-You need Node.js and Git. Run the following commands in your app's project directory:
+<Callout>
+  The installer requires Node.js and Git, so ensure you have those installed before running the installer.
+</Callout>
+
+Install the skills by running the following commands in your app's project directory:
 
 ```bash
 npx skills add stellar-admin/stellar-admin --skill stellar-admin-setup
 npx skills add stellar-admin/stellar-admin --skill stellar-admin
 ```
 
-The `--skill` option installs only the named skill. Without it, the installer lists all the StellarAdmin skills, including the ones for [StellarAdmin.UI](/docs/ui/agent-skills).
-
-The installer asks which agent to install the skills for. To skip the question, add `--agent claude-code` or `--agent codex`. The skills are installed in the project. To make them available in all your projects, add `--global`.
+The `--skill` option installs only the specified skill. Without it, the installer lists all the StellarAdmin skills, including the ones for [StellarAdmin.UI](/docs/ui/agent-skills), and allow you to pick the ones you want to install. The installer prompts you which agent(s) to install the skills for. You can specify these via the commandline using the `--agent` flag, for example `--agent claude-code`. 
 
 After installing, start a new agent session so that the agent loads the skills.
 
-<Callout type="info">
-  The skills only teach your agent how to use StellarAdmin. Installing them doesn't install the NuGet packages or change your app.
-</Callout>
-
 ## Using the skills
 
-Ask your agent to install StellarAdmin:
+You can ask your agent to install StellarAdmin:
 
 > Use the stellar-admin-setup skill to add StellarAdmin to this app.
 
@@ -41,8 +39,6 @@ Then ask it to build the admin panel:
 
 > Add bookings to the admin panel, with search on the reference and Pending and Confirmed tabs.
 
-If you also write your own pages with the [StellarAdmin.UI Tag Helpers](/docs/ui), install the `stellar-admin-ui` skill. To create a theme, install the `stellar-admin-theme` skill. See [StellarAdmin.UI agent skills](/docs/ui/agent-skills) for both.
-
 ## Versions
 
-The skills follow the main branch of the StellarAdmin repository, so they can describe features that aren't in the packages your app uses yet. They tell the agent to check which version your app uses before following their examples. Updating the skills doesn't update your packages.
+The skills follow the main branch of the StellarAdmin repository, so they can describe features that aren't in the packages your app uses yet.

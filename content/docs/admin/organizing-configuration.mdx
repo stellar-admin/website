@@ -3,32 +3,17 @@ title: Organizing configuration
 description: Keep Program.cs small as your admin panel grows
 ---
 
-Once you have more than a few resources, configuring them all in `Program.cs` makes the file hard to read. Move each resource into an extension method in its own file, and keep only the settings for the whole admin panel in `Program.cs`.
+## Organizing resource registration
 
-The example below calls a single `AddResources()` method from `Program.cs`:
+If you have used ASP.NET Core Minimal APIs, you know that it can clutter up your `Program.cs` very quickly with a lot of code and turn it into an unmaintainable mess. 
 
-```cs
-// Program.cs
-builder.Services.AddStellarAdmin(admin =>
-{
-    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
-    admin.ConfigureBranding(branding => branding.Title = "Voyager Travel");
-    admin.AddResources();
-});
-```
+*Sadly, StellarAdmin suffers from the same problem.* Once you have more than a few resources, configuring them all in `Program.cs` makes the file hard to read. 
 
-`AddResources()` is an extension method on `StellarAdminBuilder`, defined in the `AdminResources` class. It calls the extension method for each resource:
+Luckily for us, people have solved this problem in Minimal APIs using various approaches, and we can use those same approaches to make our StellarAdmin configuration more readable and maintainable.
 
-```cs
-// Admin/AdminResources.cs
-public static class AdminResources
-{
-    public static StellarAdminBuilder AddResources(this StellarAdminBuilder admin) =>
-        admin.AddGuides().AddTrips().AddBookings();
-}
-```
+The approach we recommend is to move each resource's configuration into an extension method in its own file in a separate directory.
 
-Each resource's extension method is defined in its own class, and registers and configures that resource. The example below defines `AddGuides()` in the `GuidesAdmin` class:
+For example, we can define our `Guide` resource in an extension method in `/Admin/GuidesAdmin.cs`.
 
 ```cs
 // Admin/GuidesAdmin.cs
@@ -40,30 +25,59 @@ public static class GuidesAdmin
     public static StellarAdminBuilder AddGuides(this StellarAdminBuilder admin) =>
         admin.AddEfCoreResource<Guide>(resource =>
         {
+            // ... some config omitted for brevity
+
             resource.SidebarItem(item => item.Group = "Operations");
             resource.Index(index => index.Columns(columns => columns.Add(guide => guide.LastName)));
         });
 }
 ```
 
-## Ordering the sidebar
+Other resource definitions can be moved out into their own files in a similar manner. We can then add an `AddResources()` call in `Admin/AdminResources.cs` that ties all the resource registration methods together.
 
-Resources appear in the sidebar in the order you register them, unless you set their `Order`. In the example above, the order of the calls in `AddResources()` is the order of the sidebar. See [ordering the sidebar](/docs/admin/sidebar#ordering-the-sidebar) for groups and ordering.
-
-## Sharing fields
-
-When the create and edit forms have the same fields, add the fields in a method that takes a `ResourceFieldsBuilder<TResource>`, and pass the method to both `Fields()` calls.
 
 ```cs
-using StellarAdmin.Resources.Builders;
-
-static void GuideFields(ResourceFieldsBuilder<Guide> fields)
+// Admin/AdminResources.cs
+public static class AdminResources
 {
-    fields.Add(guide => guide.FirstName);
-    fields.Add(guide => guide.LastName);
-    fields.Add(guide => guide.Email);
+    public static StellarAdminBuilder AddResources(this StellarAdminBuilder admin) =>
+        admin.AddGuides().AddTrips().AddBookings();
 }
+```
 
-resource.AllowCreate(create => create.Fields(GuideFields));
-resource.AllowEdit(edit => edit.Fields(GuideFields));
+Which leaves just the single call to `AddResources()` inside the configuration callback of `AddStellarAdmin()`.
+
+```cs
+// Program.cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.RequireAuthorization(policy => policy.RequireRole("Staff"));
+    admin.ConfigureBranding(branding => branding.Title = "Voyager Travel");
+    admin.AddResources();
+});
+```
+
+## Sharing field definitions
+
+Another common area where you can share configuration is the field definitions for a resource's create and edit forms. These are often the same and since the field builders for both take a parameter of type `ResourceFieldsBuilder<TResource>`, these can also be extracted to a single shared method as per the example below.
+
+```cs
+public static class GuidesAdmin
+{
+    public static StellarAdminBuilder AddGuides(this StellarAdminBuilder admin) =>
+        admin.AddEfCoreResource<Guide>(resource =>
+        {
+            // ... some config omitted for brevity
+
+            resource.AllowCreate(create => create.Fields(GuideFields));
+            resource.AllowEdit(edit => edit.Fields(GuideFields));
+        });
+    
+    static void GuideFields(ResourceFieldsBuilder<Guide> fields)
+    {
+        fields.Add(guide => guide.FirstName);
+        fields.Add(guide => guide.LastName);
+        fields.Add(guide => guide.Email);
+    }
+}
 ```
