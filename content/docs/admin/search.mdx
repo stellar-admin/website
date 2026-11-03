@@ -3,7 +3,9 @@ title: Search
 description: Add a search box to the index page
 ---
 
-Call `EnableSearch()` to add a search box to the index page. For an EF Core resource, you pass a function that takes the search text and returns the filter to apply. The example below searches bookings by their reference and by the traveller's last name:
+You can enable search-as-you-type for any resource by calling `EnableSearch()` on the index page builder. This adds a text search box above the grid on the index page and filters the rows in the grid based on the value the user types.
+
+For an EF Core resource, you can pass a filter expression which will be passed to the database. The example below searches bookings by their reference and by the traveller's last name:
 
 ```cs
 resource.Index(index =>
@@ -13,27 +15,19 @@ resource.Index(index =>
 });
 ```
 
-StellarAdmin trims the search text before passing it to your function. The grid searches as someone types, after a short pause.
+<Callout type="warn">
+    Make sure the underlying database columns you filter on have the appropriate indexes, so that the search does not do a full table scan and bring your database to a halt.
+</Callout>
+
+The grid searches as someone types, with a short *debounce*.
 
 <Screenshot name="search-as-you-type" alt="Typing Walker in the search box filters the bookings to the travellers called Walker" todo="GIF: type a traveller's last name in the search box, and the grid filters to their bookings." />
 
-The filter runs in the database, so EF Core must be able to translate it to SQL. A property of a related record, such as `booking.Traveller.LastName`, becomes a join.
-
-## Making the search case-insensitive
-
-Whether `Contains()` is case-sensitive depends on your database's collation. On SQLite, and on databases with a case-sensitive collation, it's case-sensitive. To make the search case-insensitive there, convert both sides to lower case:
-
-```cs
-index.EnableSearch(term =>
-{
-    var lowered = term.ToLower();
-    return booking => booking.Reference.ToLower().Contains(lowered);
-});
-```
+The filter runs on the database, so EF Core must be able to translate the expression to SQL. You can also use [database functions](https://learn.microsoft.com/en-us/ef/core/querying/database-functions) in the expression.
 
 ## Changing the placeholder
 
-The search box's default placeholder is "Search" and the plural label, such as "Search Bookings...". To change it, set `Placeholder` in the callback that you pass as the second argument:
+The search box's default placeholder is "Search" plus the plural resource label, for example "Search Bookings...". Change it by setting the `Placeholder` in the search builder.
 
 ```cs
 index.EnableSearch(
@@ -45,8 +39,4 @@ To change the default placeholder for every resource, see [global labels](/docs/
 
 ## Searching a custom data source
 
-When a resource uses a [custom data source](/docs/admin/custom-data-sources), call `EnableSearch()` without a filter. StellarAdmin passes the search text via the `Search` property of the `request` parameter when calling the `ListAsync()` method, and your data source decides which records match.
-
-## Searching across resources
-
-The search box searches only the records of its own resource. StellarAdmin doesn't support searching across every resource yet.
+When using a [custom data source](/docs/admin/custom-data-sources), call `EnableSearch()` without a filter expression. StellarAdmin passes the search text when calling the `ListAsync()` method, and your data source decides which records match.

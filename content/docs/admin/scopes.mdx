@@ -3,9 +3,13 @@ title: Scopes
 description: Filter the index page with tabs
 ---
 
-*Scopes* are tabs above the grid that filter the records, such as **All**, **Pending** and **Confirmed**. One scope is selected at a time.
+## Introduction
 
-Call `EnableScopes()`, and add each scope in its callback. The example below adds four scopes to the bookings grid, and selects **All** by default:
+*Scopes* are tabs displayed above the grid that allows you to filter records based on predefined filters. 
+
+<Screenshot name="scopes-tabs" alt="The bookings grid with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
+
+Call `EnableScopes()`, then call the `Add()` method on the scope builder to add the different scopes. The example below adds four scopes to the bookings grid, and selects **All** by default:
 
 ```cs
 resource.Index(index =>
@@ -21,34 +25,22 @@ resource.Index(index =>
 });
 ```
 
-<Screenshot name="scopes-tabs" alt="The bookings grid with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
+The `Add()` methods takes the following arguments:
 
-`Add()` takes these arguments:
-
-1. The scope's id, which the URL uses, as in `?scope=pending`. Each scope must have a different id.
-2. The text of the scope's tab.
-3. For an EF Core resource, the filter. Leave it out for a scope that displays every record. A custom data source takes no filter, because it [filters the records itself](#scoping-a-custom-data-source).
-
-Only the filter decides which records a scope displays. The id is only a name, so `scopes.Add("pending", "Pending")` on an EF Core resource displays every record.
+1. The scope's `id`, which is uses in the query string parameter, for example `?scope=pending`. Each scope for a specific resource must have a unique id.
+2. The text displayed on the scope's tab.
+3. A filter expression, which can be omitted for a scope that must display all records.
 
 ## Setting the default scope
 
-`DefaultScope` sets the scope that's selected when the URL doesn't name a scope. Without a default scope, no tab is selected, and the grid displays every record until someone selects a scope. In most cases, set the scope that displays every record as the default.
+`DefaultScope` sets the scope that is selected when the user has not explicitly selected a scope. Without a default scope, no tab is selected, and the grid displays every record until the user selects a scope.
 
-`DefaultScope` must be the id of a scope you've added. If it isn't, StellarAdmin ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
+`DefaultScope` must be the `id` of a scope you've added. If it isn't, StellarAdmin ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Combining scopes with search
 
 StellarAdmin applies both the scope's filter and the [search](/docs/admin/search), so searching on the **Pending** tab searches only the pending bookings.
 
-## Restricting which records people can access
+## Scopes in a custom data source
 
-Scopes don't restrict access to records. Anyone who can access the index page can select any scope by changing the URL. To hide records from some users, use an EF Core global query filter or a [custom data source](/docs/admin/custom-data-sources).
-
-## Scoping a custom data source
-
-When a resource uses a [custom data source](/docs/admin/custom-data-sources), add each scope without a filter, such as `scopes.Add("pending", "Pending")`. StellarAdmin passes the id of the selected scope via the `Scope` property of the `request` parameter when calling the `ListAsync()` method.
-
-## Filtering by a field
-
-Scopes are the only filters StellarAdmin supports. Filters on a field, such as a date range or a select, aren't supported yet.
+When a resource uses a [custom data source](/docs/admin/custom-data-sources), add each scope without a filter expression, for example `scopes.Add("pending", "Pending")`. StellarAdmin passes the `id` of the selected scope when calling the `ListAsync()` method. You can use this to apply the correct filter logic.

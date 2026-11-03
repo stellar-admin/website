@@ -3,9 +3,9 @@ title: Overview
 description: The grid that lists a resource's records
 ---
 
-Every resource has an *index page*, which lists the resource's records in a grid. A resource's index page is at `/stellaradmin/{slug}`, such as `/stellaradmin/bookings`.
+Every resource has an *index page*, which lists the resource's records in a grid. The resource's index page is located at `/stellaradmin/{resourceSlug}`, for example `/stellaradmin/bookings`.
 
-To configure the grid, call `Index()` on the resource. The example below gives the bookings grid three columns, a search box, **All** and **Pending** scopes, a default sort and paging:
+To configure the grid, call `Index()` on the resource. The example below adds three columns, a search box, **All** and **Pending** scopes, a default sort, and pagination.
 
 ```cs
 resource.Index(index =>
@@ -30,31 +30,29 @@ resource.Index(index =>
 
 <Screenshot name="index-pages-overview" alt="The bookings index page with All and Pending tabs, a search box, and the grid sorted by Booked at" todo="Whole window: the bookings grid configured as above." />
 
-You can read more about each of the grid's features on its own page:
+You can find out more about configuring the various features of the index page in the following documentation:
 
-- [Columns](/docs/admin/columns): choose the columns the grid displays.
-- [Search](/docs/admin/search): add a search box that filters the records.
-- [Scopes](/docs/admin/scopes): add tabs that filter the records, such as **All**, **Pending** and **Confirmed**.
-- [Sorting and paging](/docs/admin/sorting-and-paging): let people sort the grid by a column, and split the records into pages.
-- [Row details](/docs/admin/row-details): expand a row to display more about a record.
-- [Inline editing](/docs/admin/inline-editing): edit and add records in the grid.
-- [Widgets](/docs/admin/index-page-widgets): add blocks such as stats above, beside or below the grid.
-
-Searching, selecting a scope, sorting and paging update the grid without reloading the page. The grid keeps its search, scope, sort and page in the URL, so you can bookmark or share a filtered list. Changing the search or the scope returns the grid to the first page.
+- [Columns](/docs/admin/columns) explains how you can define and configure columns for the grid.
+- [Search](/docs/admin/search) shows how to add a search box that provides filter-as-you-type capabilities.
+- [Scopes](/docs/admin/scopes) adds tabs at the top of the grid that allow you to filter records based on predefined filters, for example viewing just the pending or confirmed bookings.
+- [Sorting and paging](/docs/admin/sorting-and-paging) lets users sort the grid by a column and page through large lists of data.
+- [Row details](/docs/admin/row-details) allow users to expand a row to display additional information related to the record.
+- [Inline editing](/docs/admin/inline-editing) allow users to edit and add records inside the grid without navigating to a separate page.
+- [Widgets](/docs/admin/index-page-widgets) add blocks such as stats above, beside or below the grid.
 
 ## Changing the title and labels
 
-To change the index page's title, or the labels of its **Create** button and row actions, set these properties in the `Index()` callback:
+To change the index page's title, or the labels of its buttons and row actions, configure these properties in the `Index()` callback:
 
-| Property | Default |
+| Property | Description |
 | --- | --- |
-| `Title` | The plural label, such as "Bookings" |
-| `CreateLabel` | "Create" |
-| `EditLabel` | "Edit" and the singular label, such as "Edit Booking" |
-| `ViewLabel` | "View" and the singular label, such as "View Booking" |
-| `DeleteLabel` | "Delete" and the singular label, such as "Delete Booking" |
+| `Title` | The title that is displayed at the top of the index page. It defaults to the plural label of the resource, for example "Bookings". |
+| `CreateLabel` | The title for the button a user clicks to create a new record. Default to "Create". |
+| `EditLabel` | The tooltip displayed when a user hovers over the edit button inside the grid. Defaults to "Edit" and the singular resource label, for example "Edit Booking". |
+| `ViewLabel` | The tooltip displayed when a user hovers over the view button inside the grid. Defaults to "View" and the singular resource label, for example "View Booking". |
+| `DeleteLabel` | The tooltip displayed when a user hovers over the delete button inside the grid. Defaults to "Delete" and the singular resource label, for example "Delete Booking". |
 
-The example below changes the title and the label of the **Create** button:
+The code sample below changes the index page title and the label of the **Create** button:
 
 ```cs
 resource.Index(index =>
@@ -64,10 +62,10 @@ resource.Index(index =>
 });
 ```
 
-To change the defaults for every resource, see [global labels](/docs/admin/global-labels). The labels of inline rows are on the [inline editing](/docs/admin/inline-editing#changing-the-labels) page.
+To change the defaults for all resources, see [global labels](/docs/admin/global-labels).
 
 ## Row actions
 
-Each row displays a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages) for your resource by calling `AllowView()`, `AllowEdit()` or `AllowDelete()`.
+Each row may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages). These are enabled by calling the `AllowView()`, `AllowEdit()` or `AllowDelete()` methods on the resource builder.
 
-StellarAdmin doesn't support custom row actions or bulk actions yet.
+<Screenshot name="index-pages-row-actions" alt="The row actions available on a row in the grid" todo="A crop of the grid that includes the header and around first 5 rows of the bookings resource with all actions enabled. Has a red rectangle annotation around the actions of the first row." />

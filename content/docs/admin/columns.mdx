@@ -3,7 +3,7 @@ title: Columns
 description: Choose the columns the index grid displays
 ---
 
-StellarAdmin doesn't add columns automatically, so the grid displays only the columns you add. Call `Add()` in the `Columns()` callback for each column, in the order the grid displays them. The example below adds four columns to the bookings grid, and configures the booking date and special requests columns:
+StellarAdmin does not automatically add any columns for the index page grid. You must add columns by calling the `Add()` of the resource column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
 
 ```cs
 resource.Index(index => index.Columns(columns =>
@@ -21,21 +21,15 @@ resource.Index(index => index.Columns(columns =>
 
 <Screenshot name="columns-settings" alt="The bookings grid with a sortable Booked column, right-aligned totals, and No requests in empty cells" todo="Crop of the grid with the four columns above, with empty special requests in most rows." />
 
-You configure a column in the callback that you pass to `Add()`:
+As you've seen in the code sample above, you can pass additional configuration for a column via its column builder. The following properties and methods are available on the column builder.
 
-| Setting | What it does |
+| Setting | Description |
 | --- | --- |
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
 | `EmptyText` | Sets the text to display when the value is null or empty. The default is the property's `[DisplayFormat(NullDisplayText)]`, or else an empty cell. |
-| `Sortable()` | Lets people [sort the grid](/docs/admin/sorting-and-paging) by the column. |
-| `UseDisplay<TDisplay>()` | Renders the value with a different [display type](/docs/admin/displays). |
-| `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. |
-
-When you call `Add()` without a callback, it returns the column's builder, so you can chain the methods instead:
-
-```cs
-columns.Add(booking => booking.TotalAmount).Sortable();
-```
+| `Sortable()` | Allows users to [sort the grid](/docs/admin/sorting-and-paging) by the column. |
+| `UseDisplay<TDisplay>()` | Renders the value of the column with a different [display type](/docs/admin/displays). |
+| `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. This is useful when you want to opt out of the column's default display type and simply want to display the column value as plain text. |
 
 ## Choosing how values are rendered
 
@@ -50,36 +44,43 @@ columns.Add(booking => booking.TotalAmount, column =>
     column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
 ```
 
+<Screenshot name="columns-currency-display-type" alt="The bookings grid with the amount column displayed as a currency" todo="Crop of the grid's first few rows displaying the reference, traveler, status and total amount columns, with the amouunt formatted as above" />
+
 See [displays](/docs/admin/displays) for every display type and its settings.
 
 ## Displaying related records
 
-To display a related record, such as a booking's traveller, add the navigation property, or read one of the related record's properties through it:
+You can reference related resources in columns. For EF Core, StellarAdmin will automatically detect the navigation property and include the referenced entity when loading the data.
 
 ```cs
 columns.Add(booking => booking.Traveller);
 columns.Add(booking => booking.Traveller.Email, column => column.Title = "Traveller email");
 ```
 
-See [displaying related records](/docs/admin/related-values) for what the cell displays, how to sort by a related record, and how to display a collection of related records, such as a trip's tags.
+For the `Traveler` property, StellarAdmin will see it is a related resource and [use the title of that resource](/docs/admin/titles-and-references) as the display value.
+
+<Screenshot name="columns-related-record" alt="The bookings grid with the traveler information" todo="Crop of the grid's first few rows displaying the reference, and traveler columns as above." />
+
+<Callout type="idea">
+    See [displaying related records](/docs/admin/related-values) for more information on how StellarAdmin display related records.
+</Callout>
 
 ## Displaying computed values
 
-A column can display any expression, not only a property. The example below displays the total per traveler:
+A column can display any expression, not only a property. The example below displays the travel dates as a date range.
 
 ```cs
-columns.Add(booking => booking.TotalAmount / booking.Passengers.Count, column =>
-{
-    column.Title = "Per traveler";
-    column.Sortable(booking => booking.TotalAmount / booking.Passengers.Count);
-    column.UseDisplay<NumberDisplay>(number => number.Format = "C");
-});
+columns.Add(
+    booking => $"{booking.Departure.StartDate:d MMM} – {booking.Departure.EndDate:d MMM yyyy}",
+    column =>
+    {
+        column.Title = "Travel dates";
+        column.Sortable(booking => booking.Departure.StartDate);
+    });
 ```
 
-A computed column must have a `Title`, because there's no property to take the default title from. StellarAdmin leaves out a computed column without a `Title`, and reports a [configuration problem](/docs/admin/configuration-problems).
-
-StellarAdmin computes the value for each row after loading the records, so the database can't sort by it. To make a computed column sortable, pass the expression to `Sortable()`, so that the database sorts by it. A computed column that calls `Sortable()` without an expression isn't sortable, and StellarAdmin reports a configuration problem.
+A computed column **must** specify a `Title`, because there's no property from which to resolve the title. If the column is sortable, you must also pass a sort expression to `Sortable()`, since StellarAdmin cannot sort by computed values.
 
 ## Writing your own cell markup
 
-For a value that no built-in display covers, such as a badge whose color depends on the value, write a [custom display](/docs/admin/custom-displays) with a grid template.
+If you have special requirements for rendering the display value, which is not covered by any of the built-in display types, you can [create a custom display](/docs/admin/custom-displays).

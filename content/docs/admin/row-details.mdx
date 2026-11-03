@@ -3,15 +3,19 @@ title: Row details
 description: Expand a row to display more about a record
 ---
 
-*Row details* let people expand a row in the grid to see more about a record, without leaving the index page. The details are rendered using a partial view that you write.
+## Introduction
 
-Call `EnableRowDetails()` with the name of the partial view. The example below renders the `_BookingSummary` partial view when someone expands a booking's row:
+*Row details* allow users to expand a row in the grid to see more about a record without leaving the index page. 
+
+<Screenshot name="row-details-expanded" alt="The bookings grid with one booking expanded, showing when it was booked and its special requests" todo="Crop of the bookings grid with the second row expanded with the _BookingSummary partial view above." />
+
+Call `EnableRowDetails()` with the name of the partial view that renders tge detail. The example below renders the `_BookingSummary` partial view when someone expands a booking's row:
 
 ```cs
 resource.Index(index => index.EnableRowDetails("_BookingSummary"));
 ```
 
-The `_BookingSummary` partial view below displays when the booking was made and its special requests:
+The `_BookingSummary` partial view below displays the booking date and any special requests:
 
 ```razor title="Areas/StellarAdmin/Views/bookings/_BookingSummary.cshtml"
 @model Booking
@@ -22,26 +26,19 @@ The `_BookingSummary` partial view below displays when the booking was made and 
 </sa-details>
 ```
 
-StellarAdmin renders the partial view with the index page, and passes the row's record as its model. Put the partial view in `Areas/StellarAdmin/Views/{slug}/`, such as `Areas/StellarAdmin/Views/bookings/`, or in `Areas/StellarAdmin/Views/Shared/`.
+StellarAdmin renders the partial view with the index page, and passes the row's record as its model. Place the partial view in `Areas/StellarAdmin/Views/{resourceSlug}/`, for example `Areas/StellarAdmin/Views/bookings/`, or in `Areas/StellarAdmin/Views/Shared/`.
 
-<Screenshot name="row-details-expanded" alt="The bookings grid with one booking expanded, showing when it was booked and its special requests" todo="Crop of the bookings grid with the second row expanded with the _BookingSummary partial view above." />
+<Callout type="idea">
+    If you use the [StellarAdmin.UI Tag Helpers](/docs/ui) like the partial above, be sure to add a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that registers the StellarAdmin Tag Helpers, otherwise the `<sa-details>` will render as plain text.
+</Callout>
 
-The partial view needs a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that adds the StellarAdmin Tag Helpers, or `<sa-details>` and the other components render as plain text.
+## Lazy loading data when a row expands
 
-## Loading data when a row expands
+A row's details may need data that isn't part of the row's record, such as related records or data from another service. Instead of loading this data for every row on the index page, StellarAdmin can load it only once someone expands a row.
 
-Your details may need data that isn't part of the row's record, such as related records or data from another service. Instead of loading this data for every row on the index page, StellarAdmin can load it only when someone expands a row.
+To implement this behaviour, create a handler that implements `IResourceRowDetailHandler<TModel>`, where `TModel` is the partial view's model. The `FindAsync()` method receives the row's key, and must return the model to be passed to the partial view. 
 
-For an EF Core resource, pass an expression that projects the record into the partial view's model. StellarAdmin runs the query when someone expands the row. The example below loads the booking's total, its number of travelers and the base price of its trip:
-
-```cs
-index.EnableRowDetails("_BookingPricing", booking => new BookingPricing(
-    booking.TotalAmount,
-    booking.Passengers.Count,
-    booking.Departure.Trip.BasePrice));
-```
-
-To load the data from anywhere else, write a handler that implements `IResourceRowDetailHandler<TModel>`, where `TModel` is the partial view's model. Its `FindAsync()` method receives the row's key, and returns the model, or `null` when the record doesn't exist. The example below loads a booking's history from a service:
+The example below loads a booking's history from a service:
 
 ```cs
 using StellarAdmin.Resources;
@@ -54,19 +51,25 @@ public class BookingHistoryHandler(BookingHistoryService history)
 }
 ```
 
-Pass the handler as the type argument of `EnableRowDetails()`:
+Then pass the handler as the type argument of `EnableRowDetails<THandler>()`.
 
 ```cs
 index.EnableRowDetails<BookingHistoryHandler>("_BookingHistory");
 ```
 
-StellarAdmin registers the handler as a scoped service, unless you've already registered it, so its constructor can take your own services. A handler must implement `IResourceRowDetailHandler<TModel>` for exactly one model type. If it doesn't, rows don't expand, and StellarAdmin reports a [configuration problem](/docs/admin/configuration-problems).
+StellarAdmin registers the handler as a scoped service, unless you've already registered it, so its constructor can take your own services. 
 
-Loading data when a row expands needs the resource's key. For a [custom data source](/docs/admin/custom-data-sources), call `UseKey()`.
+Remember to specify the type returned from your handler as the model of your partial view.
 
-## Splitting the details into panels
+```razor title="Areas/StellarAdmin/Views/bookings/_BookingHistory.cshtml"
+@model BookingHistory?
 
-To split the details into panels, pass a callback that adds each panel. `Add()` takes the panel's title and the partial view, and loads the panel's data in the same ways as `EnableRowDetails()`. The example below adds **Summary**, **Pricing** and **History** panels:
+<!-- your code that renders the booking history -->
+```
+
+## Multiple detail sections
+
+A single row can contain multiple detail sections. To do this, use the overload for `EnableRowDetails()` that takes a row details panel builder and add individual detail panels by calling its `Add()` method. The example below adds *Summary*, *Pricing* and *History* panels:
 
 ```cs
 index.EnableRowDetails(panels =>
@@ -78,11 +81,11 @@ index.EnableRowDetails(panels =>
 });
 ```
 
-StellarAdmin displays the panels in an accordion, with every panel closed when a row expands. It loads a panel's data the first time someone opens the panel. If you add only one panel, StellarAdmin displays it without an accordion.
+StellarAdmin displays the detail panels in an accordion, with every panel closed when a row expands. It loads a panel's data the first time a user opens the panel. If you add only one panel, StellarAdmin displays it without an accordion.
 
 <Screenshot name="row-details-accordion" alt="An expanded booking with Summary, Pricing and History panels, and Pricing open" todo="Crop of one expanded booking row with the three panels, Pricing open." />
 
-To display an icon before a panel's title, set `Icon` on the panel that `Add()` returns. The example below adds a receipt icon to the **Pricing** panel:
+To display an icon in front of a panel's title, set `Icon` on the row details builder. The example below adds a receipt icon to the *Pricing* panel:
 
 ```cs
 index.EnableRowDetails(panels =>
@@ -94,7 +97,7 @@ index.EnableRowDetails(panels =>
 
 ### Displaying the panels as tabs
 
-To change how the panels are laid out, set `PanelLayout` in the callback that configures how rows expand. The example below displays the panels as tabs:
+To change how the panels are laid out, set `PanelLayout` on the panel builder. The example below displays the panels as tabs:
 
 ```cs
 using StellarAdmin.Resources;
@@ -115,7 +118,7 @@ index.EnableRowDetails(
 
 <Screenshot name="row-details-tabs" alt="An expanded booking with Summary, Pricing and History tabs, and Pricing selected" todo="Crop of one expanded booking row with the three panels as tabs, Pricing selected." />
 
-To set the layout, set `PanelLayout` to one of the following:
+`PanelLayout` van be set to the following:
 
 | Layout | What it displays |
 | --- | --- |
@@ -128,7 +131,7 @@ With tabs, the first tab is selected when a row expands, and StellarAdmin loads 
 
 ## Changing how rows expand
 
-Each overload of `EnableRowDetails()` also takes a callback that configures how rows expand. The example below lets only one row expand at a time, expands a row when it's clicked anywhere, and marks the expanded row with a rail:
+Each overload of `EnableRowDetails()` also passes a details builder you can use to configures how rows expand. The example below lets only one row expand at a time, expands a row when it's clicked anywhere, and marks the expanded row with a rail:
 
 ```cs
 using StellarAdmin.UI;
@@ -154,9 +157,3 @@ index.EnableRowDetails("_BookingSummary", details =>
 <Screenshot name="row-details-emphasis" alt="An expanded booking row set apart with each kind of emphasis" variants={["Band", "Rail"]} todo="Crops of the same expanded booking row with Band and Rail emphasis." />
 
 These settings match the [row details](/docs/ui/components/data-grid#row-details) of the StellarAdmin.UI data grid.
-
-Calling `EnableRowDetails()` again replaces the earlier configuration.
-
-## Adding content above the grid
-
-Row details belong to a single record. To add content about the whole list, such as a summary above the grid, add a [widget](/docs/admin/index-page-widgets) instead.

@@ -1,11 +1,13 @@
 ---
-title: Sorting and paging
+title: Sorting and pagination
 description: Sort the grid by its columns and split it into pages
 ---
 
-## Making columns sortable
+## Enable sorting for a column
 
-Call `Sortable()` on a column to let people sort the grid by that column. Clicking the column's header sorts the grid in ascending order, and clicking it again sorts in descending order.
+You can enable sorting for a column by calling `Sortable()` on the column builder, allowing users to sort the data in the grid by that column's value. Clicking the header sorts the grid in ascending order. Clicking it again sorts in descending order.
+
+<Screenshot name="sorting-and-paging-sortable" alt="The top of the bookings grid sorted by Booked at, with the sort indicators on the Booked at and Total amount headers marked" todo="The bookings grid's headers sorted by Booked At, with both sort indicators annotated." />
 
 The example below makes the booking date and total amount columns sortable.
 
@@ -21,13 +23,11 @@ resource.Index(index =>
 });
 ```
 
-<Screenshot name="sorting-and-paging-sortable" alt="The top of the bookings grid sorted by Booked at, with the sort indicators on the Booked at and Total amount headers marked" todo="The bookings grid's headers sorted by Booked At, with both sort indicators annotated." />
-
 ### Sorting by a different value
 
-A sortable column sorts by the property it displays. Pass an expression to `Sortable()` to sort by a different value instead, such as for a column that displays a related record or a computed value.
+By default, a column will sort by the property it is bound to. You can sort by a different property by passing a sort expression when calling `Sortable()`.
 
-The example below sorts the traveller column by the traveller's last name.
+In the example below, the column is bound to the `Traveller` property, but sorting is based on the traveller's last name..
 
 ```cs
 columns.Add(booking => booking.Traveller, column =>
@@ -36,7 +36,7 @@ columns.Add(booking => booking.Traveller, column =>
 
 ## Setting the default sort
 
-Call `DefaultSortBy()` to sort the grid by a column when the page first loads, before anyone clicks a header. Call `DefaultSortByDescending()` to sort in descending order instead.
+You can specify the default sort for an index page by calling `DefaultSortBy()` on the index page builder. Call `DefaultSortByDescending()` to sort in descending order instead. In the example below, the data is be sorted by the departure start date.
 
 ```cs
 index.DefaultSortBy(booking => booking.Departure.StartDate);
@@ -44,23 +44,25 @@ index.DefaultSortBy(booking => booking.Departure.StartDate);
 
 The default sort must be on a sortable column. If it isn't, StellarAdmin ignores the default sort and reports a [configuration problem](/docs/admin/configuration-problems).
 
-When there is no default sort, StellarAdmin sorts EF Core resources by their key. It also uses the key to order records that have the same value in the sorted column, so that records don't move between pages.
+<Callout>
+    When default sort order is specified, StellarAdmin sorts EF Core resources by their key.
+</Callout>
 
-## Enabling paging
+## Enabling pagination
 
-The grid displays every record unless you enable paging. Call `EnablePaging()` to split the grid into pages.
+The index grid displays every record for a resource unless you enabling pagination. Call `EnablePaging()` to split the grid into pages.
 
 ```cs
 index.EnablePaging();
 ```
 
-Each page displays 25 records, and people can change it to 10, 25, 50 or 100 records per page.
+Be default, each page will display 25 records, and users can switch the number of records per page between 10, 25, 50 or 100 records per page.
 
 <Screenshot name="sorting-and-paging-pager" alt="The pager under the grid, with rows per page, the range of records and the page links" todo="Crop of the pager under the bookings grid." />
 
 ### Changing the page sizes
 
-Set `PageSize` to change the number of records per page, and `PageSizes` to change the page sizes people can choose from.
+The default page size can be changed using the `PageSize` property. Use the `PageSizes` array to change the page sizes available to the user.
 
 ```cs
 index.EnablePaging(paging =>
@@ -74,14 +76,9 @@ index.EnablePaging(paging =>
 
 ## Sorting and paging a custom data source
 
-When a resource uses a [custom data source](/docs/admin/custom-data-sources), the data source must implement sorting and paging. StellarAdmin passes the requested sort and page via the `Sort` and `Paging` properties of the `request` parameter when calling the `ListAsync()` method:
+When using a [custom data source](/docs/admin/custom-data-sources), the data source must implement sorting and pagination. StellarAdmin passes the requested sorting and pagination to the `ListAsync()` method:
 
-| Property | Holds |
-| --- | --- |
-| `Sort` | The `Field` to sort by, which is the name of the column's property, and the `Direction`. `null` when the grid isn't sorted. |
-| `Paging` | The `Page` number, starting at 1, and the `PageSize`. `null` when paging isn't enabled. |
-
-The example below sorts suppliers by name, using their code to order suppliers with the same name, and then returns only the records on the requested page.
+The example below sorts suppliers by name, and returns only the records for the requested page.
 
 ```cs
 if (request.Sort is { Field: nameof(Supplier.Name) } sort)

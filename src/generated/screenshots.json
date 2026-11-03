@@ -103,6 +103,22 @@
     "width": 1024,
     "height": 480
   },
+  "columns-currency-display-type": {
+    "width": 990,
+    "height": 241
+  },
+  "columns-currency-display-type-dark": {
+    "width": 990,
+    "height": 241
+  },
+  "columns-related-record": {
+    "width": 990,
+    "height": 241
+  },
+  "columns-related-record-dark": {
+    "width": 990,
+    "height": 241
+  },
   "columns-settings": {
     "width": 1022,
     "height": 562
@@ -321,6 +337,14 @@
     "width": 1280,
     "height": 800
   },
+  "index-pages-row-actions": {
+    "width": 990,
+    "height": 281
+  },
+  "index-pages-row-actions-dark": {
+    "width": 990,
+    "height": 281
+  },
   "inline-editing-edit-row": {
     "width": 1022,
     "height": 642
@@ -330,12 +354,14 @@
     "height": 642
   },
   "inline-editing-new-row": {
-    "width": 1022,
-    "height": 688
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
   },
   "inline-editing-new-row-dark": {
-    "width": 1022,
-    "height": 688
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
   },
   "inputs-code": {
     "width": 1280,
