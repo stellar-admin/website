@@ -3,15 +3,23 @@ title: Custom data sources
 description: Manage data that isn't in EF Core
 ---
 
-When your data comes from somewhere other than EF Core, such as an API, a file or another data access library, register the resource with `AddResource<T>()` and give it a data source. The example below registers a `Supplier` resource that a `SupplierDataSource` class loads and saves:
+StellarAdmin was created primarily with EF Core in mind, but nothing is preventing you from adding your own data sources. For example, you may want to use data from a REST API, use Dapper, or use your existing service or repository classes.
+
+When using a custom data source, register your resource with `AddResource<T>()` (as opposed to `AddEfCoreResource<T>()`) and specify the data source by calling `UseDataSource<TDataSource>()` on the resource builder.
+
+The example below registers a `Supplier` resource with a custom `SupplierDataSource`.
 
 ```cs
 using StellarAdmin.Resources;
 
 admin.AddResource<Supplier>(resource =>
 {
-    resource.UseDataSource<SupplierDataSource>();
+    // See the "Implementing the data source" section below for the source code of the SupplierDataSource
+    resource.UseDataSource<SupplierDataSource>(); 
+
+    // Specify the property to be used for the primary key so view, edit, and delete will work correctly
     resource.UseKey(supplier => supplier.Code);
+
     resource.Index(index =>
     {
         index.Columns(columns => columns.Add(supplier => supplier.Name, column => column.Sortable()));
@@ -24,13 +32,13 @@ admin.AddResource<Supplier>(resource =>
 });
 ```
 
-`UseKey()` sets the property that identifies a record. The edit page, the view page and deleting need a key.
+When using a custom data source, StellarAdmin is unable to automatically detect the property that must be used as the primary key for the resource. Make sure to call `UseKey()` and set the property. If you don't do this, your edit and view pages, and delete action will not work, since those require a key value.
 
-`UseDataSource()` registers the data source as a scoped service, unless you've already registered it, so its constructor can take your own services.
+`UseDataSource()` automatically registers the data source as a scoped service, unless you've already registered it, so you can pass other services to its constructor.
 
 ## Implementing the data source
 
-Every data source must implement `IResourceDataSource<T>`, which lists the records for the index page. For everything else you enable, the data source must also implement the matching interface:
+Every data source must implement `IResourceDataSource<T>`, which lists the records for the index page. The data source must also implement the matching interfaces for the other pages you enable. For example, if you allow creating new resources, you must also implement the `IResourceCreateHandler<T>` interface.
 
 | Interface | Methods | Used by |
 | --- | --- | --- |
@@ -40,7 +48,7 @@ Every data source must implement `IResourceDataSource<T>`, which lists the recor
 | `IResourceEditHandler<T>` | `FindAsync()` and `UpdateAsync()` | The edit and view pages |
 | `IResourceDeleteHandler<T>` | `DeleteAsync()` | Deleting |
 
-`IResourceCrudDataSource<T>` combines all of these interfaces, for a data source that supports every page. The example below implements `IResourceCrudDataSource<Supplier>` with an API client:
+The `IResourceCrudDataSource<T>` interface combines all of these interfaces, for a data source that supports every page. The example below implements `IResourceCrudDataSource<Supplier>` with an API client:
 
 ```cs
 using StellarAdmin.Resources;
@@ -103,19 +111,31 @@ public class SupplierDataSource(SupplierApi api) : IResourceCrudDataSource<Suppl
 }
 ```
 
-## Filtering, sorting and paging in `ListAsync()`
+<Callout type="idea">
+    You can use `IResourceCrudDataSource<T>` even if you did not enable all the pages and features for the resource. For example, if you did not enable deleting records, you can simply throw a `NotImplementedException` in the `DeleteAsync()` method since that method will never be called.
+</Callout>
 
-StellarAdmin doesn't filter, sort or page the records that `ListAsync()` returns, so your data source must do it. StellarAdmin passes the requested search, scope, sort and page, and the keys of the records to return, via the properties of the `request` parameter:
+## Filtering, sorting and pagination in `ListAsync()`
 
-| Property | What it holds |
+StellarAdmin passes the requested search, scope, sorting and pagination to the `ListAsync()` method via the `request` parameter. Your data source must apply these and return the records with filtering, sorting, and pagination applied. 
+
+The request parameter has the following properties.
+
+| Property | Description |
 | --- | --- |
-| `Search` | The search text, trimmed, or `null`. |
-| `Scope` | The id of the selected [scope](/docs/admin/scopes), or `null`. |
-| `Sort` | The `Field` and `Direction` of the sort, or `null`. |
-| `Paging` | The `Page`, starting at 1, and the `PageSize`, or `null` to return all matching records. |
-| `Keys` | The keys of the only records to return, or `null`. StellarAdmin sets it when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the records already selected. |
+| `Search` | Contains the trimmed search text the user typed into the search box, or `null` if not specified. |
+| `Scope` | Specifies the id of the selected [scope](/docs/admin/scopes), or `null`. |
+| `Sort` | Specifies the `Field` by which the results must be sorted and `Direction` of the sort, or `null`. |
+| `Paging` | Specifies the `Page`, starting at 1, and the `PageSize`, or `null` to return all matching records. |
+| `Keys` | The keys of the specific records to return, or `null`. StellarAdmin sets it when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the currently selected record(s). |
 
-Apply the search, scope and sort before paging. Return the total number of matching records, not only the number on the page.
+The `ListAsync()` method return a `ResourceListResult<TResource>` which is declared as follows:
+
+```cs
+public sealed record ResourceListResult<TResource>(IReadOnlyList<TResource> Items, long TotalCount);
+```
+
+The `Items` property must contain the items with the filtering, sorting and pagination applied. Return the total number of matching records before pagination in the `TotalCount` property.
 
 ## Returning results from create, update and delete
 
@@ -126,33 +146,42 @@ Apply the search, scope and sort before paging. Return the total number of match
 | `Success()` | The record was saved or deleted. |
 | `Success(key)` | The record was saved, with the new record's key. Return this from `CreateAsync()` when the create page uses a [custom model](/docs/admin/custom-models), so that a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup) can select the new record. |
 | `NotFound()` | The record doesn't exist any more. |
-| `ValidationFailed(field, message)` | The form is displayed again, with the error on that field. Pass `null` as the field for an error that isn't about one field. |
-
-The field name is the model's property name, such as `nameof(Supplier.Name)`. When you return an error, don't save any changes.
+| `ValidationFailed(field, message)` | The form is displayed again, with the error on that field. Pass `null` as the field for an error that isn't about one field. The `field` parameter is the model's property name, such as `nameof(Supplier.Name)`|
 
 For an unexpected failure, throw an exception. The page displays a general error, and StellarAdmin logs the exception.
 
 ## Returning validation errors
 
-Some checks can only be made when the data source saves the record, such as checking with the supplier API that a code isn't already in use. To report such a check, return `ValidationFailed()` with the name of the property and the message, and don't save the record. The example below rejects a supplier whose code is already in use:
+Typically we suggest that you handle validation errors using data annotations or a framework like [FluentValidation](https://fluentvalidation.net/). However, when you use a custom data source, you can also return validation errors from the `CreateAsync()` or `UpdateAsync()` methods.
+
+For example, if your data source is a wrapper around a REST API, you'd want to map the API errors to the correct properties on your model. The code sample below maps the errors of a `SupplierApiValidationException` to the correct property names and return `ValidationFailed()` with all the validation errors.
 
 ```cs
 public async Task<ResourceOperationResult> CreateAsync(
     Supplier model, CancellationToken cancellationToken)
 {
-    if (await api.FindAsync(model.Code, cancellationToken) is not null)
-        return ResourceOperationResult.ValidationFailed(
-            nameof(Supplier.Code), "A supplier with this code already exists.");
+    try
+    {
+        await api.CreateAsync(model, cancellationToken);
 
-    await api.CreateAsync(model, cancellationToken);
-    return ResourceOperationResult.Success();
+        return ResourceOperationResult.Success();
+    }
+    catch (SupplierApiValidationException exception)
+    {
+        var errors = exception.Errors.Select(error =>
+            new ResourceValidationError(ToPropertyName(error.Field), error.Message));
+
+        return ResourceOperationResult.ValidationFailed(errors);
+    }
 }
+
+// Maps the API's field names to the model's properties
+private static string? ToPropertyName(string? field) => field switch
+{
+    "code" => nameof(Supplier.Code),
+    "name" => nameof(Supplier.Name),
+    _ => null,
+};
 ```
 
-StellarAdmin displays the error under the field, like any other validation error. If you pass `null` as the property's name, or the property isn't a field of the form, StellarAdmin displays the error for the whole form.
-
-To return several errors at once, pass a list of `ResourceValidationError`s to `ValidationFailed()`.
-
-## Search and scopes without predicates
-
-On a resource with a custom data source, search and scopes don't take predicates, because your data source decides which records match. `index.EnableSearch()` adds the search box, and `ListAsync()` receives the text in `request.Search`. A scope adds a tab, and `ListAsync()` receives its id in `request.Scope`.
+StellarAdmin displays each error under its field, like any other validation error. If the property's name is `null`, or the property isn't a field of the form, StellarAdmin displays the error at the top of the form.

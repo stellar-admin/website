@@ -565,6 +565,40 @@
     "width": 1022,
     "height": 534
   },
+  "titles-and-references-page-title": {
+    "width": 1280,
+    "height": 420
+  },
+  "titles-and-references-page-title-dark": {
+    "width": 1280,
+    "height": 420
+  },
+  "titles-and-references-resource-reference": {
+    "width": 1280,
+    "height": 560
+  },
+  "titles-and-references-resource-reference-dark": {
+    "width": 1280,
+    "height": 560
+  },
+  "titles-and-references-resource-reference-full": {
+    "width": 1280,
+    "height": 420
+  },
+  "titles-and-references-resource-reference-full-dark": {
+    "width": 1280,
+    "height": 420
+  },
+  "titles-and-references-resource-reference-search": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
+  "titles-and-references-resource-reference-search-dark": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
   "user-menu-items": {
     "width": 505,
     "height": 174

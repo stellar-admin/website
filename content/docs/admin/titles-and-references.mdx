@@ -3,11 +3,19 @@ title: Titles and references
 description: Control how a record is named and displayed when other records refer to it
 ---
 
-Every record has a *title*, which names the record wherever another record refers to it: in a lookup, a select, a grid column or a badge. The title is also the title of the record's view and edit pages.
+## Introduction
+
+Every record has a title which is used in various places in StellarAdmin. For example, when you edit a record, the title of the page will display the title of the record.
+
+<Screenshot name="titles-and-references-page-title" alt="The title of the guide resource used as the edit page title" todo="A crop of the page title for the guide edit form using the firstname and lastname as the title" />
+
+Likewise, when a resource is referred to from another resource (i.e. when there is a foreign-key relationship), the title of the resource will be used.
+
+<Screenshot name="titles-and-references-resource-reference" alt="The title of the guide resource used as a reference in a grid" todo="A screenshot of the grid in the trips index page displaying the trip title, destination and lead guide, highlighting the name of one of the guides using a box annotation" />
 
 ## Choosing the title
 
-Unless specified otherwise, the title is the first of these that the resource's type has:
+The resource title is determined in the following order.
 
 1. The `string` property named by the class's `[DisplayColumn]` attribute.
 2. A `string` property called `Name` or `Title`.
@@ -16,21 +24,18 @@ Unless specified otherwise, the title is the first of these that the resource's 
 For example, a `Destination` with a `Name` property uses the destination's name as its title. To use a different property, call `UseTitle()`:
 
 ```cs
-admin.AddEfCoreResource<Booking>(resource =>
+admin.AddEfCoreResource<Guide>(resource =>
 {
-    resource.UseTitle(booking => booking.Reference);
+    resource.UseTitle(guide => guide.FirstName + " " + guide.LastName);
 });
 ```
-
-A record whose title is empty is named by its key.
-
-When the title is the key or empty, the view and edit pages use their label as the title instead, such as "View Booking".
-
-For an EF Core resource, the title must use only the record's own properties, and EF Core must be able to translate it to SQL. A title that reads a related record isn't loaded for a column. If EF Core can't translate the title, such as one that calls your own method, the title is still displayed, but lookups order the records by key and searches don't match the title. In that case, set `SearchOn()` and `OrderBy()`, as described in [searching, sorting and filtering references](#searching-sorting-and-filtering-references).
+<Callout>
+    For an EF Core resource, the title must use only the entity's own properties, and EF Core must be able to translate it to SQL. A title that reads a related record isn't loaded for a column.
+</Callout>
 
 ## Displaying a description and media
 
-`Reference()` configures how a record is displayed when someone selects it in a lookup or a select. You can add a description, and one kind of media:
+`Reference()` configures how a record is displayed when someone selects it in a lookup or a select. You can add a description and an avatar.
 
 ```cs
 admin.AddEfCoreResource<Guide>(resource =>
@@ -42,11 +47,11 @@ admin.AddEfCoreResource<Guide>(resource =>
 });
 ```
 
-The media methods are `UseIcon()`, `UseAvatar()`, `UseImage()` and `UseCode()`. A lookup whose records have a description displays the selected record as a card.
+<Screenshot name="titles-and-references-resource-reference-full" alt="The title, email, and photo of a guide displayed in a reference" todo="A screenshot of the trip edit page with a reference field to guide using the card variant and using the reference configuration as per the code example above. Highlight the reference field with a red annotation" />
 
 ## Searching, sorting and filtering references
 
-For an EF Core resource, `Reference()` also sets how lookups search and order the records, and which records can be selected:
+For an EF Core resource, `Reference()` also configures how lookups search for records, the order records are returned in, as well as additional filter criteria.
 
 ```cs
 resource.Reference(reference => reference
@@ -55,13 +60,9 @@ resource.Reference(reference => reference
     .Where(guide => guide.IsActive));
 ```
 
-| Method | Default |
-| --- | --- |
-| `SearchOn()` | The index page's search, or else the title |
-| `OrderBy()` | The index page's default sort, or else the title |
-| `Where()` | All records, with your global query filters applied |
+In the code example above, when searching for a guide in a lookup, the user can search on the first name, last name, or email address. The guides displayed in the lookup are ordered by their last name, and only active guides are displayed.
 
-`Where()` applies to every field that refers to the resource.
+<Screenshot name="titles-and-references-resource-reference-search" alt="Searching a guide based in their last name" todo="An animation of the trip edit page with the guide reference open and the user searching for the last name Morin" />
 
 ## Access to related records
 

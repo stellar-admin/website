@@ -3,7 +3,7 @@ title: Deleting records
 description: Let people delete records, with a confirmation
 ---
 
-Call `AllowDelete()` to add a delete action to each row in the grid, and to the view page:
+You can allow deletion of records by calling the `AllowDelete()` method on the resource builder. This will add a delete button on the resource index page next to each record, as well as a delete button on the view page (if you added one).
 
 ```cs
 resource.AllowDelete();
@@ -15,7 +15,7 @@ Before deleting a record, StellarAdmin asks the user to confirm.
 
 ## Changing the confirmation text
 
-To change the text of the confirmation, set its properties in the `AllowDelete()` callback:
+The labels used in the confirmation dialog is based on the [resource labels](/docs/admin/resources#changing-the-labels). To change the text of the confirmation dialog, set its properties in the `AllowDelete()` callback:
 
 ```cs
 resource.AllowDelete(delete =>
@@ -31,13 +31,6 @@ resource.AllowDelete(delete =>
 
 To change the default text for every resource, see [global labels](/docs/admin/global-labels).
 
-## When the database refuses a delete
+## Database errors during delete
 
-If the database refuses to delete a record, for example because other records still refer to it, the record isn't deleted and the page displays an error. StellarAdmin logs the exception as a warning.
-
-StellarAdmin has no hook that runs before a delete, so handle related records in the database:
-
-- To delete the related records along with the record, configure a cascade delete, such as with `OnDelete(DeleteBehavior.Cascade)` in your EF Core model.
-- To prevent the delete while related records exist, keep the foreign key constraint without a cascade. The page displays a general error.
-
-To prevent a delete with your own message instead, use a [custom data source](/docs/admin/custom-data-sources), and return a validation error from its `DeleteAsync()` method. A custom data source also lets you run your own code before deleting a record.
+If an error occurs when deleting a record, for example due to a foreign key constraint, an error will be displayed to the user. It is up to you to properly handle things like foreign key constraints correctly by configuring cascading deletes on your EF Core model.
