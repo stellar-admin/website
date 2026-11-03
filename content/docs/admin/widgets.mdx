@@ -1,15 +1,19 @@
 ---
-title: Home page widgets
-description: Add stats, lists and links to the admin panel's home page
+title: Adding widgets
+description: Add stats, lists and other blocks to the home page, index pages, view pages and forms
 ---
 
-*Widgets* are blocks on the admin panel's home page, such as a count of this month's bookings, a list of trips that are filling up, or links to common tasks. Each widget is rendered using a partial view that you write, which renders the whole widget, including its card and heading. You can also add widgets to a resource's [index page](/docs/admin/index-page-widgets), [view page](/docs/admin/view-page-widgets), and [create and edit pages](/docs/admin/form-widgets).
+## Introduction
+
+*Widgets* are small panels you can add to StellarAdmin that typically displays data as a chart, table, or counter. Widgets can be added to the admin panel's home page, and to a resource's index page, view page, and create and edit pages.
 
 <Screenshot name="widgets-home-page" alt="The admin panel's home page with bookings, revenue, upcoming departures and quick links widgets in two rows" todo="The home page outside Development: Bookings and Revenue in the first row, Upcoming departures and Quick links in the second." />
 
 ## Adding a widget
 
-To add widgets, call `Widgets()` in `ConfigureHomePage()`, and add each widget with `Add()`. `Add()` takes a name that identifies the widget on the page, and the name of the partial view. The example below adds a widget that renders the `_QuickLinksWidget` partial view:
+To add widgets to a page, call `Widgets()` in the page's builder and add widgets using the widget builder's `Add()` method. `Add()` takes a name that identifies the widget on the page, and the name of the partial view that renders the widget contents.
+
+The example below adds a widget to the home page that renders the `_QuickLinksWidget` partial view:
 
 ```cs
 using StellarAdmin.Widgets;
@@ -23,7 +27,7 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-StellarAdmin renders the partial view with the home page, and passes a `WidgetContext` as its model. The `WidgetContext` has the request's `HttpContext`, `User` and `Services`. The `_QuickLinksWidget` partial view below links to the create page of bookings:
+StellarAdmin renders the partial view with the page, and passes the page's [widget context](#using-the-widget-context) as its model. The `_QuickLinksWidget` partial view below links to the bookings create page:
 
 ```razor title="Areas/StellarAdmin/Views/Home/_QuickLinksWidget.cshtml"
 @model WidgetContext
@@ -39,159 +43,252 @@ StellarAdmin renders the partial view with the home page, and passes a `WidgetCo
 </sa-card>
 ```
 
-Put the partial view in `Areas/StellarAdmin/Views/Home/` or `Areas/StellarAdmin/Views/Shared/`. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports), with `@using StellarAdmin.Widgets` for `WidgetContext`.
+Put the partial view of a home page widget in `Areas/StellarAdmin/Views/Home/`. Put the partial view of a resource's widget in `Areas/StellarAdmin/Views/{resourceSlug}/`, for example `Areas/StellarAdmin/Views/bookings/`. To use a partial view on several pages, put it in `Areas/StellarAdmin/Views/Shared/`. 
 
-Outside the Development environment, the home page displays the widgets the user can see in place of its links to the resources. A user who can't see any widget still gets the links. In Development, the widgets are displayed below the [setup checklist](/docs/admin/home-page).
+Most widgets display data, such as a count from your database. To load the data, you write a *handler*, and pass it as the type argument of `Add()`, such as `widgets.Add<BookingStatsHandler>("Bookings", "_BookingStatsWidget")`. StellarAdmin loads a widget with a handler after the page has rendered, and passes the data to the partial view as its model. Some examples on this page use handlers, which are described in [loading widget data](/docs/admin/widget-data).
 
-## Loading a widget's data
+## Using the widget context
 
-Most widgets display data, such as a count from your database. To load the data, write a *handler* that implements `IWidgetHandler<TModel>`, where `TModel` is the partial view's model. Its `LoadAsync()` method returns the model, or `null` to hide the widget. The example below counts the bookings made this month:
+The *widget context* contains information about the request and the page the widget is displayed on, such as the signed-in user or the record a view page displays. You receive the widget context in the following places:
+
+- As the model of the partial view, when the widget has no [handler](/docs/admin/widget-data).
+- As the parameter of the delegates you pass to `ShowWhen()` and `Parameters()`.
+
+The example below adds a notes widget to the bookings view page, and uses the widget context in `ShowWhen()` to hide the widget for cancelled bookings:
 
 ```cs
-using StellarAdmin.Widgets;
-
-public record BookingStats(int Count);
-
-public class BookingStatsHandler(ApplicationDbContext db) : IWidgetHandler<BookingStats>
+builder.Services.AddStellarAdmin(admin =>
 {
-    public async Task<BookingStats?> LoadAsync(
-        WidgetLoadContext context,
-        CancellationToken cancellationToken)
+    admin.AddEfCoreResource<Booking>(resource =>
     {
-        var start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-        var count = await db.Bookings.CountAsync(
-            booking => booking.BookedAt >= start, cancellationToken);
-
-        return new BookingStats(count);
-    }
-}
-```
-
-Pass the handler as the type argument of `Add()`:
-
-```cs
-widgets.Add<BookingStatsHandler>("Bookings", "_BookingStatsWidget");
-```
-
-StellarAdmin registers the handler as a scoped service, unless you've already registered it, so its constructor can take your own services. The `context` parameter has the request's `HttpContext`, `User` and the widget's `Name`.
-
-StellarAdmin loads a widget with a handler after the home page has rendered, so a slow handler doesn't delay the page. Until the data arrives, the widget's place displays a placeholder. If the handler throws an exception, StellarAdmin logs it, and the widget's place displays an error with a **Try again** button.
-
-## Passing parameters to the handler
-
-To pass values from the page to the handler, such as the region a widget reports on, call `Parameters()` with a function that returns them. The function receives the page's `WidgetContext`, and returns an object of your own type. The handler implements `IWidgetHandler<TParameters, TModel>`, and receives the object in its `parameters` parameter. The example below passes a region and a number of days:
-
-```cs
-public record RevenueParameters(string Region, int Days);
-
-public class RevenueHandler(ApplicationDbContext db)
-    : IWidgetHandler<RevenueParameters, Revenue>
-{
-    public async Task<Revenue?> LoadAsync(
-        RevenueParameters parameters,
-        WidgetLoadContext context,
-        CancellationToken cancellationToken)
-    {
-        var since = DateTime.Today.AddDays(-parameters.Days);
-        var total = await db.Bookings
-            .Where(booking => booking.Region == parameters.Region && booking.BookedAt >= since)
-            .SumAsync(booking => booking.TotalAmount, cancellationToken);
-
-        return new Revenue(parameters.Days, total);
-    }
-}
-```
-
-```cs
-widgets.Add<RevenueHandler>("Revenue", "_RevenueWidget", widget =>
-{
-    widget.Parameters(context => new RevenueParameters("Europe", 30));
+        resource.AllowView(view =>
+        {
+            view.Widgets(widgets =>
+            {
+                widgets.Add("Notes", "_BookingNotesWidget", widget =>
+                {
+                    widget.ShowWhen(context => context.Record.Status != BookingStatus.Cancelled);
+                });
+            });
+        });
+    });
 });
 ```
 
-Because the widget loads in a request of its own, StellarAdmin puts the parameters in the widget's URL. They're protected with [ASP.NET Core Data Protection](https://learn.microsoft.com/aspnet/core/security/data-protection/introduction), so the handler can trust them. StellarAdmin binds them back with ASP.NET Core model binding, so use types that bind from text, such as numbers, strings, dates and enums.
+The `_BookingNotesWidget` partial view reads the booking from the `Record` property of the context and displays its special requests:
 
-<Callout type="warn">
-Model binding turns an empty string into `null`, and treats a non-nullable `string` as required. If a `string` parameter can be empty, declare it as `string?`. Otherwise the widget fails to bind and displays an error.
-</Callout>
-
-The type that `Parameters()` returns must be the handler's `TParameters`. If it isn't, or if a handler with parameters has no `Parameters()` call, StellarAdmin leaves the widget out and reports a [configuration problem](/docs/admin/configuration-problems).
-
-## Letting people change a widget
-
-A widget can have its own controls, such as a picker for the period it reports on. Mark the properties of the parameters that the controls change with `[WidgetInput]`. On a positional record, write `[property: WidgetInput]`:
-
-```cs
-public record RevenueParameters(string Region, [property: WidgetInput] int Days);
-```
-
-In the partial view, put the controls in `<sa-widget-form>`, and name each control after the property it changes. When a control changes, the form loads the widget again with the new value. The example below lets people choose between 30 and 90 days:
-
-```razor title="Areas/StellarAdmin/Views/Home/_RevenueWidget.cshtml"
-@model Revenue
+```razor title="Areas/StellarAdmin/Views/bookings/_BookingNotesWidget.cshtml"
+@model RecordWidgetContext<Booking>
 
 <sa-card>
     <sa-card-header>
-        <sa-card-title>Revenue</sa-card-title>
-        <sa-card-action>
-            <sa-widget-form>
-                <sa-select name="Days" size="SelectSize.Small" aria-label="Period">
-                    <option value="30" selected="@(Model.Days == 30)">30 days</option>
-                    <option value="90" selected="@(Model.Days == 90)">90 days</option>
-                </sa-select>
-            </sa-widget-form>
-        </sa-card-action>
+        <sa-card-title>Notes</sa-card-title>
     </sa-card-header>
     <sa-card-content>
-        <p class="text-2xl font-semibold">@Model.Total.ToString("C")</p>
+        <p>@(Model.Record.SpecialRequests ?? "No special requests")</p>
     </sa-card-content>
 </sa-card>
 ```
 
-The properties without `[WidgetInput]` keep the values that `Parameters()` returned, whatever the request sends. The handler's model includes the current value, `Days` in the example above, so the partial view can select it.
+Every widget context has the request's `HttpContext` and `User`. You can also resolves services from DI via the `Services` property. The type of the widget context depends on the page and may have additional properties as described below.
 
-<Callout type="warn">
-`<sa-widget-form>` is a StellarAdmin Tag Helper. The folder's `_ViewImports.cshtml` must include `@addTagHelper *, StellarAdmin`, or the form renders as plain text and doesn't load the widget.
-</Callout>
+| Page | Widget context | Additional properties |
+| --- | --- | --- |
+| Home page | `WidgetContext` | — |
+| Index page | `IndexWidgetContext<TResource>`, where `TResource` is the resource's type | `Search`, `Scope` |
+| View and edit pages | `RecordWidgetContext<T>`, where `T` is the form's model | `Key`, `Record` |
+| Create page | `CreateWidgetContext<T>`, where `T` is the form's model | — |
 
-## Configuring a widget
+On the view and edit pages, `Record` is the record the page displays or the form edits, and `T` is its type. Usually `T` is the resource's type, such as `Booking`. If the [view page](/docs/admin/view-pages#displaying-a-different-model) or the [form](/docs/admin/custom-models) has its own model, `T` is the model's type, and `Record` is an instance of that model.
 
-To configure a widget, pass a callback to `Add()`. The example below makes the bookings widget span half of the grid and load again every five minutes:
+The additional properties listed above contain the following values:
+
+| Property | Description |
+| --- | --- |
+| `Search` | The text the grid is searched for, trimmed, or `null` when the grid isn't searched. |
+| `Scope` | The id of the selected scope, or `null` when the resource has no scopes. |
+| `Key` | The key of the record the page displays or the form edits, as it appears in the page's URL. |
+| `Record` | The record the page displays or the form edits. When the edit form is displayed again because it isn't valid, the record has the values that were submitted. |
+
+StellarAdmin renders the widgets of an index page again when the search or the scope changes, so `Search` and `Scope` have the new values. Sorting and paging the grid leave the widgets as they are.
+
+## Adding widgets to each page
+
+### Home page
+
+To add widgets to the home page, call `Widgets()` in `ConfigureHomePage()`. The example below adds a bookings widget and a quick links widget:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.ConfigureHomePage(home =>
+    {
+        home.Widgets(widgets =>
+        {
+            widgets.Add<BookingStatsHandler>("Bookings", "_BookingStatsWidget");
+            widgets.Add("Quick links", "_QuickLinksWidget");
+        });
+    });
+});
+```
+
+### Index page
+
+To add widgets to an index page, call `Widgets()` in `Index()`. The example below adds a booking totals widget above the bookings grid, and an upcoming departures widget beside it:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Booking>(resource =>
+    {
+        resource.Index(index =>
+        {
+            index.Widgets(widgets =>
+            {
+                widgets.Add<BookingTotalsHandler>("Totals", "_BookingTotalsWidget", widget =>
+                {
+                    widget.Parameters(context => new BookingTotalsParameters(context.Scope, context.Search));
+                });
+                widgets.Add<UpcomingDeparturesHandler>("Upcoming departures", "_UpcomingDeparturesWidget", widget =>
+                {
+                    widget.Placement = WidgetPlacement.Aside;
+                });
+            });
+        });
+    });
+});
+```
+
+<Screenshot name="widgets-index-page" alt="The bookings index page with the totals of the listed bookings above the grid and upcoming departures beside it" todo="The bookings index page at 1440px wide: booking totals above the grid, Upcoming departures in the column beside it." />
+
+### View page
+
+To add widgets to a view page, call `Widgets()` in `AllowView()`. The example below adds an other bookings widget beside a booking's fields, and a notes widget below them:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Booking>(resource =>
+    {
+        resource.AllowView(view =>
+        {
+            view.Widgets(widgets =>
+            {
+                widgets.Add<OtherBookingsHandler>("Other bookings", "_OtherBookingsWidget", widget =>
+                {
+                    widget.Placement = WidgetPlacement.Aside;
+                    widget.Parameters(context => new OtherBookingsParameters(context.Record.Id));
+                });
+                widgets.Add("Notes", "_BookingNotesWidget", widget =>
+                {
+                    widget.Placement = WidgetPlacement.Bottom;
+                });
+            });
+        });
+    });
+});
+```
+
+<Screenshot name="widgets-view-page" alt="A booking's view page with the traveller's other bookings beside the fields and the booking's notes below them" todo="A booking's view page at 1440px wide: Other bookings in the column beside the fields, Notes below them." />
+
+### Create and edit pages
+
+To add widgets to the create and edit pages, call `Widgets()` in `AllowCreate()` and `AllowEdit()`. The example below adds a tip widget to the trips create page, and an upcoming departures widget beside the trips edit form:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Trip>(resource =>
+    {
+        resource.AllowCreate(create =>
+        {
+            create.Widgets(widgets => widgets.Add("Tip", "_TripTipWidget"));
+        });
+
+        resource.AllowEdit(edit =>
+        {
+            edit.Widgets(widgets =>
+            {
+                widgets.Add<UpcomingDeparturesHandler>("Upcoming departures", "_UpcomingDeparturesWidget", widget =>
+                {
+                    widget.Placement = WidgetPlacement.Aside;
+                    widget.Parameters(context => new UpcomingDeparturesParameters(context.Record.Id));
+                });
+            });
+        });
+    });
+});
+```
+
+<Screenshot name="widgets-edit-page" alt="A trip's edit page with the trip's upcoming departures beside the form" todo="A trip's edit page at 1440px wide: Upcoming departures in the column beside the form." />
+
+## Specifying the widget position
+
+On a resource's index, view, create and edit pages, set `Placement` in the widget's callback to specify where the widget is displayed. `Placement` can be one of the following:
+
+| Value | Description |
+| --- | --- |
+| `WidgetPlacement.Top` | Above the grid, the fields or the form. This is the default. |
+| `WidgetPlacement.Aside` | In a column beside the grid, the fields or the form. On the create and edit pages, the column stays in view as the form scrolls. When the page is narrow, the column is displayed below the grid, the fields or the form. |
+| `WidgetPlacement.Bottom` | Below the grid, the fields or the form. |
+
+The example below displays a list of upcoming departures beside the bookings grid:
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Booking>(resource =>
+    {
+        resource.Index(index =>
+        {
+            index.Widgets(widgets =>
+            {
+                widgets.Add<UpcomingDeparturesHandler>("Upcoming departures", "_UpcomingDeparturesWidget", widget =>
+                {
+                    widget.Placement = WidgetPlacement.Aside;
+                });
+            });
+        });
+    });
+});
+```
+
+The home page displays its widgets in a grid, and has no other placements. If you set `Placement` on a home page widget, StellarAdmin displays the widget in the grid, and reports a [configuration problem](/docs/admin/configuration-problems).
+
+The widgets on the home page, and the at the tip and bottom of the other pages, are displayed in a grid of 12 columns. Configure how many columns a widget spans by setting the `Span` property in the widget builder to a number between 1 and 12. `Span` defaults to 12. 
+
+In a narrow window, every widget spans the whole row, and a widget with a span of 6 or less spans half of it at medium widths. Widgets in the same row are stretched to the same height, so their cards line up.
+
+The example below makes the quick links widget on the home page span half of the grid:
 
 ```cs
 builder.Services.AddStellarAdmin(admin =>
 {
     admin.ConfigureHomePage(home => home.Widgets(widgets =>
     {
-        widgets.Add<BookingStatsHandler>("Bookings", "_BookingStatsWidget", widget =>
+        widgets.Add("Quick links", "_QuickLinksWidget", widget =>
         {
             widget.Span = 6;
-            widget.RefreshInterval = TimeSpan.FromMinutes(5);
         });
     }));
 });
 ```
 
-You can set the following optional properties in the callback:
+Widgets on the side of a page are stacked in one column, so `Span` doesn't apply to them.
 
-| Property | Description |
-| --- | --- |
-| `Span` | The number of the grid's 12 columns the widget spans, from 1 to 12. Defaults to 12. In a narrow window, every widget spans the whole row, and a widget with a span of 6 or less spans half of it at medium widths. |
-| `Inline` | When `true`, StellarAdmin runs the handler while it renders the page, instead of loading the widget afterwards. Defaults to `false`. |
-| `RefreshInterval` | How often StellarAdmin loads the widget again while the page is open, at least one second. When a refresh fails, the widget keeps what it displayed. Only widgets with a handler refresh. |
+## Showing a widget to specific users
 
-Widgets in the same row are stretched to the same height, so their cards line up.
-
-## Showing a widget to some users
-
-To display a widget only to some users, call `RequireAuthorization()`, which takes the same arguments as it does for [resources](/docs/admin/authorization). StellarAdmin doesn't display the widget to users who don't meet the requirements, and refuses its requests from them. The example below displays the revenue widget only to users in the `Finance` role:
+To display a widget only to certain users, call `RequireAuthorization()`. StellarAdmin doesn't display the widget to users who don't meet the requirements. The example below displays the quick links widget only to users in the `Agent` role:
 
 ```cs
-widgets.Add<RevenueHandler>("Revenue", "_RevenueWidget", widget =>
+builder.Services.AddStellarAdmin(admin =>
 {
-    widget.Parameters(context => new RevenueParameters("Europe", 30));
-    widget.RequireAuthorization(policy => policy.RequireRole("Finance"));
+    admin.ConfigureHomePage(home => home.Widgets(widgets =>
+    {
+        widgets.Add("Quick links", "_QuickLinksWidget", widget =>
+        {
+            widget.RequireAuthorization(policy => policy.RequireRole("Agent"));
+        });
+    }));
 });
 ```
-
-To decide for some other reason, call `ShowWhen()` with a function that receives the page's `WidgetContext` and returns `false` to hide the widget.
