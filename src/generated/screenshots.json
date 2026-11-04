@@ -195,11 +195,27 @@
   },
   "fields-details": {
     "width": 1280,
-    "height": 480
+    "height": 420
   },
   "fields-details-dark": {
     "width": 1280,
-    "height": 480
+    "height": 420
+  },
+  "fields-display-fields": {
+    "width": 1280,
+    "height": 552
+  },
+  "fields-display-fields-dark": {
+    "width": 1280,
+    "height": 552
+  },
+  "fields-label-help-text": {
+    "width": 480,
+    "height": 128
+  },
+  "fields-label-help-text-dark": {
+    "width": 480,
+    "height": 128
   },
   "fields-read-only-disabled": {
     "width": 1280,
@@ -248,6 +264,14 @@
   "form-layout-sections-dark": {
     "width": 1280,
     "height": 640
+  },
+  "forms-add-another": {
+    "width": 1280,
+    "height": 420
+  },
+  "forms-add-another-dark": {
+    "width": 1280,
+    "height": 420
   },
   "home-page-setup-checklist": {
     "width": 1280,

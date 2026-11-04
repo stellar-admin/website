@@ -3,37 +3,33 @@ title: Fields
 description: Editable fields, display fields and read-only values on a form
 ---
 
-A *field* edits one property of the record on a create or edit page. To add a field, call `Add()` in the `Fields()` callback, with an expression that selects the property. The property must have a public getter and a public setter. If it doesn't have a public setter, StellarAdmin leaves the field out and reports a [configuration problem](/docs/admin/configuration-problems).
+## Introduction
 
-StellarAdmin chooses the field's editor from the property's type and attributes. To use a different editor, see [choosing an editor](/docs/admin/editors).
+A *field* allows you to edit a property of your resource on a form. To add a field, call `Add()` on the fields builder, with an expression that selects the property. The property must have a public getter and a public setter. If it doesn't have a public setter, StellarAdmin leaves the field out and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Configuring a field
 
-`Add()` has two overloads. The example below uses both:
+The `Add()` method can take an optional `configure` parameter which contains a field builder that allows you to specify additional configuration for the field. The second field in the example below uses the field builder to override the field's default title (which displays in the label).
 
 ```cs
 resource.AllowEdit(edit => edit.Fields(fields =>
 {
     fields.Add(booking => booking.TravellerId);
     fields.Add(booking => booking.DepartureId, field => field.Title = "Departs on");
-    fields.Add(booking => booking.SpecialRequests).Description = "Only staff see this.";
 }));
 ```
 
-`Add(selector)` returns the field, so you can set its properties or call its methods on the result. `Add(selector, configure)` returns the fields builder instead, so you can't call a field's method on its result. Configure the field in the callback.
-
 ## Setting the label and help text
 
-StellarAdmin takes a field's label and help text from the first of these that's set:
+You can override a field's label the help text that displays below the field using the field builder's `Title` and `Description` properties.
 
-| Text | Comes from |
-| --- | --- |
-| Label | The field's `Title`, then the property's `[Display(Name)]`, then the property's name as written, such as "StartDate" |
-| Help text | The field's `Description`, then the property's `[Display(Description)]` |
+By default, the `Title` is derived from the property name, for example `StartDate`. You can override the title either by using the `[Display(Name)]` attribute on the property or by specifying the `Title` on the field builder. The `Title` on the field builder takes precedence.
 
-A field that selects a record of another resource, such as `TravellerId`, is labeled with that resource's label, such as "Traveller", unless the field sets a `Title` or the property has a `[Display(Name)]`.
+A field that references another resource is labeled with that resource's label unless the field sets a `Title` or the property has a `[Display(Name)]`.
 
-To label a field, prefer the `[Display]` attribute on the property over setting `Title`, so that the label and the validation messages use the same name. Validation messages use the name from `[Display]`, such as "The Start date field is required.", while `Title` changes only the label.
+We recommend you prefer the `[Display]` attribute over setting `Title` on the field builder. The reason for this is that ASP.NET Core validation uses the `[Display]` attribute, but has no knowledge of StellarAdmin's `Title` property. Using the `[Display]` attribute ensures the same text is used in the label and error messages.
+
+The help text uses the property's `[Display(Description)]` attribute value, but can be overridden by using the `Description` property of the field builder.
 
 The example below sets the label and the help text of a departure's `StartDate`:
 
@@ -45,9 +41,38 @@ public class Departure
 }
 ```
 
-## Displaying values that aren't edited
+<Screenshot name="fields-label-help-text" alt="The Start date field with its label and the help text The first day of the trip" />
 
-A *display field* renders a value on the form without an editor. Use it for values nobody edits, such as a reference number or the date a record was created. To add a display field, call `AddDisplayField()`. The example below adds four display fields and one editable field:
+## Making fields read-only or disabled
+
+To display a field's editor but stop people from changing its value, make the field read-only or disabled. The example below configures `Reference` as read-only, `Total` read-only once a booking is confirmed, and disables `Notes`:
+
+```cs
+resource.AllowEdit(edit => edit.Fields(fields =>
+{
+    fields.Add(booking => booking.Reference).ReadOnly();
+    fields.Add(booking => booking.TotalAmount).ReadOnly(booking => booking.Status == BookingStatus.Confirmed);
+    fields.Add(booking => booking.SpecialRequests).Disabled();
+}));
+```
+
+<Screenshot name="fields-read-only-disabled" alt="A booking's edit page with a read-only reference and faded, disabled special requests" />
+
+Read only fields visually look the same as an editable field and can receive keyboard focus, but the user will not be able to edit the value. Disabled fields appears grayed out and will not receive keyboard focus when the user tabs through the field.
+
+StellarAdmin ignores any value posted for a read-only or disabled field, so nobody can change the value by editing the page's HTML. A field that is both read-only and disabled appears as disabled.
+
+The `ReadOnly(condition)` overload allows you to specify an expression that determines whether the field is read-only. The expression is evaluated when the form loads, so the field doesn't change while someone edits other fields. 
+
+You can also use the `[ReadOnly(true)]` or `[Editable(false)]` attributes on a property to make it read-only.
+
+## Displaying non-editable fields
+
+Both read-only and disabled fields still display the field's editor. However, StellarAdmin also supports the concept of [display fields](/docs/admin/displays), which renders a value on the form without an editor. Use it for values nobody edits, such as a reference number or the date a record was created. 
+
+<Screenshot name="fields-display-fields" alt="A booking's edit page with its reference, booking date, traveller's email and total as text, and an editable status" />
+
+To add a display field, call `AddDisplayField()`. The example below adds four display fields and one editable field:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -63,74 +88,60 @@ resource.AllowEdit(edit => edit.Fields(fields =>
 }));
 ```
 
-The property of a display field needs only a public getter, and StellarAdmin never saves its value. A display field can select a property of a related record, such as `booking.Traveller.Email`. For an EF Core resource, StellarAdmin loads the related record.
+As opposed to fields bound to an editor, the property of a display field only requires a public getter. You can also use the property of a referenced resource, such as `booking.Traveller.Email`. For an EF Core resource, StellarAdmin loads the related record.
 
-| Setting | What it does |
+The following members are available on the display field builder.
+
+| Member | Description |
 | --- | --- |
 | `Title` | Sets the label. The default is the same as for an editable field. |
 | `EmptyText` | Sets the text for an empty value. The default is the property's `[DisplayFormat(NullDisplayText)]`, or a dash. |
 | `Orientation` | Places the label above the value with `DisplayFieldOrientation.Vertical`, the default, or beside it with `Horizontal`. |
 | `UseDisplay<TDisplay>()` | Renders the value with a different [display type](/docs/admin/displays). |
 
-A display field can also render a value that it computes, such as the price per traveler. A computed value has no property to take its label from, so you must set its `Title`. If you don't, StellarAdmin leaves the field out and reports a [configuration problem](/docs/admin/configuration-problems). The example below computes the price per traveler:
+You can also display a computed value as a display property, such as the price per traveller. A computed value has no property to take its label from, so you must set its `Title`. 
+
+The example below computes the price per traveller and uses a [number display](/docs/admin/number-and-date-displays):
 
 ```cs
 fields.AddDisplayField(booking => booking.TotalAmount / booking.Passengers.Count, field =>
 {
-    field.Title = "Per traveler";
+    field.Title = "Per traveller";
     field.UseDisplay<NumberDisplay>(number => number.Format = "C");
 });
 ```
 
-## Grouping display fields in a details section
+## Display a list of display fields
 
-To group display fields under a title, call `AddDetails()` with the section's title. StellarAdmin renders the fields as a list of labels and values. The example below adds a **History** section with two display fields in two columns:
+You can add a list of display fields to a form using `AddDetails()`. StellarAdmin renders the fields as a list of labels and values. The example below places the booking's editable fields in two columns on the left, and a **History** card with two display fields in a narrow column on the right:
 
 ```cs
 using StellarAdmin.UI;
 
-fields.AddDetails("History", details =>
+resource.AllowEdit(edit => edit.Fields(fields =>
 {
-    details.Columns(2);
-    details.Variant = DetailsVariant.Divided;
-    details.Add(booking => booking.BookedAt);
-    details.Add(booking => booking.Reference);
-});
+    //... some code omitted for brevity
+
+    fields.AddDetails("History", details =>
+    {
+        details.Layout = FormSectionLayout.Card;
+        details.Variant = DetailsVariant.Divided;
+        details.Add(booking => booking.BookedAt);
+        details.Add(booking => booking.Reference);
+    });
+}));
 ```
 
-<Screenshot name="fields-details" alt="A booking's edit page with a History section showing when it was booked and its reference" />
+<Screenshot name="fields-details" alt="A booking's edit page with its fields on the left and a History card showing when it was booked and its reference on the right" />
 
-| Setting | What it does |
+The details builder has the following members:
+
+| Member | Description |
 | --- | --- |
-| `Add()` | Adds a display field, with the same settings as `AddDisplayField()`. |
 | `Description` | Sets the text below the section's title. |
 | `Layout` | Sets the section to one of the [section layouts](/docs/admin/form-layout#choosing-how-sections-look). |
 | `Orientation` | Places each label above its value with `DetailsOrientation.Vertical`, the default, or beside it with `Horizontal`. |
 | `Variant` | Lays out the fields in a grid with `DetailsVariant.Default`, the default, or in rows with a line between them with `Divided`. |
+| `Add()` | Adds a display field, with the same settings as `AddDisplayField()`. |
 | `Columns()` | Sets the [number of columns](/docs/admin/form-layout#laying-out-fields-in-columns). |
 
-## Making fields read-only or disabled
-
-To display a field's editor but stop people from changing its value, make the field read-only or disabled. The example below makes `Reference` read-only, makes `Total` read-only once a booking is confirmed, and disables `Notes`:
-
-```cs
-resource.AllowEdit(edit => edit.Fields(fields =>
-{
-    fields.Add(booking => booking.Reference).ReadOnly();
-    fields.Add(booking => booking.TotalAmount).ReadOnly(booking => booking.Status == BookingStatus.Confirmed);
-    fields.Add(booking => booking.SpecialRequests).Disabled();
-}));
-```
-
-<Screenshot name="fields-read-only-disabled" alt="A booking's edit page with a read-only reference and faded, disabled special requests" />
-
-| Method | Use it when | The editor |
-| --- | --- | --- |
-| `ReadOnly()` | The value matters, but can't be changed on this form. | Looks the same as an editable field, and can be focused. |
-| `Disabled()` | The field doesn't apply. | Is faded, and is skipped when someone tabs through the form. |
-
-StellarAdmin ignores any value posted for a read-only or disabled field, so nobody can change the value by editing the page's HTML. A field that is both read-only and disabled is disabled.
-
-`ReadOnly(condition)` checks the condition against the record when the form loads, so the field doesn't change while someone edits other fields. A property with `[ReadOnly(true)]` or `[Editable(false)]` is also read-only.
-
-When a value is never edited, use a [display field](#displaying-values-that-arent-edited) instead. Its property doesn't need a setter, and it renders the value with a display type, such as a formatted number.
