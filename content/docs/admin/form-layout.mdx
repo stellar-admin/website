@@ -3,7 +3,13 @@ title: Layout
 description: Sections, groups and columns for longer forms
 ---
 
-By default, StellarAdmin displays a form's fields one below the other, in a single column. For a long form, split the fields into sections, and lay them out in columns. The example below splits a trip's fields into a **Trip** section with two columns and a **Pricing** section with three:
+By default, StellarAdmin displays a form's fields one below the other, in a single column. In most cases, however, it makes for a better user experience group fields together in logical sections and even display multiple fields next to each other in a row.
+
+<Screenshot name="form-layout-sections" alt="The trip edit page with a Trip section in two columns and a Pricing section in three" todo="Whole window: the trip edit page with the sections above." />
+
+## Splitting a form into sections
+
+To add a section, call `AddSection()` with the section's title. In the section builder you can add fields, display fields, details sections, groups and other sections. You can also provide more useful information to the user about the information contained in the section using the `Description` property.
 
 ```cs
 resource.AllowEdit(edit => edit.Fields(fields =>
@@ -11,34 +17,19 @@ resource.AllowEdit(edit => edit.Fields(fields =>
     fields.AddSection("Trip", section =>
     {
         section.Description = "What people see when they browse trips.";
+
         section.Columns(2);
         section.Add(trip => trip.Title).ColumnSpanFull();
         section.Add(trip => trip.DestinationId);
         section.Add(trip => trip.LeadGuideId);
         section.Add(trip => trip.Summary).ColumnSpanFull();
     });
-
-    fields.AddSection("Pricing", section =>
-    {
-        section.Columns(3);
-        section.Add(trip => trip.BasePrice);
-        section.Add(trip => trip.DurationDays);
-        section.Add(trip => trip.MaxGroupSize);
-    });
 }));
 ```
 
-StellarAdmin places the fields in the order you add them, which is also the order the keyboard moves through them. StellarAdmin doesn't support splitting a form into tabs or steps yet.
+## Section layout
 
-<Screenshot name="form-layout-sections" alt="The trip edit page with a Trip section in two columns and a Pricing section in three" todo="Whole window: the trip edit page with the sections above." />
-
-## Splitting a form into sections
-
-To add a section, call `AddSection()` with the section's title. In its callback, add anything you can add to a form: fields, display fields, details sections, groups and other sections. To add text below the section's title, set `Description`.
-
-## Choosing how sections look
-
-A section's layout sets where its title is displayed. The layouts are values of `FormSectionLayout`, in the `StellarAdmin.UI` namespace:
+You can specify various layouts for a form section.
 
 | Layout | How the section looks |
 | --- | --- |
@@ -48,14 +39,14 @@ A section's layout sets where its title is displayed. The layouts are values of 
 
 <Screenshot name="form-layout-section-layout" alt="The Trip section in each layout" variants={["Stacked", "Split", "Card"]} todo="Crops of the Trip section from the first example in each layout." />
 
-You can set the layout for one section, for every section of one form, or for every form. A section's `Layout` overrides its form's `SectionLayout`, which overrides the layout for every form. The example below displays every form's sections in cards, the trip edit page's sections stacked, and its **Pricing** section split:
+You can set the layout on a global level for all forms in the application, on a form level for all sections on a specific form, or on an individual section level. The example below displays every form's sections in cards, the trip edit page's sections stacked, and its **Pricing** section split:
 
 ```cs
 using StellarAdmin.UI;
 
 builder.Services.AddStellarAdmin(admin =>
 {
-    // Configures the layout for every form
+    // Configures the layout for every form in the application
     admin.ConfigureUI(ui => ui.ConfigureForms(forms => forms.SectionLayout = FormSectionLayout.Card));
 
     admin.AddEfCoreResource<Trip>(resource =>
@@ -79,7 +70,7 @@ builder.Services.AddStellarAdmin(admin =>
 });
 ```
 
-## Grouping fields without a title
+## Grouping fields together
 
 A *group* lays out fields together, without a title or a border. Use a group to put several small fields on one row of a larger form. To add a group, call `AddGroup()`. The example below puts the price, duration and group size in three columns:
 
@@ -87,6 +78,7 @@ A *group* lays out fields together, without a title or a border. Use a group to 
 fields.AddGroup(group =>
 {
     group.Columns(3);
+
     group.Add(trip => trip.BasePrice);
     group.Add(trip => trip.DurationDays);
     group.Add(trip => trip.MaxGroupSize);
@@ -95,7 +87,7 @@ fields.AddGroup(group =>
 
 ## Laying out fields in columns
 
-The form, each section, each group and each details section sets its own number of columns with `Columns()`. The fields, sections and groups in it then set how many of those columns they span. The example below gives the form two columns, and makes `Name` span both:
+You can specify the number of columns for a form, section, details section, or group, using the `Columns()` method. The example below gives the form two columns, and makes `Name` span both:
 
 ```cs
 fields.Columns(2);
@@ -104,11 +96,12 @@ fields.Add(trip => trip.BasePrice);
 fields.Add(trip => trip.DurationDays);
 ```
 
-`Columns(2)` displays the fields in one column below the `Medium` breakpoint, and in two columns from it. To set the number of columns at each breakpoint, pass a callback. The example below uses two columns from the `Small` breakpoint, and three from the `Large` breakpoint:
+`Columns(2)` displays two columns from the medium breakpoint and above, but below the medium breakpoint, they will be displayed in a single column. You can specify the number of columns at each breakpoint using a column builder. The example below uses two columns from the small breakpoint, and three from the large breakpoint:
 
 ```cs
 section.Columns(columns => columns.Small(2).Large(3));
 ```
+The breakpoints are the following sizes:
 
 | Breakpoint | Minimum width |
 | --- | --- |
@@ -121,7 +114,7 @@ section.Columns(columns => columns.Small(2).Large(3));
 
 The breakpoints measure the width of the form, section or group, not the width of the browser window. A narrow section, or a create page that opens in a side sheet from a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup), displays fewer columns.
 
-To set how many columns an item spans, or the column it starts in, call these methods on the field, section or group:
+You can also set the number of columns an items spans, or the column number it should start in.
 
 | Method | What it does |
 | --- | --- |

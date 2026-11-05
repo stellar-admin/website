@@ -3,9 +3,11 @@ title: Form events
 description: Run your own code when an EF Core create or edit form loads or saves a record
 ---
 
-Saving a record often needs more than the values on the form, such as writing an audit entry, recording who created the record, or checking a rule that compares the old and new values. On an EF Core resource, *form events* run your own code at each step of a create or edit form, while StellarAdmin still loads and saves the record through your `DbContext`.
+## Introduction
 
-To add events, call `Events()` in the callback of `AllowCreate()` or `AllowEdit()`, and set the delegate of each event you need. The example below sets the creation time of a new booking before it's saved:
+When using EF Core resources, StellarAdmin exposes a number of events that allow you to perform additional work such as writing an audit entry. To add events, call `Events()` in the callback of `AllowCreate()` or `AllowEdit()`, and set the delegate of each event you need. 
+
+The example below sets the creation time of a new booking before it's saved:
 
 ```cs
 resource.AllowCreate(create =>
@@ -26,15 +28,11 @@ resource.AllowCreate(create =>
 });
 ```
 
-<Callout type="info">
-Form events are only available on EF Core resources. A [custom data source](/docs/admin/custom-data-sources) runs its own code when it saves a record.
-</Callout>
-
-You can set the following events in the `Events()` callback:
+StellarAdmin supports the following events:
 
 | Event | Form | Runs |
 | --- | --- | --- |
-| `OnInitialized` | Create | Before a create form is displayed, so you can set [default values](/docs/admin/default-values#setting-default-values-that-need-services) that need services. |
+| `OnInitialized` | Create | Before a create form is displayed. |
 | `OnCreating` | Create | Before a new record is saved. |
 | `OnCreated` | Create | After a new record is saved. |
 | `OnLoaded` | Edit | After the edit form loads the record. |
@@ -47,45 +45,9 @@ Each event receives a context with the following properties:
 | --- | --- |
 | `Db` | The `DbContext` that loads and saves the record. |
 | `Entity` | The entity the form creates or edits. |
-| `Model` | The model the form binds to. It's the same object as `Entity`, unless the form uses its own [form model](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have). |
+| `Entry` | The entity's change tracking entry, whose original values are the stored ones when the form edits a record. Only in `OnCreating` and `OnUpdating`. |
+| `Model` | The model the form binds to. It's the same object as `Entity`, unless the form uses its own [form model](/docs/admin/custom-models#wrapping-the-entity-in-a-form-model). |
 | `Services` | The request's services. |
-
-## Running code before a record is saved
-
-`OnCreating` and `OnUpdating` run after StellarAdmin has applied the form's values to the entity, and before it calls `SaveChanges()`. The `DbContext` tracks the entity, so StellarAdmin saves the changes you make to it. It also saves any record you add to `Db` in the same call to `SaveChanges()`.
-
-The example below adds an audit entry each time a trip's price changes. `context.Entry` is the entity's change tracking entry, which has the stored value as the original value:
-
-```cs
-resource.AllowEdit(edit =>
-{
-    edit.Fields(fields =>
-    {
-        fields.Add(trip => trip.Title);
-        fields.Add(trip => trip.BasePrice);
-    });
-    edit.Events(events =>
-        events.OnUpdating = (context, cancellationToken) =>
-        {
-            var price = context.Entry.Property(trip => trip.BasePrice);
-            if (price.IsModified)
-            {
-                context.Db.Add(new TripPriceChange
-                {
-                    TripId = context.Entity.Id,
-                    OldPrice = price.OriginalValue,
-                    NewPrice = price.CurrentValue,
-                    ChangedAt = DateTimeOffset.UtcNow,
-                });
-            }
-
-            return Task.CompletedTask;
-        }
-    );
-});
-```
-
-StellarAdmin runs the event and the save in one database transaction, through the `DbContext`'s execution strategy. If the save fails, nothing the event added is saved.
 
 ## Rejecting a save
 
@@ -96,7 +58,9 @@ To stop a record from being saved, call `Fail()` in `OnCreating` or `OnUpdating`
 | `Fail(message)` | Above the form. |
 | `Fail(field, message)` | Under the field that `field` selects, such as `trip => trip.BasePrice`. |
 
-The example below rejects a price that drops by more than half in one change:
+We suggest you always use normal [validation](/docs/admin/validation) when possible, but there are scenarios where simple validation rules won't suffice. Suppose you want to ensure a price does not drop by more that half when updating. For a rule like this, you need the previous value. 
+
+Since you have access to EF Core's entity tracking entry in the `OnUpdating` event via the `Entry` property of the context, you can easily compare the current and previous values, which allows you to implement such a rule.
 
 ```cs
 edit.Events(events =>
@@ -113,13 +77,9 @@ edit.Events(events =>
 );
 ```
 
-For a rule that only reads the form's values, prefer [validation](/docs/admin/validation), so that the error is displayed before StellarAdmin loads or saves anything.
+## Handling saving of records
 
-## Saving the record yourself
-
-Some records must be saved through a service, such as ASP.NET Core Identity's `UserManager`, which hashes the password and normalizes the email address. To save the record in `OnCreating` or `OnUpdating`, save it through `Db`, or through a service that uses the same `DbContext`, and call `Handled()`. StellarAdmin then doesn't call `SaveChanges()`.
-
-The example below creates a user with `UserManager`. `CreateUserModel` holds the user and the password, as described in [adding fields the entity doesn't have](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have):
+Sometime records must be saved through a service and not via the DbContext. A prime example of this is when you want to manage users with StellarAdmin. ASP.NET Core Identity allows you to read and query users via the DbContext, but users must be saved using `UserManager`, which hashes the password and normalizes the email address. 
 
 ```cs
 create.Events(events =>
@@ -144,7 +104,11 @@ create.Events(events =>
 );
 ```
 
-What the event saves is part of the same transaction, so when the event saves the record and then calls `Fail()`, StellarAdmin rolls the save back.
+Call the `Handled()` method on the context to indicate to StellarAdmin that you saved the record and it should not attempt to save the record itself. Call `Fail()` when an error occurs. StellarAdmin will display the error message to the user and roll back the transaction.
+
+<Callout>
+    The example above also uses a custom model to handle password confirmation during creation. You can read more in the [form models documentation](/docs/admin/custom-models).
+</Callout>
 
 ## Running code after a record is saved
 
@@ -160,15 +124,11 @@ create.Events(events =>
 );
 ```
 
-The record is already saved, so these events can't reject the save. When one throws an exception, StellarAdmin logs the exception, and continues as if the event had succeeded.
-
-## Loading values into the edit form
-
-`OnLoaded` runs each time the edit form loads the record: before the form is displayed, and before StellarAdmin applies the values of a submitted form. Use it to fill fields of a [form model](/docs/admin/custom-models#adding-fields-the-entity-doesnt-have) that the entity doesn't store. The `DbContext` doesn't track the entity at this point.
+The record is already saved, so these events can't reject the save. 
 
 ## Using an events class
 
-When the events need services, or are long enough to be hard to read inline, put them in a class. The class inherits from `EfCoreCreateEvents<TEntity, TModel>` or `EfCoreEditEvents<TEntity, TModel>`, and overrides the methods of the events it needs, such as `CreatingAsync()` or `UpdatingAsync()`. `TModel` is the entity type, unless the form uses its own form model.
+When the events need services, place them in a class. The class must inherit from `EfCoreCreateEvents<TEntity, TModel>` or `EfCoreEditEvents<TEntity, TModel>`, and override the methods of the events it needs, such as `CreatingAsync()` or `UpdatingAsync()`. `TModel` is the entity type, unless the form uses its own [form model](/docs/admin/custom-models).
 
 The example below sets the user who created a booking:
 
@@ -197,4 +157,4 @@ resource.AllowCreate(create =>
 });
 ```
 
-StellarAdmin registers the class as a scoped service, unless you've registered it already, so its constructor can take any service. An events class replaces the delegates set with `Events()`.
+StellarAdmin registers the class as a scoped service, unless you've registered it already, so its constructor can take any service. An events class replaces any delegates set with `Events()`.

@@ -3,7 +3,7 @@ title: Validating forms
 description: Check what people enter before a record is saved
 ---
 
-When someone saves a create or edit form, StellarAdmin runs ASP.NET Core model validation before it saves the record. If a field isn't valid, StellarAdmin displays the form again with the values that were entered and the errors, and doesn't save the record.
+StellarAdmin fully integrates with ASP.NET Core validation, and runs validation before saving a record. If a field isn't valid, StellarAdmin will not save the record and will displays the form again with the validation errors.
 
 The example below requires a code of up to 12 characters, and a group size between 1 and 40:
 
@@ -18,17 +18,17 @@ public class Trip
 }
 ```
 
-StellarAdmin displays the errors of the fields on the form, and ignores the errors of properties that aren't on it. A `[Required]` property without a field doesn't stop the record from being saved.
+The screenshot below demonstrates what happens when the user attempts to save the form with invalid values.
 
 <Screenshot name="validation-errors" alt="The trip edit form with an empty code and a group size of 60, each with its error under it" />
 
-<Callout type="info">
-StellarAdmin validates forms with the ASP.NET Core model validation pipeline, so validation libraries that plug into the pipeline work with StellarAdmin too. For example, to validate StellarAdmin's forms with [FluentValidation](https://docs.fluentvalidation.net/en/latest/aspnet.html) validators, enable FluentValidation's automatic validation by calling `AddFluentValidationAutoValidation()` from the `FluentValidation.AspNetCore` package.
-</Callout>
+StellarAdmin validates forms with the ASP.NET Core model validation pipeline, so validation libraries that plug into the pipeline work with StellarAdmin too. 
+    
+For example, to validate StellarAdmin's forms with [FluentValidation](https://docs.fluentvalidation.net/en/latest/aspnet.html) validators, enable FluentValidation's automatic validation by calling `AddFluentValidationAutoValidation()` from the `FluentValidation.AspNetCore` package.
 
-A [custom data source](/docs/admin/custom-data-sources#returning-validation-errors) can also return validation errors when it saves a record, such as when a reference is already in use.
+A [custom data source](/docs/admin/custom-data-sources#returning-validation-errors) can also return validation errors when it saves a record. This is useful when you want to map validation errors from an external source such as a REST API.
 
-## When EF Core can't save the record
+## Displaying database errors
 
 When EF Core reports a concurrency conflict, the form displays "This record changed while you were working. Reload it and try again." If the record was deleted in the meantime, StellarAdmin returns a 404 Not Found response.
 

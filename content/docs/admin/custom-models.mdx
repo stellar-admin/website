@@ -1,15 +1,19 @@
 ---
-title: Custom models and handlers
-description: Forms that don't match your entity, and your own code when a record is saved
+title: Form models
+description: Forms with fields your entity doesn't have
 ---
 
-By default, a create or edit page edits the resource's entity, and saves it through the resource's data source. When the form doesn't match the entity, give the page its own *form model*. On an EF Core resource, the form model can wrap the entity and add fields of its own. Otherwise, the page needs a *handler* that saves the form model. For example, giving a guide a sign-in needs a password and a confirmation, which the `Guide` entity doesn't store.
+## Introduction
 
-## Adding fields the entity doesn't have
+By default, the create and edit pages bind their fields to the resource's entity. When a form needs fields the entity doesn't have, such as a password confirmation or a reason for a change, you can give the page its own *form model*.
 
-On an EF Core resource, a form that needs a few fields the entity doesn't store, such as a reason for the change, can wrap the entity in a form model. StellarAdmin still loads and saves the entity, and the extra fields reach your [form events](/docs/admin/form-events).
+On an EF Core resource, the form model wraps the entity, and StellarAdmin still loads and saves the entity for you. On any resource, you can instead write a *handler* that saves the form model yourself.
 
-The form model has a property that holds the entity, and a property for each extra field. The example below asks for a reason each time someone edits a trip:
+## Wrapping the entity in a form model
+
+Sometimes you may want to capture additional fields that are not on the resource model. For example, let's say your edit pages contains a field where the user must enter the reason for changing the resource. In situations like this, you can wrap the resource model inside a *form model*.
+
+In the example below, we created a form model for trips that holds the `Trip` resource, and an additional property named `Reason` to capture the reason the user changed the trip.
 
 ```cs
 public class EditTripForm
@@ -22,56 +26,71 @@ public class EditTripForm
 }
 ```
 
-To use the form model, pass `AllowEdit()` the form model as the type argument, and a lambda that selects the property that holds the entity. Fields under that property are the entity's fields. The example below adds the reason to an audit entry in `OnUpdating`:
+To use the form model, call `AllowEdit()` with the form model as the type argument, and a lambda that specifies the property that holds the resource. If you use [form events](/docs/admin/form-events), the form model is passed to the event, rather that the resource/entity.
+
+The example below adds the reason to an audit entry in `OnUpdating`:
 
 ```cs
-resource.AllowEdit<EditTripForm>(form => form.Trip, edit =>
+admin.AddEfCoreResource<Trip>(resource =>
 {
-    edit.Fields(fields =>
+    resource.AllowEdit<EditTripForm>(form => form.Trip, edit =>
     {
-        fields.Add(form => form.Trip.Title);
-        fields.Add(form => form.Trip.BasePrice);
-        fields.Add(form => form.Trip.DestinationId);
-        fields.Add(form => form.Trip.Tags);
-        fields.Add(form => form.Reason);
-    });
-    edit.Events(events =>
-        events.OnUpdating = (context, cancellationToken) =>
+        edit.Fields(fields =>
         {
-            context.Db.Add(new TripChange
+            fields.Add(form => form.Trip.Title);
+            fields.Add(form => form.Trip.BasePrice);
+            fields.Add(form => form.Trip.DestinationId);
+            fields.Add(form => form.Trip.Tags);
+            fields.Add(form => form.Reason);
+        });
+        edit.Events(events =>
+            events.OnUpdating = (context, cancellationToken) =>
             {
-                TripId = context.Entity.Id,
-                Reason = context.Model.Reason,
-                ChangedAt = DateTimeOffset.UtcNow,
-            });
+                context.Db.Add(new TripChange
+                {
+                    TripId = context.Entity.Id,
+                    Reason = context.Model.Reason,
+                    ChangedAt = DateTimeOffset.UtcNow,
+                });
 
-            return Task.CompletedTask;
-        }
-    );
+                return Task.CompletedTask;
+            }
+        );
+    });
 });
 ```
 
-StellarAdmin copies the entity's fields onto the stored trip as it does for a form that edits the entity, including [foreign keys](/docs/admin/foreign-keys) and [many-to-many](/docs/admin/many-to-many) fields. `Reason` isn't saved, but `OnUpdating` reads it from `context.Model`. In `OnUpdating`, `context.Model.Trip` and `context.Entity` are the same tracked entity.
-
-`AllowCreate()` takes a form model the same way. The property must hold a new entity when StellarAdmin creates the form model, such as `public Trip Trip { get; set; } = new();`. On the edit page, StellarAdmin creates the form model with its parameterless constructor and sets the property to the stored entity.
-
-The labels of the entity's fields come from the entity's properties, so set `[Display]` on the entity, or the field's `Title`. To validate an entity field that you can't add attributes to, implement `IValidatableObject` on the form model, and name the field by its path, such as `Trip.Title`, in the `ValidationResult`.
-
-When the form edits rows in the [index grid](/docs/admin/inline-editing), a column matches the entity's field without the property name, so the `Title` column edits `form.Trip.Title`.
-
-## Using a form model on the create page
-
-To use a form model on the create page, call `AllowCreate()` with the form model and the handler as type arguments. The example below adds a create page that gives a new guide a sign-in:
+When using a form model with `AllowCreate()`, be sure to initialize the resource property on the form model.
 
 ```cs
-resource.AllowCreate<NewGuideForm, NewGuideHandler>(create => create.Fields(fields =>
+public class CreateTripForm
 {
-    fields.Add(form => form.FirstName);
-    fields.Add(form => form.LastName);
-    fields.Add(form => form.Email);
-    fields.Add(form => form.Password);
-    fields.Add(form => form.ConfirmPassword);
-}));
+    public Trip Trip { get; set; } = new();
+
+    [Required, StringLength(500)]
+    [Display(Name = "Reason for the addition")]
+    public string Reason { get; set; } = "";
+}
+```
+
+## Saving a form model with a handler
+
+A *handler* allows you to write completely custom code to create or save a resource.
+
+The example below adds a create page that gives a new guide a sign-in. Call `AllowCreate()` with the form model and the handler as type arguments:
+
+```cs
+admin.AddEfCoreResource<Guide>(resource =>
+{
+    resource.AllowCreate<NewGuideForm, NewGuideHandler>(create => create.Fields(fields =>
+    {
+        fields.Add(form => form.FirstName);
+        fields.Add(form => form.LastName);
+        fields.Add(form => form.Email);
+        fields.Add(form => form.Password);
+        fields.Add(form => form.ConfirmPassword);
+    }));
+});
 ```
 
 The form model has a property for each field, with the attributes that validate it:
@@ -97,7 +116,7 @@ public class NewGuideForm
 }
 ```
 
-The handler implements `IResourceCreateHandler<T>`. When someone saves the form, StellarAdmin calls the handler's `CreateAsync()` method with the form model. The example below rejects an email address that's already used, and otherwise saves the guide and sets the password:
+When someone saves the form, StellarAdmin calls the handler's `CreateAsync()` method with the form model. The example below saves the guide and sets the password:
 
 ```cs
 using StellarAdmin.Resources;
@@ -108,131 +127,27 @@ public class NewGuideHandler(ApplicationDbContext db, GuideAccounts accounts)
     public async Task<ResourceOperationResult> CreateAsync(
         NewGuideForm form, CancellationToken cancellationToken)
     {
-        if (await db.Guides.AnyAsync(guide => guide.Email == form.Email, cancellationToken))
-            return ResourceOperationResult.ValidationFailed(
-                nameof(NewGuideForm.Email), "A guide with this email already exists.");
-
         var guide = new Guide { FirstName = form.FirstName, LastName = form.LastName, Email = form.Email };
         db.Guides.Add(guide);
         await db.SaveChangesAsync(cancellationToken);
         await accounts.SetPasswordAsync(guide, form.Password, cancellationToken);
 
+        // The key lets a lookup that opened the create page select the new guide
         return ResourceOperationResult.Success(guide.Id.ToString());
     }
 }
 ```
 
-StellarAdmin registers the handler as a scoped service, unless you've registered it already, so the handler can take any service in its constructor. The handler replaces only the data source's create. The page's title and labels still come from the resource.
+StellarAdmin registers the handler as a scoped service, unless you've registered it already, so the handler can take any service in its constructor. To reject the form, return [validation errors](/docs/admin/custom-data-sources#returning-validation-errors) the same way a data source does.
 
-Return the new record's key with `Success(key)`. StellarAdmin can't read the key from a form model, and a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup) that opens the create page needs the key to select the new record. To reject the form, return [validation errors](/docs/admin/custom-data-sources#returning-validation-errors) the same way a data source does.
+### Available handlers
 
-StellarAdmin creates the form model with its parameterless constructor. To start it with other values, call [`UseFactory()`](/docs/admin/default-values).
+Each page that can use a form model has its own handler interface. Pass the handler as the second type argument of the page's method:
 
-A field with `[DataType(DataType.Password)]` is always empty when the form is displayed, so when the form has errors, people enter the password again.
+| Page | Method | Handler interface | Handler methods |
+| --- | --- | --- | --- |
+| Create | `AllowCreate<TModel, THandler>()` | `IResourceCreateHandler<TModel>` | `CreateAsync()` saves the new record and returns its key. |
+| Edit | `AllowEdit<TModel, THandler>()` | `IResourceEditHandler<TModel>` | `FindAsync()` loads the form model for a record, and `UpdateAsync()` saves it. |
+| View | `AllowView<TModel, THandler>()` | `IResourceViewHandler<TModel>` | `FindAsync()` loads the model the [view page displays](/docs/admin/view-pages#displaying-a-different-model). |
 
-## Using a form model on the edit page
-
-To use a form model on the edit page, call `AllowEdit()` with the form model and the handler as type arguments:
-
-```cs
-resource.AllowEdit<GuideProfileForm, GuideProfileHandler>(edit => edit.Fields(fields =>
-{
-    fields.Add(form => form.FirstName);
-    fields.Add(form => form.LastName);
-    fields.Add(form => form.Email);
-}));
-```
-
-The handler implements `IResourceEditHandler<T>`, which has two methods:
-
-- `FindAsync()` loads the form model for the record with the given key. Return `null` when the record doesn't exist, and StellarAdmin returns a 404.
-- `UpdateAsync()` saves the form model to the record with the given key. Return `NotFound()` when the record doesn't exist any more, such as when someone deleted it while the form was open.
-
-When someone saves the form, StellarAdmin calls `FindAsync()` again, applies the posted fields to the form model, and passes it to `UpdateAsync()`. A property that isn't on the form keeps the value `FindAsync()` loaded. The example below loads and saves a guide's name and email address:
-
-```cs
-using StellarAdmin.Resources;
-
-public class GuideProfileHandler(ApplicationDbContext db) : IResourceEditHandler<GuideProfileForm>
-{
-    public async Task<GuideProfileForm?> FindAsync(string id, CancellationToken cancellationToken)
-    {
-        var guide = await db.Guides.FindAsync([int.Parse(id)], cancellationToken);
-        return guide is null
-            ? null
-            : new GuideProfileForm { FirstName = guide.FirstName, LastName = guide.LastName, Email = guide.Email };
-    }
-
-    public async Task<ResourceOperationResult> UpdateAsync(
-        string id, GuideProfileForm form, CancellationToken cancellationToken)
-    {
-        var guide = await db.Guides.FindAsync([int.Parse(id)], cancellationToken);
-        if (guide is null)
-            return ResourceOperationResult.NotFound();
-
-        guide.FirstName = form.FirstName;
-        guide.LastName = form.LastName;
-        guide.Email = form.Email;
-        await db.SaveChangesAsync(cancellationToken);
-        return ResourceOperationResult.Success();
-    }
-}
-```
-
-StellarAdmin passes the record's key to both methods, so the form model doesn't need a key property.
-
-## Running your own code when a record is saved
-
-On an EF Core resource, run your own code when a record is saved, such as sending an email or writing an audit entry, with [form events](/docs/admin/form-events). With a custom data source, do it in a handler.
-
-When the form matches the entity, the handler's form model can be the entity itself, such as `AllowCreate<Booking, BookingHandler>()` with a `BookingHandler` that implements `IResourceCreateHandler<Booking>`.
-
-## Binding a field with your own code
-
-A *field binder* reads a field's value and applies the posted values with your own code, instead of through the property. Use one for a property without a public setter, such as a read-only list, or when the posted values aren't the property's value. EF Core resources already use a field binder for [many-to-many](/docs/admin/many-to-many) fields, so you'll mostly need your own with a [custom data source](/docs/admin/custom-data-sources).
-
-In the example below, `Supplier` has a list of region codes without a setter:
-
-```cs
-public class Supplier
-{
-    public string Code { get; set; } = "";
-    public string Name { get; set; } = "";
-    public List<string> Regions { get; } = [];
-}
-```
-
-A field binder inherits from `FieldBinder`. Its `GetValue()` method returns the value the field's editor displays, and its `BindAsync()` method applies the posted values to the model. The example below fills the list from the posted values:
-
-```cs
-using StellarAdmin.Resources;
-
-public class RegionsBinder : FieldBinder
-{
-    public override object? GetValue(FieldBindingContext context) =>
-        ((Supplier)context.Model).Regions.ToList();
-
-    public override Task BindAsync(FieldBindingContext context, CancellationToken cancellationToken)
-    {
-        var regions = ((Supplier)context.Model).Regions;
-        regions.Clear();
-        regions.AddRange(context.Values.Where(value => !string.IsNullOrEmpty(value))!);
-        return Task.CompletedTask;
-    }
-}
-```
-
-To use the binder, call `UseBinder()` on the field's options after StellarAdmin has configured the resource. The example below uses `RegionsBinder` for the `Regions` field on the create and edit pages:
-
-```cs
-using StellarAdmin.Resources.Options;
-
-builder.Services.AddOptions<ResourceOptions<Supplier>>().PostConfigure(options =>
-{
-    var fields = (options.Create?.Fields ?? []).Concat(options.Edit?.Fields ?? []);
-    foreach (var field in fields.Where(field => field.FieldName == nameof(Supplier.Regions)))
-        field.UseBinder(new RegionsBinder());
-});
-```
-
-StellarAdmin uses one instance of the binder for every request, so get services from `context.Services`, not from the constructor. To display an error under the field, call `context.AddError()` with the message.
+Handlers do not require custom models. You can use the resource model itself, for example `AllowCreate<Booking, BookingHandler>()` with a `BookingHandler` that implements `IResourceCreateHandler<Booking>`.

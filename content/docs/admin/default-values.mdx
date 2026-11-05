@@ -3,7 +3,27 @@ title: Setting default values
 description: Set the values a new record starts with
 ---
 
-Before StellarAdmin displays the create page, it initializes the model the form edits. You can specify the default values by calling `UseFactory()` with a function that returns a new instance of the underlying model. The example below starts a departure six weeks away, with a meeting time of 9:00 and a status of `Scheduled`:
+## Introduction
+
+StellarAdmin provides a number of ways to initialize values for a new instance of a resource model.
+
+- `UseFactory()` allows you to create a new instance and is useful for resources without a parameterless constructor and for setting simple defaults, such as a date or a status.
+- The `OnInitialized` [form event](/docs/admin/form-events) is available for EF Core resources. It is passed an initialized instance before the form is displayed and is useful for generating default values that runs async code or require services from DI.
+- The `OnCreating` form event is available for EF Core resources. It runs when the user saves the form and is useful for generated values such as a booking reference.
+
+The following table compares them:
+
+| | `UseFactory()` | `OnInitialized` | `OnCreating` |
+|---|---|---|---|
+| Available on | All resources | Only EF Core resources | Only EF Core resources |
+| Runs before the form is displayed | <Yes /> | <Yes /> | <No /> |
+| Runs when the record is saved | <Yes /> | <No /> | <Yes /> |
+| Can use services and async code | <No /> | <Yes /> | <Yes /> |
+| Creates the model | <Yes /> | <No /> | <No /> |
+
+## Setting simple defaults
+
+As mentioned above, the `UseFactory()` method is useful for creating a new instance and setting simple default values. The example below starts a departure six weeks away, with a meeting time of 9:00 and a status of `Scheduled`:
 
 ```cs
 resource.AllowCreate(create =>
@@ -23,15 +43,11 @@ resource.AllowCreate(create =>
 });
 ```
 
-## Setting properties that aren't on the form
-
-Some properties need a value when a record is created, but people shouldn't enter it, such as a new departure's status. Set these properties in the factory, and leave them off the form. StellarAdmin saves them with the values the factory set, so you don't need hidden fields. In the example above, the factory sets `Status`, which isn't a field.
-
-A value your database generates, such as an identity key, doesn't need a factory.
-
 ## Setting default values that need services
 
-The factory can't use services or asynchronous code. On an EF Core resource, set these defaults in the `OnInitialized` [form event](/docs/admin/form-events) instead. It runs after the factory, before the form is displayed, and receives the new entity in `context.Entity`. The example below starts a new departure with the meeting point of its trip's destination, which it reads from the database:
+If your initialization code needs to use service or run async code, you can use the `OnInitialized` [form event](/docs/admin/form-events), which is available on EF Core Resources.
+
+The example below starts a new departure with a meeting point that is read from the database:
 
 ```cs
 resource.AllowCreate(create =>
@@ -50,15 +66,11 @@ resource.AllowCreate(create =>
 });
 ```
 
-StellarAdmin runs `OnInitialized` wherever it displays a create form: on the create page, in a new [inline row](/docs/admin/inline-editing), in the create sheet of a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup), and in the next form after saving and adding another, before it applies the values that are kept. It doesn't run when someone saves the form, so set values that aren't on the form in `OnCreating`, as described below.
+StellarAdmin runs `OnInitialized` wherever it displays a create form: on the create page, in a new [inline row](/docs/admin/inline-editing), in the create sheet of a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup), and in the next form after saving and adding another, before it applies the values that are kept. It doesn't run when someone saves the form, so set values that must be set when the record is saved in `OnCreating`, as described below.
 
-## Generating a unique value, such as a reference
+## Setting values when the record is saved
 
-To give each new record a generated value, such as a booking reference, generate it when the record is saved, not in the factory.
-
-StellarAdmin calls the factory twice: when someone opens the create page, and again when they save. A reference that the factory generates randomly therefore gets a different random value on each call. If you display it on the create page, people see one reference, such as "VT-123456", and the booking is saved with another, such as "VT-654321".
-
-On an EF Core resource, generate the value in the `OnCreating` [form event](/docs/admin/form-events), which runs once, before the record is saved:
+For unique generated values that must be generated once, such as a booking reference, `UseFactory()` is not a good option since it runs twice - before the form is displayed and when the record is saved. For EF Core resources, a better option is to generate the value in the `OnCreating` [form event](/docs/admin/form-events), which runs once, before the record is saved:
 
 ```cs
 resource.AllowCreate(create =>
@@ -80,4 +92,6 @@ resource.AllowCreate(create =>
 });
 ```
 
-With a [custom data source](/docs/admin/custom-data-sources), generate the value in the data source's `CreateAsync()` method, or in a [create handler](/docs/admin/custom-models).
+## Setting values with a custom data source
+
+The `OnInitialized` and `OnCreating` form events are only available on EF Core resources. With a [custom data source](/docs/admin/custom-data-sources), set defaults with `UseFactory()`, and set values when the record is saved in the data source's `CreateAsync()` method, or in a [create handler](/docs/admin/custom-models).

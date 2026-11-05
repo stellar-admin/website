@@ -1,40 +1,61 @@
 ---
-title: Filtering options by another field
+title: Dependent fields / Cascading lookups
 description: Make a field's options depend on the value of another field, such as the cities of the selected country
 ---
 
-A field's options can depend on the value of another field on the same form, such as a city that must be in the selected country. To make a field depend on another field, call `DependsOn()` on it, and filter its options by the other field's value.
+A field's options can depend on the value of another field on the same form, such as a city that must be in the selected country. Use `DependsOn()` to declare a dependency on another field, and filter its options by the other field's value.
 
-The example below registers countries and cities as resources, and lists only the cities of the selected country in the city field's lookup:
+The example below registers countries and cities as resources, and adds a country and a city to the destination create page. The city field depends on the country, and the delegate in `Where()` filters the cities where the country matches the current country from the `Destination` model:
 
 ```cs
 admin.AddEfCoreResource<Country>(resource => { /* ... */ });
 admin.AddEfCoreResource<City>(resource => { /* ... */ });
 
-fields.Add(destination => destination.CountryId);
-
-fields.Add(destination => destination.CityId)
-    .DependsOn(destination => destination.CountryId)
-    .UseLookupSheetEditor(lookup =>
+admin.AddEfCoreResource<Destination>(resource =>
+{
+    resource.AllowCreate(create => create.Fields(fields =>
     {
-        lookup.UseResource<City>(items => items.Where((city, destination) =>
-            city.CountryId == destination.CountryId));
-    });
+        fields.Add(destination => destination.CountryId);
+
+        fields.Add(destination => destination.CityId)
+            .DependsOn(destination => destination.CountryId)
+            .UseLookupSheetEditor(lookup =>
+            {
+                lookup.UseResource<City>(items => items.Where((city, destination) =>
+                    city.CountryId == destination.CountryId));
+            });
+    }));
+});
 ```
 
-`Where()` receives each record and the form's model, and returns whether the record is an option. Only an EF Core resource can apply the filter. On a resource with a [custom data source](/docs/admin/custom-data-sources), StellarAdmin ignores the filter, and reports a configuration problem.
+The `Where()` is called for each city and receives the city and the form's model. The expression must return `true` if you want to include the city in the lookup.
 
-When people change the country, the city field loads its options again, and clears its value. While no country is selected, the city field is disabled, and displays "Select Country first", named after the label of the country field.
+When a user changes the country, the city field's value will be reset and its options reloaded based on the new country. When no country is selected, the city field is disabled, and displays "Select Country first".
 
 <Screenshot name="dependent-fields-cities" alt="Choosing Japan in the country lookup enables the city lookup, whose sheet lists only Japan's cities, and Kyoto is chosen" />
 
 `DependsOn()` works with every choice editor and lookup, on the create and edit pages, and in [inline rows](/docs/admin/inline-editing). To make a field depend on several fields, call `DependsOn()` once for each of them. A field can also depend on a field that depends on another, such as a neighborhood that depends on the city.
 
-## Reading other fields in the filter
+## Depending on more than one field
 
-The `destination` instance passed to the filter contains only the values of the fields named in `DependsOn()`, and the record's key on the edit page. Every other property has its default value, such as `null`, `0` or `false`.
+A field **must** declare all the fields it depends on. Let's expand on the previous example and say that, when the user checked the `RequiresAirport` field, we only want to list the cities with airports.
 
-So if the filter reads another property, call `DependsOn()` for that field too. Otherwise the filter reads the property's default value instead of the value on the form. The example below lists only the cities with an airport when **Requires airport** is checked, so the city field depends on both fields:
+```cs
+fields.Add(destination => destination.CityId)
+    .DependsOn(destination => destination.CountryId)
+    .UseLookupSheetEditor(lookup =>
+    {
+        lookup.UseResource<City>(items => items.Where((city, destination) =>
+            city.CountryId == destination.CountryId
+            && (!destination.RequiresAirport || city.HasAirport)));
+    });
+```
+
+This will work correctly on initial page load, but not once the user changes the country. The reason for this is that StellarAdmin performs an AJAX postback to refresh the list of cities and will only pass the current values for the fields on which you have explicitly declared a dependency.
+
+The model passed to the `Where()` delegate (i.e. the `destination` parameter) will therefore contain a sparse instance with only the the property values for the fields that you explicitly declare a dependency on. All other properties will contain their default value. So, in the example above, `HasAirport` will always be `false`.
+
+The solution to this is to ensure you declare **all** your field dependencies. The example below fixes this problem by adding a call to `DependsOn(destination => destination.RequiresAirport)`.
 
 ```cs
 fields.Add(destination => destination.CityId)
@@ -48,13 +69,13 @@ fields.Add(destination => destination.CityId)
     });
 ```
 
-## Choosing which fields a field depends on
-
-A field can only depend on an editable field of the same form. If it depends on any other field, or if two fields depend on each other, StellarAdmin ignores the dependency, and reports a [configuration problem](/docs/admin/configuration-problems).
+<Callout type="warn">
+    A field can only depend on an editable field of the same form.
+</Callout>
 
 ## Changing the text of a disabled dependent field
 
-While a field it depends on has no value, a dependent field is disabled, and displays a text that asks for that value first, such as "Select Country first". To change this text, set `EmptyText` in the callback of `DependsOn()`. The example below changes the text the city field displays while no country is selected:
+While a field it depends on has no value, a dependent field is disabled, and displays a text that asks for that value first, such as "Select Country first". To change this text, set `EmptyText` in the callback of `DependsOn()`.
 
 ```cs
 fields.Add(destination => destination.CityId)
@@ -65,11 +86,11 @@ fields.Add(destination => destination.CityId)
     .UseLookupSheetEditor(/* ... */);
 ```
 
-## Loading options that depend on another field from a service
+## Loading dependent options from a service
 
-When the options come from your own code, a choice editor's `UseItems()` takes a function that receives the form's model, the request's services and a cancellation token, and returns the options. StellarAdmin doesn't call the function while a field it depends on has no value.
+The previous examples all used EF Core, so StellarAdmin knows how to load the lookup values from the referenced resource. However, when you want to load options from an external (or non-EF Core) service, you will have to supply the items for the lookup by calling `UseItems` on the lookup editor builder. 
 
-The example below loads the cities of the selected country from a `CityDirectory` service:
+To access your model, you can use the `UseItems()` overload that takes the model as the first parameter of the delegate. The example below loads the cities of the selected country from a `CityDirectory` service:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -90,7 +111,7 @@ fields.Add(destination => destination.CityId)
     });
 ```
 
-For a lookup, derive the [lookup source](/docs/admin/foreign-keys#selecting-records-from-another-service) from `LookupSource<TItem, TValue, TArgument>`, where `TArgument` is the type of the value the search takes from the form. Its `SearchAsync()` receives that value before the query:
+For a lookup, derive the [lookup source](/docs/admin/foreign-keys#selecting-records-from-another-service) from `LookupSource<TItem, TValue, TArgument>`, where `TArgument` is the type of the value the search takes from the form.
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -135,9 +156,3 @@ fields.Add(guide => guide.HomeAirport)
 ```
 
 The value must have the type of `TArgument`, or its nullable type. If the search needs several values, pass a record that holds them.
-
-## Validating the selected option
-
-The filter only limits the options people can select. StellarAdmin doesn't check that the saved value matches the filter, such as that the city is in the selected country. If that matters, [validate the form](/docs/admin/validation) yourself.
-
-`DependsOn()` only changes a field's options. It can't make a field read-only or disabled as the fields it depends on change.
