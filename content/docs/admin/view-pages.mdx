@@ -3,7 +3,64 @@ title: Overview
 description: A read-only page for one record
 ---
 
-A resource's *view page* displays one record without editing it. To add the page, call `AllowView()` on the resource. The example below adds a view page for bookings, with a **Trip** section and a **Traveller** section:
+## Introduction
+
+You can give users a read-only view of a resource by using *View pages*.
+
+<Screenshot name="view-pages-overview" alt="A booking's view page with Trip and Traveller sections side by side, and Back, Delete Booking and Edit Booking buttons" />
+
+## Configuring a basic view page
+
+Add a view page by calling `AllowView()` on the resource builder. To add fields to the page, call the `Fields()` method, which gives you a field builder.
+
+The example below adds a view page for bookings that displays the booking's reference, trip and departure date:
+
+```cs
+admin.AddEfCoreResource<Booking>(resource =>
+{
+    resource.AllowView(view => view.Fields(fields =>
+    {
+        fields.Add(booking => booking.Reference);
+        fields.Add(booking => booking.Departure.Trip);
+        fields.Add(booking => booking.Departure.StartDate);
+    }));
+});
+```
+
+StellarAdmin doesn't add fields automatically, so the page displays only the fields you add.
+
+## Configuring fields
+
+Every field on a view page is a [display field](/docs/admin/fields#displaying-non-editable-fields), so it has the same settings, such as `Title`, `EmptyText` and `UseDisplay()`. You configure them using the field builder that is passed in the callback parameter when calling `Add()`.
+
+A field can select a property of a related record, such as `booking.Traveller.Email`, or compute a value, such as the number of passengers. A field that selects a record of another resource, such as `booking.Traveller`, displays that record's [title](/docs/admin/titles-and-references).
+
+The example below sets the label of the passenger count and the traveller's email, renders the total as currency, and sets the text displayed when there are no special requests:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+resource.AllowView(view => view.Fields(fields =>
+{
+    fields.Add(booking => booking.Reference);
+    fields.Add(booking => booking.Passengers.Count, field => field.Title = "Travelers");
+    fields.Add(booking => booking.TotalAmount, field =>
+    {
+        field.UseDisplay<NumberDisplay>(number => number.Format = "C");
+    });
+    fields.Add(booking => booking.Traveller);
+    fields.Add(booking => booking.Traveller.Email, field => field.Title = "Email");
+    fields.Add(booking => booking.SpecialRequests, field => field.EmptyText = "No special requests");
+}));
+```
+
+To render a value differently, such as a badge or an image, see [displays](/docs/admin/displays).
+
+## Using sections
+
+A view page uses the same [sections, groups and columns](/docs/admin/form-layout) as a form. To split the page into sections, call `AddSection()` with the section's title. To place the sections side by side, call `Columns()`.
+
+The example below displays the booking in a **Trip** and a **Traveller** section, side-by-side over two columns:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -18,7 +75,9 @@ resource.AllowView(view => view.Fields(fields =>
         section.Add(booking => booking.Departure.StartDate);
         section.Add(booking => booking.Passengers.Count, field => field.Title = "Travelers");
         section.Add(booking => booking.TotalAmount, field =>
-            field.UseDisplay<NumberDisplay>(number => number.Format = "C"));
+        {
+            field.UseDisplay<NumberDisplay>(number => number.Format = "C");
+        });
     });
     fields.AddSection("Traveller", section =>
     {
@@ -29,39 +88,31 @@ resource.AllowView(view => view.Fields(fields =>
 }));
 ```
 
-When a view page is enabled, the index page displays a view button on each row. The view page's header has a **Back** button that returns to the index page. If the resource has an edit page, the header also has an **Edit** button, and if [deleting is enabled](/docs/admin/delete), a **Delete** button before the **Back** button.
+To change how the page's sections look, set the page's `SectionLayout` to one of the [section layouts](/docs/admin/form-layout#section-layout). To display each label beside its value instead of above it, set a section's `Orientation` to `FieldOrientation.Horizontal`.
 
-<Screenshot name="view-pages-overview" alt="A booking's view page with Trip and Traveller sections side by side, and Back, Delete Booking and Edit Booking buttons" />
-
-StellarAdmin doesn't add fields automatically, so the page displays only the fields you add. If the page has no fields, StellarAdmin leaves out the page and the view buttons, and reports a [configuration problem](/docs/admin/configuration-problems).
-
-## Adding fields
-
-Every field on a view page is a [display field](/docs/admin/fields#displaying-values-that-arent-edited), so it has the same settings, such as `Title`, `EmptyText` and `UseDisplay()`. A field can select a property of a related record, such as `booking.Traveller.Email`, or compute a value. A field that selects a record of another resource, such as `booking.Traveller`, displays that record's title.
-
-## Laying out the page
-
-A view page uses the same [sections, groups and columns](/docs/admin/form-layout) as a form, and the same [section layouts](/docs/admin/form-layout#choosing-how-sections-look), which you set with the page's `SectionLayout`.
-
-To display each label beside its value instead of above it, set a section's `Orientation` to `FieldOrientation.Horizontal`. A field's own `Orientation` overrides its section's. The example below displays the **Audit** section's labels beside their values:
+The example below displays the page's sections in cards, and the **Audit** section's labels beside their values:
 
 ```cs
 using StellarAdmin.UI;
 
-resource.AllowView(view => view.Fields(fields =>
+resource.AllowView(view =>
 {
-    fields.AddSection("Audit", section =>
+    view.SectionLayout = FormSectionLayout.Card;
+    view.Fields(fields =>
     {
-        section.Orientation = FieldOrientation.Horizontal;
-        section.Add(booking => booking.BookedAt);
-        section.Add(booking => booking.UpdatedAt);
+        fields.AddSection("Audit", section =>
+        {
+            section.Orientation = FieldOrientation.Horizontal;
+            section.Add(booking => booking.BookedAt);
+            section.Add(booking => booking.UpdatedAt);
+        });
     });
-}));
+});
 ```
 
 ## Changing the title
 
-The page's title defaults to the record's [title](/docs/admin/titles-and-references), such as the booking's reference. When the title is the key, it defaults to "View" and the singular label, such as "View Booking". To change it, set `Title` in the `AllowView()` callback:
+The page's title defaults to the record's [title](/docs/admin/titles-and-references), such as the booking's reference. To change it, set `Title` using the field builder passed in the `AllowView()` callback:
 
 ```cs
 resource.AllowView(view =>
@@ -70,8 +121,6 @@ resource.AllowView(view =>
     view.Fields(fields => fields.Add(booking => booking.Reference));
 });
 ```
-
-To change the default for every resource, see [global labels](/docs/admin/global-labels).
 
 ## Displaying a different model
 
@@ -92,5 +141,3 @@ Without a handler, StellarAdmin loads the record through the resource's data sou
 ## Adding content to the page
 
 To add blocks such as stats or a list of related records above, beside or below the fields, add [widgets](/docs/admin/widgets#view-page).
-
-To add other content, such as a button in the header, [override the page](/docs/admin/overriding-pages) and use its [slots](/docs/admin/page-tag-helpers).
