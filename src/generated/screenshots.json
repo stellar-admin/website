@@ -169,6 +169,14 @@
     "height": 800,
     "format": "gif"
   },
+  "editors-css-classes": {
+    "width": 560,
+    "height": 210
+  },
+  "editors-css-classes-dark": {
+    "width": 560,
+    "height": 210
+  },
   "environment-indicator-banner": {
     "width": 1280,
     "height": 800

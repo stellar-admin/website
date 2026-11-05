@@ -3,7 +3,7 @@ title: Overview
 description: How StellarAdmin chooses a field's editor, and how to choose another
 ---
 
-A field's *editor* is the control people use to enter the field's value, such as a text input or a checkbox. StellarAdmin chooses each field's editor from the property's type and attributes, so most fields don't need you to choose one. The table below lists the editor StellarAdmin chooses for each kind of property:
+A field's *editor* is the control people use to enter the field's value, such as a text input or a checkbox. StellarAdmin derives the field's editor from the property's type and attributes. The table below lists the editor StellarAdmin chooses for each kind of property:
 
 | Property | Editor |
 | --- | --- |
@@ -23,11 +23,11 @@ A field's *editor* is the control people use to enter the field's value, such as
 | Foreign key to a registered resource (EF Core) | Lookup |
 | Many-to-many navigation to a registered resource (EF Core) | Multi-lookup |
 
-A `string` without `[DataType(DataType.MultilineText)]` is a single-line text input, however long the text is. For longer text, such as a description or notes, add the attribute, or choose a textarea.
-
 ## Choosing another editor
 
-To choose another editor, call the editor's method on the field. To change the editor's settings, pass a callback. The example below uses a textarea for the summary, a switch for `IsPublished`, and a slider for the group size:
+You can change the default editor by calling one of the predefined `Use...Editor()` methods. Most editor methods have a callback parameter that allows further configuration of the editor.
+
+The example below uses a textarea for the summary, a switch for `IsPublished`, and a slider for the group size:
 
 ```cs
 fields.Add(trip => trip.Summary).UseTextareaEditor(textarea => textarea.Rows = 4);
@@ -40,7 +40,9 @@ fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
 });
 ```
 
-A setting you leave unset comes from the property where possible, such as a slider's range from `[Range]`. Each editor's page lists its settings and their defaults:
+Some editor properties will derive their default values from the underlying field attribute, unless explicitly specified. For example, a slider's range can be specified by adding the `[Range]` attribute to the property. 
+
+Each editor's page lists its settings and their defaults:
 
 | Editor | Method | Page |
 | --- | --- | --- |
@@ -58,13 +60,15 @@ A setting you leave unset comes from the property where possible, such as a slid
 | Rich text | `UseRichTextEditor()` | [Rich text](/docs/admin/rich-text-editor) |
 | Icon | `UseIconEditor()` | [Icons](/docs/admin/icon-editor) |
 
-If the editor can't edit the property, such as a checkbox for a `string`, StellarAdmin uses the property's default editor instead, and reports a [configuration problem](/docs/admin/configuration-problems).
+If the editor you specify does not support the underlying data type, StellarAdmin will fall back to the property's default editor based on its data type.
 
-For an editor StellarAdmin doesn't have, such as a color picker, write a [custom editor](/docs/admin/custom-editors). StellarAdmin has no editor for uploading files, other than the [image editor](/docs/admin/image-editor).
+You can also create your own [custom editors](/docs/admin/custom-editors).
 
 ## Adding CSS classes
 
-To style one field differently from the rest of the form, such as a code in a monospace font, add your own CSS classes to its editor. Every editor has a `ClassNames` property for adding CSS classes to the editor's parts: `Root`, `Content`, `Label`, `Control`, `Description` and `Error`. Some editors have more parts, such as a slider's `Mark`. The example below adds a class to the textarea of the trip's summary:
+StellarAdmin allows you to pass CSS classes to the various editors via their `ClassNames` property. The `ClassNames` property will have various sub properties to target specific areas of the editor, such as the `Root`, `Content`, `Label`, `Control`, `Description` and `Error`. 
+
+The example below adds a class to the textarea of the trip's summary:
 
 ```cs
 fields.Add(trip => trip.Summary).UseTextareaEditor(textarea =>
@@ -73,4 +77,24 @@ fields.Add(trip => trip.Summary).UseTextareaEditor(textarea =>
 });
 ```
 
-StellarAdmin's stylesheet contains only the classes its own components use, so a Tailwind utility class works only if you [add a stylesheet](/docs/admin/theming#adding-your-own-stylesheets-and-scripts) that contains it.
+Define the class in a stylesheet in your app's `wwwroot` folder, and add the stylesheet with `AddStylesheet()`. The stylesheet below gives the summary a striped background, to mark it as a restricted field:
+
+```css
+.trip-summary {
+  border-color: rgb(217 119 6 / 0.7);
+  background: repeating-linear-gradient(-45deg, rgb(245 158 11 / 0.12) 0 8px, transparent 8px 16px),
+    var(--sa-color-field);
+}
+```
+
+```cs
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddStylesheet("~/css/trip-summary.css");
+});
+```
+
+The trip's summary is then displayed with the striped background:
+
+<Screenshot name="editors-css-classes" alt="A trip's edit page with the Summary textarea's striped amber background and border" />
+
