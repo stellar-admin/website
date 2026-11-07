@@ -3,8 +3,6 @@ title: Lists and dictionaries
 description: Editors for lists of text or numbers, and for keys and values
 ---
 
-The *list editor* and the *dictionary editor* edit a collection property, with one row for each item.
-
 ## Editing a list
 
 An array or list of strings or numbers, such as `List<string>` or `int[]`, is rendered as a [list editor](/docs/ui/components/list-editor). The list editor displays one row for each item, and a button that adds a row. To change the list editor's settings, call `UseListEditor()`. The example below allows at most eight highlights, and lets people reorder them:
@@ -36,30 +34,34 @@ fields.Add(trip => trip.DepartureAirports).UseListEditor(list =>
 });
 ```
 
-| Setting | What it does |
+| Setting | Description |
 | --- | --- |
-| `MinItems`, `MaxItems` | Sets the smallest and largest number of items. The defaults come from the property's `[MinLength]`, `[MaxLength]` or `[Length]`. |
-| `Sortable` | Sets whether people can reorder the items, by dragging a row, or by pressing <kbd>Alt</kbd>+<kbd>Up</kbd> or <kbd>Alt</kbd>+<kbd>Down</kbd>. The default is `false`. |
-| `Numbered` | Sets whether each row displays its number. The default is `false`. |
-| `Unique` | Sets whether each item must be different. The default is `false`. |
-| `Pattern`, `PatternMessage` | Sets a regular expression each text item must match, and the error message when an item doesn't. |
-| `MaxLength` | Sets the largest number of characters a text item can have. |
-| `Min`, `Max`, `Step` | Sets the smallest and largest number a number item can be, and the interval between numbers. |
+| `MinItems`, `MaxItems` | Sets the minimum or maximum number of items the list should contain. The defaults come from the property's `[MinLength]`, `[MaxLength]` or `[Length]`. |
+| `Sortable` | Specifies whether items can be reordered. When enabled, users can reorder items by dragging them, or by pressing <kbd>Alt</kbd>+<kbd>Up</kbd> or <kbd>Alt</kbd>+<kbd>Down</kbd>. The default is `false`. |
+| `Numbered` | Specifies whether each row displays its row number. The default is `false`. |
+| `Unique` | Specifies whether each item must be unique. The default is `false`. |
+| `Pattern`, `PatternMessage` | Specifies a regular expression each item must match, and the error message when an item doesn't. |
+| `MaxLength` | Sets the maximum text length of an item. |
+| `Min`, `Max`, `Step` | Lists of numbers display a number editor. These properties set the minimum and maximum value of the numbers, as well as the step for the number editor. |
 | `Casing` | Changes the case of text as people type: `ListEditorCasing.Upper` or `Lower`. The default is `None`. |
-| `Prefix`, `Suffix` | Sets the text displayed before or after each item, such as `€` or `km`. |
+| `Prefix`, `Suffix` | Adds a prefix or suffix to display for each item, for example `€` or `km`. |
 | `Placeholder` | Sets the text displayed in an empty row. |
 | `Align` | Sets how each item is aligned in its row: `ListEditorAlign.Start` or `End`. By default, numbers align to the end, and text to the start. |
 | `AddText`, `EmptyText` | Sets the text of the button that adds a row, and the text displayed when the list is empty. The defaults are "Add item" and "No items yet". |
 
-The browser checks each item as people type, and StellarAdmin checks the items again when the form is saved. Rows left blank aren't saved, so removing every row saves an empty list.
+Blank rows aren't saved. EF Core maps a list of strings or numbers as a primitive collection, so the property needs no extra configuration.
 
-EF Core maps a list of strings or numbers as a primitive collection, so the property needs no extra configuration.
-
-The list editor edits text and numbers only. For a list of enum values, use a [checkbox group or toggle group](/docs/admin/choice-editors). For related records, use a [multi-lookup](/docs/admin/many-to-many).
+<Callout>
+    The list editor edits text and numbers only. For a list of enum values, use a [checkbox group or toggle group](/docs/admin/choice-editors). For related records, use a [multi-lookup](/docs/admin/many-to-many).
+</Callout>
 
 ## Editing a dictionary
 
-A dictionary with a string or enum key, and a string, number or enum value, is rendered as a [dictionary editor](/docs/ui/components/dictionary-editor). The dictionary editor displays one row for each entry, with the key beside the value. To change the dictionary editor's settings, call `UseDictionaryEditor()`. In the callback, call `Key()` and `Value()` to configure the key and the value columns of the editor.
+The dictionary editor allows you to edit C# dictionaries. It supports dictionaries where the key is either a string or enum, and the value is a string, number or enum. The dictionary editor displays one row for each entry, with the key beside the value.
+
+<Screenshot name="list-and-dictionary-editors-dictionary" alt="A dictionary editor with Cabin and Allowance columns, and two cabins with allowances in kg" todo="Crop of the baggage allowance field configured as above, with two entries." />
+
+To change the dictionary editor's settings, call `UseDictionaryEditor()`. In the callback, call `Key()` and `Value()` to configure the key and the value columns of the editor.
 
 The example below labels the columns **Cabin** and **Allowance**, and accepts allowances up to 50 kg:
 
@@ -76,30 +78,28 @@ fields.Add(trip => trip.BaggageAllowance).UseDictionaryEditor(dictionary =>
 });
 ```
 
-<Screenshot name="list-and-dictionary-editors-dictionary" alt="A dictionary editor with Cabin and Allowance columns, and two cabins with allowances in kg" todo="Crop of the baggage allowance field configured as above, with two entries." />
-
 The dictionary editor has the `MinItems`, `MaxItems`, `Numbered`, `AddText` and `EmptyText` settings of the list editor. The keys and the values have these settings:
 
-| Setting | What it does | Key | Value |
+| Setting | Description | Available for Key | Available for Value |
 | --- | --- | --- | --- |
 | `Label` | Sets the column's label. | <Yes /> | <Yes /> |
 | `Placeholder` | Sets the text displayed in an empty key or value. | <Yes /> | <Yes /> |
-| `Pattern`, `PatternMessage` | Sets a regular expression each text key or value must match, and the error message when one doesn't. | <Yes /> | <Yes /> |
-| `MaxLength` | Sets the largest number of characters a text key or value can have. | <Yes /> | <Yes /> |
-| `Casing` | Changes the case of text as people type: `DictionaryEditorCasing.Upper` or `Lower`. | <Yes /> | <Yes /> |
-| `Min`, `Max`, `Step` | Sets the smallest and largest number a number value can be, and the interval between numbers. | <No /> | <Yes /> |
-| `Prefix`, `Suffix` | Sets the text displayed before or after each value, such as `€` or `kg`. | <No /> | <Yes /> |
+| `Pattern`, `PatternMessage` | Sets a regular expression the text must match, and the error message when it doesn't. | <Yes /> | <Yes /> |
+| `MaxLength` | Sets the maximum length of the text. | <Yes /> | <Yes /> |
+| `Casing` | Changes the case of text as users type: `DictionaryEditorCasing.Upper` or `Lower`. | <Yes /> | <Yes /> |
+| `Min`, `Max`, `Step` | For number values, sets the minimum and maximum value and the step for the number editor. | <No /> | <Yes /> |
+| `Prefix`, `Suffix` | Sets a prefix or suffix that must be displayed before or after each value, such as `€` or `kg`. | <No /> | <Yes /> |
 | `Align` | Sets how each value is aligned in its column: `DictionaryEditorAlign.Start` or `End`. | <No /> | <Yes /> |
 
-`DictionaryEditorCasing` and `DictionaryEditorAlign` are in the `StellarAdmin.UI` namespace. Each key can be used once.
-
 <Callout type="idea">
-EF Core doesn't map a dictionary property on its own. Store the dictionary in a JSON column, or give the property a value converter.
+    `DictionaryEditorCasing` and `DictionaryEditorAlign` are in the `StellarAdmin.UI` namespace.
 </Callout>
 
 ### Selecting keys and values from a list
 
-An enum key or value is a select of the enum's members. To let people select a key or value from another list, call `UseItems()` or `UseResource()` on the key or value, the same way as on a [choice editor](/docs/admin/choice-editors#supplying-the-options). The example below selects the key from three languages, and the value from the guides:
+An enum key or value will display a select with the enum's members. You can specify a custom list options by calling `UseItems()` or `UseResource()` on the key or value, the same way as on a [choice editor](/docs/admin/choice-editors#supplying-the-options). 
+
+The example below selects the key from three languages, and the value from the guides:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -115,9 +115,7 @@ fields.Add(trip => trip.GuidesByLanguage).UseDictionaryEditor(dictionary =>
 });
 ```
 
-Because each key can be used once, a key with options allows at most one entry for each option.
-
-## Displaying an error under a row
+## Displaying validation errors
 
 To display a [validation](/docs/admin/validation) error under a specific row, name the row in the error's member name, with the property and the row's index, which starts at 0. For a dictionary, add `.Key` or `.Value` to display the error under the key or the value, such as `BaggageAllowance[1].Key`.
 
@@ -144,14 +142,4 @@ public class Trip : IValidatableObject
 }
 ```
 
-A [handler or data source](/docs/admin/custom-data-sources#returning-validation-errors) that returns validation errors names the row the same way.
-
 <Screenshot name="list-and-dictionary-editors-row-error" alt="A list of highlights with the error A highlight can't be the trip's name under the second row" todo="Crop of the highlights field after saving a trip whose second highlight is its name." />
-
-## Changing the default texts
-
-To change the default texts, such as "Add item" and "No items yet", for every list or dictionary editor, call `labels.ListEditor()` or `labels.DictionaryEditor()` in the [global labels](/docs/admin/global-labels).
-
-## Editing in an inline row
-
-In an [inline row](/docs/admin/inline-editing), a list or dictionary displays its items as badges instead of an editor, and saving the row keeps the property's value.

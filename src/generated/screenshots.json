@@ -377,13 +377,29 @@
     "width": 1280,
     "height": 480
   },
+  "icon-editor-icons": {
+    "width": 357,
+    "height": 91
+  },
+  "icon-editor-icons-dark": {
+    "width": 357,
+    "height": 91
+  },
+  "icon-editor-inline-row": {
+    "width": 1006,
+    "height": 353
+  },
+  "icon-editor-inline-row-dark": {
+    "width": 1006,
+    "height": 353
+  },
   "icon-editor-picker": {
-    "width": 1280,
-    "height": 720
+    "width": 433,
+    "height": 467
   },
   "icon-editor-picker-dark": {
-    "width": 1280,
-    "height": 720
+    "width": 433,
+    "height": 467
   },
   "image-display-thumbnails": {
     "width": 1022,
@@ -392,6 +408,22 @@
   "image-display-thumbnails-dark": {
     "width": 1022,
     "height": 437
+  },
+  "image-editor-inline-row": {
+    "width": 1006,
+    "height": 376
+  },
+  "image-editor-inline-row-dark": {
+    "width": 1006,
+    "height": 376
+  },
+  "image-editor-intro": {
+    "width": 404,
+    "height": 321
+  },
+  "image-editor-intro-dark": {
+    "width": 404,
+    "height": 321
   },
   "image-editor-layout-attachment": {
     "width": 1280,
@@ -557,11 +589,11 @@
   },
   "list-and-dictionary-editors-row-error": {
     "width": 1008,
-    "height": 233
+    "height": 228
   },
   "list-and-dictionary-editors-row-error-dark": {
     "width": 1008,
-    "height": 233
+    "height": 228
   },
   "many-to-many-multi-lookup": {
     "width": 1280,
