@@ -80,28 +80,108 @@
     "height": 104
   },
   "choice-editors-cards": {
-    "width": 1024,
-    "height": 360
+    "width": 1008,
+    "height": 119
   },
   "choice-editors-cards-dark": {
-    "width": 1024,
-    "height": 360
+    "width": 1008,
+    "height": 119
+  },
+  "choice-editors-columns": {
+    "width": 1008,
+    "height": 262
+  },
+  "choice-editors-columns-dark": {
+    "width": 1008,
+    "height": 262
+  },
+  "choice-editors-items": {
+    "width": 480,
+    "height": 168
+  },
+  "choice-editors-items-dark": {
+    "width": 480,
+    "height": 168
+  },
+  "choice-editors-kinds-checkbox-group": {
+    "width": 480,
+    "height": 137
+  },
+  "choice-editors-kinds-checkbox-group-dark": {
+    "width": 480,
+    "height": 137
+  },
+  "choice-editors-kinds-radio-group": {
+    "width": 480,
+    "height": 201
+  },
+  "choice-editors-kinds-radio-group-dark": {
+    "width": 480,
+    "height": 201
+  },
+  "choice-editors-kinds-segmented-control": {
+    "width": 480,
+    "height": 83
+  },
+  "choice-editors-kinds-segmented-control-dark": {
+    "width": 480,
+    "height": 83
+  },
+  "choice-editors-kinds-select": {
+    "width": 480,
+    "height": 87
+  },
+  "choice-editors-kinds-select-dark": {
+    "width": 480,
+    "height": 87
+  },
+  "choice-editors-kinds-toggle-group": {
+    "width": 480,
+    "height": 127
+  },
+  "choice-editors-kinds-toggle-group-dark": {
+    "width": 480,
+    "height": 127
   },
   "choice-editors-media": {
-    "width": 1024,
-    "height": 320
+    "width": 480,
+    "height": 87
   },
   "choice-editors-media-dark": {
-    "width": 1024,
-    "height": 320
+    "width": 480,
+    "height": 87
   },
   "choice-editors-radio-enum": {
-    "width": 1024,
-    "height": 480
+    "width": 480,
+    "height": 205
   },
   "choice-editors-radio-enum-dark": {
-    "width": 1024,
-    "height": 480
+    "width": 480,
+    "height": 205
+  },
+  "choice-editors-toggle-appearance-buttons": {
+    "width": 360,
+    "height": 87
+  },
+  "choice-editors-toggle-appearance-buttons-dark": {
+    "width": 360,
+    "height": 87
+  },
+  "choice-editors-toggle-appearance-chips": {
+    "width": 360,
+    "height": 87
+  },
+  "choice-editors-toggle-appearance-chips-dark": {
+    "width": 360,
+    "height": 87
+  },
+  "choice-editors-toggle-appearance-joined": {
+    "width": 360,
+    "height": 87
+  },
+  "choice-editors-toggle-appearance-joined-dark": {
+    "width": 360,
+    "height": 87
   },
   "columns-currency-display-type": {
     "width": 990,
@@ -379,21 +459,77 @@
     "height": 800,
     "format": "gif"
   },
+  "inputs-boolean-checkbox": {
+    "width": 480,
+    "height": 59
+  },
+  "inputs-boolean-checkbox-dark": {
+    "width": 480,
+    "height": 59
+  },
+  "inputs-boolean-switch": {
+    "width": 480,
+    "height": 59
+  },
+  "inputs-boolean-switch-dark": {
+    "width": 480,
+    "height": 59
+  },
   "inputs-code": {
-    "width": 1280,
-    "height": 470
+    "width": 480,
+    "height": 99
   },
   "inputs-code-dark": {
-    "width": 1280,
-    "height": 470
+    "width": 480,
+    "height": 99
+  },
+  "inputs-nullable-boolean-radio-group": {
+    "width": 480,
+    "height": 148
+  },
+  "inputs-nullable-boolean-radio-group-dark": {
+    "width": 480,
+    "height": 148
+  },
+  "inputs-nullable-boolean-select": {
+    "width": 480,
+    "height": 99
+  },
+  "inputs-nullable-boolean-select-dark": {
+    "width": 480,
+    "height": 99
   },
   "inputs-slider": {
-    "width": 1280,
-    "height": 400
+    "width": 520,
+    "height": 99
   },
   "inputs-slider-dark": {
-    "width": 1280,
-    "height": 400
+    "width": 520,
+    "height": 99
+  },
+  "inputs-text-phone": {
+    "width": 480,
+    "height": 99
+  },
+  "inputs-text-phone-dark": {
+    "width": 480,
+    "height": 99
+  },
+  "inputs-text-price": {
+    "width": 480,
+    "height": 99
+  },
+  "inputs-text-price-dark": {
+    "width": 480,
+    "height": 99
+  },
+  "inputs-textarea": {
+    "width": 480,
+    "height": 165
+  },
+  "inputs-textarea-dark": {
+    "width": 480,
+    "height": 165
   },
   "link-displays-grid": {
     "width": 1022,

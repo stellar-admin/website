@@ -3,11 +3,11 @@ title: Inputs
 description: Editors for text, numbers, dates, yes-or-no values and codes
 ---
 
-*Inputs* are the editors for a single value, such as text, a number or a date.
-
 ## Entering text and numbers
 
-A `string` or number property is rendered as a text input. The input's type comes from the property: a number property is rendered as a number input, and a property with `[EmailAddress]`, `[Phone]`, `[Url]` or `[DataType(DataType.Password)]` as an email, phone, URL or password input. To change the input's settings, call `UseTextInputEditor()`. The example below displays a euro sign before the price, and a placeholder in the phone number:
+A `string` or number property is rendered as an [HTML input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input). The input's [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#input_types) is derived from the property: a number property is rendered as a number input, and a property with `[EmailAddress]`, `[Phone]`, `[Url]` or `[DataType(DataType.Password)]` as an email, phone, URL or password respectively. 
+
+To change the test editor's settings, call `UseTextInputEditor()`. The example below displays a euro sign before the price, and a placeholder in the phone number:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -25,6 +25,8 @@ fields.Add(traveller => traveller.Phone).UseTextInputEditor(input =>
 });
 ```
 
+<Screenshot name="inputs-text" alt="The base price with a euro sign before it, and an empty phone number with its placeholder" variants={["Price", "Phone"]} />
+
 | Setting | What it does |
 | --- | --- |
 | `Type` | Sets the input's type: `TextInputType.Text`, `Email`, `Tel`, `Url`, `Password` or `Number`. The default comes from the property. |
@@ -32,8 +34,6 @@ fields.Add(traveller => traveller.Phone).UseTextInputEditor(input =>
 | `Prefix`, `Suffix` | Sets the text displayed before or after the input, such as `€` or `km`. |
 | `Min`, `Max` | Sets the smallest and largest number a number input accepts. |
 | `Step` | Sets the interval between the numbers a number input accepts. The default is 1 for a whole-number property, and any number for other number properties. |
-
-The text input is rendered as an [input](/docs/ui/components/input), or as an [input group](/docs/ui/components/input-group) when it has a prefix or suffix.
 
 ## Entering long text
 
@@ -47,6 +47,8 @@ fields.Add(trip => trip.Summary).UseTextareaEditor(textarea =>
 });
 ```
 
+<Screenshot name="inputs-textarea" alt="An empty four-line summary textarea with its placeholder" />
+
 | Setting | What it does |
 | --- | --- |
 | `Rows` | Sets the number of lines the textarea displays. Longer text scrolls. By default, the textarea grows with its text. |
@@ -56,7 +58,7 @@ For formatted text, use the [rich text editor](/docs/admin/rich-text-editor).
 
 ## Entering dates and times
 
-A `DateOnly`, `DateTime` or `TimeOnly` property is rendered as a date, date and time, or time input. To limit the dates or times people can enter, call `UseDateInputEditor()`, `UseDateTimeInputEditor()` or `UseTimeInputEditor()`. The example below accepts only start dates from today:
+A `DateOnly`, `DateTime` or `TimeOnly` property is rendered as a date, date and time, or time input. You can also configure these editors by calling `UseDateInputEditor()`, `UseDateTimeInputEditor()` or `UseTimeInputEditor()`. The example below accepts only start dates from today:
 
 ```cs
 fields.Add(departure => departure.StartDate).UseDateInputEditor(date =>
@@ -74,7 +76,7 @@ A `DateTimeOffset` property is rendered as a text input, so the value keeps its 
 
 A new record's `DateOnly` or `DateTime` property starts at 0001-01-01, the type's default value, so the input displays that date. To start the property at another date, [set a default value](/docs/admin/default-values).
 
-## Entering yes or no
+## Selecting boolean values
 
 A `bool` property is rendered as a [checkbox](/docs/ui/components/checkbox). To use a [switch](/docs/ui/components/switch) instead, call `UseToggleEditor()`:
 
@@ -82,9 +84,13 @@ A `bool` property is rendered as a [checkbox](/docs/ui/components/checkbox). To 
 fields.Add(trip => trip.IsPublished).UseToggleEditor();
 ```
 
+<Screenshot name="inputs-boolean" alt="The trip's Published field as a checkbox and as a switch" variants={["Checkbox", "Switch"]} />
+
 A `bool?` property is rendered as a select with Yes, No and Not set. The checkbox and the switch need a `bool` property, so for a `bool?` property, use one of the [choice editors](/docs/admin/choice-editors), such as a radio group.
 
-## Choosing a number with a slider
+<Screenshot name="inputs-nullable-boolean" alt="A nullable Published field as a select and as a radio group" variants={["Select", "Radio group"]} />
+
+## Using a slider
 
 To let people choose a number in a range by dragging a slider, call `UseSliderEditor()`. The example below lets people choose a group size from 2 to 16, with a mark at every second value:
 
@@ -102,7 +108,7 @@ fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
 
 | Setting | What it does |
 | --- | --- |
-| `Min`, `Max` | Sets the range. The default comes from the property's `[Range]`, and is 0 to 100 without it. |
+| `Min`, `Max` | Sets the range. The default comes from the property's `[Range]`, and defaults to 0 to 100. |
 | `Step` | Sets the interval between values. The default is 1. |
 | `ShowValue` | Sets whether the current value is displayed beside the label. The default is `true`. |
 | `ValueFormat` | Sets how values are displayed, with `{0}` for the number, such as `"{0} km"`. The format also applies to the mark labels. |
@@ -110,9 +116,7 @@ fields.Add(trip => trip.MaxGroupSize).UseSliderEditor(slider =>
 | `MarkLabels` | Sets which marks display their value: `SliderMarkLabels.None`, `Ends` or `All`. The default is `Ends`. |
 | `AddMark()` | Adds a mark at a value, with an optional label. Marks you add replace the marks from `MarkInterval` and `MarkLabels`. |
 
-The slider is rendered as a [slider](/docs/ui/components/slider).
-
-## Entering a code
+## Entering a code or PIN
 
 To display one box for each digit of a code, such as a verification code or a PIN, call `UseOneTimeCodeEditor()`. The input accepts digits only. The example below displays a 4-digit badge code:
 
@@ -122,4 +126,4 @@ fields.Add(guide => guide.BadgeCode).UseOneTimeCodeEditor(code => code.Length = 
 
 <Screenshot name="inputs-code" alt="A guide's badge code with one box for each of its 4 digits" />
 
-`Length` sets the number of digits. The default comes from the property's `[StringLength]` or `[MaxLength]`, and is 6 without one. The code input is rendered as an [input OTP](/docs/ui/components/input-otp).
+`Length` sets the number of digits. The default comes from the property's `[StringLength]` or `[MaxLength]`, and is 6 by default.
