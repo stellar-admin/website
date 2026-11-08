@@ -3,7 +3,7 @@ title: Overview
 description: How StellarAdmin chooses how a value is displayed, and how to choose another display type
 ---
 
-A *display type* sets how a value is displayed in the grid, in a [display field](/docs/admin/fields#displaying-values-that-arent-edited) and on a [view page](/docs/admin/view-pages), such as a number as a currency, or a `bool` as an icon. StellarAdmin chooses each value's display type from the property's type and attributes. The table below lists the display type StellarAdmin chooses for each kind of property:
+A *display type* determines how a value is displayed on a resource's [view page](/docs/admin/view-pages), in a [display field](/docs/admin/fields#displaying-values-that-arent-edited), and in grids. StellarAdmin chooses each value's display type from the property's type and attributes as follows:
 
 | Property | Display type |
 | --- | --- |
@@ -19,28 +19,34 @@ A *display type* sets how a value is displayed in the grid, in a [display field]
 | List of strings or numbers, such as `List<string>` or `int[]` | `BadgeDisplay` |
 | Dictionary with a string or enum key, and a string, number or enum value | `BadgeDisplay` |
 
-StellarAdmin never chooses `ImageDisplay` or `IconDisplay`, so you must choose them with `UseDisplay()`. To display a related record, such as a booking's traveller, see [displaying related records](/docs/admin/related-values).
-
 ## Choosing another display type
 
-To choose another display type, call `UseDisplay()` on the column or the display field. To change the display type's settings, pass a callback. The example below displays the booking's total as a currency in the grid, and whether a traveller has opted in to marketing as text on the form:
+To use another display type, call `UseDisplay()` on the column or the display field. To change the display type's settings, pass a callback function. The example below displays whether a traveller has opted in to marketing as text instead of an icon:
 
 ```cs
 using StellarAdmin.Resources.Displays;
 
-columns.Add(booking => booking.TotalAmount, column =>
-    column.UseDisplay<NumberDisplay>(number => number.Format = "C"));
-
-fields.AddDisplayField(traveller => traveller.MarketingOptIn, field =>
-    field.UseDisplay<BooleanDisplay>(flag =>
+admin.AddEfCoreResource<Traveller>(resource =>
+{
+    resource.Index(index => index.Columns(columns =>
     {
-        flag.Appearance = BooleanDisplayAppearance.Text;
-        flag.TrueText = "Subscribed";
-        flag.FalseText = "Not subscribed";
+        columns.Add(traveller => traveller.FirstName);
+        columns.Add(traveller => traveller.LastName);
+        columns.Add(traveller => traveller.Email);
+        columns.Add(traveller => traveller.MarketingOptIn, column =>
+            column.UseDisplay<BooleanDisplay>(flag =>
+            {
+                flag.Appearance = BooleanDisplayAppearance.Text;
+                flag.TrueText = "Subscribed";
+                flag.FalseText = "Not subscribed";
+            }));
     }));
+});
 ```
 
-Each display type's page lists its settings and their defaults:
+<Screenshot name="displays-grid" alt="The travellers grid with Subscribed or Not subscribed in the Marketing opt-in column" todo="Travellers index grid with first name, last name, email and marketing opt-in columns, showing both Subscribed and Not subscribed rows." />
+
+You can find more details on the various display types on the following pages:
 
 | Display type | Page |
 | --- | --- |
@@ -59,7 +65,3 @@ For a display type StellarAdmin doesn't have, write a [custom display](/docs/adm
 When a value is `null` or empty, StellarAdmin displays the column's or the field's `EmptyText`. If `EmptyText` isn't set, it uses the property's `[DisplayFormat(NullDisplayText)]`. Without either, the grid displays an empty cell, and a display field displays a dash.
 
 `ImageDisplay` is the exception: it displays a placeholder for an empty value.
-
-## Changing a built-in display type
-
-To change how a built-in display type renders everywhere, add a template with the built-in template's path. See [display templates](/docs/admin/display-templates#changing-a-built-in-display-type).

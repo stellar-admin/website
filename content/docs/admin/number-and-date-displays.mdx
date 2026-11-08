@@ -3,13 +3,15 @@ title: Numbers and dates
 description: Format numbers and dates, such as a currency or a short date
 ---
 
-StellarAdmin displays a number property with `NumberDisplay`, and a `DateOnly`, `DateTime`, `DateTimeOffset` or `TimeOnly` property with `DateDisplay`.
+## Introduction
 
-`NumberDisplay` displays every digit with the same width, so the numbers in a column line up. In the grid, numbers are aligned to the right.
+StellarAdmin displays numeric properties using `NumberDisplay`, and `DateOnly`, `DateTime`, `DateTimeOffset` or `TimeOnly` properties with `DateDisplay`.
 
-Without a format, a number is displayed as it is, a date as `14 Oct 2026`, a time as `09:30`, and a date and time as `14 Oct 2026, 09:30`.
+`NumberDisplay` uses a fixed width for every digit, so numbers in a column line up. In the grid, numbers are aligned to the right. 
 
 ## Formatting a number or a date
+
+By default, no formatting is applied to number displays. Date displays format dates using `d MMM yyyy`, times using `HH:mm`, and dates with a time using `d MMM yyyy, HH:mm`.
 
 To format a number or a date, set `Format` to a .NET format string, such as `"C"` or `"N2"` for a number, or `"d MMM yyyy"` for a date. The example below displays the booking's total as a currency, and its departure date with the day of the week:
 
@@ -25,11 +27,7 @@ columns.Add(booking => booking.Departure.StartDate, column =>
 
 <Screenshot name="number-and-date-displays-format" alt="The bookings grid with each total as a currency and each departure date with the day of the week" />
 
-| Setting | What it does |
-| --- | --- |
-| `Format` | Sets the .NET format string. The default is `null`, which uses the property's `[DisplayFormat]`. |
-
-To format the value everywhere it's displayed, add `[DisplayFormat]` to the property instead:
+You can also use the `[DisplayFormat]` on the property to apply formatting:
 
 ```cs
 [DisplayFormat(DataFormatString = "{0:C}")]

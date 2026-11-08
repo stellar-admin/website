@@ -1,19 +1,43 @@
 {
+  "badge-display-grid": {
+    "width": 990,
+    "height": 310
+  },
+  "badge-display-grid-dark": {
+    "width": 990,
+    "height": 310
+  },
   "badge-display-limit": {
-    "width": 1022,
-    "height": 420
+    "width": 990,
+    "height": 310
   },
   "badge-display-limit-dark": {
-    "width": 1022,
-    "height": 420
+    "width": 990,
+    "height": 310
+  },
+  "badge-display-related-grid": {
+    "width": 990,
+    "height": 310
+  },
+  "badge-display-related-grid-dark": {
+    "width": 990,
+    "height": 310
   },
   "boolean-and-enum-displays-grid": {
-    "width": 1022,
-    "height": 414
+    "width": 990,
+    "height": 305
   },
   "boolean-and-enum-displays-grid-dark": {
-    "width": 1022,
-    "height": 414
+    "width": 990,
+    "height": 305
+  },
+  "boolean-and-enum-displays-icon-grid": {
+    "width": 990,
+    "height": 310
+  },
+  "boolean-and-enum-displays-icon-grid-dark": {
+    "width": 990,
+    "height": 310
   },
   "branding-logo-icon": {
     "width": 255,
@@ -248,6 +272,14 @@
     "width": 1280,
     "height": 800,
     "format": "gif"
+  },
+  "displays-grid": {
+    "width": 1022,
+    "height": 377
+  },
+  "displays-grid-dark": {
+    "width": 1022,
+    "height": 377
   },
   "editors-css-classes": {
     "width": 560,
@@ -564,12 +596,12 @@
     "height": 165
   },
   "link-displays-grid": {
-    "width": 1022,
-    "height": 414
+    "width": 990,
+    "height": 305
   },
   "link-displays-grid-dark": {
-    "width": 1022,
-    "height": 414
+    "width": 990,
+    "height": 305
   },
   "list-and-dictionary-editors-dictionary": {
     "width": 1008,
@@ -766,6 +798,14 @@
   "sorting-and-paging-sortable-dark": {
     "width": 1010,
     "height": 318
+  },
+  "text-displays-html-grid": {
+    "width": 1022,
+    "height": 677
+  },
+  "text-displays-html-grid-dark": {
+    "width": 1022,
+    "height": 677
   },
   "text-displays-line-clamp": {
     "width": 1022,

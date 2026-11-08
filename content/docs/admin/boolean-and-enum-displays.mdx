@@ -3,9 +3,13 @@ title: Booleans and enums
 description: Display a bool as an icon or text, and an enum member by its name
 ---
 
-## Displaying yes or no
+## Displaying booleans
 
-StellarAdmin displays a `bool` property with `BooleanDisplay`, which displays a check mark for `true` and a cross for `false`. To display text instead, or an icon and text, set `Appearance`. The example below displays whether a trip is published as "Live" or "Draft":
+StellarAdmin displays a `bool` property with `BooleanDisplay`, which displays a check mark for `true` and a cross for `false`.
+
+<Screenshot name="boolean-and-enum-displays-icon-grid" alt="The trips grid with a check mark or a cross in the Published column" />
+
+To display text instead, or an icon and text, set `Appearance`. The example below displays whether a trip is published as "Live" or "Draft":
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -19,18 +23,20 @@ columns.Add(trip => trip.IsPublished, column =>
     }));
 ```
 
-<Screenshot name="boolean-and-enum-displays-grid" alt="The trips grid with Live or Draft in the Published column, and each trip's difficulty" />
+<Screenshot name="boolean-and-enum-displays-grid" alt="The trips grid with Live or Draft in the Published column" />
 
-| Setting | What it does |
+`BooleanDisplay` has the following members:
+
+| Member | Description |
 | --- | --- |
-| `Appearance` | Sets how the value is displayed: `BooleanDisplayAppearance.Icon`, `Text` or `IconAndText`. The default is `Icon`. |
-| `TrueText`, `FalseText` | Sets the text for `true` and `false`. The defaults are "Yes" and "No". When only the icon is displayed, screen readers announce the text. |
+| `Appearance` | Determines how the value is displayed: `BooleanDisplayAppearance.Icon`, `Text` or `IconAndText`. The default is `Icon`. |
+| `TrueText`, `FalseText` | Specifies the text for `true` and `false` values. The defaults are "Yes" and "No". When only the icon is displayed, screen readers announce the text. |
 
 A `bool?` that is `null` displays the column's or the field's [empty text](/docs/admin/displays#empty-values).
 
 ## Displaying enums
 
-StellarAdmin displays an enum property with `EnumDisplay`, which displays the member's `[Display(Name)]`. If the member has no `[Display]` attribute, `EnumDisplay` displays the member's name split into words, so `NorthAmerica` is displayed as "North America".
+StellarAdmin displays an enum property with `EnumDisplay`, which displays the value specified using the member's `[Display(Name)]` attribute. If the member has no `[Display]` attribute, `EnumDisplay` displays the member's name split into words, so `NorthAmerica` is displayed as "North America".
 
 ```cs
 public enum Difficulty
@@ -41,5 +47,3 @@ public enum Difficulty
     Moderate,
 }
 ```
-
-`EnumDisplay` has no settings. To display an enum member as a badge, use [`BadgeDisplay`](/docs/admin/badge-display#displaying-a-single-value-as-a-badge).

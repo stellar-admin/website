@@ -3,11 +3,13 @@ title: Text
 description: Display text and HTML, and cut long text off after a number of lines
 ---
 
-StellarAdmin displays a `string` property with `TextDisplay`, unless an attribute on the property chooses another display type, such as `[EmailAddress]`. `TextDisplay` displays all the text.
+## Introduction
+
+StellarAdmin display `string` properties using `TextDisplay`, unless an attribute on the property specifies a different display type, such as `[EmailAddress]`.
 
 ## Cutting long text off
 
-To cut the text off after a number of lines, set `LineClamp`. The example below displays at most 2 lines of each trip's summary in the grid:
+By default, `TextDisplay` displays all the text in the string. To cut the text off after a number of lines, set `LineClamp`. The example below displays at most 2 lines of each trip's summary in the grid:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -20,19 +22,15 @@ columns.Add(trip => trip.Summary, column =>
 
 In the grid, text with a `LineClamp` wraps at a readable width, instead of widening the column.
 
-| Setting | What it does |
-| --- | --- |
-| `LineClamp` | Sets the number of lines displayed before the text is cut off. It must be 1 or more. The default is `null`, which displays all the text. |
-
 ## Displaying line breaks
 
-In a display field, `TextDisplay` displays the text's line breaks when the property has `[DataType(DataType.MultilineText)]`, the attribute that also chooses a [textarea](/docs/admin/inputs#entering-long-text) on the form.
+Text that a user entered over several lines, such as in a [textarea](/docs/admin/inputs#entering-long-text), contains line breaks. By default, `TextDisplay` ignores them and displays the text as a single paragraph.
 
-In the grid, `TextDisplay` displays the text's line breaks only when `LineClamp` is set. Without it, the text is displayed on one line.
+To keep the line breaks in a display field, add `[DataType(DataType.MultilineText)]` to the property. In the grid, the line breaks are kept only when the column sets `LineClamp`.
 
 ## Displaying HTML
 
-StellarAdmin displays a property with `[DataType(DataType.Html)]`, such as the text of a [rich text editor](/docs/admin/rich-text-editor), with `HtmlDisplay`. `HtmlDisplay` [sanitizes the HTML](/docs/admin/rich-text-editor#sanitizing-the-html), and displays it formatted.
+StellarAdmin displays a property with `[DataType(DataType.Html)]` using `HtmlDisplay`. `HtmlDisplay` [sanitizes the HTML](/docs/admin/rich-text-editor#sanitizing-the-html), and displays it formatted.
 
 In the grid, `HtmlDisplay` displays the text without formatting, cut off after 2 lines. The example below displays 4 lines instead:
 
@@ -41,6 +39,4 @@ columns.Add(trip => trip.Description, column =>
     column.UseDisplay<HtmlDisplay>(html => html.LineClamp = 4));
 ```
 
-| Setting | What it does |
-| --- | --- |
-| `LineClamp` | Sets the number of lines displayed in the grid before the text is cut off. It must be 1 or more. The default is 2. |
+<Screenshot name="text-displays-html-grid" alt="The trips grid with each description displayed without formatting and cut off after 4 lines" />
