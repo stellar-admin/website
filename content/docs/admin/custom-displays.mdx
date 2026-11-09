@@ -78,9 +78,7 @@ public override bool RendersEmptyValue => true;
 
 ## Loading data for the display
 
-In the previous examples, the display only used the data from the model for rendering. Howver, sometimes your display may need to load data from and external service.
-
-When the display type needs data from your services, such as a name to look up, write a *handler* that loads it. The handler derives from `FieldDisplayHandler<TDisplay>`, and returns the data from `PrepareAsync()`. Its constructor takes the display type, and any services the handler needs.
+In the previous examples, the display only used the data from the model for rendering. However, sometimes your display may need to load data from and external service. To do this you need to create a *handler* which derives from `FieldDisplayHandler<TDisplay>`, and returns the data from `PrepareAsync()`. Its constructor must take the display type as parameter, as well as any other services the handler needs.
 
 The example below displays an airport's name for a stored airport code, and loads the name from an `IAirportDirectory` service:
 
@@ -101,7 +99,7 @@ public class AirportDisplayHandler(AirportDisplay display, IAirportDirectory air
 }
 ```
 
-To connect the handler to the display type, implement `IFieldDisplay<THandler>` on the display type:
+Connect the handler to the display type by implementing `IFieldDisplay<THandler>` on the display type:
 
 ```cs
 public class AirportDisplay : FieldDisplay, IFieldDisplay<AirportDisplayHandler>
@@ -110,7 +108,11 @@ public class AirportDisplay : FieldDisplay, IFieldDisplay<AirportDisplayHandler>
 }
 ```
 
-The template reads the data from `DisplayData`, which has the type `object?`, so cast it to the type the handler returns:
+<Callout type="warn">
+    A display type with a handler only works in display fields and on view pages, but not in the grid. If a column uses one, the column uses its default display type instead.
+</Callout>
+
+The template can read the data from the `DisplayData` property, which is of type `object?`, so cast it to the type the handler returns:
 
 ```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/Airport.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
@@ -123,4 +125,8 @@ The template reads the data from `DisplayData`, which has the type `object?`, so
 
 `FieldDisplayContext` holds the field's name, the record, and the field's value, for a handler that loads data based on them.
 
-A display type with a handler works in display fields and on view pages, but not in the grid. If a column uses one, the column uses its default display type instead, and StellarAdmin reports a [configuration problem](/docs/admin/configuration-problems).
+| Member | Description |
+| --- | --- |
+| `FieldName` | The property path of the field. For a field that computes its value, it's the field's title in PascalCase, such as `TotalPrice` for "Total price". |
+| `Model` | The record the field belongs to. |
+| `Value` | The value of the field. |
