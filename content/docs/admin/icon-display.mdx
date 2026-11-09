@@ -3,7 +3,7 @@ title: Icons
 description: Display the icon that a property names
 ---
 
-`IconDisplay` displays the icon that the property value names, such as a value from the [icon editor](/docs/admin/icon-editor).
+Use `IconDisplay` to display the matching icon for the property value.
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -11,10 +11,16 @@ using StellarAdmin.Resources.Displays;
 columns.Add(trip => trip.Icon, column => column.UseDisplay<IconDisplay>());
 ```
 
+<Screenshot name="icon-display-grid" alt="The trips grid with each trip's icon" />
+
 In the grid, `IconDisplay` displays the icon's name when people hover over the icon. In a display field, it displays the name beside the icon.
 
 If the value isn't the name of a registered [icon](/docs/ui/icons), `IconDisplay` displays a dashed box instead.
 
-| Setting | What it does |
+<Screenshot name="icon-display-unregistered" alt="An icon display field with a dashed box beside a name that isn't a registered icon" />
+
+`IconDisplay` has the following members:
+
+| Member | Description |
 | --- | --- |
-| `ShowName` | Sets whether the icon's name is displayed beside the icon: `true` displays it everywhere, and `false` only when people hover over the icon. The default is `null`, which displays it on hover in the grid, and beside the icon in a display field. |
+| `ShowName` | Specifies whether the icon's name is displayed beside the icon: `true` displays it everywhere, and `false` only when people hover over the icon. The default is `null`, which displays it on hover in the grid, and beside the icon in a display field. |

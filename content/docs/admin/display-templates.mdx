@@ -33,6 +33,8 @@ The property then needs two templates with that name: one for the grid, and one 
 </sa-badge>
 ```
 
+<Screenshot name="display-templates-booking-status" alt="Booking statuses as badges, with a canceled booking's status in red" variants={["Grid", "View page"]} />
+
 The template's model is the property value. StellarAdmin doesn't call the template for a `null` or empty value, and displays the [empty text](/docs/admin/displays#empty-values) instead.
 
 A column or display field that calls `UseDisplay()` uses that display type instead of the template.
@@ -67,6 +69,8 @@ To read the display type's settings, the template inherits `FieldDisplayView<TDi
     @(Model is true ? Display.TrueText : Display.FalseText)
 </sa-badge>
 ```
+
+<Screenshot name="display-templates-boolean" alt="The trips grid with each trip's published flag as a Yes or No badge" />
 
 See [custom displays](/docs/admin/custom-displays#writing-the-template) for the properties the template has.
 

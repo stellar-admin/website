@@ -3,9 +3,13 @@ title: Custom displays
 description: Write your own display type, with settings and its own template
 ---
 
-When none of the built-in [display types](/docs/admin/displays) fits a value, write your own. A *custom display* has two parts: a class with the display type's settings, and a Razor template that renders the value.
+## Create a custom display
 
-The class derives from `FieldDisplay`, and names its template in `TemplateName`. The example below displays a booking's status as a badge, with a setting that adds an icon:
+When none of the built-in [display types](/docs/admin/displays) suit your needs, you can write your own. A [display template](/docs/admin/display-templates) is simpler, but it applies to the property everywhere and has no settings. Use a *custom display* instead when you want to be more selective with which columns and fields use it using `UseDisplay()`, or if you need to add additional settings for configuration on a per column or field level.
+
+A custom display has two parts: a class with the display type's settings, and a Razor template that renders the value. The class derives from `FieldDisplay`, and names its template in `TemplateName`. 
+
+The example below displays a booking's status as a badge, with a setting that indicates whether an icon must be displayed:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -18,7 +22,7 @@ public class BookingStatusDisplay : FieldDisplay
 }
 ```
 
-The template inherits `FieldDisplayView<TDisplay>`, and chooses the badge's variant from the value:
+The template inherits `FieldDisplayView<TDisplay>`, and derives the badge's variant from the value:
 
 ```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
@@ -50,31 +54,31 @@ columns.Add(booking => booking.Status, column =>
     column.UseDisplay<BookingStatusDisplay>(status => status.ShowIcon = true));
 ```
 
-## Writing the template
+## Working with templates
 
-Put the template for the grid in `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/`, and the template for display fields and view pages in `Areas/StellarAdmin/Views/Shared/DisplayTemplates/`, named after `TemplateName`. If the display type is used in both, add both templates. The `sa-*` Tag Helpers need a [`_ViewImports.cshtml`](/docs/admin/overriding-pages#view-imports) in `Areas/StellarAdmin/Views/`.
+The grid template must be placed `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/`, and the template for display fields and view pages in `Areas/StellarAdmin/Views/Shared/DisplayTemplates/`, using the filename returned from `TemplateName`. If both templates are the same, you still need to create separate ones in each location.
 
-The template has these properties:
+Since your templates inherit from `FieldDisplayView<BookingStatusDisplay>`, they have the following properties:
 
-| Property | What it holds |
+| Property | Description |
 | --- | --- |
-| `Model` | The value, as an `object?`. |
+| `Model` | The value that must be rendered, as an `object?`. It is up to you to cast it to the correct type. |
 | `Display` | The display type, with your settings. |
 | `DisplayData` | The data the display type's handler loaded. See [loading data for the display](#loading-data-for-the-display). |
 
-To format the value the same way as the built-in display types, call `FormatValue()`. It uses the property's `[DisplayFormat]`, an enum member's `[Display(Name)]`, and the title of a record of a registered resource. To use a .NET format string instead, pass it to `FormatValue()`, such as `FormatValue("N2")`.
+To use consistent string formatting as StellarAdmin's own display types, call `FormatValue()`. It uses the property's `[DisplayFormat]`, an enum member's `[Display(Name)]`, and the title of a record of a registered resource. To use a .NET format string instead, pass it to `FormatValue()`, such as `FormatValue("N2")`.
 
 ## Displaying empty values
 
-By default, StellarAdmin doesn't call the template for a `null` or empty value, and displays the [empty text](/docs/admin/displays#empty-values) instead. To display something of your own for an empty value, such as a placeholder for a missing photo, override `RendersEmptyValue`:
+By default, StellarAdmin doesn't call the template for a `null` or empty value, and displays the [empty text](/docs/admin/displays#empty-values) instead. For some display type, however, you may want to handle rendering the empty state yourself - such as a placeholder for a missing photo. To do this, you can override `RendersEmptyValue` and return `true`.
 
 ```cs
 public override bool RendersEmptyValue => true;
 ```
 
-StellarAdmin then calls the template for every value, including `null` and empty values.
-
 ## Loading data for the display
+
+In the previous examples, the display only used the data from the model for rendering. Howver, sometimes your display may need to load data from and external service.
 
 When the display type needs data from your services, such as a name to look up, write a *handler* that loads it. The handler derives from `FieldDisplayHandler<TDisplay>`, and returns the data from `PrepareAsync()`. Its constructor takes the display type, and any services the handler needs.
 
@@ -114,6 +118,8 @@ The template reads the data from `DisplayData`, which has the type `object?`, so
 
 @(DisplayData as string ?? FormatValue()) (@Model)
 ```
+
+<Screenshot name="custom-displays-airport" alt="A guide's view page with the home airport's name beside its code" />
 
 `FieldDisplayContext` holds the field's name, the record, and the field's value, for a handler that loads data based on them.
 

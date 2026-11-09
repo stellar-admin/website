@@ -46,6 +46,8 @@ fields.Add(booking => booking.TravellerId).UseLookupSheetEditor(lookup =>
 
 The **New** button is displayed beside **Choose traveller** while nothing is selected, and in the sheet when a search finds nothing.
 
+<Screenshot name="foreign-keys-create" alt="The traveller lookup with a New button beside Choose traveller" />
+
 The related resource must have a [create page](/docs/admin/forms), enabled with `AllowCreate()`. If it doesn't, StellarAdmin doesn't display the button, and reports a configuration problem. People who aren't [authorized](/docs/admin/authorization) to use the related resource don't see the button.
 
 ## Configuring the lookup

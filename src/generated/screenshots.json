@@ -247,6 +247,14 @@
     "width": 1280,
     "height": 600
   },
+  "custom-displays-airport": {
+    "width": 992,
+    "height": 269
+  },
+  "custom-displays-airport-dark": {
+    "width": 992,
+    "height": 269
+  },
   "delete-confirmation-custom": {
     "width": 1280,
     "height": 600
@@ -272,6 +280,30 @@
     "width": 1280,
     "height": 800,
     "format": "gif"
+  },
+  "display-templates-booking-status-grid": {
+    "width": 990,
+    "height": 345
+  },
+  "display-templates-booking-status-grid-dark": {
+    "width": 990,
+    "height": 345
+  },
+  "display-templates-booking-status-view-page": {
+    "width": 992,
+    "height": 268
+  },
+  "display-templates-booking-status-view-page-dark": {
+    "width": 992,
+    "height": 268
+  },
+  "display-templates-boolean": {
+    "width": 990,
+    "height": 310
+  },
+  "display-templates-boolean-dark": {
+    "width": 990,
+    "height": 310
   },
   "displays-grid": {
     "width": 1022,
@@ -345,6 +377,14 @@
     "width": 1280,
     "height": 520
   },
+  "foreign-keys-create": {
+    "width": 520,
+    "height": 107
+  },
+  "foreign-keys-create-dark": {
+    "width": 520,
+    "height": 107
+  },
   "foreign-keys-lookup": {
     "width": 1280,
     "height": 640
@@ -409,6 +449,22 @@
     "width": 1280,
     "height": 480
   },
+  "icon-display-grid": {
+    "width": 990,
+    "height": 305
+  },
+  "icon-display-grid-dark": {
+    "width": 990,
+    "height": 305
+  },
+  "icon-display-unregistered": {
+    "width": 323,
+    "height": 101
+  },
+  "icon-display-unregistered-dark": {
+    "width": 323,
+    "height": 101
+  },
   "icon-editor-icons": {
     "width": 357,
     "height": 91
@@ -432,6 +488,32 @@
   "icon-editor-picker-dark": {
     "width": 433,
     "height": 467
+  },
+  "image-display-fallbacks-broken": {
+    "width": 368,
+    "height": 308
+  },
+  "image-display-fallbacks-broken-dark": {
+    "width": 368,
+    "height": 308
+  },
+  "image-display-fallbacks-empty": {
+    "width": 368,
+    "height": 308
+  },
+  "image-display-fallbacks-empty-dark": {
+    "width": 368,
+    "height": 308
+  },
+  "image-display-size-shape": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
+  },
+  "image-display-size-shape-dark": {
+    "width": 1280,
+    "height": 800,
+    "format": "gif"
   },
   "image-display-thumbnails": {
     "width": 1022,

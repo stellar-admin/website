@@ -3,7 +3,9 @@ title: Images
 description: Display an image as a thumbnail in the grid, and larger in a display field
 ---
 
-`ImageDisplay` displays an image, such as one uploaded with the [image editor](/docs/admin/image-editor).
+## Introduction
+
+Images can be displayed using the `ImageDisplay`:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -13,13 +15,15 @@ columns.Add(destination => destination.HeroImageUrl, column => column.UseDisplay
 
 <Screenshot name="image-display-thumbnails" alt="The destinations grid with a thumbnail of each destination's hero image" />
 
-In the grid, `ImageDisplay` displays a thumbnail, and in a display field, a larger image. When people click the image, StellarAdmin opens a larger version in a popup.
+In the grid, `ImageDisplay` displays a thumbnail, and in a display field, a larger image. When users click the image, StellarAdmin opens a larger version in a popup.
 
-When the value is empty, `ImageDisplay` displays a placeholder instead of the [empty text](/docs/admin/displays#empty-values). When the image fails to load, it displays a broken image.
+When the value is empty, `ImageDisplay` displays a placeholder. When the image fails to load, it displays a broken image.
 
-## Turning the value into a URL
+<Screenshot name="image-display-fallbacks" alt="A display field with no image, and with an image that fails to load" variants={["Empty", "Broken"]} />
 
-If the property's value isn't a URL the browser can load, such as a file name, specify a `ResolveUrl()` function that turns the property value into one.
+## Constructing the image URL
+
+Typically, fields referencing images do not store the full image URL, but just a filename or other reference to the image that can be resolved to a full URL. To help StellarAdmin resolve the full URL, use the `ResolveUrl()` method.
 
 ```cs
 columns.Add(destination => destination.HeroImageUrl, column =>
@@ -27,27 +31,35 @@ columns.Add(destination => destination.HeroImageUrl, column =>
         image.ResolveUrl(value => $"/photos/{value}")));
 ```
 
-To build the URL with a service registered with dependency injection, pass a function that also takes the services and a cancellation token: `ResolveUrl(async (value, services, cancellationToken) => ...)`.
+If you need a service to resolve the URL, you can use the `ResolveUrl(async (value, services, cancellationToken) => ...)` overload which allows you to resolve the service via DI using the `services` parameter.
 
-The grid calls `ResolveUrl()` once for each row, so build the URL from the property value instead of loading it from a database.
+The grid calls `ResolveUrl()` for every row, so keep it fast: build the URL from the value rather than looking it up in a database or calling an API.
 
-## Setting the image's size and shape
+## Setting the size and shape
 
-The example below displays a larger, landscape thumbnail in the grid, which displays a larger version when people hover over it:
+You have complete control over the size and aspect ration of the image. The example below displays a small, landscape image, with a larger version when users hover over it:
 
 ```cs
 using StellarAdmin.UI;
 
-columns.Add(destination => destination.HeroImageUrl, column =>
-    column.UseDisplay<ImageDisplay>(image =>
-    {
-        image.Size = ImageDisplaySize.Medium;
-        image.AspectRatio = ImageAspectRatio.Landscape;
-        image.Interaction = ImageDisplayInteraction.Preview;
-    }));
+resource.AllowView(view => view.Fields(fields =>
+{
+    fields.Add(destination => destination.Name);
+    fields.Add(destination => destination.HeroImageUrl, field =>
+        field.UseDisplay<ImageDisplay>(image =>
+        {
+            image.Size = ImageDisplaySize.ExtraSmall;
+            image.AspectRatio = ImageAspectRatio.Landscape;
+            image.Interaction = ImageDisplayInteraction.Preview;
+        }));
+}));
 ```
 
-| Setting | What it does |
+<Screenshot name="image-display-size-shape" alt="Hovering over a small, landscape hero image on a destination's view page displays a larger version" />
+
+`ImageDisplay` has the following members that control image size, shape, and interactivity:
+
+| Member | Description |
 | --- | --- |
 | `Size` | Sets the image's height in the grid, and its maximum height in a display field: `ImageDisplaySize.ExtraSmall`, `Small`, `Medium` or `Large`. The default is `Small` (32px) in the grid, and `Medium` (15rem) in a display field. |
 | `AspectRatio` | Sets the image's shape: `ImageAspectRatio.Square`, `Landscape`, `Widescreen`, `Portrait` or `Original`. The default is `Square` in the grid, and `Original` in a display field. |
