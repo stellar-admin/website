@@ -11,7 +11,7 @@ StellarAdmin displays numeric properties using `NumberDisplay`, and `DateOnly`, 
 
 ## Formatting a number or a date
 
-By default, no formatting is applied to number displays. Date displays format dates using `d MMM yyyy`, times using `HH:mm`, and dates with a time using `d MMM yyyy, HH:mm`.
+By default, no formatting is applied to number displays. Date displays follow the culture: dates use its long date without the weekday and with short month names, such as `Oct 14, 2026` in en-US and `14. Okt. 2026` in de-DE, times use its short time, such as `9:30 AM`, and dates with a time join the two with a space, such as `Oct 14, 2026 9:30 AM`.
 
 To format a number or a date, set `Format` to a .NET format string, such as `"C"` or `"N2"` for a number, or `"d MMM yyyy"` for a date. The example below displays the booking's total as a currency, and its departure date with the day of the week:
 
