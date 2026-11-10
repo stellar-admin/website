@@ -377,6 +377,22 @@
     "width": 1280,
     "height": 520
   },
+  "foreign-keys-choice": {
+    "width": 1008,
+    "height": 324
+  },
+  "foreign-keys-choice-dark": {
+    "width": 1008,
+    "height": 324
+  },
+  "foreign-keys-configure": {
+    "width": 1280,
+    "height": 640
+  },
+  "foreign-keys-configure-dark": {
+    "width": 1280,
+    "height": 640
+  },
   "foreign-keys-create": {
     "width": 520,
     "height": 107
@@ -709,13 +725,29 @@
     "width": 1008,
     "height": 228
   },
+  "many-to-many-choice": {
+    "width": 1008,
+    "height": 262
+  },
+  "many-to-many-choice-dark": {
+    "width": 1008,
+    "height": 262
+  },
+  "many-to-many-configure": {
+    "width": 1280,
+    "height": 640
+  },
+  "many-to-many-configure-dark": {
+    "width": 1280,
+    "height": 640
+  },
   "many-to-many-multi-lookup": {
     "width": 1280,
-    "height": 480
+    "height": 640
   },
   "many-to-many-multi-lookup-dark": {
     "width": 1280,
-    "height": 480
+    "height": 640
   },
   "number-and-date-displays-format": {
     "width": 1022,
@@ -766,6 +798,22 @@
   "quick-start-trips-edit-dark": {
     "width": 1280,
     "height": 560
+  },
+  "related-values-tags": {
+    "width": 990,
+    "height": 310
+  },
+  "related-values-tags-dark": {
+    "width": 990,
+    "height": 310
+  },
+  "related-values-tags-text": {
+    "width": 990,
+    "height": 305
+  },
+  "related-values-tags-text-dark": {
+    "width": 990,
+    "height": 305
   },
   "related-values-traveller": {
     "width": 1022,

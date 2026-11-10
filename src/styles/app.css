@@ -88,6 +88,12 @@ html > body[data-scroll-locked] {
   font-weight: 600;
 }
 
+/* Fumadocs drops the left border of the first cell in each row, which in a
+   grouped header's second row is a middle column below a colSpan cell. */
+.prose :where(thead tr + tr th:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border-inline-start: 1px solid var(--color-fd-border);
+}
+
 /* Fumadocs renders sidebar section headings as plain text in the same color
    and weight as the links, so they read like links. */
 :is(#nd-sidebar, #nd-sidebar-mobile) p.inline-flex:has(> .fd-page-tree-item-name) {

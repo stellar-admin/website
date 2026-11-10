@@ -3,9 +3,13 @@ title: Selecting several related records
 description: Select the records of a many-to-many relationship, with a multi-lookup or a choice editor
 ---
 
-A *many-to-many navigation*, such as `Trip.Tags`, holds the related records of a many-to-many relationship. On an EF Core resource, StellarAdmin renders a many-to-many navigation as a *multi-lookup*, which lets people search the related records and select several. The related type must be registered as a resource.
+StellarAdmin lets people select several related records on a form, such as a trip's tags.
 
-The example below adds `Tags` to the trip edit page:
+## Using many-to-many navigations on EF Core resources
+
+A *many-to-many navigation*, such as `Trip.Tags`, holds the related records of a many-to-many relationship. On an EF Core resource, when you add the navigation property to a form, StellarAdmin will display a *multi-lookup editor*, which allows users to select several related records from the referenced resource. StellarAdmin finds the related resource from the many-to-many relationship in your EF Core model.
+
+The example below registers tags as a resource, and adds `Tags` to the trip edit page:
 
 ```cs
 public class Trip
@@ -29,19 +33,23 @@ admin.AddEfCoreResource<Trip>(resource =>
 });
 ```
 
-The field displays the selected tags as chips, and its button opens a sheet that searches the tags. When people save the form, StellarAdmin adds and removes the rows of the join table. The navigation doesn't need a setter, as long as it's initialized, such as with `= []`.
+<Callout>
+    The entity the navigation refers to, such as `TripTag`, must be registered as a resource.
+</Callout>
+
+The field displays the selected tags as chips, and its **Add tags** button opens a sheet that searches the tags. When people save the form, StellarAdmin adds and removes the rows of the join table. The navigation doesn't need a setter, as long as it's initialized, such as with `= []`.
 
 <Screenshot name="many-to-many-multi-lookup" alt="The trip edit page with the trip's tags as chips, and an Add tags button" />
 
-If the related type isn't registered as a resource, StellarAdmin leaves the field off the form, and reports a [configuration problem](/docs/admin/configuration-problems).
+### Using a choice editor instead of a multi-lookup
 
-## Using a choice editor instead of a multi-lookup
-
-A multi-lookup suits a long list. For a short list, such as tags, a checkbox group or a toggle group lets people select the records without opening a sheet.
+A multi-lookup suits a long list. For a short list, such as tags, a checkbox group or a toggle group lets people select the records without opening a sheet. StellarAdmin lists the tags from the TripTag resource, as it does for a multi-lookup.
 
 ```cs
 fields.Add(trip => trip.Tags).UseCheckboxGroupEditor();
 ```
+
+<Screenshot name="many-to-many-choice" alt="The trip's tags as a checkbox group, with the trip's tags checked" />
 
 A many-to-many navigation works with only these editors:
 
@@ -51,13 +59,13 @@ A many-to-many navigation works with only these editors:
 | [Checkbox group](/docs/admin/choice-editors) | `UseCheckboxGroupEditor()` |
 | [Toggle group](/docs/admin/choice-editors) | `UseToggleGroupEditor()` |
 
-The editor you configure with a many-to-many navigation must support selecting multiple records. If you specify an editor that only supports selecting a single record, such as a select, StellarAdmin leaves the field off the form, and reports a configuration problem.
+If you specify an editor that does not support many-to-many navigations, such as a select, StellarAdmin leaves the field off the form.
 
 ## Configuring the multi-lookup
 
-To configure the multi-lookup, call `UseMultiLookupSheetEditor()`. It has the same `Sheet()` settings and `EnableCreate()` as the [lookup for a single record](/docs/admin/foreign-keys#configuring-the-lookup). With `EnableCreate()`, the **New** button is displayed at the bottom of the sheet.
+To configure the multi-lookup, call `UseMultiLookupSheetEditor()`. Call `Field()` to configure the field that is displayed on the form, and `Sheet()` to configure the sheet that opens to the side, allowing users to select records.
 
-The example below displays each selected tag in its own row:
+The example below displays each selected tag in its own row, and sets the sheet's title:
 
 ```cs
 using StellarAdmin.Resources.Editors;
@@ -65,16 +73,31 @@ using StellarAdmin.Resources.Editors;
 fields.Add(trip => trip.Tags).UseMultiLookupSheetEditor(lookup =>
 {
     lookup.Field(field => field.Layout = MultiLookupSheetEditorLayout.List);
+    lookup.Sheet(sheet => sheet.Title = "Choose tags");
 });
 ```
 
-`Field()` has these settings:
+<Screenshot name="many-to-many-configure" alt="The trip's tags in a row each, and the sheet titled Choose tags" />
 
-| Setting | What it does |
+The `Field()` builder callback has the following members:
+
+| Member | Description |
 | --- | --- |
-| `Layout` | Sets how the selected records are displayed: `MultiLookupSheetEditorLayout.Chips` displays a chip for each record, `List` a row for each record with its media, title and description, and `Summary` a single row that names the first records and counts the others. The default is `Chips`. |
-| `EmptyText` | Sets the text of the button while nothing is selected. |
+| `Layout` | Configures how the selected records are displayed: `MultiLookupSheetEditorLayout.Chips` displays a chip for each record, `List` a row for each record with its media, title and description, and `Summary` a single row that names the first records and counts the others. The default is `Chips`. |
+| `EmptyText` | Sets the text of the button while nothing is selected. The default is "Add tags", named after the field's label. |
 | `ShowMedia` | Sets whether the media of the selected records is displayed. The default is `true`. |
+
+The `Sheet()` builder callback has the following members:
+
+| Member | Description |
+| --- | --- |
+| `Title` | Sets the sheet's title. The default is the field's label. |
+| `SearchPlaceholder` | Sets the hint text in the search input. |
+| `MinimumSearchLength` | Specifies the number of characters people must type before the sheet searches. The default is 0, which lists the records when the sheet opens. |
+| `PageSize` | Sets the number of records loaded at a time. The sheet displays a **Load more** button to load more records. The default is 20. |
+| `ShowMedia` | Sets whether each record's media is displayed. The default is `true`. |
+
+To let people create a record from the multi-lookup, call `EnableCreate()`. This adds a **New** button at the bottom of the sheet, which opens the create page of the related resource, as described in [creating a record from a lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup).
 
 ## Limiting the number of records
 
@@ -93,7 +116,15 @@ StellarAdmin allows editing a many-to-many navigation that goes straight to the 
 - A navigation to an entity with a composite primary key.
 - A many-to-many navigation in an [inline row](/docs/admin/inline-editing), because the grid has no editor that selects several records.
 
-For a join entity with columns of its own or a composite key, use a [custom model](/docs/admin/custom-models) with a list of keys, and save the join rows yourself. The example below selects the tags of a `TripForm` by their keys:
+For a join entity with columns of its own or a composite key, use a list of keys on a form model, as described in [selecting related records on a form model](#selecting-related-records-on-a-form-model), and save the join rows yourself.
+
+## Selecting related records on a form model
+
+On a [form model](/docs/admin/custom-models) that wraps the entity, a many-to-many navigation that the field reads through the entity, such as `form.Trip.Tags`, is rendered as a multi-lookup, just as it is on the entity itself.
+
+A property of the form model itself, or of a form model that you save with a handler, isn't part of your EF Core model, so StellarAdmin doesn't know which resource it refers to. For these, call `UseResource()` with the related resource's type.
+
+The example below adds a multi-lookup for the form model's `TagIds` property, a list of the keys of the selected tags:
 
 ```cs
 fields.Add(form => form.TagIds).UseMultiLookupSheetEditor(lookup =>
