@@ -3,15 +3,19 @@ title: Home page
 description: Turn off the setup checklist, or replace the home page with your own
 ---
 
-The admin panel's home page is the page at the admin panel's URL, `/stellaradmin` by default, which the title at the top of the sidebar links to.
-
-In the Development environment, the home page is a setup checklist. It lists the steps for setting up StellarAdmin, such as adding resources, protecting the admin panel and setting the branding, and marks the steps you've done. Each step has the code to add, and instructions you can give to a coding agent.
+In the Development environment, the admin panel home page displays a setup checklist. It lists the steps for setting up StellarAdmin, such as adding resources, protecting the admin panel and setting the branding.
 
 <Screenshot name="home-page-setup-checklist" alt="The setup checklist on the admin panel's home page" />
 
-In other environments, the home page links to the resources the user can open, in the order of the sidebar. To display stats, lists or links instead, add [widgets](/docs/admin/widgets#home-page).
+In other environments, the home page links to the resources the user can open, in the order of the sidebar.
 
-To see that page in Development, turn the setup checklist off:
+<Screenshot name="home-page-resource-links" alt="The admin panel home page with links to five resources" todo="Home page with the setup checklist off, linking to about five resources, such as Trips, Destinations, Bookings, Customers and Reviews. Full page, including the sidebar, so the order matches." />
+
+<Callout type="idea">
+    You can also [add widgets](/docs/admin/widgets#home-page) to the home page.
+</Callout>
+
+You can hide the checklist in Development using the `ShowSetupChecklist` property:
 
 ```cs
 admin.ConfigureHomePage(home => home.ShowSetupChecklist = false);
@@ -19,7 +23,13 @@ admin.ConfigureHomePage(home => home.ShowSetupChecklist = false);
 
 ## Replacing the home page
 
-To display your own home page, such as a dashboard, add your own `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app, which replaces StellarAdmin's in every environment. The example below displays the number of bookings waiting for confirmation:
+To replace the StellarAdmin home page entirely, add your own `Areas/StellarAdmin/Views/Home/Index.cshtml` to your app. This will replace StellarAdmin's home page in every environment. 
+
+<Callout>
+    We suggest that you consider [adding widgets](/docs/admin/widgets#home-page) to the home page before replacing it completely.
+</Callout>
+
+The example below displays the number of bookings waiting for confirmation:
 
 ```razor title="Areas/StellarAdmin/Views/Home/Index.cshtml"
 @inject ApplicationDbContext Db
@@ -40,6 +50,4 @@ To display your own home page, such as a dashboard, add your own `Areas/StellarA
 </sa-page-container>
 ```
 
-Don't declare a `@model`, because the model of StellarAdmin's home page is internal. To load data, inject a service, as in the example above, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
-
-To add blocks of data to the home page without replacing it, use [widgets](/docs/admin/widgets#home-page).
+To load data, inject a service, as in the example above, or use a view component. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).

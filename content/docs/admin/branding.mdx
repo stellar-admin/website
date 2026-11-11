@@ -3,7 +3,7 @@ title: Branding
 description: Set the admin panel's name and logo
 ---
 
-To set the admin panel's name and logo, call `ConfigureBranding()`. StellarAdmin displays them at the top of the sidebar:
+To configure the admin panel's name and logo, call `ConfigureBranding()`. These are displayed at the top of the sidebar:
 
 ```cs
 using StellarAdmin.Sidebar;
@@ -18,9 +18,11 @@ admin.ConfigureBranding(branding =>
 
 <Screenshot name="branding-sidebar-header" alt="The top of the sidebar, with a compass icon, the Voyager Travel title and the Admin subtitle" todo="Crop of the sidebar header with exactly the configuration above." />
 
-| Setting | What it does |
+The branding builder has the following members:
+
+| Member | Description |
 | --- | --- |
-| `Title` | Sets the admin panel's name. The default is your app's name, with each part as a word, such as "Voyager Admin" for `Voyager.Admin`. |
+| `Title` | Sets the admin panel's name. The default is derived from your app's name, for example, an app named `Voyager.Admin` will result in the name "Voyager Admin". |
 | `Subtitle` | Sets a second line under the title. The default is none. |
 | `Logo` | Sets the logo. The default is none, which displays the title on its own. |
 | `Href` | Sets the URL that the title and logo link to: an absolute URL, or a path in your app that starts with `~/`. The default is the admin panel's [home page](/docs/admin/home-page). |
@@ -31,31 +33,31 @@ The browser tab also displays the title after the page's name, such as "Bookings
 
 To set the logo, set `Logo` to one of the following:
 
-| Logo | What it displays |
+| Logo Type | Description |
 | --- | --- |
-| `BrandingLogo.Icon(name)` | An [icon](/docs/ui/icons) in a colored tile, beside the title. |
-| `BrandingLogo.Image(path)` | A square image beside the title. |
-| `BrandingLogo.Wordmark(path)` | An image in place of the title and the subtitle, with the title as its alt text. |
+| `BrandingLogo.Icon(name)` | Displays an [icon](/docs/ui/icons) in a colored tile, beside the title. |
+| `BrandingLogo.Image(path)` | Displays a square image beside the title. |
+| `BrandingLogo.Wordmark(path)` | Displays an image in place of the title and the subtitle, with the title as its alt text. |
 
 <Screenshot name="branding-logo" alt="The top of the sidebar with each kind of logo" variants={["No logo", "Icon", "Image", "Wordmark"]} todo="Sidebar header crops of title Voyager Travel and subtitle Admin with no logo, an icon and an image, and of a wordmark." />
 
-The path is an absolute URL, or a path in your app that starts with `~/`. To display another image in dark mode, pass its path as the second argument of `Image()` or `Wordmark()`:
+The path is an absolute URL, or a path in your app that starts with `~/`. You can specify an second image to be displayed in dark mode by passing it as the `darkPath` parameter of `Image()` or `Wordmark()`:
 
 ```cs
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", "~/img/wordmark-dark.svg");
 ```
 
-A wordmark has no space for a subtitle, so StellarAdmin doesn't display the subtitle with a wordmark, and reports a [configuration problem](/docs/admin/configuration-problems).
-
 ### Placing a wordmark
 
-StellarAdmin centers a wordmark, at the height of the title and the subtitle it replaces. To place it differently, pass a `WordmarkLayout` as the last argument of `Wordmark()`. The example below stretches a wide wordmark across the sidebar, so it doesn't look small:
+StellarAdmin centers a wordmark, at the height of the title and the subtitle it replaces. To change the layout and placement, pass a `WordmarkLayout` as the last argument of `Wordmark()`. The example below stretches a wide wordmark across the sidebar, so it doesn't look small:
 
 ```cs
 branding.Logo = BrandingLogo.Wordmark("~/img/wordmark.svg", WordmarkLayout.Fill);
 ```
 
-| Layout | What it does |
+The layout can be one of the following:
+
+| Layout | Description |
 | --- | --- |
 | `WordmarkLayout.Center` | Centers the wordmark. This is the default. |
 | `WordmarkLayout.Start` | Lines the wordmark up with the sidebar items. |

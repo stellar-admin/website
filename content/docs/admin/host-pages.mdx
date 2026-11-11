@@ -3,9 +3,9 @@ title: Custom pages
 description: Display your own Razor Pages and MVC views inside the admin panel
 ---
 
-For a page that isn't a resource, such as a report or a page that starts a job, write a Razor Page or an MVC view in your app, and set its layout to `StellarAdminLayouts.Default`. The page is then displayed inside the admin panel, with the sidebar, the header, the theme and the command palette. It keeps its own URL, routing and authorization.
+As mentioned in the [Sidebar documentation](/docs/admin/sidebar), you can add links to pages from your own application to the sidebar. When doing so, you would probably also want those pages to have the same layout and navigation bar as the StellarAdmin pages, so it appears as one unified application.
 
-The example below lists the bookings that depart this week:
+You can achieve this by setting the layout of your own pages to use `StellarAdminLayouts.Default`. This ensure your pages share the same layout as the StellarAdmin pages. The example below lists the bookings that depart this week:
 
 ```razor title="Pages/Admin/Departures.cshtml"
 @page
@@ -65,7 +65,7 @@ public class DeparturesModel(ApplicationDbContext db) : PageModel
 
 To set the layout of every page in a folder, set it in a `_ViewStart.cshtml` in that folder instead.
 
-## Adding the page to the sidebar
+### Adding the page to the sidebar
 
 To link to the page from the sidebar, call `AddSidebarLink()`:
 
@@ -82,4 +82,4 @@ The admin panel's [authorization](/docs/admin/authorization) only protects Stell
 
 ## Styling the page
 
-Build the page with the [StellarAdmin.UI components](/docs/ui), such as `<sa-card>` and `<sa-table>`. The admin panel's stylesheet only has the classes that its components use, so Tailwind classes such as `p-4` don't style your page.
+Build the page with the [StellarAdmin.UI components](/docs/ui), such as `<sa-card>` and `<sa-table>`. These are the same components that StellarAdmin uses and will ensure a unified look-and-feel.

@@ -3,19 +3,24 @@ title: Global labels
 description: Change the default text of every resource's pages at once
 ---
 
-StellarAdmin builds the default text of each resource's pages from the resource's [labels](/docs/admin/resources), such as "Create Trip" for the create page's title, and "Search Trips..." for the search box. To change the default text for all resources, call `ConfigureResourceLabels()`. The example below changes the create button, the search box and the submit buttons:
+StellarAdmin builds the default text of each resource's pages from the resource's [labels](/docs/admin/resources), such as "Create Trip" for the create page's title, and "Search Trips..." for the search box. While you can override these on an individual resource level, you can also specify it on a global level to apply to all resources, using `ConfigureResourceLabels()` on the admin builder. 
+
+The example below changes the create button, the search box and the submit buttons:
 
 ```cs
-admin.ConfigureResourceLabels(labels =>
+builder.Services.AddStellarAdmin(admin =>
 {
-    labels.Index(index =>
+    admin.ConfigureResourceLabels(labels =>
     {
-        index.CreateLabel = resource => $"New {resource.SingularLabel.ToLower()}";
-        index.SearchPlaceholder = resource => $"Find {resource.PluralLabel.ToLower()}";
+        labels.Index(index =>
+        {
+            index.CreateLabel = resource => $"New {resource.SingularLabel.ToLower()}";
+            index.SearchPlaceholder = resource => $"Find {resource.PluralLabel.ToLower()}";
+        });
+        labels.Create(create => create.SubmitLabel = _ => "Save");
+        labels.Edit(edit => edit.SubmitLabel = _ => "Save changes");
+        labels.Delete(delete => delete.ConfirmLabel = _ => "Yes, delete");
     });
-    labels.Create(create => create.SubmitLabel = _ => "Save");
-    labels.Edit(edit => edit.SubmitLabel = _ => "Save changes");
-    labels.Delete(delete => delete.ConfirmLabel = _ => "Yes, delete");
 });
 ```
 

@@ -449,6 +449,14 @@
     "width": 1280,
     "height": 420
   },
+  "home-page-resource-links": {
+    "width": 1280,
+    "height": 480
+  },
+  "home-page-resource-links-dark": {
+    "width": 1280,
+    "height": 480
+  },
   "home-page-setup-checklist": {
     "width": 1280,
     "height": 800

@@ -3,11 +3,15 @@ title: User menu
 description: Configure the signed-in user's details and menu at the bottom of the sidebar
 ---
 
-When someone is signed in, the bottom of the sidebar displays their avatar, name and email address. Clicking these opens the *user menu*, with a **Log out** menu item. People who aren't signed in don't see the user menu, so it needs ASP.NET Core authentication.
+When a user is logged in, the footer of the sidebar displays their avatar, name and email address. Clicking these opens the *user menu*, with a **Log out** menu item.
 
 <Screenshot name="user-menu-open" alt="The bottom of the sidebar with the user's avatar, name and email address, and the user menu open with Log out" todo="Crop of the bottom of the sidebar with the user menu open, with the default configuration." />
 
-## Choosing the user's details
+<Callout>
+    The user menu will not be visible to users who aren't logged in.
+</Callout>
+
+## Specifying the user's details
 
 StellarAdmin reads the user's details from their claims. You can specify different user claims using `ConfigureUserMenu()`. The example below displays the user's roles under their name, instead of their email address:
 
@@ -17,7 +21,9 @@ using System.Security.Claims;
 admin.ConfigureUserMenu(menu => menu.DescriptionClaimType = ClaimTypes.Role);
 ```
 
-| Setting | What it does |
+The menu builder has the following members:
+
+| Member | Description |
 | --- | --- |
 | `NameClaimType` | Sets the claim displayed as the user's name. The default is `User.Identity.Name`, or else the `ClaimTypes.Name` or `name` claim. |
 | `DescriptionClaimType` | Sets the claim displayed under the name. When the user has several of these claims, such as a role claim for each role, StellarAdmin displays them all, such as "Sales, Finance". The default is the `ClaimTypes.Email` or `email` claim. |
@@ -27,7 +33,7 @@ When the user has no name, StellarAdmin displays their `DescriptionClaimType` cl
 
 ## Adding items to the menu
 
-To add items to the user menu, call `Add()`. The example below adds a link to the account page of ASP.NET Core Identity, with a line between it and **Log out**:
+You can add your own items to the user menu by calling `Add()` on the user menu builder. The example below adds a link to the account page of ASP.NET Core Identity, with a separator between it and **Log out**:
 
 ```cs
 using StellarAdmin.Sidebar;
@@ -44,26 +50,24 @@ admin.ConfigureUserMenu(menu =>
 
 The parameter passed to `Add()` can be one of the following:
 
-| Item | What it is |
+| Item | Description |
 | --- | --- |
 | `UserMenuItem.Url(text, url)` | A link to an absolute URL, or a path in your app that starts with `~/`. |
-| `UserMenuItem.Page(text, page)` | A link to a Razor Page outside any area. To link to a page in an area, pass the area as well: `Page(text, page, area)`. |
-| `UserMenuItem.Action(text, action, controller)` | A link to an MVC action outside any area. To link to an action in an area, pass the area as well: `Action(text, action, controller, area)`. |
+| `UserMenuItem.Page(text, page)` | A link to a Razor Page. To link to a page in an area, pass the area as well: `Page(text, page, area)`. |
+| `UserMenuItem.Action(text, action, controller)` | A link to an MVC action. To link to an action in an area, pass the area as well: `Action(text, action, controller, area)`. |
 | `UserMenuItem.Separator()` | A line between groups of items. |
 
 To display an [icon](/docs/ui/icons) before a link's text, pass a callback that sets `Icon`, as in the example above.
 
-StellarAdmin displays the items in the order you add them, and **Log out** always comes last. To remove the items you added, call `Clear()`. It does not remove the **Log out** option.
-
-When the page or the action of an item doesn't exist, StellarAdmin displays the item with the reason in the Development environment. In other environments, it hides the item and logs a warning.
+StellarAdmin displays the items in the order you add them, and **Log out** always appears last. To remove the items you added, call `Clear()`. It does not remove the **Log out** option.
 
 ## Configuring log out
 
-The **Log out** item posts to StellarAdmin's logout endpoint, which signs the user out of the default authentication scheme and then opens the admin panel's home page. That works with cookie authentication and ASP.NET Core Identity.
+The **Log out** item posts to StellarAdmin's own logout endpoint, which signs the user out of the default authentication scheme and then opens the admin panel's home page. This works with cookie authentication and ASP.NET Core Identity.
 
 ### Signing out of several schemes
 
-When your app signs people in with more than one scheme, such as a cookie and OpenID Connect, call `AddAuthenticationScheme()` for each one, in the order StellarAdmin signs out of them. Add the local schemes, such as cookies, first, and the remote scheme last, because it redirects to the identity provider:
+When your app signs people in with more than one scheme, such as a cookie and OpenID Connect, call `AddAuthenticationScheme()` for each one, in the order StellarAdmin signs out of them. Add the local schemes, such as cookies, first, and the remote scheme last, because it may redirect to the identity provider:
 
 ```cs
 admin.ConfigureUserMenu(menu => menu.Logout(logout =>
@@ -84,7 +88,7 @@ To sign out with your app's own logout endpoint, such as the one in ASP.NET Core
 admin.ConfigureUserMenu(menu => menu.Logout(logout => logout.Path = "~/Identity/Account/Logout"));
 ```
 
-If your logout endpoint takes a GET request, hide **Log out** and add a link to the endpoint:
+StellarAdmin will always do an HTTP POST to the logout endpoint. If your logout endpoint uses a GET request, hide **Log out** and add a normal link to the endpoint:
 
 ```cs
 admin.ConfigureUserMenu(menu =>
@@ -94,7 +98,9 @@ admin.ConfigureUserMenu(menu =>
 });
 ```
 
-| Setting | What it does |
+The logout builder has the following members:
+
+| Member | Description |
 | --- | --- |
 | `Show` | Sets whether the user menu displays **Log out**. The default is `true`. |
 | `Icon` | Sets the name of the icon displayed before **Log out**. The default is `log-out`. |
@@ -103,4 +109,4 @@ admin.ConfigureUserMenu(menu =>
 
 ## Replacing the user menu
 
-To change the text of **Log out**, or to show some items only to some people, add your own `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` to your app, which replaces StellarAdmin's. The view's model is a `SidebarUserMenuModel`, with the user's `Name`, `Description` and `AvatarUrl`, the menu's `Items`, and the `Logout` item. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).
+You can replace the user menu entirely by replacing the template by adding your own `Areas/StellarAdmin/Views/Shared/_SidebarUserMenu.cshtml` to your app. The view's model is a `SidebarUserMenuModel`, with the user's `Name`, `Description` and `AvatarUrl`, the menu's `Items`, and the `Logout` item. The folder needs the [view imports](/docs/admin/overriding-pages#view-imports).

@@ -3,6 +3,8 @@ title: Theming
 description: Change how the admin panel looks with a theme, and add your own stylesheets and scripts
 ---
 
+## Introduction
+
 The admin panel is built with the [StellarAdmin.UI components](/docs/ui), and uses the same themes. A theme is a CSS file that sets the [theme variables](/docs/ui/theme-variables), such as the colors, fonts and corner radius. Without one, the admin panel uses the [default theme](/docs/ui/theming).
 
 To use a theme, save its file in your app's `wwwroot` folder, and add it with `AddStylesheet()`:
@@ -18,7 +20,7 @@ StellarAdmin loads your stylesheets after its own, in the order you add them, so
 
 ## Making a theme
 
-You can make a theme in any of these ways:
+You can create your own theme in any of these ways:
 
 - Start from a preset in the [theme builder](/theme-builder), change it, and download the file.
 - Ask your coding agent to make one, with the [stellar-admin-theme skill](/docs/ui/agent-skills#creating-a-theme).
@@ -42,7 +44,7 @@ See [adding fonts](/docs/ui/theming#adding-fonts) for how a theme sets its fonts
 
 ## Adding your own stylesheets and scripts
 
-StellarAdmin's stylesheet only has the classes its own components use. To use other classes, such as Tailwind classes, in your [custom pages](/docs/admin/host-pages) or [custom editors](/docs/admin/custom-editors), add a stylesheet that has them with `AddStylesheet()`.
+StellarAdmin's stylesheet only has the classes its own components use. To use other classes, such as Tailwind classes, in your [custom pages](/docs/admin/host-pages) or [custom editors](/docs/admin/custom-editors), add a stylesheet and reference it with `AddStylesheet()`.
 
 To add a script to every page of the admin panel, call `AddScript()`:
 
