@@ -23,11 +23,11 @@ resource.AllowEdit(edit => edit.Fields(fields =>
 
 You can override a field's label the help text that displays below the field using the field builder's `Title` and `Description` properties.
 
-By default, the `Title` is derived from the property name, for example `StartDate`. You can override the title either by using the `[Display(Name)]` attribute on the property or by specifying the `Title` on the field builder. The `Title` on the field builder takes precedence.
+By default, the `Title` is the property name split into words, for example "Start Date" for `StartDate`. You can override the title either by using the `[Display(Name)]` attribute on the property or by specifying the `Title` on the field builder. The `Title` on the field builder takes precedence.
 
 A field that references another resource is labeled with that resource's label unless the field sets a `Title` or the property has a `[Display(Name)]`.
 
-We recommend you prefer the `[Display]` attribute over setting `Title` on the field builder. The reason for this is that ASP.NET Core validation uses the `[Display]` attribute, but has no knowledge of StellarAdmin's `Title` property. Using the `[Display]` attribute ensures the same text is used in the label and error messages.
+Validation error messages use the field's label, so they always match it, whether the label comes from `Title`, `[Display(Name)]` or the property name. Messages that a validation library such as FluentValidation writes itself use that library's own names.
 
 The help text uses the property's `[Display(Description)]` attribute value, but can be overridden by using the `Description` property of the field builder.
 
