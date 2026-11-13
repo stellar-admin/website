@@ -28,7 +28,7 @@
     <script>window.saThemeFonts = {"default":"Inter:wght@400..700","ledger":"Lexend:wght@300..700","ops":"IBM\u002BPlex\u002BSans:wght@400;500;600;700","soft":"Figtree:wght@400..700"};</script>
     <script src="/demo/ui/assets/theme-fonts.qm7amh8j3s.js"></script>
     <link rel="stylesheet" href="/demo/ui/assets/site.ik4ghfepqt.css" />
-    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.f4f1d6hg2y.css" />
+    <link rel="stylesheet" href="/demo/ui/assets/stellar-admin.iq4s1mxura.css" />
         <script>saThemeInit();</script>
     
     <script type="module" src="/demo/ui/assets/stellar-admin.y6wvbiuhes.js"></script>
@@ -62,21 +62,21 @@
             <tr data-slot="table-row" class="sa-table-row">
                 <td class="sa-table-cell font-medium" data-slot="table-cell">Studio plan</td>
                 <td data-slot="table-cell" class="sa-table-cell">
-                    <span data-slot="badge" class="sa-badge sa-badge-variant-default">Active</span>
+                    <span data-slot="badge" data-variant="default" class="sa-badge">Active</span>
                 </td>
                 <td class="sa-table-cell text-right" data-slot="table-cell">$49</td>
             </tr>
             <tr data-slot="table-row" class="sa-table-row">
                 <td class="sa-table-cell font-medium" data-slot="table-cell">Team plan</td>
                 <td data-slot="table-cell" class="sa-table-cell">
-                    <span data-slot="badge" class="sa-badge sa-badge-variant-secondary">Trial</span>
+                    <span data-slot="badge" data-variant="secondary" class="sa-badge">Trial</span>
                 </td>
                 <td class="sa-table-cell text-right" data-slot="table-cell">$99</td>
             </tr>
             <tr data-slot="table-row" class="sa-table-row">
                 <td class="sa-table-cell font-medium" data-slot="table-cell">Personal</td>
                 <td data-slot="table-cell" class="sa-table-cell">
-                    <span data-slot="badge" class="sa-badge sa-badge-variant-outline">Free</span>
+                    <span data-slot="badge" data-variant="outline" class="sa-badge">Free</span>
                 </td>
                 <td class="sa-table-cell text-right" data-slot="table-cell">$0</td>
             </tr>
@@ -97,12 +97,12 @@
         <span data-slot="avatar" data-size="default" class="sa-avatar"><span class="sa-avatar-fallback" data-slot="avatar-fallback">JL</span></span>
     </div>
     <div class="flex flex-wrap gap-2">
-        <span data-slot="badge" class="sa-badge sa-badge-variant-default">Published</span>
-        <span data-slot="badge" class="sa-badge sa-badge-variant-secondary">Draft</span>
-        <span data-slot="badge" class="sa-badge sa-badge-variant-outline">In review</span>
-        <span data-slot="badge" class="sa-badge sa-badge-variant-destructive">Archived</span>
+        <span data-slot="badge" data-variant="default" class="sa-badge">Published</span>
+        <span data-slot="badge" data-variant="secondary" class="sa-badge">Draft</span>
+        <span data-slot="badge" data-variant="outline" class="sa-badge">In review</span>
+        <span data-slot="badge" data-variant="destructive" class="sa-badge">Archived</span>
     </div>
-    <div role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal" class="sa-separator sa-separator-horizontal"></div>
+    <div role="separator" aria-orientation="horizontal" data-slot="separator" data-orientation="horizontal" class="sa-separator"></div>
     <div class="flex items-center gap-3">
         <div class="sa-skeleton size-9 shrink-0 rounded-full" data-slot="skeleton"></div>
         <div class="flex flex-1 flex-col gap-2">
@@ -117,7 +117,7 @@
         <section>
             <h2 class="sa-font-heading mb-4 text-sm font-semibold">Feedback</h2>
             <div class="flex min-w-0 flex-col gap-3">
-    <div data-slot="alert" role="alert" class="sa-alert sa-alert-variant-default">
+    <div data-slot="alert" role="alert" data-variant="default" class="sa-alert">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg>
         <div data-slot="alert-title" class="sa-alert-title">You're all set</div>
         <div data-slot="alert-description" class="sa-alert-description">Your changes have been saved.</div>
@@ -129,8 +129,8 @@
         </div>
         <div aria-label="Upload progress" data-slot="progress" class="sa-progress-root"><div class="sa-progress-track" data-slot="progress-track"><div class="sa-progress-indicator" data-slot="progress-indicator" style="inset-inline-start: 0px; height: inherit; width: 64%;"></div></div></div>
     </div>
-    <div data-slot="attachment" data-state="done" data-size="default" data-orientation="horizontal" class="sa-attachment sa-attachment-size-default sa-attachment-orientation-horizontal">
-        <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media sa-attachment-media-variant-icon">
+    <div data-slot="attachment" data-state="done" data-size="default" data-orientation="horizontal" class="sa-attachment">
+        <div data-slot="attachment-media" data-variant="icon" class="sa-attachment-media">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
         </div>
         <div data-slot="attachment-content" class="sa-attachment-content">
@@ -149,11 +149,11 @@
             <p data-slot="dialog-description" class="sa-dialog-description">Changes are emailed to the traveler when you save.</p>
         </div>
         <div data-slot="field-group" class="sa-field-group">
-            <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+            <div class="sa-field" data-orientation="vertical" data-slot="field">
                 <label for="overlays-traveler" data-slot="field-label" class="sa-label sa-field-label">Traveler</label>
                 <input id="overlays-traveler" value="Amelia Hart" data-slot="input" class="sa-input">
             </div>
-            <div class="sa-field sa-field-orientation-vertical" data-orientation="vertical" data-slot="field">
+            <div class="sa-field" data-orientation="vertical" data-slot="field">
                 <label for="overlays-cabin" data-slot="field-label" class="sa-label sa-field-label">Cabin</label>
                 <div data-slot="native-select-wrapper" data-size="default" class="sa-native-select-wrapper"><select id="overlays-cabin" data-slot="native-select" data-size="default" class="sa-native-select">
                     <option>Economy</option>

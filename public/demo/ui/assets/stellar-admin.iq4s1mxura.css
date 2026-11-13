@@ -753,8 +753,7 @@
 
 /* components/alert.css */
 /* Alert: a bordered message box with an optional leading icon, title, description and action.
-   Replaces: .sa-alert, .sa-alert-variant-default, .sa-alert-variant-destructive, .sa-alert-title,
-   .sa-alert-description, .sa-alert-action */
+   Replaces: .sa-alert, .sa-alert-title, .sa-alert-description, .sa-alert-action */
 
 @layer sa.tokens {
   .sa-alert {
@@ -807,7 +806,7 @@
       }
     }
   }
-  .sa-alert-variant-destructive {
+  .sa-alert[data-variant="destructive"] {
     --_bg: var(--_alert-danger-bg);
     --_fg: var(--sa-color-danger-text);
     --_border: var(--_alert-danger-border);
@@ -837,7 +836,7 @@
       color: var(--sa-color-ink);
     }
   }
-  .sa-alert-variant-destructive :is(.sa-alert-title, .sa-alert-description) a:hover {
+  .sa-alert[data-variant="destructive"] :is(.sa-alert-title, .sa-alert-description) a:hover {
     color: inherit;
   }
   .sa-alert-action {
@@ -879,10 +878,9 @@
 /* Attachment: a file card (media, title, description, actions, an optional whole-card trigger) in
    three sizes, horizontal or vertical, with idle, uploading, processing, done and error states; and the
    attachment group, a horizontally scrolling, snapping row with faded edges.
-   Replaces: .sa-attachment, .sa-attachment-actions, .sa-attachment-content, .sa-attachment-description,
-   .sa-attachment-group, .sa-attachment-media, .sa-attachment-media-variant-image,
-   .sa-attachment-orientation-horizontal, .sa-attachment-orientation-vertical, .sa-attachment-size-default,
-   .sa-attachment-size-sm, .sa-attachment-size-xs, .sa-attachment-title, .sa-attachment-trigger */
+   Replaces: .sa-attachment, .sa-attachment-actions, .sa-attachment-content,
+   .sa-attachment-description, .sa-attachment-group, .sa-attachment-media, .sa-attachment-title,
+   .sa-attachment-trigger */
 
 @layer sa.components {
   .sa-attachment {
@@ -929,10 +927,10 @@
     }
   }
 
-  .sa-attachment-orientation-horizontal {
+  .sa-attachment[data-orientation="horizontal"] {
     align-items: center;
   }
-  .sa-attachment-orientation-vertical {
+  .sa-attachment[data-orientation="vertical"] {
     --_media-w: 100%;
     --_media-icon: 1.5rem;
     flex-direction: column;
@@ -942,7 +940,7 @@
     }
   }
 
-  .sa-attachment-size-sm {
+  .sa-attachment[data-size="sm"] {
     --_p: calc(1.5 * var(--sa-unit));
     --_px: calc(2 * var(--sa-unit));
     --_py: calc(1.5 * var(--sa-unit));
@@ -950,7 +948,7 @@
     gap: calc(2.5 * var(--sa-unit));
     font-size: var(--sa-text-xs);
   }
-  .sa-attachment-size-xs {
+  .sa-attachment[data-size="xs"] {
     --_p: var(--sa-unit);
     --_px: calc(1.5 * var(--sa-unit));
     --_py: var(--sa-unit);
@@ -961,7 +959,7 @@
     border-radius: var(--sa-radius-box);
     font-size: var(--sa-text-xs);
   }
-  .sa-attachment-orientation-vertical:is(.sa-attachment-size-sm, .sa-attachment-size-xs) {
+  .sa-attachment[data-orientation="vertical"]:is([data-size="sm"], [data-size="xs"]) {
     --_media-w: 100%;
     --_media-icon: 1.5rem;
   }
@@ -992,7 +990,7 @@
       color: var(--sa-color-danger-text);
     }
   }
-  .sa-attachment-media-variant-image {
+  .sa-attachment-media[data-variant="image"] {
     opacity: 0.6;
     & > img {
       width: 100%;
@@ -1009,7 +1007,7 @@
     min-width: 0;
     max-width: 100%;
     line-height: 1.25;
-    .sa-attachment-orientation-vertical > & {
+    .sa-attachment[data-orientation="vertical"] > & {
       padding-inline: var(--sa-unit);
     }
   }
@@ -1066,7 +1064,7 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    .sa-attachment-orientation-vertical > & {
+    .sa-attachment[data-orientation="vertical"] > & {
       position: absolute;
       top: calc(3 * var(--sa-unit));
       right: calc(3 * var(--sa-unit));
@@ -1287,9 +1285,7 @@
 
 /* components/badge.css */
 /* Badge: a short label on a tag-shaped fill (<sa-badge>, also as a link).
-   Replaces: .sa-badge, .sa-badge-variant-default, .sa-badge-variant-secondary,
-   .sa-badge-variant-outline, .sa-badge-variant-destructive, .sa-badge-variant-ghost,
-   .sa-badge-variant-link */
+   Replaces: .sa-badge */
 
 @layer sa.tokens {
   .sa-badge {
@@ -1351,24 +1347,24 @@
       &:focus-visible { box-shadow: var(--sa-invalid-focus-shadow); }
     }
   }
-  .sa-badge-variant-default {
+  .sa-badge[data-variant="default"] {
     --_bg: var(--sa-color-accent-fill);
     --_bg-hover: var(--sa-color-accent-hover);
     --_fg: var(--sa-color-on-accent);
     --_border: oklch(0.2 0 0 / calc(var(--sa-outlines) * 0.2));
   }
-  .sa-badge-variant-secondary {
+  .sa-badge[data-variant="secondary"] {
     --_bg: var(--sa-color-surface-sunken);
     --_bg-hover: color-mix(in oklab, var(--sa-color-surface-sunken), var(--sa-color-ink) 6%);
     --_fg: var(--sa-color-ink);
     --_border: color-mix(in oklab, var(--sa-color-line) calc(var(--sa-outlines) * 100%), transparent);
   }
-  .sa-badge-variant-outline {
+  .sa-badge[data-variant="outline"] {
     --_bg-hover: var(--sa-color-hover);
     --_fg: var(--sa-color-ink);
     --_border: var(--sa-color-line);
   }
-  .sa-badge-variant-destructive {
+  .sa-badge[data-variant="destructive"] {
     --_bg: var(--sa-color-danger-soft);
     --_bg-hover: var(--sa-color-danger-soft-hover);
     --_fg: var(--_badge-danger-fg);
@@ -1376,11 +1372,11 @@
     --sa-focus-border: var(--sa-color-danger);
     --sa-focus-shadow: var(--sa-invalid-focus-shadow);
   }
-  .sa-badge-variant-ghost {
+  .sa-badge[data-variant="ghost"] {
     --_fg: var(--sa-color-ink);
     &:hover { background-color: var(--sa-color-hover); }
   }
-  .sa-badge-variant-link {
+  .sa-badge[data-variant="link"] {
     --_fg: var(--sa-color-accent-text);
     text-underline-offset: 4px;
     &:hover { text-decoration: underline; }
@@ -1440,11 +1436,7 @@
 /* components/bubble.css */
 /* Bubble: a chat bubble (its content a div, link or button), with optional reactions pinned to its
    edge, alone or in a group.
-   Replaces: .sa-bubble, .sa-bubble-content, .sa-bubble-group, .sa-bubble-reactions,
-   .sa-bubble-reactions-side-top, .sa-bubble-reactions-side-bottom, .sa-bubble-reactions-align-start,
-   .sa-bubble-reactions-align-end, .sa-bubble-variant-default, .sa-bubble-variant-secondary,
-   .sa-bubble-variant-muted, .sa-bubble-variant-tinted, .sa-bubble-variant-outline,
-   .sa-bubble-variant-ghost, .sa-bubble-variant-destructive */
+   Replaces: .sa-bubble, .sa-bubble-content, .sa-bubble-group, .sa-bubble-reactions */
 
 @layer sa.tokens {
   .sa-bubble,
@@ -1516,33 +1508,33 @@
     }
   }
 
-  .sa-bubble-variant-default {
+  .sa-bubble[data-variant="default"] {
     --_bg: var(--sa-color-accent-fill);
     --_bg-hover: var(--sa-color-accent-hover);
     --_fg: var(--sa-color-on-accent);
   }
-  .sa-bubble-variant-secondary {
+  .sa-bubble[data-variant="secondary"] {
     --_bg: var(--sa-color-surface-sunken);
     --_bg-hover: color-mix(in oklab, var(--sa-color-surface-sunken), var(--sa-color-ink) 6%);
     --_fg: var(--sa-color-ink);
   }
-  .sa-bubble-variant-muted {
+  .sa-bubble[data-variant="muted"] {
     --_bg: var(--sa-color-surface-sunken);
     --_bg-hover: color-mix(in oklab, var(--sa-color-surface-sunken), var(--sa-color-ink) 6%);
     --_fg: var(--sa-color-ink-muted);
   }
-  .sa-bubble-variant-tinted {
+  .sa-bubble[data-variant="tinted"] {
     --_bg: var(--_bubble-tinted-bg);
     --_bg-hover: var(--_bubble-tinted-bg-hover);
     --_fg: var(--sa-color-ink);
   }
-  .sa-bubble-variant-outline {
+  .sa-bubble[data-variant="outline"] {
     --_bg: var(--sa-color-surface);
     --_bg-hover: var(--sa-color-hover);
     --_fg: var(--sa-color-ink);
     --_border: var(--sa-color-line);
   }
-  .sa-bubble-variant-ghost {
+  .sa-bubble[data-variant="ghost"] {
     --_bg-hover: var(--sa-color-hover);
     --_fg: initial;   /* no colour of its own: the text inherits */
     max-width: 100%;
@@ -1551,7 +1543,7 @@
       border-radius: 0;
     }
   }
-  .sa-bubble-variant-destructive {
+  .sa-bubble[data-variant="destructive"] {
     --_bg: var(--sa-color-danger-soft);
     --_bg-hover: var(--sa-color-danger-soft-hover);
     --_fg: var(--sa-color-danger-text);
@@ -1604,8 +1596,7 @@
 /* components/button-group.css */
 /* Button group: buttons, inputs, selects and text joined into one row or column, with shared edges
    and only the outer corners rounded. Nested groups sit apart.
-   Replaces: .sa-button-group, .sa-button-group-orientation-horizontal,
-   .sa-button-group-orientation-vertical, .sa-button-group-separator, .sa-button-group-text */
+   Replaces: .sa-button-group, .sa-button-group-separator, .sa-button-group-text */
 
 @layer sa.components {
   .sa-button-group {
@@ -1631,7 +1622,7 @@
 
   /* Every part but the last gives up its end corners; every part but the first its start corners and
      its start edge, so neighbours share one line. Small buttons keep the group's radius (button.css). */
-  .sa-button-group-orientation-horizontal {
+  .sa-button-group[data-orientation="horizontal"] {
     & > [data-slot]:has(~ [data-slot]) {
       border-start-end-radius: 0;
       border-end-end-radius: 0;
@@ -1642,7 +1633,7 @@
       border-end-start-radius: 0;
     }
   }
-  .sa-button-group-orientation-vertical {
+  .sa-button-group[data-orientation="vertical"] {
     flex-direction: column;
 
     & > [data-slot]:has(~ [data-slot]) {
@@ -1657,7 +1648,7 @@
   }
 
   /* A native select draws its edge on the select inside its wrapper. */
-  .sa-button-group-orientation-horizontal {
+  .sa-button-group[data-orientation="horizontal"] {
     & > [data-slot="native-select-wrapper"]:has(~ [data-slot]) > [data-slot="native-select"] {
       border-start-end-radius: 0;
       border-end-end-radius: 0;
@@ -1668,7 +1659,7 @@
       border-end-start-radius: 0;
     }
   }
-  .sa-button-group-orientation-vertical {
+  .sa-button-group[data-orientation="vertical"] {
     & > [data-slot="native-select-wrapper"]:has(~ [data-slot]) > [data-slot="native-select"] {
       border-end-start-radius: 0;
       border-end-end-radius: 0;
@@ -3541,8 +3532,8 @@
 /* components/empty.css */
 /* Empty: an empty state, centred: media (an icon on a tile), title, description and actions. Draws
    no edge itself; an author's border utility gets a dashed line.
-   Replaces: .sa-empty, .sa-empty-header, .sa-empty-media, .sa-empty-media-default,
-   .sa-empty-media-icon, .sa-empty-title, .sa-empty-description, .sa-empty-content */
+   Replaces: .sa-empty, .sa-empty-header, .sa-empty-media, .sa-empty-title, .sa-empty-description,
+   .sa-empty-content */
 
 @layer sa.components {
   .sa-empty {
@@ -3576,8 +3567,8 @@
     margin-bottom: calc(2 * var(--sa-unit));
     & svg { flex-shrink: 0; pointer-events: none; }
   }
-  .sa-empty-media-default { background: transparent; }
-  .sa-empty-media-icon {
+  .sa-empty-media[data-variant="default"] { background: transparent; }
+  .sa-empty-media[data-variant="icon"] {
     width: calc(8 * var(--sa-unit));
     height: calc(8 * var(--sa-unit));
     border-radius: var(--sa-radius-control);
@@ -4113,31 +4104,28 @@
 
 /* components/group.css */
 /* Group: <sa-group>, a row of items with a gap from a five-step scale, alignment and justification.
-   Replaces: .sa-group, .sa-group-align-baseline, .sa-group-align-center, .sa-group-align-end,
-   .sa-group-align-start, .sa-group-align-stretch, .sa-group-gap-xs, .sa-group-gap-sm, .sa-group-gap-md,
-   .sa-group-gap-lg, .sa-group-gap-xl, .sa-group-justify-around, .sa-group-justify-between,
-   .sa-group-justify-center, .sa-group-justify-end, .sa-group-justify-start */
+   Replaces: .sa-group */
 
 @layer sa.components {
   .sa-group {
     display: flex;
     flex-direction: row;
   }
-  .sa-group-gap-xs { column-gap: calc(1 * var(--sa-unit)); }
-  .sa-group-gap-sm { column-gap: calc(2 * var(--sa-unit)); }
-  .sa-group-gap-md { column-gap: calc(4 * var(--sa-unit)); }
-  .sa-group-gap-lg { column-gap: calc(5 * var(--sa-unit)); }
-  .sa-group-gap-xl { column-gap: calc(8 * var(--sa-unit)); }
-  .sa-group-align-start { align-items: flex-start; }
-  .sa-group-align-center { align-items: center; }
-  .sa-group-align-end { align-items: flex-end; }
-  .sa-group-align-baseline { align-items: baseline; }
-  .sa-group-align-stretch { align-items: stretch; }
-  .sa-group-justify-start { justify-content: flex-start; }
-  .sa-group-justify-center { justify-content: center; }
-  .sa-group-justify-end { justify-content: flex-end; }
-  .sa-group-justify-between { justify-content: space-between; }
-  .sa-group-justify-around { justify-content: space-around; }
+  .sa-group[data-gap="xs"] { column-gap: calc(1 * var(--sa-unit)); }
+  .sa-group[data-gap="sm"] { column-gap: calc(2 * var(--sa-unit)); }
+  .sa-group[data-gap="default"] { column-gap: calc(4 * var(--sa-unit)); }
+  .sa-group[data-gap="lg"] { column-gap: calc(5 * var(--sa-unit)); }
+  .sa-group[data-gap="xl"] { column-gap: calc(8 * var(--sa-unit)); }
+  .sa-group[data-align="start"] { align-items: flex-start; }
+  .sa-group[data-align="center"] { align-items: center; }
+  .sa-group[data-align="end"] { align-items: flex-end; }
+  .sa-group[data-align="baseline"] { align-items: baseline; }
+  .sa-group[data-align="stretch"] { align-items: stretch; }
+  .sa-group[data-justify="start"] { justify-content: flex-start; }
+  .sa-group[data-justify="center"] { justify-content: center; }
+  .sa-group[data-justify="end"] { justify-content: flex-end; }
+  .sa-group[data-justify="space-between"] { justify-content: space-between; }
+  .sa-group[data-justify="space-around"] { justify-content: space-around; }
 }
 
 /* components/icon-picker.css */
@@ -4738,10 +4726,7 @@
 /* Input group: one field drawn around an input or textarea, with addons (icons, text, kbd, buttons)
    inline or above and below. The group draws the field; the control inside gives up its own edge.
    Reads the input's tokens (input.css).
-   Replaces: .sa-input-group, .sa-input-group-addon, .sa-input-group-addon-align-start,
-   .sa-input-group-addon-align-end, .sa-input-group-addon-align-top,
-   .sa-input-group-addon-align-bottom, .sa-input-group-button, .sa-input-group-button-size-xs,
-   .sa-input-group-button-size-icon-xs, .sa-input-group-button-size-icon-sm, .sa-input-group-text,
+   Replaces: .sa-input-group, .sa-input-group-addon, .sa-input-group-button, .sa-input-group-text,
    .sa-input-group-input, .sa-input-group-textarea */
 
 @layer sa.components {
@@ -4841,7 +4826,7 @@
       border-radius: var(--sa-radius-inner);
     }
   }
-  .sa-input-group-addon-align-start {
+  .sa-input-group-addon[data-align="start"] {
     order: -1;
     padding-inline-start: calc(2 * var(--sa-unit));
     &:has(> button) {
@@ -4851,7 +4836,7 @@
       margin-inline-start: calc(-0.6 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-end {
+  .sa-input-group-addon[data-align="end"] {
     order: 1;
     padding-inline-end: calc(2 * var(--sa-unit));
     &:has(> button) {
@@ -4861,20 +4846,20 @@
       margin-inline-end: calc(-0.6 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-top,
-  .sa-input-group-addon-align-bottom {
+  .sa-input-group-addon[data-align="top"],
+  .sa-input-group-addon[data-align="bottom"] {
     justify-content: flex-start;
     width: 100%;
     padding-inline: var(--sa-control-px);
   }
-  .sa-input-group-addon-align-top {
+  .sa-input-group-addon[data-align="top"] {
     order: -1;
     padding-top: calc(2 * var(--sa-unit));
     &.border-b {
       padding-bottom: calc(2 * var(--sa-unit));
     }
   }
-  .sa-input-group-addon-align-bottom {
+  .sa-input-group-addon[data-align="bottom"] {
     order: 1;
     padding-bottom: calc(2 * var(--sa-unit));
     &.border-t {
@@ -4909,23 +4894,23 @@
     --_text: var(--sa-text-sm);
     gap: calc(2 * var(--sa-unit));
   }
-  .sa-button.sa-input-group-button-size-xs {
+  .sa-button.sa-input-group-button[data-size="xs"] {
     --_h: calc(6 * var(--sa-unit));
     --_px: calc(1.5 * var(--sa-unit));
     --_radius: var(--sa-radius-inner);
     --_icon: 0.875rem;
     gap: var(--sa-unit);
   }
-  .sa-button.sa-input-group-button-size-sm {
+  .sa-button.sa-input-group-button[data-size="sm"] {
     --_h: calc(8 * var(--sa-unit));
   }
-  .sa-button.sa-input-group-button-size-icon-xs {
+  .sa-button.sa-input-group-button[data-size="icon-xs"] {
     --_h: calc(6 * var(--sa-unit));
     --_radius: var(--sa-radius-inner);
     width: var(--_h);
     padding: 0;
   }
-  .sa-button.sa-input-group-button-size-icon-sm {
+  .sa-button.sa-input-group-button[data-size="icon-sm"] {
     --_h: calc(8 * var(--sa-unit));
     width: var(--_h);
     padding: 0;
@@ -5147,11 +5132,8 @@
 /* Item: a row of media, content (title and description) and actions, with optional header and
    footer rows; plain, outlined or on a muted fill, in three sizes. An item link (<a>) highlights on
    hover. Items stack in an item group, optionally with separators.
-   Replaces: .sa-item, .sa-item-variant-default, .sa-item-variant-outline, .sa-item-variant-muted,
-   .sa-item-size-default, .sa-item-size-sm, .sa-item-size-xs, .sa-item-media,
-   .sa-item-media-variant-default, .sa-item-media-variant-icon, .sa-item-media-variant-image,
-   .sa-item-content, .sa-item-title, .sa-item-description, .sa-item-actions, .sa-item-header,
-   .sa-item-footer, .sa-item-group, .sa-item-separator */
+   Replaces: .sa-item, .sa-item-media, .sa-item-content, .sa-item-title, .sa-item-description,
+   .sa-item-actions, .sa-item-header, .sa-item-footer, .sa-item-group, .sa-item-separator */
 
 @layer sa.components {
   .sa-item {
@@ -5184,15 +5166,15 @@
       box-shadow: var(--sa-focus-shadow);
     }
   }
-  .sa-item-variant-outline { border-color: var(--sa-color-line); }
-  .sa-item-variant-muted { background-color: var(--sa-color-surface-sunken); }
-  .sa-item-size-sm {
+  .sa-item[data-variant="outline"] { border-color: var(--sa-color-line); }
+  .sa-item[data-variant="muted"] { background-color: var(--sa-color-surface-sunken); }
+  .sa-item[data-size="sm"] {
     --_item-gap: calc(2.5 * var(--sa-unit));
     --_item-px: calc(3 * var(--sa-unit));
     --_item-py: calc(2.5 * var(--sa-unit));
     --_item-media-size: calc(8 * var(--sa-unit));
   }
-  .sa-item-size-xs {
+  .sa-item[data-size="xs"] {
     --_item-gap: calc(2 * var(--sa-unit));
     --_item-px: calc(2.5 * var(--sa-unit));
     --_item-py: calc(2 * var(--sa-unit));
@@ -5215,12 +5197,12 @@
       translate: 0 calc(0.5 * var(--sa-unit));
     }
   }
-  .sa-item-media-variant-default { background: transparent; }
-  .sa-item-media-variant-icon svg:not([class*="size-"]) {
+  .sa-item-media[data-variant="default"] { background: transparent; }
+  .sa-item-media[data-variant="icon"] svg:not([class*="size-"]) {
     width: var(--sa-control-icon);
     height: var(--sa-control-icon);
   }
-  .sa-item-media-variant-image {
+  .sa-item-media[data-variant="image"] {
     width: var(--_item-media-size);
     height: var(--_item-media-size);
     overflow: hidden;
@@ -5361,8 +5343,7 @@
 /* components/marker.css */
 /* Marker: a muted inline note in a transcript or list (a status line, a date separator), as a div,
    a link or a button.
-   Replaces: .sa-marker, .sa-marker-variant-separator, .sa-marker-variant-border, .sa-marker-icon,
-   .sa-marker-content */
+   Replaces: .sa-marker, .sa-marker-icon, .sa-marker-content */
 
 @layer sa.components {
   .sa-marker {
@@ -5394,7 +5375,7 @@
       box-shadow: var(--sa-focus-shadow);
     }
   }
-  .sa-marker-variant-separator {
+  .sa-marker[data-variant="separator"] {
     &::before,
     &::after {
       content: "";
@@ -5406,7 +5387,7 @@
     &::before { margin-inline-end: var(--sa-unit); }
     &::after { margin-inline-start: var(--sa-unit); }
   }
-  .sa-marker-variant-border {
+  .sa-marker[data-variant="border"] {
     padding-bottom: calc(2 * var(--sa-unit));
     border-bottom: var(--sa-border-width) solid var(--sa-color-line);
   }
@@ -5424,7 +5405,7 @@
       text-underline-offset: 3px;
       &:hover { color: var(--sa-color-ink); }
     }
-    .sa-marker-variant-separator > & {
+    .sa-marker[data-variant="separator"] > & {
       flex: none;
       text-align: center;
     }
@@ -5603,7 +5584,7 @@
     font-size: var(--sa-text-xs);
     font-weight: var(--sa-weight-control);
     line-height: calc(var(--sa-text-xs) * 1.3333);
-    .sa-message:has([data-variant="ghost"]) & {
+    .sa-message:has(.sa-bubble[data-variant="ghost"]) & {
       padding-inline: 0;
     }
   }
@@ -5623,8 +5604,7 @@
 /* components/page-container.css */
 /* Page container: <sa-page-container>, the padded, centred column a page's content sits in, full width
    or capped at one of three widths.
-   Replaces: .sa-page-container, .sa-page-container-width-large, .sa-page-container-width-medium,
-   .sa-page-container-width-small */
+   Replaces: .sa-page-container */
 
 @layer sa.components {
   .sa-page-container {
@@ -5635,9 +5615,9 @@
     margin-inline: auto;
     padding: var(--sa-space-page);
   }
-  .sa-page-container-width-small { max-width: 42rem; }
-  .sa-page-container-width-medium { max-width: 56rem; }
-  .sa-page-container-width-large { max-width: 72rem; }
+  .sa-page-container[data-width="small"] { max-width: 42rem; }
+  .sa-page-container[data-width="medium"] { max-width: 56rem; }
+  .sa-page-container[data-width="large"] { max-width: 72rem; }
 }
 
 /* components/page-header.css */
@@ -6374,7 +6354,7 @@
     border-start-start-radius: inherit;
     border-start-end-radius: inherit;
 
-    & > .sa-separator-vertical {
+    & > .sa-separator[data-orientation="vertical"] {
       align-self: stretch;
       height: auto;
       margin: var(--sa-unit) calc(0.5 * var(--sa-unit));
@@ -6714,7 +6694,7 @@
     &:not([data-state="open"]) {
       display: none;
     }
-    & > .sa-separator-vertical {
+    & > .sa-separator[data-orientation="vertical"] {
       align-self: stretch;
       height: auto;
       margin: var(--sa-unit) calc(0.5 * var(--sa-unit));
@@ -7040,18 +7020,18 @@
 /* components/separator.css */
 /* Separator: <sa-separator>, a one-stroke rule, horizontal or vertical; other components' separators
    (sidebar, app header, …) render it and adjust it by selector.
-   Replaces: .sa-separator, .sa-separator-horizontal, .sa-separator-vertical */
+   Replaces: .sa-separator */
 
 @layer sa.components {
   .sa-separator {
     flex-shrink: 0;
     background: var(--sa-color-line);
   }
-  .sa-separator-horizontal {
+  .sa-separator[data-orientation="horizontal"] {
     width: 100%;
     height: var(--sa-border-width);
   }
-  .sa-separator-vertical {
+  .sa-separator[data-orientation="vertical"] {
     width: var(--sa-border-width);
     height: 100%;
   }
@@ -7191,10 +7171,8 @@
    Replaces: .sa-sidebar, .sa-sidebar-backdrop, .sa-sidebar-container, .sa-sidebar-content,
    .sa-sidebar-footer, .sa-sidebar-gap, .sa-sidebar-group, .sa-sidebar-group-content,
    .sa-sidebar-group-label, .sa-sidebar-header, .sa-sidebar-inner, .sa-sidebar-inset, .sa-sidebar-menu,
-   .sa-sidebar-menu-badge, .sa-sidebar-menu-button, .sa-sidebar-menu-button-variant-default,
-   .sa-sidebar-menu-button-variant-outline, .sa-sidebar-menu-button-size-default,
-   .sa-sidebar-menu-button-size-sm, .sa-sidebar-menu-button-size-lg, .sa-sidebar-menu-item,
-   .sa-sidebar-menu-sub, .sa-sidebar-menu-sub-button, .sa-sidebar-menu-sub-item, .sa-sidebar-separator,
+   .sa-sidebar-menu-badge, .sa-sidebar-menu-button, .sa-sidebar-menu-item, .sa-sidebar-menu-sub,
+   .sa-sidebar-menu-sub-button, .sa-sidebar-menu-sub-item, .sa-sidebar-separator,
    .sa-sidebar-wrapper */
 
 @layer sa.components {
@@ -7417,7 +7395,7 @@
       &[data-size="lg"] { padding: 0; }
     }
   }
-  .sa-sidebar-menu-button-variant-outline {
+  .sa-sidebar-menu-button[data-variant="outline"] {
     background: var(--sa-color-surface);
     box-shadow: 0 0 0 var(--sa-border-width) var(--sa-color-nav-line);
     &:hover { box-shadow: 0 0 0 var(--sa-border-width) var(--sa-color-line-control-hover); }
@@ -7755,30 +7733,27 @@
 
 /* components/stack.css */
 /* Stack: <sa-stack>, a column of items with a gap from a five-step scale, alignment and justification.
-   Replaces: .sa-stack, .sa-stack-align-center, .sa-stack-align-end, .sa-stack-align-start,
-   .sa-stack-align-stretch, .sa-stack-gap-xs, .sa-stack-gap-sm, .sa-stack-gap-md, .sa-stack-gap-lg,
-   .sa-stack-gap-xl, .sa-stack-justify-around, .sa-stack-justify-between, .sa-stack-justify-center,
-   .sa-stack-justify-end, .sa-stack-justify-start */
+   Replaces: .sa-stack */
 
 @layer sa.components {
   .sa-stack {
     display: flex;
     flex-direction: column;
   }
-  .sa-stack-gap-xs { row-gap: calc(1 * var(--sa-unit)); }
-  .sa-stack-gap-sm { row-gap: calc(2 * var(--sa-unit)); }
-  .sa-stack-gap-md { row-gap: calc(4 * var(--sa-unit)); }
-  .sa-stack-gap-lg { row-gap: calc(5 * var(--sa-unit)); }
-  .sa-stack-gap-xl { row-gap: calc(8 * var(--sa-unit)); }
-  .sa-stack-align-start { align-items: flex-start; }
-  .sa-stack-align-center { align-items: center; }
-  .sa-stack-align-end { align-items: flex-end; }
-  .sa-stack-align-stretch { align-items: stretch; }
-  .sa-stack-justify-start { justify-content: flex-start; }
-  .sa-stack-justify-center { justify-content: center; }
-  .sa-stack-justify-end { justify-content: flex-end; }
-  .sa-stack-justify-between { justify-content: space-between; }
-  .sa-stack-justify-around { justify-content: space-around; }
+  .sa-stack[data-gap="xs"] { row-gap: calc(1 * var(--sa-unit)); }
+  .sa-stack[data-gap="sm"] { row-gap: calc(2 * var(--sa-unit)); }
+  .sa-stack[data-gap="default"] { row-gap: calc(4 * var(--sa-unit)); }
+  .sa-stack[data-gap="lg"] { row-gap: calc(5 * var(--sa-unit)); }
+  .sa-stack[data-gap="xl"] { row-gap: calc(8 * var(--sa-unit)); }
+  .sa-stack[data-align="start"] { align-items: flex-start; }
+  .sa-stack[data-align="center"] { align-items: center; }
+  .sa-stack[data-align="end"] { align-items: flex-end; }
+  .sa-stack[data-align="stretch"] { align-items: stretch; }
+  .sa-stack[data-justify="start"] { justify-content: flex-start; }
+  .sa-stack[data-justify="center"] { justify-content: center; }
+  .sa-stack[data-justify="end"] { justify-content: flex-end; }
+  .sa-stack[data-justify="space-between"] { justify-content: space-between; }
+  .sa-stack[data-justify="space-around"] { justify-content: space-around; }
 }
 
 /* components/switch.css */
@@ -8935,8 +8910,7 @@
 /* components/toggle.css */
 /* Toggle: a two-state button, a label around a visually hidden checkbox (or radio, in a toggle group),
    so its states come from the input (:checked, :focus-visible, :disabled, aria-invalid).
-   Replaces: .sa-toggle, .sa-toggle-variant-default, .sa-toggle-variant-outline,
-   .sa-toggle-size-default, .sa-toggle-size-sm, .sa-toggle-size-lg */
+   Replaces: .sa-toggle */
 
 @layer sa.tokens {
   .sa-toggle {
@@ -9039,17 +9013,17 @@
   }
 
   /* The plain toggle draws no edge, so it is as wide as its content (Nova's sizes). */
-  .sa-toggle-variant-default {
+  .sa-toggle[data-variant="default"] {
     border-width: 0;
   }
-  .sa-toggle-variant-outline {
+  .sa-toggle[data-variant="outline"] {
     --_bg: var(--_toggle-outline-bg);
     --_border: var(--_toggle-outline-border);
     --_shadow: var(--sa-shadow-control);
     --_on-border: var(--_toggle-outline-on-border);
   }
 
-  .sa-toggle-size-sm {
+  .sa-toggle[data-size="sm"] {
     --_h: var(--sa-control-h-sm);
     --_px: var(--sa-control-px);
     --_radius: var(--sa-radius-control-sm);
@@ -9062,7 +9036,7 @@
       padding-inline-end: calc(var(--_px) - var(--sa-unit));
     }
   }
-  .sa-toggle-size-lg {
+  .sa-toggle[data-size="lg"] {
     --_h: var(--sa-control-h-lg);
     --_px: var(--sa-control-px);
   }
