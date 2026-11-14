@@ -51,10 +51,10 @@ public class BookingHistoryHandler(BookingHistoryService history)
 }
 ```
 
-Then pass the handler as the type argument of `EnableRowDetails<THandler>()`.
+Then pass the partial view's model and the handler as the type arguments of `EnableRowDetails<TModel, THandler>()`.
 
 ```cs
-index.EnableRowDetails<BookingHistoryHandler>("_BookingHistory");
+index.EnableRowDetails<BookingHistory, BookingHistoryHandler>("_BookingHistory");
 ```
 
 StellarAdmin registers the handler as a scoped service, unless you've already registered it, so its constructor can take your own services. 
@@ -77,7 +77,7 @@ index.EnableRowDetails(panels =>
     panels.Add("Summary", "_BookingSummary");
     panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
         booking.TotalAmount, booking.Passengers.Count, booking.Departure.Trip.BasePrice));
-    panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
+    panels.Add<BookingHistory, BookingHistoryHandler>("History", "_BookingHistory");
 });
 ```
 
@@ -108,7 +108,7 @@ index.EnableRowDetails(
         panels.Add("Summary", "_BookingSummary");
         panels.Add("Pricing", "_BookingPricing", booking => new BookingPricing(
             booking.TotalAmount, booking.Passengers.Count, booking.Departure.Trip.BasePrice));
-        panels.Add<BookingHistoryHandler>("History", "_BookingHistory");
+        panels.Add<BookingHistory, BookingHistoryHandler>("History", "_BookingHistory");
     },
     details =>
     {
