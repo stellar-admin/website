@@ -24,7 +24,7 @@ public class BookingStatusDisplay : FieldDisplay
 
 The template inherits `FieldDisplayView<TDisplay>`, and derives the badge's variant from the value:
 
-```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/BookingStatus.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
 @using StellarAdmin.UI
 @inherits FieldDisplayView<BookingStatusDisplay>
@@ -56,7 +56,7 @@ columns.Add(booking => booking.Status, column =>
 
 ## Working with templates
 
-The grid template must be placed `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/`, and the template for display fields and view pages in `Areas/StellarAdmin/Views/Shared/DisplayTemplates/`, using the filename returned from `TemplateName`. If both templates are the same, you still need to create separate ones in each location.
+The grid template must be placed `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/`, and the template for display fields and view pages in `Areas/StellarAdmin/Views/Shared/DisplayTemplates/`, using the filename returned from `TemplateName`. If both templates are the same, you still need to create separate ones in each location.
 
 Since your templates inherit from `FieldDisplayView<BookingStatusDisplay>`, they have the following properties:
 

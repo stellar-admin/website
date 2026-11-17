@@ -14,7 +14,7 @@ An editor has a template for forms, and another for [inline rows](/docs/admin/in
 | To change the editor in | Add |
 | --- | --- |
 | Forms | `Areas/StellarAdmin/Views/Shared/EditorTemplates/Editors/{Name}.cshtml` |
-| Inline rows | `Areas/StellarAdmin/Views/Shared/GridEditorTemplates/Editors/{Name}.cshtml` |
+| Inline rows | `Areas/StellarAdmin/Views/Shared/EditorTemplates/Compact/Editors/{Name}.cshtml` |
 
 `{Name}` is the name of the editor's class without `Editor`, such as `TextInput` for `TextInputEditor` and `RadioGroup` for `RadioGroupEditor`. `ListEditor` and `DictionaryEditor` keep their full names.
 
@@ -26,7 +26,7 @@ Each display type has a template for the grid, and another for display fields an
 
 | To change the display type in | Add |
 | --- | --- |
-| The grid | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/{Name}.cshtml` |
+| The grid | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/Displays/{Name}.cshtml` |
 | Display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/{Name}.cshtml` |
 
 `{Name}` is the name of the display type without `Display`, such as `Boolean` for `BooleanDisplay`.

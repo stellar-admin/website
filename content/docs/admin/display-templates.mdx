@@ -15,7 +15,7 @@ public class Booking
 
 The property then needs two templates with that name: one for the grid, and one for display fields and view pages. The example below displays a canceled booking's status as a red badge:
 
-```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/BookingStatus.cshtml"
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/BookingStatus.cshtml"
 @using StellarAdmin.UI
 @model BookingStatus
 
@@ -43,7 +43,7 @@ A column or display field that calls `UseDisplay()` uses that display type inste
 
 | Template for | Folder |
 | --- | --- |
-| The grid | `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/` |
+| The grid | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/` |
 | Display fields and view pages | `Areas/StellarAdmin/Views/Shared/DisplayTemplates/` |
 
 If a template is missing, the page that displays the property fails with an exception that lists the folders StellarAdmin searched.
@@ -54,12 +54,12 @@ The `sa-*` Tag Helpers need a [`_ViewImports.cshtml`](/docs/admin/overriding-pag
 
 To change how a built-in display type renders everywhere, add a template with the built-in template's path. The path is the display type's name without `Display`, in a `Displays` folder. For `BooleanDisplay`, the paths are:
 
-- `Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/Boolean.cshtml`
+- `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/Displays/Boolean.cshtml`
 - `Areas/StellarAdmin/Views/Shared/DisplayTemplates/Displays/Boolean.cshtml`
 
 To read the display type's settings, the template inherits `FieldDisplayView<TDisplay>`. The example below displays a `bool` in the grid as a badge with the `TrueText` or `FalseText`:
 
-```razor title="Areas/StellarAdmin/Views/Shared/GridDisplayTemplates/Displays/Boolean.cshtml"
+```razor title="Areas/StellarAdmin/Views/Shared/DisplayTemplates/Compact/Displays/Boolean.cshtml"
 @using StellarAdmin.Areas.StellarAdmin
 @using StellarAdmin.Resources.Displays
 @using StellarAdmin.UI
