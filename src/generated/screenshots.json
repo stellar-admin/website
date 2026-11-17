@@ -799,6 +799,22 @@
     "width": 1280,
     "height": 560
   },
+  "record-summaries-label-and-text": {
+    "width": 1032,
+    "height": 107
+  },
+  "record-summaries-label-and-text-dark": {
+    "width": 1032,
+    "height": 107
+  },
+  "record-summaries-overview": {
+    "width": 1032,
+    "height": 107
+  },
+  "record-summaries-overview-dark": {
+    "width": 1032,
+    "height": 107
+  },
   "related-values-tags": {
     "width": 990,
     "height": 310

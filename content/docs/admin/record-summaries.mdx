@@ -1,0 +1,123 @@
+---
+title: Record summaries
+description: Display a record's key values under the title of its view and edit pages
+---
+
+## Introduction
+
+A *record summary* displays key values of a record, such as a trip's code, destination and difficulty, in a line under the title of the record's view and edit pages.
+
+<Screenshot name="record-summaries-overview" alt="A trip's view page with its code, destination and difficulty badge under the title" todo="A crop of the page header of a trip's view page, with the summary from the first example on this page under the title" />
+
+## Adding a summary
+
+To add a summary, call `Summary()` on the resource builder, and add fields to it by calling `Add()`. The summary is displayed on the view page and the edit page, and displays the items in the order you add them.
+
+The example below displays the trip's code, its destination and its difficulty in a badge:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+admin.AddEfCoreResource<Trip>(resource =>
+{
+    resource.Summary(summary =>
+    {
+        summary.SeparateItems = true;
+        summary.Add(trip => trip.Code);
+        summary.Add(trip => trip.Destination);
+        summary.Add(trip => trip.Difficulty, item => item.UseDisplay<BadgeDisplay>());
+    });
+});
+```
+
+A field displays only its value, without a label. A field that selects a record of another resource, such as `trip.Destination`, displays that record's [title](/docs/admin/titles-and-references). For an EF Core resource, StellarAdmin loads the related records that the summary's fields read.
+
+When a value is empty, the field displays the `NullDisplayText` of the property's `[DisplayFormat]` attribute, or a dash when the attribute doesn't set one.
+
+## Separating items
+
+To display a separator between every two items, set `SeparateItems` to `true`, as in the example above. You can also choose to display separators only at specific points, call `AddSeparator()` where you want each one:
+
+```cs
+resource.Summary(summary =>
+{
+    summary.Add(trip => trip.Code);
+    summary.AddSeparator();
+    summary.Add(trip => trip.Destination);
+    summary.Add(trip => trip.DurationDays);
+});
+```
+
+<Callout type="info">
+    Use either `SeparateItems` or `AddSeparator()`, not both. When you set `SeparateItems` to `true`, StellarAdmin ignores the separators added with `AddSeparator()`.
+</Callout>
+
+## Adding labels and text
+
+To label a value, call `AddText()` before the field. StellarAdmin displays the text exactly as you pass it, and doesn't add a colon.
+
+The example below labels the trip's code and its duration:
+
+```cs
+resource.Summary(summary =>
+{
+    summary.AddText("Code");
+    summary.Add(trip => trip.Code);
+    summary.AddSeparator();
+    summary.AddText("Days");
+    summary.Add(trip => trip.DurationDays);
+});
+```
+
+<Screenshot name="record-summaries-label-and-text" alt="A trip's view page with custom text in the summary" todo="A crop of the page header of a trip's view page, with the summary from the example code snippet above" />
+
+A summary that contains only text displays the same text for every record.
+
+## Choosing how a value is displayed
+
+A field uses the same [display](/docs/admin/displays) as it would in a grid column. Without a display, the field uses the template named by the property's `[UIHint]` attribute, or the default display for the property's type.
+
+To use a different display, call `UseDisplay()` using the item builder passed in the callback parameter when calling `Add()`. The example below displays the trip's base price with two decimals:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+resource.Summary(summary =>
+{
+    summary.Add(trip => trip.BasePrice, item =>
+    {
+        item.UseDisplay<NumberDisplay>(number => number.Format = "0.00");
+    });
+});
+```
+
+To format the value with the property's `[DisplayFormat]` attribute instead of a display, call `UseBuiltInRendering()`.
+
+## Using a different summary on a page
+
+When adding a summary to a resource, the summary will be displayed on both the view and edit page. You can specify a summary for only a specific page, or override the resource summary for a page, by calling `Summary()` in the page builder.
+
+The example below displays the trip's title on the view page, and no summary on the edit page:
+
+```cs
+admin.AddEfCoreResource<Trip>(resource =>
+{
+    resource.Summary(summary => summary.Add(trip => trip.Code));
+    resource.AllowView(view =>
+    {
+        view.Summary(summary => summary.Add(trip => trip.Title));
+        view.Fields(fields => fields.Add(trip => trip.Code));
+    });
+    resource.AllowEdit(edit =>
+    {
+        edit.Summary(_ => {});
+        edit.Fields(fields => fields.Add(trip => trip.Title));
+    });
+});
+```
+
+A page with its own model, such as a page added with `AllowEdit<TModel, THandler>()`, doesn't display the resource's summary. To add a summary to the page, call `Summary()` in the page's configuration, and add fields of the page's model.
+
+## Values on the edit page
+
+The edit page's summary displays the saved values of the record. When a save fails, such as when a value isn't valid, the summary still displays the saved values, not the values that were entered on the form.

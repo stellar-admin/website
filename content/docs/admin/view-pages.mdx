@@ -122,6 +122,8 @@ resource.AllowView(view =>
 });
 ```
 
+To display key values of the record under the title, such as the booking's status, add a [record summary](/docs/admin/record-summaries).
+
 ## Displaying a different model
 
 To display something other than the resource's entity, such as a summary that combines several records, give the page its own model and a *handler* that loads it. Call `AllowView()` with the model and the handler as type arguments:
