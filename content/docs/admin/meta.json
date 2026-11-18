@@ -23,6 +23,8 @@
     "sorting-and-paging",
     "row-details",
     "inline-editing",
+    "layouts",
+    "layout-data",
     "---Forms---",
     "forms",
     "fields",

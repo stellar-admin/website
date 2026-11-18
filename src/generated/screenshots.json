@@ -701,6 +701,38 @@
     "width": 480,
     "height": 165
   },
+  "layout-data-table": {
+    "width": 1280,
+    "height": 520
+  },
+  "layout-data-table-dark": {
+    "width": 1280,
+    "height": 520
+  },
+  "layouts-partial": {
+    "width": 1280,
+    "height": 580
+  },
+  "layouts-partial-dark": {
+    "width": 1280,
+    "height": 580
+  },
+  "layouts-switcher": {
+    "width": 1280,
+    "height": 520
+  },
+  "layouts-switcher-dark": {
+    "width": 1280,
+    "height": 520
+  },
+  "layouts-title-icon": {
+    "width": 1280,
+    "height": 520
+  },
+  "layouts-title-icon-dark": {
+    "width": 1280,
+    "height": 520
+  },
   "link-displays-grid": {
     "width": 990,
     "height": 305
