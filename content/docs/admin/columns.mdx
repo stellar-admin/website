@@ -1,6 +1,6 @@
 ---
 title: Columns
-description: Choose the columns the index grid displays
+description: Choose the columns the index grid displays, how they're aligned and how they're grouped
 ---
 
 StellarAdmin does not automatically add any columns for the index page grid. You must add columns by calling the `Add()` of the resource column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
@@ -26,6 +26,7 @@ As you've seen in the code sample above, you can pass additional configuration f
 | Setting | Description |
 | --- | --- |
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
+| `Align` | Sets how the column's header and values are [aligned](#aligning-columns). The default is the end for numbers, and the start for everything else. |
 | `EmptyText` | Sets the text to display when the value is null or empty. The default is the property's `[DisplayFormat(NullDisplayText)]`, or else an empty cell. |
 | `Sortable()` | Allows users to [sort the grid](/docs/admin/sorting-and-paging) by the column. |
 | `UseDisplay<TDisplay>()` | Renders the value of the column with a different [display type](/docs/admin/displays). |
@@ -33,7 +34,7 @@ As you've seen in the code sample above, you can pass additional configuration f
 
 ## Choosing how values are rendered
 
-Unless specified otherwise, a column renders its value with a [display type](/docs/admin/displays) that StellarAdmin chooses from the property's type. For example, numbers are right-aligned, dates are rendered like "3 Nov 2026", a `bool` is rendered as an icon, and an enum is rendered with its `[Display(Name)]`.
+Unless specified otherwise, a column renders its value with a [display type](/docs/admin/displays) that StellarAdmin chooses from the property's type. For example, numbers are [right-aligned](#aligning-columns), dates are rendered like "3 Nov 2026", a `bool` is rendered as an icon, and an enum is rendered with its `[Display(Name)]`.
 
 To render a value differently, call `UseDisplay()` with the display type to use. The example below renders the total as a currency:
 
@@ -80,6 +81,47 @@ columns.Add(
 ```
 
 A computed column **must** specify a `Title`, because there's no property from which to resolve the title. If the column is sortable, you must also pass a sort expression to `Sortable()`, since StellarAdmin cannot sort by computed values.
+
+## Aligning columns
+
+By default, columns are aligned to the start (left). Columns that display numbers are aligned to the right (end). You can set the alignment explicitly using the `Align` property. The alignment applies to the column's header and its values. The example below centers the booking status:
+
+```cs
+using StellarAdmin.UI;
+
+columns.Add(booking => booking.Status, column => column.Align = DataGridColumnAlign.Center);
+```
+
+## Grouping columns
+
+Column headers can be grouped together by calling `AddGroup()` on the column builder, passing the title of the column and an action that receives a column group builder as the second parameter. Use the column group builder to add columns to the group. You can also add additional groups, nesting groups multiple levels deep.
+
+The example below groups the trip and its dates under **Departure**, and nests the dates in a **Dates** group:
+
+```cs
+resource.Index(index => index.Columns(columns =>
+{
+    columns.Add(booking => booking.Reference);
+    columns.AddGroup("Departure", departure =>
+    {
+        departure.Add(booking => booking.Departure.Trip.Title, column => column.Title = "Trip");
+        departure.AddGroup("Dates", dates =>
+        {
+            dates.Add(booking => booking.Departure.StartDate, column =>
+            {
+                column.Title = "Starts";
+                column.Sortable();
+            });
+            dates.Add(booking => booking.Departure.EndDate, column => column.Title = "Ends");
+        });
+    });
+    columns.Add(booking => booking.TotalAmount);
+}));
+```
+
+<Screenshot name="columns-groups" alt="The bookings grid with a Departure header above the trip and a Dates header above the start and end dates" todo="Crop of the grid's first few rows with the columns above: Reference, the Departure group holding Trip and the Dates group, and Total Amount." />
+
+A group's header is centered above its column headers. To align it differently, set the group's `Align` to `DataGridColumnGroupAlign.Start` or `DataGridColumnGroupAlign.End`.
 
 ## Writing your own cell markup
 

@@ -215,6 +215,14 @@
     "width": 990,
     "height": 241
   },
+  "columns-groups": {
+    "width": 990,
+    "height": 305
+  },
+  "columns-groups-dark": {
+    "width": 990,
+    "height": 305
+  },
   "columns-related-record": {
     "width": 990,
     "height": 241
