@@ -78,6 +78,8 @@ index.EnablePaging(paging =>
 
 When using a [custom data source](/docs/admin/custom-data-sources), the data source must implement sorting and pagination. StellarAdmin passes the requested sorting and pagination to the `ListAsync()` method:
 
+`request.Sort.Field` is the name of the sorted column, and `request.Sort.Selector` is its sort expression, such as `supplier => supplier.Name`.
+
 The example below sorts suppliers by name, and returns only the records for the requested page.
 
 ```cs
