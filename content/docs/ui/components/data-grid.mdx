@@ -1,6 +1,6 @@
 ---
 title: Data Grid
-description: Display typed data with columns, sorting, selection, pagination, row details, and inline editing.
+description: Display typed data with columns, column groups, sorting, selection, pagination, row details, and inline editing.
 ---
 
 import { Demo } from "@/components/demo";
@@ -40,6 +40,48 @@ A column's `field-for` can compute its value instead of selecting a property. Th
 ```
 
 A computed value has no property to take a header from, so set `title`, and set `sort-field` to make the column sortable. Reading a property of a null value, such as a booking without a destination, or calling one of its methods doesn't throw: it reads as null, which shows the column's `empty-text`, or as zero or false for a value type. Extension methods such as LINQ's `Select` still throw on a null collection.
+
+## Aligning columns
+
+Columns are aligned to the start by default. To align a column's head and cells to the center or the end, such as for an amount, set `align`. When a sortable column is aligned to the end, its sort button lines up with the values.
+
+```razor
+<sa-data-grid-column title="Amount" field="Amount" format="{0:C}" align="DataGridColumnAlign.End" sortable="true" />
+```
+
+## Column groups
+
+To display a head that spans several columns, place the columns in an `<sa-data-grid-column-group>` and set its `title`. The header gets a row for the group heads, and the heads of columns outside a group span that row. Sortable columns in a group keep their sort buttons, but the group's head isn't sortable.
+
+<Demo src="/demo/ui/data-grid-column-groups.html">
+  <include>./_include/data-grid-column-groups.mdx</include>
+</Demo>
+
+Groups can be nested to any depth, and the header gets a row for each level.
+
+<Demo src="/demo/ui/data-grid-nested-column-groups.html">
+  <include>./_include/data-grid-nested-column-groups.mdx</include>
+</Demo>
+
+A group's head is centered over its columns by default. To align it to the start or the end, set `align`. A `class` on the group applies to its head.
+
+### `<sa-data-grid-column-group>`
+
+<TypeTable
+  type={{
+    title: {
+      description: "The text of the group's head.",
+      type: "string",
+    },
+    align: {
+      description: "How the group's head is aligned over its columns.",
+      type: "DataGridColumnGroupAlign",
+      typeDescription:
+        "DataGridColumnGroupAlign.Start | DataGridColumnGroupAlign.Center | DataGridColumnGroupAlign.End",
+      default: "DataGridColumnGroupAlign.Center",
+    },
+  }}
+/>
 
 ## Row details
 
