@@ -41,11 +41,9 @@ admin.AddEfCoreResource<Destination>(resource =>
 
 When the user clicks a row's edit action, the row's cells change to editors, and **Save** and **Cancel** buttons replace the row actions. Press <kbd>Enter</kbd> in an input, or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field, to save the row. Press <kbd>Esc</kbd> to cancel the edits.
 
-Inline editing belongs to the table. The edit page stays available, and [cards](/docs/admin/data-layouts/cards) and other [data layouts](/docs/admin/data-layouts) on the index page link to it.
-
 ## Configuring the edited row
 
-You configure the edited row using the inline edit builder. By default, other rows are dimmed once you start editing and inline row. The example below keeps the rest of the page usable while a row is edited.
+You configure the edited row using the inline edit builder. By default, other rows are dimmed once you start editing an inline row. The example below keeps the rest of the page usable while a row is edited.
 
 ```cs
 table.EnableInlineEditing(inline =>
@@ -79,7 +77,7 @@ If a field doesn't have a column, StellarAdmin turns off inline editing for the 
 
 ## Use inline editing for adding records
 
-You can also enable inline creation of new records in the grid by calling `EnableInlineCreate()` on the table builder. The new row uses the fields of the create page, so the resource must also call `AllowCreate()`. As with editing, the create page stays available for the other data layouts.
+You can also enable inline creation of new records in the grid by calling `EnableInlineCreate()` on the table builder. The new row uses the fields of the create page, so the resource must also call `AllowCreate()`.
 
 <Screenshot name="inline-editing-new-row" alt="A new, empty row at the bottom of the destinations grid, with Featured already checked" todo="Crop of the bottom of the destinations grid after clicking the Create button in the grid, with the configuration above. Box around the new row." />
 

@@ -5,13 +5,13 @@ description: Display a resource's records as cards on the index page
 
 ## Introduction
 
-*Cards* display each record on the index page as a card in a grid, instead of a row in a table.
+The *Cards layout* displays each record on the index page as a card in a grid, instead of a row in a table.
 
 <Screenshot name="cards-overview" alt="The trips index page with each trip as a card with its cover image, title, summary, difficulty badge, stats and fields" todo="Whole window: the trips index page with the cards configured in the first example below." />
 
-## Adding cards
+## Adding the cards layout
 
-You can add cards to the index page by calling `AddCards()` on the index page builder, and then configuring the parts of each card by calling `Card()` on the cards builder. The first argument of `AddCards()` is the data layout's key, which must be unique within the index page.
+You can add a cards layout to the index page by calling `AddCards()` on the index page builder, and then configuring the parts of each card by calling `Card()` on the cards builder. The first argument of `AddCards()` is the data layout's key, which must be unique within the index page.
 
 The example below displays each trip as a card with its cover image, title, summary, difficulty, three stats and two fields:
 
@@ -55,7 +55,7 @@ The index page can display cards alongside other [data layouts](/docs/admin/data
 
 ## The parts of a card
 
-A card displays only the parts you configure, with the exception of the title. The card builder has the following members:
+A card displays only the parts you configure, with the exception of the title, which is always displayed. The card builder has the following members:
 
 | Member | Description |
 | --- | --- |
@@ -150,7 +150,7 @@ You can set `View`, `Edit` and `Delete`. Setting an action to `true` doesn't dis
 
 ## Cards with data from a handler
 
-Cards don't have to display the resource's own records. You can display items that a handler loads, for example the revenue per destination, by passing the item type and the handler as the type arguments of `AddCards<TItem, THandler>()`.
+By default, cards display the data from the resource. You can however, display custom data by implementing a data layout handler by passing the item type and the handler as the type arguments of `AddCards<TItem, THandler>()`.
 
 The example below displays a card for each destination with its number of bookings, which links to the destination's view page:
 

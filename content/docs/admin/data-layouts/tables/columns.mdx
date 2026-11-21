@@ -3,7 +3,9 @@ title: Columns
 description: Choose the columns a table displays, how they're aligned and how they're grouped
 ---
 
-StellarAdmin does not automatically add any columns for a [table](/docs/admin/data-layouts/tables). You must add columns by calling `Columns()` on the table builder, and then `Add()` on the column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
+StellarAdmin does not automatically add any columns for a [table](/docs/admin/data-layouts/tables). You must add columns by calling `Columns()` on the table builder, which gives you access to the columns builder. You can then call `Add()` on the columns builder to add a column.
+
+The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
 
 ```cs
 resource.Index(index => index.AddTable("bookings", table => table.Columns(columns =>
@@ -21,9 +23,9 @@ resource.Index(index => index.AddTable("bookings", table => table.Columns(column
 
 <Screenshot name="columns-settings" alt="The bookings grid with a sortable Booked column, right-aligned totals, and No requests in empty cells" todo="Crop of the grid with the four columns above, with empty special requests in most rows." />
 
-As you've seen in the code sample above, you can pass additional configuration for a column via its column builder. The following properties and methods are available on the column builder.
+As you've seen in the code sample above, you can pass additional configuration for a column via its column builder. The following members are available on the column builder.
 
-| Setting | Description |
+| Member | Description |
 | --- | --- |
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
 | `Align` | Sets how the column's header and values are [aligned](#aligning-columns). The default is the end for numbers, and the start for everything else. |
@@ -32,11 +34,11 @@ As you've seen in the code sample above, you can pass additional configuration f
 | `UseDisplay<TDisplay>()` | Renders the value of the column with a different [display type](/docs/admin/displays). |
 | `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. This is useful when you want to opt out of the column's default display type and simply want to display the column value as plain text. |
 
-## Choosing how values are rendered
+## Control how values are rendered
 
 Unless specified otherwise, a column renders its value with a [display type](/docs/admin/displays) that StellarAdmin chooses from the property's type. For example, numbers are [right-aligned](#aligning-columns), dates are rendered like "3 Nov 2026", a `bool` is rendered as an icon, and an enum is rendered with its `[Display(Name)]`.
 
-To render a value differently, call `UseDisplay()` with the display type to use. The example below renders the total as a currency:
+To render a value differently, call `UseDisplay()` with the display type to use. The example below renders the total as a currency by using the `NumberDisplay` and setting its `Format` property:
 
 ```cs
 using StellarAdmin.Resources.Displays;
@@ -68,7 +70,7 @@ For the `Traveler` property, StellarAdmin will see it is a related resource and 
 
 ## Displaying computed values
 
-A column can display any expression, not only a property. The example below displays the travel dates as a date range.
+A column can display any expression, not just a property. The example below displays the travel dates as a date range.
 
 ```cs
 columns.Add(
@@ -94,9 +96,9 @@ columns.Add(booking => booking.Status, column => column.Align = DataGridColumnAl
 
 ## Grouping columns
 
-Column headers can be grouped together by calling `AddGroup()` on the column builder, passing the title of the column and an action that receives a column group builder as the second parameter. Use the column group builder to add columns to the group. You can also add additional groups, nesting groups multiple levels deep.
+Column headers can be grouped together by calling `AddGroup()` on the column builder, passing the title of the column and an action that receives a column group builder as the second parameter. Use the column group builder to add columns to the group. You can also nest groups multiple levels deep.
 
-The example below groups the trip and its dates under **Departure**, and nests the dates in a **Dates** group:
+The example below groups the trip and its dates under **Departure**, and the dates in a nested **Dates** group:
 
 ```cs
 resource.Index(index => index.AddTable("bookings", table => table.Columns(columns =>

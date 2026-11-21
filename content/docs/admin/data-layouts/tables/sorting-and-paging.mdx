@@ -25,9 +25,7 @@ resource.Index(index => index.AddTable("bookings", table =>
 
 ### Sorting by a different value
 
-By default, a column will sort by the property it is bound to. You can sort by a different property by passing a sort expression when calling `Sortable()`.
-
-In the example below, the column is bound to the `Traveller` property, but sorting is based on the traveller's last name.
+By default, a column will sort by the property it is bound to. You can sort by a different property by passing a sort expression when calling `Sortable()`. In the example below, the column is bound to the `Traveller` property, but sorting is based on the traveller's last name.
 
 ```cs
 columns.Add(booking => booking.Traveller, column =>
@@ -50,7 +48,7 @@ The default sort must be on a sortable column. If it isn't, StellarAdmin ignores
 
 ## Enabling pagination
 
-A table displays every record for a resource unless you enable pagination. Call `EnablePaging()` to split the grid into pages.
+A table displays all records for a resource unless you call `EnablePaging()` to split the records into pages.
 
 ```cs
 table.EnablePaging();
@@ -71,8 +69,6 @@ table.EnablePaging(paging =>
     paging.PageSizes = [20, 50, 100];
 });
 ```
-
-`PageSize` must be one of the `PageSizes`. If it isn't, StellarAdmin adds it to `PageSizes` and reports a [configuration problem](/docs/admin/configuration-problems).
 
 ## Sorting and paging a custom data source
 

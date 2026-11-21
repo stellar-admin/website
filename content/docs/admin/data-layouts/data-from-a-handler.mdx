@@ -5,7 +5,7 @@ description: Display data other than the resource's records in a data layout, an
 
 ## Introduction
 
-A [data layout](/docs/admin/data-layouts) may need to display data that isn't the resource's records, such as the revenue per destination calculated from the bookings, or data from another service. StellarAdmin allows you to create *handlers* that load the data layout's items.
+You may want to display data that doesn't come from the resource's data source in a [data layout](/docs/admin/data-layouts), such as the revenue per destination calculated from the bookings, or data from another service. StellarAdmin allows you to create *handlers* that load the data layout's items.
 
 ## Writing a handler
 
@@ -13,7 +13,7 @@ There are two kinds of handler. For an EF Core resource, prefer an `IEfCoreDataL
 
 ### Reshaping EF Core records
 
-An `IEfCoreDataLayoutHandler<TEntity, TItem>` reshapes the resource's records into the data layout's items. Its `ListAsync()` method receives a query of the records that the search and the selected scope select, and must return the items and their total number in a `ResourceListResult<TItem>`. The query isn't tracked.
+An `IEfCoreDataLayoutHandler<TEntity, TItem>` reshapes the resource's records into the data layout's items. Its `ListAsync()` method receives a query of the records that are filtered according to the search and selected scope, and must return the items and the total number of items in a `ResourceListResult<TItem>`.
 
 The example below calculates the number of bookings and the revenue per destination:
 
@@ -53,7 +53,7 @@ Because the query contains only the bookings that match the search and the selec
 
 ### Loading items yourself
 
-An `IResourceDataLayoutHandler<TItem>` loads the items itself, for example from a [custom data source](/docs/admin/custom-data-sources) or another service. Its `ListAsync()` method receives the search and the selected scope via the `Search` and `Scope` properties of the `request` parameter, and must apply them itself.
+If you want complete control of the data you return, you can create a handler that implements `IResourceDataLayoutHandler<TItem>`. Its `ListAsync()` method receives the search and the selected scope via the `Search` and `Scope` properties of the `request` parameter, and must apply them itself.
 
 The example below loads the departures per day from a service:
 

@@ -5,11 +5,9 @@ description: Filter the index page with tabs
 
 ## Introduction
 
-*Scopes* are tabs displayed above the records that allows you to filter records based on predefined filters. 
+*Scopes* are tabs displayed above the records that allows you to filter records based on predefined filters. Call `EnableScopes()`, then call the `Add()` method on the scope builder to add the different scopes. 
 
-<Screenshot name="scopes-tabs" alt="The bookings index page with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
-
-Call `EnableScopes()`, then call the `Add()` method on the scope builder to add the different scopes. The example below adds four scopes to the bookings index page, and selects **All** by default:
+The example below adds four scopes to the bookings index page, and selects **All** by default:
 
 ```cs
 resource.Index(index =>
@@ -29,11 +27,13 @@ resource.Index(index =>
 });
 ```
 
+<Screenshot name="scopes-tabs" alt="The bookings index page with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
+
 The `Add()` methods takes the following arguments:
 
-1. The scope's `id`, which is uses in the query string parameter, for example `?scope=pending`. Each scope for a specific resource must have a unique id.
+1. The scope's `id`, which is used in the query string parameter, for example `?scope=pending`. Each scope for a specific resource must have a unique id.
 2. The text displayed on the scope's tab.
-3. A filter expression, which can be omitted for a scope that must display all records.
+3. A filter expression for EF Core resources. It can be omitted for a scope that must display all records.
 
 ## Setting the default scope
 

@@ -14,46 +14,49 @@ To display the records in a way of your own, add a partial view data layout by c
 ```cs
 resource.Index(index =>
 {
-    index.AddPartial("by-day", "_BookingsByDay");
+    index.AddPartial("by-status", "_BookingsByStatus");
 });
 ```
 
 The partial view's model is a `ResourceDataLayoutModel<TItem>`, where `TItem` is the resource's type. A partial view receives every record that the search and the selected scope select, because a partial view has no paging.
 
-The `_BookingsByDay` partial view below groups the bookings by the day they were booked, with a heading for each day and a compact list of each booking's reference, status and total amount. The reference links to the booking's view page:
+The `_BookingsByStatus` partial view below groups the bookings by their status, with a heading for each status and the total amount of its bookings. Each booking is an item with its reference, booking date and total amount, which links to the booking's view page:
 
-```razor title="Areas/StellarAdmin/Views/bookings/_BookingsByDay.cshtml"
+```razor title="Areas/StellarAdmin/Views/bookings/_BookingsByStatus.cshtml"
 @using StellarAdmin.Resources
 @model ResourceDataLayoutModel<Booking>
 
 <sa-stack>
-    @foreach (var day in Model.Items.GroupBy(booking => booking.BookedAt.Date).OrderByDescending(day => day.Key))
+    @foreach (var status in Model.Items.GroupBy(booking => booking.Status).OrderBy(status => status.Key))
     {
-        <sa-card>
-            <sa-card-header><sa-card-title>@day.Key.ToString("dddd, d MMMM yyyy")</sa-card-title></sa-card-header>
-            <sa-card-content>
-                @foreach (var booking in day)
-                {
-                    <sa-group>
-                        @if (Model.GetViewUrl(booking) is { } viewUrl)
-                        {
-                            <a href="@viewUrl">@booking.Reference</a>
-                        }
-                        else
-                        {
-                            @booking.Reference
-                        }
-                        <sa-badge variant="BadgeVariant.Secondary">@booking.Status</sa-badge>
+        <sa-item-group>
+            <sa-item variant="ItemVariant.Muted" size="ItemSize.Small">
+                <sa-item-content>
+                    <sa-item-title>@status.Key</sa-item-title>
+                    <sa-item-description>@status.Sum(booking => booking.TotalAmount).ToString("C0") in total</sa-item-description>
+                </sa-item-content>
+            </sa-item>
+            @foreach (var booking in status.OrderByDescending(booking => booking.BookedAt))
+            {
+                <sa-item-link variant="ItemVariant.Outline" size="ItemSize.Small" href="@Model.GetViewUrl(booking)">
+                    <sa-item-media variant="ItemMediaVariant.Icon">
+                        <sa-icon name="ticket"/>
+                    </sa-item-media>
+                    <sa-item-content>
+                        <sa-item-title>@booking.Reference</sa-item-title>
+                        <sa-item-description>Booked on @booking.BookedAt.ToString("d MMMM yyyy")</sa-item-description>
+                    </sa-item-content>
+                    <sa-item-actions>
                         @booking.TotalAmount.ToString("C0")
-                    </sa-group>
-                }
-            </sa-card-content>
-        </sa-card>
+                    </sa-item-actions>
+                </sa-item-link>
+            }
+        </sa-item-group>
     }
 </sa-stack>
 ```
 
-<Screenshot name="partial-views-by-day" alt="The bookings index page with the By day data layout selected, showing the bookings grouped under a heading for each day" todo="Crop of the bookings index page's controls row and the first two or three days of bookings from the _BookingsByDay partial view above." />
+<Screenshot name="partial-views-by-status" alt="The bookings index page with the By status data layout selected, showing the bookings grouped under a heading for each status" todo="The bookings index page with the By status data layout from the _BookingsByStatus partial view above, showing the first groups of bookings." />
 
 Place the partial view in `Areas/StellarAdmin/Views/{resourceSlug}/`, for example `Areas/StellarAdmin/Views/bookings/`, or in `Areas/StellarAdmin/Views/Shared/`.
 
@@ -74,7 +77,7 @@ To link to [another data layout](/docs/admin/data-layouts), pass its key to `Get
 ```
 
 <Callout type="idea">
-    If you use the [StellarAdmin.UI Tag Helpers](/docs/ui) like the partial view above, be sure to add a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that registers the StellarAdmin Tag Helpers, otherwise the `<sa-badge>` will render as plain text.
+    If you use the [StellarAdmin.UI Tag Helpers](/docs/ui) like the partial view above, be sure to add a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that registers the StellarAdmin Tag Helpers, otherwise the `<sa-item>` elements will render as plain text.
 </Callout>
 
 A partial view can also display data that isn't the resource's records. See [data from a handler](/docs/admin/data-layouts/data-from-a-handler#displaying-the-items-in-a-partial-view).

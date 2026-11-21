@@ -3,9 +3,11 @@ title: Search
 description: Add a search box to the index page
 ---
 
-You can enable search-as-you-type for any resource by calling `EnableSearch()` on the index page builder. This adds a text search box above the records on the index page and filters the records based on the value the user types.
+You can enable search-as-you-type for any resource by calling `EnableSearch()` on the index page builder. This adds a text search box on the index page which filters the records based on the value the user types. 
 
-For an EF Core resource, you can pass a filter expression which will be passed to the database. The example below searches bookings by their reference and by the traveller's last name:
+For an EF Core resource, you can pass a filter expression which will be passed to the database. The filter runs on the database, so EF Core must be able to translate the expression to SQL. You can also use [database functions](https://learn.microsoft.com/en-us/ef/core/querying/database-functions) in the expression.
+
+The example below searches bookings by their reference and by the traveller's last name:
 
 ```cs
 resource.Index(index =>
@@ -19,15 +21,11 @@ resource.Index(index =>
 });
 ```
 
+<Screenshot name="search-as-you-type" alt="Typing Walker in the search box filters the bookings to the travellers called Walker" todo="GIF: type a traveller's last name in the search box, and the records filter to their bookings." />
+
 <Callout type="warn">
     Make sure the underlying database columns you filter on have the appropriate indexes, so that the search does not do a full table scan and bring your database to a halt.
 </Callout>
-
-The index page searches as someone types, with a short *debounce*.
-
-<Screenshot name="search-as-you-type" alt="Typing Walker in the search box filters the bookings to the travellers called Walker" todo="GIF: type a traveller's last name in the search box, and the records filter to their bookings." />
-
-The filter runs on the database, so EF Core must be able to translate the expression to SQL. You can also use [database functions](https://learn.microsoft.com/en-us/ef/core/querying/database-functions) in the expression.
 
 ## Changing the placeholder
 

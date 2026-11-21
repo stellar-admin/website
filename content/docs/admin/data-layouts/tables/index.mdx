@@ -5,7 +5,7 @@ description: List a resource's records in a table on the index page
 
 ## Introduction
 
-A *table* lists the records of a resource in a grid on the index page. You can add a table by calling `AddTable()` on the index page builder, passing the table's key and a callback that configures the table.
+A *table layout* lists the records of a resource in a grid on the index page. You can add a table by calling `AddTable()` on the index page builder, passing the table's key and a callback that configures the table.
 
 <Screenshot name="tables-bookings" alt="The bookings index page with a table of bookings sorted by Booked at, and the pager below it" todo="Whole window: the bookings index page with the table configured as below." />
 
@@ -25,9 +25,7 @@ resource.Index(index => index.AddTable("bookings", table =>
 }));
 ```
 
-The key identifies the table among the index page's [data layouts](/docs/admin/data-layouts).
-
-You can find out more about configuring a table in the following documentation:
+The key uniquely identifies the table layout among other [data layouts](/docs/admin/data-layouts) configured for the resource. You can find out more about configuring a table in the following documentation:
 
 - [Columns](/docs/admin/data-layouts/tables/columns) explains how you can define and configure columns for the table.
 - [Sorting and paging](/docs/admin/data-layouts/tables/sorting-and-paging) lets users sort the table by a column and page through large lists of data.

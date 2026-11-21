@@ -183,22 +183,6 @@
     "width": 1280,
     "height": 800
   },
-  "cards-sorting-and-paging-overview": {
-    "width": 1280,
-    "height": 600
-  },
-  "cards-sorting-and-paging-overview-dark": {
-    "width": 1280,
-    "height": 600
-  },
-  "cards-sorting-and-paging-pager": {
-    "width": 990,
-    "height": 152
-  },
-  "cards-sorting-and-paging-pager-dark": {
-    "width": 990,
-    "height": 152
-  },
   "cards-field-layout-grid": {
     "width": 381,
     "height": 116
@@ -238,6 +222,22 @@
   "cards-row-actions-dark": {
     "width": 797,
     "height": 428
+  },
+  "cards-sorting-and-paging-overview": {
+    "width": 1280,
+    "height": 600
+  },
+  "cards-sorting-and-paging-overview-dark": {
+    "width": 1280,
+    "height": 600
+  },
+  "cards-sorting-and-paging-pager": {
+    "width": 990,
+    "height": 152
+  },
+  "cards-sorting-and-paging-pager-dark": {
+    "width": 990,
+    "height": 152
   },
   "choice-editors-cards": {
     "width": 1008,
@@ -933,13 +933,13 @@
     "width": 1022,
     "height": 414
   },
-  "partial-views-by-day": {
+  "partial-views-by-status": {
     "width": 1280,
-    "height": 520
+    "height": 900
   },
-  "partial-views-by-day-dark": {
+  "partial-views-by-status-dark": {
     "width": 1280,
-    "height": 520
+    "height": 900
   },
   "quick-start-departures": {
     "width": 1280,
@@ -1105,22 +1105,6 @@
     "width": 255,
     "height": 420
   },
-  "tables-sorting-and-paging-pager": {
-    "width": 998,
-    "height": 169
-  },
-  "tables-sorting-and-paging-pager-dark": {
-    "width": 998,
-    "height": 169
-  },
-  "tables-sorting-and-paging-sortable": {
-    "width": 1010,
-    "height": 318
-  },
-  "tables-sorting-and-paging-sortable-dark": {
-    "width": 1010,
-    "height": 318
-  },
   "tables-bookings": {
     "width": 1280,
     "height": 1170
@@ -1136,6 +1120,22 @@
   "tables-row-actions-dark": {
     "width": 990,
     "height": 281
+  },
+  "tables-sorting-and-paging-pager": {
+    "width": 998,
+    "height": 169
+  },
+  "tables-sorting-and-paging-pager-dark": {
+    "width": 998,
+    "height": 169
+  },
+  "tables-sorting-and-paging-sortable": {
+    "width": 1010,
+    "height": 318
+  },
+  "tables-sorting-and-paging-sortable-dark": {
+    "width": 1010,
+    "height": 318
   },
   "text-displays-html-grid": {
     "width": 1022,
