@@ -1,21 +1,17 @@
 ---
 title: Overview
-description: The grid that lists a resource's records
+description: The page that lists a resource's records
 ---
 
-Every resource has an *index page*, which lists the resource's records in a grid. The resource's index page is located at `/stellaradmin/{resourceSlug}`, for example `/stellaradmin/bookings`.
+Every resource has an *index page*, which lists the resource's records. The resource's index page is located at `/stellaradmin/{resourceSlug}`, for example `/stellaradmin/bookings`.
 
-To configure the grid, call `Index()` on the resource. The example below adds three columns, a search box, **All** and **Pending** scopes, a default sort, and pagination.
+The index page displays the records in one or more *data layouts*, which you add by calling `AddTable()`, `AddCards()` or `AddPartial()` on the index page builder. A [table](/docs/admin/tables) displays the records in a grid, [cards](/docs/admin/cards) display each record as a card, and a [partial view](/docs/admin/partial-views) displays the records in a way of your own. A resource without any data layout doesn't list its records on the index page.
+
+To configure the index page, call `Index()` on the resource. The example below adds a table with three columns, a default sort and pagination, as well as a search box and **All** and **Pending** scopes.
 
 ```cs
 resource.Index(index =>
 {
-    index.Columns(columns =>
-    {
-        columns.Add(booking => booking.Reference);
-        columns.Add(booking => booking.Traveller);
-        columns.Add(booking => booking.BookedAt, column => column.Sortable());
-    });
     index.EnableSearch(term => booking => booking.Reference.Contains(term));
     index.EnableScopes(scopes =>
     {
@@ -23,8 +19,17 @@ resource.Index(index =>
         scopes.Add("pending", "Pending", booking => booking.Status == BookingStatus.Pending);
         scopes.DefaultScope = "all";
     });
-    index.DefaultSortBy(booking => booking.BookedAt);
-    index.EnablePaging();
+    index.AddTable("bookings", table =>
+    {
+        table.Columns(columns =>
+        {
+            columns.Add(booking => booking.Reference);
+            columns.Add(booking => booking.Traveller);
+            columns.Add(booking => booking.BookedAt, column => column.Sortable());
+        });
+        table.DefaultSortBy(booking => booking.BookedAt);
+        table.EnablePaging();
+    });
 });
 ```
 
@@ -32,13 +37,13 @@ resource.Index(index =>
 
 You can find out more about configuring the various features of the index page in the following documentation:
 
-- [Columns](/docs/admin/columns) explains how you can define and configure columns for the grid.
+- [Tables](/docs/admin/tables) explains how to list records in a grid.
+- [Cards](/docs/admin/cards) shows how to display each record as a card.
+- [Partial views](/docs/admin/partial-views) explains how to display records with your own partial view.
 - [Search](/docs/admin/search) shows how to add a search box that provides filter-as-you-type capabilities.
 - [Scopes](/docs/admin/scopes) adds tabs at the top of the grid that allow you to filter records based on predefined filters, for example viewing just the pending or confirmed bookings.
-- [Sorting and paging](/docs/admin/sorting-and-paging) lets users sort the grid by a column and page through large lists of data.
-- [Row details](/docs/admin/row-details) allow users to expand a row to display additional information related to the record.
-- [Inline editing](/docs/admin/inline-editing) allow users to edit and add records inside the grid without navigating to a separate page.
-- [Layouts](/docs/admin/layouts) let users switch the index page between several tables or your own partial views.
+- [Data layouts](/docs/admin/data-layouts) let users switch the index page between multiple tables, cards or your own partial views.
+- [Data from a handler](/docs/admin/data-from-a-handler) explains how to display data that isn't the resource's records, for example the revenue per destination.
 - [Widgets](/docs/admin/widgets#index-page) add blocks such as stats above, beside or below the grid.
 
 ## Changing the title and labels
@@ -49,9 +54,9 @@ To change the index page's title, or the labels of its buttons and row actions, 
 | --- | --- |
 | `Title` | The title that is displayed at the top of the index page. It defaults to the plural label of the resource, for example "Bookings". |
 | `CreateLabel` | The title for the button a user clicks to create a new record. Default to "Create". |
-| `EditLabel` | The tooltip displayed when a user hovers over the edit button inside the grid. Defaults to "Edit" and the singular resource label, for example "Edit Booking". |
-| `ViewLabel` | The tooltip displayed when a user hovers over the view button inside the grid. Defaults to "View" and the singular resource label, for example "View Booking". |
-| `DeleteLabel` | The tooltip displayed when a user hovers over the delete button inside the grid. Defaults to "Delete" and the singular resource label, for example "Delete Booking". |
+| `EditLabel` | The tooltip displayed when a user hovers over the edit button on each row or card. Defaults to "Edit" and the singular resource label, for example "Edit Booking". |
+| `ViewLabel` | The tooltip displayed when a user hovers over the view button on each row or card. Defaults to "View" and the singular resource label, for example "View Booking". |
+| `DeleteLabel` | The tooltip displayed when a user hovers over the delete button on each row or card. Defaults to "Delete" and the singular resource label, for example "Delete Booking". |
 
 The code sample below changes the index page title and the label of the **Create** button:
 
@@ -64,9 +69,3 @@ resource.Index(index =>
 ```
 
 To change the defaults for all resources, see [global labels](/docs/admin/global-labels).
-
-## Row actions
-
-Each row may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages). These are enabled by calling the `AllowView()`, `AllowEdit()` or `AllowDelete()` methods on the resource builder.
-
-<Screenshot name="index-pages-row-actions" alt="The row actions available on a row in the grid" todo="A crop of the grid that includes the header and around first 5 rows of the bookings resource with all actions enabled. Has a red rectangle annotation around the actions of the first row." />

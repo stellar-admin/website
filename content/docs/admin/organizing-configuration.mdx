@@ -28,7 +28,7 @@ public static class GuidesAdmin
             // ... some config omitted for brevity
 
             resource.SidebarItem(item => item.Group = "Operations");
-            resource.Index(index => index.Columns(columns => columns.Add(guide => guide.LastName)));
+            resource.Index(index => index.AddTable("guides", table => table.Columns(columns => columns.Add(guide => guide.LastName))));
         });
 }
 ```

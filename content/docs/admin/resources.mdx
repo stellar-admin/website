@@ -18,11 +18,11 @@ using StellarAdmin.EntityFrameworkCore;
 
 admin.AddEfCoreResource<Trip>(resource =>
 {
-    resource.Index(index => index.Columns(columns =>
+    resource.Index(index => index.AddTable("trips", table => table.Columns(columns =>
     {
         columns.Add(trip => trip.Title);
         columns.Add(trip => trip.BasePrice);
-    }));
+    })));
     resource.AllowEdit(edit => edit.Fields(fields =>
     {
         fields.Add(trip => trip.Title);
@@ -41,7 +41,7 @@ resource.UseDbContext<ApplicationDbContext>();
 
 ## Adding pages
 
-The `Index()` method configures the resource's index page. It allows you to declare the columns displayed in the index grid, as well as sorting, paging, search, and scopes. All of these are discussed in more detail in the [index pages section](/docs/admin/index-pages).
+The `Index()` method configures the resource's index page. It allows you to add the [data layouts](/docs/admin/data-layouts) that display the records, such as a table with its columns, sorting and paging, as well as search and scopes. All of these are discussed in more detail in the [index pages section](/docs/admin/index-pages).
 
 Besides the index page, you can also enable other pages for the resource by calling the methods below on your resource builder.
 

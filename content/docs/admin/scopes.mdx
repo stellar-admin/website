@@ -22,6 +22,10 @@ resource.Index(index =>
         scopes.Add("cancelled", "Cancelled", booking => booking.Status == BookingStatus.Cancelled);
         scopes.DefaultScope = "all";
     });
+    index.AddTable("bookings", table =>
+    {
+        // ...
+    });
 });
 ```
 

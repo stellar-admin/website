@@ -1,0 +1,55 @@
+---
+title: Tables
+description: List a resource's records in a table on the index page
+---
+
+## Introduction
+
+A *table* lists the records of a resource in a grid on the index page. You can add a table by calling `AddTable()` on the index page builder, passing the table's key and a callback that configures the table.
+
+<Screenshot name="tables-bookings" alt="The bookings index page with a table of bookings sorted by Booked at, and the pager below it" todo="Whole window: the bookings index page with the table configured as below." />
+
+The example below adds a bookings table with three columns, a default sort, and pagination:
+
+```cs
+resource.Index(index => index.AddTable("bookings", table =>
+{
+    table.Columns(columns =>
+    {
+        columns.Add(booking => booking.Reference);
+        columns.Add(booking => booking.Traveller);
+        columns.Add(booking => booking.BookedAt, column => column.Sortable());
+    });
+    table.DefaultSortBy(booking => booking.BookedAt);
+    table.EnablePaging();
+}));
+```
+
+The key identifies the table among the index page's [data layouts](/docs/admin/data-layouts).
+
+You can find out more about configuring a table in the following documentation:
+
+- [Columns](/docs/admin/columns) explains how you can define and configure columns for the table.
+- [Sorting and paging](/docs/admin/table-sorting-and-paging) lets users sort the table by a column and page through large lists of data.
+- [Row details](/docs/admin/row-details) allow users to expand a row to display additional information related to the record.
+- [Inline editing](/docs/admin/inline-editing) allows users to edit and add records inside the table without navigating to a separate page.
+
+## Row actions
+
+Each row may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages). These are enabled by calling the `AllowView()`, `AllowEdit()` or `AllowDelete()` methods on the resource builder.
+
+<Screenshot name="tables-row-actions" alt="The row actions available on a row in the grid" todo="A crop of the grid that includes the header and around first 5 rows of the bookings resource with all actions enabled. Has a red rectangle annotation around the actions of the first row." />
+
+### Hiding row actions
+
+To hide an action in a table, call `RowActions()` on the table builder and set the action's property to `false`. The example below hides the delete action in the bookings table:
+
+```cs
+resource.Index(index => index.AddTable("bookings", table =>
+{
+    table.Columns(columns => columns.Add(booking => booking.TotalAmount));
+    table.RowActions(actions => actions.Delete = false);
+}));
+```
+
+You can set `View`, `Edit` and `Delete`. Setting an action to `true` doesn't display an action that isn't enabled on the resource. Setting `Edit` to `false` also turns off [inline editing](/docs/admin/inline-editing) for the table.

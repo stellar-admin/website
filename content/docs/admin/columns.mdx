@@ -1,12 +1,12 @@
 ---
 title: Columns
-description: Choose the columns the index grid displays, how they're aligned and how they're grouped
+description: Choose the columns a table displays, how they're aligned and how they're grouped
 ---
 
-StellarAdmin does not automatically add any columns for the index page grid. You must add columns by calling the `Add()` of the resource column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
+StellarAdmin does not automatically add any columns for a [table](/docs/admin/tables). You must add columns by calling `Columns()` on the table builder, and then `Add()` on the column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
 
 ```cs
-resource.Index(index => index.Columns(columns =>
+resource.Index(index => index.AddTable("bookings", table => table.Columns(columns =>
 {
     columns.Add(booking => booking.Reference);
     columns.Add(booking => booking.BookedAt, column =>
@@ -16,7 +16,7 @@ resource.Index(index => index.Columns(columns =>
     });
     columns.Add(booking => booking.TotalAmount);
     columns.Add(booking => booking.SpecialRequests, column => column.EmptyText = "No requests");
-}));
+})));
 ```
 
 <Screenshot name="columns-settings" alt="The bookings grid with a sortable Booked column, right-aligned totals, and No requests in empty cells" todo="Crop of the grid with the four columns above, with empty special requests in most rows." />
@@ -28,7 +28,7 @@ As you've seen in the code sample above, you can pass additional configuration f
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
 | `Align` | Sets how the column's header and values are [aligned](#aligning-columns). The default is the end for numbers, and the start for everything else. |
 | `EmptyText` | Sets the text to display when the value is null or empty. The default is the property's `[DisplayFormat(NullDisplayText)]`, or else an empty cell. |
-| `Sortable()` | Allows users to [sort the grid](/docs/admin/sorting-and-paging) by the column. |
+| `Sortable()` | Allows users to [sort the grid](/docs/admin/table-sorting-and-paging) by the column. |
 | `UseDisplay<TDisplay>()` | Renders the value of the column with a different [display type](/docs/admin/displays). |
 | `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. This is useful when you want to opt out of the column's default display type and simply want to display the column value as plain text. |
 
@@ -99,7 +99,7 @@ Column headers can be grouped together by calling `AddGroup()` on the column bui
 The example below groups the trip and its dates under **Departure**, and nests the dates in a **Dates** group:
 
 ```cs
-resource.Index(index => index.Columns(columns =>
+resource.Index(index => index.AddTable("bookings", table => table.Columns(columns =>
 {
     columns.Add(booking => booking.Reference);
     columns.AddGroup("Departure", departure =>
@@ -116,7 +116,7 @@ resource.Index(index => index.Columns(columns =>
         });
     });
     columns.Add(booking => booking.TotalAmount);
-}));
+})));
 ```
 
 <Screenshot name="columns-groups" alt="The bookings grid with a Departure header above the trip and a Dates header above the start and end dates" todo="Crop of the grid's first few rows with the columns above: Reference, the Departure group holding Trip and the Dates group, and Total Amount." />

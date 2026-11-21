@@ -8,45 +8,47 @@ description: Edit and add records in the grid
 <Screenshot name="inline-editing-edit-row" alt="The destinations grid with one row being edited, with a name input, a country lookup, a featured checkbox and Save and Cancel buttons, and the other rows dimmed" todo="Crop of the destinations grid configured as above, with the second row being edited." />
 
 
-To edit records inline, call `UseInlineRow()` in the `AllowEdit()` callback. The example below edits the name, country and featured flag of a destination inline:
+To edit records inline, call `EnableInlineEditing()` on the table builder. The row edits the fields of the [edit page](/docs/admin/forms), so the resource must also call `AllowEdit()`. The example below edits the name, country and featured flag of a destination inline:
 
 ```cs
 using StellarAdmin.Resources;
 
 admin.AddEfCoreResource<Destination>(resource =>
 {
-    resource.Index(index => index.Columns(columns =>
+    resource.Index(index => index.AddTable("destinations", table =>
     {
-        columns.Add(destination => destination.Name);
-        columns.Add(destination => destination.Country!.Name, column =>
+        table.Columns(columns =>
         {
-            column.Title = "Country";
-            column.EditsField(destination => destination.CountryId);
+            columns.Add(destination => destination.Name);
+            columns.Add(destination => destination.Country!.Name, column =>
+            {
+                column.Title = "Country";
+                column.EditsField(destination => destination.CountryId);
+            });
+            columns.Add(destination => destination.IsFeatured);
         });
-        columns.Add(destination => destination.IsFeatured);
+        table.EnableInlineEditing();
     }));
 
-    resource.AllowEdit(edit =>
+    resource.AllowEdit(edit => edit.Fields(fields =>
     {
-        edit.Fields(fields =>
-        {
-            fields.Add(destination => destination.Name);
-            fields.Add(destination => destination.CountryId);
-            fields.Add(destination => destination.IsFeatured);
-        });
-        edit.UseInlineRow();
-    });
+        fields.Add(destination => destination.Name);
+        fields.Add(destination => destination.CountryId);
+        fields.Add(destination => destination.IsFeatured);
+    }));
 });
 ```
 
 When the user clicks a row's edit action, the row's cells change to editors, and **Save** and **Cancel** buttons replace the row actions. Press <kbd>Enter</kbd> in an input, or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Enter</kbd> on a Mac) in any field, to save the row. Press <kbd>Esc</kbd> to cancel the edits.
+
+Inline editing belongs to the table. The edit page stays available, and [cards](/docs/admin/cards) and other [data layouts](/docs/admin/data-layouts) on the index page link to it.
 
 ## Configuring the edited row
 
 You configure the edited row using the inline edit builder. By default, other rows are dimmed once you start editing and inline row. The example below keeps the rest of the page usable while a row is edited.
 
 ```cs
-edit.UseInlineRow(inline =>
+table.EnableInlineEditing(inline =>
 {
     inline.DimOtherRows = false;
 });
@@ -73,17 +75,26 @@ columns.Add(destination => destination.Country!.Name, column =>
 });
 ```
 
-If a field doesn't have a column, StellarAdmin turns off editing for the resource, because saving the row could leave out that field's value. It reports a [configuration problem](/docs/admin/configuration-problems) that names the field.
+If a field doesn't have a column, StellarAdmin turns off inline editing for the table, because saving the row could leave out that field's value. The table then links to the edit page instead. It reports a [configuration problem](/docs/admin/configuration-problems) that names the field.
 
 ## Use inline editing for adding records
 
-You can also enable inline creation of new records in the grid by calling `UseInlineRow()` in the `AllowCreate()` callback. 
+You can also enable inline creation of new records in the grid by calling `EnableInlineCreate()` on the table builder. The new row uses the fields of the create page, so the resource must also call `AllowCreate()`. As with editing, the create page stays available for the other data layouts.
 
 <Screenshot name="inline-editing-new-row" alt="A new, empty row at the bottom of the destinations grid, with Featured already checked" todo="Crop of the bottom of the destinations grid after clicking the Create button in the grid, with the configuration above. Box around the new row." />
 
 The example below enables adding new records via an inline row and removes the **Create** button from index page header in favour of an inline button directly on the grid. It also initializes each new record with the specified default values using `UseFactory()`.
 
 ```cs
+resource.Index(index => index.AddTable("destinations", table =>
+{
+    // ...
+    table.EnableInlineCreate(inline =>
+    {
+        inline.AddButton = InlineAddButton.Grid;
+    });
+}));
+
 resource.AllowCreate(create =>
 {
     create.Fields(fields =>
@@ -93,17 +104,13 @@ resource.AllowCreate(create =>
         fields.Add(destination => destination.IsFeatured);
     });
     create.UseFactory(() => new Destination { Name = "", IsFeatured = true });
-    create.UseInlineRow(inline =>
-    {
-        inline.AddButton = InlineAddButton.Grid;
-    });
 });
 ```
 <Callout>
-    Every `[Required]` property of the model must have a field. If one doesn't, StellarAdmin turns off creating records, and reports a configuration problem.
+    Every `[Required]` property of the model must have a field. If one doesn't, StellarAdmin turns off adding records inline for the table, and reports a configuration problem. The table then links to the create page instead.
 </Callout>
 
-The `UseInlineRow()` method returns a builder that allows you to configure the behaviour of the row.
+The `EnableInlineCreate()` method returns a builder that allows you to configure the behaviour of the row.
 
 | Setting | What it does |
 | --- | --- |
@@ -112,7 +119,7 @@ The `UseInlineRow()` method returns a builder that allows you to configure the b
 | `DimOtherRows` | When `true` (the default), StellarAdmin dims and locks the rest of the page while the row is open. When `false`, opening another row cancels the first one. |
 | `AfterSave` | Determines the [grid's behaviour after a new row is saved](#choosing-what-happens-after-a-save). `ReloadGrid` reloads the entire grid, but this can be jarring to the user as the sorting and filtering rules may mean the record disappears from its position.`KeepInPlace` keeps displaying the new record in the same position that the new row appeared. |
 
-To speed up data entry, call [`EnableAddAnother()`](/docs/admin/forms#saving-and-adding-another-record) on the create page. The new row then has a third button, which saves the row and opens another new row. Pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) does the same.
+To speed up data entry, call [`EnableAddAnother()`](/docs/admin/forms#rapid-data-capturing) on the create page. The new row then has a third button, which saves the row and opens another new row. Pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd> on a Mac) does the same.
 
 ## Choosing what happens after a save
 

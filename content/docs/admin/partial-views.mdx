@@ -1,0 +1,80 @@
+---
+title: Partial views
+description: Display the records on the index page with a partial view of your own
+---
+
+## Introduction
+
+When a [table](/docs/admin/tables) or [cards](/docs/admin/cards) don't fit your data, you can display the records on the index page in a way of your own by adding a *partial view* data layout. StellarAdmin passes the records to your partial view, which the index page displays as a data layout.
+
+## Adding a partial view
+
+To display the records in a way of your own, add a partial view data layout by calling `AddPartial()` with the data layout's key and the name of the partial view:
+
+```cs
+resource.Index(index =>
+{
+    index.AddPartial("by-day", "_BookingsByDay");
+});
+```
+
+The partial view's model is a `ResourceDataLayoutModel<TItem>`, where `TItem` is the resource's type. A partial view receives every record that the search and the selected scope select, because a partial view has no paging.
+
+The `_BookingsByDay` partial view below groups the bookings by the day they were booked, with a heading for each day and a compact list of each booking's reference, status and total amount. The reference links to the booking's view page:
+
+```razor title="Areas/StellarAdmin/Views/bookings/_BookingsByDay.cshtml"
+@using StellarAdmin.Resources
+@model ResourceDataLayoutModel<Booking>
+
+<sa-stack>
+    @foreach (var day in Model.Items.GroupBy(booking => booking.BookedAt.Date).OrderByDescending(day => day.Key))
+    {
+        <sa-card>
+            <sa-card-header><sa-card-title>@day.Key.ToString("dddd, d MMMM yyyy")</sa-card-title></sa-card-header>
+            <sa-card-content>
+                @foreach (var booking in day)
+                {
+                    <sa-group>
+                        @if (Model.GetViewUrl(booking) is { } viewUrl)
+                        {
+                            <a href="@viewUrl">@booking.Reference</a>
+                        }
+                        else
+                        {
+                            @booking.Reference
+                        }
+                        <sa-badge variant="BadgeVariant.Secondary">@booking.Status</sa-badge>
+                        @booking.TotalAmount.ToString("C0")
+                    </sa-group>
+                }
+            </sa-card-content>
+        </sa-card>
+    }
+</sa-stack>
+```
+
+<Screenshot name="partial-views-by-day" alt="The bookings index page with the By day data layout selected, showing the bookings grouped under a heading for each day" todo="Crop of the bookings index page's controls row and the first two or three days of bookings from the _BookingsByDay partial view above." />
+
+Place the partial view in `Areas/StellarAdmin/Views/{resourceSlug}/`, for example `Areas/StellarAdmin/Views/bookings/`, or in `Areas/StellarAdmin/Views/Shared/`.
+
+`ResourceDataLayoutModel<TItem>` has the following members:
+
+| Member | Description |
+| --- | --- |
+| `Items` | The records to display. |
+| `Request` | The request for the records, with the data layout's key in `Layout`, and the applied search and scope in `Search` and `Scope`. |
+| `GetViewUrl(item)` | The URL of the record's view page, or `null` when the resource has no view page. |
+| `GetEditUrl(item)` | The URL of the record's edit page, or `null` when the resource has no edit page. |
+| `GetIndexUrl(values)` | The URL of the index page with the current data layout, search and scope. The optional `values` object adds or replaces values in the URL. |
+
+To link to [another data layout](/docs/admin/data-layouts), pass its key to `GetIndexUrl()`. The link keeps the search and the selected scope:
+
+```razor
+<a href="@Model.GetIndexUrl(new { layout = "finance" })">Compare the totals</a>
+```
+
+<Callout type="idea">
+    If you use the [StellarAdmin.UI Tag Helpers](/docs/ui) like the partial view above, be sure to add a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that registers the StellarAdmin Tag Helpers, otherwise the `<sa-badge>` will render as plain text.
+</Callout>
+
+A partial view can also display data that isn't the resource's records. See [data from a handler](/docs/admin/data-from-a-handler#displaying-the-items-in-a-partial-view).

@@ -56,11 +56,11 @@ builder.Services.AddStellarAdmin(admin =>
 {
     admin.AddEfCoreResource<Trip>(resource =>
     {
-        resource.Index(index => index.Columns(columns =>
+        resource.Index(index => index.AddTable("trips", table => table.Columns(columns =>
         {
             columns.Add(trip => trip.Code);
             columns.Add(trip => trip.Title);
-        }));
+        })));
     });
 });
 ```
@@ -76,11 +76,11 @@ A resource is read-only until you allow creating, editing, or deleting records. 
 ```cs
 admin.AddEfCoreResource<Trip>(resource =>
 {
-    resource.Index(index => index.Columns(columns =>
+    resource.Index(index => index.AddTable("trips", table => table.Columns(columns =>
     {
         columns.Add(trip => trip.Code);
         columns.Add(trip => trip.Title);
-    }));
+    })));
     resource.AllowCreate(create => create.Fields(fields =>
     {
         fields.Add(trip => trip.Code);
@@ -109,16 +109,19 @@ admin.AddEfCoreResource<Departure>(resource =>
 {
     resource.Index(index =>
     {
-        index.Columns(columns =>
-        {
-            columns.Add(departure => departure.Trip);
-            columns.Add(departure => departure.StartDate, column => column.Sortable());
-            columns.Add(departure => departure.Capacity);
-            columns.Add(departure => departure.Status);
-        });
         index.EnableSearch(term => departure => departure.Trip.Title.Contains(term));
-        index.DefaultSortBy(departure => departure.StartDate);
-        index.EnablePaging();
+        index.AddTable("departures", table =>
+        {
+            table.Columns(columns =>
+            {
+                columns.Add(departure => departure.Trip);
+                columns.Add(departure => departure.StartDate, column => column.Sortable());
+                columns.Add(departure => departure.Capacity);
+                columns.Add(departure => departure.Status);
+            });
+            table.DefaultSortBy(departure => departure.StartDate);
+            table.EnablePaging();
+        });
     });
 
     resource.AllowCreate(create =>
@@ -160,7 +163,7 @@ StellarAdmin was able to detect that the `TripId` is an EF Core navigation prope
 A few other things to note from the example above:
 
 - `EnableSearch()` adds a [search box](/docs/admin/search) to the grid. The expression decides which departures match the search term, here by their trip's title.
-- `Sortable()` lets people [sort the grid](/docs/admin/sorting-and-paging) by start date, and `DefaultSortBy()` sorts by it when the page first loads.
+- `Sortable()` lets people [sort the grid](/docs/admin/table-sorting-and-paging) by start date, and `DefaultSortBy()` sorts by it when the page first loads.
 - `EnablePaging()` splits the grid into pages of 25 departures.
 - `UseFactory()` creates the departure that the create form starts with, so that the start date starts 30 days from today instead of 0001-01-01.
 - `AddDisplayField()` displays the trip on the edit form, without letting people move the departure to another trip.

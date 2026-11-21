@@ -28,7 +28,7 @@ using StellarAdmin.Resources.Displays;
 
 admin.AddEfCoreResource<Traveller>(resource =>
 {
-    resource.Index(index => index.Columns(columns =>
+    resource.Index(index => index.AddTable("travellers", table => table.Columns(columns =>
     {
         columns.Add(traveller => traveller.FirstName);
         columns.Add(traveller => traveller.LastName);
@@ -40,7 +40,7 @@ admin.AddEfCoreResource<Traveller>(resource =>
                 flag.TrueText = "Subscribed";
                 flag.FalseText = "Not subscribed";
             }));
-    }));
+    })));
 });
 ```
 

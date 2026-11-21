@@ -22,9 +22,12 @@ admin.AddResource<Supplier>(resource =>
 
     resource.Index(index =>
     {
-        index.Columns(columns => columns.Add(supplier => supplier.Name, column => column.Sortable()));
         index.EnableSearch();
-        index.EnablePaging();
+        index.AddTable("suppliers", table =>
+        {
+            table.Columns(columns => columns.Add(supplier => supplier.Name, column => column.Sortable()));
+            table.EnablePaging();
+        });
     });
     resource.AllowCreate(create => create.Fields(fields => fields.Add(supplier => supplier.Name)));
     resource.AllowEdit(edit => edit.Fields(fields => fields.Add(supplier => supplier.Name)));
@@ -128,7 +131,7 @@ The request parameter has the following properties.
 | `Sort` | Specifies the `Field` by which the results must be sorted, the `Direction` of the sort and the `Selector`, the sorted column's sort expression, such as `supplier => supplier.Name`, or `null`. |
 | `Paging` | Specifies the `Page`, starting at 1, and the `PageSize`, or `null` to return all matching records. |
 | `Keys` | The keys of the specific records to return, or `null`. StellarAdmin sets it when [inline editing](/docs/admin/inline-editing) reloads saved rows, and when a lookup loads the currently selected record(s). |
-| `Fields` | The expressions the selected layout reads from each record, such as `supplier => supplier.Name` for a column, so your data source can load the related data they read. A [partial view layout](/docs/admin/layouts#adding-partial-views) has no fields. |
+| `Fields` | The expressions the selected data layout reads from each record, such as `supplier => supplier.Name` for a column, so your data source can load the related data they read. A [partial view](/docs/admin/partial-views) has no fields. |
 
 The `ListAsync()` method return a `ResourceListResult<TResource>` which is declared as follows:
 

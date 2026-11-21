@@ -1,0 +1,117 @@
+---
+title: Data layouts
+description: Let users switch the index page between multiple tables, cards or your own partial views
+---
+
+## Introduction
+
+The index page lists a resource's records in one or more *data layouts*: [tables](/docs/admin/tables), [cards](/docs/admin/cards) or [partial views](/docs/admin/partial-views) of your own. You can add multiple data layouts, such as a second table with different columns, or cards that display the records with an image. Users can switch between the data layouts with a switcher.
+
+<Screenshot name="data-layouts-switcher" alt="The bookings index page with a switcher for the Bookings, Finance and Cards data layouts above the list, on the right" todo="Whole window: the bookings index page with the three data layouts below, Bookings selected." />
+
+## Adding data layouts
+
+To add data layouts, call `AddTable()`, `AddCards()` or `AddPartial()` on the index page builder. The settings you configure on the index page builder, such as the [search](/docs/admin/search) and the [scopes](/docs/admin/scopes), apply to every data layout.
+
+The example below adds a **Bookings** table, a **Finance** table and **Cards** to the bookings index page:
+
+```cs
+resource.Index(index =>
+{
+    // Settings shared by every data layout
+    index.EnableSearch(term => booking => booking.Reference.Contains(term));
+    index.EnableScopes(scopes =>
+    {
+        scopes.Add("all", "All");
+        scopes.Add("pending", "Pending", booking => booking.Status == BookingStatus.Pending);
+    });
+
+    index.AddTable("bookings", table =>
+    {
+        table.Columns(columns =>
+        {
+            columns.Add(booking => booking.Reference);
+            columns.Add(booking => booking.Traveller);
+            columns.Add(booking => booking.BookedAt, column => column.Sortable());
+        });
+        table.DefaultSortBy(booking => booking.BookedAt);
+        table.EnablePaging();
+    });
+    index.AddTable("finance", table =>
+    {
+        table.Columns(columns =>
+        {
+            columns.Add(booking => booking.Reference);
+            columns.Add(booking => booking.Status);
+            columns.Add(booking => booking.TotalAmount, column =>
+                column.Sortable().UseDisplay<NumberDisplay>(number => number.Format = "C0"));
+        });
+        table.DefaultSortByDescending(booking => booking.TotalAmount);
+        table.EnablePaging(paging => paging.PageSize = 50);
+    });
+    index.AddCards("cards", cards => cards.Card(card =>
+    {
+        card.Title(booking => booking.Reference);
+        card.Badge(booking => booking.Status);
+        card.Stats(stats =>
+        {
+            stats.Add(booking => booking.BookedAt);
+            stats.Add(booking => booking.TotalAmount);
+        });
+    }));
+});
+```
+
+The first argument of `AddTable()`, `AddCards()` and `AddPartial()` is the data layout's *key*. Each data layout on the index page must have a unique key, which is used to identify the layout. The first data layout you add is the default, and the switcher lists the data layouts in the order you add them. The switcher is not displayed when you only have a single data layout.
+
+Search and the scopes apply to every data layout, and when users switch data layouts, they keep their search and the selected scope.
+
+Each table and cards data layout has its own sort and paging. Sorting or paging one doesn't change the others. You can find out how to configure each kind of data layout on the [Tables](/docs/admin/tables), [Cards](/docs/admin/cards) and [Partial views](/docs/admin/partial-views) pages.
+
+## Setting the title and icon of a data layout
+
+Each data layout has a segment in the switcher. To configure the segment, set the following properties in the data layout's callback:
+
+| Property | Description |
+| --- | --- |
+| `Title` | The data layout's name, which the switcher displays as a tooltip, and which screen readers announce. It defaults to the key written as a sentence, for example "Finance" for the `"finance"` key. |
+| `Icon` | The name of a [Lucide icon](https://lucide.dev/icons) that the switcher displays in the segment. When you don't set an icon, the switcher displays the title instead. |
+
+The example below gives the **Finance** table a title and a receipt icon:
+
+```cs
+resource.Index(index =>
+{
+    index.AddTable("bookings", table =>
+    {
+        // ...
+    });
+    index.AddTable("finance", table =>
+    {
+        table.Title = "Finance";
+        table.Icon = "receipt";
+        table.Columns(columns => columns.Add(booking => booking.TotalAmount, column =>
+            column.UseDisplay<NumberDisplay>(number => number.Format = "C0")));
+    });
+});
+```
+
+<Screenshot name="data-layouts-title-icon" alt="The bookings index page with an icon for the finance data layout" todo="Whole window: the bookings index page with bookings and finance. Finance must have a logo as per above. Select the finance data layout in the screenshot." />
+
+## Ignoring the search or the scopes
+
+As mentioned above, search and scopes are defined on the Index page and apply to all data layouts. A layout can opt out of the search and scopes by calling `IgnoreSearch()` or `IgnoreScopes()` in the layout builder:
+
+```cs
+index.AddPartial("summary", "_BookingSummary", summary =>
+{
+    summary.IgnoreSearch();
+    summary.IgnoreScopes();
+});
+```
+
+When a layout opts out, the search and scopes are not displayed when the layout is active and will not be applied to the layout's data. The search and the selected scope persists in the URL, so they apply again when users switch back to another data layout.
+
+## Loading other data
+
+A data layout can also display a different data source from the resource. For example, on the booking resource, the a layout may want to display the revenue per destination calculated from the bookings. You can do this by [returning your own data from a handler](/docs/admin/data-from-a-handler).

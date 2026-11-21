@@ -26,11 +26,11 @@ builder.Services.AddStellarAdmin(admin =>
 {
     admin.AddEfCoreResource<Trip>(resource =>
     {
-        resource.Index(index => index.Columns(columns =>
+        resource.Index(index => index.AddTable("trips", table => table.Columns(columns =>
         {
             columns.Add(trip => trip.Title);
             columns.Add(trip => trip.BasePrice);
-        }));
+        })));
         resource.AllowEdit(edit => edit.Fields(fields =>
         {
             fields.Add(trip => trip.Title);

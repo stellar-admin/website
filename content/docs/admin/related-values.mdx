@@ -31,7 +31,7 @@ Don't add the foreign key, such as `booking.TravellerId`, as a column, because t
 
 ## Sorting by a related record
 
-A related record has no single value to [sort the grid](/docs/admin/sorting-and-paging) by, so a column of a navigation property that calls `Sortable()` without an expression isn't sortable. To make the column sortable, pass `Sortable()` the property to sort by, for example the traveller's last name:
+A related record has no single value to [sort the grid](/docs/admin/table-sorting-and-paging) by, so a column of a navigation property that calls `Sortable()` without an expression isn't sortable. To make the column sortable, pass `Sortable()` the property to sort by, for example the traveller's last name:
 
 ```cs
 columns.Add(booking => booking.Traveller, column =>

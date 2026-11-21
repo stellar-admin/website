@@ -143,6 +143,10 @@ builder.Services.AddStellarAdmin(admin =>
     {
         resource.Index(index =>
         {
+            index.AddTable("bookings", table =>
+            {
+                // ...
+            });
             index.Widgets(widgets =>
             {
                 widgets.Add<BookingTotalsHandler>("Totals", "_BookingTotalsWidget", widget =>
@@ -241,6 +245,10 @@ builder.Services.AddStellarAdmin(admin =>
     {
         resource.Index(index =>
         {
+            index.AddTable("bookings", table =>
+            {
+                // ...
+            });
             index.Widgets(widgets =>
             {
                 widgets.Add<UpcomingDeparturesHandler>("Upcoming departures", "_UpcomingDeparturesWidget", widget =>

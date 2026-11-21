@@ -1,0 +1,169 @@
+---
+title: Cards
+description: Display a resource's records as cards on the index page
+---
+
+## Introduction
+
+*Cards* display each record on the index page as a card in a grid, instead of a row in a table.
+
+<Screenshot name="cards-overview" alt="The trips index page with each trip as a card with its cover image, title, summary, difficulty badge, stats and fields" todo="Whole window: the trips index page with the cards configured in the first example below." />
+
+## Adding cards
+
+You can add cards to the index page by calling `AddCards()` on the index page builder, and then configuring the parts of each card by calling `Card()` on the cards builder. The first argument of `AddCards()` is the data layout's key, which must be unique within the index page.
+
+The example below displays each trip as a card with its cover image, title, summary, difficulty, three stats and two fields:
+
+```cs
+using StellarAdmin.Resources.Displays;
+
+builder.Services.AddStellarAdmin(admin =>
+{
+    admin.AddEfCoreResource<Trip>(resource =>
+    {
+        resource.Index(index =>
+        {
+            index.AddCards("trips", cards =>
+            {
+                cards.Card(card =>
+                {
+                    card.Image(trip => trip.CoverImageUrl);
+                    card.Title(trip => trip.Title);
+                    card.Description(trip => trip.Summary);
+                    card.Badge(trip => trip.Difficulty);
+                    card.Stats(stats =>
+                    {
+                        stats.Add(trip => trip.DurationDays);
+                        stats.Add(trip => trip.BasePrice, stat =>
+                            stat.UseDisplay<NumberDisplay>(number => number.Format = "C0"));
+                        stats.Add(trip => trip.MaxGroupSize);
+                    });
+                    card.Fields(fields =>
+                    {
+                        fields.Add(trip => trip.Destination);
+                        fields.Add(trip => trip.LeadGuide);
+                    });
+                });
+            });
+        });
+    });
+});
+```
+
+The index page can display cards alongside other [data layouts](/docs/admin/data-layouts), such as a table, and users can switch between them.
+
+## The parts of a card
+
+A card displays only the parts you configure, with the exception of the title. The card builder has the following members:
+
+| Member | Description |
+| --- | --- |
+| `Title()` | Specifies the card's title, which links to the record's [view page](/docs/admin/view-pages). Defaults to the resource's [title](/docs/admin/titles-and-references), or the record's key when the resource has no title. |
+| `Description()` | Specifies the text displayed below the title. |
+| `Image()` | Specifies the URL of the image displayed on the card. A record without an image displays a placeholder. |
+| `Badge()` | Specifies the property displayed as a [badge](/docs/admin/badge-display) beside the title, or on the image. A record with an empty value displays no badge. |
+| `Stats()` | Adds stats, which are short values displayed in a strip below the title, for example the duration and price of a trip. |
+| `Fields()` | Adds fields, which are displayed as labels and values below the stats. |
+| `Arrangement` | Specifies how the image and the content are arranged. See [card arrangement](/docs/admin/card-arrangement). |
+| `ActionsPlacement` | Specifies where the row actions are displayed. See [card arrangement](/docs/admin/card-arrangement#placing-the-actions). |
+
+<Screenshot name="cards-parts" alt="A single trip card with its image, title, description, badge, stats and fields" todo="Crop of the first trip card from the example above. Has red rectangle annotations labelled Image, Title, Description, Badge, Stats and Fields around each part." />
+
+The title and description are displayed as plain text. When a value is too long and gets cut off, users can hover over it to see the full text.
+
+### Stats and fields
+
+You can add stats and fields by calling `Add()` on the stats builder or the fields builder. A card displays a maximum of four stats.
+
+Both builders take an optional callback that allows you to configure the stat or field. The stat or field builder has the following members:
+
+| Member | Description |
+| --- | --- |
+| `Title` | Specifies the label displayed with the value. Defaults to the property's `[Display(Name)]`, or else the property name split into words. |
+| `EmptyText` | Specifies the text displayed when the value is null or empty. Defaults to the property's `[DisplayFormat(NullDisplayText)]`, or else a dash. |
+| `UseDisplay<TDisplay>()` | Renders the value with a different [display type](/docs/admin/displays). |
+
+Unless specified otherwise, a stat or field renders its value with the same [display type](/docs/admin/displays) StellarAdmin would use for the property in a table column. The example below changes the label of the base price stat, and displays it as a currency:
+
+```cs
+card.Stats(stats =>
+{
+    stats.Add(trip => trip.BasePrice, stat =>
+    {
+        stat.Title = "From";
+        stat.UseDisplay<NumberDisplay>(number => number.Format = "C0");
+    });
+});
+```
+
+### Arranging the fields
+
+By default, a card displays each field on its own row, with the label at the start and the value at the end. You can display the fields in two columns, with each label above its value, by setting the `Layout` property of the fields builder to `ResourceCardFieldLayout.Grid`:
+
+```cs
+using StellarAdmin.Resources;
+
+card.Fields(fields =>
+{
+    fields.Layout = ResourceCardFieldLayout.Grid;
+    fields.Add(trip => trip.Destination);
+    fields.Add(trip => trip.LeadGuide);
+    fields.Add(trip => trip.TripType);
+    fields.Add(trip => trip.Transport);
+});
+```
+
+<Screenshot name="cards-field-layout" alt="The fields of a trip card in each field layout" variants={["Rows", "Grid"]} todo="Crops of the first trip card's fields from the example above, with the fields layout set to Rows and to Grid." />
+
+### Changing the badge's display
+
+A badge uses `BadgeDisplay` by default. You can configure it, or use another display type, by calling `UseDisplay()` on the badge builder. The example below displays the difficulty as an outline badge:
+
+```cs
+using StellarAdmin.Resources.Displays;
+using StellarAdmin.UI;
+
+card.Badge(trip => trip.Difficulty, badge =>
+    badge.UseDisplay<BadgeDisplay>(display => display.Variant = BadgeVariant.Outline));
+```
+
+To vary the badge's color depending on its value, for example a red badge for challenging trips, use a [custom display](/docs/admin/custom-displays).
+
+## Row actions
+
+Each card may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages) on the resource builder. When the resource has a view page, the card's title links to it, and users can click anywhere on the card to open it. By default, the edit and delete actions are displayed in a menu in the card's header. See [card arrangement](/docs/admin/card-arrangement#placing-the-actions) to display them in the card's footer instead.
+
+<Screenshot name="cards-row-actions" alt="A trip card with its actions menu open, showing View, Edit and Delete" todo="Crop of the first two trip cards with the first card's ⋯ menu open. Has a red rectangle annotation around the open menu." />
+
+You can hide some of these actions on the cards by calling `RowActions()` on the cards builder. The example below hides the delete action from the cards, while still allowing users to delete a trip from its view page:
+
+```cs
+index.AddCards("trips", cards =>
+{
+    cards.RowActions(actions => actions.Delete = false);
+    // ...
+});
+```
+
+You can set `View`, `Edit` and `Delete`. Setting an action to `true` doesn't display an action that isn't enabled on the resource.
+
+## Cards with data from a handler
+
+Cards don't have to display the resource's own records. You can display items that a handler loads, for example the revenue per destination, by passing the item type and the handler as the type arguments of `AddCards<TItem, THandler>()`.
+
+The example below displays a card for each destination with its number of bookings, which links to the destination's view page:
+
+```cs
+index.AddCards<DestinationRevenue, DestinationRevenueHandler>("destinations", cards =>
+{
+    cards.LinkTo<Destination>(item => item.DestinationId);
+    cards.Card(card =>
+    {
+        card.Title(item => item.Destination);
+        card.Stats(stats => stats.Add(item => item.Bookings));
+    });
+});
+```
+
+Call `HasRecordKey()` instead of `LinkTo()` when each item is a record of the resource itself, so the cards also display the row actions. See [data from a handler](/docs/admin/data-from-a-handler) for how to write the handler.

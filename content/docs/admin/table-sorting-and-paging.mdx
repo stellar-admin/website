@@ -1,0 +1,99 @@
+---
+title: Sorting and paging
+description: Sort the grid by its columns and split it into pages
+---
+
+## Enable sorting for a column
+
+You can enable sorting for a column by calling `Sortable()` on the column builder, allowing users to sort the data in the grid by that column's value. Clicking the header sorts the grid in ascending order. Clicking it again sorts in descending order.
+
+<Screenshot name="table-sorting-and-paging-sortable" alt="The top of the bookings grid sorted by Booked at, with the sort indicators on the Booked at and Total amount headers marked" todo="The bookings grid's headers sorted by Booked At, with both sort indicators annotated." />
+
+The example below makes the booking date and total amount columns sortable.
+
+```cs
+resource.Index(index => index.AddTable("bookings", table =>
+{
+    table.Columns(columns =>
+    {
+        columns.Add(booking => booking.Reference);
+        columns.Add(booking => booking.BookedAt, column => column.Sortable());
+        columns.Add(booking => booking.TotalAmount, column => column.Sortable());
+    });
+}));
+```
+
+### Sorting by a different value
+
+By default, a column will sort by the property it is bound to. You can sort by a different property by passing a sort expression when calling `Sortable()`.
+
+In the example below, the column is bound to the `Traveller` property, but sorting is based on the traveller's last name.
+
+```cs
+columns.Add(booking => booking.Traveller, column =>
+    column.Sortable(booking => booking.Traveller.LastName));
+```
+
+## Setting the default sort
+
+You can specify the default sort for a table by calling `DefaultSortBy()` on the table builder. Call `DefaultSortByDescending()` to sort in descending order instead. In the example below, the data is sorted by the departure start date.
+
+```cs
+table.DefaultSortBy(booking => booking.Departure.StartDate);
+```
+
+The default sort must be on a sortable column. If it isn't, StellarAdmin ignores the default sort and reports a [configuration problem](/docs/admin/configuration-problems).
+
+<Callout>
+    When no default sort order is specified, StellarAdmin sorts EF Core resources by their key.
+</Callout>
+
+## Enabling pagination
+
+A table displays every record for a resource unless you enable pagination. Call `EnablePaging()` to split the grid into pages.
+
+```cs
+table.EnablePaging();
+```
+
+By default, each page will display 25 records, and users can switch the number of records per page between 10, 25, 50 or 100 records per page.
+
+<Screenshot name="table-sorting-and-paging-pager" alt="The pager under the grid, with rows per page, the range of records and the page links" todo="Crop of the pager under the bookings grid." />
+
+### Changing the page sizes
+
+The default page size can be changed using the `PageSize` property. Use the `PageSizes` array to change the page sizes available to the user.
+
+```cs
+table.EnablePaging(paging =>
+{
+    paging.PageSize = 20;
+    paging.PageSizes = [20, 50, 100];
+});
+```
+
+`PageSize` must be one of the `PageSizes`. If it isn't, StellarAdmin adds it to `PageSizes` and reports a [configuration problem](/docs/admin/configuration-problems).
+
+## Sorting and paging a custom data source
+
+When using a [custom data source](/docs/admin/custom-data-sources), the data source must implement sorting and pagination. StellarAdmin passes the requested sorting and pagination to the `ListAsync()` method:
+
+`request.Sort.Field` is the name of the sorted column, and `request.Sort.Selector` is its sort expression, such as `supplier => supplier.Name`.
+
+The example below sorts suppliers by name, and returns only the records for the requested page.
+
+```cs
+if (request.Sort is { Field: nameof(Supplier.Name) } sort)
+    suppliers = sort.Direction == ResourceSortDirection.Ascending
+        ? suppliers.OrderBy(supplier => supplier.Name).ThenBy(supplier => supplier.Code)
+        : suppliers.OrderByDescending(supplier => supplier.Name).ThenBy(supplier => supplier.Code);
+
+var all = suppliers.ToList();
+var page = request.Paging is { } paging
+    ? all.Skip((paging.Page - 1) * paging.PageSize).Take(paging.PageSize).ToList()
+    : all;
+
+return new ResourceListResult<Supplier>(page, all.Count);
+```
+
+Return the total number of records with the page, as `all.Count` does above, so that the grid can display how many pages there are.

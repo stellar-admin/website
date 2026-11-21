@@ -103,6 +103,142 @@
     "width": 255,
     "height": 104
   },
+  "card-arrangement-actions-placement-footer": {
+    "width": 487,
+    "height": 190
+  },
+  "card-arrangement-actions-placement-footer-dark": {
+    "width": 487,
+    "height": 190
+  },
+  "card-arrangement-actions-placement-menu": {
+    "width": 487,
+    "height": 199
+  },
+  "card-arrangement-actions-placement-menu-dark": {
+    "width": 487,
+    "height": 199
+  },
+  "card-arrangement-arrangements-horizontal": {
+    "width": 958,
+    "height": 114
+  },
+  "card-arrangement-arrangements-horizontal-dark": {
+    "width": 958,
+    "height": 114
+  },
+  "card-arrangement-arrangements-overlay": {
+    "width": 643,
+    "height": 212
+  },
+  "card-arrangement-arrangements-overlay-dark": {
+    "width": 643,
+    "height": 212
+  },
+  "card-arrangement-arrangements-vertical": {
+    "width": 643,
+    "height": 270
+  },
+  "card-arrangement-arrangements-vertical-dark": {
+    "width": 643,
+    "height": 270
+  },
+  "card-arrangement-image-shapes-banner": {
+    "width": 330,
+    "height": 230
+  },
+  "card-arrangement-image-shapes-banner-dark": {
+    "width": 330,
+    "height": 230
+  },
+  "card-arrangement-image-shapes-landscape": {
+    "width": 330,
+    "height": 326
+  },
+  "card-arrangement-image-shapes-landscape-dark": {
+    "width": 330,
+    "height": 326
+  },
+  "card-arrangement-image-shapes-square": {
+    "width": 330,
+    "height": 400
+  },
+  "card-arrangement-image-shapes-square-dark": {
+    "width": 330,
+    "height": 400
+  },
+  "card-arrangement-image-shapes-widescreen": {
+    "width": 330,
+    "height": 270
+  },
+  "card-arrangement-image-shapes-widescreen-dark": {
+    "width": 330,
+    "height": 270
+  },
+  "card-arrangement-overview": {
+    "width": 1280,
+    "height": 800
+  },
+  "card-arrangement-overview-dark": {
+    "width": 1280,
+    "height": 800
+  },
+  "card-sorting-and-paging-overview": {
+    "width": 1280,
+    "height": 600
+  },
+  "card-sorting-and-paging-overview-dark": {
+    "width": 1280,
+    "height": 600
+  },
+  "card-sorting-and-paging-pager": {
+    "width": 990,
+    "height": 152
+  },
+  "card-sorting-and-paging-pager-dark": {
+    "width": 990,
+    "height": 152
+  },
+  "cards-field-layout-grid": {
+    "width": 381,
+    "height": 116
+  },
+  "cards-field-layout-grid-dark": {
+    "width": 381,
+    "height": 116
+  },
+  "cards-field-layout-rows": {
+    "width": 381,
+    "height": 122
+  },
+  "cards-field-layout-rows-dark": {
+    "width": 381,
+    "height": 122
+  },
+  "cards-overview": {
+    "width": 1120,
+    "height": 800
+  },
+  "cards-overview-dark": {
+    "width": 1120,
+    "height": 800
+  },
+  "cards-parts": {
+    "width": 541,
+    "height": 428
+  },
+  "cards-parts-dark": {
+    "width": 541,
+    "height": 428
+  },
+  "cards-row-actions": {
+    "width": 797,
+    "height": 428
+  },
+  "cards-row-actions-dark": {
+    "width": 797,
+    "height": 428
+  },
   "choice-editors-cards": {
     "width": 1008,
     "height": 119
@@ -262,6 +398,38 @@
   "custom-displays-airport-dark": {
     "width": 992,
     "height": 269
+  },
+  "data-from-a-handler-cards": {
+    "width": 1280,
+    "height": 375
+  },
+  "data-from-a-handler-cards-dark": {
+    "width": 1280,
+    "height": 375
+  },
+  "data-from-a-handler-table": {
+    "width": 1280,
+    "height": 520
+  },
+  "data-from-a-handler-table-dark": {
+    "width": 1280,
+    "height": 520
+  },
+  "data-layouts-switcher": {
+    "width": 1280,
+    "height": 520
+  },
+  "data-layouts-switcher-dark": {
+    "width": 1280,
+    "height": 520
+  },
+  "data-layouts-title-icon": {
+    "width": 1280,
+    "height": 520
+  },
+  "data-layouts-title-icon-dark": {
+    "width": 1280,
+    "height": 520
   },
   "delete-confirmation-custom": {
     "width": 1280,
@@ -611,14 +779,6 @@
     "width": 1280,
     "height": 800
   },
-  "index-pages-row-actions": {
-    "width": 990,
-    "height": 281
-  },
-  "index-pages-row-actions-dark": {
-    "width": 990,
-    "height": 281
-  },
   "inline-editing-edit-row": {
     "width": 1022,
     "height": 642
@@ -709,38 +869,6 @@
     "width": 480,
     "height": 165
   },
-  "layout-data-table": {
-    "width": 1280,
-    "height": 520
-  },
-  "layout-data-table-dark": {
-    "width": 1280,
-    "height": 520
-  },
-  "layouts-partial": {
-    "width": 1280,
-    "height": 610
-  },
-  "layouts-partial-dark": {
-    "width": 1280,
-    "height": 610
-  },
-  "layouts-switcher": {
-    "width": 1280,
-    "height": 520
-  },
-  "layouts-switcher-dark": {
-    "width": 1280,
-    "height": 520
-  },
-  "layouts-title-icon": {
-    "width": 1280,
-    "height": 520
-  },
-  "layouts-title-icon-dark": {
-    "width": 1280,
-    "height": 520
-  },
   "link-displays-grid": {
     "width": 990,
     "height": 305
@@ -804,6 +932,14 @@
   "number-and-date-displays-format-dark": {
     "width": 1022,
     "height": 414
+  },
+  "partial-views-by-day": {
+    "width": 1280,
+    "height": 520
+  },
+  "partial-views-by-day-dark": {
+    "width": 1280,
+    "height": 520
   },
   "quick-start-departures": {
     "width": 1280,
@@ -969,21 +1105,37 @@
     "width": 255,
     "height": 420
   },
-  "sorting-and-paging-pager": {
+  "table-sorting-and-paging-pager": {
     "width": 998,
     "height": 169
   },
-  "sorting-and-paging-pager-dark": {
+  "table-sorting-and-paging-pager-dark": {
     "width": 998,
     "height": 169
   },
-  "sorting-and-paging-sortable": {
+  "table-sorting-and-paging-sortable": {
     "width": 1010,
     "height": 318
   },
-  "sorting-and-paging-sortable-dark": {
+  "table-sorting-and-paging-sortable-dark": {
     "width": 1010,
     "height": 318
+  },
+  "tables-bookings": {
+    "width": 1280,
+    "height": 1170
+  },
+  "tables-bookings-dark": {
+    "width": 1280,
+    "height": 1170
+  },
+  "tables-row-actions": {
+    "width": 990,
+    "height": 281
+  },
+  "tables-row-actions-dark": {
+    "width": 990,
+    "height": 281
   },
   "text-displays-html-grid": {
     "width": 1022,

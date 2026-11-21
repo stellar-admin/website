@@ -3,7 +3,7 @@ title: Search
 description: Add a search box to the index page
 ---
 
-You can enable search-as-you-type for any resource by calling `EnableSearch()` on the index page builder. This adds a text search box above the grid on the index page and filters the rows in the grid based on the value the user types.
+You can enable search-as-you-type for any resource by calling `EnableSearch()` on the index page builder. This adds a text search box above the records on the index page and filters the records based on the value the user types.
 
 For an EF Core resource, you can pass a filter expression which will be passed to the database. The example below searches bookings by their reference and by the traveller's last name:
 
@@ -12,6 +12,10 @@ resource.Index(index =>
 {
     index.EnableSearch(term => booking =>
         booking.Reference.Contains(term) || booking.Traveller.LastName.Contains(term));
+    index.AddTable("bookings", table =>
+    {
+        // ...
+    });
 });
 ```
 
