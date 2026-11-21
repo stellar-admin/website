@@ -5,11 +5,11 @@ description: Filter the index page with tabs
 
 ## Introduction
 
-*Scopes* are tabs displayed above the grid that allows you to filter records based on predefined filters. 
+*Scopes* are tabs displayed above the records that allows you to filter records based on predefined filters. 
 
-<Screenshot name="scopes-tabs" alt="The bookings grid with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
+<Screenshot name="scopes-tabs" alt="The bookings index page with the Pending tab selected, listing only pending bookings" todo="Top of the bookings index with the four scopes above and Pending selected. Box around the tabs." />
 
-Call `EnableScopes()`, then call the `Add()` method on the scope builder to add the different scopes. The example below adds four scopes to the bookings grid, and selects **All** by default:
+Call `EnableScopes()`, then call the `Add()` method on the scope builder to add the different scopes. The example below adds four scopes to the bookings index page, and selects **All** by default:
 
 ```cs
 resource.Index(index =>
@@ -37,7 +37,7 @@ The `Add()` methods takes the following arguments:
 
 ## Setting the default scope
 
-`DefaultScope` sets the scope that is selected when the user has not explicitly selected a scope. Without a default scope, no tab is selected, and the grid displays every record until the user selects a scope.
+`DefaultScope` sets the scope that is selected when the user has not explicitly selected a scope. Without a default scope, no tab is selected, and the index page displays every record until the user selects a scope.
 
 `DefaultScope` must be the `id` of a scope you've added. If it isn't, StellarAdmin ignores it and reports a [configuration problem](/docs/admin/configuration-problems).
 
