@@ -174,7 +174,7 @@ Return the total number of items with the page, as `total` does above, so that t
 
 ## Displaying the items as cards
 
-To display the items as [cards](/docs/admin/cards), pass the item type and the handler as the type arguments of `AddCards<TItem, THandler>()`. The parts of the card select the properties of the item type:
+To display the items as [cards](/docs/admin/data-layouts/cards), pass the item type and the handler as the type arguments of `AddCards<TItem, THandler>()`. The parts of the card select the properties of the item type:
 
 ```cs
 index.AddCards<DestinationRevenue, DestinationRevenueHandler>("destinations", cards =>
@@ -206,7 +206,7 @@ To display the items in a partial view, pass the item type and the handler as th
 index.AddPartial<DestinationRevenue, DestinationRevenueHandler>("revenue-cards", "_RevenueCards");
 ```
 
-The partial view's model is a `ResourceDataLayoutModel<DestinationRevenue>`, with the handler's items in `Items`. A partial view has no paging, so `Sort` and `Paging` of the request are always `null`, and the handler must return every item. The model has the same members as the model of a [partial view of records](/docs/admin/partial-views).
+The partial view's model is a `ResourceDataLayoutModel<DestinationRevenue>`, with the handler's items in `Items`. A partial view has no paging, so `Sort` and `Paging` of the request are always `null`, and the handler must return every item. The model has the same members as the model of a [partial view of records](/docs/admin/data-layouts/partial-views).
 
 ```razor title="Areas/StellarAdmin/Views/bookings/_RevenueCards.cshtml"
 @using StellarAdmin.Resources
@@ -232,7 +232,7 @@ By default, items don't link to any record, so a table or cards of items have no
 
 ### Linking items to the resource's records
 
-When each item belongs to one of the resource's records, call `HasRecordKey()` with a function that returns the record's key. The rows of a table and the cards then display the view, edit and delete actions that are enabled on the resource, and `RowActions()` can [hide them](/docs/admin/tables#hiding-row-actions). In a partial view, `GetViewUrl()` and `GetEditUrl()` return the URLs of the record's pages.
+When each item belongs to one of the resource's records, call `HasRecordKey()` with a function that returns the record's key. The rows of a table and the cards then display the view, edit and delete actions that are enabled on the resource, and `RowActions()` can [hide them](/docs/admin/data-layouts/tables#hiding-row-actions). In a partial view, `GetViewUrl()` and `GetEditUrl()` return the URLs of the record's pages.
 
 The example below lists each booking's balance, with the actions of the booking:
 

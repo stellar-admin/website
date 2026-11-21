@@ -65,8 +65,8 @@ A card displays only the parts you configure, with the exception of the title. T
 | `Badge()` | Specifies the property displayed as a [badge](/docs/admin/badge-display) beside the title, or on the image. A record with an empty value displays no badge. |
 | `Stats()` | Adds stats, which are short values displayed in a strip below the title, for example the duration and price of a trip. |
 | `Fields()` | Adds fields, which are displayed as labels and values below the stats. |
-| `Arrangement` | Specifies how the image and the content are arranged. See [card arrangement](/docs/admin/card-arrangement). |
-| `ActionsPlacement` | Specifies where the row actions are displayed. See [card arrangement](/docs/admin/card-arrangement#placing-the-actions). |
+| `Arrangement` | Specifies how the image and the content are arranged. See [card arrangement](/docs/admin/data-layouts/cards/card-arrangement). |
+| `ActionsPlacement` | Specifies where the row actions are displayed. See [card arrangement](/docs/admin/data-layouts/cards/card-arrangement#placing-the-actions). |
 
 <Screenshot name="cards-parts" alt="A single trip card with its image, title, description, badge, stats and fields" todo="Crop of the first trip card from the example above. Has red rectangle annotations labelled Image, Title, Description, Badge, Stats and Fields around each part." />
 
@@ -132,7 +132,7 @@ To vary the badge's color depending on its value, for example a red badge for ch
 
 ## Row actions
 
-Each card may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages) on the resource builder. When the resource has a view page, the card's title links to it, and users can click anywhere on the card to open it. By default, the edit and delete actions are displayed in a menu in the card's header. See [card arrangement](/docs/admin/card-arrangement#placing-the-actions) to display them in the card's footer instead.
+Each card may display a view, edit or delete action, depending on whether you've [enabled the view page, the edit page or the delete action](/docs/admin/resources#adding-pages) on the resource builder. When the resource has a view page, the card's title links to it, and users can click anywhere on the card to open it. By default, the edit and delete actions are displayed in a menu in the card's header. See [card arrangement](/docs/admin/data-layouts/cards/card-arrangement#placing-the-actions) to display them in the card's footer instead.
 
 <Screenshot name="cards-row-actions" alt="A trip card with its actions menu open, showing View, Edit and Delete" todo="Crop of the first two trip cards with the first card's ⋯ menu open. Has a red rectangle annotation around the open menu." />
 
@@ -166,4 +166,4 @@ index.AddCards<DestinationRevenue, DestinationRevenueHandler>("destinations", ca
 });
 ```
 
-Call `HasRecordKey()` instead of `LinkTo()` when each item is a record of the resource itself, so the cards also display the row actions. See [data from a handler](/docs/admin/data-from-a-handler) for how to write the handler.
+Call `HasRecordKey()` instead of `LinkTo()` when each item is a record of the resource itself, so the cards also display the row actions. See [data from a handler](/docs/admin/data-layouts/data-from-a-handler) for how to write the handler.

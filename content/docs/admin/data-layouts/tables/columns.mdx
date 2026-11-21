@@ -3,7 +3,7 @@ title: Columns
 description: Choose the columns a table displays, how they're aligned and how they're grouped
 ---
 
-StellarAdmin does not automatically add any columns for a [table](/docs/admin/tables). You must add columns by calling `Columns()` on the table builder, and then `Add()` on the column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
+StellarAdmin does not automatically add any columns for a [table](/docs/admin/data-layouts/tables). You must add columns by calling `Columns()` on the table builder, and then `Add()` on the column builder. The example below adds four columns to the bookings grid, including additional configuration for the booking date and special requests columns via their respective column builders.
 
 ```cs
 resource.Index(index => index.AddTable("bookings", table => table.Columns(columns =>
@@ -28,7 +28,7 @@ As you've seen in the code sample above, you can pass additional configuration f
 | `Title` | Sets the column's header. The default is the property's `[Display(Name)]`, or else the property name split into words, such as "Departure Date". |
 | `Align` | Sets how the column's header and values are [aligned](#aligning-columns). The default is the end for numbers, and the start for everything else. |
 | `EmptyText` | Sets the text to display when the value is null or empty. The default is the property's `[DisplayFormat(NullDisplayText)]`, or else an empty cell. |
-| `Sortable()` | Allows users to [sort the grid](/docs/admin/table-sorting-and-paging) by the column. |
+| `Sortable()` | Allows users to [sort the grid](/docs/admin/data-layouts/tables/sorting-and-paging) by the column. |
 | `UseDisplay<TDisplay>()` | Renders the value of the column with a different [display type](/docs/admin/displays). |
 | `UseBuiltInRendering()` | Renders the value as text, formatted with the property's `[DisplayFormat]`, instead of with a display. This is useful when you want to opt out of the column's default display type and simply want to display the column value as plain text. |
 

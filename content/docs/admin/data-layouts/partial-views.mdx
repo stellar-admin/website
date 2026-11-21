@@ -5,7 +5,7 @@ description: Display the records on the index page with a partial view of your o
 
 ## Introduction
 
-When a [table](/docs/admin/tables) or [cards](/docs/admin/cards) don't fit your data, you can display the records on the index page in a way of your own by adding a *partial view* data layout. StellarAdmin passes the records to your partial view, which the index page displays as a data layout.
+When a [table](/docs/admin/data-layouts/tables) or [cards](/docs/admin/data-layouts/cards) don't fit your data, you can display the records on the index page in a way of your own by adding a *partial view* data layout. StellarAdmin passes the records to your partial view, which the index page displays as a data layout.
 
 ## Adding a partial view
 
@@ -77,4 +77,4 @@ To link to [another data layout](/docs/admin/data-layouts), pass its key to `Get
     If you use the [StellarAdmin.UI Tag Helpers](/docs/ui) like the partial view above, be sure to add a [`_ViewImports.cshtml` file](/docs/admin/overriding-pages#view-imports) that registers the StellarAdmin Tag Helpers, otherwise the `<sa-badge>` will render as plain text.
 </Callout>
 
-A partial view can also display data that isn't the resource's records. See [data from a handler](/docs/admin/data-from-a-handler#displaying-the-items-in-a-partial-view).
+A partial view can also display data that isn't the resource's records. See [data from a handler](/docs/admin/data-layouts/data-from-a-handler#displaying-the-items-in-a-partial-view).

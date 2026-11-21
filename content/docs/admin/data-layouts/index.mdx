@@ -5,7 +5,7 @@ description: Let users switch the index page between multiple tables, cards or y
 
 ## Introduction
 
-The index page lists a resource's records in one or more *data layouts*: [tables](/docs/admin/tables), [cards](/docs/admin/cards) or [partial views](/docs/admin/partial-views) of your own. You can add multiple data layouts, such as a second table with different columns, or cards that display the records with an image. Users can switch between the data layouts with a switcher.
+The index page lists a resource's records in one or more *data layouts*: [tables](/docs/admin/data-layouts/tables), [cards](/docs/admin/data-layouts/cards) or [partial views](/docs/admin/data-layouts/partial-views) of your own. You can add multiple data layouts, such as a second table with different columns, or cards that display the records with an image. Users can switch between the data layouts with a switcher.
 
 <Screenshot name="data-layouts-switcher" alt="The bookings index page with a switcher for the Bookings, Finance and Cards data layouts above the list, on the right" todo="Whole window: the bookings index page with the three data layouts below, Bookings selected." />
 
@@ -66,7 +66,7 @@ The first argument of `AddTable()`, `AddCards()` and `AddPartial()` is the data 
 
 Search and the scopes apply to every data layout, and when users switch data layouts, they keep their search and the selected scope.
 
-Each table and cards data layout has its own sort and paging. Sorting or paging one doesn't change the others. You can find out how to configure each kind of data layout on the [Tables](/docs/admin/tables), [Cards](/docs/admin/cards) and [Partial views](/docs/admin/partial-views) pages.
+Each table and cards data layout has its own sort and paging. Sorting or paging one doesn't change the others. You can find out how to configure each kind of data layout on the [Tables](/docs/admin/data-layouts/tables), [Cards](/docs/admin/data-layouts/cards) and [Partial views](/docs/admin/data-layouts/partial-views) pages.
 
 ## Setting the title and icon of a data layout
 
@@ -114,4 +114,4 @@ When a layout opts out, the search and scopes are not displayed when the layout 
 
 ## Loading other data
 
-A data layout can also display a different data source from the resource. For example, on the booking resource, the a layout may want to display the revenue per destination calculated from the bookings. You can do this by [returning your own data from a handler](/docs/admin/data-from-a-handler).
+A data layout can also display a different data source from the resource. For example, on the booking resource, the a layout may want to display the revenue per destination calculated from the bookings. You can do this by [returning your own data from a handler](/docs/admin/data-layouts/data-from-a-handler).

@@ -66,7 +66,7 @@ resource.AllowCreate(create =>
 });
 ```
 
-StellarAdmin runs `OnInitialized` wherever it displays a create form: on the create page, in a new [inline row](/docs/admin/inline-editing), in the create sheet of a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup), and in the next form after saving and adding another, before it applies the values that are kept. It doesn't run when someone saves the form, so set values that must be set when the record is saved in `OnCreating`, as described below.
+StellarAdmin runs `OnInitialized` wherever it displays a create form: on the create page, in a new [inline row](/docs/admin/data-layouts/tables/inline-editing), in the create sheet of a [lookup](/docs/admin/foreign-keys#creating-a-record-from-a-lookup), and in the next form after saving and adding another, before it applies the values that are kept. It doesn't run when someone saves the form, so set values that must be set when the record is saved in `OnCreating`, as described below.
 
 ## Setting values when the record is saved
 

@@ -1,0 +1,5 @@
+{
+  "title": "Data layouts",
+  "collapsible": false,
+  "pages": ["tables", "cards", "partial-views", "data-from-a-handler"]
+}

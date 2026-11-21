@@ -183,19 +183,19 @@
     "width": 1280,
     "height": 800
   },
-  "card-sorting-and-paging-overview": {
+  "cards-sorting-and-paging-overview": {
     "width": 1280,
     "height": 600
   },
-  "card-sorting-and-paging-overview-dark": {
+  "cards-sorting-and-paging-overview-dark": {
     "width": 1280,
     "height": 600
   },
-  "card-sorting-and-paging-pager": {
+  "cards-sorting-and-paging-pager": {
     "width": 990,
     "height": 152
   },
-  "card-sorting-and-paging-pager-dark": {
+  "cards-sorting-and-paging-pager-dark": {
     "width": 990,
     "height": 152
   },
@@ -1105,19 +1105,19 @@
     "width": 255,
     "height": 420
   },
-  "table-sorting-and-paging-pager": {
+  "tables-sorting-and-paging-pager": {
     "width": 998,
     "height": 169
   },
-  "table-sorting-and-paging-pager-dark": {
+  "tables-sorting-and-paging-pager-dark": {
     "width": 998,
     "height": 169
   },
-  "table-sorting-and-paging-sortable": {
+  "tables-sorting-and-paging-sortable": {
     "width": 1010,
     "height": 318
   },
-  "table-sorting-and-paging-sortable-dark": {
+  "tables-sorting-and-paging-sortable-dark": {
     "width": 1010,
     "height": 318
   },

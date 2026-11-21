@@ -19,8 +19,10 @@ export const docs = defineDocs({
     // "./", breaking import.meta.glob negation), so we exclude the partials with
     // positive, depth-scoped globs instead. Real docs live at
     // `ui/*.mdx` and `ui/components/*.mdx`; the `_include`
-    // partials sit one level deeper and are therefore never matched.
-    files: ["*/*.{md,mdx}", "*/*/*.{md,mdx}"],
+    // partials sit one level deeper and are therefore never matched. The admin
+    // docs also nest a level deeper, in `admin/data-layouts/tables/` and
+    // `admin/data-layouts/cards/`.
+    files: ["*/*.{md,mdx}", "*/*/*.{md,mdx}", "admin/*/*/*.{md,mdx}"],
   },
   meta: {
     schema: metaSchema,

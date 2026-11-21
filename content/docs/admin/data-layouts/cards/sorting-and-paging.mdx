@@ -5,9 +5,9 @@ description: Set the order of the cards and split them into pages
 
 ## Introduction
 
-Cards don't have sort controls like the headers of a table. Instead, you specify the order in which the [cards](/docs/admin/cards) are displayed with a default sort. For long lists, you can also enable paging, so users can move through the cards one page at a time.
+Cards don't have sort controls like the headers of a table. Instead, you specify the order in which the [cards](/docs/admin/data-layouts/cards) are displayed with a default sort. For long lists, you can also enable paging, so users can move through the cards one page at a time.
 
-<Screenshot name="card-sorting-and-paging-overview" alt="The trips index page with the cards sorted by title and the pager below them" todo="Whole window: the trips index page with the cards sorted by title and paging enabled as in the examples on this page, scrolled to show the pager below the cards." />
+<Screenshot name="cards-sorting-and-paging-overview" alt="The trips index page with the cards sorted by title and the pager below them" todo="Whole window: the trips index page with the cards sorted by title and paging enabled as in the examples on this page, scrolled to show the pager below the cards." />
 
 ## Sorting the cards
 
@@ -48,7 +48,7 @@ index.AddCards("trips", cards =>
 
 When there is more than one page, a pager is displayed below the cards with **Previous** and **Next** links and the current page, for example "Page 2 of 6".
 
-<Screenshot name="card-sorting-and-paging-pager" alt="The pager below the trip cards with Previous and Next links and Page 2 of 6" todo="Crop of the last row of trip cards and the pager below them, on page 2." />
+<Screenshot name="cards-sorting-and-paging-pager" alt="The pager below the trip cards with Previous and Next links and Page 2 of 6" todo="Crop of the last row of trip cards and the pager below them, on page 2." />
 
 The paging builder has the following members:
 
@@ -64,7 +64,7 @@ cards.EnablePaging(paging => paging.PageSize = 12);
 
 ## Sorting and paging cards with data from a handler
 
-When the cards [display data from a handler](/docs/admin/data-from-a-handler), StellarAdmin does not sort or page the items itself. It passes the default sort and the requested page to the handler in the `Sort` and `Paging` properties of the request, and the handler must return the items of that page in the correct order, together with the total number of items.
+When the cards [display data from a handler](/docs/admin/data-layouts/data-from-a-handler), StellarAdmin does not sort or page the items itself. It passes the default sort and the requested page to the handler in the `Sort` and `Paging` properties of the request, and the handler must return the items of that page in the correct order, together with the total number of items.
 
 The example below sorts the destinations by their revenue, and splits them into pages:
 
